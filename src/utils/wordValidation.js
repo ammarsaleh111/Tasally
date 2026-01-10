@@ -20,25 +20,30 @@ export const validateWordAsync = async (word) => {
     return true;
   }
 
-  // 2. If not in local list, check external API
+  // 2. Check external API with a fast timeout to keep UX snappy
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 400); // hard cap latency
+
   try {
-    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-    
+    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}` , {
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
     if (response.ok) {
-        // API found the word
-        // Add to local set for session caching
-        LOCAL_WORD_SET.add(upperWord);
-        return true;
-    } else if (response.status === 404) {
-        // API confirmed word does not exist
-        return false;
-    } else {
-        // Other error (server error, rate limit), fallback to strictly local list
-        console.warn("Dictionary API error, falling back to local list.");
-        return LOCAL_WORD_SET.has(upperWord);
+      LOCAL_WORD_SET.add(upperWord); // cache success
+      return true;
     }
+
+    if (response.status === 404) {
+      return false;
+    }
+
+    // Other status: treat as invalid but do not cache
+    return false;
   } catch (error) {
-    console.error("Dictionary check failed:", error);
-    return LOCAL_WORD_SET.has(upperWord);
+    clearTimeout(timeoutId);
+    // Timeout or network error: treat as invalid to keep UX deterministic
+    return false;
   }
 };

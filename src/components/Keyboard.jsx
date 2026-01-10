@@ -1,7 +1,7 @@
 import React from 'react';
 import { LETTER_STATUS } from '../games/wordle/wordleLogic';
 
-const Keyboard = ({ onKey, keyStatuses }) => {
+const Keyboard = React.memo(({ onKey, keyStatuses }) => {
   const rows = [
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
     ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
@@ -45,6 +45,6 @@ const Keyboard = ({ onKey, keyStatuses }) => {
       ))}
     </div>
   );
-};
+});
 
 export default Keyboard;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { LETTER_STATUS } from '../games/wordle/wordleLogic';
 
-const WordleGrid = ({ guesses, currentGuess, turn, status, length = 5, isShaking = false }) => {
+const WordleGrid = React.memo(({ guesses, currentGuess, turn, status, length = 5, isShaking = false }) => {
   const empties = 
     guesses.length < 6 ? Array.from(Array(6 - 1 - guesses.length)) : [];
   
@@ -25,7 +25,7 @@ const WordleGrid = ({ guesses, currentGuess, turn, status, length = 5, isShaking
       ))}
     </div>
   );
-};
+});
 
 const getGridColsStyle = (length) => {
     switch(length) {
@@ -35,7 +35,7 @@ const getGridColsStyle = (length) => {
     }
 }
 
-const CompletedRow = ({ guess, length }) => {
+const CompletedRow = React.memo(({ guess, length }) => {
   return (
     <div className={`grid ${getGridColsStyle(length)} gap-1.5 w-full`}>
       {guess.word.split('').map((letter, i) => (
@@ -55,9 +55,9 @@ const CompletedRow = ({ guess, length }) => {
       ))}
     </div>
   );
-};
+});
 
-const CurrentRow = ({ guess, length, isShaking = false }) => {
+const CurrentRow = React.memo(({ guess, length, isShaking = false }) => {
   const splitGuess = guess.split('');
   const emptyCount = Math.max(0, length - splitGuess.length);
   const emptyCells = Array.from(Array(emptyCount));
@@ -80,9 +80,9 @@ const CurrentRow = ({ guess, length, isShaking = false }) => {
       ))}
     </div>
   );
-};
+});
 
-const EmptyRow = ({ length }) => {
+const EmptyRow = React.memo(({ length }) => {
   return (
     <div className={`grid ${getGridColsStyle(length)} gap-1.5 w-full`}>
       {Array.from(Array(length)).map((_, i) => (
@@ -93,6 +93,6 @@ const EmptyRow = ({ length }) => {
       ))}
     </div>
   );
-};
+});
 
 export default WordleGrid;

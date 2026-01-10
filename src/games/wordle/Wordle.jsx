@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { 
   getDailyWord, 
   getRandomWord,
@@ -20,6 +20,9 @@ import Modal from '@/components/Modal';
 import ModeSelection from './ModeSelection';
 import Statistics from '@/components/Statistics';
 import HowToPlay from '@/components/HowToPlay';
+
+// Validation cache to avoid duplicate API calls
+const validationCache = new Map();
 
 export default function WordleGame() {
   // --- Game State ---
@@ -173,7 +176,75 @@ export default function WordleGame() {
     setView('MENU');
   };
 
-  const onKey = (key) => {
+  const submitGuess = useCallback(async () => {
+    if (isValidating || gameStatus !== 'playing') return; 
+    
+    if (currentGuess.length !== wordLength) {
+      showToast("Not enough letters");
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 400);
+      return;
+    }
+    
+    const guessWord = currentGuess;
+    
+    // Validate FIRST (check cache or call API)
+    setIsValidating(true);
+    let isValid = validationCache.get(guessWord);
+    
+    if (isValid === undefined) {
+      isValid = await validateWordAsync(guessWord);
+      validationCache.set(guessWord, isValid);
+    }
+    
+    setIsValidating(false);
+    
+    // If invalid, show error immediately
+    if (!isValid) {
+      showToast("Not in word list");
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 400);
+      return;
+    }
+    
+    // Valid word - proceed with animation and update
+    const evaluation = evaluateGuess(guessWord, solution);
+    const newGuessObj = { word: guessWord, evaluation };
+    const newGuesses = [...guesses, newGuessObj];
+    
+    setCurrentGuess('');
+    setGuesses(newGuesses);
+    
+    // Update keyboard statuses
+    const newKeyStatuses = { ...keyStatuses };
+    guessWord.split('').forEach((char, i) => {
+        const currentStatus = newKeyStatuses[char];
+        const newStatus = evaluation[i];
+        
+        if (currentStatus === LETTER_STATUS.CORRECT) return;
+        if (newStatus === LETTER_STATUS.CORRECT) {
+            newKeyStatuses[char] = LETTER_STATUS.CORRECT;
+            return;
+        }
+        if (currentStatus === LETTER_STATUS.PRESENT && newStatus === LETTER_STATUS.ABSENT) return;
+        if (currentStatus === LETTER_STATUS.PRESENT) return;
+        
+        newKeyStatuses[char] = newStatus;
+    });
+    setKeyStatuses(newKeyStatuses);
+
+    // Check Win/Loss
+    if (guessWord === solution) {
+        setGameStatus('won');
+        showToast(getWinMessage(newGuesses.length), 'success');
+        updateStats(true, newGuesses.length);
+    } else if (newGuesses.length >= MAX_GUESSES) {
+        setGameStatus('lost');
+        updateStats(false, newGuesses.length);
+    }
+  }, [currentGuess, wordLength, guesses, solution, keyStatuses, gameStatus, isValidating]);
+
+  const onKey = useCallback((key) => {
     if (gameStatus !== 'playing' || view !== 'GAME') return;
 
     if (key === 'ENTER') {
@@ -185,69 +256,7 @@ export default function WordleGame() {
         setCurrentGuess(prev => prev + key);
       }
     }
-  };
-
-  const submitGuess = async () => {
-    if (isValidating || gameStatus !== 'playing') return; 
-    
-    if (currentGuess.length !== wordLength) {
-      showToast("Not enough letters");
-      setIsShaking(true);
-      setTimeout(() => setIsShaking(false), 400);
-      return;
-    }
-    
-    setIsValidating(true);
-    const isValid = await validateWordAsync(currentGuess);
-    setIsValidating(false);
-
-    if (!isValid) {
-      showToast("Not in word list");
-      setIsShaking(true);
-      setTimeout(() => setIsShaking(false), 400);
-      return;
-    }
-
-    const evaluation = evaluateGuess(currentGuess, solution);
-    const newGuessObj = { word: currentGuess, evaluation };
-    
-    const newGuesses = [...guesses, newGuessObj];
-    setGuesses(newGuesses);
-    
-    // Update Keys
-    const newKeyStatuses = { ...keyStatuses };
-    currentGuess.split('').forEach((char, i) => {
-        const currentStatus = newKeyStatuses[char];
-        const newStatus = evaluation[i];
-        
-        // Priority: Correct > Present > Absent
-        if (currentStatus === LETTER_STATUS.CORRECT) return;
-        if (newStatus === LETTER_STATUS.CORRECT) {
-            newKeyStatuses[char] = LETTER_STATUS.CORRECT;
-            return;
-        }
-        if (currentStatus === LETTER_STATUS.PRESENT && newStatus === LETTER_STATUS.ABSENT) return;
-        // The above check is tricky: if a letter is Present in one spot, but Absent in another (duplicate guess),
-        // we generally want to keep it Present or Correct.
-        if (currentStatus === LETTER_STATUS.PRESENT) return;
-        
-        newKeyStatuses[char] = newStatus;
-    });
-    setKeyStatuses(newKeyStatuses);
-
-    // Check Win/Loss
-    if (currentGuess === solution) {
-        setGameStatus('won');
-        showToast(getWinMessage(newGuesses.length), 'success');
-        updateStats(true, newGuesses.length);
-    } else if (newGuesses.length >= MAX_GUESSES) {
-        setGameStatus('lost');
-        updateStats(false, newGuesses.length);
-        // showToast(solution, 'error'); // Reveal in toast or modal? Modal is better.
-    }
-    
-    setCurrentGuess('');
-  };
+  }, [gameStatus, view, currentGuess, wordLength, submitGuess]);
 
   const getWinMessage = (count) => {
       const messages = ['Genius', 'Magnificent', 'Impressive', 'Splendid', 'Great', 'Phew'];
