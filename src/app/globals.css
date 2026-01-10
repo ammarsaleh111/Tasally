@@ -1,22 +1,75 @@
 @import "tailwindcss";
 
 :root {
-  /* Theme Colors */
-  --background: #0f172a; /* Deep Navy */
-  --foreground: #f8fafc; /* Off-white */
+  /* --- Light Theme (Clean & Crisp) --- */
+  --background: #ffffff;
+  --foreground: #121212;
+  
+  /* UI Elements */
+  --key-bg: #d3d6da;
+  --key-bg-hover: #c4c7cb;
+  --key-text: #000000;
+  
+  --border-default: #d3d6da;
+  --border-active: #878a8c;
 
-  /* Game Colors */
+  --text-muted: #6e6e6e;
+  --card-bg: #f3f4f6;
+  --card-border: #e5e7eb;
+  --surface-hover: #e5e7eb;
+
+  /* Game Colors - Light */
+  --wordle-correct: #6aaa64;
+  --wordle-present: #c9b458;
+  --wordle-absent: #787c7e;
+  --wordle-tile-border: #d3d6da;
+  --wordle-tile-bg-filled: #ffffff;
+}
+
+:root.dark {
+  /* --- Dark Theme (Deep Navy Blue) --- */
+  --background: #0f172a; /* Slate 900 */
+  --foreground: #f8fafc; /* Slate 50 */
+
+  /* UI Elements - Dark */
+  --key-bg: #1e293b;       /* Slate 800 */
+  --key-bg-hover: #334155; /* Slate 700 */
+  --key-text: #f8fafc;
+
+  --border-default: #334155; /* Slate 700 */
+  --border-active: #475569;  /* Slate 600 */
+
+  --text-muted: #94a3b8;     /* Slate 400 */
+  --card-bg: #1e293b;        /* Slate 800 */
+  --card-border: #334155;    /* Slate 700 */
+  --surface-hover: #1e293b;  /* Slate 800 */
+
+  /* Game Colors - Dark */
   --wordle-correct: #538d4e;
   --wordle-present: #b59f3b;
-  --wordle-absent: #3a3a3c;
-  --wordle-tile-border: #334155; /* Slate-700 */
-  --wordle-tile-bg-filled: #1e293b; /* Slate-800 */
+  --wordle-absent: #334155;      /* Slate 700 */
+  --wordle-tile-border: #475569; /* Slate 600 */
+  --wordle-tile-bg-filled: #1e293b; /* Slate 800 */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
+  /* New Semantic Colors */
+  --color-key: var(--key-bg);
+  --color-key-hover: var(--key-bg-hover);
+  --color-key-fg: var(--key-text);
+  
+  --color-border-default: var(--border-default);
+  --color-border-active: var(--border-active);
+
+  --color-text-muted: var(--text-muted);
+  --color-card: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-surface-hover: var(--surface-hover);
+
+  /* Game Colors */
   --color-wordle-correct: var(--wordle-correct);
   --color-wordle-present: var(--wordle-present);
   --color-wordle-absent: var(--wordle-absent);

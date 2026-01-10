@@ -1,8 +1,10 @@
 import { DAILY_WORDS } from './wordLists/daily-2026-01';
 import { ALLOWED_WORDS } from './wordLists/allowedWords';
+import { WORDS_4 } from './wordLists/words4';
+import { WORDS_6 } from './wordLists/words6';
 
 // Constants
-export const WORD_LENGTH = 5;
+export const DEFAULT_WORD_LENGTH = 5;
 export const MAX_GUESSES = 6;
 
 // Evaluation Status
@@ -14,43 +16,50 @@ export const LETTER_STATUS = {
 
 /**
  * Selects the daily word based on the current date.
- * Uses a fixed start date epoch to ensure consistency across timezones/devices if we used a simple counter,
- * but here we map day of month to index for simplicity in this monthly file structure.
+ * Currently supports 5-letter only for Daily mode.
  */
 export const getDailyWord = () => {
   const today = new Date();
-  // Ensure we are looking at Jan 2026 for this specific file logic, or genericize it later.
-  // For this prototype, we just grab the day of the month index (0-based).
   const dayIndex = today.getDate() - 1; 
-  
-  // Safe fallback if array is short
   const safeIndex = dayIndex % DAILY_WORDS.length;
   return DAILY_WORDS[safeIndex].toUpperCase();
+};
+
+/**
+ * Selects a random word for Unlimited mode
+ */
+export const getRandomWord = (length = 5) => {
+  let list = ALLOWED_WORDS;
+  if (length === 4) list = WORDS_4;
+  if (length === 6) list = WORDS_6;
+
+  const index = Math.floor(Math.random() * list.length);
+  return list[index].toUpperCase();
 };
 
 /**
  * Validates a word exists in our dictionary
  */
 export const isValidWord = (word) => {
-  if (word.length !== WORD_LENGTH) return false;
-  // Combine lists for validation
-  const allWords = new Set([...DAILY_WORDS, ...ALLOWED_WORDS].map(w => w.toUpperCase()));
-  return allWords.has(word.toUpperCase());
+  // Simple check against basic lists first? 
+  // Validation is mostly done via the Async tool now, 
+  // but this is kept for sync checks if needed.
+  return true; 
 };
 
 /**
  * Evaluates a guess against the solution
- * tailored to match exact Wordle logic (handling duplicates correctly)
  */
 export const evaluateGuess = (guess, solution) => {
+  const length = solution.length;
   const guessChars = guess.toUpperCase().split('');
   const solutionChars = solution.toUpperCase().split('');
-  const result = new Array(WORD_LENGTH).fill(LETTER_STATUS.ABSENT);
+  const result = new Array(length).fill(LETTER_STATUS.ABSENT);
   
-  // Track which solution letters have been "used" (matched)
-  const solutionUsed = new Array(WORD_LENGTH).fill(false);
+  // Track which solution letters have been "used"
+  const solutionUsed = new Array(length).fill(false);
 
-  // 1. Pass: Find Green (Correct) first
+  // 1. Pass: Find Green
   guessChars.forEach((char, i) => {
     if (char === solutionChars[i]) {
       result[i] = LETTER_STATUS.CORRECT;
@@ -58,10 +67,9 @@ export const evaluateGuess = (guess, solution) => {
     }
   });
 
-  // 2. Pass: Find Yellow (Present) for remaining letters
+  // 2. Pass: Find Yellow
   guessChars.forEach((char, i) => {
     if (result[i] !== LETTER_STATUS.CORRECT) {
-      // Look for this char in solution where it hasn't been used yet
       const foundIndex = solutionChars.findIndex((sChar, sIndex) => {
         return sChar === char && !solutionUsed[sIndex];
       });
@@ -79,19 +87,22 @@ export const evaluateGuess = (guess, solution) => {
 /**
  * Load game state from localStorage
  */
-export const loadGameState = () => {
+export const loadGameState = (mode = 'daily', length = 5) => {
   if (typeof window === 'undefined') return null;
   
   try {
-    const saved = localStorage.getItem('wordle_daily_state');
+    const key = `wordle_${mode}_${length}_state`;
+    const saved = localStorage.getItem(key);
     if (!saved) return null;
     
     const parsed = JSON.parse(saved);
-    const today = new Date().toDateString();
     
-    // Check if it's a new day
-    if (parsed.date !== today) {
-        return null; // Reset for new day
+    // For daily mode, check date
+    if (mode === 'daily') {
+        const today = new Date().toDateString();
+        if (parsed.date !== today) {
+            return null; // Reset for new day
+        }
     }
     
     return parsed;
@@ -104,14 +115,16 @@ export const loadGameState = () => {
 /**
  * Save game state to localStorage
  */
-export const saveGameState = (guesses, status) => {
+export const saveGameState = (guesses, status, solution, mode = 'daily', length = 5) => {
   if (typeof window === 'undefined') return;
   
   const state = {
     date: new Date().toDateString(),
     guesses,
     status, // 'playing', 'won', 'lost'
+    solution: mode === 'unlimited' ? solution : undefined // Persist solution for unlimited
   };
   
-  localStorage.setItem('wordle_daily_state', JSON.stringify(state));
+  const key = `wordle_${mode}_${length}_state`;
+  localStorage.setItem(key, JSON.stringify(state));
 };

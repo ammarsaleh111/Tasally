@@ -18,7 +18,7 @@ const Keyboard = ({ onKey, keyStatuses }) => {
       case LETTER_STATUS.ABSENT:
         return 'bg-wordle-absent text-white border-transparent';
       default:
-        return 'bg-slate-200 dark:bg-slate-600 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-500';
+        return 'bg-key text-key-fg hover:bg-key-hover active:scale-95 transition-all duration-150 shadow-sm';
     }
   };
 

@@ -6,9 +6,9 @@ export default function GameCard({ title, description, color, link, icon }) {
     <Link href={link} className="group block">
       <div 
         className="
-            relative overflow-hidden rounded-xl border border-slate-700 bg-slate-800/50 
+            relative overflow-hidden rounded-xl border border-card-border bg-card
             p-6 h-full transition-all duration-300
-            hover:border-slate-500 hover:bg-slate-800 hover:shadow-xl hover:-translate-y-1
+            hover:border-border-active hover:shadow-xl hover:-translate-y-1
         "
       >
         <div 
@@ -25,15 +25,15 @@ export default function GameCard({ title, description, color, link, icon }) {
 
         <div className="relative z-10 flex flex-col h-full justify-between">
             <div>
-                <h3 className="text-2xl font-bold mb-2 group-hover:text-white transition-colors" style={{ color: color }}>
+                <h3 className="text-2xl font-bold mb-2 text-foreground transition-colors">
                     {title}
                 </h3>
-                <p className="text-slate-400 text-sm leading-relaxed">
+                <p className="text-text-muted text-sm leading-relaxed">
                     {description}
                 </p>
             </div>
             
-            <div className="mt-4 flex items-center text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-slate-300">
+            <div className="mt-4 flex items-center text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-text-muted group-hover:text-foreground">
                 Play Now <span className="ml-1">→</span>
             </div>
         </div>
