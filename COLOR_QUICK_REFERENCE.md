@@ -8,26 +8,26 @@
 
 ```jsx
 // Backgrounds
-className="bg-background"        // Page background
-className="bg-card"              // Card/modal background
-className="bg-surface-hover"     // Hover state background
+className = "bg-background"; // Page background
+className = "bg-card"; // Card/modal background
+className = "bg-surface-hover"; // Hover state background
 
 // Text
-className="text-foreground"      // Primary text
-className="text-text-muted"      // Secondary text
-className="text-button-text"     // Button text (always white)
+className = "text-foreground"; // Primary text
+className = "text-text-muted"; // Secondary text
+className = "text-button-text"; // Button text (always white)
 
 // Borders
-className="border-border-default"  // Standard border
-className="border-border-active"   // Active/focused border
-className="border-card-border"     // Card borders
+className = "border-border-default"; // Standard border
+className = "border-border-active"; // Active/focused border
+className = "border-card-border"; // Card borders
 
 // Buttons
-className="bg-button-primary text-button-text"
-className="hover:bg-button-primary-hover"
+className = "bg-button-primary text-button-text";
+className = "hover:bg-button-primary-hover";
 
 // Keyboard Keys
-className="bg-key text-key-fg hover:bg-key-hover"
+className = "bg-key text-key-fg hover:bg-key-hover";
 ```
 
 ---
@@ -35,41 +35,44 @@ className="bg-key text-key-fg hover:bg-key-hover"
 ## Game-Specific Colors
 
 ### Wordle
+
 ```jsx
 // Correct letter (green)
-className="bg-wordle-correct text-button-text"
+className = "bg-wordle-correct text-button-text";
 
 // Present letter (yellow)
-className="bg-wordle-present text-button-text"
+className = "bg-wordle-present text-button-text";
 
 // Absent letter (gray)
-className="bg-wordle-absent text-button-text"
+className = "bg-wordle-absent text-button-text";
 
 // Tile borders
-className="border-wordle-border"
+className = "border-wordle-border";
 ```
 
 ### Connections
+
 ```jsx
 // Group colors (use with var())
-className="bg-[var(--connections-yellow)]"
-className="bg-[var(--connections-green)]"
-className="bg-[var(--connections-blue)]"
-className="bg-[var(--connections-purple)]"
+className = "bg-[var(--connections-yellow)]";
+className = "bg-[var(--connections-green)]";
+className = "bg-[var(--connections-blue)]";
+className = "bg-[var(--connections-purple)]";
 
 // Text colors
-className="text-[var(--connections-text-light)]"  // Black
-className="text-[var(--connections-text-dark)]"   // White
+className = "text-[var(--connections-text-light)]"; // Black
+className = "text-[var(--connections-text-dark)]"; // White
 ```
 
 ### Crossword
+
 ```jsx
 // Active cell
-className="bg-[var(--crossword-active)]"
-className="ring-[var(--crossword-active-ring)]"
+className = "bg-[var(--crossword-active)]";
+className = "ring-[var(--crossword-active-ring)]";
 
 // Highlighted word
-className="bg-[var(--crossword-highlight)]"
+className = "bg-[var(--crossword-highlight)]";
 ```
 
 ---
@@ -77,20 +80,25 @@ className="bg-[var(--crossword-highlight)]"
 ## Common Patterns
 
 ### Primary Button
+
 ```jsx
-<button className="
+<button
+  className="
   bg-button-primary 
   text-button-text 
   hover:bg-button-primary-hover 
   transition-all
-">
+"
+>
   Click Me
 </button>
 ```
 
 ### Card
+
 ```jsx
-<div className="
+<div
+  className="
   bg-card 
   border 
   border-card-border 
@@ -98,14 +106,17 @@ className="bg-[var(--crossword-highlight)]"
   p-6
   hover:border-border-active
   transition-all
-">
+"
+>
   Content
 </div>
 ```
 
 ### Input Field
+
 ```jsx
-<input className="
+<input
+  className="
   bg-background 
   border-2 
   border-border-default 
@@ -113,33 +124,40 @@ className="bg-[var(--crossword-highlight)]"
   text-foreground
   rounded-lg
   transition-all
-" />
+"
+/>
 ```
 
 ### Modal
+
 ```jsx
-<div className="
+<div
+  className="
   bg-card 
   border 
   border-card-border 
   rounded-xl 
   shadow-2xl 
   p-6
-">
+"
+>
   <h2 className="text-foreground">Title</h2>
   <p className="text-text-muted">Description</p>
 </div>
 ```
 
 ### Toast Notification
+
 ```jsx
-<div className="
+<div
+  className="
   bg-[var(--toast-bg)] 
   text-[var(--toast-fg)] 
   border 
   border-[var(--toast-border)]
   rounded-md
-">
+"
+>
   Message
 </div>
 ```
@@ -169,11 +187,13 @@ style={{ backgroundColor: 'var(--variable-name)' }}
 ## Available Variables
 
 ### Base
+
 - `--background`
 - `--foreground`
 - `--text-muted`
 
 ### UI
+
 - `--key-bg`
 - `--key-bg-hover`
 - `--key-text`
@@ -184,17 +204,20 @@ style={{ backgroundColor: 'var(--variable-name)' }}
 - `--surface-hover`
 
 ### Buttons
+
 - `--button-primary`
 - `--button-primary-hover`
 - `--button-text`
 
 ### Wordle
+
 - `--wordle-correct`
 - `--wordle-present`
 - `--wordle-absent`
 - `--wordle-tile-border`
 
 ### Connections
+
 - `--connections-yellow`
 - `--connections-green`
 - `--connections-blue`
@@ -203,17 +226,20 @@ style={{ backgroundColor: 'var(--variable-name)' }}
 - `--connections-text-dark`
 
 ### Crossword
+
 - `--crossword-active`
 - `--crossword-active-ring`
 - `--crossword-highlight`
 - `--crossword-black`
 
 ### Feedback
+
 - `--toast-bg`
 - `--toast-fg`
 - `--toast-border`
 
 ### Graphs
+
 - `--graph-bar`
 - `--graph-bg`
 
@@ -244,15 +270,13 @@ style={{ backgroundColor: 'var(--variable-name)' }}
 ## Theme Toggle Example
 
 ```jsx
-import { useTheme } from '@/components/ThemeProvider';
+import { useTheme } from "@/components/ThemeProvider";
 
 export default function MyComponent() {
   const { theme, toggleTheme } = useTheme();
-  
+
   return (
-    <button onClick={toggleTheme}>
-      {theme === 'dark' ? '☀️' : '🌙'}
-    </button>
+    <button onClick={toggleTheme}>{theme === "dark" ? "☀️" : "🌙"}</button>
   );
 }
 ```

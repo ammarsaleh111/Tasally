@@ -57,61 +57,64 @@ All colors are defined in [`src/app/globals.css`](src/app/globals.css) using:
 
 ### Base Colors
 
-| Token | Light Mode | Dark Mode | Usage |
-|-------|------------|-----------|-------|
-| `--background` | `#ffffff` | `#0f172a` | Page background |
-| `--foreground` | `#111827` | `#f8fafc` | Primary text |
-| `--text-muted` | `#64748b` | `#94a3b8` | Secondary text |
+| Token          | Light Mode | Dark Mode | Usage           |
+| -------------- | ---------- | --------- | --------------- |
+| `--background` | `#ffffff`  | `#0f172a` | Page background |
+| `--foreground` | `#111827`  | `#f8fafc` | Primary text    |
+| `--text-muted` | `#64748b`  | `#94a3b8` | Secondary text  |
 
 ### UI Elements
 
-| Token | Light | Dark | Usage |
-|-------|-------|------|-------|
-| `--key-bg` | `#e2e8f0` | `#1e293b` | Keyboard buttons |
-| `--key-bg-hover` | `#cbd5e1` | `#334155` | Keyboard hover |
-| `--border-default` | `#e2e8f0` | `#1e293b` | Standard borders |
-| `--border-active` | `#94a3b8` | `#64748b` | Active/focused borders |
-| `--card-bg` | `#f8fafc` | `#1e293b` | Card backgrounds |
-| `--surface-hover` | `#f1f5f9` | `#334155` | Hover states |
+| Token              | Light     | Dark      | Usage                  |
+| ------------------ | --------- | --------- | ---------------------- |
+| `--key-bg`         | `#e2e8f0` | `#1e293b` | Keyboard buttons       |
+| `--key-bg-hover`   | `#cbd5e1` | `#334155` | Keyboard hover         |
+| `--border-default` | `#e2e8f0` | `#1e293b` | Standard borders       |
+| `--border-active`  | `#94a3b8` | `#64748b` | Active/focused borders |
+| `--card-bg`        | `#f8fafc` | `#1e293b` | Card backgrounds       |
+| `--surface-hover`  | `#f1f5f9` | `#334155` | Hover states           |
 
 ### Interactive Elements
 
-| Token | Light | Dark | Usage |
-|-------|-------|------|-------|
-| `--button-primary` | `#6aaa64` | `#538d4e` | Primary actions |
-| `--button-primary-hover` | `#5a9454` | `#4a7d46` | Primary hover |
-| `--button-text` | `#ffffff` | `#ffffff` | Button text |
+| Token                    | Light     | Dark      | Usage           |
+| ------------------------ | --------- | --------- | --------------- |
+| `--button-primary`       | `#6aaa64` | `#538d4e` | Primary actions |
+| `--button-primary-hover` | `#5a9454` | `#4a7d46` | Primary hover   |
+| `--button-text`          | `#ffffff` | `#ffffff` | Button text     |
 
 ### Game Colors
 
 #### Wordle
-| Token | Light | Dark |
-|-------|-------|------|
+
+| Token              | Light     | Dark      |
+| ------------------ | --------- | --------- |
 | `--wordle-correct` | `#6aaa64` | `#538d4e` |
 | `--wordle-present` | `#c9b458` | `#b59f3b` |
-| `--wordle-absent` | `#787c7e` | `#3f3f46` |
+| `--wordle-absent`  | `#787c7e` | `#3f3f46` |
 
 #### Connections
-| Token | Light | Dark |
-|-------|-------|------|
+
+| Token                  | Light     | Dark      |
+| ---------------------- | --------- | --------- |
 | `--connections-yellow` | `#f9df6d` | `#d4c05e` |
-| `--connections-green` | `#a0c35a` | `#8aae4a` |
-| `--connections-blue` | `#b0c4ef` | `#9aaedf` |
+| `--connections-green`  | `#a0c35a` | `#8aae4a` |
+| `--connections-blue`   | `#b0c4ef` | `#9aaedf` |
 | `--connections-purple` | `#ba81c5` | `#a66fb0` |
 
 #### Crossword
-| Token | Light | Dark |
-|-------|-------|------|
-| `--crossword-active` | `#60a5fa` | `#60a5fa` |
+
+| Token                     | Light     | Dark      |
+| ------------------------- | --------- | --------- |
+| `--crossword-active`      | `#60a5fa` | `#60a5fa` |
 | `--crossword-active-ring` | `#2563eb` | `#2563eb` |
-| `--crossword-highlight` | `#dbeafe` | `#1e3a8a` |
+| `--crossword-highlight`   | `#dbeafe` | `#1e3a8a` |
 
 ### Feedback & Toast
 
-| Token | Light | Dark |
-|-------|-------|------|
-| `--toast-bg` | `#1e293b` | `#f8fafc` |
-| `--toast-fg` | `#f8fafc` | `#0f172a` |
+| Token            | Light     | Dark      |
+| ---------------- | --------- | --------- |
+| `--toast-bg`     | `#1e293b` | `#f8fafc` |
+| `--toast-fg`     | `#f8fafc` | `#0f172a` |
 | `--toast-border` | `#334155` | `#e2e8f0` |
 
 ---
@@ -213,12 +216,12 @@ All components use semantic color tokens:
 
 All color combinations meet **WCAG AA** standards:
 
-| Combination | Ratio | Status |
-|-------------|-------|--------|
-| foreground / background | 12.5:1 | ✅ AAA |
-| text-muted / background | 4.8:1 | ✅ AA |
-| button-text / button-primary | 5.2:1 | ✅ AA |
-| wordle-correct / button-text | 4.6:1 | ✅ AA |
+| Combination                  | Ratio  | Status |
+| ---------------------------- | ------ | ------ |
+| foreground / background      | 12.5:1 | ✅ AAA |
+| text-muted / background      | 4.8:1  | ✅ AA  |
+| button-text / button-primary | 5.2:1  | ✅ AA  |
+| wordle-correct / button-text | 4.6:1  | ✅ AA  |
 
 ### Color Independence
 
@@ -263,17 +266,19 @@ After any color system changes:
 To add a new color to the system:
 
 1. **Define in globals.css**
+
    ```css
    :root {
      --new-color: #value-light;
    }
-   
+
    :root.dark {
      --new-color: #value-dark;
    }
    ```
 
 2. **Map to Tailwind**
+
    ```css
    @theme inline {
      --color-new-color: var(--new-color);
@@ -281,6 +286,7 @@ To add a new color to the system:
    ```
 
 3. **Use in components**
+
    ```jsx
    <div className="bg-[var(--new-color)]">
      // or
@@ -325,6 +331,7 @@ To add a new color to the system:
 ## 📝 Change Log
 
 **January 10, 2026** - Initial system implementation
+
 - Created 35+ semantic color tokens
 - Mapped all Tailwind classes
 - Updated all components

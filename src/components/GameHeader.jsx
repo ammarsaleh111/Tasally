@@ -3,7 +3,7 @@ import React from 'react';
 
 const GameHeader = ({ title, onHowToPlay, onStats }) => {
   return (
-    <header className="w-full border-b border-border-default pb-4 mb-6">
+    <header className="w-full border-b border-border-default pb-6 mb-6 pt-6 bg-background/80 backdrop-blur sticky top-0 z-40 transition-colors duration-300">
       <div className="max-w-4xl mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 flex-1">
