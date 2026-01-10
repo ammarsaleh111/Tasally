@@ -32,6 +32,13 @@ export default function SiteHeader() {
             All Games
         </Link>
         
+        <Link 
+            href="/themes" 
+            className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors"
+        >
+            🎭 Themes
+        </Link>
+        
         {/* Theme Toggle */}
         <button 
             onClick={toggleTheme}

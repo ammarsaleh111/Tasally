@@ -1,0 +1,392 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import GameHeader from '@/components/GameHeader';
+import Modal from '@/components/Modal';
+import HowToPlay from '@/components/HowToPlay';
+import Statistics from '@/components/Statistics';
+import Confetti from '@/components/Confetti';
+import Toast from '@/components/Toast';
+import {
+  getDailyPuzzle,
+  generateRandomPuzzle,
+  calculate,
+  checkSolution,
+  getHint,
+  OPERATORS
+} from './numbersLogic';
+
+export default function NumbersGame() {
+  // Game state
+  const [puzzle, setPuzzle] = useState(null);
+  const [availableNumbers, setAvailableNumbers] = useState([]);
+  const [selectedNumbers, setSelectedNumbers] = useState([]);
+  const [currentExpression, setCurrentExpression] = useState('');
+  const [expressionSteps, setExpressionSteps] = useState([]);
+  const [gameWon, setGameWon] = useState(false);
+  const [gameLost, setGameLost] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  
+  // Modals
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+  
+  // Toast
+  const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
+  
+  // Mode
+  const [mode, setMode] = useState('daily'); // 'daily' or 'practice'
+
+  const loadPuzzle = () => {
+    const newPuzzle = mode === 'daily' ? getDailyPuzzle() : generateRandomPuzzle();
+    setPuzzle(newPuzzle);
+    setAvailableNumbers(newPuzzle.numbers);
+    setSelectedNumbers([]);
+    setCurrentExpression('');
+    setExpressionSteps([]);
+    setGameWon(false);
+    setGameLost(false);
+  };
+
+  // Initialize puzzle
+  useEffect(() => {
+    loadPuzzle();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode]);
+
+  const showToast = (message, type = 'info') => {
+    setToast({ show: true, message, type });
+  };
+
+  const handleNumberClick = (number, index) => {
+    if (gameWon || gameLost) return;
+    
+    if (selectedNumbers.length === 2) {
+      showToast('Select an operator to combine the numbers', 'warning');
+      return;
+    }
+    
+    // Add to selected numbers
+    setSelectedNumbers([...selectedNumbers, { value: number, index }]);
+    
+    // Build expression string
+    const newExpr = currentExpression 
+      ? `${currentExpression} ${number}`
+      : `${number}`;
+    setCurrentExpression(newExpr);
+  };
+
+  const handleOperatorClick = (operator) => {
+    if (gameWon || gameLost) return;
+    
+    if (selectedNumbers.length !== 2) {
+      showToast('Select two numbers first', 'warning');
+      return;
+    }
+    
+    const [first, second] = selectedNumbers;
+    const result = calculate(first.value, second.value, operator);
+    
+    if (result === null) {
+      showToast('Invalid operation (division by zero)', 'error');
+      return;
+    }
+    
+    // Create new expression step
+    const operation = `${first.value} ${operator} ${second.value} = ${result}`;
+    const newSteps = [...expressionSteps, { operation, result }];
+    setExpressionSteps(newSteps);
+    
+    // Remove used numbers and add result
+    const newAvailable = availableNumbers.filter((_, i) => 
+      i !== first.index && i !== second.index
+    );
+    newAvailable.push(result);
+    setAvailableNumbers(newAvailable);
+    
+    // Reset selection
+    setSelectedNumbers([]);
+    setCurrentExpression('');
+    
+    // Check if we hit the target
+    if (Math.round(result) === puzzle.target) {
+      handleWin();
+    } else if (newAvailable.length === 1) {
+      // Only one number left and it's not the target
+      handleLoss(result);
+    }
+  };
+
+  const handleWin = () => {
+    setGameWon(true);
+    setShowConfetti(true);
+    showToast(`🎉 Perfect! You hit ${puzzle.target}!`, 'success');
+    setTimeout(() => setShowConfetti(false), 4000);
+  };
+
+  const handleLoss = (finalResult) => {
+    setGameLost(true);
+    const diff = Math.abs(finalResult - puzzle.target);
+    showToast(`Close! You got ${finalResult} (off by ${diff})`, 'error');
+  };
+
+  const handleUndo = () => {
+    if (expressionSteps.length === 0) {
+      if (selectedNumbers.length > 0) {
+        setSelectedNumbers([]);
+        setCurrentExpression('');
+      }
+      return;
+    }
+    
+    // Undo last operation
+    const newSteps = expressionSteps.slice(0, -1);
+    setExpressionSteps(newSteps);
+    
+    // Restore the puzzle to previous state
+    // This is complex - for now, just restart
+    loadPuzzle();
+  };
+
+  const handleReset = () => {
+    loadPuzzle();
+  };
+
+  const handleShowHint = () => {
+    const hint = getHint(puzzle);
+    showToast(hint, 'info');
+  };
+
+  const handleCheckSolution = () => {
+    if (availableNumbers.length !== 1) {
+      showToast('Keep combining until you have one number left', 'warning');
+      return;
+    }
+    
+    const result = availableNumbers[0];
+    if (Math.round(result) === puzzle.target) {
+      handleWin();
+    } else {
+      handleLoss(result);
+    }
+  };
+
+  if (!puzzle) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-2xl text-text-muted">Loading puzzle...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col animate-fade-in-up">
+      <GameHeader
+        title="Numbers"
+        onHowToPlay={() => setShowHowToPlay(true)}
+        onStats={() => setShowStats(true)}
+      />
+
+      <div className="flex-1 flex flex-col items-center justify-center p-4 pb-32">
+        <div className="max-w-2xl w-full space-y-6">
+          {/* Target Display */}
+          <div className="text-center">
+            <div className="text-sm text-text-muted mb-2">Target Number</div>
+            <div className="text-6xl font-bold text-wordle-correct mb-4">
+              {puzzle.target}
+            </div>
+            <div className="text-sm text-text-muted">
+              {mode === 'daily' ? '📅 Daily Challenge' : '🎲 Practice Mode'}
+            </div>
+          </div>
+
+          {/* Expression Steps */}
+          {expressionSteps.length > 0 && (
+            <div className="bg-surface rounded-xl p-4 border-2 border-card-border">
+              <div className="text-sm text-text-muted mb-2">Your Steps:</div>
+              <div className="space-y-1">
+                {expressionSteps.map((step, i) => (
+                  <div key={i} className="text-foreground font-mono text-sm">
+                    {i + 1}. {step.operation}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Current Selection */}
+          {currentExpression && (
+            <div className="bg-connections-yellow/20 rounded-xl p-4 border-2 border-connections-yellow">
+              <div className="text-sm text-text-muted mb-1">Selected:</div>
+              <div className="text-2xl font-bold text-foreground">
+                {currentExpression}
+              </div>
+            </div>
+          )}
+
+          {/* Available Numbers */}
+          <div>
+            <div className="text-sm text-text-muted mb-3 text-center">
+              Available Numbers ({availableNumbers.length})
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {availableNumbers.map((num, index) => (
+                <button
+                  key={`${num}-${index}`}
+                  onClick={() => handleNumberClick(num, index)}
+                  disabled={gameWon || gameLost}
+                  className={`
+                    h-16 rounded-xl text-2xl font-bold
+                    transition-all duration-200
+                    ${selectedNumbers.some(s => s.index === index)
+                      ? 'bg-connections-yellow text-background scale-95'
+                      : 'bg-card border-2 border-card-border text-foreground hover:border-border-active hover:scale-105'
+                    }
+                    ${(gameWon || gameLost) ? 'opacity-50 cursor-not-allowed' : 'active:scale-95'}
+                  `}
+                >
+                  {Number.isInteger(num) ? num : num.toFixed(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Operators */}
+          <div>
+            <div className="text-sm text-text-muted mb-3 text-center">
+              Choose Operation
+            </div>
+            <div className="grid grid-cols-4 gap-3">
+              {OPERATORS.map((op) => (
+                <button
+                  key={op}
+                  onClick={() => handleOperatorClick(op)}
+                  disabled={selectedNumbers.length !== 2 || gameWon || gameLost}
+                  className={`
+                    h-14 rounded-xl text-3xl font-bold
+                    bg-wordle-correct text-white
+                    transition-all duration-200
+                    hover:scale-105 active:scale-95
+                    disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100
+                  `}
+                >
+                  {op}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-3">
+            <button
+              onClick={handleUndo}
+              className="flex-1 bg-surface border-2 border-card-border text-foreground py-3 rounded-xl font-semibold hover:border-border-active transition-all"
+            >
+              ↶ Undo
+            </button>
+            <button
+              onClick={handleShowHint}
+              className="flex-1 bg-surface border-2 border-card-border text-foreground py-3 rounded-xl font-semibold hover:border-border-active transition-all"
+            >
+              💡 Hint
+            </button>
+            <button
+              onClick={handleReset}
+              className="flex-1 bg-surface border-2 border-card-border text-foreground py-3 rounded-xl font-semibold hover:border-border-active transition-all"
+            >
+              🔄 Reset
+            </button>
+          </div>
+
+          {/* Check Solution Button */}
+          {availableNumbers.length === 1 && !gameWon && !gameLost && (
+            <button
+              onClick={handleCheckSolution}
+              className="w-full bg-wordle-correct text-white py-4 rounded-xl font-bold text-lg hover:scale-105 active:scale-95 transition-all"
+            >
+              Check Solution
+            </button>
+          )}
+
+          {/* New Puzzle Button (after game ends) */}
+          {(gameWon || gameLost) && mode === 'practice' && (
+            <button
+              onClick={loadPuzzle}
+              className="w-full bg-wordle-correct text-white py-4 rounded-xl font-bold text-lg hover:scale-105 active:scale-95 transition-all"
+            >
+              New Puzzle
+            </button>
+          )}
+
+          {/* Mode Toggle */}
+          <div className="flex gap-2 justify-center">
+            <button
+              onClick={() => setMode('daily')}
+              className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+                mode === 'daily'
+                  ? 'bg-wordle-correct text-white'
+                  : 'bg-surface text-text-muted border border-card-border'
+              }`}
+            >
+              Daily
+            </button>
+            <button
+              onClick={() => setMode('practice')}
+              className={`px-6 py-2 rounded-lg font-semibold transition-all ${
+                mode === 'practice'
+                  ? 'bg-wordle-correct text-white'
+                  : 'bg-surface text-text-muted border border-card-border'
+              }`}
+            >
+              Practice
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Modals */}
+      {showHowToPlay && (
+        <Modal onClose={() => setShowHowToPlay(false)}>
+          <HowToPlay
+            title="How to Play Numbers"
+            rules={[
+              'Use the 6 numbers to reach the target',
+              'You can use +, −, ×, and ÷',
+              'Each number can only be used once',
+              'You don\'t have to use all numbers',
+              'Reach the exact target to win!',
+            ]}
+            examples={[
+              {
+                title: 'Example',
+                content: 'Target: 356\nNumbers: 100, 50, 25, 8, 4, 2\nSolution: (100 - 50) × (8 - 4) + 25 - 2 + 4 = 356'
+              }
+            ]}
+          />
+        </Modal>
+      )}
+
+      {showStats && (
+        <Modal onClose={() => setShowStats(false)}>
+          <Statistics
+            title="Numbers Statistics"
+            stats={[
+              { label: 'Played', value: '0' },
+              { label: 'Win Rate', value: '0%' },
+              { label: 'Current Streak', value: '0' },
+            ]}
+          />
+        </Modal>
+      )}
+
+      {showConfetti && <Confetti />}
+      
+      <Toast
+        message={toast.message}
+        show={toast.show}
+        type={toast.type}
+        onClose={() => setToast({ ...toast, show: false })}
+      />
+    </div>
+  );
+}

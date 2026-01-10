@@ -2,6 +2,8 @@ import { DAILY_WORDS } from './wordLists/daily-2026-01';
 import { ALLOWED_WORDS } from './wordLists/allowedWords';
 import { WORDS_4 } from './wordLists/words4';
 import { WORDS_6 } from './wordLists/words6';
+import { getThemedWordList } from './wordLists/themed';
+import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
 
 // Constants
 export const DEFAULT_WORD_LENGTH = 5;
@@ -17,8 +19,24 @@ export const LETTER_STATUS = {
 /**
  * Selects the daily word based on the current date.
  * Currently supports 5-letter only for Daily mode.
+ * Uses themed words if a theme is active.
  */
 export const getDailyWord = () => {
+  // Check for active theme
+  const activeTheme = getActiveTheme();
+  const gameTheme = getGameTheme('wordle');
+  
+  if (activeTheme && gameTheme?.wordList) {
+    const themedList = getThemedWordList(gameTheme.wordList);
+    if (themedList && themedList.length > 0) {
+      const today = new Date();
+      const dayIndex = today.getDate() - 1;
+      const safeIndex = dayIndex % themedList.length;
+      return themedList[safeIndex].toUpperCase();
+    }
+  }
+  
+  // Default behavior
   const today = new Date();
   const dayIndex = today.getDate() - 1; 
   const safeIndex = dayIndex % DAILY_WORDS.length;

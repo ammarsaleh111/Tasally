@@ -22,6 +22,20 @@ export default function GamesPage() {
       description: 'Solve the daily 5×5 crossword puzzle',
       icon: '🔤',
       href: '/games/crossword'
+    },
+    {
+      id: 'numbers',
+      name: 'Numbers',
+      description: 'Use 6 numbers to reach the target',
+      icon: '🔢',
+      href: '/games/numbers'
+    },
+    {
+      id: 'trivia',
+      name: 'Trivia',
+      description: 'Test your knowledge with 10 daily questions',
+      icon: '🧠',
+      href: '/games/trivia'
     }
   ];
 
