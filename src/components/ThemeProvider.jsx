@@ -18,6 +18,9 @@ export function ThemeProvider({ children }) {
         setTheme('dark');
         document.documentElement.classList.add('dark');
     }
+    
+    // Prevent flash of unstyled content
+    document.documentElement.style.visibility = 'visible';
   }, []);
 
   const toggleTheme = () => {

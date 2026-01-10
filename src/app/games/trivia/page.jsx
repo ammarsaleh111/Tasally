@@ -4,9 +4,13 @@ import { useState, useEffect } from 'react';
 import GameHeader from '@/components/GameHeader';
 import Modal from '@/components/Modal';
 import HowToPlay from '@/components/HowToPlay';
-import Statistics from '@/components/Statistics';
+import StatisticsModal from '@/components/StatisticsModal';
+import ShareResults from '@/components/ShareResults';
+import AchievementNotification from '@/components/AchievementNotification';
+import DailyReminder from '@/components/DailyReminder';
 import Confetti from '@/components/Confetti';
 import Toast from '@/components/Toast';
+import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import {
   getDailyTrivia,
   generateRandomTrivia,
@@ -14,10 +18,7 @@ import {
   calculateScore,
   getCategoryColor,
   getPerformanceMessage,
-  formatTime,
-  saveStats,
-  loadStats,
-  getDefaultStats
+  formatTime
 } from './triviaLogic';
 
 export default function TriviaGame() {
@@ -46,7 +47,9 @@ export default function TriviaGame() {
   const [mode, setMode] = useState('daily');
   
   // Stats
-  const [stats, setStats] = useState(getDefaultStats());
+  const [stats, setStats] = useState(null);
+  const [newAchievements, setNewAchievements] = useState([]);
+  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
 
   // Toast handler
   const handleToastExit = () => {
@@ -69,10 +72,8 @@ export default function TriviaGame() {
   // Initialize game
   useEffect(() => {
     loadGame();
-    const savedStats = loadStats();
-    if (savedStats) {
-      setStats(savedStats);
-    }
+    const gameStats = getGameStats('trivia');
+    setStats(gameStats);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 
@@ -136,19 +137,24 @@ export default function TriviaGame() {
     const score = calculateScore(correctCount, triviaSet.questions.length);
     const percentage = (correctCount / triviaSet.questions.length) * 100;
     
-    // Update stats
-    const newStats = {
-      ...stats,
-      gamesPlayed: stats.gamesPlayed + 1,
-      totalCorrect: stats.totalCorrect + correctCount,
-      totalQuestions: stats.totalQuestions + triviaSet.questions.length,
-      bestScore: Math.max(stats.bestScore, score),
-      currentStreak: percentage >= 70 ? stats.currentStreak + 1 : 0,
-      maxStreak: Math.max(stats.maxStreak, percentage >= 70 ? stats.currentStreak + 1 : 0)
+    // Update stats using profileManager
+    const result = {
+      date: getTodayString(),
+      win: percentage >= 70,
+      score: correctCount,
+      time: timeElapsed,
+      puzzleId: mode === 'daily' ? `trivia-${getTodayString()}` : `practice-${Date.now()}`,
+      totalQuestions: triviaSet.questions.length,
     };
     
-    setStats(newStats);
-    saveStats(newStats);
+    const achievements = recordGameResult('trivia', result);
+    const updatedStats = getGameStats('trivia');
+    setStats(updatedStats);
+    
+    if (achievements && achievements.length > 0) {
+      setNewAchievements(achievements);
+      setCurrentAchievementIndex(0);
+    }
     
     if (percentage >= 80) {
       setShowConfetti(true);
@@ -203,7 +209,7 @@ export default function TriviaGame() {
               {/* Category Badge */}
               <div className="text-center">
                 <span
-                  className="inline-block px-4 py-1 rounded-full text-white text-sm font-semibold"
+                  className="inline-block px-4 py-1 rounded-full text-[var(--button-text)] text-sm font-semibold"
                   style={{ backgroundColor: getCategoryColor(currentQuestion.category) }}
                 >
                   {currentQuestion.category}
@@ -239,10 +245,10 @@ export default function TriviaGame() {
                   if (showResult) {
                     if (isCorrect) {
                       bgColor = 'bg-wordle-correct border-wordle-correct';
-                      textColor = 'text-white';
+                      textColor = 'text-[var(--button-text)]';
                     } else if (isSelected && !isCorrect) {
                       bgColor = 'bg-wordle-absent border-wordle-absent';
-                      textColor = 'text-white';
+                      textColor = 'text-[var(--button-text)]';
                     }
                   }
                   
@@ -328,11 +334,24 @@ export default function TriviaGame() {
                 </div>
               </div>
 
+              {/* Share Results */}
+              <ShareResults
+                gameName="trivia"
+                result={{
+                  score: correctCount,
+                  win: (correctCount / triviaSet.questions.length) * 100 >= 70
+                }}
+                puzzleNumber={mode === 'daily' ? `#${getTodayString()}` : ''}
+              />
+
+              {/* Daily Reminder */}
+              {mode === 'daily' && <DailyReminder gameName="trivia" />}
+
               {/* Action Buttons */}
               <div className="flex gap-3">
                 <button
                   onClick={handleRestart}
-                  className="flex-1 bg-wordle-correct text-white py-4 rounded-xl font-bold text-lg hover:scale-105 active:scale-95 transition-all"
+                  className="flex-1 bg-[var(--button-primary)] text-[var(--button-text)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--button-primary-hover)] transition-all"
                 >
                   {mode === 'daily' ? 'Play Again' : 'New Quiz'}
                 </button>
@@ -352,7 +371,7 @@ export default function TriviaGame() {
               onClick={() => setMode('daily')}
               className={`px-6 py-2 rounded-lg font-semibold transition-all ${
                 mode === 'daily'
-                  ? 'bg-wordle-correct text-white'
+                  ? 'bg-[var(--button-primary)] text-[var(--button-text)]'
                   : 'bg-surface text-text-muted border border-card-border'
               }`}
             >
@@ -362,7 +381,7 @@ export default function TriviaGame() {
               onClick={() => setMode('practice')}
               className={`px-6 py-2 rounded-lg font-semibold transition-all ${
                 mode === 'practice'
-                  ? 'bg-wordle-correct text-white'
+                  ? 'bg-[var(--button-primary)] text-[var(--button-text)]'
                   : 'bg-surface text-text-muted border border-card-border'
               }`}
             >
@@ -394,19 +413,28 @@ export default function TriviaGame() {
         </Modal>
       )}
 
-      {showStats && (
-        <Modal onClose={() => setShowStats(false)}>
-          <Statistics
-            title="Trivia Statistics"
-            stats={[
-              { label: 'Games Played', value: stats.gamesPlayed },
-              { label: 'Win Rate', value: `${Math.round((stats.totalCorrect / Math.max(stats.totalQuestions, 1)) * 100)}%` },
-              { label: 'Best Score', value: stats.bestScore },
-              { label: 'Current Streak', value: stats.currentStreak },
-              { label: 'Max Streak', value: stats.maxStreak },
-            ]}
-          />
-        </Modal>
+      {showStats && stats && (
+        <StatisticsModal
+          isOpen={showStats}
+          onClose={() => setShowStats(false)}
+          gameName="trivia"
+          stats={stats}
+        />
+      )}
+
+      {/* Achievement Notifications */}
+      {newAchievements.length > 0 && currentAchievementIndex < newAchievements.length && (
+        <AchievementNotification
+          achievementId={newAchievements[currentAchievementIndex].id}
+          onClose={() => {
+            if (currentAchievementIndex < newAchievements.length - 1) {
+              setCurrentAchievementIndex(currentAchievementIndex + 1);
+            } else {
+              setNewAchievements([]);
+              setCurrentAchievementIndex(0);
+            }
+          }}
+        />
       )}
 
       {showConfetti && <Confetti />}

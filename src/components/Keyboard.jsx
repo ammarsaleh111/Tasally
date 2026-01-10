@@ -12,11 +12,11 @@ const Keyboard = React.memo(({ onKey, keyStatuses }) => {
     const status = keyStatuses[key];
     switch (status) {
       case LETTER_STATUS.CORRECT:
-        return 'bg-wordle-correct text-white border-transparent';
+        return 'bg-wordle-correct text-[var(--button-text)] border-transparent';
       case LETTER_STATUS.PRESENT:
-        return 'bg-wordle-present text-white border-transparent';
+        return 'bg-wordle-present text-[var(--button-text)] border-transparent';
       case LETTER_STATUS.ABSENT:
-        return 'bg-wordle-absent text-white border-transparent';
+        return 'bg-wordle-absent text-[var(--button-text)] border-transparent';
       default:
         return 'bg-key text-key-fg hover:bg-key-hover active:scale-95 transition-all duration-150 shadow-sm';
     }

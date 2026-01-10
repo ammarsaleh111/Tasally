@@ -4,20 +4,20 @@ import { useState, useEffect } from 'react';
 import GameHeader from '@/components/GameHeader';
 import Modal from '@/components/Modal';
 import HowToPlay from '@/components/HowToPlay';
-import Statistics from '@/components/Statistics';
+import StatisticsModal from '@/components/StatisticsModal';
+import ShareResults from '@/components/ShareResults';
+import AchievementNotification from '@/components/AchievementNotification';
+import DailyReminder from '@/components/DailyReminder';
 import Confetti from '@/components/Confetti';
 import Toast from '@/components/Toast';
+import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import {
   getDailyPuzzle,
   generateRandomPuzzle,
   calculate,
   checkSolution,
   getHint,
-  OPERATORS,
-  loadStats,
-  saveStats,
-  updateStats,
-  getDefaultStats
+  OPERATORS
 } from './numbersLogic';
 
 export default function NumbersGame() {
@@ -42,7 +42,9 @@ export default function NumbersGame() {
   const [mode, setMode] = useState('daily'); // 'daily' or 'practice'
   
   // Stats
-  const [stats, setStats] = useState(getDefaultStats());
+  const [stats, setStats] = useState(null);
+  const [newAchievements, setNewAchievements] = useState([]);
+  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
   
   // Toast handler
   const handleToastExit = () => {
@@ -51,8 +53,8 @@ export default function NumbersGame() {
 
   // Load stats on mount
   useEffect(() => {
-    const savedStats = loadStats();
-    setStats(savedStats);
+    const gameStats = getGameStats('numbers');
+    setStats(gameStats);
   }, []);
 
   const loadPuzzle = () => {
@@ -141,11 +143,23 @@ export default function NumbersGame() {
     showToast(`🎉 Perfect! You hit ${puzzle.target}!`, 'success');
     setTimeout(() => setShowConfetti(false), 4000);
     
-    // Update stats
-    if (mode === 'daily') {
-      const newStats = updateStats(stats, true, expressionSteps.length);
-      setStats(newStats);
-      saveStats(newStats);
+    // Update stats using profileManager
+    const result = {
+      date: getTodayString(),
+      win: true,
+      attempts: expressionSteps.length,
+      exact: true,
+      difference: 0,
+      puzzleId: mode === 'daily' ? `numbers-${getTodayString()}` : `practice-${Date.now()}`,
+    };
+    
+    const achievements = recordGameResult('numbers', result);
+    const updatedStats = getGameStats('numbers');
+    setStats(updatedStats);
+    
+    if (achievements && achievements.length > 0) {
+      setNewAchievements(achievements);
+      setCurrentAchievementIndex(0);
     }
   };
 
@@ -154,12 +168,19 @@ export default function NumbersGame() {
     const diff = Math.abs(finalResult - puzzle.target);
     showToast(`Close! You got ${finalResult} (off by ${diff})`, 'error');
     
-    // Update stats
-    if (mode === 'daily') {
-      const newStats = updateStats(stats, false, expressionSteps.length);
-      setStats(newStats);
-      saveStats(newStats);
-    }
+    // Update stats using profileManager
+    const result = {
+      date: getTodayString(),
+      win: false,
+      attempts: expressionSteps.length,
+      exact: false,
+      difference: diff,
+      puzzleId: mode === 'daily' ? `numbers-${getTodayString()}` : `practice-${Date.now()}`,
+    };
+    
+    recordGameResult('numbers', result);
+    const updatedStats = getGameStats('numbers');
+    setStats(updatedStats);
   };
 
   const handleUndo = () => {
@@ -341,13 +362,33 @@ export default function NumbersGame() {
           )}
 
           {/* New Puzzle Button (after game ends) */}
-          {(gameWon || gameLost) && mode === 'practice' && (
-            <button
-              onClick={loadPuzzle}
-              className="w-full bg-wordle-correct text-white py-4 rounded-xl font-bold text-lg hover:scale-105 active:scale-95 transition-all"
-            >
-              New Puzzle
-            </button>
+          {(gameWon || gameLost) && (
+            <div className="space-y-4">
+              {/* Share Results */}
+              {gameWon && (
+                <ShareResults
+                  gameName="numbers"
+                  result={{
+                    exact: true,
+                    difference: 0,
+                    win: true
+                  }}
+                  puzzleNumber={mode === 'daily' ? `#${getTodayString()}` : ''}
+                />
+              )}
+
+              {/* Daily Reminder */}
+              {mode === 'daily' && <DailyReminder gameName="numbers" />}
+
+              {mode === 'practice' && (
+                <button
+                  onClick={loadPuzzle}
+                  className="w-full bg-wordle-correct text-white py-4 rounded-xl font-bold text-lg hover:scale-105 active:scale-95 transition-all"
+                >
+                  New Puzzle
+                </button>
+              )}
+            </div>
           )}
 
           {/* Mode Toggle */}
@@ -398,46 +439,28 @@ export default function NumbersGame() {
         </Modal>
       )}
 
-      {showStats && (
-        <Modal onClose={() => setShowStats(false)}>
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-foreground text-center">Numbers Statistics</h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-4 bg-surface rounded-lg">
-                <div className="text-3xl font-bold text-foreground">{stats.played}</div>
-                <div className="text-xs text-text-muted uppercase">Played</div>
-              </div>
-              <div className="text-center p-4 bg-surface rounded-lg">
-                <div className="text-3xl font-bold text-foreground">
-                  {stats.played > 0 ? Math.round((stats.won / stats.played) * 100) : 0}%
-                </div>
-                <div className="text-xs text-text-muted uppercase">Win Rate</div>
-              </div>
-              <div className="text-center p-4 bg-surface rounded-lg">
-                <div className="text-3xl font-bold text-foreground">{stats.currentStreak}</div>
-                <div className="text-xs text-text-muted uppercase">Current Streak</div>
-              </div>
-              <div className="text-center p-4 bg-surface rounded-lg">
-                <div className="text-3xl font-bold text-foreground">{stats.maxStreak}</div>
-                <div className="text-xs text-text-muted uppercase">Max Streak</div>
-              </div>
-              <div className="text-center p-4 bg-surface rounded-lg">
-                <div className="text-3xl font-bold text-foreground">{stats.averageSteps}</div>
-                <div className="text-xs text-text-muted uppercase">Avg Steps</div>
-              </div>
-              <div className="text-center p-4 bg-surface rounded-lg">
-                <div className="text-3xl font-bold text-foreground">{stats.perfectSolves}</div>
-                <div className="text-xs text-text-muted uppercase">Perfect Solves</div>
-              </div>
-            </div>
-            <button
-              onClick={() => setShowStats(false)}
-              className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity"
-            >
-              Close
-            </button>
-          </div>
-        </Modal>
+      {showStats && stats && (
+        <StatisticsModal
+          isOpen={showStats}
+          onClose={() => setShowStats(false)}
+          gameName="numbers"
+          stats={stats}
+        />
+      )}
+
+      {/* Achievement Notifications */}
+      {newAchievements.length > 0 && currentAchievementIndex < newAchievements.length && (
+        <AchievementNotification
+          achievementId={newAchievements[currentAchievementIndex].id}
+          onClose={() => {
+            if (currentAchievementIndex < newAchievements.length - 1) {
+              setCurrentAchievementIndex(currentAchievementIndex + 1);
+            } else {
+              setNewAchievements([]);
+              setCurrentAchievementIndex(0);
+            }
+          }}
+        />
       )}
 
       {showConfetti && <Confetti />}

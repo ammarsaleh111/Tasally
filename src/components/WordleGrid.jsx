@@ -42,7 +42,7 @@ const CompletedRow = React.memo(({ guess, length }) => {
         <div
           key={i}
           className={`
-            aspect-square w-full border-2 flex items-center justify-center text-2xl sm:text-3xl font-bold text-white capitalize
+            aspect-square w-full border-2 flex items-center justify-center text-2xl sm:text-3xl font-bold text-[var(--button-text)] capitalize
             ${guess.evaluation[i] === LETTER_STATUS.CORRECT ? 'bg-wordle-correct border-wordle-correct' : ''}
             ${guess.evaluation[i] === LETTER_STATUS.PRESENT ? 'bg-wordle-present border-wordle-present' : ''}
             ${guess.evaluation[i] === LETTER_STATUS.ABSENT ? 'bg-wordle-absent border-wordle-absent' : ''}

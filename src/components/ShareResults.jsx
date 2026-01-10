@@ -59,7 +59,7 @@ const ShareResults = ({ gameName, result, puzzleNumber }) => {
     <>
       <button
         onClick={handleShare}
-        className="w-full py-3 bg-wordle-correct text-white rounded-lg hover:opacity-90 transition-opacity font-bold flex items-center justify-center gap-2"
+        className="w-full py-3 bg-[var(--button-primary)] text-[var(--button-text)] rounded-lg hover:bg-[var(--button-primary-hover)] transition-all font-bold flex items-center justify-center gap-2"
       >
         <span>📤</span>
         <span>Share Results</span>

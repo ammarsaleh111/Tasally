@@ -40,7 +40,7 @@ export default function ThemeBanner() {
         <div className="flex-1 flex justify-end">
           <button
             onClick={handleDismiss}
-            className="px-3 py-1 rounded-lg hover:bg-black/10 transition-colors"
+            className="px-3 py-1 rounded-lg hover:bg-surface-hover transition-colors"
             aria-label="Dismiss banner"
           >
             ✕

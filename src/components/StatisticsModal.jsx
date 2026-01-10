@@ -68,7 +68,7 @@ const StatisticsModal = ({ isOpen, onClose, gameName, stats, customContent }) =>
 
         <button
           onClick={onClose}
-          className="w-full py-3 bg-wordle-correct text-white rounded-lg hover:opacity-90 transition-opacity font-bold"
+          className="w-full py-3 bg-[var(--button-primary)] text-[var(--button-text)] rounded-lg hover:bg-[var(--button-primary-hover)] transition-all font-bold"
         >
           Close
         </button>

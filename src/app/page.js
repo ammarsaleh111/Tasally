@@ -7,7 +7,7 @@ export default function Home() {
             <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif tracking-tight">
                 Ammar Times
             </h1>
-            <p className="text-xl md:text-2xl text-slate-400 mb-12 font-light">
+            <p className="text-xl md:text-2xl text-text-muted mb-12 font-light">
                 Your daily dose of mental exercise. 
                 <br/>Play games, challenge your mind.
             </p>
@@ -16,20 +16,19 @@ export default function Home() {
                 href="/games" 
                 className="
                     inline-block px-8 py-4 
-                    bg-white text-slate-900 
+                    bg-[var(--button-primary)] text-[var(--button-text)] 
                     rounded-full font-bold text-lg 
-                    shadow-[0_0_20px_rgba(255,255,255,0.3)] 
-                    hover:shadow-[0_0_30px_rgba(255,255,255,0.5)] 
+                    shadow-[0_0_20px_rgba(106,170,100,0.3)] 
+                    hover:shadow-[0_0_30px_rgba(106,170,100,0.5)] 
                     hover:scale-105 active:scale-95
                     transition-all duration-300 ease-out
                 "
-                style={{backgroundColor: "var(--key-bg)"}}
             >
                 Enter Games Hub
             </a>
         </div>
 
-        <footer className="absolute bottom-8 text-slate-600 text-sm">
+        <footer className="absolute bottom-8 text-text-muted text-sm">
             © 2026 Ammar Times. All rights reserved.
         </footer>
     </div>
