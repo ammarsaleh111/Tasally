@@ -33,6 +33,13 @@ export default function SiteHeader() {
         </Link>
         
         <Link 
+            href="/profile" 
+            className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors flex items-center gap-1"
+        >
+            👤 Profile
+        </Link>
+        
+        <Link 
             href="/themes" 
             className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors"
         >

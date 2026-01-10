@@ -220,3 +220,96 @@ export const initializeGame = (puzzle) => {
     isSolved: false
   };
 };
+
+/**
+ * Get default stats structure
+ */
+export const getDefaultStats = () => {
+  return {
+    played: 0,
+    won: 0,
+    currentStreak: 0,
+    maxStreak: 0,
+    averageTime: 0, // in seconds
+    bestTime: 0,
+    lastPlayed: null
+  };
+};
+
+/**
+ * Load stats from localStorage
+ */
+export const loadStats = () => {
+  if (typeof window === 'undefined') return getDefaultStats();
+  
+  try {
+    const saved = localStorage.getItem('ammar-times-crossword-stats');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  } catch (error) {
+    console.error('Error loading stats:', error);
+  }
+  return getDefaultStats();
+};
+
+/**
+ * Save stats to localStorage
+ */
+export const saveStats = (stats) => {
+  if (typeof window === 'undefined') return;
+  
+  try {
+    localStorage.setItem('ammar-times-crossword-stats', JSON.stringify(stats));
+  } catch (error) {
+    console.error('Error saving stats:', error);
+  }
+};
+
+/**
+ * Update stats after a game
+ */
+export const updateStats = (currentStats, won, timeInSeconds) => {
+  const today = new Date().toISOString().split('T')[0];
+  const lastPlayed = currentStats.lastPlayed;
+  
+  const newStats = {
+    played: currentStats.played + 1,
+    won: currentStats.won + (won ? 1 : 0),
+    lastPlayed: today
+  };
+  
+  // Calculate streak
+  if (won) {
+    if (lastPlayed === today) {
+      newStats.currentStreak = currentStats.currentStreak;
+    } else {
+      newStats.currentStreak = currentStats.currentStreak + 1;
+    }
+  } else {
+    newStats.currentStreak = 0;
+  }
+  
+  newStats.maxStreak = Math.max(currentStats.maxStreak, newStats.currentStreak);
+  
+  // Calculate times
+  if (won) {
+    const totalTime = (currentStats.averageTime * currentStats.won) + timeInSeconds;
+    newStats.averageTime = Math.round(totalTime / newStats.won);
+    newStats.bestTime = currentStats.bestTime === 0 ? timeInSeconds : Math.min(currentStats.bestTime, timeInSeconds);
+  } else {
+    newStats.averageTime = currentStats.averageTime;
+    newStats.bestTime = currentStats.bestTime;
+  }
+  
+  return newStats;
+};
+
+/**
+ * Format time (seconds to MM:SS)
+ */
+export const formatTime = (seconds) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+};

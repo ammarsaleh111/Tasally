@@ -40,13 +40,18 @@ export default function TriviaGame() {
   const [showStats, setShowStats] = useState(false);
   
   // Toast
-  const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
+  const [toast, setToast] = useState(null);
   
   // Mode
   const [mode, setMode] = useState('daily');
   
   // Stats
   const [stats, setStats] = useState(getDefaultStats());
+
+  // Toast handler
+  const handleToastExit = () => {
+    setToast(null);
+  };
 
   const loadGame = () => {
     const newSet = mode === 'daily' ? getDailyTrivia() : generateRandomTrivia();
@@ -83,7 +88,7 @@ export default function TriviaGame() {
   }, [timerActive, gameComplete]);
 
   const showToast = (message, type = 'info') => {
-    setToast({ show: true, message, type });
+    setToast({ message, type, id: Date.now() });
   };
 
   const handleAnswerSelect = (answer) => {
@@ -406,12 +411,14 @@ export default function TriviaGame() {
 
       {showConfetti && <Confetti />}
       
-      <Toast
-        message={toast.message}
-        show={toast.show}
-        type={toast.type}
-        onClose={() => setToast({ ...toast, show: false })}
-      />
+      {toast && (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onExited={handleToastExit}
+        />
+      )}
     </div>
   );
 }

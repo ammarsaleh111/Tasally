@@ -1,19 +1,41 @@
 import Link from 'next/link';
 import React from 'react';
 
-const GameHeader = ({ title }) => {
+const GameHeader = ({ title, onHowToPlay, onStats }) => {
   return (
-    <header className="flex items-center justify-between border-b border-border-default pb-2 mb-4 w-full max-w-lg">
-      <div className="flex-1">
-          {/* Menu placeholder */}
-      </div>
-      <h1 className="text-3xl font-bold tracking-wider font-serif text-foreground text-center flex-1">
-        {title}
-      </h1>
-      <div className="flex-1 text-right">
-        <Link href="/" className="text-sm text-text-muted hover:text-foreground transition-colors">
-          Home
-        </Link>
+    <header className="w-full border-b border-border-default pb-4 mb-6">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4 flex-1">
+            <Link href="/games" className="text-sm text-text-muted hover:text-foreground transition-colors">
+              ← Games
+            </Link>
+            {onHowToPlay && (
+              <button
+                onClick={onHowToPlay}
+                className="text-sm text-text-muted hover:text-foreground transition-colors"
+              >
+                ❓ How to Play
+              </button>
+            )}
+          </div>
+          <h1 className="text-3xl font-bold tracking-wider font-serif text-foreground text-center absolute left-1/2 transform -translate-x-1/2">
+            {title}
+          </h1>
+          <div className="flex items-center gap-4 flex-1 justify-end">
+            {onStats && (
+              <button
+                onClick={onStats}
+                className="text-sm text-text-muted hover:text-foreground transition-colors"
+              >
+                📊 Stats
+              </button>
+            )}
+            <Link href="/" className="text-sm text-text-muted hover:text-foreground transition-colors">
+              Home
+            </Link>
+          </div>
+        </div>
       </div>
     </header>
   );

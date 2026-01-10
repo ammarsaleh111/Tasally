@@ -39,14 +39,19 @@ Each theme includes:
 ### ✨ Platform Features
 
 - 🌓 Dark/Light mode with smooth transitions
-- 📊 Statistics tracking for all games
+- 📊 Statistics tracking for all games with visual graphs
+- 👤 Player profiles with persistent progress
+- 🔥 Streak tracking across all games
+- 🏆 31 unlockable achievements
+- 📤 Shareable results with emoji summaries
+- ⏰ Daily reminders and countdown timers
+- 🔔 Optional browser notifications
 - 🎊 Confetti celebrations on wins
 - 📱 Fully responsive design
 - ♿ Accessibility-friendly
 - 💾 Progress auto-save with localStorage
 - 🎯 Daily and Practice modes
-- 🏆 Streak tracking system
-- 📈 Performance analytics
+- 📈 7-day and 30-day activity graphs
 
 ## 🚀 Getting Started
 
@@ -120,17 +125,24 @@ ammar_times/
 │   │   │   ├── crossword/
 │   │   │   ├── numbers/
 │   │   │   └── trivia/
+│   │   ├── profile/          # Player profile & achievements
 │   │   ├── themes/
 │   │   └── layout.js
 │   ├── components/
 │   │   ├── GameHeader.jsx
 │   │   ├── ThemeBanner.jsx
-│   │   ├── Modal.jsx
+│   │   ├── StatisticsModal.jsx
+│   │   ├── ShareResults.jsx
+│   │   ├── AchievementBadge.jsx
+│   │   ├── DailyReminder.jsx
 │   │   └── ...
 │   ├── games/
 │   │   └── wordle/
 │   └── utils/
 │       ├── themeEngine.js
+│       ├── profileManager.js      # Player stats & streaks
+│       ├── achievementsEngine.js  # 31 achievements
+│       ├── notificationManager.js # Daily reminders
 │       └── wordValidation.js
 ├── public/
 └── package.json
@@ -157,24 +169,54 @@ ammar_times/
 
 ## 📊 Statistics & Tracking
 
+### Per-Game Stats
+
 All games track:
 
 - Games played
 - Win rate
 - Current streak
-- Max streak
-- Best scores
-- Category performance (Trivia)
+- Longest streak
+- Best scores/times
+- Average attempts
+- Perfect games
+
+### Meta-Game Features
+
+- **Player Profile**: Comprehensive dashboard with all your stats
+- **Achievements**: 31 unlockable badges across all games
+- **Visual Graphs**: 7-day and 30-day activity tracking
+- **Shareable Results**: One-click emoji-based result sharing
+- **Daily Streaks**: Build and maintain streaks across games
+- **Reminders**: Optional notifications for new puzzles
+
+## 🏆 Achievement System
+
+Unlock 31 achievements by:
+
+- Building long streaks (3, 7, 10, 30, 100 days)
+- Mastering individual games (perfect scores, fast times)
+- Playing across all games (well-rounded, daily dedication)
+- Achieving special milestones (100 total games, perfect week)
+
+View all achievements in your Profile page!
 
 ## 🔮 Future Enhancements
 
+- [ ] Cloud sync for cross-device profiles
 - [ ] Multiplayer modes
-- [ ] Social sharing with score cards
-- [ ] Achievement system
+- [ ] Social features and friend challenges
 - [ ] Leaderboards
 - [ ] More themed events
 - [ ] Custom theme builder
-- [ ] Daily challenges across all games
+- [ ] Email notifications
+- [ ] Advanced analytics dashboard
+
+## 📚 Documentation
+
+- **[META_GAME_SYSTEM.md](META_GAME_SYSTEM.md)** - Complete meta-game documentation
+- **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** - Implementation overview
+- **[EXPANSION_SUMMARY.md](EXPANSION_SUMMARY.md)** - Theme system details
 
 ## 📄 License
 

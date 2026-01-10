@@ -18,9 +18,13 @@ import GameHeader from '@/components/GameHeader';
 import Toast from '@/components/Toast';
 import Modal from '@/components/Modal';
 import ModeSelection from './ModeSelection';
-import Statistics from '@/components/Statistics';
+import StatisticsModal from '@/components/StatisticsModal';
 import HowToPlay from '@/components/HowToPlay';
+import ShareResults from '@/components/ShareResults';
+import AchievementNotification from '@/components/AchievementNotification';
+import DailyReminder from '@/components/DailyReminder';
 import Link from 'next/link';
+import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 
 // Validation cache to avoid duplicate API calls
 const validationCache = new Map();
@@ -43,8 +47,10 @@ export default function WordleGame() {
   const [showResultModal, setShowResultModal] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showHowTo, setShowHowTo] = useState(false);
-  const [stats, setStats] = useState({ played: 0, won: 0, currentStreak: 0, maxStreak: 0, distribution: {} });
+  const [stats, setStats] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
+  const [newAchievements, setNewAchievements] = useState([]);
+  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
 
   // --- Helpers ---
   const showToast = (message, type = 'default') => {
@@ -55,33 +61,34 @@ export default function WordleGame() {
     setToast(null);
   };
 
-  // Load stats from localStorage
+  // Load stats from profileManager
   useEffect(() => {
-    const savedStats = localStorage.getItem('wordle_stats');
-    if (savedStats) {
-      setStats(JSON.parse(savedStats));
-    }
+    const gameStats = getGameStats('wordle');
+    setStats(gameStats);
   }, []);
 
-  // Update stats when game ends
+  // Update stats when game ends using profileManager
   const updateStats = (won, guessCount) => {
-    const newStats = { ...stats };
-    newStats.played = (newStats.played || 0) + 1;
+    const result = {
+      date: getTodayString(),
+      win: won,
+      attempts: guessCount,
+      puzzleId: mode === 'daily' ? `daily-${getTodayString()}` : `unlimited-${Date.now()}`,
+      guesses: guesses.map(g => ({ word: g.word, evaluation: g.evaluation })),
+    };
     
-    if (won) {
-      newStats.won = (newStats.won || 0) + 1;
-      newStats.currentStreak = (newStats.currentStreak || 0) + 1;
-      newStats.maxStreak = Math.max(newStats.maxStreak || 0, newStats.currentStreak);
-      
-      // Update distribution
-      if (!newStats.distribution) newStats.distribution = {};
-      newStats.distribution[guessCount] = (newStats.distribution[guessCount] || 0) + 1;
-    } else {
-      newStats.currentStreak = 0;
+    // Record result and check for achievements
+    const achievements = recordGameResult('wordle', result);
+    
+    // Update local stats display
+    const updatedStats = getGameStats('wordle');
+    setStats(updatedStats);
+    
+    // Show achievements
+    if (achievements && achievements.length > 0) {
+      setNewAchievements(achievements);
+      setCurrentAchievementIndex(0);
     }
-    
-    setStats(newStats);
-    localStorage.setItem('wordle_stats', JSON.stringify(newStats));
   };
 
   // --- Initialization ---
@@ -306,8 +313,25 @@ export default function WordleGame() {
             )}
             
             <p className="text-text-muted">
-                {gameStatus === 'won' ? 'Great job! Come back tomorrow or play unlimited.' : 'Better luck next time!'}
+                {gameStatus === 'won' ? 'Great job!' : 'Better luck next time!'}
             </p>
+
+            {/* Share Results Button */}
+            {gameStatus === 'won' && (
+              <ShareResults 
+                gameName="wordle"
+                result={{
+                  guesses: guesses,
+                  win: true
+                }}
+                puzzleNumber={mode === 'daily' ? `#${getTodayString()}` : ''}
+              />
+            )}
+
+            {/* Daily Reminder for daily mode */}
+            {mode === 'daily' && (
+              <DailyReminder gameName="wordle" />
+            )}
 
             <div className="w-full h-px bg-border-default my-2"></div>
 
@@ -401,11 +425,29 @@ export default function WordleGame() {
       />
 
       {/* Statistics Modal */}
-      <Statistics 
-        isOpen={showStats} 
-        onClose={() => setShowStats(false)} 
-        stats={stats}
-      />
+      {stats && (
+        <StatisticsModal 
+          isOpen={showStats} 
+          onClose={() => setShowStats(false)} 
+          gameName="wordle"
+          stats={stats}
+        />
+      )}
+
+      {/* Achievement Notifications */}
+      {newAchievements.length > 0 && currentAchievementIndex < newAchievements.length && (
+        <AchievementNotification
+          achievementId={newAchievements[currentAchievementIndex].id}
+          onClose={() => {
+            if (currentAchievementIndex < newAchievements.length - 1) {
+              setCurrentAchievementIndex(currentAchievementIndex + 1);
+            } else {
+              setNewAchievements([]);
+              setCurrentAchievementIndex(0);
+            }
+          }}
+        />
+      )}
 
       {/* How To Play Modal */}
       <HowToPlay 

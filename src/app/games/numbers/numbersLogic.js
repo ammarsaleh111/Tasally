@@ -182,3 +182,83 @@ export const generateRandomPuzzle = () => {
     solution: null // Random puzzles don't have pre-made solutions
   };
 };
+
+/**
+ * Get default stats structure
+ */
+export const getDefaultStats = () => {
+  return {
+    played: 0,
+    won: 0,
+    currentStreak: 0,
+    maxStreak: 0,
+    averageSteps: 0,
+    perfectSolves: 0,
+    lastPlayed: null
+  };
+};
+
+/**
+ * Load stats from localStorage
+ */
+export const loadStats = () => {
+  if (typeof window === 'undefined') return getDefaultStats();
+  
+  try {
+    const saved = localStorage.getItem('ammar-times-numbers-stats');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  } catch (error) {
+    console.error('Error loading stats:', error);
+  }
+  return getDefaultStats();
+};
+
+/**
+ * Save stats to localStorage
+ */
+export const saveStats = (stats) => {
+  if (typeof window === 'undefined') return;
+  
+  try {
+    localStorage.setItem('ammar-times-numbers-stats', JSON.stringify(stats));
+  } catch (error) {
+    console.error('Error saving stats:', error);
+  }
+};
+
+/**
+ * Update stats after a game
+ */
+export const updateStats = (currentStats, won, steps) => {
+  const today = new Date().toISOString().split('T')[0];
+  const lastPlayed = currentStats.lastPlayed;
+  
+  const newStats = {
+    played: currentStats.played + 1,
+    won: currentStats.won + (won ? 1 : 0),
+    perfectSolves: currentStats.perfectSolves + (won && steps <= 3 ? 1 : 0),
+    lastPlayed: today
+  };
+  
+  // Calculate streak
+  if (won) {
+    if (lastPlayed === today) {
+      // Same day, don't increment
+      newStats.currentStreak = currentStats.currentStreak;
+    } else {
+      newStats.currentStreak = currentStats.currentStreak + 1;
+    }
+  } else {
+    newStats.currentStreak = 0;
+  }
+  
+  newStats.maxStreak = Math.max(currentStats.maxStreak, newStats.currentStreak);
+  
+  // Calculate average steps
+  const totalSteps = (currentStats.averageSteps * currentStats.played) + (won ? steps : 0);
+  newStats.averageSteps = currentStats.played > 0 ? Math.round(totalSteps / newStats.played) : 0;
+  
+  return newStats;
+};

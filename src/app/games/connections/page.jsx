@@ -9,13 +9,23 @@ import {
   checkGroup,
   isOneAway,
   MAX_MISTAKES,
-  WORDS_PER_GROUP
+  WORDS_PER_GROUP,
+  loadStats,
+  saveStats,
+  updateStats,
+  getDefaultStats
 } from './connectionsLogic';
 import ConnectionsGrid from '@/components/ConnectionsGrid';
 import GroupBar from '@/components/GroupBar';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
+import GameHeader from '@/components/GameHeader';
+import StatisticsModal from '@/components/StatisticsModal';
+import ShareResults from '@/components/ShareResults';
+import AchievementNotification from '@/components/AchievementNotification';
+import DailyReminder from '@/components/DailyReminder';
 import Link from 'next/link';
+import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 
 export default function ConnectionsGame() {
   const [puzzle, setPuzzle] = useState(() => getTodaysPuzzle());
@@ -32,6 +42,17 @@ export default function ConnectionsGame() {
   const [toast, setToast] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+  const [stats, setStats] = useState(null);
+  const [newAchievements, setNewAchievements] = useState([]);
+  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
+  
+  // Load stats on mount
+  useEffect(() => {
+    const gameStats = getGameStats('connections');
+    setStats(gameStats);
+  }, []);
 
   // Save state whenever it changes
   useEffect(() => {
@@ -43,8 +64,29 @@ export default function ConnectionsGame() {
   // Show result modal when game ends
   useEffect(() => {
     if (gameState.gameStatus !== 'playing') {
+      // Update stats using profileManager
+      const won = gameState.gameStatus === 'won';
+      const result = {
+        date: getTodayString(),
+        win: won,
+        mistakes: gameState.mistakes,
+        perfect: won && gameState.mistakes === 0,
+        puzzleId: `connections-${puzzle.date}`,
+        solvedGroups: gameState.solvedGroups.map((g, i) => i),
+      };
+      
+      const achievements = recordGameResult('connections', result);
+      const updatedStats = getGameStats('connections');
+      setStats(updatedStats);
+      
+      if (achievements && achievements.length > 0) {
+        setNewAchievements(achievements);
+        setCurrentAchievementIndex(0);
+      }
+      
       setTimeout(() => setShowResultModal(true), 1000);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState.gameStatus]);
 
   const showToast = useCallback((message, type = 'default') => {
@@ -147,8 +189,14 @@ export default function ConnectionsGame() {
   const mistakesRemaining = MAX_MISTAKES - gameState.mistakes;
 
   return (
-    <div className="flex flex-col items-center w-full max-w-3xl mx-auto min-h-screen pb-10 px-4 animate-fade-in-up">
-      {toast && (
+    <div className="flex flex-col items-center w-full min-h-screen pb-10 animate-fade-in-up">
+      <GameHeader 
+        title="Connections" 
+        onHowToPlay={() => setShowHowToPlay(true)}
+        onStats={() => setShowStats(true)}
+      />
+      
+      <div className="w-full max-w-3xl mx-auto px-4">     {toast && (
         <Toast 
           key={toast.id}
           message={toast.message} 
@@ -162,7 +210,7 @@ export default function ConnectionsGame() {
         <div className="flex flex-col items-center gap-4">
           {gameState.gameStatus === 'won' ? (
             <p className="text-lg text-center">
-              You solved all groups!
+              You solved all groups with {gameState.mistakes} mistake{gameState.mistakes !== 1 ? 's' : ''}!
             </p>
           ) : (
             <div className="text-center">
@@ -177,35 +225,81 @@ export default function ConnectionsGame() {
             </div>
           )}
 
+          {/* Share Results */}
+          {gameState.gameStatus === 'won' && (
+            <ShareResults
+              gameName="connections"
+              result={{
+                solvedGroups: gameState.solvedGroups.map((g, i) => i),
+                win: true
+              }}
+              puzzleNumber={`#${puzzle.date}`}
+            />
+          )}
+
+          {/* Daily Reminder */}
+          <DailyReminder gameName="connections" />
+
           <div className="w-full h-px bg-border-default my-2"></div>
 
-          <Link 
-            href="/games"
+          <button
+            onClick={() => setShowResultModal(false)}
             className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity text-center"
           >
-            Back to Games
-          </Link>
+            Close
+          </button>
         </div>
       </Modal>
+      
+      {/* How to Play Modal */}
+      {showHowToPlay && (
+        <Modal isOpen={showHowToPlay}>
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold text-foreground text-center">How to Play</h2>
+            <div className="space-y-3 text-foreground">
+              <p>• Find groups of four items that share something in common</p>
+              <p>• Select four items and tap 'Submit' to check if your guess is correct</p>
+              <p>• Each group has a difficulty level (yellow easiest, purple hardest)</p>
+              <p>• You have {MAX_MISTAKES} mistakes before the game ends</p>
+              <p>• Category names are specific - pay attention to details!</p>
+            </div>
+            <button
+              onClick={() => setShowHowToPlay(false)}
+              className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity"
+            >
+              Got it!
+            </button>
+          </div>
+        </Modal>
+      )}
+      
+      {/* Stats Modal */}
+      {stats && (
+        <StatisticsModal
+          isOpen={showStats}
+          onClose={() => setShowStats(false)}
+          gameName="connections"
+          stats={stats}
+        />
+      )}
+
+      {/* Achievement Notifications */}
+      {newAchievements.length > 0 && currentAchievementIndex < newAchievements.length && (
+        <AchievementNotification
+          achievementId={newAchievements[currentAchievementIndex].id}
+          onClose={() => {
+            if (currentAchievementIndex < newAchievements.length - 1) {
+              setCurrentAchievementIndex(currentAchievementIndex + 1);
+            } else {
+              setNewAchievements([]);
+              setCurrentAchievementIndex(0);
+            }
+          }}
+        />
+      )}
 
       {/* Header */}
-      <div className="w-full mb-6">
-        <div className="flex justify-between items-center mb-3 border-b border-border-default pb-3">
-          <Link 
-            href="/games" 
-            className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors flex items-center gap-1"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            All Games
-          </Link>
-          
-          <h1 className="text-3xl font-bold text-foreground tracking-tight">Connections</h1>
-          
-          <div className="w-[80px]"></div>
-        </div>
-
+      <div className="w-full mb-6 px-4">
         <p className="text-center text-text-muted text-sm mb-4">
           Create four groups of four!
         </p>
@@ -274,6 +368,7 @@ export default function ConnectionsGame() {
           </button>
         </div>
       )}
+      </div>
     </div>
   );
 }

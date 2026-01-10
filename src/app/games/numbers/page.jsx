@@ -13,7 +13,11 @@ import {
   calculate,
   checkSolution,
   getHint,
-  OPERATORS
+  OPERATORS,
+  loadStats,
+  saveStats,
+  updateStats,
+  getDefaultStats
 } from './numbersLogic';
 
 export default function NumbersGame() {
@@ -32,10 +36,24 @@ export default function NumbersGame() {
   const [showStats, setShowStats] = useState(false);
   
   // Toast
-  const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
+  const [toast, setToast] = useState(null);
   
   // Mode
   const [mode, setMode] = useState('daily'); // 'daily' or 'practice'
+  
+  // Stats
+  const [stats, setStats] = useState(getDefaultStats());
+  
+  // Toast handler
+  const handleToastExit = () => {
+    setToast(null);
+  };
+
+  // Load stats on mount
+  useEffect(() => {
+    const savedStats = loadStats();
+    setStats(savedStats);
+  }, []);
 
   const loadPuzzle = () => {
     const newPuzzle = mode === 'daily' ? getDailyPuzzle() : generateRandomPuzzle();
@@ -55,7 +73,7 @@ export default function NumbersGame() {
   }, [mode]);
 
   const showToast = (message, type = 'info') => {
-    setToast({ show: true, message, type });
+    setToast({ message, type, id: Date.now() });
   };
 
   const handleNumberClick = (number, index) => {
@@ -122,12 +140,26 @@ export default function NumbersGame() {
     setShowConfetti(true);
     showToast(`🎉 Perfect! You hit ${puzzle.target}!`, 'success');
     setTimeout(() => setShowConfetti(false), 4000);
+    
+    // Update stats
+    if (mode === 'daily') {
+      const newStats = updateStats(stats, true, expressionSteps.length);
+      setStats(newStats);
+      saveStats(newStats);
+    }
   };
 
   const handleLoss = (finalResult) => {
     setGameLost(true);
     const diff = Math.abs(finalResult - puzzle.target);
     showToast(`Close! You got ${finalResult} (off by ${diff})`, 'error');
+    
+    // Update stats
+    if (mode === 'daily') {
+      const newStats = updateStats(stats, false, expressionSteps.length);
+      setStats(newStats);
+      saveStats(newStats);
+    }
   };
 
   const handleUndo = () => {
@@ -368,25 +400,56 @@ export default function NumbersGame() {
 
       {showStats && (
         <Modal onClose={() => setShowStats(false)}>
-          <Statistics
-            title="Numbers Statistics"
-            stats={[
-              { label: 'Played', value: '0' },
-              { label: 'Win Rate', value: '0%' },
-              { label: 'Current Streak', value: '0' },
-            ]}
-          />
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-foreground text-center">Numbers Statistics</h2>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="text-center p-4 bg-surface rounded-lg">
+                <div className="text-3xl font-bold text-foreground">{stats.played}</div>
+                <div className="text-xs text-text-muted uppercase">Played</div>
+              </div>
+              <div className="text-center p-4 bg-surface rounded-lg">
+                <div className="text-3xl font-bold text-foreground">
+                  {stats.played > 0 ? Math.round((stats.won / stats.played) * 100) : 0}%
+                </div>
+                <div className="text-xs text-text-muted uppercase">Win Rate</div>
+              </div>
+              <div className="text-center p-4 bg-surface rounded-lg">
+                <div className="text-3xl font-bold text-foreground">{stats.currentStreak}</div>
+                <div className="text-xs text-text-muted uppercase">Current Streak</div>
+              </div>
+              <div className="text-center p-4 bg-surface rounded-lg">
+                <div className="text-3xl font-bold text-foreground">{stats.maxStreak}</div>
+                <div className="text-xs text-text-muted uppercase">Max Streak</div>
+              </div>
+              <div className="text-center p-4 bg-surface rounded-lg">
+                <div className="text-3xl font-bold text-foreground">{stats.averageSteps}</div>
+                <div className="text-xs text-text-muted uppercase">Avg Steps</div>
+              </div>
+              <div className="text-center p-4 bg-surface rounded-lg">
+                <div className="text-3xl font-bold text-foreground">{stats.perfectSolves}</div>
+                <div className="text-xs text-text-muted uppercase">Perfect Solves</div>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowStats(false)}
+              className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity"
+            >
+              Close
+            </button>
+          </div>
         </Modal>
       )}
 
       {showConfetti && <Confetti />}
       
-      <Toast
-        message={toast.message}
-        show={toast.show}
-        type={toast.type}
-        onClose={() => setToast({ ...toast, show: false })}
-      />
+      {toast && (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onExited={handleToastExit}
+        />
+      )}
     </div>
   );
 }

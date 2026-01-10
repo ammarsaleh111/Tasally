@@ -150,3 +150,78 @@ export const initializeGame = (puzzle) => {
     shuffledWords: getShuffledWords(puzzle)
   };
 };
+
+/**
+ * Get default stats structure
+ */
+export const getDefaultStats = () => {
+  return {
+    played: 0,
+    won: 0,
+    currentStreak: 0,
+    maxStreak: 0,
+    perfectGames: 0, // Games won with 0 mistakes
+    lastPlayed: null
+  };
+};
+
+/**
+ * Load stats from localStorage
+ */
+export const loadStats = () => {
+  if (typeof window === 'undefined') return getDefaultStats();
+  
+  try {
+    const saved = localStorage.getItem('ammar-times-connections-stats');
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  } catch (error) {
+    console.error('Error loading stats:', error);
+  }
+  return getDefaultStats();
+};
+
+/**
+ * Save stats to localStorage
+ */
+export const saveStats = (stats) => {
+  if (typeof window === 'undefined') return;
+  
+  try {
+    localStorage.setItem('ammar-times-connections-stats', JSON.stringify(stats));
+  } catch (error) {
+    console.error('Error saving stats:', error);
+  }
+};
+
+/**
+ * Update stats after a game
+ */
+export const updateStats = (currentStats, won, mistakes) => {
+  const today = new Date().toISOString().split('T')[0];
+  const lastPlayed = currentStats.lastPlayed;
+  
+  const newStats = {
+    played: currentStats.played + 1,
+    won: currentStats.won + (won ? 1 : 0),
+    perfectGames: currentStats.perfectGames + (won && mistakes === 0 ? 1 : 0),
+    lastPlayed: today
+  };
+  
+  // Calculate streak
+  if (won) {
+    if (lastPlayed === today) {
+      // Same day, don't increment
+      newStats.currentStreak = currentStats.currentStreak;
+    } else {
+      newStats.currentStreak = currentStats.currentStreak + 1;
+    }
+  } else {
+    newStats.currentStreak = 0;
+  }
+  
+  newStats.maxStreak = Math.max(currentStats.maxStreak, newStats.currentStreak);
+  
+  return newStats;
+};

@@ -11,14 +11,25 @@ import {
   checkPuzzle,
   isGridComplete,
   getClueNumber,
-  GRID_SIZE
+  GRID_SIZE,
+  loadStats,
+  saveStats,
+  updateStats,
+  getDefaultStats,
+  formatTime
 } from './crosswordLogic';
 import CrosswordGrid from '@/components/CrosswordGrid';
 import CluePanel from '@/components/CluePanel';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
 import Confetti from '@/components/Confetti';
+import GameHeader from '@/components/GameHeader';
+import StatisticsModal from '@/components/StatisticsModal';
+import ShareResults from '@/components/ShareResults';
+import AchievementNotification from '@/components/AchievementNotification';
+import DailyReminder from '@/components/DailyReminder';
 import Link from 'next/link';
+import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 
 export default function CrosswordGame() {
   const [puzzle] = useState(() => getTodaysPuzzle());
@@ -38,6 +49,17 @@ export default function CrosswordGame() {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [solvedWords, setSolvedWords] = useState(new Set());
   const [isPaused, setIsPaused] = useState(false);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+  const [stats, setStats] = useState(null);
+  const [newAchievements, setNewAchievements] = useState([]);
+  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
+  
+  // Load stats on mount
+  useEffect(() => {
+    const gameStats = getGameStats('crossword');
+    setStats(gameStats);
+  }, []);
 
   // Save state whenever it changes
   useEffect(() => {
@@ -95,9 +117,29 @@ export default function CrosswordGame() {
           endTime: Date.now()
         };
         setGameState(newState);
+        
+        // Update stats using profileManager
+        const timeInSeconds = Math.floor((newState.endTime - newState.startTime) / 1000);
+        const result = {
+          date: getTodayString(),
+          win: true,
+          time: timeInSeconds,
+          puzzleId: `crossword-${puzzle.date}`,
+        };
+        
+        const achievements = recordGameResult('crossword', result);
+        const updatedStats = getGameStats('crossword');
+        setStats(updatedStats);
+        
+        if (achievements && achievements.length > 0) {
+          setNewAchievements(achievements);
+          setCurrentAchievementIndex(0);
+        }
+        
         setTimeout(() => setShowResultModal(true), 500);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [puzzle, gameState, gameState.userGrid, gameState.isSolved]);
 
   const showToast = useCallback((message, type = 'default') => {
@@ -377,7 +419,14 @@ export default function CrosswordGame() {
     : elapsedTime;
 
   return (
-    <div className="flex flex-col items-center w-full max-w-5xl mx-auto min-h-screen pb-10 px-4 animate-fade-in-up">
+    <div className="flex flex-col items-center w-full min-h-screen pb-10 animate-fade-in-up">
+      <GameHeader 
+        title="Mini Crossword" 
+        onHowToPlay={() => setShowHowToPlay(true)}
+        onStats={() => setShowStats(true)}
+      />
+      
+      <div className="w-full max-w-5xl mx-auto px-4">
       {gameState.isSolved && <Confetti />}
       
       {toast && (
@@ -389,50 +438,13 @@ export default function CrosswordGame() {
         />
       )}
 
-      {/* Result Modal */}
-      <Modal isOpen={showResultModal} title="Puzzle Complete!">
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-center">
-            <p className="text-4xl font-bold text-wordle-correct mb-2">
-              {formatTime(solveTime)}
-            </p>
-            <p className="text-lg text-text-muted">
-              Great job! Come back tomorrow for a new puzzle.
-            </p>
-          </div>
-
-          <div className="w-full h-px bg-border-default my-2"></div>
-
-          <Link 
-            href="/games"
-            className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity text-center"
-          >
-            Back to Games
-          </Link>
-        </div>
-      </Modal>
-
-      {/* Header */}
-      <div className="w-full mb-6">
-        <div className="flex justify-between items-center mb-3 border-b border-border-default pb-3">
-          <Link 
-            href="/games" 
-            className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors flex items-center gap-1"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            All Games
-          </Link>
-          
-          <h1 className="text-3xl font-bold text-foreground tracking-tight">Mini Crossword</h1>
-          
-          <div className="text-lg font-mono font-bold text-foreground flex items-center gap-2">
-            {isPaused && (
-              <span className="text-sm text-yellow-500 animate-pulse">⏸</span>
-            )}
-            {formatTime(solveTime)}
-          </div>
+      {/* Timer Display */}
+      <div className="w-full mb-4 text-center">
+        <div className="text-lg font-mono font-bold text-foreground flex items-center justify-center gap-2">
+          {isPaused && (
+            <span className="text-sm text-yellow-500 animate-pulse">⏸</span>
+          )}
+          {formatTime(solveTime)}
         </div>
       </div>
 
@@ -462,6 +474,90 @@ export default function CrosswordGame() {
           />
         </div>
       </div>
+      </div>
+
+      {/* Result Modal */}
+      <Modal isOpen={showResultModal} title="Puzzle Complete!">
+        <div className="flex flex-col items-center gap-4">
+          <div className="text-center">
+            <p className="text-4xl font-bold text-wordle-correct mb-2">
+              {formatTime(solveTime)}
+            </p>
+            <p className="text-lg text-text-muted">
+              Great job!
+            </p>
+          </div>
+
+          {/* Share Results */}
+          <ShareResults
+            gameName="crossword"
+            result={{
+              time: solveTime,
+              win: true
+            }}
+            puzzleNumber={`#${puzzle.date}`}
+          />
+
+          {/* Daily Reminder */}
+          <DailyReminder gameName="crossword" />
+
+          <div className="w-full h-px bg-border-default my-2"></div>
+
+          <button
+            onClick={() => setShowResultModal(false)}
+            className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity text-center"
+          >
+            Close
+          </button>
+        </div>
+      </Modal>
+      
+      {/* How to Play Modal */}
+      {showHowToPlay && (
+        <Modal isOpen={showHowToPlay}>
+          <div className="space-y-4">
+            <h2 className="text-2xl font-bold text-foreground text-center">How to Play</h2>
+            <div className="space-y-3 text-foreground">
+              <p>• Click on a cell to select it</p>
+              <p>• Type letters to fill in answers</p>
+              <p>• Use Tab to switch between Across and Down</p>
+              <p>• Use arrow keys to navigate the grid</p>
+              <p>• Puzzle is complete when all cells are correctly filled</p>
+            </div>
+            <button
+              onClick={() => setShowHowToPlay(false)}
+              className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity"
+            >
+              Got it!
+            </button>
+          </div>
+        </Modal>
+      )}
+      
+      {/* Stats Modal */}
+      {stats && (
+        <StatisticsModal
+          isOpen={showStats}
+          onClose={() => setShowStats(false)}
+          gameName="crossword"
+          stats={stats}
+        />
+      )}
+
+      {/* Achievement Notifications */}
+      {newAchievements.length > 0 && currentAchievementIndex < newAchievements.length && (
+        <AchievementNotification
+          achievementId={newAchievements[currentAchievementIndex].id}
+          onClose={() => {
+            if (currentAchievementIndex < newAchievements.length - 1) {
+              setCurrentAchievementIndex(currentAchievementIndex + 1);
+            } else {
+              setNewAchievements([]);
+              setCurrentAchievementIndex(0);
+            }
+          }}
+        />
+      )}
     </div>
   );
 }
