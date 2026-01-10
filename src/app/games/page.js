@@ -1,54 +1,80 @@
-// src/app/games/page.js
-import SiteHeader from '@/components/SiteHeader';
-import GameCard from '@/components/GameCard';
+import Link from 'next/link';
 
-const GAMES = [
-  {
-    id: 'wordle',
-    title: 'Wordle',
-    description: 'Get 6 chances to guess a 5-letter word.',
-    color: '#538d4e', // Green
-    link: '/games/wordle',
-    icon: (
-        <svg  width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" opacity="0.4"/>
-            <path d="M7 7h2v2H7V7zm4 0h2v2h-2V7zm4 0h2v2h-2V7z"/> 
-        </svg>
-    )
-  },
-  // Future games will be added here
-  {
-    id: 'connections',
-    title: 'Connections',
-    description: 'Group words that share a common thread. (Coming Soon)',
-    color: '#b59f3b', // Yellow
-    link: '#', // Disabled for now
-    icon: (
-        <svg width="60" height="60" viewBox="0 0 24 24" fill="currentColor">
-             <rect x="4" y="4" width="7" height="7" rx="1" />
-             <rect x="13" y="4" width="7" height="7" rx="1" />
-             <rect x="4" y="13" width="7" height="7" rx="1" />
-             <rect x="13" y="13" width="7" height="7" rx="1" />
-        </svg>
-    )
-  }
-];
+export default function GamesPage() {
+  const games = [
+    {
+      id: 'wordle',
+      name: 'Wordle',
+      description: 'Guess the word in 6 tries',
+      icon: '📝',
+      href: '/games/wordle'
+    },
+    {
+      id: 'connections',
+      name: 'Connections',
+      description: 'Group words that share a connection',
+      icon: '🔗',
+      href: '/games/connections'
+    },
+    {
+      id: 'crossword',
+      name: 'Mini Crossword',
+      description: 'Solve the daily 5×5 crossword puzzle',
+      icon: '🔤',
+      href: '/games/crossword'
+    }
+  ];
 
-export default function GamesHub() {
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
-      <SiteHeader />
-      
-      <main className="flex-grow p-8 max-w-6xl mx-auto w-full">
-        <h1 className="text-4xl font-bold mb-2">All Games</h1>
-        <p className="text-slate-400 mb-8">Choose a game to start playing.</p>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {GAMES.map(game => (
-                <GameCard key={game.id} {...game} />
-            ))}
+    <div className="min-h-screen flex flex-col items-center p-8 animate-fade-in-up">
+      <div className="max-w-4xl w-full">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-foreground mb-4">
+            Ammar Times Games
+          </h1>
+          <p className="text-xl text-text-muted">
+            Daily puzzles to challenge your mind
+          </p>
         </div>
-      </main>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {games.map((game) => (
+            <Link
+              key={game.id}
+              href={game.href}
+              className="group bg-card border-2 border-card-border rounded-2xl p-8 hover:bg-surface-hover hover:border-border-active transition-all duration-200 hover:scale-105"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-5xl">{game.icon}</span>
+                <h2 className="text-3xl font-bold text-foreground">
+                  {game.name}
+                </h2>
+              </div>
+              <p className="text-text-muted text-lg">
+                {game.description}
+              </p>
+              <div className="mt-4 text-wordle-correct font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                Play Now
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Link 
+            href="/"
+            className="text-text-muted hover:text-foreground transition-colors inline-flex items-center gap-2"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Home
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
