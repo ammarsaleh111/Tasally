@@ -20,6 +20,7 @@ import Modal from '@/components/Modal';
 import ModeSelection from './ModeSelection';
 import Statistics from '@/components/Statistics';
 import HowToPlay from '@/components/HowToPlay';
+import Link from 'next/link';
 
 // Validation cache to avoid duplicate API calls
 const validationCache = new Map();
@@ -335,15 +336,27 @@ export default function WordleGame() {
       <div className="w-full mb-6">
         {/* Header Row */}
         <div className="flex justify-between items-center mb-3 border-b border-border-default pb-3">
-          <button 
-            onClick={() => setView('MENU')} 
-            className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors flex items-center gap-1"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Menu
-          </button>
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={() => setView('MENU')} 
+              className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors flex items-center gap-1"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              Menu
+            </button>
+
+            <Link 
+              href="/games" 
+              className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors flex items-center gap-1"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+              All Games
+            </Link>
+          </div>
           
           <h1 className="text-3xl font-bold text-foreground tracking-tight">Wordle</h1>
           

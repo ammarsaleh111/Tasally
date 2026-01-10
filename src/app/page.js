@@ -23,6 +23,7 @@ export default function Home() {
                     hover:scale-105 active:scale-95
                     transition-all duration-300 ease-out
                 "
+                style={{backgroundColor: "var(--key-bg)"}}
             >
                 Enter Games Hub
             </a>
