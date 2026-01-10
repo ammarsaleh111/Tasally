@@ -3,26 +3,26 @@
 :root {
   /* --- Light Theme (Clean & Crisp) --- */
   --background: #ffffff;
-  --foreground: #121212;
-  
-  /* UI Elements */
-  --key-bg: #d3d6da;
-  --key-bg-hover: #c4c7cb;
-  --key-text: #000000;
-  
-  --border-default: #d3d6da;
-  --border-active: #878a8c;
+  --foreground: #111827; /* Gray 900 - Soft Black */
 
-  --text-muted: #6e6e6e;
-  --card-bg: #f3f4f6;
-  --card-border: #e5e7eb;
-  --surface-hover: #e5e7eb;
+  /* UI Elements */
+  --key-bg: #e2e8f0; /* Slate 200 */
+  --key-bg-hover: #cbd5e1; /* Slate 300 */
+  --key-text: #0f172a; /* Slate 900 */
+
+  --border-default: #e2e8f0; /* Slate 200 */
+  --border-active: #94a3b8; /* Slate 400 */
+
+  --text-muted: #64748b; /* Slate 500 */
+  --card-bg: #f8fafc; /* Slate 50 */
+  --card-border: #e2e8f0; /* Slate 200 */
+  --surface-hover: #f1f5f9; /* Slate 100 */
 
   /* Game Colors - Light */
   --wordle-correct: #6aaa64;
   --wordle-present: #c9b458;
   --wordle-absent: #787c7e;
-  --wordle-tile-border: #d3d6da;
+  --wordle-tile-border: #cbd5e1; /* Slate 300 */
   --wordle-tile-bg-filled: #ffffff;
 }
 
@@ -32,24 +32,24 @@
   --foreground: #f8fafc; /* Slate 50 */
 
   /* UI Elements - Dark */
-  --key-bg: #1e293b;       /* Slate 800 */
+  --key-bg: #1e293b; /* Slate 800 */
   --key-bg-hover: #334155; /* Slate 700 */
   --key-text: #f8fafc;
 
-  --border-default: #334155; /* Slate 700 */
-  --border-active: #475569;  /* Slate 600 */
+  --border-default: #1e293b; /* Slate 800 - Blend in */
+  --border-active: #64748b; /* Slate 500 - Pop out */
 
-  --text-muted: #94a3b8;     /* Slate 400 */
-  --card-bg: #1e293b;        /* Slate 800 */
-  --card-border: #334155;    /* Slate 700 */
-  --surface-hover: #1e293b;  /* Slate 800 */
+  --text-muted: #94a3b8; /* Slate 400 */
+  --card-bg: #1e293b; /* Slate 800 */
+  --card-border: #334155; /* Slate 700 */
+  --surface-hover: #334155; /* Slate 700 */
 
   /* Game Colors - Dark */
   --wordle-correct: #538d4e;
   --wordle-present: #b59f3b;
-  --wordle-absent: #334155;      /* Slate 700 */
-  --wordle-tile-border: #475569; /* Slate 600 */
-  --wordle-tile-bg-filled: #1e293b; /* Slate 800 */
+  --wordle-absent: #3f3f46; /* Zinc 700 - Distinct Neutral */
+  --wordle-tile-border: #334155; /* Slate 700 */
+  --wordle-tile-bg-filled: #0f172a; /* Transparent/Matches BG */
 }
 
 @theme inline {
@@ -60,7 +60,7 @@
   --color-key: var(--key-bg);
   --color-key-hover: var(--key-bg-hover);
   --color-key-fg: var(--key-text);
-  
+
   --color-border-default: var(--border-default);
   --color-border-active: var(--border-active);
 
@@ -76,15 +76,15 @@
   --color-wordle-border: var(--wordle-tile-border);
   --color-wordle-filled: var(--wordle-tile-bg-filled);
 
-  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
-  --animate-pop: pop 0.1s ease-in-out;
-  --animate-pulse-short: pulse-short 0.2s ease-in-out;
+  --animate-fade-in-up: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-pop: pop 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --animate-shake: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 
   /* Animations */
   @keyframes fade-in-up {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(10px);
     }
     to {
       opacity: 1;
@@ -94,7 +94,7 @@
 
   @keyframes pop {
     0% {
-      transform: scale(1);
+      transform: scale(0.9);
     }
     50% {
       transform: scale(1.1);
@@ -104,18 +104,33 @@
     }
   }
 
-  @keyframes pulse-short {
-    0% {
-      transform: scale(1);
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+
+  @keyframes pulse–subtle {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
-      transform: scale(1.05);
       opacity: 0.8;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
     }
   }
 

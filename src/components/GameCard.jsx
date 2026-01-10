@@ -7,12 +7,12 @@ export default function GameCard({ title, description, color, link, icon }) {
       <div 
         className="
             relative overflow-hidden rounded-xl border border-card-border bg-card
-            p-6 h-full transition-all duration-300
-            hover:border-border-active hover:shadow-xl hover:-translate-y-1
+            p-6 h-full transition-all duration-300 ease-out
+            hover:border-border-active hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]
         "
       >
         <div 
-            className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity transform group-hover:scale-110 duration-500"
+            className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-40 transition-opacity transform group-hover:scale-110 duration-500 ease-out"
             style={{ color: color }}
         >
             {/* Simple icon placeholder based on prop or default */}
