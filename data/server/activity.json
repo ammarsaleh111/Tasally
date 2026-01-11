@@ -1,10 +1,143 @@
 {
   "sessions": [
     {
+      "userId": "user_1768136237540_y6428w62o",
+      "name": "dsaf",
+      "lastSeen": "2026-01-11T13:07:44.171Z",
+      "currentPage": "admin",
+      "currentGame": "connections",
+      "activities": [
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T12:57:17.540Z",
+          "page": "/games"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T12:57:18.663Z",
+          "page": "games"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:57:25.387Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "game_end",
+          "timestamp": "2026-01-11T12:57:38.522Z",
+          "page": "game:wordle",
+          "game": "wordle",
+          "win": false
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:57:48.664Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:57:51.940Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:57:53.962Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:57:56.708Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:57:59.097Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:58:03.150Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:58:18.666Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "game_end",
+          "timestamp": "2026-01-11T12:58:37.402Z",
+          "page": "game:wordle",
+          "game": "wordle",
+          "win": true
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:58:47.811Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:58:48.664Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T12:58:59.421Z",
+          "page": "games"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T13:06:18.675Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T13:06:48.676Z",
+          "page": "games"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T13:06:50.152Z",
+          "page": "/games"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T13:06:52.307Z",
+          "page": "game:connections",
+          "game": "connections"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T13:07:18.677Z",
+          "page": "game:connections"
+        },
+        {
+          "type": "game_end",
+          "timestamp": "2026-01-11T13:07:33.999Z",
+          "page": "game:connections",
+          "game": "connections",
+          "win": true
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T13:07:44.171Z",
+          "page": "admin"
+        }
+      ]
+    },
+    {
       "userId": "user_1768135126598_ctzr49ugc",
       "name": "asd",
-      "lastSeen": "2026-01-11T12:59:32.156Z",
-      "currentPage": "game:wordle",
+      "lastSeen": "2026-01-11T13:06:08.101Z",
+      "currentPage": "games",
       "currentGame": "wordle",
       "activities": [
         {
@@ -130,100 +263,20 @@
           "type": "activity_update",
           "timestamp": "2026-01-11T12:59:32.156Z",
           "page": "game:wordle"
-        }
-      ]
-    },
-    {
-      "userId": "user_1768136237540_y6428w62o",
-      "name": "dsaf",
-      "lastSeen": "2026-01-11T12:58:59.421Z",
-      "currentPage": "games",
-      "currentGame": "wordle",
-      "activities": [
-        {
-          "type": "page_load",
-          "timestamp": "2026-01-11T12:57:17.540Z",
-          "page": "/games"
-        },
-        {
-          "type": "page_load",
-          "timestamp": "2026-01-11T12:57:18.663Z",
-          "page": "games"
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:57:25.387Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "game_end",
-          "timestamp": "2026-01-11T12:57:38.522Z",
-          "page": "game:wordle",
-          "game": "wordle",
-          "win": false
         },
         {
           "type": "activity_update",
-          "timestamp": "2026-01-11T12:57:48.664Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:57:51.940Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:57:53.962Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:57:56.708Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:57:59.097Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:58:03.150Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:58:18.666Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "game_end",
-          "timestamp": "2026-01-11T12:58:37.402Z",
-          "page": "game:wordle",
-          "game": "wordle",
-          "win": true
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:58:47.811Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:58:48.664Z",
+          "timestamp": "2026-01-11T13:00:02.155Z",
           "page": "game:wordle"
         },
         {
           "type": "page_load",
-          "timestamp": "2026-01-11T12:58:59.421Z",
+          "timestamp": "2026-01-11T13:06:07.206Z",
+          "page": "home"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T13:06:08.101Z",
           "page": "games"
         }
       ]

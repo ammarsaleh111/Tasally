@@ -1,8 +1,19 @@
 import { NextResponse } from 'next/server';
 import { getAllPlayers, savePlayers } from '@/lib/serverData';
 
-export async function GET() {
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const nameCheck = searchParams.get('checkName');
+  
   const players = await getAllPlayers();
+  
+  if (nameCheck) {
+    // Case-insensitive check for duplicate name
+    const exists = players.some(p => p.name.toLowerCase() === nameCheck.toLowerCase());
+    // Return available: false if it exists
+    return NextResponse.json({ available: !exists });
+  }
+
   return NextResponse.json({ players });
 }
 

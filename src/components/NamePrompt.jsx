@@ -32,6 +32,16 @@ const NamePrompt = ({ onNameSet, isOpen = true }) => {
     setIsSubmitting(true);
 
     try {
+      // Check if name is taken
+      const checkRes = await fetch(`/api/players?checkName=${encodeURIComponent(trimmedName)}`);
+      const checkData = await checkRes.json();
+      
+      if (!checkData.available) {
+        setError('This name is already taken. Please choose another one.');
+        setIsSubmitting(false);
+        return;
+      }
+
       // Update profile with name
       const profile = getProfile();
       profile.name = trimmedName;
