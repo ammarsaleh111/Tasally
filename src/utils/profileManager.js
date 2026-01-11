@@ -3,6 +3,8 @@
  * Handles player profiles, streaks, stats, and history across all games
  */
 
+import { syncProfile } from '@/utils/backendSync';
+
 const PROFILE_KEY = 'ammarTimes_profile';
 
 // Initialize or get user profile
@@ -22,6 +24,7 @@ export function getProfile() {
   // Create new profile
   const newProfile = {
     userId: generateUserId(),
+    name: null, // Will be set by user on first visit
     createdAt: new Date().toISOString(),
     games: {
       wordle: initGameStats(),
@@ -74,6 +77,21 @@ function ensureGameEntries(profile) {
 export function saveProfile(profile) {
   if (typeof window === 'undefined') return;
   localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+  syncProfile(profile);
+}
+
+// Check if player has set their name
+export function hasSetName() {
+  if (typeof window === 'undefined') return false;
+  const profile = getProfile();
+  return profile && profile.name && profile.name.trim().length > 0;
+}
+
+// Get player name
+export function getPlayerName() {
+  if (typeof window === 'undefined') return null;
+  const profile = getProfile();
+  return profile ? profile.name : null;
 }
 
 // Initialize game-specific stats

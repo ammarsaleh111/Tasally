@@ -30,6 +30,7 @@ import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
 import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
+import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 
 export default function CrosswordGame() {
   const [puzzle] = useState(() => getTodaysPuzzle());
@@ -55,10 +56,11 @@ export default function CrosswordGame() {
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
   
-  // Load stats on mount
+  // Load stats on mount and track game start
   useEffect(() => {
     const gameStats = getGameStats('crossword');
     setStats(gameStats);
+    trackGameStart('crossword');
   }, []);
 
   // Save state whenever it changes
@@ -128,6 +130,7 @@ export default function CrosswordGame() {
         };
         
         const achievements = recordGameResult('crossword', result);
+        trackGameEnd('crossword', result);
         const updatedStats = getGameStats('crossword');
         setStats(updatedStats);
         

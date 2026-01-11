@@ -1,0 +1,15 @@
+{
+  "account": {
+    "username": "admin",
+    "passwordHash": "6cb5f2e125751e98af28307c393fc61e71489af6f41123f7a2e896b070ad140b63636858153d8eed03e0422353bf04bd6c8ce9501f3a76c5f582d743b9ea403f",
+    "salt": "6a90f50ae2f7bae246ec129fd8605420",
+    "createdAt": "2026-01-11T01:58:53.328Z"
+  },
+  "sessions": [
+    {
+      "token": "e2b042ccec6b41bee08edbbaf6cdf03ce4ffcdb7fec1f8d237b2591121528f387643e8ce6bf3f7a4eff9519887dd17c6",
+      "createdAt": "2026-01-11T02:03:17.651Z",
+      "expiresAt": "2026-01-11T08:03:17.651Z"
+    }
+  ]
+}

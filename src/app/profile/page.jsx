@@ -7,7 +7,8 @@ import {
   getAllStats, 
   getUnlockedAchievements,
   getAchievementCount,
-  updateSettings 
+  updateSettings,
+  saveProfile
 } from '@/utils/profileManager';
 import { ACHIEVEMENTS } from '@/utils/achievementsEngine';
 import { requestNotificationPermission, initNotifications } from '@/utils/notificationManager';
@@ -77,7 +78,9 @@ export default function ProfilePage() {
         <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white mb-8 shadow-xl">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-4xl font-bold mb-2">Your Profile</h1>
+              <h1 className="text-4xl font-bold mb-2">
+                {profile.name ? `${profile.name}'s Profile` : 'Your Profile'}
+              </h1>
               <p className="text-blue-100">
                 Member since {new Date(profile.createdAt).toLocaleDateString()}
               </p>
@@ -357,12 +360,125 @@ const FilterButton = ({ label, active, onClick }) => (
 );
 
 // Settings Tab
-const SettingsTab = ({ settings, onReminderToggle }) => (
-  <div className="space-y-6">
-    <h2 className="text-2xl font-bold text-foreground mb-4">Settings</h2>
+const SettingsTab = ({ settings, onReminderToggle }) => {
+  const [profile, setProfile] = useState(null);
+  const [editingName, setEditingName] = useState(false);
+  const [newName, setNewName] = useState('');
+  const [nameError, setNameError] = useState('');
+
+  useEffect(() => {
+    const userProfile = getProfile();
+    setProfile(userProfile);
+    setNewName(userProfile.name || '');
+  }, []);
+
+  const handleSaveName = () => {
+    const trimmedName = newName.trim();
     
-    <div className="bg-white rounded-xl p-6 shadow-md border-2 border-gray-100">
-      <h3 className="text-lg font-bold text-foreground mb-4">Notifications</h3>
+    if (!trimmedName) {
+      setNameError('Name cannot be empty');
+      return;
+    }
+    
+    if (trimmedName.length > 50) {
+      setNameError('Name must be 50 characters or less');
+      return;
+    }
+
+    if (!/^[a-zA-Z0-9\s\-']+$/.test(trimmedName)) {
+      setNameError('Name can only contain letters, numbers, spaces, hyphens, and apostrophes');
+      return;
+    }
+
+    // Save name
+    const updatedProfile = getProfile();
+    updatedProfile.name = trimmedName;
+    saveProfile(updatedProfile);
+    setProfile(updatedProfile);
+    setEditingName(false);
+    setNameError('');
+    
+    // Reload page to update name everywhere
+    window.location.reload();
+  };
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-foreground mb-4">Settings</h2>
+      
+      {/* Player Name Section */}
+      <div className="bg-white rounded-xl p-6 shadow-md border-2 border-gray-100">
+        <h3 className="text-lg font-bold text-foreground mb-4">Player Identity</h3>
+        
+        <div className="p-4 bg-gray-50 rounded-lg">
+          <div className="flex items-center justify-between mb-2">
+            <div className="font-bold text-foreground">Display Name</div>
+            {!editingName && (
+              <button
+                onClick={() => setEditingName(true)}
+                className="text-sm text-blue-500 hover:text-blue-700"
+              >
+                ✏️ Edit
+              </button>
+            )}
+          </div>
+          
+          {editingName ? (
+            <div className="space-y-3">
+              <input
+                type="text"
+                value={newName}
+                onChange={(e) => {
+                  setNewName(e.target.value);
+                  setNameError('');
+                }}
+                placeholder="Enter your name"
+                maxLength={50}
+                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              />
+              <div className="text-sm text-gray-500">
+                {newName.length}/50 characters
+              </div>
+              {nameError && (
+                <div className="p-2 bg-red-100 text-red-800 rounded text-sm">
+                  {nameError}
+                </div>
+              )}
+              <div className="flex gap-2">
+                <button
+                  onClick={handleSaveName}
+                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => {
+                    setEditingName(false);
+                    setNewName(profile?.name || '');
+                    setNameError('');
+                  }}
+                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="text-2xl font-bold text-blue-600">
+              {profile?.name || 'Anonymous'}
+            </div>
+          )}
+        </div>
+        
+        <div className="mt-4 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg">
+          <p className="text-sm text-purple-800">
+            👤 <strong>Your name</strong> is displayed in your profile and visible to others in the admin dashboard.
+          </p>
+        </div>
+      </div>
+    
+      <div className="bg-white rounded-xl p-6 shadow-md border-2 border-gray-100">
+        <h3 className="text-lg font-bold text-foreground mb-4">Notifications</h3>
       
       <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
         <div>
@@ -403,7 +519,6 @@ const SettingsTab = ({ settings, onReminderToggle }) => (
     </div>
   </div>
 );
-
 // Helper function
 function formatTime(seconds) {
   if (seconds < 60) {
@@ -412,4 +527,5 @@ function formatTime(seconds) {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
   return `${mins}:${String(secs).padStart(2, '0')}`;
+}
 }

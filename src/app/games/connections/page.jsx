@@ -26,6 +26,7 @@ import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
 import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
+import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 
 export default function ConnectionsGame() {
   const [puzzle, setPuzzle] = useState(() => getTodaysPuzzle());
@@ -48,10 +49,11 @@ export default function ConnectionsGame() {
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
   
-  // Load stats on mount
+  // Load stats on mount and track game start
   useEffect(() => {
     const gameStats = getGameStats('connections');
     setStats(gameStats);
+    trackGameStart('connections');
   }, []);
 
   // Save state whenever it changes
@@ -76,6 +78,7 @@ export default function ConnectionsGame() {
       };
       
       const achievements = recordGameResult('connections', result);
+      trackGameEnd('connections', result);
       const updatedStats = getGameStats('connections');
       setStats(updatedStats);
       

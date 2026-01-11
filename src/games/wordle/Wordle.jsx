@@ -25,6 +25,7 @@ import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
 import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
+import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 
 // Validation cache to avoid duplicate API calls
 const validationCache = new Map();
@@ -80,6 +81,9 @@ export default function WordleGame() {
     // Record result and check for achievements
     const achievements = recordGameResult('wordle', result);
     
+    // Track game end in session
+    trackGameEnd('wordle', result);
+    
     // Update local stats display
     const updatedStats = getGameStats('wordle');
     setStats(updatedStats);
@@ -97,6 +101,9 @@ export default function WordleGame() {
     setMode(targetMode);
     setWordLength(targetLength);
     setView('GAME');
+    
+    // Track game start
+    trackGameStart('wordle');
 
     const savedState = loadGameState(targetMode, targetLength);
     

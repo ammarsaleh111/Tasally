@@ -3,6 +3,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ThemeBanner from "@/components/ThemeBanner";
 import NotificationInitializer from "@/components/NotificationInitializer";
+import IdentityProvider from "@/components/IdentityProvider";
+import SessionInitializer from "@/components/SessionInitializer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,12 +27,16 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground transition-colors duration-300`}
       >
-        <ThemeProvider>
-          <NotificationInitializer>
-            <ThemeBanner />
-            {children}
-          </NotificationInitializer>
-        </ThemeProvider>
+        <SessionInitializer>
+          <IdentityProvider>
+            <ThemeProvider>
+              <NotificationInitializer>
+                <ThemeBanner />
+                {children}
+              </NotificationInitializer>
+            </ThemeProvider>
+          </IdentityProvider>
+        </SessionInitializer>
       </body>
     </html>
   );

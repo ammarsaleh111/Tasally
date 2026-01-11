@@ -1,0 +1,283 @@
+{
+  "sessions": [
+    {
+      "userId": "user_1768077260465_pkzv2xkcf",
+      "name": "ammar",
+      "lastSeen": "2026-01-11T02:05:58.691Z",
+      "currentPage": "games",
+      "currentGame": null,
+      "activities": [
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:52:29.352Z",
+          "page": "home"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:52:34.301Z",
+          "page": "games"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:52:39.082Z",
+          "page": "admin"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:52:42.827Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:53:13.691Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:53:43.691Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:54:13.690Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:54:43.690Z",
+          "page": "admin"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:54:49.535Z",
+          "page": "admin"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:55:03.810Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:55:34.690Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:56:04.690Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:56:34.690Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:57:04.690Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:57:34.690Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:58:04.690Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:58:50.591Z",
+          "page": "admin"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T02:01:11.084Z",
+          "page": "home"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T02:01:15.454Z",
+          "page": "admin"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T02:01:56.321Z",
+          "page": "admin"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T02:02:17.173Z",
+          "page": "home"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T02:02:20.568Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T02:02:50.570Z",
+          "page": "admin"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T02:03:20.570Z",
+          "page": "admin"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T02:03:33.002Z",
+          "page": "admin"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T02:03:48.719Z",
+          "page": "admin"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T02:03:57.919Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T02:04:28.690Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T02:04:58.690Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T02:05:28.689Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T02:05:58.691Z",
+          "page": "games"
+        }
+      ]
+    },
+    {
+      "userId": "user_1768095902889_cri6fqd42",
+      "name": "se5",
+      "lastSeen": "2026-01-11T01:58:46.542Z",
+      "currentPage": "games",
+      "currentGame": null,
+      "activities": [
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:54:40.246Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:55:10.691Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:55:40.689Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:56:10.690Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:56:40.690Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:57:10.689Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:57:40.690Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:58:46.542Z",
+          "page": "games"
+        }
+      ]
+    },
+    {
+      "userId": "user_1768096398867_zg9y2t0g7",
+      "name": "we are here",
+      "lastSeen": "2026-01-11T01:54:38.579Z",
+      "currentPage": "profile",
+      "currentGame": "wordle",
+      "activities": [
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:53:18.868Z",
+          "page": "home"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:53:24.700Z",
+          "page": "games"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T01:53:39.445Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:53:54.701Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:54:08.577Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T01:54:10.250Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T01:54:16.571Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T01:54:38.579Z",
+          "page": "profile"
+        }
+      ]
+    },
+    {
+      "userId": "user_1768095817358_2zg5yqk30",
+      "name": "we aer",
+      "lastSeen": "2026-01-11T01:53:01.291Z",
+      "currentPage": "home",
+      "currentGame": null,
+      "activities": [
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T01:53:01.291Z",
+          "page": "home"
+        }
+      ]
+    }
+  ]
+}
