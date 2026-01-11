@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { getProfile, saveProfile } from '@/utils/profileManager';
+import { sanitizeName } from '@/utils/inputSanitizer';
 
 const NamePrompt = ({ onNameSet, isOpen = true }) => {
   const [name, setName] = useState('');
@@ -12,19 +13,26 @@ const NamePrompt = ({ onNameSet, isOpen = true }) => {
     e.preventDefault();
     setError('');
 
-    // Validate name
-    const trimmedName = name.trim();
-    if (!trimmedName) {
+    // Sanitize and validate name
+    const sanitizedName = sanitizeName(name);
+    
+    if (!sanitizedName) {
+      setError('Please enter a valid name');
+      return;
+    }
+
+    if (sanitizedName.length < 1) {
       setError('Please enter your name');
       return;
     }
 
-    if (trimmedName.length > 50) {
+    if (sanitizedName.length > 50) {
       setError('Name must be 50 characters or less');
       return;
     }
 
-    if (!/^[a-zA-Z0-9\s\-']+$/.test(trimmedName)) {
+    // Additional validation - only allow safe characters
+    if (!/^[a-zA-Z0-9\s\-']+$/.test(sanitizedName)) {
       setError('Name can only contain letters, numbers, spaces, hyphens, and apostrophes');
       return;
     }
@@ -32,8 +40,16 @@ const NamePrompt = ({ onNameSet, isOpen = true }) => {
     setIsSubmitting(true);
 
     try {
-      // Check if name is taken
-      const checkRes = await fetch(`/api/players?checkName=${encodeURIComponent(trimmedName)}`);
+      // Check if name is taken (with sanitized input)
+      const encodedName = encodeURIComponent(sanitizedName);
+      const checkRes = await fetch(`/api/players?checkName=${encodedName}`);
+      
+      if (!checkRes.ok) {
+        setError('Failed to validate name. Please try again.');
+        setIsSubmitting(false);
+        return;
+      }
+
       const checkData = await checkRes.json();
       
       if (!checkData.available) {
@@ -42,14 +58,14 @@ const NamePrompt = ({ onNameSet, isOpen = true }) => {
         return;
       }
 
-      // Update profile with name
+      // Update profile with sanitized name
       const profile = getProfile();
-      profile.name = trimmedName;
+      profile.name = sanitizedName;
       saveProfile(profile);
 
       // Call callback
       if (onNameSet) {
-        onNameSet(trimmedName);
+        onNameSet(sanitizedName);
       }
     } catch (err) {
       setError('Failed to save name. Please try again.');
@@ -62,6 +78,21 @@ const NamePrompt = ({ onNameSet, isOpen = true }) => {
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !isSubmitting) {
       handleSubmit(e);
+    }
+  };
+
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    
+    // Allow typing but sanitize for display
+    setName(value);
+    setError('');
+    
+    // Real-time validation feedback
+    if (value.length > 50) {
+      setError('Name is too long');
+    } else if (value && !/^[a-zA-Z0-9\s\-']+$/.test(value)) {
+      setError('Only letters, numbers, spaces, hyphens, and apostrophes allowed');
     }
   };
 
@@ -80,14 +111,12 @@ const NamePrompt = ({ onNameSet, isOpen = true }) => {
             <input
               type="text"
               value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-                setError('');
-              }}
+              onChange={handleNameChange}
               onKeyPress={handleKeyPress}
               placeholder="Enter your name"
               disabled={isSubmitting}
               maxLength={50}
+              autoComplete="off"
               autoFocus
               className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 dark:bg-gray-800 dark:text-white transition-colors"
             />

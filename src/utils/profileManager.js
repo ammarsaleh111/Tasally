@@ -4,6 +4,8 @@
  */
 
 import { syncProfile } from '@/utils/backendSync';
+import { secureGetItem, secureSetItem } from '@/utils/secureStorage';
+import { sanitizeName, sanitizeString } from '@/utils/inputSanitizer';
 
 const PROFILE_KEY = 'ammarTimes_profile';
 
@@ -11,9 +13,18 @@ const PROFILE_KEY = 'ammarTimes_profile';
 export function getProfile() {
   if (typeof window === 'undefined') return null;
   
-  const stored = localStorage.getItem(PROFILE_KEY);
+  const stored = secureGetItem(PROFILE_KEY);
   if (stored) {
-    const profile = JSON.parse(stored);
+    const profile = stored;
+    
+    // Sanitize critical fields
+    if (profile.name) {
+      profile.name = sanitizeName(profile.name);
+    }
+    if (profile.userId) {
+      profile.userId = sanitizeString(profile.userId, 100);
+    }
+    
     const updated = ensureGameEntries(profile);
     if (updated) {
       saveProfile(profile);
@@ -73,10 +84,16 @@ function ensureGameEntries(profile) {
   return updated;
 }
 
-// Save profile to localStorage
+// Save profile to localStorage (with sanitization)
 export function saveProfile(profile) {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+  
+  // Sanitize name before saving
+  if (profile.name) {
+    profile.name = sanitizeName(profile.name);
+  }
+  
+  secureSetItem(PROFILE_KEY, profile);
   syncProfile(profile);
 }
 
@@ -87,11 +104,11 @@ export function hasSetName() {
   return profile && profile.name && profile.name.trim().length > 0;
 }
 
-// Get player name
+// Get player name (sanitized)
 export function getPlayerName() {
   if (typeof window === 'undefined') return null;
   const profile = getProfile();
-  return profile ? profile.name : null;
+  return profile && profile.name ? sanitizeName(profile.name) : null;
 }
 
 // Initialize game-specific stats

@@ -6,7 +6,12 @@ import {
   createAdminSession,
   validateAdminSession,
   invalidateAdminSession,
+  isIpBlocked,
+  recordFailedAttempt,
+  clearLoginAttempts,
+  getRemainingLockout,
 } from '@/lib/adminAuth';
+import { sanitizeString } from '@/utils/inputSanitizer';
 
 const COOKIE_NAME = 'admin_session';
 const COOKIE_OPTIONS = {
@@ -16,26 +21,72 @@ const COOKIE_OPTIONS = {
   path: '/admin',
 };
 
-export async function GET() {
+function getClientIp(request) {
+  const forwarded = request.headers.get('x-forwarded-for');
+  const ip = forwarded ? forwarded.split(',')[0].trim() : 
+             request.headers.get('x-real-ip') || 'unknown';
+  return ip;
+}
+
+export async function GET(request) {
   const token = cookies().get(COOKIE_NAME)?.value;
   const authenticated = await validateAdminSession(token);
   return NextResponse.json({ authenticated });
 }
 
 export async function POST(request) {
-  const body = await request.json().catch(() => ({}));
-  const { username, password } = body;
+  const clientIp = getClientIp(request);
+
+  // Check if IP is blocked
+  if (isIpBlocked(clientIp)) {
+    const remainingSeconds = getRemainingLockout(clientIp);
+    return NextResponse.json(
+      { 
+        error: 'Too many failed attempts. Please try again later.',
+        remainingSeconds,
+      }, 
+      { status: 429 }
+    );
+  }
+
+  let body;
+  try {
+    body = await request.json();
+  } catch (error) {
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
+  }
+
+  const { username, password } = body || {};
 
   await ensureAdminAccount();
 
+  // Validate input
   if (!username || !password) {
+    recordFailedAttempt(clientIp);
     return NextResponse.json({ error: 'Missing credentials' }, { status: 400 });
   }
 
-  const isValid = await verifyAdminCredentials(username, password);
+  // Sanitize inputs
+  const cleanUsername = sanitizeString(username, 100);
+  const cleanPassword = sanitizeString(password, 100);
+
+  if (!cleanUsername || !cleanPassword) {
+    recordFailedAttempt(clientIp);
+    return NextResponse.json({ error: 'Invalid credentials' }, { status: 400 });
+  }
+
+  // Verify credentials
+  const isValid = await verifyAdminCredentials(cleanUsername, cleanPassword);
+  
   if (!isValid) {
+    recordFailedAttempt(clientIp);
+    
+    // Generic error message to prevent enumeration
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
   }
+
+  // Success - clear failed attempts
+  clearLoginAttempts(clientIp);
 
   const sessionToken = await createAdminSession();
   const response = NextResponse.json({ success: true });
@@ -43,20 +94,20 @@ export async function POST(request) {
     ...COOKIE_OPTIONS,
     maxAge: 60 * 60 * 6,
   });
+  
   return response;
 }
 
 export async function DELETE() {
   const cookieStore = cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
+  
   if (token) {
     await invalidateAdminSession(token);
   }
 
   const response = NextResponse.json({ success: true });
-  response.cookies.set(COOKIE_NAME, '', {
-    ...COOKIE_OPTIONS,
-    maxAge: 0,
-  });
+  response.cookies.delete(COOKIE_NAME);
+  
   return response;
 }

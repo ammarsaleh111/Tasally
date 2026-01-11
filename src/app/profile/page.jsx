@@ -15,6 +15,13 @@ import { requestNotificationPermission, initNotifications } from '@/utils/notifi
 import AchievementBadge from '@/components/AchievementBadge';
 import SiteHeader from '@/components/SiteHeader';
 
+// Helper function to format time (seconds to MM:SS)
+const formatTime = (seconds) => {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+};
+
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState(null);
