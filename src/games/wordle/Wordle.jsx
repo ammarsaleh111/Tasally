@@ -19,13 +19,15 @@ import Toast from '@/components/Toast';
 import Modal from '@/components/Modal';
 import ModeSelection from './ModeSelection';
 import StatisticsModal from '@/components/StatisticsModal';
-import HowToPlay from '@/components/HowToPlay';
+import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
+import LearningLogModal from '@/components/LearningLogModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
 import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
+import { addWordToLog } from '@/utils/learningLogEngine';
 
 
 export default function WordleGame() {
@@ -45,6 +47,7 @@ export default function WordleGame() {
   const [showResultModal, setShowResultModal] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showHowTo, setShowHowTo] = useState(false);
+  const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
@@ -107,8 +110,12 @@ export default function WordleGame() {
     // Track game end in session
     trackGameEnd('wordle', result);
     
+    // Add solution word to Learning Log
+    addWordToLog(solution, 'wordle');
+    
     // Update local stats display
     const updatedStats = getGameStats('wordle');
+    setStats(updatedStats);
     setStats(updatedStats);
     
     // Show achievements
@@ -484,6 +491,14 @@ export default function WordleGame() {
                 <line x1="6" y1="20" x2="6" y2="14"></line>
               </svg>
             </button>
+            <button 
+              onClick={() => setShowLearningLog(true)} 
+              className={`p-2 hover:bg-surface-hover rounded-md transition-colors ${gameStatus === 'playing' ? 'opacity-50 cursor-not-allowed' : ''}`}
+              title="Learning Log"
+              disabled={gameStatus === 'playing'}
+            >
+              <span className="text-lg">📘</span>
+            </button>
           </div>
         </div>
       </div>
@@ -536,9 +551,17 @@ export default function WordleGame() {
       )}
 
       {/* How To Play Modal */}
-      <HowToPlay 
+      <UnifiedHowToPlay 
         isOpen={showHowTo} 
         onClose={() => setShowHowTo(false)} 
+        gameName="wordle"
+      />
+      
+      {/* Learning Log Modal */}
+      <LearningLogModal
+        isOpen={showLearningLog}
+        onClose={() => setShowLearningLog(false)}
+        gameName="wordle"
       />
     </div>
   );

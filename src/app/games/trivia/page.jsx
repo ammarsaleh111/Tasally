@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import GameHeader from '@/components/GameHeader';
 import Modal from '@/components/Modal';
-import HowToPlay from '@/components/HowToPlay';
+import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
+import LearningLogModal from '@/components/LearningLogModal';
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
@@ -39,6 +40,7 @@ export default function TriviaGame() {
   // Modals
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showLearningLog, setShowLearningLog] = useState(false);
   
   // Toast
   const [toast, setToast] = useState(null);
@@ -185,6 +187,8 @@ export default function TriviaGame() {
         title="Trivia"
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onLearningLog={() => setShowLearningLog(true)}
+        gameComplete={gameComplete}
       />
 
       <div className="flex-1 flex flex-col items-center justify-center p-4 pb-32">
@@ -392,26 +396,18 @@ export default function TriviaGame() {
       </div>
 
       {/* Modals */}
-      {showHowToPlay && (
-        <Modal onClose={() => setShowHowToPlay(false)}>
-          <HowToPlay
-            title="How to Play Trivia"
-            rules={[
-              'Answer 10 questions across various categories',
-              'Select the correct answer from the options',
-              'Questions are timed - the faster, the better!',
-              'Build a streak by answering correctly',
-              'Get 70%+ to maintain your daily streak',
-            ]}
-            examples={[
-              {
-                title: 'Categories',
-                content: 'Science • History • Geography • Math\nLiterature • Sports • Nature • Art'
-              }
-            ]}
-          />
-        </Modal>
-      )}
+      <UnifiedHowToPlay 
+        gameName="trivia" 
+        isOpen={showHowToPlay} 
+        onClose={() => setShowHowToPlay(false)} 
+      />
+      
+      {/* Learning Log Modal */}
+      <LearningLogModal
+        isOpen={showLearningLog}
+        onClose={() => setShowLearningLog(false)}
+        gameName="trivia"
+      />
 
       {showStats && stats && (
         <StatisticsModal

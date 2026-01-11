@@ -8,8 +8,11 @@ import Confetti from '@/components/Confetti';
 import ShareResults from '@/components/ShareResults';
 import StatisticsModal from '@/components/StatisticsModal';
 import StrandsGrid from '@/components/StrandsGrid';
+import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
+import LearningLogModal from '@/components/LearningLogModal';
 import { getGameTheme } from '@/utils/themeEngine';
 import { getTodayString, recordGameResult, getGameStats } from '@/utils/profileManager';
+import { addWordsToLog } from '@/utils/learningLogEngine';
 import { STRANDS_2026_01 } from './puzzles/strands-2026-01';
 import { STRANDS_PUZZLES_FEB_2026 } from './puzzles/strands-2026-02';
 
@@ -33,6 +36,7 @@ export default function StrandsPage() {
   const [foundSet, setFoundSet] = useState(new Set());
   const [lockedSet, setLockedSet] = useState(new Set());
   const [spangramFound, setSpangramFound] = useState(false);
+  const [spangramPath, setSpangramPath] = useState(null);
   const [hintsUsed, setHintsUsed] = useState(0);
   const [highlightedSet, setHighlightedSet] = useState(new Set());
   const [startedAt, setStartedAt] = useState(null);
@@ -42,6 +46,7 @@ export default function StrandsPage() {
   const [shouldShake, setShouldShake] = useState(false);
   const [howToPlayModal, setHowToPlayModal] = useState(false);
   const [statsModal, setStatsModal] = useState(false);
+  const [learningLogModal, setLearningLogModal] = useState(false);
   const [validationErrors, setValidationErrors] = useState([]);
 
   const gameTheme = getGameTheme('strands');
@@ -171,7 +176,7 @@ export default function StrandsPage() {
     }
 
     if (result.type === 'word') {
-      setFoundWords((fw) => [...fw, { word: result.word, path }]);
+      setFoundWords((fw) => [...fw, { word: result.word, path: [...path] }]);
       setFoundSet((s) => new Set([...s, result.word]));
       lockPositions(path);
       setToast('Nice!');
@@ -182,6 +187,7 @@ export default function StrandsPage() {
 
     if (result.type === 'spangram') {
       setSpangramFound(true);
+      setSpangramPath([...path]); // Store spangram path for ribbon
       lockPositions(path);
       setToast('Spangram!');
       setTimeout(() => setToast(null), 800);
@@ -224,6 +230,13 @@ export default function StrandsPage() {
       breakdown: { words: foundWords.map(f => f.word), spangram: spangramFound },
     });
     
+    // Add words to Learning Log
+    const allWords = [
+      ...foundWords.map(f => f.word),
+      puzzle.spangram?.toUpperCase(),
+    ].filter(Boolean);
+    addWordsToLog(allWords, 'strands');
+    
     // Set completion state
     setCompletedAt(end);
     setWinModal(true);
@@ -255,6 +268,7 @@ export default function StrandsPage() {
     setFoundSet(new Set());
     setLockedSet(new Set());
     setSpangramFound(false);
+    setSpangramPath(null);
     setHintsUsed(0);
     setHighlightedSet(new Set());
     setStartedAt(Date.now());
@@ -267,7 +281,13 @@ export default function StrandsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <GameHeader title="Strands" onHowToPlay={() => setHowToPlayModal(true)} onStats={() => setStatsModal(true)} />
+      <GameHeader 
+        title="Strands" 
+        onHowToPlay={() => setHowToPlayModal(true)} 
+        onStats={() => setStatsModal(true)} 
+        onLearningLog={() => setLearningLogModal(true)}
+        gameComplete={!!completedAt}
+      />
 
       <div className="max-w-7xl mx-auto px-4 pb-24">
         {validationErrors.length > 0 && (
@@ -338,6 +358,8 @@ export default function StrandsPage() {
                 path={path}
                 lockedSet={lockedSet}
                 highlightedSet={highlightedSet}
+                foundWords={foundWords}
+                spangramPath={spangramPath}
                 isDragging={isDragging}
                 shouldShake={shouldShake}
                 onStart={onStart}
@@ -381,41 +403,12 @@ export default function StrandsPage() {
               <Confetti />
             </Modal>
 
-                        {/* How to Play Modal */}
-      <Modal isOpen={howToPlayModal} title="How to Play Strands" actions={
-        <button
-          onClick={() => setHowToPlayModal(false)}
-          className="w-full py-3 bg-button-primary text-button-text rounded-lg hover:bg-button-primary-hover transition-all font-bold"
-        >
-          Got it!
-        </button>
-      }>
-        <div className="text-left space-y-4 text-sm text-text-muted">
-          <p><strong>Find hidden theme words</strong> by connecting letters in any direction (including diagonally).</p>
-          
-          <div className="space-y-2">
-            <p><strong>Rules:</strong></p>
-            <ul className="list-disc list-inside space-y-1 ml-2">
-              <li>Drag or tap across adjacent letters</li>
-              <li>Words must be at least 4 letters long</li>
-              <li>Each letter can only be used once per word</li>
-              <li>Letters must be adjacent (horizontally, vertically, or diagonally)</li>
-            </ul>
-          </div>
-
-          <div className="space-y-2">
-            <p><strong>Spangram:</strong></p>
-            <p className="ml-2">Find the special word that uses letters from opposite sides of the board and ties the theme together!</p>
-          </div>
-
-          <div className="space-y-2">
-            <p><strong>Hints:</strong></p>
-            <p className="ml-2">After finding 3 theme words, you can unlock hints that highlight helpful letters.</p>
-          </div>
-        </div>
-      </Modal>
-
-      {/* Win Modal */}
+      {/* How to Play Modal - Unified */}
+      <UnifiedHowToPlay
+        isOpen={howToPlayModal}
+        onClose={() => setHowToPlayModal(false)}
+        gameName="strands"
+      />
 
       {/* Statistics Modal */}
       <StatisticsModal
@@ -423,6 +416,12 @@ export default function StrandsPage() {
         onClose={() => setStatsModal(false)}
         gameName="strands"
         stats={gameStats}
+      />
+
+      {/* Learning Log Modal */}
+      <LearningLogModal
+        isOpen={learningLogModal}
+        onClose={() => setLearningLogModal(false)}
       />
 
       {toast && (

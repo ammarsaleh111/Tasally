@@ -228,21 +228,21 @@ export const STRANDS_2026_01 = [
     date: '2026-01-12',
     theme: 'Cold weather gear',
     grid: [
-      ['S','C','A','R','F','T'],
-      ['M','I','T','T','E','N'],
+      ['S','C','A','R','F','S'],
+      ['W','E','A','T','E','R'],
       ['G','L','O','V','E','S'],
       ['J','A','C','K','E','T'],
       ['P','A','R','K','A','B'],
-      ['E','A','R','M','U','F']
+      ['M','I','T','T','E','N']
     ],
     words: [
       'SCARF',
       'GLOVES',
-      'MITTEN',
       'JACKET',
-      'PARKA'
+      'PARKA',
+      'MITTEN'
     ],
-    spangram: 'EARMUFF'
+    spangram: 'SWEATER'
   },
   {
     date: '2026-01-13',

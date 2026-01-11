@@ -19,13 +19,15 @@ import WaffleGrid from '@/components/WaffleGrid';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
 import GameHeader from '@/components/GameHeader';
-import HowToPlay from '@/components/HowToPlay';
+import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
+import LearningLogModal from '@/components/LearningLogModal';
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
+import { addWordsToLog } from '@/utils/learningLogEngine';
 
 export default function WafflePage() {
   const [mode, setMode] = useState('daily'); // 'daily' | 'unlimited'
@@ -42,6 +44,7 @@ export default function WafflePage() {
   const [showResultModal, setShowResultModal] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
@@ -81,6 +84,11 @@ export default function WafflePage() {
         trackGameEnd('waffle', result);
         const updatedStats = getGameStats('waffle');
         setStats(updatedStats);
+        
+        // Add puzzle words to Learning Log
+        if (puzzle.words) {
+          addWordsToLog(puzzle.words, 'waffle');
+        }
         
         if (achievements && achievements.length > 0) {
           setNewAchievements(achievements);
@@ -181,6 +189,7 @@ export default function WafflePage() {
   }, [currentAchievementIndex, newAchievements.length]);
 
   const minMoves = calculateMinimumMoves(puzzle);
+  const gameComplete = gameState.gameStatus !== 'playing';
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -188,6 +197,8 @@ export default function WafflePage() {
         title="Waffle"
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onLearningLog={() => setShowLearningLog(true)}
+        gameComplete={gameComplete}
       />
 
       <main className="flex-1 flex flex-col items-center px-4 py-6">
@@ -322,46 +333,25 @@ export default function WafflePage() {
       )}
 
       {/* How to Play Modal */}
-      {showHowToPlay && (
-        <HowToPlay
-          gameName="Waffle"
-          onClose={() => setShowHowToPlay(false)}
-        >
-          <div className="space-y-4 text-text-muted">
-            <p>Rearrange the letters to form valid words in all rows and columns!</p>
-            
-            <h3 className="font-bold text-foreground">How to Play:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Tap a letter to select it, then tap another letter to swap them</li>
-              <li>Each swap uses one move</li>
-              <li>Form valid 5-letter words in all 3 rows and 3 columns</li>
-              <li>Complete the puzzle before running out of moves</li>
-            </ul>
-
-            <h3 className="font-bold text-foreground">Color Guide:</h3>
-            <ul className="space-y-2">
-              <li className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded bg-wordle-correct"></span>
-                <span>Green: Correct letter in correct position</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded bg-wordle-present"></span>
-                <span>Yellow: Letter belongs in this row/column but wrong spot</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded bg-wordle-absent"></span>
-                <span>Gray: Letter doesn&apos;t belong in this word</span>
-              </li>
-            </ul>
-          </div>
-        </HowToPlay>
-      )}
+      <UnifiedHowToPlay 
+        gameName="waffle" 
+        isOpen={showHowToPlay} 
+        onClose={() => setShowHowToPlay(false)} 
+      />
+      
+      {/* Learning Log Modal */}
+      <LearningLogModal
+        isOpen={showLearningLog}
+        onClose={() => setShowLearningLog(false)}
+        gameName="waffle"
+      />
 
       {/* Statistics Modal */}
       {showStats && stats && (
         <StatisticsModal
-          gameName="Waffle"
+          gameName="waffle"
           stats={stats}
+          isOpen={showStats}
           onClose={() => setShowStats(false)}
         />
       )}

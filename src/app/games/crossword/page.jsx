@@ -25,12 +25,15 @@ import Toast from '@/components/Toast';
 import Confetti from '@/components/Confetti';
 import GameHeader from '@/components/GameHeader';
 import StatisticsModal from '@/components/StatisticsModal';
+import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
+import LearningLogModal from '@/components/LearningLogModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
 import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
+import { addWordsToLog } from '@/utils/learningLogEngine';
 
 export default function CrosswordGame() {
   const [puzzle] = useState(() => getTodaysPuzzle());
@@ -52,6 +55,7 @@ export default function CrosswordGame() {
   const [isPaused, setIsPaused] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
@@ -134,6 +138,14 @@ export default function CrosswordGame() {
         const updatedStats = getGameStats('crossword');
         setStats(updatedStats);
         
+        // Add all crossword words to Learning Log
+        // Extract words from puzzle.solution which contains {across: {1: 'WORD'}, down: {2: 'WORD'}}
+        const crosswordWords = [
+          ...Object.values(puzzle.solution?.across || {}),
+          ...Object.values(puzzle.solution?.down || {})
+        ].filter(Boolean);
+        addWordsToLog(crosswordWords, 'crossword');
+        
         if (achievements && achievements.length > 0) {
           setNewAchievements(achievements);
           setCurrentAchievementIndex(0);
@@ -142,7 +154,6 @@ export default function CrosswordGame() {
         setTimeout(() => setShowResultModal(true), 500);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [puzzle, gameState, gameState.userGrid, gameState.isSolved]);
 
   const showToast = useCallback((message, type = 'default') => {
@@ -427,6 +438,8 @@ export default function CrosswordGame() {
         title="Mini Crossword" 
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onLearningLog={() => setShowLearningLog(true)}
+        gameComplete={gameState.isSolved}
       />
       
       <div className="w-full max-w-5xl mx-auto px-4">
@@ -516,26 +529,18 @@ export default function CrosswordGame() {
       </Modal>
       
       {/* How to Play Modal */}
-      {showHowToPlay && (
-        <Modal isOpen={showHowToPlay}>
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-foreground text-center">How to Play</h2>
-            <div className="space-y-3 text-foreground">
-              <p>• Click on a cell to select it</p>
-              <p>• Type letters to fill in answers</p>
-              <p>• Use Tab to switch between Across and Down</p>
-              <p>• Use arrow keys to navigate the grid</p>
-              <p>• Puzzle is complete when all cells are correctly filled</p>
-            </div>
-            <button
-              onClick={() => setShowHowToPlay(false)}
-              className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity"
-            >
-              Got it!
-            </button>
-          </div>
-        </Modal>
-      )}
+      <UnifiedHowToPlay 
+        gameName="crossword" 
+        isOpen={showHowToPlay} 
+        onClose={() => setShowHowToPlay(false)} 
+      />
+      
+      {/* Learning Log Modal */}
+      <LearningLogModal
+        isOpen={showLearningLog}
+        onClose={() => setShowLearningLog(false)}
+        gameName="crossword"
+      />
       
       {/* Stats Modal */}
       {stats && (

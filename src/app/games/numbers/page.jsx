@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import GameHeader from '@/components/GameHeader';
 import Modal from '@/components/Modal';
-import HowToPlay from '@/components/HowToPlay';
+import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
+import LearningLogModal from '@/components/LearningLogModal';
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
@@ -34,6 +35,7 @@ export default function NumbersGame() {
   // Modals
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showLearningLog, setShowLearningLog] = useState(false);
   
   // Toast
   const [toast, setToast] = useState(null);
@@ -232,12 +234,16 @@ export default function NumbersGame() {
     );
   }
 
+  const gameComplete = gameWon || gameLost;
+
   return (
     <div className="min-h-screen flex flex-col animate-fade-in-up">
       <GameHeader
         title="Numbers"
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onLearningLog={() => setShowLearningLog(true)}
+        gameComplete={gameComplete}
       />
 
       <div className="flex-1 flex flex-col items-center justify-center p-4 pb-32">
@@ -418,26 +424,18 @@ export default function NumbersGame() {
       </div>
 
       {/* Modals */}
-      {showHowToPlay && (
-        <Modal onClose={() => setShowHowToPlay(false)}>
-          <HowToPlay
-            title="How to Play Numbers"
-            rules={[
-              'Use the 6 numbers to reach the target',
-              'You can use +, −, ×, and ÷',
-              'Each number can only be used once',
-              'You don\'t have to use all numbers',
-              'Reach the exact target to win!',
-            ]}
-            examples={[
-              {
-                title: 'Example',
-                content: 'Target: 356\nNumbers: 100, 50, 25, 8, 4, 2\nSolution: (100 - 50) × (8 - 4) + 25 - 2 + 4 = 356'
-              }
-            ]}
-          />
-        </Modal>
-      )}
+      <UnifiedHowToPlay 
+        gameName="numbers" 
+        isOpen={showHowToPlay} 
+        onClose={() => setShowHowToPlay(false)} 
+      />
+      
+      {/* Learning Log Modal */}
+      <LearningLogModal
+        isOpen={showLearningLog}
+        onClose={() => setShowLearningLog(false)}
+        gameName="numbers"
+      />
 
       {showStats && stats && (
         <StatisticsModal

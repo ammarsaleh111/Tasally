@@ -19,13 +19,15 @@ import FragmentSelector from '@/components/FragmentSelector';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
 import GameHeader from '@/components/GameHeader';
-import HowToPlay from '@/components/HowToPlay';
+import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
+import LearningLogModal from '@/components/LearningLogModal';
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
+import { addWordsToLog } from '@/utils/learningLogEngine';
 
 export default function CombinationsPage() {
   const [mode, setMode] = useState('daily'); // 'daily' | 'unlimited'
@@ -42,6 +44,7 @@ export default function CombinationsPage() {
   const [showResultModal, setShowResultModal] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
@@ -78,6 +81,12 @@ export default function CombinationsPage() {
       trackGameEnd('combinations', result);
       const updatedStats = getGameStats('combinations');
       setStats(updatedStats);
+      
+      // Add all found words to Learning Log
+      const allWords = [...gameState.wordsFound, ...gameState.bonusWordsFound];
+      if (allWords.length > 0) {
+        addWordsToLog(allWords, 'combinations');
+      }
       
       if (achievements && achievements.length > 0) {
         setNewAchievements(achievements);
@@ -173,86 +182,95 @@ export default function CombinationsPage() {
 
   // Progress percentage
   const progressPercent = Math.min(100, (gameState.score / puzzle.targetScore) * 100);
+  const gameComplete = gameState.gameStatus === 'won';
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col animate-fade-in-up">
       <GameHeader
         title="Combinations"
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onLearningLog={() => setShowLearningLog(true)}
+        gameComplete={gameComplete}
       />
 
-      <main className="flex-1 flex flex-col items-center px-4 py-6">
+      <main className="flex-1 flex flex-col items-center px-4 py-4 max-w-2xl mx-auto w-full">
         {/* Mode selector */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex gap-2 mb-4">
           <button
             onClick={() => handleModeSwitch('daily')}
-            className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+            className={`px-5 py-2 rounded-lg font-semibold text-sm transition-all ${
               mode === 'daily'
-                ? 'bg-wordle-correct text-white'
-                : 'bg-surface-secondary text-foreground hover:bg-surface-hover'
+                ? 'bg-wordle-correct text-white shadow-md'
+                : 'bg-surface text-text-muted border border-card-border hover:bg-surface-hover'
             }`}
           >
             Daily
           </button>
           <button
             onClick={() => handleModeSwitch('unlimited')}
-            className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+            className={`px-5 py-2 rounded-lg font-semibold text-sm transition-all ${
               mode === 'unlimited'
-                ? 'bg-wordle-correct text-white'
-                : 'bg-surface-secondary text-foreground hover:bg-surface-hover'
+                ? 'bg-wordle-correct text-white shadow-md'
+                : 'bg-surface text-text-muted border border-card-border hover:bg-surface-hover'
             }`}
           >
             Unlimited
           </button>
         </div>
 
-        {/* Score display */}
-        <div className="w-full max-w-md mb-6">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-lg font-bold text-foreground">
-              Score: {gameState.score}
-            </span>
-            <span className="text-lg font-bold text-text-muted">
-              Target: {puzzle.targetScore}
-            </span>
+        {/* Score card */}
+        <div className="w-full bg-card rounded-xl p-4 mb-4 border border-card-border shadow-sm">
+          <div className="flex justify-between items-center mb-3">
+            <div className="text-center flex-1">
+              <div className="text-xs text-text-muted uppercase tracking-wider">Score</div>
+              <div className="text-3xl font-bold text-wordle-correct">{gameState.score}</div>
+            </div>
+            <div className="w-px h-12 bg-border-default"></div>
+            <div className="text-center flex-1">
+              <div className="text-xs text-text-muted uppercase tracking-wider">Target</div>
+              <div className="text-3xl font-bold text-foreground">{puzzle.targetScore}</div>
+            </div>
           </div>
-          <div className="w-full h-4 bg-surface-secondary rounded-full overflow-hidden">
+          
+          {/* Progress bar */}
+          <div className="relative h-3 bg-surface rounded-full overflow-hidden">
             <div 
-              className={`h-full transition-all duration-300 ${
-                gameState.gameStatus === 'won' ? 'bg-wordle-correct' : 'bg-blue-500'
+              className={`h-full transition-all duration-500 ease-out ${
+                gameComplete ? 'bg-wordle-correct' : 'bg-gradient-to-r from-wordle-present to-wordle-correct'
               }`}
               style={{ width: `${progressPercent}%` }}
             />
           </div>
-          {gameState.gameStatus === 'won' && (
-            <div className="text-center mt-2 text-wordle-correct font-bold">
+          
+          {gameComplete && (
+            <div className="text-center mt-2 text-wordle-correct font-semibold text-sm animate-pulse">
               🎉 Target Reached! Keep playing for bonus points!
             </div>
           )}
         </div>
 
         {/* Current word preview */}
-        <div className="mb-6 min-h-20 flex flex-col items-center justify-center">
-          {currentWord && (
+        <div className="w-full bg-card rounded-xl p-6 mb-4 border border-card-border shadow-sm min-h-24 flex flex-col items-center justify-center">
+          {currentWord ? (
             <div className="text-center animate-fade-in">
-              <div className="text-3xl font-bold text-foreground mb-1">
+              <div className="text-4xl font-bold text-foreground tracking-wider mb-2">
                 {currentWord.toUpperCase()}
               </div>
-              <div className="text-text-muted">
+              <div className="inline-block px-3 py-1 bg-wordle-correct/20 text-wordle-correct rounded-full text-sm font-semibold">
                 +{previewScore} points
               </div>
             </div>
-          )}
-          {!currentWord && (
+          ) : (
             <div className="text-text-muted text-center">
-              Select fragments to build a word
+              <p className="text-lg">Select fragments to build a word</p>
+              <p className="text-sm mt-1">Combine 2+ fragments</p>
             </div>
           )}
         </div>
 
         {/* Fragment selector */}
-        <div className="mb-6">
+        <div className="w-full bg-card rounded-xl p-4 mb-4 border border-card-border shadow-sm">
           <FragmentSelector
             fragments={puzzle.fragments}
             selectedIndices={gameState.currentSelection}
@@ -262,71 +280,82 @@ export default function CombinationsPage() {
         </div>
 
         {/* Action buttons */}
-        <div className="flex gap-3 mb-6">
+        <div className="flex gap-3 w-full mb-4">
           <button
             onClick={handleClearSelection}
             disabled={gameState.currentSelection.length === 0}
-            className="px-6 py-3 bg-surface-secondary text-foreground rounded-lg font-bold hover:bg-surface-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 py-3 bg-surface text-foreground border border-card-border rounded-lg font-bold transition-all hover:bg-surface-hover disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Clear
           </button>
           <button
             onClick={handleSubmitWord}
             disabled={gameState.currentSelection.length < 2}
-            className="px-6 py-3 bg-wordle-correct text-white rounded-lg font-bold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 py-3 bg-wordle-correct text-white rounded-lg font-bold transition-all hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Submit Word
           </button>
         </div>
 
-        {/* Words found */}
-        <div className="w-full max-w-md">
-          <h3 className="text-lg font-bold text-foreground mb-3">
-            Words Found ({gameState.wordsFound.length})
-          </h3>
-          <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto">
-            {gameState.wordsFound.map((word, idx) => {
-              const isBonus = puzzle.bonusWords.map(w => w.toLowerCase()).includes(word);
-              const isJustAdded = word === justSubmittedWord;
-              return (
-                <span
-                  key={idx}
-                  className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
-                    isBonus
-                      ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
-                      : 'bg-surface-secondary text-foreground'
-                  } ${isJustAdded ? 'animate-pulse scale-110' : ''}`}
-                >
-                  {word.toUpperCase()}
-                  {isBonus && ' ⭐'}
-                </span>
-              );
-            })}
-            {gameState.wordsFound.length === 0 && (
-              <span className="text-text-muted text-sm">No words found yet</span>
+        {/* Words found section */}
+        <div className="w-full bg-card rounded-xl p-4 border border-card-border shadow-sm">
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+              Words Found
+            </h3>
+            <span className="text-xs bg-surface px-2 py-1 rounded-full text-text-muted">
+              {gameState.wordsFound.length} words
+            </span>
+          </div>
+          
+          <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
+            {gameState.wordsFound.length > 0 ? (
+              gameState.wordsFound.map((word, idx) => {
+                const isBonus = puzzle.bonusWords.map(w => w.toLowerCase()).includes(word);
+                const isJustAdded = word === justSubmittedWord;
+                return (
+                  <span
+                    key={idx}
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                      isBonus
+                        ? 'bg-wordle-present/20 text-wordle-present border border-wordle-present/40'
+                        : 'bg-surface text-foreground border border-card-border'
+                    } ${isJustAdded ? 'animate-bounce scale-105' : ''}`}
+                  >
+                    {word.toUpperCase()}
+                    {isBonus && ' ⭐'}
+                  </span>
+                );
+              })
+            ) : (
+              <span className="text-text-muted text-sm py-4 w-full text-center">
+                No words found yet. Start combining fragments!
+              </span>
             )}
           </div>
-        </div>
 
-        {/* Bonus words hint */}
-        {puzzle.bonusWords.length > 0 && (
-          <div className="mt-4 text-center text-sm text-text-muted">
-            {gameState.bonusWordsFound.length} / {puzzle.bonusWords.length} bonus words found
-          </div>
-        )}
+          {/* Bonus words hint */}
+          {puzzle.bonusWords && puzzle.bonusWords.length > 0 && (
+            <div className="mt-3 pt-3 border-t border-border-default text-center">
+              <span className="text-xs text-text-muted">
+                ⭐ {gameState.bonusWordsFound?.length || 0} / {puzzle.bonusWords.length} bonus words
+              </span>
+            </div>
+          )}
+        </div>
 
         {/* Stats summary */}
         {gameState.maxComboLength > 0 && (
-          <div className="mt-4 text-center text-sm text-text-muted">
-            Best combo: {gameState.maxComboLength} fragments 🔥
+          <div className="mt-3 text-center text-sm text-text-muted">
+            Best combo: <span className="font-semibold text-connections-orange">{gameState.maxComboLength} fragments</span> 🔥
           </div>
         )}
 
         {/* New game button for unlimited mode */}
-        {mode === 'unlimited' && (
+        {mode === 'unlimited' && gameComplete && (
           <button
             onClick={handleNewGame}
-            className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg font-bold hover:opacity-90 transition-opacity"
+            className="mt-4 px-8 py-3 bg-wordle-correct text-white rounded-lg font-bold hover:opacity-90 transition-opacity"
           >
             New Puzzle
           </button>
@@ -394,45 +423,25 @@ export default function CombinationsPage() {
       )}
 
       {/* How to Play Modal */}
-      {showHowToPlay && (
-        <HowToPlay
-          gameName="Combinations"
-          onClose={() => setShowHowToPlay(false)}
-        >
-          <div className="space-y-4 text-text-muted">
-            <p>Combine word fragments to build valid English words and reach the target score!</p>
-            
-            <h3 className="font-bold text-foreground">How to Play:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Tap fragments to select them in order</li>
-              <li>Selected fragments combine to form a word</li>
-              <li>Press Submit to score the word</li>
-              <li>Reach the target score to win!</li>
-            </ul>
-
-            <h3 className="font-bold text-foreground">Scoring:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li>2 fragments: 10 + 15 = 25 points</li>
-              <li>3 fragments: 10 + 15 + 22 = 47 points</li>
-              <li>Longer chains = More points!</li>
-              <li>Bonus words: +25 extra points ⭐</li>
-            </ul>
-
-            <h3 className="font-bold text-foreground">Tips:</h3>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Look for common word patterns</li>
-              <li>Try different fragment combinations</li>
-              <li>Hunt for bonus words for extra points</li>
-            </ul>
-          </div>
-        </HowToPlay>
-      )}
+      <UnifiedHowToPlay 
+        gameName="combinations" 
+        isOpen={showHowToPlay} 
+        onClose={() => setShowHowToPlay(false)} 
+      />
+      
+      {/* Learning Log Modal */}
+      <LearningLogModal
+        isOpen={showLearningLog}
+        onClose={() => setShowLearningLog(false)}
+        gameName="combinations"
+      />
 
       {/* Statistics Modal */}
       {showStats && stats && (
         <StatisticsModal
-          gameName="Combinations"
+          gameName="combinations"
           stats={stats}
+          isOpen={showStats}
           onClose={() => setShowStats(false)}
         />
       )}

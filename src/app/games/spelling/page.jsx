@@ -8,6 +8,8 @@ import Modal from '@/components/Modal';
 import Confetti from '@/components/Confetti';
 import ShareResults from '@/components/ShareResults';
 import SpellingStatistics from '@/components/SpellingStatistics';
+import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
+import LearningLogModal from '@/components/LearningLogModal';
 import {
   validateWord,
   calculateWordPoints,
@@ -22,6 +24,7 @@ import {
 } from './spellingLogic';
 import { SPELLING_PUZZLES_JAN_2026 } from './puzzles/spelling-2026-01';
 import { SPELLING_PUZZLES_FEB_2026 } from './puzzles/spelling-2026-02';
+import { addWordsToLog } from '@/utils/learningLogEngine';
 
 // Merge January and February puzzles
 const ALL_SPELLING_PUZZLES = [...SPELLING_PUZZLES_JAN_2026, ...SPELLING_PUZZLES_FEB_2026];
@@ -41,6 +44,8 @@ export default function SpellingBeePage() {
   // UI state
   const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
   const [showStats, setShowStats] = useState(false);
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
+  const [showLearningLog, setShowLearningLog] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showRankUp, setShowRankUp] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
@@ -118,6 +123,9 @@ export default function SpellingBeePage() {
     if (puzzle && foundWords.length === puzzle.validWords.length) {
       setIsComplete(true);
       setShowConfetti(true);
+      
+      // Add all found words to Learning Log
+      addWordsToLog(foundWords, 'spelling');
       
       // Save to profile
       const allLetters = [puzzle.center, ...puzzle.letters];
@@ -248,8 +256,10 @@ export default function SpellingBeePage() {
     <div className="min-h-screen bg-background pb-20">
       <GameHeader 
         title="Spelling Bee"
-        onBack={() => window.location.href = '/games'}
+        onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onLearningLog={() => setShowLearningLog(true)}
+        gameComplete={isComplete}
       />
 
       <main className="max-w-2xl mx-auto px-4 pt-4">
@@ -396,14 +406,26 @@ export default function SpellingBeePage() {
       </main>
 
       {/* Modals */}
-      {showStats && (
-        <Modal onClose={() => setShowStats(false)}>
-          <SpellingStatistics
-            stats={currentGameStats}
-            onClose={() => setShowStats(false)}
-          />
-        </Modal>
-      )}
+      <Modal isOpen={showStats} onClose={() => setShowStats(false)} title="Statistics">
+        <SpellingStatistics
+          stats={currentGameStats}
+          onClose={() => setShowStats(false)}
+        />
+      </Modal>
+      
+      {/* How to Play Modal */}
+      <UnifiedHowToPlay 
+        gameName="spelling" 
+        isOpen={showHowToPlay} 
+        onClose={() => setShowHowToPlay(false)} 
+      />
+      
+      {/* Learning Log Modal */}
+      <LearningLogModal
+        isOpen={showLearningLog}
+        onClose={() => setShowLearningLog(false)}
+        gameName="spelling"
+      />
 
       {/* Toast */}
       {toast.show && (

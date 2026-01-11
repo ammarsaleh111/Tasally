@@ -24,9 +24,12 @@ import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
+import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
+import LearningLogModal from '@/components/LearningLogModal';
 import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
+import { addWordsToLog } from '@/utils/learningLogEngine';
 
 export default function ConnectionsGame() {
   const [puzzle, setPuzzle] = useState(() => getTodaysPuzzle());
@@ -45,6 +48,7 @@ export default function ConnectionsGame() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
@@ -81,6 +85,10 @@ export default function ConnectionsGame() {
       trackGameEnd('connections', result);
       const updatedStats = getGameStats('connections');
       setStats(updatedStats);
+      
+      // Add all words from the puzzle to Learning Log
+      const allWords = puzzle.groups.flatMap(g => g.words);
+      addWordsToLog(allWords, 'connections');
       
       if (achievements && achievements.length > 0) {
         setNewAchievements(achievements);
@@ -190,6 +198,7 @@ export default function ConnectionsGame() {
   const remainingWords = gameState.shuffledWords.filter(w => !solvedWords.includes(w.toUpperCase()));
 
   const mistakesRemaining = MAX_MISTAKES - gameState.mistakes;
+  const gameComplete = gameState.gameStatus !== 'playing';
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen pb-10 animate-fade-in-up">
@@ -197,6 +206,8 @@ export default function ConnectionsGame() {
         title="Connections" 
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onLearningLog={() => setShowLearningLog(true)}
+        gameComplete={gameComplete}
       />
       
       <div className="w-full max-w-3xl mx-auto px-4">     {toast && (
@@ -255,26 +266,18 @@ export default function ConnectionsGame() {
       </Modal>
       
       {/* How to Play Modal */}
-      {showHowToPlay && (
-        <Modal isOpen={showHowToPlay}>
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-foreground text-center">How to Play</h2>
-            <div className="space-y-3 text-foreground">
-              <p>• Find groups of four items that share something in common</p>
-              <p>• Select four items and tap 'Submit' to check if your guess is correct</p>
-              <p>• Each group has a difficulty level (yellow easiest, purple hardest)</p>
-              <p>• You have {MAX_MISTAKES} mistakes before the game ends</p>
-              <p>• Category names are specific - pay attention to details!</p>
-            </div>
-            <button
-              onClick={() => setShowHowToPlay(false)}
-              className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity"
-            >
-              Got it!
-            </button>
-          </div>
-        </Modal>
-      )}
+      <UnifiedHowToPlay 
+        gameName="connections" 
+        isOpen={showHowToPlay} 
+        onClose={() => setShowHowToPlay(false)} 
+      />
+      
+      {/* Learning Log Modal */}
+      <LearningLogModal
+        isOpen={showLearningLog}
+        onClose={() => setShowLearningLog(false)}
+        gameName="connections"
+      />
       
       {/* Stats Modal */}
       {stats && (

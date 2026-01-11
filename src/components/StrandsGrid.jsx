@@ -1,13 +1,24 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import SelectionRibbon, { LockedWordRibbon } from './SelectionRibbon';
 
-// Grid component that renders tiles and handles pointer interaction
+/**
+ * StrandsGrid - Premium NYT-style Strands grid with ribbon selection
+ * 
+ * Features:
+ * - Smooth continuous ribbon selection path (not rectangles/borders)
+ * - SVG-based ribbon rendered behind letters
+ * - Circular glow at selected tile centers
+ * - Touch and mouse support
+ */
 const StrandsGrid = ({
   grid,
   path,
   lockedSet,
   highlightedSet,
+  foundWords = [], // Array of { word, path } for locked word ribbons
+  spangramPath = null, // Path for the found spangram
   isDragging,
   shouldShake,
   onStart,
@@ -15,32 +26,65 @@ const StrandsGrid = ({
   onEnd,
 }) => {
   const mouseDownRef = useRef(false);
+  const gridRef = useRef(null);
+  const [dimensions, setDimensions] = useState({ tileSize: 48, gap: 4 });
 
-  const handleMouseDown = (r, c) => {
+  // Calculate actual tile dimensions from the grid element
+  useEffect(() => {
+    const calculateDimensions = () => {
+      if (!gridRef.current) return;
+      
+      const gridElement = gridRef.current;
+      const firstTile = gridElement.querySelector('[data-cell]');
+      
+      if (firstTile) {
+        const rect = firstTile.getBoundingClientRect();
+        const computedStyle = window.getComputedStyle(gridElement);
+        const gap = parseFloat(computedStyle.gap) || 4;
+        
+        setDimensions({
+          tileSize: rect.width,
+          gap: gap,
+        });
+      }
+    };
+
+    calculateDimensions();
+    
+    // Recalculate on resize
+    const resizeObserver = new ResizeObserver(calculateDimensions);
+    if (gridRef.current) {
+      resizeObserver.observe(gridRef.current);
+    }
+
+    return () => resizeObserver.disconnect();
+  }, [grid]);
+
+  const handleMouseDown = useCallback((r, c) => {
     mouseDownRef.current = true;
     onStart?.(r, c);
-  };
+  }, [onStart]);
 
-  const handleMouseEnter = (r, c) => {
+  const handleMouseEnter = useCallback((r, c) => {
     if (mouseDownRef.current) {
       onEnter?.(r, c);
     }
-  };
+  }, [onEnter]);
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     if (mouseDownRef.current) {
       mouseDownRef.current = false;
       onEnd?.();
     }
-  };
+  }, [onEnd]);
 
   // Touch handlers
-  const handleTouchStart = (r, c, e) => {
+  const handleTouchStart = useCallback((r, c, e) => {
     e.preventDefault();
     onStart?.(r, c);
-  };
+  }, [onStart]);
 
-  const handleTouchMove = (r, c, e) => {
+  const handleTouchMove = useCallback((r, c, e) => {
     e.preventDefault();
     const touch = e.touches[0];
     const target = document.elementFromPoint(touch.clientX, touch.clientY);
@@ -50,12 +94,12 @@ const StrandsGrid = ({
     const rr = Number(cell.getAttribute('data-r'));
     const cc = Number(cell.getAttribute('data-c'));
     onEnter?.(rr, cc);
-  };
+  }, [onEnter]);
 
-  const handleTouchEnd = (e) => {
+  const handleTouchEnd = useCallback((e) => {
     e.preventDefault();
     onEnd?.();
-  };
+  }, [onEnd]);
 
   const size = grid.length;
 
@@ -63,56 +107,62 @@ const StrandsGrid = ({
   const isLocked = (r, c) => lockedSet?.has(`${r},${c}`);
   const isHighlighted = (r, c) => highlightedSet?.has(`${r},${c}`);
 
-  // Generate SVG lines between path tiles
-  const generatePathLines = () => {
-    if (!path || path.length < 2) return null;
-    const lines = [];
-    for (let i = 0; i < path.length - 1; i++) {
-      const [r1, c1] = path[i];
-      const [r2, c2] = path[i + 1];
-      lines.push({ x1: c1, y1: r1, x2: c2, y2: r2, key: `${r1}-${c1}-${r2}-${c2}` });
-    }
-    return lines;
+  // Check if position is part of spangram
+  const isSpangramCell = (r, c) => {
+    if (!spangramPath) return false;
+    return spangramPath.some(([pr, pc]) => pr === r && pc === c);
   };
-
-  const pathLines = generatePathLines();
 
   return (
     <div
-      className="select-none relative"
+      className="select-none relative strands-grid-container"
       onMouseLeave={handleMouseUp}
       onMouseUp={handleMouseUp}
     >
-      {/* SVG overlay for path lines */}
-      {pathLines && pathLines.length > 0 && (
-        <svg
-          className="absolute inset-0 pointer-events-none"
-          style={{ width: '100%', height: '100%' }}
-        >
-          {pathLines.map(line => {
-            const cellSize = 100 / size;
-            const x1 = (line.x1 + 0.5) * cellSize;
-            const y1 = (line.y1 + 0.5) * cellSize;
-            const x2 = (line.x2 + 0.5) * cellSize;
-            const y2 = (line.y2 + 0.5) * cellSize;
-            return (
-              <line
-                key={line.key}
-                x1={`${x1}%`}
-                y1={`${y1}%`}
-                x2={`${x2}%`}
-                y2={`${y2}%`}
-                stroke="var(--crossword-active)"
-                strokeWidth="4"
-                strokeLinecap="round"
-                className="animate-in fade-in duration-100"
-              />
-            );
-          })}
-        </svg>
+      {/* Locked word ribbons layer (behind everything) */}
+      {foundWords && foundWords.length > 0 && foundWords.map((fw, idx) => (
+        fw.path && (
+          <LockedWordRibbon
+            key={`locked-ribbon-${idx}`}
+            path={fw.path}
+            gridSize={size}
+            tileSize={dimensions.tileSize}
+            gap={dimensions.gap}
+            isSpangram={false}
+            isThemeWord={true}
+          />
+        )
+      ))}
+
+      {/* Spangram ribbon */}
+      {spangramPath && (
+        <LockedWordRibbon
+          path={spangramPath}
+          gridSize={size}
+          tileSize={dimensions.tileSize}
+          gap={dimensions.gap}
+          isSpangram={true}
+          isThemeWord={true}
+        />
       )}
+
+      {/* Active selection ribbon (smooth continuous path) */}
+      {path && path.length > 0 && (
+        <SelectionRibbon
+          path={path}
+          gridSize={size}
+          tileSize={dimensions.tileSize}
+          gap={dimensions.gap}
+          color="var(--strands-ribbon, #3b82f6)"
+          opacity={0.8}
+          isSpangram={false}
+        />
+      )}
+
+      {/* Grid tiles */}
       <div
-        className={`grid gap-1 md:gap-1.5 ${shouldShake ? 'animate-shake' : ''}`}
+        ref={gridRef}
+        className={`grid gap-1 md:gap-1.5 relative z-10 ${shouldShake ? 'animate-shake' : ''}`}
         style={{ gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))` }}
       >
         {grid.map((row, r) => (
@@ -120,6 +170,8 @@ const StrandsGrid = ({
             const locked = isLocked(r, c);
             const active = isInPath(r, c);
             const highlighted = isHighlighted(r, c);
+            const isSpangram = isSpangramCell(r, c);
+            
             return (
               <div
                 key={`${r}-${c}`}
@@ -132,14 +184,43 @@ const StrandsGrid = ({
                 onTouchMove={(e) => handleTouchMove(r, c, e)}
                 onTouchEnd={handleTouchEnd}
                 className={[
-                  'aspect-square rounded-lg flex items-center justify-center font-bold text-xl md:text-2xl transition-all duration-200',
+                  // Base styles
+                  'aspect-square rounded-lg flex items-center justify-center',
+                  'font-bold text-xl md:text-2xl',
+                  'transition-all duration-150 ease-out',
                   'border-2',
-                  locked ? 'bg-wordle-correct text-white border-wordle-correct shadow-md' : 'bg-card border-wordle-tile-border',
-                  active && !locked ? 'ring-4 ring-crossword-active ring-opacity-50 bg-crossword-highlight scale-105' : '',
-                  highlighted && !locked ? 'outline outline-2 outline-wordle-present outline-offset-2' : '',
-                  !locked && !active ? 'hover:border-crossword-active hover:bg-crossword-highlight' : '',
+                  
+                  // Locked/found state - subtle background, letters stay visible
+                  locked && isSpangram 
+                    ? 'bg-amber-100/50 dark:bg-amber-900/30 border-amber-400 text-amber-900 dark:text-amber-100' 
+                    : locked 
+                      ? 'bg-emerald-100/50 dark:bg-emerald-900/30 border-emerald-400 text-emerald-900 dark:text-emerald-100'
+                      : 'bg-card/80 border-wordle-tile-border',
+                  
+                  // Active selection - minimal styling since ribbon handles visual
+                  active && !locked 
+                    ? 'scale-105 border-transparent bg-transparent text-foreground font-black z-20' 
+                    : '',
+                  
+                  // Hint highlight
+                  highlighted && !locked && !active
+                    ? 'ring-2 ring-wordle-present ring-offset-2' 
+                    : '',
+                  
+                  // Hover state for unselected, unlocked tiles
+                  !locked && !active 
+                    ? 'hover:scale-102 hover:border-strands-hover cursor-pointer' 
+                    : '',
+                  
+                  // Cursor states
                   isDragging ? 'cursor-grabbing' : 'cursor-pointer',
-                ].join(' ')}
+                ].filter(Boolean).join(' ')}
+                style={{
+                  // Ensure letters are always readable above ribbon
+                  textShadow: active && !locked 
+                    ? '0 0 8px rgba(255,255,255,0.9), 0 0 16px rgba(255,255,255,0.5)' 
+                    : undefined,
+                }}
               >
                 {ch}
               </div>

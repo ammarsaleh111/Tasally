@@ -10,6 +10,15 @@ import {
   updateSettings,
   saveProfile
 } from '@/utils/profileManager';
+import { 
+  getLearningLog, 
+  getWordsByGame, 
+  searchWords, 
+  toggleFavorite,
+  fetchDefinition,
+  getLearningLogStats,
+  WORD_GAMES 
+} from '@/utils/learningLogEngine';
 import { ACHIEVEMENTS } from '@/utils/achievementsEngine';
 import { requestNotificationPermission, initNotifications } from '@/utils/notificationManager';
 import AchievementBadge from '@/components/AchievementBadge';
@@ -128,7 +137,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 border-b border-border-default">
+        <div className="flex gap-2 mb-6 border-b border-border-default overflow-x-auto">
           <TabButton 
             label="Overview" 
             active={activeTab === 'overview'} 
@@ -138,6 +147,11 @@ export default function ProfilePage() {
             label="Stats" 
             active={activeTab === 'stats'} 
             onClick={() => setActiveTab('stats')} 
+          />
+          <TabButton 
+            label="📘 Learning Log" 
+            active={activeTab === 'learning'} 
+            onClick={() => setActiveTab('learning')} 
           />
           <TabButton 
             label="Achievements" 
@@ -155,6 +169,7 @@ export default function ProfilePage() {
         {/* Tab Content */}
         {activeTab === 'overview' && <OverviewTab stats={stats} />}
         {activeTab === 'stats' && <StatsTab stats={stats} />}
+        {activeTab === 'learning' && <LearningLogTab />}
         {activeTab === 'achievements' && (
           <AchievementsTab 
             unlockedAchievements={unlockedAchievements} 
@@ -309,6 +324,214 @@ const StatItem = ({ label, value, highlight = false }) => (
     <div className="text-xs text-gray-500 uppercase">{label}</div>
   </div>
 );
+
+// Learning Log Tab
+const LearningLogTab = () => {
+  const [words, setWords] = useState([]);
+  const [filteredWords, setFilteredWords] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [gameFilter, setGameFilter] = useState('all');
+  const [favorites, setFavorites] = useState(new Set());
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+  const [loadingDefinition, setLoadingDefinition] = useState(null);
+  const [stats, setStats] = useState(null);
+
+  const gameNames = {
+    wordle: 'Wordle',
+    connections: 'Connections',
+    strands: 'Strands',
+    crossword: 'Crossword',
+    waffle: 'Waffle',
+    combinations: 'Combinations',
+    spelling: 'Spelling Bee',
+  };
+
+  useEffect(() => {
+    loadWords();
+  }, []);
+
+  const loadWords = () => {
+    const log = getLearningLog();
+    setWords(log.words);
+    setFavorites(new Set(log.favorites));
+    setStats(getLearningLogStats());
+  };
+
+  useEffect(() => {
+    let filtered = [...words];
+    
+    if (gameFilter !== 'all') {
+      filtered = filtered.filter(w => w.games.includes(gameFilter));
+    }
+    
+    if (searchQuery.trim()) {
+      const q = searchQuery.toUpperCase().trim();
+      filtered = filtered.filter(w => 
+        w.word.includes(q) ||
+        (w.definition && w.definition.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    }
+    
+    if (showFavoritesOnly) {
+      filtered = filtered.filter(w => favorites.has(w.word));
+    }
+    
+    filtered.sort((a, b) => {
+      const aFav = favorites.has(a.word);
+      const bFav = favorites.has(b.word);
+      if (aFav !== bFav) return bFav - aFav;
+      return new Date(b.dateAdded) - new Date(a.dateAdded);
+    });
+    
+    setFilteredWords(filtered);
+  }, [words, searchQuery, gameFilter, showFavoritesOnly, favorites]);
+
+  const handleToggleFavorite = (word) => {
+    const newStatus = toggleFavorite(word);
+    setFavorites(prev => {
+      const next = new Set(prev);
+      if (newStatus) next.add(word);
+      else next.delete(word);
+      return next;
+    });
+  };
+
+  const handleFetchDefinition = async (word) => {
+    if (loadingDefinition) return;
+    setLoadingDefinition(word);
+    try {
+      await fetchDefinition(word);
+      loadWords();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoadingDefinition(null);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-foreground">📘 Learning Log</h2>
+      
+      {/* Stats Summary */}
+      {stats && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 text-center">
+            <div className="text-3xl font-bold text-blue-600">{stats.totalWords}</div>
+            <div className="text-sm text-gray-600">Words Learned</div>
+          </div>
+          <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4 text-center">
+            <div className="text-3xl font-bold text-yellow-600">{stats.favorites}</div>
+            <div className="text-sm text-gray-600">Favorites</div>
+          </div>
+          {Object.entries(stats.byGame).slice(0, 2).map(([game, count]) => (
+            <div key={game} className="bg-green-50 border-2 border-green-200 rounded-xl p-4 text-center">
+              <div className="text-3xl font-bold text-green-600">{count}</div>
+              <div className="text-sm text-gray-600">{gameNames[game] || game}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Filters */}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex-1 relative">
+          <input
+            type="text"
+            placeholder="Search words..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full px-4 py-2 pl-10 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+          />
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+        </div>
+        <select
+          value={gameFilter}
+          onChange={(e) => setGameFilter(e.target.value)}
+          className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+        >
+          <option value="all">All Games</option>
+          {WORD_GAMES.map(g => (
+            <option key={g} value={g}>{gameNames[g] || g}</option>
+          ))}
+        </select>
+        <button
+          onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            showFavoritesOnly ? 'bg-yellow-400 text-yellow-900' : 'bg-gray-200 text-gray-700'
+          }`}
+        >
+          ⭐ {showFavoritesOnly ? 'All' : 'Favorites'}
+        </button>
+      </div>
+
+      {/* Word List */}
+      <div className="space-y-3">
+        {filteredWords.length === 0 ? (
+          <div className="text-center py-12 text-gray-500">
+            {words.length === 0 ? (
+              <>
+                <div className="text-6xl mb-4">📚</div>
+                <p className="text-lg">No words learned yet!</p>
+                <p>Complete puzzles to build your vocabulary.</p>
+              </>
+            ) : (
+              <>
+                <div className="text-4xl mb-2">🔍</div>
+                <p>No words match your search.</p>
+              </>
+            )}
+          </div>
+        ) : (
+          filteredWords.map((wordEntry) => (
+            <div 
+              key={wordEntry.word}
+              className="bg-white border-2 border-gray-100 rounded-xl p-4 hover:border-blue-200 transition-colors"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => handleToggleFavorite(wordEntry.word)}
+                    className="text-2xl hover:scale-110 transition-transform"
+                  >
+                    {favorites.has(wordEntry.word) ? '⭐' : '☆'}
+                  </button>
+                  <div>
+                    <span className="font-bold text-xl">{wordEntry.word}</span>
+                    {wordEntry.partOfSpeech && (
+                      <span className="ml-2 text-sm text-gray-500 italic">({wordEntry.partOfSpeech})</span>
+                    )}
+                  </div>
+                </div>
+                <div className="flex gap-1">
+                  {wordEntry.games.map(g => (
+                    <span key={g} className="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800">
+                      {(gameNames[g] || g).slice(0, 4)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              {wordEntry.definition ? (
+                <p className="mt-2 text-gray-600">{wordEntry.definition}</p>
+              ) : (
+                <button
+                  onClick={() => handleFetchDefinition(wordEntry.word)}
+                  disabled={loadingDefinition === wordEntry.word}
+                  className="mt-2 text-sm text-blue-500 hover:text-blue-700 disabled:opacity-50"
+                >
+                  {loadingDefinition === wordEntry.word ? '⏳ Loading...' : '📖 Get definition'}
+                </button>
+              )}
+              <div className="mt-2 text-xs text-gray-400">
+                Learned: {new Date(wordEntry.dateAdded).toLocaleDateString()}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
+};
 
 // Achievements Tab
 const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
