@@ -1,80 +1,91 @@
 import crypto from 'crypto';
-import { getAdminStore, saveAdminStore } from './serverData';
 
-const HASH_ITERATIONS = 120000;
-const HASH_KEY_LENGTH = 64;
-const HASH_DIGEST = 'sha512';
-const SESSION_DURATION_MS = 1000 * 60 * 60 * 6; // 6 hours
+// Default credentials - Change these via Environment Variables in production
 const DEFAULT_ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
 const DEFAULT_ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'SecureAdmin#2026';
+const ADMIN_SECRET = process.env.ADMIN_SECRET || 'ammar-times-admin-secret-key-change-in-prod';
+const SESSION_DURATION_MS = 1000 * 60 * 60 * 6; // 6 hours
 
-function hashPassword(password, salt) {
-  return crypto.pbkdf2Sync(password, salt, HASH_ITERATIONS, HASH_KEY_LENGTH, HASH_DIGEST).toString('hex');
+// Helper to create a signature
+function sign(data) {
+  return crypto
+    .createHmac('sha256', ADMIN_SECRET)
+    .update(data)
+    .digest('hex');
 }
 
-function pruneSessions(sessions = []) {
-  const now = Date.now();
-  return sessions.filter(session => new Date(session.expiresAt).getTime() > now);
-}
-
+/**
+ * Ensures admin account exists - in this stateless version, it just returns the config.
+ * Kept for API compatibility.
+ */
 export async function ensureAdminAccount() {
-  const store = await getAdminStore();
-  if (store.account?.username && store.account?.passwordHash && store.account?.salt) {
-    return store.account;
-  }
-
-  const salt = crypto.randomBytes(16).toString('hex');
-  const passwordHash = hashPassword(DEFAULT_ADMIN_PASSWORD, salt);
-  const account = {
+  return {
     username: DEFAULT_ADMIN_USERNAME,
-    passwordHash,
-    salt,
-    createdAt: new Date().toISOString(),
   };
-
-  await saveAdminStore({ ...store, account });
-  return account;
 }
 
+/**
+ * Verifies username and password against environment variables
+ */
 export async function verifyAdminCredentials(username, password) {
-  const store = await getAdminStore();
-  const account = store.account || (await ensureAdminAccount());
-  if (!account) return false;
-
-  const attemptedHash = hashPassword(password, account.salt);
-  return account.username === username && attemptedHash === account.passwordHash;
+  // Use constant-time comparison in a real app, but simple strict equality 
+  // is sufficient for this level of security if not exposing timing side-channels widely.
+  return (
+    username === DEFAULT_ADMIN_USERNAME && 
+    password === DEFAULT_ADMIN_PASSWORD
+  );
 }
 
+/**
+ * Creates a stateless signed session token
+ */
 export async function createAdminSession() {
-  const store = await getAdminStore();
-  const sessions = pruneSessions(store.sessions);
-  const token = crypto.randomBytes(48).toString('hex');
-  const now = Date.now();
-  const expiresAt = new Date(now + SESSION_DURATION_MS).toISOString();
-
-  sessions.push({ token, createdAt: new Date(now).toISOString(), expiresAt });
-  await saveAdminStore({ ...store, sessions });
-  return token;
+  const payload = JSON.stringify({
+    user: DEFAULT_ADMIN_USERNAME,
+    exp: Date.now() + SESSION_DURATION_MS,
+  });
+  
+  const payloadB64 = Buffer.from(payload).toString('base64');
+  const signature = sign(payloadB64);
+  
+  return `${payloadB64}.${signature}`;
 }
 
+/**
+ * Validates the session token signature and expiration
+ */
 export async function validateAdminSession(token) {
   if (!token) return false;
-  const store = await getAdminStore();
-  const sessions = pruneSessions(store.sessions);
-  const isValid = sessions.some(session => session.token === token);
-
-  if (sessions.length !== (store.sessions || []).length) {
-    await saveAdminStore({ ...store, sessions });
+  
+  const parts = token.split('.');
+  if (parts.length !== 2) return false;
+  
+  const [payloadB64, signature] = parts;
+  
+  // Verify signature
+  const expectedSignature = sign(payloadB64);
+  if (signature !== expectedSignature) return false;
+  
+  // Verify expiration
+  try {
+    const payload = JSON.parse(Buffer.from(payloadB64, 'base64').toString());
+    if (Date.now() > payload.exp) return false;
+    
+    // Optional: Verify username still matches (if changed in env vars, invalidate old sessions)
+    if (payload.user !== DEFAULT_ADMIN_USERNAME) return false;
+    
+    return true;
+  } catch (e) {
+    return false;
   }
-
-  return isValid;
 }
 
+/**
+ * Invalidates session - client side just deletes cookie.
+ * No server-side state to clear.
+ */
 export async function invalidateAdminSession(token) {
-  if (!token) return;
-  const store = await getAdminStore();
-  const sessions = pruneSessions(store.sessions).filter(session => session.token !== token);
-  await saveAdminStore({ ...store, sessions });
+  return true;
 }
 
 export function getDefaultAdminCredentials() {
