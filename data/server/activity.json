@@ -3,7 +3,7 @@
     {
       "userId": "user_1768077260465_pkzv2xkcf",
       "name": "ammar",
-      "lastSeen": "2026-01-11T02:05:58.691Z",
+      "lastSeen": "2026-01-11T02:06:28.690Z",
       "currentPage": "games",
       "currentGame": null,
       "activities": [
@@ -160,6 +160,11 @@
         {
           "type": "activity_update",
           "timestamp": "2026-01-11T02:05:58.691Z",
+          "page": "games"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T02:06:28.690Z",
           "page": "games"
         }
       ]
