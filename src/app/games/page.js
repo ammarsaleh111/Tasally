@@ -6,10 +6,11 @@ import { getAllStats } from '@/utils/profileManager';
 
 export default function GamesPage() {
   const [stats, setStats] = useState(null);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    const allStats = getAllStats();
-    setStats(allStats);
+    setIsClient(true);
+    setStats(getAllStats());
   }, []);
 
   const games = [
@@ -47,13 +48,27 @@ export default function GamesPage() {
       description: 'Test your knowledge with 10 daily questions',
       icon: '🧠',
       href: '/games/trivia'
+    },
+    {
+      id: 'strands',
+      name: 'Strands',
+      description: 'Find themed words & the spangram',
+      icon: '🧵',
+      href: '/games/strands'
+    },
+    {
+      id: 'spelling',
+      name: 'Spelling Bee',
+      description: 'Create words using the honeycomb letters',
+      icon: '🐝',
+      href: '/games/spelling'
     }
   ];
 
   return (
     <div className="min-h-screen flex flex-col items-center p-8 animate-fade-in-up">
-      <div className="max-w-4xl w-full">
-        <div className="text-center mb-8">
+      <div className="max-w-7xl w-full">
+        <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-foreground mb-4">
             Ammar Times Games
           </h1>
@@ -68,41 +83,52 @@ export default function GamesPage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {games.map((game) => {
             const gameStats = stats?.[game.id];
             const streak = gameStats?.currentStreak || 0;
+            const showStreak = isClient && streak > 0;
             
             return (
               <Link
                 key={game.id}
                 href={game.href}
-                className="group bg-card border-2 border-card-border rounded-2xl p-8 hover:bg-surface-hover hover:border-border-active transition-all duration-200 hover:scale-105"
+                className="group relative bg-card border-2 border-card-border rounded-2xl p-6 hover:bg-surface-hover hover:border-border-active transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1 flex flex-col"
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="text-5xl">{game.icon}</span>
-                  <div className="flex-1">
-                    <h2 className="text-3xl font-bold text-foreground">
-                      {game.name}
-                    </h2>
-                    {streak > 0 && (
-                      <div className="flex items-center gap-1 text-orange-500 font-bold text-sm mt-1">
-                        🔥 {streak} day streak
-                      </div>
-                    )}
-                  </div>
+                {/* Icon */}
+                <div className="text-center mb-4">
+                  <span className="text-6xl inline-block group-hover:scale-110 transition-transform duration-300">{game.icon}</span>
                 </div>
-                <p className="text-text-muted text-lg">
+                
+                {/* Title & Streak */}
+                <div className="text-center mb-3">
+                  <h2 className="text-2xl font-bold text-foreground mb-1">
+                    {game.name}
+                  </h2>
+                  {showStreak && (
+                    <div className="inline-flex items-center gap-1 text-orange-500 font-bold text-sm px-3 py-1 bg-orange-50 dark:bg-orange-900/20 rounded-full">
+                      🔥 {streak} day streak
+                    </div>
+                  )}
+                </div>
+                
+                {/* Description */}
+                <p className="text-text-muted text-center text-base mb-4 flex-1">
                   {game.description}
                 </p>
-                <div className="mt-4 text-wordle-correct font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
-                  Play Now
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
+                
+                {/* Play Button */}
+                <div className="text-center">
+                  <div className="inline-flex items-center gap-2 text-wordle-correct font-semibold text-lg group-hover:gap-3 transition-all">
+                    Play Now
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:translate-x-1 transition-transform">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </div>
                 </div>
               </Link>
             );
+
           })}
         </div>
 

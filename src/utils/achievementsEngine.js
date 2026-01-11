@@ -240,6 +240,50 @@ export const ACHIEVEMENTS = [
       );
     },
   },
+
+  // STRANDS ACHIEVEMENTS
+  {
+    id: 'strands_first_win',
+    name: 'Thread Master',
+    description: 'Complete your first Strands puzzle',
+    icon: '🧵',
+    category: 'strands',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'strands' && gameStats.gamesWon === 1;
+    },
+  },
+  {
+    id: 'strands_no_hints',
+    name: 'Pure Solver',
+    description: 'Complete Strands without using hints',
+    icon: '🧠',
+    category: 'strands',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'strands' && result.win && result.hintsUsed === 0;
+    },
+  },
+  {
+    id: 'strands_perfect',
+    name: 'Perfect Thread',
+    description: 'Complete 10 Strands with no hints',
+    icon: '✨',
+    category: 'strands',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'strands' && gameStats.perfectGames >= 10;
+    },
+  },
+  {
+    id: 'strands_speed',
+    name: 'Lightning Weaver',
+    description: 'Complete Strands in under 2 minutes',
+    icon: '⚡',
+    category: 'strands',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'strands' && result.win && result.time < 120;
+    },
+  },
+
+  // GENERAL ACHIEVEMENTS
   {
     id: 'daily_dedication',
     name: 'Daily Dedication',
@@ -253,10 +297,104 @@ export const ACHIEVEMENTS = [
         profile.games.connections.lastPlayedDate === today &&
         profile.games.crossword.lastPlayedDate === today &&
         profile.games.numbers.lastPlayedDate === today &&
-        profile.games.trivia.lastPlayedDate === today
+        profile.games.trivia.lastPlayedDate === today &&
+        profile.games.strands.lastPlayedDate === today
       );
     },
   },
+
+  // SPELLING BEE ACHIEVEMENTS
+  {
+    id: 'spelling_first_word',
+    name: 'First Word',
+    description: 'Find your first word in Spelling Bee',
+    icon: '🐝',
+    category: 'spelling',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'spelling' && gameStats.totalWords >= 1;
+    },
+  },
+  {
+    id: 'spelling_first_pangram',
+    name: 'Pangram Master',
+    description: 'Find your first pangram',
+    icon: '✨',
+    category: 'spelling',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'spelling' && gameStats.totalPangrams >= 1;
+    },
+  },
+  {
+    id: 'spelling_genius',
+    name: 'Spelling Genius',
+    description: 'Reach Genius rank in Spelling Bee',
+    icon: '🧠',
+    category: 'spelling',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'spelling' && result && result.rank === 'Genius';
+    },
+  },
+  {
+    id: 'spelling_queen_bee',
+    name: 'Queen Bee',
+    description: 'Find all words in a puzzle',
+    icon: '👑',
+    category: 'spelling',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'spelling' && gameStats.queenBeeCount >= 1;
+    },
+  },
+  {
+    id: 'spelling_50_words',
+    name: 'Word Collector',
+    description: 'Find 50 words total in Spelling Bee',
+    icon: '📝',
+    category: 'spelling',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'spelling' && gameStats.totalWords >= 50;
+    },
+  },
+  {
+    id: 'spelling_100_words',
+    name: 'Word Hoarder',
+    description: 'Find 100 words total in Spelling Bee',
+    icon: '📚',
+    category: 'spelling',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'spelling' && gameStats.totalWords >= 100;
+    },
+  },
+  {
+    id: 'spelling_10_pangrams',
+    name: 'Pangram Expert',
+    description: 'Find 10 pangrams',
+    icon: '🌟',
+    category: 'spelling',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'spelling' && gameStats.totalPangrams >= 10;
+    },
+  },
+  {
+    id: 'spelling_perfect_week',
+    name: 'Perfect Week',
+    description: 'Play Spelling Bee for 7 days straight',
+    icon: '⭐',
+    category: 'spelling',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'spelling' && gameStats.currentStreak >= 7;
+    },
+  },
+  {
+    id: 'spelling_5_queen_bees',
+    name: 'Queen Bee Royalty',
+    description: 'Complete 5 puzzles perfectly',
+    icon: '👸',
+    category: 'spelling',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'spelling' && gameStats.queenBeeCount >= 5;
+    },
+  },
+
   {
     id: 'first_day',
     name: 'Welcome!',
@@ -269,7 +407,9 @@ export const ACHIEVEMENTS = [
         profile.games.connections.gamesPlayed +
         profile.games.crossword.gamesPlayed +
         profile.games.numbers.gamesPlayed +
-        profile.games.trivia.gamesPlayed;
+        profile.games.trivia.gamesPlayed +
+        profile.games.strands.gamesPlayed +
+        (profile.games.spelling?.gamesPlayed || 0);
       return totalGames === 1;
     },
   },
@@ -285,7 +425,9 @@ export const ACHIEVEMENTS = [
         profile.games.connections.gamesPlayed +
         profile.games.crossword.gamesPlayed +
         profile.games.numbers.gamesPlayed +
-        profile.games.trivia.gamesPlayed;
+        profile.games.trivia.gamesPlayed +
+        profile.games.strands.gamesPlayed +
+        (profile.games.spelling?.gamesPlayed || 0);
       return totalGames >= 100;
     },
   },

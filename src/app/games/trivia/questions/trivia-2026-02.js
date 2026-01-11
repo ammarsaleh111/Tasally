@@ -1,0 +1,432 @@
+/**
+ * Daily Trivia Questions - February 2026
+ * Each set contains 10 questions with categories and types
+ */
+
+export const TRIVIA_SETS = [
+  {
+    date: "2026-02-01",
+    questions: [
+      {question: "What is the capital of France?", options: ["London", "Berlin", "Paris", "Madrid"], answer: "Paris", category: "Geography", type: "multiple"},
+      {question: "The Great Wall of China is visible from space.", options: ["True", "False"], answer: "False", category: "History", type: "boolean"},
+      {question: "Who painted the Mona Lisa?", options: ["Michelangelo", "Leonardo da Vinci", "Raphael", "Donatello"], answer: "Leonardo da Vinci", category: "Art", type: "multiple"},
+      {question: "What is 7 × 8?", options: ["54", "56", "58", "60"], answer: "56", category: "Math", type: "multiple"},
+      {question: "Water boils at 100 degrees Celsius.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Which planet is known as the Red Planet?", options: ["Venus", "Mars", "Jupiter", "Saturn"], answer: "Mars", category: "Science", type: "multiple"},
+      {question: "How many continents are there?", options: ["5", "6", "7", "8"], answer: "7", category: "Geography", type: "multiple"},
+      {question: "Penguins can fly.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What is the smallest prime number?", options: ["0", "1", "2", "3"], answer: "2", category: "Math", type: "multiple"},
+      {question: "The Statue of Liberty was a gift from France.", options: ["True", "False"], answer: "True", category: "History", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-02",
+    questions: [
+      {question: "What is the capital of Italy?", options: ["Milan", "Venice", "Rome", "Florence"], answer: "Rome", category: "Geography", type: "multiple"},
+      {question: "Lightning never strikes the same place twice.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "Who wrote 'Romeo and Juliet'?", options: ["Charles Dickens", "William Shakespeare", "Mark Twain", "Jane Austen"], answer: "William Shakespeare", category: "Literature", type: "multiple"},
+      {question: "What is 144 ÷ 12?", options: ["10", "11", "12", "13"], answer: "12", category: "Math", type: "multiple"},
+      {question: "Humans have five senses.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the largest ocean?", options: ["Atlantic", "Indian", "Arctic", "Pacific"], answer: "Pacific", category: "Geography", type: "multiple"},
+      {question: "How many days are in a leap year?", options: ["364", "365", "366", "367"], answer: "366", category: "General Knowledge", type: "multiple"},
+      {question: "Bats are blind.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What is the square root of 81?", options: ["7", "8", "9", "10"], answer: "9", category: "Math", type: "multiple"},
+      {question: "The Amazon River is the longest river in the world.", options: ["True", "False"], answer: "False", category: "Geography", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-03",
+    questions: [
+      {question: "What is the capital of Spain?", options: ["Barcelona", "Madrid", "Valencia", "Seville"], answer: "Madrid", category: "Geography", type: "multiple"},
+      {question: "The human body has 206 bones.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who invented the telephone?", options: ["Thomas Edison", "Alexander Graham Bell", "Nikola Tesla", "Benjamin Franklin"], answer: "Alexander Graham Bell", category: "History", type: "multiple"},
+      {question: "What is 15% of 200?", options: ["25", "30", "35", "40"], answer: "30", category: "Math", type: "multiple"},
+      {question: "Gold is a good conductor of electricity.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Which gas do plants absorb from the atmosphere?", options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Helium"], answer: "Carbon Dioxide", category: "Science", type: "multiple"},
+      {question: "How many sides does an octagon have?", options: ["6", "7", "8", "9"], answer: "8", category: "Math", type: "multiple"},
+      {question: "The Eiffel Tower is in London.", options: ["True", "False"], answer: "False", category: "Geography", type: "boolean"},
+      {question: "What is the chemical symbol for gold?", options: ["Go", "Gd", "Au", "Ag"], answer: "Au", category: "Science", type: "multiple"},
+      {question: "A decade is 10 years.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-04",
+    questions: [
+      {question: "What is the capital of Japan?", options: ["Osaka", "Tokyo", "Kyoto", "Hiroshima"], answer: "Tokyo", category: "Geography", type: "multiple"},
+      {question: "Sharks are mammals.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "Who was the first US President?", options: ["Thomas Jefferson", "George Washington", "John Adams", "Abraham Lincoln"], answer: "George Washington", category: "History", type: "multiple"},
+      {question: "What is 9 squared?", options: ["72", "81", "90", "99"], answer: "81", category: "Math", type: "multiple"},
+      {question: "Sound travels faster in water than in air.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the national animal of China?", options: ["Tiger", "Dragon", "Panda", "Lion"], answer: "Panda", category: "General Knowledge", type: "multiple"},
+      {question: "How many minutes are in 2 hours?", options: ["100", "110", "120", "130"], answer: "120", category: "Math", type: "multiple"},
+      {question: "The sun rises in the west.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What is H2O?", options: ["Hydrogen", "Oxygen", "Water", "Helium"], answer: "Water", category: "Science", type: "multiple"},
+      {question: "An octopus has eight legs.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-05",
+    questions: [
+      {question: "What is the capital of India?", options: ["Mumbai", "New Delhi", "Bangalore", "Kolkata"], answer: "New Delhi", category: "Geography", type: "multiple"},
+      {question: "Tomatoes are vegetables.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "Who discovered penicillin?", options: ["Marie Curie", "Alexander Fleming", "Louis Pasteur", "Isaac Newton"], answer: "Alexander Fleming", category: "History", type: "multiple"},
+      {question: "What is 1/4 as a percentage?", options: ["20%", "25%", "30%", "35%"], answer: "25%", category: "Math", type: "multiple"},
+      {question: "Diamond is the hardest natural material.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the largest land animal?", options: ["Rhino", "Hippo", "Elephant", "Giraffe"], answer: "Elephant", category: "Science", type: "multiple"},
+      {question: "How many weeks are in a year?", options: ["50", "51", "52", "53"], answer: "52", category: "General Knowledge", type: "multiple"},
+      {question: "Venus is the hottest planet.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the freezing point of water in Fahrenheit?", options: ["0°F", "32°F", "50°F", "100°F"], answer: "32°F", category: "Science", type: "multiple"},
+      {question: "Spiders are insects.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-06",
+    questions: [
+      {question: "What is the capital of Mexico?", options: ["Guadalajara", "Monterrey", "Mexico City", "Tijuana"], answer: "Mexico City", category: "Geography", type: "multiple"},
+      {question: "The human heart has four chambers.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who painted 'Starry Night'?", options: ["Claude Monet", "Vincent van Gogh", "Pablo Picasso", "Salvador Dali"], answer: "Vincent van Gogh", category: "Art", type: "multiple"},
+      {question: "What is 13 × 4?", options: ["48", "50", "52", "54"], answer: "52", category: "Math", type: "multiple"},
+      {question: "Mount Everest is the tallest mountain.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the main language in Brazil?", options: ["Spanish", "Portuguese", "English", "French"], answer: "Portuguese", category: "Geography", type: "multiple"},
+      {question: "How many colors are in the rainbow?", options: ["5", "6", "7", "8"], answer: "7", category: "Science", type: "multiple"},
+      {question: "Bulls are attracted to the color red.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What element does 'Fe' represent?", options: ["Iron", "Fluorine", "Fermium", "Francium"], answer: "Iron", category: "Science", type: "multiple"},
+      {question: "Antarctica is a desert.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-07",
+    questions: [
+      {question: "What is the capital of the United Kingdom?", options: ["Manchester", "Liverpool", "London", "Edinburgh"], answer: "London", category: "Geography", type: "multiple"},
+      {question: "Camels store water in their humps.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "Who wrote 'To Kill a Mockingbird'?", options: ["Harper Lee", "Mark Twain", "Ernest Hemingway", "F. Scott Fitzgerald"], answer: "Harper Lee", category: "Literature", type: "multiple"},
+      {question: "What is 75 + 48?", options: ["121", "122", "123", "124"], answer: "123", category: "Math", type: "multiple"},
+      {question: "The Pacific Ocean is larger than the Atlantic.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the speed of light?", options: ["299,792 km/s", "300,000 km/s", "310,000 km/s", "320,000 km/s"], answer: "299,792 km/s", category: "Science", type: "multiple"},
+      {question: "How many months have 31 days?", options: ["5", "6", "7", "8"], answer: "7", category: "General Knowledge", type: "multiple"},
+      {question: "Goldfish have a 3-second memory.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What is the smallest country in the world?", options: ["Monaco", "Vatican City", "San Marino", "Liechtenstein"], answer: "Vatican City", category: "Geography", type: "multiple"},
+      {question: "Humans can breathe and swallow at the same time.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-08",
+    questions: [
+      {question: "What is the capital of Netherlands?", options: ["Rotterdam", "Amsterdam", "The Hague", "Utrecht"], answer: "Amsterdam", category: "Geography", type: "multiple"},
+      {question: "The Great Barrier Reef is the largest living structure.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who invented the World Wide Web?", options: ["Bill Gates", "Steve Jobs", "Tim Berners-Lee", "Mark Zuckerberg"], answer: "Tim Berners-Lee", category: "History", type: "multiple"},
+      {question: "What is 20% of 150?", options: ["25", "30", "35", "40"], answer: "30", category: "Math", type: "multiple"},
+      {question: "All planets rotate counterclockwise.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What is the largest bird?", options: ["Eagle", "Albatross", "Ostrich", "Emu"], answer: "Ostrich", category: "Science", type: "multiple"},
+      {question: "How many degrees in a right angle?", options: ["45", "60", "90", "180"], answer: "90", category: "Math", type: "multiple"},
+      {question: "Peanuts grow underground.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the chemical formula for salt?", options: ["NaCl", "KCl", "CaCl2", "HCl"], answer: "NaCl", category: "Science", type: "multiple"},
+      {question: "The moon produces its own light.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-09",
+    questions: [
+      {question: "What is the capital of Belgium?", options: ["Antwerp", "Ghent", "Brussels", "Bruges"], answer: "Brussels", category: "Geography", type: "multiple"},
+      {question: "Honey never spoils.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who composed 'The Four Seasons'?", options: ["Mozart", "Bach", "Vivaldi", "Beethoven"], answer: "Vivaldi", category: "Music", type: "multiple"},
+      {question: "What is 11 × 11?", options: ["111", "121", "131", "141"], answer: "121", category: "Math", type: "multiple"},
+      {question: "The Sahara is the largest desert in the world.", options: ["True", "False"], answer: "False", category: "Geography", type: "boolean"},
+      {question: "What is the most common gas in Earth's atmosphere?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"], answer: "Nitrogen", category: "Science", type: "multiple"},
+      {question: "How many teeth does an adult human have?", options: ["28", "30", "32", "34"], answer: "32", category: "Science", type: "multiple"},
+      {question: "Crocodiles are older than dinosaurs.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What is the powerhouse of the cell?", options: ["Nucleus", "Ribosome", "Mitochondria", "Chloroplast"], answer: "Mitochondria", category: "Science", type: "multiple"},
+      {question: "A group of fish is called a school.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-10",
+    questions: [
+      {question: "What is the capital of Denmark?", options: ["Aarhus", "Odense", "Copenhagen", "Aalborg"], answer: "Copenhagen", category: "Geography", type: "multiple"},
+      {question: "Lightning is hotter than the surface of the sun.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who painted the ceiling of the Sistine Chapel?", options: ["Leonardo da Vinci", "Michelangelo", "Raphael", "Donatello"], answer: "Michelangelo", category: "Art", type: "multiple"},
+      {question: "What is 360 ÷ 9?", options: ["38", "39", "40", "41"], answer: "40", category: "Math", type: "multiple"},
+      {question: "Bananas grow on trees.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What is the largest planet in our solar system?", options: ["Saturn", "Jupiter", "Neptune", "Uranus"], answer: "Jupiter", category: "Science", type: "multiple"},
+      {question: "How many sides does a pentagon have?", options: ["4", "5", "6", "7"], answer: "5", category: "Math", type: "multiple"},
+      {question: "The tongue is the strongest muscle in the body.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What is the capital of Australia?", options: ["Sydney", "Melbourne", "Canberra", "Perth"], answer: "Canberra", category: "Geography", type: "multiple"},
+      {question: "Sharks have bones.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-11",
+    questions: [
+      {question: "What is the capital of Finland?", options: ["Turku", "Espoo", "Helsinki", "Tampere"], answer: "Helsinki", category: "Geography", type: "multiple"},
+      {question: "The Earth is closer to the sun in summer.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "Who wrote '1984'?", options: ["Aldous Huxley", "George Orwell", "Ray Bradbury", "H.G. Wells"], answer: "George Orwell", category: "Literature", type: "multiple"},
+      {question: "What is 17 × 5?", options: ["75", "80", "85", "90"], answer: "85", category: "Math", type: "multiple"},
+      {question: "Venus has no moons.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the longest river in the world?", options: ["Amazon", "Nile", "Yangtze", "Mississippi"], answer: "Nile", category: "Geography", type: "multiple"},
+      {question: "How many players on a basketball team?", options: ["4", "5", "6", "7"], answer: "5", category: "Sports", type: "multiple"},
+      {question: "Wombat poop is cube-shaped.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the smallest bone in the human body?", options: ["Stapes", "Femur", "Tibia", "Radius"], answer: "Stapes", category: "Science", type: "multiple"},
+      {question: "The unicorn is Scotland's national animal.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-12",
+    questions: [
+      {question: "What is the capital of Austria?", options: ["Salzburg", "Innsbruck", "Vienna", "Graz"], answer: "Vienna", category: "Geography", type: "multiple"},
+      {question: "Hot water freezes faster than cold water.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who invented the airplane?", options: ["Wright Brothers", "Amelia Earhart", "Leonardo da Vinci", "Charles Lindbergh"], answer: "Wright Brothers", category: "History", type: "multiple"},
+      {question: "What is 15 squared?", options: ["200", "215", "225", "235"], answer: "225", category: "Math", type: "multiple"},
+      {question: "Mercury is the closest planet to the sun.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the largest desert in the world?", options: ["Sahara", "Arabian", "Gobi", "Antarctic"], answer: "Antarctic", category: "Geography", type: "multiple"},
+      {question: "How many strings does a standard guitar have?", options: ["4", "5", "6", "7"], answer: "6", category: "Music", type: "multiple"},
+      {question: "Cows have best friends.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the main ingredient in glass?", options: ["Clay", "Sand", "Limestone", "Quartz"], answer: "Sand", category: "Science", type: "multiple"},
+      {question: "A jiffy is an actual unit of time.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-13",
+    questions: [
+      {question: "What is the capital of Croatia?", options: ["Split", "Dubrovnik", "Zagreb", "Rijeka"], answer: "Zagreb", category: "Geography", type: "multiple"},
+      {question: "Chameleons change color to match their surroundings.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "Who discovered America?", options: ["Leif Erikson", "Christopher Columbus", "Amerigo Vespucci", "Ferdinand Magellan"], answer: "Christopher Columbus", category: "History", type: "multiple"},
+      {question: "What is 250 ÷ 5?", options: ["45", "50", "55", "60"], answer: "50", category: "Math", type: "multiple"},
+      {question: "The Andes is the longest mountain range.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the rarest blood type?", options: ["O negative", "AB negative", "B negative", "A negative"], answer: "AB negative", category: "Science", type: "multiple"},
+      {question: "How many keys on a standard piano?", options: ["76", "82", "88", "92"], answer: "88", category: "Music", type: "multiple"},
+      {question: "Lobsters are immortal.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What is the largest island in the world?", options: ["Australia", "Greenland", "New Guinea", "Borneo"], answer: "Greenland", category: "Geography", type: "multiple"},
+      {question: "The inventor of the Frisbee was turned into a Frisbee.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-14",
+    questions: [
+      {question: "What is the capital of Love?", options: ["Paris", "Rome", "Venice", "Prague"], answer: "Paris", category: "General Knowledge", type: "multiple"},
+      {question: "The heart is a muscle.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who wrote 'Pride and Prejudice'?", options: ["Charlotte Brontë", "Jane Austen", "Emily Brontë", "Mary Shelley"], answer: "Jane Austen", category: "Literature", type: "multiple"},
+      {question: "What is 14 × 14?", options: ["186", "196", "206", "216"], answer: "196", category: "Math", type: "multiple"},
+      {question: "Roses are red, violets are blue.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"},
+      {question: "What hormone is called the 'love hormone'?", options: ["Dopamine", "Serotonin", "Oxytocin", "Endorphin"], answer: "Oxytocin", category: "Science", type: "multiple"},
+      {question: "How many chambers does the human heart have?", options: ["2", "3", "4", "5"], answer: "4", category: "Science", type: "multiple"},
+      {question: "Chocolate can be toxic to dogs.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What color are most roses?", options: ["White", "Pink", "Red", "Yellow"], answer: "Red", category: "General Knowledge", type: "multiple"},
+      {question: "February 14 is Valentine's Day.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-15",
+    questions: [
+      {question: "What is the capital of Hungary?", options: ["Debrecen", "Szeged", "Budapest", "Pécs"], answer: "Budapest", category: "Geography", type: "multiple"},
+      {question: "Elephants are afraid of mice.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "Who painted 'The Scream'?", options: ["Edvard Munch", "Vincent van Gogh", "Pablo Picasso", "Claude Monet"], answer: "Edvard Munch", category: "Art", type: "multiple"},
+      {question: "What is 9 × 12?", options: ["98", "102", "108", "112"], answer: "108", category: "Math", type: "multiple"},
+      {question: "The Atlantic Ocean is saltier than the Pacific.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the largest internal organ?", options: ["Heart", "Brain", "Liver", "Lungs"], answer: "Liver", category: "Science", type: "multiple"},
+      {question: "How many Olympic rings are there?", options: ["4", "5", "6", "7"], answer: "5", category: "Sports", type: "multiple"},
+      {question: "Koalas sleep up to 22 hours a day.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the most widely spoken language?", options: ["English", "Spanish", "Mandarin", "Hindi"], answer: "Mandarin", category: "General Knowledge", type: "multiple"},
+      {question: "An ostrich's eye is bigger than its brain.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-16",
+    questions: [
+      {question: "What is the capital of Czech Republic?", options: ["Brno", "Ostrava", "Prague", "Plzeň"], answer: "Prague", category: "Geography", type: "multiple"},
+      {question: "Bees can recognize human faces.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who invented the steam engine?", options: ["Thomas Newcomen", "James Watt", "George Stephenson", "Richard Trevithick"], answer: "James Watt", category: "History", type: "multiple"},
+      {question: "What is 1000 - 377?", options: ["613", "623", "633", "643"], answer: "623", category: "Math", type: "multiple"},
+      {question: "The Panama Canal connects two oceans.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the most abundant element in the universe?", options: ["Oxygen", "Carbon", "Hydrogen", "Helium"], answer: "Hydrogen", category: "Science", type: "multiple"},
+      {question: "How many dots are on a standard die?", options: ["18", "19", "20", "21"], answer: "21", category: "General Knowledge", type: "multiple"},
+      {question: "Butterflies can taste with their feet.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the tallest building in the world?", options: ["Shanghai Tower", "Burj Khalifa", "Abraj Al-Bait", "Ping An"], answer: "Burj Khalifa", category: "General Knowledge", type: "multiple"},
+      {question: "A snail can sleep for three years.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-17",
+    questions: [
+      {question: "What is the capital of Iceland?", options: ["Akureyri", "Keflavik", "Reykjavik", "Hafnarfjörður"], answer: "Reykjavik", category: "Geography", type: "multiple"},
+      {question: "Humans only use 10% of their brains.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "Who wrote 'The Great Gatsby'?", options: ["Ernest Hemingway", "F. Scott Fitzgerald", "John Steinbeck", "William Faulkner"], answer: "F. Scott Fitzgerald", category: "Literature", type: "multiple"},
+      {question: "What is 16 × 8?", options: ["118", "122", "128", "132"], answer: "128", category: "Math", type: "multiple"},
+      {question: "The Mediterranean Sea is between Europe and Africa.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What gas do humans exhale?", options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Helium"], answer: "Carbon Dioxide", category: "Science", type: "multiple"},
+      {question: "How many zeros in one million?", options: ["5", "6", "7", "8"], answer: "6", category: "Math", type: "multiple"},
+      {question: "Seahorses are fish.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the longest bone in the human body?", options: ["Tibia", "Humerus", "Femur", "Fibula"], answer: "Femur", category: "Science", type: "multiple"},
+      {question: "Flamingos are born pink.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-18",
+    questions: [
+      {question: "What is the capital of New Zealand?", options: ["Auckland", "Wellington", "Christchurch", "Hamilton"], answer: "Wellington", category: "Geography", type: "multiple"},
+      {question: "The Great Wall of China is one continuous wall.", options: ["True", "False"], answer: "False", category: "History", type: "boolean"},
+      {question: "Who composed 'Swan Lake'?", options: ["Mozart", "Tchaikovsky", "Beethoven", "Chopin"], answer: "Tchaikovsky", category: "Music", type: "multiple"},
+      {question: "What is 35% of 200?", options: ["60", "65", "70", "75"], answer: "70", category: "Math", type: "multiple"},
+      {question: "Alaska is the largest US state by area.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the main component of the sun?", options: ["Helium", "Hydrogen", "Oxygen", "Carbon"], answer: "Hydrogen", category: "Science", type: "multiple"},
+      {question: "How many continents begin with 'A'?", options: ["2", "3", "4", "5"], answer: "4", category: "Geography", type: "multiple"},
+      {question: "Penguins live in the Arctic.", options: ["True", "False"], answer: "False", category: "Geography", type: "boolean"},
+      {question: "What is the chemical symbol for silver?", options: ["Si", "Ag", "Au", "Sr"], answer: "Ag", category: "Science", type: "multiple"},
+      {question: "A group of whales is called a pod.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-19",
+    questions: [
+      {question: "What is the capital of Malaysia?", options: ["Penang", "Johor Bahru", "Kuala Lumpur", "Ipoh"], answer: "Kuala Lumpur", category: "Geography", type: "multiple"},
+      {question: "Dolphins sleep with one eye open.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who discovered radium?", options: ["Marie Curie", "Albert Einstein", "Isaac Newton", "Galileo"], answer: "Marie Curie", category: "History", type: "multiple"},
+      {question: "What is 19 × 7?", options: ["123", "133", "143", "153"], answer: "133", category: "Math", type: "multiple"},
+      {question: "The Dead Sea is below sea level.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the largest organ in the human body?", options: ["Liver", "Brain", "Heart", "Skin"], answer: "Skin", category: "Science", type: "multiple"},
+      {question: "How many years in a millennium?", options: ["100", "500", "1000", "10000"], answer: "1000", category: "General Knowledge", type: "multiple"},
+      {question: "Cats have nine lives.", options: ["True", "False"], answer: "False", category: "General Knowledge", type: "boolean"},
+      {question: "What is the hardest rock?", options: ["Granite", "Marble", "Diamond", "Quartz"], answer: "Diamond", category: "Science", type: "multiple"},
+      {question: "The longest word you can type with the top row of a keyboard is 'typewriter'.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-20",
+    questions: [
+      {question: "What is the capital of Singapore?", options: ["Singapore", "Kuala Lumpur", "Jakarta", "Bangkok"], answer: "Singapore", category: "Geography", type: "multiple"},
+      {question: "Frogs drink water through their skin.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who wrote 'The Catcher in the Rye'?", options: ["J.D. Salinger", "Jack Kerouac", "Allen Ginsberg", "William S. Burroughs"], answer: "J.D. Salinger", category: "Literature", type: "multiple"},
+      {question: "What is 400 ÷ 8?", options: ["45", "48", "50", "52"], answer: "50", category: "Math", type: "multiple"},
+      {question: "The Mariana Trench is the deepest part of the ocean.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the smallest planet in our solar system?", options: ["Mars", "Mercury", "Venus", "Pluto"], answer: "Mercury", category: "Science", type: "multiple"},
+      {question: "How many faces does a cube have?", options: ["4", "5", "6", "8"], answer: "6", category: "Math", type: "multiple"},
+      {question: "Hummingbirds can fly backwards.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the most common element in the human body?", options: ["Carbon", "Hydrogen", "Oxygen", "Nitrogen"], answer: "Oxygen", category: "Science", type: "multiple"},
+      {question: "The shortest war in history lasted 38 minutes.", options: ["True", "False"], answer: "True", category: "History", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-21",
+    questions: [
+      {question: "What is the capital of Chile?", options: ["Valparaiso", "Concepción", "Santiago", "Antofagasta"], answer: "Santiago", category: "Geography", type: "multiple"},
+      {question: "Sharks existed before trees.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who painted 'Guernica'?", options: ["Salvador Dali", "Pablo Picasso", "Joan Miró", "Diego Rivera"], answer: "Pablo Picasso", category: "Art", type: "multiple"},
+      {question: "What is 18 × 6?", options: ["98", "102", "108", "112"], answer: "108", category: "Math", type: "multiple"},
+      {question: "Lake Superior is the largest freshwater lake.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the most abundant metal in Earth's crust?", options: ["Iron", "Copper", "Aluminum", "Gold"], answer: "Aluminum", category: "Science", type: "multiple"},
+      {question: "How many tentacles does an octopus have?", options: ["6", "7", "8", "10"], answer: "8", category: "Science", type: "multiple"},
+      {question: "A group of crows is called a murder.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"},
+      {question: "What is the main ingredient in hummus?", options: ["Lentils", "Chickpeas", "Beans", "Peas"], answer: "Chickpeas", category: "Food", type: "multiple"},
+      {question: "Honey is bee vomit.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-22",
+    questions: [
+      {question: "What is the capital of Morocco?", options: ["Casablanca", "Marrakech", "Rabat", "Fez"], answer: "Rabat", category: "Geography", type: "multiple"},
+      {question: "The Eiffel Tower can be 15 cm taller in summer.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who invented the radio?", options: ["Nikola Tesla", "Guglielmo Marconi", "Thomas Edison", "Alexander Graham Bell"], answer: "Guglielmo Marconi", category: "History", type: "multiple"},
+      {question: "What is 21 × 9?", options: ["179", "189", "199", "209"], answer: "189", category: "Math", type: "multiple"},
+      {question: "Istanbul is in two continents.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the most common blood type?", options: ["A positive", "B positive", "O positive", "AB positive"], answer: "O positive", category: "Science", type: "multiple"},
+      {question: "How many wheels on a tricycle?", options: ["2", "3", "4", "5"], answer: "3", category: "General Knowledge", type: "multiple"},
+      {question: "A shrimp's heart is in its head.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the largest type of penguin?", options: ["King", "Emperor", "Gentoo", "Adelie"], answer: "Emperor", category: "Science", type: "multiple"},
+      {question: "Pigs can't look up at the sky.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-23",
+    questions: [
+      {question: "What is the capital of Peru?", options: ["Arequipa", "Cusco", "Lima", "Trujillo"], answer: "Lima", category: "Geography", type: "multiple"},
+      {question: "Octopuses have blue blood.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who wrote 'Dracula'?", options: ["Mary Shelley", "Bram Stoker", "Edgar Allan Poe", "H.P. Lovecraft"], answer: "Bram Stoker", category: "Literature", type: "multiple"},
+      {question: "What is 23 × 4?", options: ["84", "88", "92", "96"], answer: "92", category: "Math", type: "multiple"},
+      {question: "Africa is the second-largest continent.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the symbol for potassium?", options: ["P", "K", "Po", "Pt"], answer: "K", category: "Science", type: "multiple"},
+      {question: "How many vertices does a cube have?", options: ["6", "7", "8", "12"], answer: "8", category: "Math", type: "multiple"},
+      {question: "Elephants can't jump.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the most widely eaten food globally?", options: ["Bread", "Rice", "Pasta", "Potatoes"], answer: "Rice", category: "Food", type: "multiple"},
+      {question: "A group of flamingos is called a flamboyance.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-24",
+    questions: [
+      {question: "What is the capital of Colombia?", options: ["Medellín", "Cali", "Bogotá", "Cartagena"], answer: "Bogotá", category: "Geography", type: "multiple"},
+      {question: "The human nose can detect over 1 trillion scents.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who invented dynamite?", options: ["Alfred Nobel", "Thomas Edison", "Nikola Tesla", "Albert Einstein"], answer: "Alfred Nobel", category: "History", type: "multiple"},
+      {question: "What is 27 × 3?", options: ["71", "77", "81", "87"], answer: "81", category: "Math", type: "multiple"},
+      {question: "The Nile River flows through Egypt.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the largest type of bear?", options: ["Grizzly", "Polar", "Kodiak", "Black"], answer: "Polar", category: "Science", type: "multiple"},
+      {question: "How many degrees in a circle?", options: ["180", "270", "360", "450"], answer: "360", category: "Math", type: "multiple"},
+      {question: "Avocados are fruits.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the smallest unit of life?", options: ["Atom", "Molecule", "Cell", "Tissue"], answer: "Cell", category: "Science", type: "multiple"},
+      {question: "The inventor of the Pringles can is buried in one.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-25",
+    questions: [
+      {question: "What is the capital of Kenya?", options: ["Mombasa", "Nairobi", "Kisumu", "Nakuru"], answer: "Nairobi", category: "Geography", type: "multiple"},
+      {question: "Bees can see ultraviolet light.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who painted 'The Birth of Venus'?", options: ["Michelangelo", "Raphael", "Botticelli", "Leonardo da Vinci"], answer: "Botticelli", category: "Art", type: "multiple"},
+      {question: "What is 625 ÷ 25?", options: ["20", "22", "24", "25"], answer: "25", category: "Math", type: "multiple"},
+      {question: "The Statue of Liberty was originally copper colored.", options: ["True", "False"], answer: "True", category: "History", type: "boolean"},
+      {question: "What is the fastest land animal?", options: ["Lion", "Cheetah", "Gazelle", "Leopard"], answer: "Cheetah", category: "Science", type: "multiple"},
+      {question: "How many months have exactly 30 days?", options: ["3", "4", "5", "6"], answer: "4", category: "General Knowledge", type: "multiple"},
+      {question: "Cats can taste sweetness.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"},
+      {question: "What is the largest country by land area?", options: ["Canada", "China", "USA", "Russia"], answer: "Russia", category: "Geography", type: "multiple"},
+      {question: "A group of owls is called a parliament.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-26",
+    questions: [
+      {question: "What is the capital of Nigeria?", options: ["Lagos", "Abuja", "Kano", "Ibadan"], answer: "Abuja", category: "Geography", type: "multiple"},
+      {question: "Giraffes have the same number of neck bones as humans.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who wrote 'The Hobbit'?", options: ["C.S. Lewis", "J.R.R. Tolkien", "George R.R. Martin", "J.K. Rowling"], answer: "J.R.R. Tolkien", category: "Literature", type: "multiple"},
+      {question: "What is 33 × 3?", options: ["93", "96", "99", "102"], answer: "99", category: "Math", type: "multiple"},
+      {question: "Mount Fuji is in Japan.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the main gas in the air we breathe?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Hydrogen"], answer: "Nitrogen", category: "Science", type: "multiple"},
+      {question: "How many squares on a chessboard?", options: ["32", "48", "64", "72"], answer: "64", category: "General Knowledge", type: "multiple"},
+      {question: "Snakes can hear.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the longest English word?", options: ["Antidisestablishmentarianism", "Pneumonoultramicroscopicsilicovolcanoconiosis", "Supercalifragilisticexpialidocious", "Floccinaucinihilipilification"], answer: "Pneumonoultramicroscopicsilicovolcanoconiosis", category: "General Knowledge", type: "multiple"},
+      {question: "Polar bears are left-handed.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-27",
+    questions: [
+      {question: "What is the capital of Philippines?", options: ["Cebu", "Davao", "Manila", "Quezon City"], answer: "Manila", category: "Geography", type: "multiple"},
+      {question: "Humans and chimpanzees share 98% of their DNA.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who composed 'Für Elise'?", options: ["Mozart", "Bach", "Beethoven", "Chopin"], answer: "Beethoven", category: "Music", type: "multiple"},
+      {question: "What is 14 × 12?", options: ["156", "162", "168", "174"], answer: "168", category: "Math", type: "multiple"},
+      {question: "The Leaning Tower of Pisa is in Italy.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the largest mammal in the ocean?", options: ["Great White Shark", "Blue Whale", "Orca", "Humpback Whale"], answer: "Blue Whale", category: "Science", type: "multiple"},
+      {question: "How many eyes does a bee have?", options: ["2", "3", "5", "6"], answer: "5", category: "Science", type: "multiple"},
+      {question: "Bananas are radioactive.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the most populous country?", options: ["China", "India", "USA", "Indonesia"], answer: "India", category: "Geography", type: "multiple"},
+      {question: "A group of jellyfish is called a smack.", options: ["True", "False"], answer: "True", category: "General Knowledge", type: "boolean"}
+    ]
+  },
+  {
+    date: "2026-02-28",
+    questions: [
+      {question: "What is the capital of Ireland?", options: ["Cork", "Galway", "Dublin", "Limerick"], answer: "Dublin", category: "Geography", type: "multiple"},
+      {question: "A day on Venus is longer than a year on Venus.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "Who wrote 'Moby-Dick'?", options: ["Mark Twain", "Herman Melville", "Nathaniel Hawthorne", "Edgar Allan Poe"], answer: "Herman Melville", category: "Literature", type: "multiple"},
+      {question: "What is 28 × 5?", options: ["130", "135", "140", "145"], answer: "140", category: "Math", type: "multiple"},
+      {question: "The Andes is the longest mountain range.", options: ["True", "False"], answer: "True", category: "Geography", type: "boolean"},
+      {question: "What is the largest organ inside the human body?", options: ["Heart", "Brain", "Liver", "Lungs"], answer: "Liver", category: "Science", type: "multiple"},
+      {question: "How many legs does a lobster have?", options: ["6", "8", "10", "12"], answer: "10", category: "Science", type: "multiple"},
+      {question: "Chameleons change color based on their mood.", options: ["True", "False"], answer: "True", category: "Science", type: "boolean"},
+      {question: "What is the most populated city in the world?", options: ["Tokyo", "Delhi", "Shanghai", "Mumbai"], answer: "Tokyo", category: "Geography", type: "multiple"},
+      {question: "Pineapples grow on trees.", options: ["True", "False"], answer: "False", category: "Science", type: "boolean"}
+    ]
+  }
+];
+
+// Helper to get trivia sets for any date in February 2026
+export const getTriviaForDate = (dateString) => {
+  return TRIVIA_SETS.find(set => set.date === dateString) || null;
+};

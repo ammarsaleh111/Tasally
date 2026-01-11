@@ -1,4 +1,8 @@
 import { CONNECTIONS_PUZZLES_JAN_2026 } from './puzzles/connections-2026-01';
+import { CONNECTIONS_PUZZLES_FEB_2026 } from './puzzles/connections-2026-02';
+
+// Merge January and February puzzles
+const ALL_CONNECTIONS_PUZZLES = [...CONNECTIONS_PUZZLES_JAN_2026, ...CONNECTIONS_PUZZLES_FEB_2026];
 
 export const MAX_MISTAKES = 4;
 export const WORDS_PER_GROUP = 4;
@@ -21,7 +25,7 @@ export const getTodaysPuzzle = () => {
   const dateString = today.toISOString().split('T')[0];
   
   // Find puzzle for today
-  const puzzle = CONNECTIONS_PUZZLES_JAN_2026.find(p => p.date === dateString);
+  const puzzle = ALL_CONNECTIONS_PUZZLES.find(p => p.date === dateString);
   
   if (puzzle) {
     return puzzle;

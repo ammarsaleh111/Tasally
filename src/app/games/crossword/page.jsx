@@ -451,7 +451,7 @@ export default function CrosswordGame() {
       {/* Grid and Clues Side by Side */}
       <div className="flex flex-col lg:flex-row gap-6 w-full items-start justify-center">
         {/* Clues on Left */}
-        <div className="w-full lg:w-80 order-2 lg:order-1">
+        <div className="w-full lg:flex-1 lg:min-w-0 lg:max-w-80 order-2 lg:order-1">
           <CluePanel 
             puzzle={puzzle}
             activeClue={activeClue}
@@ -462,7 +462,7 @@ export default function CrosswordGame() {
         </div>
         
         {/* Grid on Right */}
-        <div className="w-full lg:w-auto order-1 lg:order-2">
+        <div className="w-full lg:w-auto lg:flex-shrink-0 order-1 lg:order-2">
           <CrosswordGrid 
             puzzle={puzzle}
             userGrid={gameState.userGrid}

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-const Toast = ({ message, type = 'default', onExited }) => {
+const noop = () => {};
+
+const Toast = ({ message, type = 'default', duration = 2000, onExited = noop }) => {
   // Types: 'default', 'error', 'success'
   // Currently we mostly use black toast for Wordle-like feel
   
@@ -11,19 +13,19 @@ const Toast = ({ message, type = 'default', onExited }) => {
     const timerIn = setTimeout(() => setVisible(true), 10);
     // Auto-dismiss
     const timerOut = setTimeout(() => {
-        setVisible(false);
-    }, 2000);
+      setVisible(false);
+    }, duration);
     // Cleanup callback
     const timerExit = setTimeout(() => {
-        onExited();
-    }, 2300); // 2000 + 300ms transition
+      onExited();
+    }, duration + 300);
 
     return () => {
         clearTimeout(timerIn);
         clearTimeout(timerOut);
         clearTimeout(timerExit);
     };
-  }, [onExited]);
+    }, [duration, onExited]);
 
   return (
     <div 

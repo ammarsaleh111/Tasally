@@ -234,6 +234,84 @@ export const CONNECTIONS_PUZZLES_JAN_2026 = [
     ]
   },
   {
+    date: "2026-01-10",
+    words: ["SPRING", "AUTUMN", "WINTER", "SUMMER", "MERCURY", "VENUS", "EARTH", "MARS", "LION", "TIGER", "LEOPARD", "CHEETAH", "GUITAR", "PIANO", "VIOLIN", "DRUMS"],
+    groups: [
+      {
+        color: "yellow", 
+        theme: "Seasons", 
+        words: ["SPRING", "SUMMER", "AUTUMN", "WINTER"] 
+      },
+      {
+        color: "green", 
+        theme: "Planets", 
+        words: ["MERCURY", "VENUS", "EARTH", "MARS"] 
+      },
+      {
+        color: "blue", 
+        theme: "Big Cats", 
+        words: ["LION", "TIGER", "LEOPARD", "CHEETAH"] 
+      },
+      {
+        color: "purple", 
+        theme: "Musical Instruments", 
+        words: ["GUITAR", "PIANO", "VIOLIN", "DRUMS"] 
+      },
+    ]
+  },
+  {
+    date: "2026-01-11",
+    words: ["COPPER", "SILVER", "GOLD", "BRONZE", "ROSE", "TULIP", "DAISY", "LILY", "PARIS", "LONDON", "ROME", "TOKYO", "MONDAY", "TUESDAY", "FRIDAY", "SUNDAY"],
+    groups: [
+      {
+        color: "yellow", 
+        theme: "Metals", 
+        words: ["COPPER", "SILVER", "GOLD", "BRONZE"] 
+      },
+      {
+        color: "green", 
+        theme: "Flowers", 
+        words: ["ROSE", "TULIP", "DAISY", "LILY"] 
+      },
+      {
+        color: "blue", 
+        theme: "World Capitals", 
+        words: ["PARIS", "LONDON", "ROME", "TOKYO"] 
+      },
+      {
+        color: "purple", 
+        theme: "Days of the Week", 
+        words: ["MONDAY", "TUESDAY", "FRIDAY", "SUNDAY"] 
+      },
+    ]
+  },
+  {
+    date: "2026-01-12",
+    words: ["CARROT", "POTATO", "ONION", "TOMATO", "HAMMER", "WRENCH", "DRILL", "SCREWDRIVER", "CIRCLE", "SQUARE", "TRIANGLE", "HEXAGON", "BLUE", "GREEN", "YELLOW", "RED"],
+    groups: [
+      {
+        color: "yellow", 
+        theme: "Vegetables", 
+        words: ["CARROT", "POTATO", "ONION", "TOMATO"] 
+      },
+      {
+        color: "green", 
+        theme: "Tools", 
+        words: ["HAMMER", "WRENCH", "DRILL", "SCREWDRIVER"] 
+      },
+      {
+        color: "blue", 
+        theme: "Shapes", 
+        words: ["CIRCLE", "SQUARE", "TRIANGLE", "HEXAGON"] 
+      },
+      {
+        color: "purple", 
+        theme: "Primary Colors", 
+        words: ["BLUE", "GREEN", "YELLOW", "RED"] 
+      },
+    ]
+  },
+  {
     date: "2026-01-13",
     words: ["RAIN", "OAK", "FOG", "PINE", "WIND", "MAPLE", "BIRCH", "FORK", "SNOW", "LADLE", "ARM", "LEG", "KNIFE", "HEAD", "SPOON", "FOOT"],
     groups: [

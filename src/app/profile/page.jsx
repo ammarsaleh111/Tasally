@@ -58,8 +58,13 @@ export default function ProfilePage() {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   }
 
-  const totalGames = Object.values(stats).reduce((sum, game) => sum + game.gamesPlayed, 0);
-  const totalWins = Object.values(stats).reduce((sum, game) => sum + game.gamesWon, 0);
+  const statsValues = Object.values(stats || {});
+  const totalGames = statsValues.reduce((sum, game) => sum + (game?.gamesPlayed || 0), 0);
+  const totalWins = statsValues.reduce((sum, game) => sum + (game?.gamesWon || 0), 0);
+  const bestCurrentStreak = statsValues.reduce((max, game) => {
+    const streak = game?.currentStreak || 0;
+    return Math.max(max, streak);
+  }, 0);
   const totalAchievements = getAchievementCount();
   const achievementProgress = Math.round((totalAchievements / ACHIEVEMENTS.length) * 100);
 
@@ -100,7 +105,7 @@ export default function ProfilePage() {
           />
           <StatCard 
             icon="🔥" 
-            value={Math.max(...Object.values(stats).map(g => g.currentStreak))} 
+            value={bestCurrentStreak} 
             label="Best Current Streak" 
             color="bg-orange-50 border-orange-200" 
           />
@@ -196,15 +201,23 @@ const OverviewTab = ({ stats }) => (
       <GameSummaryCard gameName="Crossword" stats={stats.crossword} icon="🧩" color="from-purple-400 to-pink-500" />
       <GameSummaryCard gameName="Numbers" stats={stats.numbers} icon="🔢" color="from-orange-400 to-red-500" />
       <GameSummaryCard gameName="Trivia" stats={stats.trivia} icon="🎓" color="from-yellow-400 to-amber-500" />
+      <GameSummaryCard gameName="Strands" stats={stats.strands} icon="🧵" color="from-indigo-400 to-blue-500" />
+      {stats.spelling && (
+        <GameSummaryCard gameName="Spelling" stats={stats.spelling} icon="🐝" color="from-yellow-400 to-orange-500" />
+      )}
     </div>
   </div>
 );
 
 // Game Summary Card
 const GameSummaryCard = ({ gameName, stats, icon, color }) => {
-  const winRate = stats.gamesPlayed > 0 
-    ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100) 
-    : 0;
+  if (!stats) return null;
+
+  const wins = stats.gamesWon ?? 0;
+  const streak = stats.currentStreak ?? 0;
+  const longest = stats.longestStreak ?? stats.maxStreak ?? 0;
+  const played = stats.gamesPlayed ?? 0;
+  const winRate = played > 0 ? Math.round((wins / played) * 100) : 0;
 
   return (
     <Link href={`/games/${gameName.toLowerCase()}`}>
@@ -212,7 +225,7 @@ const GameSummaryCard = ({ gameName, stats, icon, color }) => {
         <div className="flex items-center justify-between mb-4">
           <div className="text-5xl">{icon}</div>
           <div className="text-right">
-            <div className="text-3xl font-bold">{stats.gamesPlayed}</div>
+            <div className="text-3xl font-bold">{played}</div>
             <div className="text-sm opacity-90">Played</div>
           </div>
         </div>
@@ -223,11 +236,11 @@ const GameSummaryCard = ({ gameName, stats, icon, color }) => {
             <div className="opacity-75">Win Rate</div>
           </div>
           <div>
-            <div className="font-bold text-lg">{stats.currentStreak}</div>
+            <div className="font-bold text-lg">{streak}</div>
             <div className="opacity-75">Streak</div>
           </div>
           <div>
-            <div className="font-bold text-lg">{stats.longestStreak}</div>
+            <div className="font-bold text-lg">{longest}</div>
             <div className="opacity-75">Best</div>
           </div>
         </div>
@@ -241,36 +254,38 @@ const StatsTab = ({ stats }) => (
   <div className="space-y-8">
     <h2 className="text-2xl font-bold text-foreground mb-4">Detailed Statistics</h2>
     
-    {Object.entries(stats).map(([gameName, gameStats]) => (
-      <div key={gameName} className="bg-white rounded-xl p-6 shadow-md border-2 border-gray-100">
-        <h3 className="text-xl font-bold text-foreground mb-4 capitalize">{gameName}</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatItem label="Played" value={gameStats.gamesPlayed} />
-          <StatItem label="Won" value={gameStats.gamesWon} />
-          <StatItem 
-            label="Win Rate" 
-            value={gameStats.gamesPlayed > 0 
-              ? `${Math.round((gameStats.gamesWon / gameStats.gamesPlayed) * 100)}%` 
-              : '0%'
-            } 
-          />
-          <StatItem label="Current Streak" value={gameStats.currentStreak} highlight />
-          <StatItem label="Longest Streak" value={gameStats.longestStreak} />
-          {gameStats.bestTime !== null && (
-            <StatItem 
-              label="Best Time" 
-              value={formatTime(gameStats.bestTime)} 
-            />
-          )}
-          {gameStats.averageAttempts > 0 && (
-            <StatItem label="Avg Attempts" value={gameStats.averageAttempts} />
-          )}
-          {gameStats.perfectGames > 0 && (
-            <StatItem label="Perfect Games" value={gameStats.perfectGames} />
-          )}
+    {Object.entries(stats).map(([gameName, gameStats]) => {
+      const played = gameStats?.gamesPlayed ?? 0;
+      const wins = gameStats?.gamesWon ?? 0;
+      const currentStreak = gameStats?.currentStreak ?? 0;
+      const longestStreak = gameStats?.longestStreak ?? gameStats?.maxStreak ?? 0;
+      const winRate = played > 0 ? `${Math.round((wins / played) * 100)}%` : '0%';
+      const bestTime = gameStats?.bestTime ?? null;
+      const averageAttempts = gameStats?.averageAttempts ?? 0;
+      const perfectGames = gameStats?.perfectGames ?? 0;
+
+      return (
+        <div key={gameName} className="bg-white rounded-xl p-6 shadow-md border-2 border-gray-100">
+          <h3 className="text-xl font-bold text-foreground mb-4 capitalize">{gameName}</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <StatItem label="Played" value={played} />
+            <StatItem label="Won" value={wins} />
+            <StatItem label="Win Rate" value={winRate} />
+            <StatItem label="Current Streak" value={currentStreak} highlight />
+            <StatItem label="Longest Streak" value={longestStreak} />
+            {bestTime !== null && (
+              <StatItem label="Best Time" value={formatTime(bestTime)} />
+            )}
+            {averageAttempts > 0 && (
+              <StatItem label="Avg Attempts" value={averageAttempts} />
+            )}
+            {perfectGames > 0 && (
+              <StatItem label="Perfect Games" value={perfectGames} />
+            )}
+          </div>
         </div>
-      </div>
-    ))}
+      );
+    })}
   </div>
 );
 

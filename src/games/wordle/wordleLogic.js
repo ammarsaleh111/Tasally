@@ -1,4 +1,8 @@
-import { DAILY_WORDS } from './wordLists/daily-2026-01';
+import { DAILY_WORDS as DAILY_WORDS_JAN } from './wordLists/daily-2026-01';
+import { DAILY_WORDS_FEB_2026 } from './wordLists/daily-2026-02';
+
+// Merge January and February words
+const DAILY_WORDS = { ...DAILY_WORDS_JAN, ...DAILY_WORDS_FEB_2026 };
 import { ALLOWED_WORDS } from './wordLists/allowedWords';
 import { WORDS_4 } from './wordLists/words4';
 import { WORDS_6 } from './wordLists/words6';

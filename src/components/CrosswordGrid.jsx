@@ -23,8 +23,8 @@ const CrosswordGrid = React.memo(({
   };
   
   return (
-    <div className={`w-full max-w-md mx-auto ${isSolved ? 'animate-pulse' : ''}`}>
-      <div className="grid grid-cols-5 gap-0.5 bg-border-default p-1 rounded-lg shadow-lg">
+    <div className={`crossword-scale ${isSolved ? 'animate-pulse' : ''}`}>
+      <div className="grid grid-cols-5 gap-1 bg-border-default p-2 rounded-lg shadow-lg h-full">
         {Array(GRID_SIZE).fill(null).map((_, row) => (
           Array(GRID_SIZE).fill(null).map((_, col) => {
             const isBlack = puzzle.grid[row][col] === "";
@@ -37,7 +37,7 @@ const CrosswordGrid = React.memo(({
               return (
                 <div
                   key={`${row}-${col}`}
-                  className="aspect-square bg-foreground rounded-sm"
+                  className="w-full h-full aspect-square bg-foreground rounded-sm"
                 />
               );
             }
@@ -47,9 +47,9 @@ const CrosswordGrid = React.memo(({
                 key={`${row}-${col}`}
                 onClick={() => onCellClick(row, col)}
                 className={`
-                  aspect-square relative cursor-pointer
+                  w-full h-full aspect-square relative cursor-pointer
                   flex items-center justify-center
-                  text-xl sm:text-2xl font-bold
+                  text-2xl font-bold
                   transition-all duration-150 ease-out
                   rounded-sm
                   ${active 

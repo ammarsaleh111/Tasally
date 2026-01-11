@@ -25,6 +25,9 @@ const ShareResults = ({ gameName, result, puzzleNumber }) => {
       case 'trivia':
         lines.push(generateTriviaText(result));
         break;
+      case 'strands':
+        lines.push(generateStrandsText(result));
+        break;
     }
 
     return lines.join('\n');
@@ -41,14 +44,12 @@ const ShareResults = ({ gameName, result, puzzleNumber }) => {
       } else {
         await navigator.clipboard.writeText(shareText);
         setShowToast(true);
-        setTimeout(() => setShowToast(false), 2000);
       }
     } catch (error) {
       // Fallback: try clipboard
       try {
         await navigator.clipboard.writeText(shareText);
         setShowToast(true);
-        setTimeout(() => setShowToast(false), 2000);
       } catch (clipboardError) {
         console.error('Failed to share:', clipboardError);
       }
@@ -65,11 +66,12 @@ const ShareResults = ({ gameName, result, puzzleNumber }) => {
         <span>Share Results</span>
       </button>
 
-      <Toast
-        message="Results copied to clipboard!"
-        isVisible={showToast}
-        onClose={() => setShowToast(false)}
-      />
+      {showToast && (
+        <Toast
+          message="Results copied to clipboard!"
+          onExited={() => setShowToast(false)}
+        />
+      )}
     </>
   );
 };
@@ -138,6 +140,16 @@ function generateTriviaText(result) {
   if (!result || result.score === undefined) return '';
 
   return `🎓 ${result.score}/10`;
+}
+
+// Generate Strands text
+function generateStrandsText(result) {
+  if (!result) return '';
+  const wordsFound = result.wordsFound ?? 0;
+  const totalWords = result.totalWords ?? 0;
+  const header = `🧵 ${wordsFound}/${totalWords}${result.spangram ? ' + Spangram' : ''}`;
+  const bar = '🟦'.repeat(Math.max(0, wordsFound));
+  return [header, bar].join('\n');
 }
 
 export default ShareResults;

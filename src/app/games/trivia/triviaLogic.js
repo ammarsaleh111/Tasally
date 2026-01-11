@@ -1,6 +1,10 @@
-import { TRIVIA_SETS, generateDefaultSet } from './questions/trivia-2026-01';
+import { TRIVIA_SETS as TRIVIA_SETS_JAN } from './questions/trivia-2026-01';
+import { TRIVIA_SETS as TRIVIA_SETS_FEB } from './questions/trivia-2026-02';
 import { getThemedTrivia } from './questions/themed';
 import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
+
+// Merge January and February trivia sets
+const TRIVIA_SETS = [...TRIVIA_SETS_JAN, ...TRIVIA_SETS_FEB];
 
 /**
  * Get daily trivia set based on current date
@@ -22,18 +26,19 @@ export const getDailyTrivia = () => {
     }
   }
   
-  // Default behavior
+  // Default behavior - find by date
   const today = new Date();
-  const dayIndex = today.getDate() - 1;
+  const dateStr = today.toISOString().split('T')[0];
   
-  // Get the set for today or use fallback
-  if (dayIndex < TRIVIA_SETS.length) {
-    return TRIVIA_SETS[dayIndex];
+  // Try to find exact date match first
+  const dateMatch = TRIVIA_SETS.find(set => set.date === dateStr);
+  if (dateMatch) {
+    return dateMatch;
   }
   
-  // Generate fallback set
-  const dateStr = today.toISOString().split('T')[0];
-  return generateDefaultSet(dateStr);
+  // Fallback to cycling through available sets
+  const dayIndex = today.getDate() - 1;
+  return TRIVIA_SETS[dayIndex % TRIVIA_SETS.length];
 };
 
 /**

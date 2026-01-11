@@ -98,6 +98,27 @@
   --connections-blue: #9aaedf;
   --connections-purple: #a66fb0;
   --connections-text-light: #0f172a;
+}
+
+/* Crossword Grid Scaling */
+.crossword-scale {
+  width: min(65vw, 420px);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .crossword-scale {
+    width: min(80vw, 380px);
+  }
+}
+
+@media (max-width: 768px) {
+  .crossword-scale {
+    width: min(90vw, 340px);
+  }
+}
+:root.dark {
   --connections-text-dark: #ffffff;
 
   /* Game Colors - Dark */
@@ -260,7 +281,28 @@
 }
 
 .animate-shake {
+  animation: shake 0.5s ease-in-out;
   will-change: transform;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-4px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(4px);
+  }
 }
 
 .animate-pop {

@@ -11,7 +11,12 @@ export function getProfile() {
   
   const stored = localStorage.getItem(PROFILE_KEY);
   if (stored) {
-    return JSON.parse(stored);
+    const profile = JSON.parse(stored);
+    const updated = ensureGameEntries(profile);
+    if (updated) {
+      saveProfile(profile);
+    }
+    return profile;
   }
   
   // Create new profile
@@ -24,6 +29,8 @@ export function getProfile() {
       crossword: initGameStats(),
       numbers: initGameStats(),
       trivia: initGameStats(),
+      strands: initGameStats(),
+      spelling: initSpellingStats(),
     },
     achievements: [],
     settings: {
@@ -34,6 +41,33 @@ export function getProfile() {
   
   saveProfile(newProfile);
   return newProfile;
+}
+
+function ensureGameEntries(profile) {
+  let updated = false;
+  if (!profile.games) {
+    profile.games = {};
+    updated = true;
+  }
+
+  const requiredGames = {
+    wordle: () => initGameStats(),
+    connections: () => initGameStats(),
+    crossword: () => initGameStats(),
+    numbers: () => initGameStats(),
+    trivia: () => initGameStats(),
+    strands: () => initGameStats(),
+    spelling: () => initSpellingStats(),
+  };
+
+  Object.entries(requiredGames).forEach(([key, initializer]) => {
+    if (!profile.games[key]) {
+      profile.games[key] = initializer();
+      updated = true;
+    }
+  });
+
+  return updated;
 }
 
 // Save profile to localStorage
@@ -56,6 +90,25 @@ function initGameStats() {
     averageAttempts: 0, // For wordle, connections
     totalAttempts: 0,
     perfectGames: 0, // Zero mistakes
+  };
+}
+
+// Initialize Spelling Bee specific stats
+function initSpellingStats() {
+  return {
+    gamesPlayed: 0,
+    gamesWon: 0,
+    currentStreak: 0,
+    longestStreak: 0,
+    maxStreak: 0,
+    lastPlayedDate: null,
+    history: [],
+    totalWords: 0,
+    totalPangrams: 0,
+    totalScore: 0,
+    averageScore: 0,
+    rankDistribution: {},
+    queenBeeCount: 0, // Times reached 100%
   };
 }
 
@@ -174,7 +227,80 @@ export function getAllStats() {
     crossword: profile.games.crossword,
     numbers: profile.games.numbers,
     trivia: profile.games.trivia,
+    strands: profile.games.strands,
+    spelling: profile.games.spelling,
   };
+}
+
+// Save game to profile (Simplified version for Spelling Bee)
+export function saveGameToProfile(gameName, data) {
+  const profile = getProfile();
+  const today = getTodayString();
+  
+  if (gameName === 'spelling') {
+    const gameStats = profile.games.spelling;
+    
+    // Check if already played today
+    const existingIndex = gameStats.history.findIndex(h => h.date === today);
+    if (existingIndex !== -1) {
+      // Update existing
+      gameStats.history[existingIndex] = { date: today, ...data.stats };
+    } else {
+      // Add new
+      gameStats.history.push({ date: today, ...data.stats });
+      gameStats.gamesPlayed++;
+    }
+    
+    // Update cumulative stats - Recalculate from history to prevent double counting
+    gameStats.totalWords = gameStats.history.reduce((sum, h) => sum + (h.wordsFound || 0), 0);
+    gameStats.totalPangrams = gameStats.history.reduce((sum, h) => sum + (h.pangramsFound || 0), 0);
+    gameStats.totalScore = gameStats.history.reduce((sum, h) => sum + (h.score || 0), 0);
+    
+    if (gameStats.gamesPlayed > 0) {
+      gameStats.averageScore = gameStats.totalScore / gameStats.gamesPlayed;
+    }
+
+    // Update rank distribution - Recalculate
+    const distribution = {};
+    gameStats.history.forEach(h => {
+      if (h.rank) {
+        distribution[h.rank] = (distribution[h.rank] || 0) + 1;
+      }
+    });
+    gameStats.rankDistribution = distribution;
+    
+    // Check Queen Bee (100% completion)
+    const completeGames = gameStats.history.filter(h => h.isComplete).length;
+    gameStats.queenBeeCount = completeGames;
+    // For Spelling Bee, we might consider a "win" as essentially any game played, 
+    // or maybe reaching Genius, but for now let's keep gamesWon = gamesPlayed 
+    // or maybe just track Queen Bees. 
+    // The previous code did gameStats.gamesWon++ if isComplete.
+    // Let's set gamesWon to count of 'Genius' rank or higher?
+    // For consistency with other games, let's say "Win" is reaching Genius.
+    // But for now, let's just stick to recalculating based on IsComplete (Queen Bee) 
+    // or arguably reaching Genius.
+    // Let's stick to Queen Bee = Win for this specific counter if that's what was intended.
+    gameStats.gamesWon = completeGames;
+    
+    // Update streak
+    if (gameStats.lastPlayedDate === getYesterdayString()) {
+      gameStats.currentStreak++;
+    } else if (gameStats.lastPlayedDate !== today) {
+      gameStats.currentStreak = 1;
+    }
+    
+    if (gameStats.currentStreak > gameStats.maxStreak) {
+      gameStats.maxStreak = gameStats.currentStreak;
+    }
+    if (gameStats.currentStreak > gameStats.longestStreak) {
+      gameStats.longestStreak = gameStats.currentStreak;
+    }
+    
+    gameStats.lastPlayedDate = today;
+    
+    saveProfile(profile);
+  }
 }
 
 // Check and unlock achievements

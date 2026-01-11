@@ -1,4 +1,8 @@
 import { CROSSWORD_PUZZLES_JAN_2026 } from './puzzles/crossword-2026-01';
+import { CROSSWORD_PUZZLES_FEB_2026 } from './puzzles/crossword-2026-02';
+
+// Merge January and February puzzles
+const ALL_CROSSWORD_PUZZLES = [...CROSSWORD_PUZZLES_JAN_2026, ...CROSSWORD_PUZZLES_FEB_2026];
 
 export const GRID_SIZE = 5;
 
@@ -9,14 +13,14 @@ export const getTodaysPuzzle = () => {
   const today = new Date();
   const dateString = today.toISOString().split('T')[0];
   
-  const puzzle = CROSSWORD_PUZZLES_JAN_2026.find(p => p.date === dateString);
+  const puzzle = ALL_CROSSWORD_PUZZLES.find(p => p.date === dateString);
   
   if (puzzle) {
     return puzzle;
   }
   
   // Fallback to first puzzle
-  return CROSSWORD_PUZZLES_JAN_2026[0];
+  return ALL_CROSSWORD_PUZZLES[0];
 };
 
 /**

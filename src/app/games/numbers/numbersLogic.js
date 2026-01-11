@@ -1,4 +1,8 @@
-import { NUMBERS_PUZZLES } from './puzzles/numbers-2026-01';
+import { NUMBERS_PUZZLES as NUMBERS_PUZZLES_JAN } from './puzzles/numbers-2026-01';
+import { NUMBERS_PUZZLES_FEB_2026 } from './puzzles/numbers-2026-02';
+
+// Merge January and February puzzles
+const NUMBERS_PUZZLES = [...NUMBERS_PUZZLES_JAN, ...NUMBERS_PUZZLES_FEB_2026];
 
 // Operators
 export const OPERATORS = ['+', '-', '×', '÷'];
