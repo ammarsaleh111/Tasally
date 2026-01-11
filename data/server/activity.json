@@ -3,7 +3,7 @@
     {
       "userId": "user_1768132524071_6oojefx8u",
       "name": "ammar",
-      "lastSeen": "2026-01-11T11:56:55.156Z",
+      "lastSeen": "2026-01-11T11:58:55.156Z",
       "currentPage": "game:wordle",
       "currentGame": "wordle",
       "activities": [
@@ -36,6 +36,26 @@
         {
           "type": "activity_update",
           "timestamp": "2026-01-11T11:56:55.156Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T11:57:25.155Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T11:57:55.156Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T11:58:25.156Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T11:58:55.156Z",
           "page": "game:wordle"
         }
       ]
