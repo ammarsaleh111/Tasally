@@ -1,49 +1,67 @@
-import { ALLOWED_WORDS } from '../games/wordle/wordLists/allowedWords';
-import { DAILY_WORDS } from '../games/wordle/wordLists/daily-2026-01';
+import { isWordInLocalDictionary, addWordToLocalDictionary } from './localDictionary';
 
-// Internal list of words for fallback
-const LOCAL_WORD_SET = new Set([...ALLOWED_WORDS, ...DAILY_WORDS].map(w => w.toUpperCase()));
+const validationCache = new Map();
 
-/**
- * Validates a word using an external dictionary API.
- * Falls back to local list if API fails or returns error.
- * 
- * @param {string} word - The word to validate
- * @returns {Promise<boolean>} - True if valid, false otherwise
- */
-export const validateWordAsync = async (word) => {
-  const upperWord = word.toUpperCase();
-  
-  // 1. Check local list first (instant success)
-  // This saves API calls for common valid words we already know
-  if (LOCAL_WORD_SET.has(upperWord)) {
-    return true;
+function normalizeWord(word = '') {
+  return word.trim().toLowerCase();
+}
+
+export function isWordLocallyKnown(word) {
+  const normalized = normalizeWord(word);
+  if (!normalized) return false;
+  return isWordInLocalDictionary(normalized);
+}
+
+export function primeValidationCache(word, result) {
+  const normalized = normalizeWord(word);
+  if (!normalized) return;
+  validationCache.set(normalized, !!result);
+  if (result) {
+    addWordToLocalDictionary(normalized);
+  }
+}
+
+export async function validateWordAsync(word) {
+  const normalized = normalizeWord(word);
+  if (!normalized || !/^[a-z]+$/.test(normalized)) {
+    return { valid: false, source: 'input' };
   }
 
-  // 2. Check external API with a fast timeout to keep UX snappy
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 400); // hard cap latency
+  if (typeof window === 'undefined') {
+    return { valid: isWordInLocalDictionary(normalized), source: 'local' };
+  }
+
+  if (validationCache.has(normalized)) {
+    return { valid: validationCache.get(normalized), source: 'cache' };
+  }
+
+  if (isWordInLocalDictionary(normalized)) {
+    validationCache.set(normalized, true);
+    return { valid: true, source: 'local' };
+  }
 
   try {
-    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}` , {
-      signal: controller.signal,
+    const response = await fetch('/api/word-validation', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ word: normalized }),
     });
-    clearTimeout(timeoutId);
 
-    if (response.ok) {
-      LOCAL_WORD_SET.add(upperWord); // cache success
-      return true;
+    if (!response.ok) {
+      console.error('[wordValidation] API error', response.status);
+      validationCache.set(normalized, false);
+      return { valid: false, source: 'api-error' };
     }
 
-    if (response.status === 404) {
-      return false;
+    const payload = await response.json();
+    validationCache.set(normalized, !!payload.valid);
+    if (payload.valid) {
+      addWordToLocalDictionary(normalized);
     }
-
-    // Other status: treat as invalid but do not cache
-    return false;
+    return { valid: !!payload.valid, source: payload.source || 'remote' };
   } catch (error) {
-    clearTimeout(timeoutId);
-    // Timeout or network error: treat as invalid to keep UX deterministic
-    return false;
+    console.error('[wordValidation] Network error, rejecting word', { word: normalized, error: error.message });
+    validationCache.set(normalized, false);
+    return { valid: false, source: 'network-error' };
   }
-};
+}

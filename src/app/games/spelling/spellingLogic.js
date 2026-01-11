@@ -3,6 +3,8 @@
  * Word formation game with center letter requirement
  */
 
+import { isWordInLocalDictionary } from '@/utils/localDictionary';
+
 /**
  * Rank thresholds as percentage of max possible score
  */
@@ -77,7 +79,10 @@ export function validateWord(word, centerLetter, allowedLetters, validWords, fou
   
   // Check if word is in valid word list
   if (!validWords.includes(upperWord)) {
-    return { valid: false, message: 'Not in word list' };
+    if (!isWordInLocalDictionary(word)) {
+      return { valid: false, message: 'Not a valid English word' };
+    }
+    return { valid: false, message: 'Valid word, but not in today\'s list' };
   }
   
   return { valid: true, message: 'Good!' };

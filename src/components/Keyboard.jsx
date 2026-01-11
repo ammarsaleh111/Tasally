@@ -1,7 +1,7 @@
 import React from 'react';
 import { LETTER_STATUS } from '../games/wordle/wordleLogic';
 
-const Keyboard = React.memo(({ onKey, keyStatuses }) => {
+const Keyboard = React.memo(({ onKey, keyStatuses, disabled = false }) => {
   const rows = [
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
     ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
@@ -28,13 +28,19 @@ const Keyboard = React.memo(({ onKey, keyStatuses }) => {
         <div key={i} className="flex justify-center gap-1.5 mb-2">
           {row.map((key) => {
             const isWide = key === 'ENTER' || key === 'BACKSPACE';
+            const handleClick = () => {
+              if (disabled) return;
+              onKey(key);
+            };
+
             return (
               <button
                 key={key}
-                onClick={() => onKey(key)}
+                onClick={handleClick}
+                disabled={disabled}
                 className={`${isWide ? 'px-3 sm:px-4 text-xs font-bold' : 'px-2 sm:px-3.5 font-bold'} 
                   h-14 rounded transition-colors flex items-center justify-center
-                  ${getKeyStyle(key)}
+                  ${disabled ? 'opacity-60 cursor-not-allowed' : getKeyStyle(key)}
                 `}
               >
                 {key === 'BACKSPACE' ? '⌫' : key}

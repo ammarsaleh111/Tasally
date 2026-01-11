@@ -1,9 +1,10 @@
 import React from 'react';
-import { LETTER_STATUS } from '../games/wordle/wordleLogic';
+import { LETTER_STATUS, MAX_GUESSES } from '../games/wordle/wordleLogic';
 
-const WordleGrid = React.memo(({ guesses, currentGuess, turn, status, length = 5, isShaking = false }) => {
-  const empties = 
-    guesses.length < 6 ? Array.from(Array(6 - 1 - guesses.length)) : [];
+const WordleGrid = React.memo(({ guesses, currentGuess, length = 5, isShaking = false }) => {
+  const hasActiveRow = guesses.length < MAX_GUESSES;
+  const placeholderCount = Math.max(0, MAX_GUESSES - guesses.length - (hasActiveRow ? 1 : 0));
+  const empties = Array.from({ length: placeholderCount });
   
   // Calculate grid max-width based on scaling to keep tiles roughly similar size
   const getMaxWidth = () => {
@@ -17,9 +18,9 @@ const WordleGrid = React.memo(({ guesses, currentGuess, turn, status, length = 5
   return (
     <div className={`w-full ${getMaxWidth()} mx-auto gap-1.5 mb-6 flex flex-col`}>
       {guesses.map((guess, i) => (
-        <CompletedRow key={i} guess={guess} length={length} />
+        <CompletedRow key={guess.id ?? i} guess={guess} length={length} />
       ))}
-      {guesses.length < 6 && <CurrentRow guess={currentGuess} length={length} isShaking={isShaking} />}
+      {hasActiveRow && <CurrentRow guess={currentGuess} length={length} isShaking={isShaking} />}
       {empties.map((_, i) => (
         <EmptyRow key={i} length={length} />
       ))}
@@ -37,22 +38,43 @@ const getGridColsStyle = (length) => {
 
 const CompletedRow = React.memo(({ guess, length }) => {
   return (
-    <div className={`grid ${getGridColsStyle(length)} gap-1.5 w-full`}>
-      {guess.word.split('').map((letter, i) => (
-        <div
-          key={i}
-          className={`
-            aspect-square w-full border-2 flex items-center justify-center text-2xl sm:text-3xl font-bold text-[var(--button-text)] capitalize
-            ${guess.evaluation[i] === LETTER_STATUS.CORRECT ? 'bg-wordle-correct border-wordle-correct' : ''}
-            ${guess.evaluation[i] === LETTER_STATUS.PRESENT ? 'bg-wordle-present border-wordle-present' : ''}
-            ${guess.evaluation[i] === LETTER_STATUS.ABSENT ? 'bg-wordle-absent border-wordle-absent' : ''}
-            animate-flip
-          `}
-          style={{ animationDelay: `${i * 100}ms` }}
-        >
-          {letter}
+    <div className="relative w-full">
+      {guess.pending && (
+        <div className="absolute -top-5 right-0 text-xs text-blue-600 dark:text-blue-300 animate-pulse">
+          Checking...
         </div>
-      ))}
+      )}
+      <div className={`grid ${getGridColsStyle(length)} gap-1.5 w-full`}>
+        {guess.word.split('').map((letter, i) => {
+          const status = guess.evaluation?.[i];
+          const isPending = !!guess.pending;
+
+          const statusClass = status === LETTER_STATUS.CORRECT
+            ? 'bg-wordle-correct border-wordle-correct'
+            : status === LETTER_STATUS.PRESENT
+              ? 'bg-wordle-present border-wordle-present'
+              : status === LETTER_STATUS.ABSENT
+                ? 'bg-wordle-absent border-wordle-absent'
+                : 'border-border-active bg-surface';
+
+          const animateClass = isPending ? '' : 'animate-flip';
+
+          return (
+            <div
+              key={i}
+              className={`
+                aspect-square w-full border-2 flex items-center justify-center text-2xl sm:text-3xl font-bold text-[var(--button-text)] capitalize
+                ${statusClass}
+                ${animateClass}
+                ${isPending ? 'opacity-80' : ''}
+              `}
+              style={{ animationDelay: `${i * 100}ms` }}
+            >
+              {letter}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 });

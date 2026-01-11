@@ -1,8 +1,9 @@
 import { DAILY_WORDS as DAILY_WORDS_JAN } from './wordLists/daily-2026-01';
 import { DAILY_WORDS_FEB_2026 } from './wordLists/daily-2026-02';
 
-// Merge January and February words
-const DAILY_WORDS = { ...DAILY_WORDS_JAN, ...DAILY_WORDS_FEB_2026 };
+// Merge January and February words into a single sequential list
+const DAILY_WORDS = [...DAILY_WORDS_JAN, ...DAILY_WORDS_FEB_2026].map(word => word.toUpperCase());
+const DAILY_WORD_START = Date.UTC(2026, 0, 1); // Jan 1, 2026 UTC midnight
 import { ALLOWED_WORDS } from './wordLists/allowedWords';
 import { WORDS_4 } from './wordLists/words4';
 import { WORDS_6 } from './wordLists/words6';
@@ -25,7 +26,13 @@ export const LETTER_STATUS = {
  * Currently supports 5-letter only for Daily mode.
  * Uses themed words if a theme is active.
  */
-export const getDailyWord = () => {
+const getDayOffset = (date = new Date()) => {
+  const todayUtc = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+  const diffDays = Math.floor((todayUtc - DAILY_WORD_START) / (1000 * 60 * 60 * 24));
+  return Math.max(0, diffDays);
+};
+
+export const getDailyWord = (date = new Date()) => {
   // Check for active theme
   const activeTheme = getActiveTheme();
   const gameTheme = getGameTheme('wordle');
@@ -33,18 +40,15 @@ export const getDailyWord = () => {
   if (activeTheme && gameTheme?.wordList) {
     const themedList = getThemedWordList(gameTheme.wordList);
     if (themedList && themedList.length > 0) {
-      const today = new Date();
-      const dayIndex = today.getDate() - 1;
+      const dayIndex = getDayOffset(date);
       const safeIndex = dayIndex % themedList.length;
       return themedList[safeIndex].toUpperCase();
     }
   }
   
-  // Default behavior
-  const today = new Date();
-  const dayIndex = today.getDate() - 1; 
+  const dayIndex = getDayOffset(date);
   const safeIndex = dayIndex % DAILY_WORDS.length;
-  return DAILY_WORDS[safeIndex].toUpperCase();
+  return DAILY_WORDS[safeIndex];
 };
 
 /**

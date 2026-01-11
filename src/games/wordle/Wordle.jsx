@@ -11,7 +11,7 @@ import {
   DEFAULT_WORD_LENGTH,
   MAX_GUESSES
 } from './wordleLogic';
-import { validateWordAsync } from '@/utils/wordValidation';
+import { validateWordAsync, isWordLocallyKnown } from '@/utils/wordValidation';
 import WordleGrid from '@/components/WordleGrid';
 import Keyboard from '@/components/Keyboard';
 import GameHeader from '@/components/GameHeader';
@@ -27,8 +27,6 @@ import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 
-// Validation cache to avoid duplicate API calls
-const validationCache = new Map();
 
 export default function WordleGame() {
   // --- Game State ---
@@ -41,7 +39,6 @@ export default function WordleGame() {
   const [currentGuess, setCurrentGuess] = useState('');
   const [gameStatus, setGameStatus] = useState('playing'); // 'playing', 'won', 'lost'
   const [keyStatuses, setKeyStatuses] = useState({}); 
-  const [isValidating, setIsValidating] = useState(false);
 
   // --- UI State ---
   const [toast, setToast] = useState(null); // { message, type, id }
@@ -50,13 +47,31 @@ export default function WordleGame() {
   const [showHowTo, setShowHowTo] = useState(false);
   const [stats, setStats] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
+  const [isChecking, setIsChecking] = useState(false);
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
 
+  const guessesRef = useRef([]);
+  const confirmedGuesses = useMemo(() => guesses.filter(guess => !guess.pending), [guesses]);
+
+
+  const syncGuesses = useCallback((updater) => {
+    setGuesses(prev => {
+      const next = updater(prev);
+      guessesRef.current = next;
+      return next;
+    });
+  }, []);
+
+    const getWinMessage = useCallback((count) => {
+      const messages = ['Genius', 'Magnificent', 'Impressive', 'Splendid', 'Great', 'Phew'];
+      return messages[Math.min(count - 1, 5)];
+    }, []);
+
   // --- Helpers ---
-  const showToast = (message, type = 'default') => {
+  const showToast = useCallback((message, type = 'default') => {
     setToast({ message, type, id: Date.now() });
-  };
+  }, []);
 
   const handleToastExit = () => {
     setToast(null);
@@ -68,14 +83,19 @@ export default function WordleGame() {
     setStats(gameStats);
   }, []);
 
+  useEffect(() => {
+    guessesRef.current = guesses;
+  }, [guesses]);
+
   // Update stats when game ends using profileManager
   const updateStats = (won, guessCount) => {
+    const confirmedGuesses = guessesRef.current.filter(guess => !guess.pending);
     const result = {
       date: getTodayString(),
       win: won,
       attempts: guessCount,
       puzzleId: mode === 'daily' ? `daily-${getTodayString()}` : `unlimited-${Date.now()}`,
-      guesses: guesses.map(g => ({ word: g.word, evaluation: g.evaluation })),
+      guesses: confirmedGuesses.map(g => ({ word: g.word, evaluation: g.evaluation })),
     };
     
     // Record result and check for achievements
@@ -101,6 +121,7 @@ export default function WordleGame() {
     setMode(targetMode);
     setWordLength(targetLength);
     setView('GAME');
+    setIsChecking(false);
     
     // Track game start
     trackGameStart('wordle');
@@ -109,26 +130,32 @@ export default function WordleGame() {
     
     // Check if we have an active game in storage matching this config
     if (savedState && savedState.status === 'playing') {
-        // Restore State
-        setSolution(savedState.solution || (targetMode === 'daily' ? getDailyWord() : getRandomWord(targetLength)));
-        setGuesses(savedState.guesses);
-        setGameStatus(savedState.status);
-        reconstructKeys(savedState.guesses);
-        setCurrentGuess('');
+      const restoredSolution = savedState.solution || (targetMode === 'daily' ? getDailyWord() : getRandomWord(targetLength));
+      setSolution(restoredSolution);
+      const restoredGuesses = (savedState.guesses || []).map((guess, index) => ({
+        id: `restored-${index}`,
+        word: guess.word,
+        evaluation: guess.evaluation,
+        pending: false,
+      }));
+      syncGuesses(() => restoredGuesses);
+      setGameStatus(savedState.status);
+      setKeyStatuses({});
+      setCurrentGuess('');
     } else {
-        // New Game
-        const newSolution = targetMode === 'daily' ? getDailyWord() : getRandomWord(targetLength);
-        setSolution(newSolution);
-        setGuesses([]);
-        setGameStatus('playing');
-        setKeyStatuses({});
-        setCurrentGuess('');
+      const newSolution = targetMode === 'daily' ? getDailyWord() : getRandomWord(targetLength);
+      setSolution(newSolution);
+      syncGuesses(() => []);
+      setGameStatus('playing');
+      setKeyStatuses({});
+      setCurrentGuess('');
     }
   };
 
   const reconstructKeys = (loadedGuesses) => {
     const newKeyStatuses = {};
     loadedGuesses.forEach(g => {
+      if (g.pending) return;
         g.word.split('').forEach((char, i) => {
             const currentKeyStatus = newKeyStatuses[char];
             const newKeyStatus = g.evaluation[i];
@@ -153,10 +180,17 @@ export default function WordleGame() {
     setView('MENU');
   }, []);
 
+  useEffect(() => {
+    reconstructKeys(guesses);
+  }, [guesses]);
+
   // Save State Effect
   useEffect(() => {
     if (solution && view === 'GAME') {
-        saveGameState(guesses, gameStatus, solution, mode, wordLength);
+        const confirmedGuesses = guesses
+          .filter(guess => !guess.pending)
+          .map(({ word, evaluation }) => ({ word, evaluation }));
+        saveGameState(confirmedGuesses, gameStatus, solution, mode, wordLength);
     }
     
     if (gameStatus !== 'playing') {
@@ -170,11 +204,12 @@ export default function WordleGame() {
   // --- Game Actions ---
   const handlePlayAgain = () => {
     setShowResultModal(false);
+    setIsChecking(false);
     // Reset for Unlimited
     if (mode === 'unlimited') {
         const newSolution = getRandomWord(wordLength);
         setSolution(newSolution);
-        setGuesses([]);
+      syncGuesses(() => []);
         setGameStatus('playing');
         setKeyStatuses({});
         setCurrentGuess('');
@@ -191,76 +226,84 @@ export default function WordleGame() {
     setView('MENU');
   };
 
-  const submitGuess = useCallback(async () => {
-    if (isValidating || gameStatus !== 'playing') return; 
-    
-    if (currentGuess.length !== wordLength) {
-      showToast("Not enough letters");
-      setIsShaking(true);
-      setTimeout(() => setIsShaking(false), 400);
-      return;
-    }
-    
-    const guessWord = currentGuess;
-    
-    // Validate FIRST (check cache or call API)
-    setIsValidating(true);
-    let isValid = validationCache.get(guessWord);
-    
-    if (isValid === undefined) {
-      isValid = await validateWordAsync(guessWord);
-      validationCache.set(guessWord, isValid);
-    }
-    
-    setIsValidating(false);
-    
-    // If invalid, show error immediately
-    if (!isValid) {
-      showToast("Not in word list");
-      setIsShaking(true);
-      setTimeout(() => setIsShaking(false), 400);
-      return;
-    }
-    
-    // Valid word - proceed with animation and update
-    const evaluation = evaluateGuess(guessWord, solution);
-    const newGuessObj = { word: guessWord, evaluation };
-    const newGuesses = [...guesses, newGuessObj];
-    
-    setCurrentGuess('');
-    setGuesses(newGuesses);
-    
-    // Update keyboard statuses
-    const newKeyStatuses = { ...keyStatuses };
-    guessWord.split('').forEach((char, i) => {
-        const currentStatus = newKeyStatuses[char];
-        const newStatus = evaluation[i];
-        
-        if (currentStatus === LETTER_STATUS.CORRECT) return;
-        if (newStatus === LETTER_STATUS.CORRECT) {
-            newKeyStatuses[char] = LETTER_STATUS.CORRECT;
-            return;
-        }
-        if (currentStatus === LETTER_STATUS.PRESENT && newStatus === LETTER_STATUS.ABSENT) return;
-        if (currentStatus === LETTER_STATUS.PRESENT) return;
-        
-        newKeyStatuses[char] = newStatus;
-    });
-    setKeyStatuses(newKeyStatuses);
+  const triggerInvalidWordFeedback = useCallback((message = 'Not in word list') => {
+    showToast(message);
+    setIsShaking(true);
+    setTimeout(() => setIsShaking(false), 400);
+  }, [showToast]);
 
-    // Check Win/Loss
-    if (guessWord === solution) {
-        setGameStatus('won');
-        showToast(getWinMessage(newGuesses.length), 'success');
-        updateStats(true, newGuesses.length);
-    } else if (newGuesses.length >= MAX_GUESSES) {
-        setGameStatus('lost');
-        updateStats(false, newGuesses.length);
+  const handleConfirmedGuess = useCallback((guessEntry, evaluation) => {
+    let nextGuesses = [];
+    syncGuesses(prev => {
+      nextGuesses = prev.map(guess => guess.id === guessEntry.id ? { ...guess, pending: false, evaluation } : guess);
+      return nextGuesses;
+    });
+
+    const confirmedCount = nextGuesses.filter(guess => !guess.pending).length;
+
+    if (gameStatus !== 'playing') {
+      return;
     }
-  }, [currentGuess, wordLength, guesses, solution, keyStatuses, gameStatus, isValidating]);
+
+    if (guessEntry.word === solution) {
+      setGameStatus('won');
+      showToast(getWinMessage(confirmedCount), 'success');
+      updateStats(true, confirmedCount);
+      return;
+    }
+
+    if (confirmedCount >= MAX_GUESSES) {
+      setGameStatus('lost');
+      updateStats(false, confirmedCount);
+    }
+  }, [syncGuesses, gameStatus, solution, showToast, updateStats, getWinMessage]);
+
+  const submitGuess = useCallback(async () => {
+    if (gameStatus !== 'playing' || view !== 'GAME') return;
+    if (isChecking) return;
+    if (guessesRef.current.length >= MAX_GUESSES) return;
+
+    if (currentGuess.length !== wordLength) {
+      triggerInvalidWordFeedback('Not enough letters');
+      return;
+    }
+
+    const guessWord = currentGuess.toUpperCase();
+    const guessId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const pending = !isWordLocallyKnown(guessWord);
+    const placeholderEval = Array.from({ length: wordLength }, () => null);
+
+    const guessEntry = { id: guessId, word: guessWord, evaluation: placeholderEval, pending };
+    syncGuesses(prev => [...prev, guessEntry]);
+    setCurrentGuess('');
+    setIsChecking(true);
+
+    try {
+      let validationResult = { valid: true, source: 'local' };
+      try {
+        if (!isWordLocallyKnown(guessWord)) {
+          validationResult = await validateWordAsync(guessWord);
+        }
+      } catch (error) {
+        validationResult = { valid: false, source: 'error' };
+      }
+
+      if (!validationResult?.valid) {
+        syncGuesses(prev => prev.filter(guess => guess.id !== guessId));
+        setCurrentGuess(guessWord);
+        triggerInvalidWordFeedback('Not in word list');
+        return;
+      }
+
+      const evaluation = evaluateGuess(guessWord, solution);
+      handleConfirmedGuess({ id: guessId, word: guessWord }, evaluation);
+    } finally {
+      setIsChecking(false);
+    }
+  }, [gameStatus, view, isChecking, currentGuess, wordLength, isWordLocallyKnown, syncGuesses, validateWordAsync, triggerInvalidWordFeedback, evaluateGuess, solution, handleConfirmedGuess]);
 
   const onKey = useCallback((key) => {
-    if (gameStatus !== 'playing' || view !== 'GAME') return;
+    if (gameStatus !== 'playing' || view !== 'GAME' || isChecking) return;
 
     if (key === 'ENTER') {
       submitGuess();
@@ -271,12 +314,7 @@ export default function WordleGame() {
         setCurrentGuess(prev => prev + key);
       }
     }
-  }, [gameStatus, view, currentGuess, wordLength, submitGuess]);
-
-  const getWinMessage = (count) => {
-      const messages = ['Genius', 'Magnificent', 'Impressive', 'Splendid', 'Great', 'Phew'];
-      return messages[Math.min(count - 1, 5)];
-  };
+  }, [gameStatus, view, isChecking, currentGuess, wordLength, submitGuess]);
 
   // Keyboard Event Listener
   useEffect(() => {
@@ -291,7 +329,7 @@ export default function WordleGame() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [gameStatus, view, currentGuess, wordLength]);
+  }, [onKey]);
 
   // --- Render ---
 
@@ -328,7 +366,7 @@ export default function WordleGame() {
               <ShareResults 
                 gameName="wordle"
                 result={{
-                  guesses: guesses,
+                  guesses: confirmedGuesses,
                   win: true
                 }}
                 puzzleNumber={mode === 'daily' ? `#${getTodayString()}` : ''}
@@ -429,6 +467,7 @@ export default function WordleGame() {
       <Keyboard 
         onKey={onKey} 
         keyStatuses={keyStatuses} 
+        disabled={isChecking}
       />
 
       {/* Statistics Modal */}

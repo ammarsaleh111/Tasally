@@ -76,6 +76,26 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to start playing!
 
+### Environment Variables
+
+Create an `.env.local` file with your Wordnik key to unlock external validation:
+
+```
+WORDNIK_API_KEY=your_wordnik_api_key
+```
+
+If the key is missing, the platform still works but will skip the Wordnik layer and fall back to Datamuse/local dictionaries.
+
+## 🔐 Word Validation Pipeline
+
+All word-based games now share a fast three-layer validator:
+
+- **Local Dictionary** – 90,000 common words (see `src/data/dictionary/common-english-words.json`) are indexed in-memory for instant checks.
+- **Wordnik Proxy** – `/api/word-validation` securely calls Wordnik with your API key and caches responses.
+- **Datamuse Fallback** – Automatically confirms words when Wordnik is unsure or rate-limited. Network failures accept the word to avoid blocking play.
+
+Results are cached per session so the same word is never validated twice, and the UI never blocks while remote checks run.
+
 ## 🎮 How to Play
 
 ### Wordle
