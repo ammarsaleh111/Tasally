@@ -6,6 +6,13 @@ const PLAYERS_FILE = path.join(DATA_DIR, 'players.json');
 const ACTIVITY_FILE = path.join(DATA_DIR, 'activity.json');
 const ADMIN_FILE = path.join(DATA_DIR, 'admin.json');
 
+// In-memory cache to handle read-only filesystems (Vercel)
+const memoryStore = {
+  players: null,
+  activity: null,
+  admin: null
+};
+
 async function ensureDataFiles() {
   try {
     await fs.mkdir(DATA_DIR, { recursive: true });
@@ -15,7 +22,9 @@ async function ensureDataFiles() {
       ensureFile(ADMIN_FILE, '{"account":null,"sessions":[]}'),
     ]);
   } catch (error) {
-    console.error('[serverData] Failed ensuring data files', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('[serverData] Failed ensuring data files', error.message);
+    }
   }
 }
 
@@ -23,46 +32,63 @@ async function ensureFile(filePath, defaultContent) {
   try {
     await fs.access(filePath);
   } catch {
-    await fs.writeFile(filePath, defaultContent, 'utf-8');
+    try {
+      await fs.writeFile(filePath, defaultContent, 'utf-8');
+    } catch (e) {
+      // Ignore write errors (read-only fs)
+    }
   }
 }
 
-async function readJson(filePath, fallback) {
-  await ensureDataFiles();
+async function readJson(key, filePath, fallback) {
+  if (memoryStore[key]) return memoryStore[key];
+
   try {
     const raw = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(raw || fallback);
+    const data = JSON.parse(raw || fallback);
+    memoryStore[key] = data;
+    return data;
   } catch (error) {
-    console.error(`[serverData] Failed to read ${filePath}`, error);
-    return JSON.parse(fallback);
+    const data = JSON.parse(fallback);
+    memoryStore[key] = data;
+    return data;
   }
 }
 
-async function writeJson(filePath, data) {
-  await ensureDataFiles();
-  await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
+async function writeJson(key, filePath, data) {
+  memoryStore[key] = data;
+  
+  try {
+    await ensureDataFiles();
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
+  } catch (error) {
+    // Silently fail on read-only systems
+    if (process.env.NODE_ENV !== 'production') {
+       console.warn(`[serverData] Failed to write ${key}`, error.message);
+    }
+  }
 }
 
 export async function getAllPlayers() {
-  return readJson(PLAYERS_FILE, '[]');
+  return readJson('players', PLAYERS_FILE, '[]');
 }
 
 export async function savePlayers(players) {
-  return writeJson(PLAYERS_FILE, players);
+  return writeJson('players', PLAYERS_FILE, players);
 }
 
 export async function getActivityStore() {
-  return readJson(ACTIVITY_FILE, '{"sessions":[]}');
+  return readJson('activity', ACTIVITY_FILE, '{"sessions":[]}');
 }
 
 export async function saveActivityStore(store) {
-  return writeJson(ACTIVITY_FILE, store);
+  return writeJson('activity', ACTIVITY_FILE, store);
 }
 
 export async function getAdminStore() {
-  return readJson(ADMIN_FILE, '{"account":null,"sessions":[]}');
+  return readJson('admin', ADMIN_FILE, '{"account":null,"sessions":[]}');
 }
 
 export async function saveAdminStore(store) {
-  return writeJson(ADMIN_FILE, store);
+  return writeJson('admin', ADMIN_FILE, store);
 }
