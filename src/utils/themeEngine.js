@@ -34,6 +34,14 @@ export const THEMES = {
       connections: {
         puzzleSet: 'halloween',
         description: 'Scary connections'
+      },
+      waffle: {
+        puzzleSet: 'halloween',
+        description: 'Spooky letter swaps'
+      },
+      combinations: {
+        puzzleSet: 'halloween',
+        description: 'Haunted word fragments'
       }
     }
   },
@@ -67,6 +75,14 @@ export const THEMES = {
       connections: {
         puzzleSet: 'christmas',
         description: 'Holiday connections'
+      },
+      waffle: {
+        puzzleSet: 'christmas',
+        description: 'Festive letter swaps'
+      },
+      combinations: {
+        puzzleSet: 'christmas',
+        description: 'Holiday word fragments'
       }
     }
   },

@@ -45,6 +45,8 @@ export function getProfile() {
       trivia: initGameStats(),
       strands: initGameStats(),
       spelling: initSpellingStats(),
+      waffle: initWaffleStats(),
+      combinations: initCombinationsStats(),
     },
     achievements: [],
     settings: {
@@ -72,6 +74,8 @@ function ensureGameEntries(profile) {
     trivia: () => initGameStats(),
     strands: () => initGameStats(),
     spelling: () => initSpellingStats(),
+    waffle: () => initWaffleStats(),
+    combinations: () => initCombinationsStats(),
   };
 
   Object.entries(requiredGames).forEach(([key, initializer]) => {
@@ -144,6 +148,37 @@ function initSpellingStats() {
     averageScore: 0,
     rankDistribution: {},
     queenBeeCount: 0, // Times reached 100%
+  };
+}
+
+// Initialize Waffle specific stats
+function initWaffleStats() {
+  return {
+    gamesPlayed: 0,
+    gamesWon: 0,
+    currentStreak: 0,
+    longestStreak: 0,
+    lastPlayedDate: null,
+    history: [],
+    totalSwaps: 0,
+    averageSwaps: 0,
+    perfectSolves: 0, // Minimum swaps used
+  };
+}
+
+// Initialize Combinations specific stats
+function initCombinationsStats() {
+  return {
+    gamesPlayed: 0,
+    gamesWon: 0,
+    currentStreak: 0,
+    longestStreak: 0,
+    lastPlayedDate: null,
+    history: [],
+    totalScore: 0,
+    averageScore: 0,
+    maxComboLength: 0,
+    totalBonusWords: 0,
   };
 }
 
@@ -264,6 +299,8 @@ export function getAllStats() {
     trivia: profile.games.trivia,
     strands: profile.games.strands,
     spelling: profile.games.spelling,
+    waffle: profile.games.waffle,
+    combinations: profile.games.combinations,
   };
 }
 
@@ -397,7 +434,8 @@ export function getHistoryForDateRange(gameName, days = 7) {
 // Check if played today
 export function hasPlayedToday(gameName) {
   const profile = getProfile();
-  const gameStats = profile.games[gameName];
+  const gameStats = profile.games?.[gameName];
+  if (!gameStats) return false;
   const today = getTodayString();
   return gameStats.lastPlayedDate === today;
 }

@@ -36,6 +36,20 @@ export default function GamesPage() {
       href: '/games/crossword'
     },
     {
+      id: 'waffle',
+      name: 'Waffle',
+      description: 'Swap letters to solve the word grid',
+      icon: '🧇',
+      href: '/games/waffle'
+    },
+    {
+      id: 'combinations',
+      name: 'Combinations',
+      description: 'Combine fragments to build words',
+      icon: '🧩',
+      href: '/games/combinations'
+    },
+    {
       id: 'numbers',
       name: 'Numbers',
       description: 'Use 6 numbers to reach the target',

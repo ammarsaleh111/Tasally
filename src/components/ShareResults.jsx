@@ -28,6 +28,12 @@ const ShareResults = ({ gameName, result, puzzleNumber }) => {
       case 'strands':
         lines.push(generateStrandsText(result));
         break;
+      case 'waffle':
+        lines.push(generateWaffleText(result));
+        break;
+      case 'combinations':
+        lines.push(generateCombinationsText(result));
+        break;
     }
 
     return lines.join('\n');
@@ -150,6 +156,65 @@ function generateStrandsText(result) {
   const header = `🧵 ${wordsFound}/${totalWords}${result.spangram ? ' + Spangram' : ''}`;
   const bar = '🟦'.repeat(Math.max(0, wordsFound));
   return [header, bar].join('\n');
+}
+
+// Generate Waffle text
+function generateWaffleText(result) {
+  if (!result) return '';
+  
+  const lines = [];
+  
+  // Generate emoji grid
+  if (result.cellStates && result.pattern) {
+    for (let row = 0; row < 5; row++) {
+      let rowEmoji = '';
+      for (let col = 0; col < 5; col++) {
+        if (!result.pattern[row][col]) {
+          rowEmoji += '⬜';
+        } else {
+          switch (result.cellStates[row][col]) {
+            case 'correct':
+              rowEmoji += '🟩';
+              break;
+            case 'present':
+              rowEmoji += '🟨';
+              break;
+            default:
+              rowEmoji += '⬛';
+          }
+        }
+      }
+      lines.push(rowEmoji);
+    }
+  }
+  
+  lines.push(`Moves: ${result.moves}/${result.maxMoves}`);
+  
+  if (result.perfect) {
+    lines.push('⭐ Perfect!');
+  }
+  
+  return lines.join('\n');
+}
+
+// Generate Combinations text
+function generateCombinationsText(result) {
+  if (!result) return '';
+  
+  const lines = [];
+  lines.push(`Score: ${result.score}`);
+  
+  if (result.maxComboLength >= 4) {
+    lines.push(`🔥 ${result.maxComboLength}-fragment combo`);
+  }
+  
+  if (result.bonusWordsFound > 0) {
+    lines.push(`⭐ ${result.bonusWordsFound} bonus word${result.bonusWordsFound > 1 ? 's' : ''}`);
+  }
+  
+  lines.push(`Words: ${result.wordsFound}`);
+  
+  return lines.join('\n');
 }
 
 export default ShareResults;

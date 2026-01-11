@@ -209,6 +209,8 @@ const OverviewTab = ({ stats }) => (
       <GameSummaryCard gameName="Wordle" stats={stats.wordle} icon="📝" color="from-green-400 to-emerald-500" />
       <GameSummaryCard gameName="Connections" stats={stats.connections} icon="🔗" color="from-blue-400 to-cyan-500" />
       <GameSummaryCard gameName="Crossword" stats={stats.crossword} icon="🧩" color="from-purple-400 to-pink-500" />
+      <GameSummaryCard gameName="Waffle" stats={stats.waffle} icon="🧇" color="from-amber-400 to-orange-500" />
+      <GameSummaryCard gameName="Combinations" stats={stats.combinations} icon="🧩" color="from-teal-400 to-cyan-500" />
       <GameSummaryCard gameName="Numbers" stats={stats.numbers} icon="🔢" color="from-orange-400 to-red-500" />
       <GameSummaryCard gameName="Trivia" stats={stats.trivia} icon="🎓" color="from-yellow-400 to-amber-500" />
       <GameSummaryCard gameName="Strands" stats={stats.strands} icon="🧵" color="from-indigo-400 to-blue-500" />

@@ -210,7 +210,7 @@ export const ACHIEVEMENTS = [
   {
     id: 'all_games_played',
     name: 'Well Rounded',
-    description: 'Play all 5 games at least once',
+    description: 'Play all 9 games at least once',
     icon: '🌟',
     category: 'general',
     check: (profile) => {
@@ -219,7 +219,11 @@ export const ACHIEVEMENTS = [
         profile.games.connections.gamesPlayed > 0 &&
         profile.games.crossword.gamesPlayed > 0 &&
         profile.games.numbers.gamesPlayed > 0 &&
-        profile.games.trivia.gamesPlayed > 0
+        profile.games.trivia.gamesPlayed > 0 &&
+        profile.games.strands.gamesPlayed > 0 &&
+        (profile.games.spelling?.gamesPlayed || 0) > 0 &&
+        (profile.games.waffle?.gamesPlayed || 0) > 0 &&
+        (profile.games.combinations?.gamesPlayed || 0) > 0
       );
     },
   },
@@ -395,6 +399,130 @@ export const ACHIEVEMENTS = [
     },
   },
 
+  // WAFFLE ACHIEVEMENTS
+  {
+    id: 'waffle_first_win',
+    name: 'Waffle Maker',
+    description: 'Complete your first Waffle puzzle',
+    icon: '🧇',
+    category: 'waffle',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'waffle' && gameStats.gamesWon === 1;
+    },
+  },
+  {
+    id: 'waffle_perfect',
+    name: 'Perfect Waffle',
+    description: 'Solve a Waffle with minimum swaps',
+    icon: '⭐',
+    category: 'waffle',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'waffle' && result.win && result.perfect;
+    },
+  },
+  {
+    id: 'waffle_10_perfect',
+    name: 'Waffle Chef',
+    description: 'Achieve 10 perfect Waffle solves',
+    icon: '👨‍🍳',
+    category: 'waffle',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'waffle' && (gameStats.perfectSolves || gameStats.perfectGames || 0) >= 10;
+    },
+  },
+  {
+    id: 'waffle_50_games',
+    name: 'Waffle Expert',
+    description: 'Complete 50 Waffle puzzles',
+    icon: '🏆',
+    category: 'waffle',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'waffle' && gameStats.gamesPlayed >= 50;
+    },
+  },
+  {
+    id: 'waffle_streak_7',
+    name: 'Waffle Week',
+    description: 'Maintain a 7-day Waffle streak',
+    icon: '🔥',
+    category: 'waffle',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'waffle' && gameStats.currentStreak >= 7;
+    },
+  },
+
+  // COMBINATIONS ACHIEVEMENTS
+  {
+    id: 'combinations_first_win',
+    name: 'Combinator',
+    description: 'Reach the target score in Combinations',
+    icon: '🧩',
+    category: 'combinations',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'combinations' && gameStats.gamesWon === 1;
+    },
+  },
+  {
+    id: 'combinations_3_combo',
+    name: 'Triple Threat',
+    description: 'Create a 3-fragment word',
+    icon: '🔗',
+    category: 'combinations',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'combinations' && (gameStats.maxComboLength || 0) >= 3;
+    },
+  },
+  {
+    id: 'combinations_4_combo',
+    name: 'Combo King',
+    description: 'Create a 4-fragment word',
+    icon: '🔥',
+    category: 'combinations',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'combinations' && (gameStats.maxComboLength || 0) >= 4;
+    },
+  },
+  {
+    id: 'combinations_5_combo',
+    name: 'Master Combinator',
+    description: 'Create a 5+ fragment word',
+    icon: '👑',
+    category: 'combinations',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'combinations' && (gameStats.maxComboLength || 0) >= 5;
+    },
+  },
+  {
+    id: 'combinations_bonus_hunter',
+    name: 'Bonus Hunter',
+    description: 'Find 10 bonus words total',
+    icon: '⭐',
+    category: 'combinations',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'combinations' && (gameStats.totalBonusWords || 0) >= 10;
+    },
+  },
+  {
+    id: 'combinations_high_scorer',
+    name: 'High Scorer',
+    description: 'Score 200+ points in a single game',
+    icon: '📊',
+    category: 'combinations',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'combinations' && result.score >= 200;
+    },
+  },
+  {
+    id: 'combinations_streak_7',
+    name: 'Combination Week',
+    description: 'Maintain a 7-day Combinations streak',
+    icon: '🔥',
+    category: 'combinations',
+    check: (profile, gameName, result, gameStats) => {
+      return gameName === 'combinations' && gameStats.currentStreak >= 7;
+    },
+  },
+
   {
     id: 'first_day',
     name: 'Welcome!',
@@ -427,7 +555,9 @@ export const ACHIEVEMENTS = [
         profile.games.numbers.gamesPlayed +
         profile.games.trivia.gamesPlayed +
         profile.games.strands.gamesPlayed +
-        (profile.games.spelling?.gamesPlayed || 0);
+        (profile.games.spelling?.gamesPlayed || 0) +
+        (profile.games.waffle?.gamesPlayed || 0) +
+        (profile.games.combinations?.gamesPlayed || 0);
       return totalGames >= 100;
     },
   },
