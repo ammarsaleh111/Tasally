@@ -10,7 +10,7 @@ export const DAILY_WORDS = [
   "logic", // Jan 7
   "brain", // Jan 8
   "smart", // Jan 9
-  "guess", // Jan 10 (Today)
+  "guess", // Jan 10 
   "check", // Jan 11
   "valid", // Jan 12
   "score", // Jan 13

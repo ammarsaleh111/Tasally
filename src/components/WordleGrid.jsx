@@ -1,8 +1,9 @@
 import React from 'react';
 import { LETTER_STATUS, MAX_GUESSES } from '../games/wordle/wordleLogic';
 
-const WordleGrid = React.memo(({ guesses, currentGuess, length = 5, isShaking = false }) => {
-  const hasActiveRow = guesses.length < MAX_GUESSES;
+const WordleGrid = React.memo(({ guesses, currentGuess, length = 5, isShaking = false, isChecking = false, gameStatus, solution }) => {
+  const hasActiveRow = guesses.length < MAX_GUESSES && gameStatus === 'playing';
+  // Solution row removed per user request - checking logic handled in parent
   const placeholderCount = Math.max(0, MAX_GUESSES - guesses.length - (hasActiveRow ? 1 : 0));
   const empties = Array.from({ length: placeholderCount });
   
@@ -20,7 +21,7 @@ const WordleGrid = React.memo(({ guesses, currentGuess, length = 5, isShaking = 
       {guesses.map((guess, i) => (
         <CompletedRow key={guess.id ?? i} guess={guess} length={length} />
       ))}
-      {hasActiveRow && <CurrentRow guess={currentGuess} length={length} isShaking={isShaking} />}
+      {hasActiveRow && <CurrentRow guess={currentGuess} length={length} isShaking={isShaking} isChecking={isChecking} />}
       {empties.map((_, i) => (
         <EmptyRow key={i} length={length} />
       ))}
@@ -37,69 +38,60 @@ const getGridColsStyle = (length) => {
 }
 
 const CompletedRow = React.memo(({ guess, length }) => {
+  // Check if this is a winning row (all tiles correct)
+  const isWinningRow = guess.evaluation?.every(status => status === LETTER_STATUS.CORRECT);
+  
   return (
     <div className="relative w-full">
-      {guess.pending && (
-        <div className="absolute -top-5 right-0 text-xs text-blue-600 dark:text-blue-300 animate-pulse">
-          Checking...
-        </div>
-      )}
-      <div className={`grid ${getGridColsStyle(length)} gap-1.5 w-full`}>
-        {guess.word.split('').map((letter, i) => {
-          const status = guess.evaluation?.[i];
-          const isPending = !!guess.pending;
-
-          const statusClass = status === LETTER_STATUS.CORRECT
-            ? 'bg-wordle-correct border-wordle-correct'
-            : status === LETTER_STATUS.PRESENT
-              ? 'bg-wordle-present border-wordle-present'
-              : status === LETTER_STATUS.ABSENT
-                ? 'bg-wordle-absent border-wordle-absent'
-                : 'border-border-active bg-surface';
-
-          const animateClass = isPending ? '' : 'animate-flip';
-
-          return (
-            <div
-              key={i}
-              className={`
-                aspect-square w-full border-2 flex items-center justify-center text-2xl sm:text-3xl font-bold text-[var(--button-text)] capitalize
-                ${statusClass}
-                ${animateClass}
-                ${isPending ? 'opacity-80' : ''}
-              `}
-              style={{ animationDelay: `${i * 100}ms` }}
-            >
-              {letter}
-            </div>
-          );
-        })}
+      <div className={`grid ${getGridColsStyle(length)} gap-1.5 w-full ${isWinningRow ? 'animate-bounce-once' : ''}`}>
+        {guess.word.split('').map((letter, i) => (
+          <div
+            key={i}
+            className={`
+              aspect-square w-full border-2 flex items-center justify-center text-2xl sm:text-3xl font-bold text-[var(--button-text)] capitalize
+              ${guess.evaluation[i] === LETTER_STATUS.CORRECT ? 'bg-wordle-correct border-wordle-correct' : ''}
+              ${guess.evaluation[i] === LETTER_STATUS.PRESENT ? 'bg-wordle-present border-wordle-present' : ''}
+              ${guess.evaluation[i] === LETTER_STATUS.ABSENT ? 'bg-wordle-absent border-wordle-absent' : ''}
+              animate-flip
+            `}
+            style={{ animationDelay: `${i * 100}ms` }}
+          >
+            {letter}
+          </div>
+        ))}
       </div>
     </div>
   );
 });
 
-const CurrentRow = React.memo(({ guess, length, isShaking = false }) => {
+const CurrentRow = React.memo(({ guess, length, isShaking = false, isChecking = false }) => {
   const splitGuess = guess.split('');
   const emptyCount = Math.max(0, length - splitGuess.length);
   const emptyCells = Array.from(Array(emptyCount));
 
   return (
-    <div className={`grid ${getGridColsStyle(length)} gap-1.5 w-full ${isShaking ? 'animate-shake' : ''}`}>
-      {splitGuess.map((letter, i) => (
-        <div
-          key={i}
-          className="aspect-square w-full border-2 border-border-active flex items-center justify-center text-2xl sm:text-3xl font-bold text-foreground capitalize animate-pop"
-        >
-          {letter}
-        </div>
-      ))}
-      {emptyCells.map((_, i) => (
-        <div
-          key={i}
-          className="aspect-square w-full border-2 border-border-default flex items-center justify-center"
-        ></div>
-      ))}
+    <div className={`relative w-full`}>
+      {isChecking && (
+         <div className="absolute -top-6 w-full text-center text-xs font-bold text-text-muted animate-pulse tracking-widest uppercase">
+           Checking...
+         </div>
+      )}
+      <div className={`grid ${getGridColsStyle(length)} gap-1.5 w-full ${isShaking ? 'animate-shake' : ''}`}>
+        {splitGuess.map((letter, i) => (
+          <div
+            key={i}
+            className={`aspect-square w-full border-2 border-border-active flex items-center justify-center text-2xl sm:text-3xl font-bold text-foreground capitalize ${isChecking ? 'opacity-70 bg-surface-hover' : 'animate-pop'}`}
+          >
+            {letter}
+          </div>
+        ))}
+        {emptyCells.map((_, i) => (
+          <div
+            key={i}
+            className="aspect-square w-full border-2 border-border-default flex items-center justify-center"
+          ></div>
+        ))}
+      </div>
     </div>
   );
 });

@@ -50,8 +50,10 @@ export default function WordleGame() {
   const [isChecking, setIsChecking] = useState(false);
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
+  const [solveTime, setSolveTime] = useState(null);
 
   const guessesRef = useRef([]);
+  const startTimeRef = useRef(null);
   const confirmedGuesses = useMemo(() => guesses.filter(guess => !guess.pending), [guesses]);
 
 
@@ -88,8 +90,9 @@ export default function WordleGame() {
   }, [guesses]);
 
   // Update stats when game ends using profileManager
-  const updateStats = (won, guessCount) => {
-    const confirmedGuesses = guessesRef.current.filter(guess => !guess.pending);
+  const updateStats = (won, guessCount, latestGuesses) => {
+    const sourceGuesses = latestGuesses || guessesRef.current;
+    const confirmedGuesses = sourceGuesses.filter(guess => !guess.pending);
     const result = {
       date: getTodayString(),
       win: won,
@@ -125,11 +128,13 @@ export default function WordleGame() {
     
     // Track game start
     trackGameStart('wordle');
+    startTimeRef.current = Date.now();
+    setSolveTime(null);
 
     const savedState = loadGameState(targetMode, targetLength);
     
-    // Check if we have an active game in storage matching this config
-    if (savedState && savedState.status === 'playing') {
+    // Check if we have an active game in storage matching this config, OR if it's daily and already completed
+    if (savedState && (savedState.status === 'playing' || (targetMode === 'daily'))) {
       const restoredSolution = savedState.solution || (targetMode === 'daily' ? getDailyWord() : getRandomWord(targetLength));
       setSolution(restoredSolution);
       const restoredGuesses = (savedState.guesses || []).map((guess, index) => ({
@@ -205,6 +210,9 @@ export default function WordleGame() {
   const handlePlayAgain = () => {
     setShowResultModal(false);
     setIsChecking(false);
+    setSolveTime(null);
+    startTimeRef.current = Date.now();
+    
     // Reset for Unlimited
     if (mode === 'unlimited') {
         const newSolution = getRandomWord(wordLength);
@@ -214,9 +222,11 @@ export default function WordleGame() {
         setKeyStatuses({});
         setCurrentGuess('');
     } else {
-        // For Daily, typically you can't play again immediately.
-        // But for testing/dev or if user wants to play tomorrow's?
-        // Let's redirect to menu or unlimited
+        // For Daily, prevent immediate replay if just finished.
+        // Return to menu
+        if (gameStatus === 'won' || gameStatus === 'lost') {
+             triggerInvalidWordFeedback('Come back tomorrow for the next puzzle!');
+        }
         setView('MENU');
     }
   };
@@ -232,13 +242,12 @@ export default function WordleGame() {
     setTimeout(() => setIsShaking(false), 400);
   }, [showToast]);
 
-  const handleConfirmedGuess = useCallback((guessEntry, evaluation) => {
-    let nextGuesses = [];
-    syncGuesses(prev => {
-      nextGuesses = prev.map(guess => guess.id === guessEntry.id ? { ...guess, pending: false, evaluation } : guess);
-      return nextGuesses;
-    });
-
+  const handleConfirmedGuess = useCallback((guessEntry, evaluation, currentGuesses) => {
+    // Use passed guesses or fall back to ref (though ref might be stale if called immediately after update)
+    // In strict 3-layer architecture, we should trust the explicitly passed state.
+    const nextGuesses = currentGuesses || guessesRef.current;
+    
+    // We expect nextGuesses to already contain the validated, non-pending guess
     const confirmedCount = nextGuesses.filter(guess => !guess.pending).length;
 
     if (gameStatus !== 'playing') {
@@ -246,17 +255,21 @@ export default function WordleGame() {
     }
 
     if (guessEntry.word === solution) {
+      // Calculate solve time
+      const timeInSeconds = startTimeRef.current ? Math.floor((Date.now() - startTimeRef.current) / 1000) : 0;
+      setSolveTime(timeInSeconds);
+      
       setGameStatus('won');
       showToast(getWinMessage(confirmedCount), 'success');
-      updateStats(true, confirmedCount);
+      updateStats(true, confirmedCount, nextGuesses);
       return;
     }
 
     if (confirmedCount >= MAX_GUESSES) {
       setGameStatus('lost');
-      updateStats(false, confirmedCount);
+      updateStats(false, confirmedCount, nextGuesses);
     }
-  }, [syncGuesses, gameStatus, solution, showToast, updateStats, getWinMessage]);
+  }, [gameStatus, solution, showToast, updateStats, getWinMessage]);
 
   const submitGuess = useCallback(async () => {
     if (gameStatus !== 'playing' || view !== 'GAME') return;
@@ -270,33 +283,42 @@ export default function WordleGame() {
 
     const guessWord = currentGuess.toUpperCase();
     const guessId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-    const pending = !isWordLocallyKnown(guessWord);
-    const placeholderEval = Array.from({ length: wordLength }, () => null);
-
-    const guessEntry = { id: guessId, word: guessWord, evaluation: placeholderEval, pending };
-    syncGuesses(prev => [...prev, guessEntry]);
-    setCurrentGuess('');
+    
+    // UI: Lock input, show checking state
     setIsChecking(true);
 
     try {
       let validationResult = { valid: true, source: 'local' };
-      try {
-        if (!isWordLocallyKnown(guessWord)) {
+      
+      // If locally known, skip async entirely for speed
+      if (!isWordLocallyKnown(guessWord)) {
+        try {
           validationResult = await validateWordAsync(guessWord);
+        } catch (error) {
+          validationResult = { valid: false, source: 'error' };
         }
-      } catch (error) {
-        validationResult = { valid: false, source: 'error' };
       }
 
+      // If invalid, REJECT immediately without ever adding the row
       if (!validationResult?.valid) {
-        syncGuesses(prev => prev.filter(guess => guess.id !== guessId));
-        setCurrentGuess(guessWord);
         triggerInvalidWordFeedback('Not in word list');
         return;
       }
 
+      // If valid, Proceed to Add Row and Score
       const evaluation = evaluateGuess(guessWord, solution);
-      handleConfirmedGuess({ id: guessId, word: guessWord }, evaluation);
+      const newGuess = { id: guessId, word: guessWord, evaluation, pending: false };
+      
+      // Calculate next state synchronously
+      const nextGuesses = [...guessesRef.current, newGuess];
+      
+      // Update state
+      syncGuesses(() => nextGuesses);
+      setCurrentGuess('');
+      
+      // Check win/loss immediately with the new state
+      handleConfirmedGuess(newGuess, evaluation, nextGuesses);
+
     } finally {
       setIsChecking(false);
     }
@@ -349,16 +371,25 @@ export default function WordleGame() {
       )}
 
       {/* Result Modal */}
-      <Modal isOpen={showResultModal} title={gameStatus === 'won' ? 'You Won!' : 'Game Over'}>
+      <Modal isOpen={showResultModal} title={gameStatus === 'won' ? '🎉 You solved it!' : 'Game Over'}>
           <div className="flex flex-col items-center gap-4">
-            {gameStatus === 'lost' && (
-                <div className="text-xl">
-                    The word was <span className="font-bold text-wordle-correct">{solution}</span>
+            <div className="text-center">
+              <div className="text-lg mb-2">
+                The word was <span className="font-bold text-wordle-correct text-2xl">{solution}</span>
+              </div>
+              
+              {gameStatus === 'won' && (
+                <div className="space-y-1 text-sm text-text-muted">
+                  <div>Solved in <span className="font-bold text-foreground">{confirmedGuesses.length}</span> {confirmedGuesses.length === 1 ? 'try' : 'tries'}</div>
+                  {solveTime !== null && (
+                    <div>Time: <span className="font-bold text-foreground">{Math.floor(solveTime / 60)}:{(solveTime % 60).toString().padStart(2, '0')}</span></div>
+                  )}
                 </div>
-            )}
+              )}
+            </div>
             
-            <p className="text-text-muted">
-                {gameStatus === 'won' ? 'Great job!' : 'Better luck next time!'}
+            <p className="text-text-muted text-sm">
+                {gameStatus === 'won' ? 'Excellent work!' : 'Better luck next time!'}
             </p>
 
             {/* Share Results Button */}
@@ -385,11 +416,12 @@ export default function WordleGame() {
                     onClick={handlePlayAgain}
                     className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity"
                 >
-                    Play Again
+                    ▶ Play Again
                 </button>
             ) : (
-                 <div className="text-sm text-text-muted font-semibold">
-                    Next Daily Puzzle: Tomorrow
+                 <div className="text-center py-2">
+                    <div className="text-xs uppercase tracking-wide text-text-muted mb-1">Next Daily Puzzle</div>
+                    <div className="text-sm font-bold text-foreground">Tomorrow</div>
                  </div>
             )}
             
@@ -456,12 +488,20 @@ export default function WordleGame() {
         </div>
       </div>
 
+      {gameStatus === 'lost' && (
+        <div className="bg-red-500/10 border border-red-500/50 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg mb-6 text-center animate-in fade-in slide-in-from-top-4">
+          <p className="font-bold text-lg">The word was: <span className="uppercase tracking-widest">{solution}</span></p>
+        </div>
+      )}
+
       <WordleGrid 
         guesses={guesses} 
         currentGuess={currentGuess} 
         length={wordLength} 
-        status={gameStatus}
+        gameStatus={gameStatus}
+        solution={solution}
         isShaking={isShaking}
+        isChecking={isChecking}
       />
       
       <Keyboard 
