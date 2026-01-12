@@ -23,6 +23,7 @@ import { ACHIEVEMENTS } from '@/utils/achievementsEngine';
 import { requestNotificationPermission, initNotifications } from '@/utils/notificationManager';
 import AchievementBadge from '@/components/AchievementBadge';
 import SiteHeader from '@/components/SiteHeader';
+import FeedbackForm from '@/components/FeedbackForm';
 
 // Helper function to format time (seconds to MM:SS)
 const formatTime = (seconds) => {
@@ -35,7 +36,8 @@ export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState(null);
   const [unlockedAchievements, setUnlockedAchievements] = useState([]);
-  const [activeTab, setActiveTab] = useState('overview'); // overview, stats, achievements, settings
+  const [activeTab, setActiveTab] = useState('overview'); // overview, stats, achievements, settings, feedback
+  const [showFeedback, setShowFeedback] = useState(false);
 
   useEffect(() => {
     const loadProfile = () => {
@@ -168,6 +170,11 @@ export default function ProfilePage() {
             active={activeTab === 'settings'} 
             onClick={() => setActiveTab('settings')} 
           />
+          <TabButton 
+            label="💬 Send Feedback" 
+            active={activeTab === 'feedback'} 
+            onClick={() => setActiveTab('feedback')} 
+          />
         </div>
 
         {/* Tab Content */}
@@ -186,6 +193,7 @@ export default function ProfilePage() {
             onReminderToggle={handleReminderToggle} 
           />
         )}
+        {activeTab === 'feedback' && <FeedbackTab />}
       </div>
     </div>
   );
@@ -595,6 +603,41 @@ const FilterButton = ({ label, active, onClick }) => (
   </button>
 );
 
+// Feedback Tab
+const FeedbackTab = () => {
+  const [showForm, setShowForm] = useState(true);
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-foreground mb-4">💬 Send Feedback</h2>
+      
+      <div className="bg-card rounded-xl p-6 shadow-md border border-card-border">
+        <p className="text-text-muted mb-6">
+          We value your feedback! Share your thoughts, report bugs, or suggest features to help us improve Ammar Times.
+        </p>
+        
+        {/* Embedded Feedback Form */}
+        <div className="max-w-2xl">
+          <FeedbackForm 
+            isOpen={showForm} 
+            onClose={() => {}} 
+            isFloating={false} 
+          />
+        </div>
+      </div>
+      
+      <div className="bg-connections-blue/10 border border-connections-blue/30 rounded-xl p-6">
+        <h3 className="font-bold text-connections-blue mb-2">💡 Quick Tips</h3>
+        <ul className="text-sm text-text-muted space-y-2">
+          <li>• Be specific about issues - include which game and what happened</li>
+          <li>• Feature requests are always welcome!</li>
+          <li>• We read every message and appreciate your time</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
 // Settings Tab
 const SettingsTab = ({ settings, onReminderToggle }) => {
   const [profile, setProfile] = useState(null);
@@ -755,6 +798,41 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
     </div>
   </div>
 );
+// Feedback Tab
+const FeedbackTab = () => {
+  const [showForm, setShowForm] = useState(true);
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-foreground mb-4">💬 Send Feedback</h2>
+      
+      <div className="bg-card rounded-xl p-6 shadow-md border border-card-border">
+        <p className="text-text-muted mb-6">
+          We value your feedback! Share your thoughts, report bugs, or suggest features to help us improve Ammar Times.
+        </p>
+        
+        {/* Embedded Feedback Form */}
+        <div className="max-w-2xl">
+          <FeedbackForm 
+            isOpen={showForm} 
+            onClose={() => {}} 
+            isFloating={false} 
+          />
+        </div>
+      </div>
+      
+      <div className="bg-connections-blue/10 border border-connections-blue/30 rounded-xl p-6">
+        <h3 className="font-bold text-connections-blue mb-2">💡 Quick Tips</h3>
+        <ul className="text-sm text-text-muted space-y-2">
+          <li>• Be specific about issues - include which game and what happened</li>
+          <li>• Feature requests are always welcome!</li>
+          <li>• We read every message and appreciate your time</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
 // Helper function
 function formatTime(seconds) {
   if (seconds < 60) {

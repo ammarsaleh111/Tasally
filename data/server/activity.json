@@ -1,9 +1,776 @@
 {
   "sessions": [
     {
+      "userId": "user_1768135126598_ctzr49ugc",
+      "name": "asd",
+      "lastSeen": "2026-01-12T23:11:22.335Z",
+      "currentPage": "game:spelling",
+      "currentGame": null,
+      "activities": [
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T12:38:46.599Z",
+          "page": "games"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:38:59.752Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:39:16.601Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T12:39:28.915Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:39:30.642Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:39:47.378Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:39:58.916Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T12:40:05.224Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T12:40:05.414Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T12:40:05.702Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "game_start",
+          "timestamp": "2026-01-11T12:40:07.618Z",
+          "page": "game:wordle",
+          "game": "wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:40:36.155Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:41:06.155Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:41:36.156Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:42:06.155Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:42:36.155Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:43:06.157Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:44:01.156Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T12:57:01.323Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:57:32.157Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:58:02.155Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:58:32.156Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:59:02.155Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T12:59:32.156Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "activity_update",
+          "timestamp": "2026-01-11T13:00:02.155Z",
+          "page": "game:wordle"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T13:06:07.206Z",
+          "page": "home"
+        },
+        {
+          "type": "page_load",
+          "timestamp": "2026-01-11T13:06:08.101Z",
+          "page": "games"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-11T19:45:04.510Z"
+        },
+        {
+          "page": "admin",
+          "game": null,
+          "timestamp": "2026-01-11T19:45:08.270Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-12T17:47:55.178Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T17:47:56.031Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T17:48:26.032Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T17:48:56.033Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T17:49:26.033Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T17:49:56.224Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T17:50:26.224Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T17:50:56.223Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T17:51:43.224Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T17:52:43.224Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T17:52:56.033Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-12T23:09:07.114Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-12T23:09:12.120Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T23:09:13.096Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T23:09:43.097Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T23:10:13.099Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T23:10:43.098Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T23:11:13.224Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-12T23:11:22.335Z"
+        }
+      ]
+    },
+    {
+      "userId": "user_1768241888057_s7bvpex9n",
+      "name": "asad",
+      "lastSeen": "2026-01-12T23:08:44.562Z",
+      "currentPage": "profile",
+      "currentGame": null,
+      "activities": [
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:18:08.058Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T18:18:15.111Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:18:38.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:19:08.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:19:38.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:20:08.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:20:38.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:21:08.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:21:43.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:22:43.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:24:37.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:25:43.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:26:22.478Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:26:38.060Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:27:08.059Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:27:38.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:28:08.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:28:38.059Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:28:38.741Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:29:09.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:29:39.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:30:09.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:30:39.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:31:09.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:31:39.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:37:03.130Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:37:33.226Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:38:03.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:38:33.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:39:03.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:39:33.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:40:03.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:40:43.223Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-12T18:41:29.599Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:41:30.827Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:41:43.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:42:00.829Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:42:30.829Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:42:43.224Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T18:43:00.709Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:43:00.829Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:43:30.829Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:43:43.223Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:44:00.829Z"
+        },
+        {
+          "page": "game:combinations",
+          "game": "combinations",
+          "timestamp": "2026-01-12T18:44:04.227Z"
+        },
+        {
+          "page": "game:combinations",
+          "game": "combinations",
+          "timestamp": "2026-01-12T18:44:04.226Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T18:44:07.229Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:44:31.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:44:43.224Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:45:01.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:45:43.224Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:45:43.224Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:46:27.759Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:46:31.224Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:46:33.635Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:47:01.223Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:47:27.632Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:47:57.635Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:48:28.224Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:48:58.224Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:49:28.223Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T18:49:58.223Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-12T18:50:27.634Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T18:50:29.346Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-12T23:00:44.324Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T23:00:45.552Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-01-12T23:00:51.458Z"
+        },
+        {
+          "page": "game:crossword",
+          "game": "crossword",
+          "timestamp": "2026-01-12T23:01:07.576Z"
+        },
+        {
+          "page": "game:crossword",
+          "game": "crossword",
+          "timestamp": "2026-01-12T23:01:07.750Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T23:01:14.128Z"
+        },
+        {
+          "page": "game:combinations",
+          "game": "combinations",
+          "timestamp": "2026-01-12T23:01:15.304Z"
+        },
+        {
+          "page": "game:combinations",
+          "game": "combinations",
+          "timestamp": "2026-01-12T23:01:15.305Z"
+        },
+        {
+          "page": "game:combinations",
+          "game": null,
+          "timestamp": "2026-01-12T23:01:15.553Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T23:01:16.701Z"
+        },
+        {
+          "page": "game:waffle",
+          "game": "waffle",
+          "timestamp": "2026-01-12T23:01:18.014Z"
+        },
+        {
+          "page": "game:waffle",
+          "game": "waffle",
+          "timestamp": "2026-01-12T23:01:18.016Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T23:01:34.211Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T23:01:41.320Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T23:01:44.594Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T23:01:45.553Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T23:01:47.409Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-01-12T23:01:52.412Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": null,
+          "timestamp": "2026-01-12T23:02:15.554Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T23:02:23.309Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-12T23:03:15.175Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-12T23:03:26.694Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-12T23:04:10.355Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-12T23:04:10.732Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-12T23:04:28.110Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T23:04:47.375Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-01-12T23:04:50.288Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T23:05:04.763Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-12T23:05:17.378Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-12T23:05:17.586Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-12T23:05:47.376Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-12T23:08:10.855Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T23:08:11.918Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-12T23:08:18.367Z"
+        },
+        {
+          "page": "game:combinations",
+          "game": "combinations",
+          "timestamp": "2026-01-12T23:08:19.510Z"
+        },
+        {
+          "page": "game:combinations",
+          "game": "combinations",
+          "timestamp": "2026-01-12T23:08:19.512Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-12T23:08:44.562Z"
+        }
+      ]
+    },
+    {
       "userId": "user_1768083326679_pcwndb8jt",
       "name": "asdsdgf",
-      "lastSeen": "2026-01-12T19:20:43.224Z",
+      "lastSeen": "2026-01-12T19:21:13.223Z",
       "currentPage": "profile",
       "currentGame": null,
       "activities": [
@@ -31,6 +798,11 @@
           "page": "profile",
           "game": null,
           "timestamp": "2026-01-12T19:20:43.224Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-12T19:21:13.223Z"
         }
       ]
     },
@@ -949,335 +1721,6 @@
           "page": "game:strands",
           "game": null,
           "timestamp": "2026-01-12T19:12:46.003Z"
-        }
-      ]
-    },
-    {
-      "userId": "user_1768241888057_s7bvpex9n",
-      "name": "asad",
-      "lastSeen": "2026-01-12T18:50:29.346Z",
-      "currentPage": "&#x2F;games",
-      "currentGame": null,
-      "activities": [
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:18:08.058Z"
-        },
-        {
-          "page": "&#x2F;games",
-          "game": null,
-          "timestamp": "2026-01-12T18:18:15.111Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:18:38.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:19:08.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:19:38.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:20:08.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:20:38.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:21:08.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:21:43.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:22:43.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:24:37.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:25:43.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:26:22.478Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:26:38.060Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:27:08.059Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:27:38.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:28:08.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:28:38.059Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:28:38.741Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:29:09.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:29:39.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:30:09.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:30:39.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:31:09.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:31:39.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:37:03.130Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:37:33.226Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:38:03.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:38:33.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:39:03.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:39:33.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:40:03.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:40:43.223Z"
-        },
-        {
-          "page": "home",
-          "game": null,
-          "timestamp": "2026-01-12T18:41:29.599Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:41:30.827Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:41:43.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:42:00.829Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:42:30.829Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:42:43.224Z"
-        },
-        {
-          "page": "&#x2F;games",
-          "game": null,
-          "timestamp": "2026-01-12T18:43:00.709Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:43:00.829Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:43:30.829Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:43:43.223Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:44:00.829Z"
-        },
-        {
-          "page": "game:combinations",
-          "game": "combinations",
-          "timestamp": "2026-01-12T18:44:04.227Z"
-        },
-        {
-          "page": "game:combinations",
-          "game": "combinations",
-          "timestamp": "2026-01-12T18:44:04.226Z"
-        },
-        {
-          "page": "&#x2F;games",
-          "game": null,
-          "timestamp": "2026-01-12T18:44:07.229Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:44:31.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:44:43.224Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:45:01.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:45:43.224Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:45:43.224Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:46:27.759Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:46:31.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:46:33.635Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:47:01.223Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:47:27.632Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:47:57.635Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:48:28.224Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:48:58.224Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:49:28.223Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:49:58.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:50:27.634Z"
-        },
-        {
-          "page": "&#x2F;games",
-          "game": null,
-          "timestamp": "2026-01-12T18:50:29.346Z"
         }
       ]
     },
@@ -2445,219 +2888,6 @@
           "page": "&#x2F;games",
           "game": null,
           "timestamp": "2026-01-12T18:06:43.267Z"
-        }
-      ]
-    },
-    {
-      "userId": "user_1768135126598_ctzr49ugc",
-      "name": "asd",
-      "lastSeen": "2026-01-12T17:52:56.033Z",
-      "currentPage": "game:spelling",
-      "currentGame": null,
-      "activities": [
-        {
-          "type": "page_load",
-          "timestamp": "2026-01-11T12:38:46.599Z",
-          "page": "games"
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:38:59.752Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:39:16.601Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "page_load",
-          "timestamp": "2026-01-11T12:39:28.915Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:39:30.642Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:39:47.378Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:39:58.916Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "page_load",
-          "timestamp": "2026-01-11T12:40:05.224Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "page_load",
-          "timestamp": "2026-01-11T12:40:05.414Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "page_load",
-          "timestamp": "2026-01-11T12:40:05.702Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "game_start",
-          "timestamp": "2026-01-11T12:40:07.618Z",
-          "page": "game:wordle",
-          "game": "wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:40:36.155Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:41:06.155Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:41:36.156Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:42:06.155Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:42:36.155Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:43:06.157Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:44:01.156Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "page_load",
-          "timestamp": "2026-01-11T12:57:01.323Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:57:32.157Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:58:02.155Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:58:32.156Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:59:02.155Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T12:59:32.156Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "activity_update",
-          "timestamp": "2026-01-11T13:00:02.155Z",
-          "page": "game:wordle"
-        },
-        {
-          "type": "page_load",
-          "timestamp": "2026-01-11T13:06:07.206Z",
-          "page": "home"
-        },
-        {
-          "type": "page_load",
-          "timestamp": "2026-01-11T13:06:08.101Z",
-          "page": "games"
-        },
-        {
-          "page": "home",
-          "game": null,
-          "timestamp": "2026-01-11T19:45:04.510Z"
-        },
-        {
-          "page": "admin",
-          "game": null,
-          "timestamp": "2026-01-11T19:45:08.270Z"
-        },
-        {
-          "page": "home",
-          "game": null,
-          "timestamp": "2026-01-12T17:47:55.178Z"
-        },
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T17:47:56.031Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T17:48:26.032Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T17:48:56.033Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T17:49:26.033Z"
-        },
-        {
-          "page": "game:spelling",
-          "game": null,
-          "timestamp": "2026-01-12T17:49:56.224Z"
-        },
-        {
-          "page": "game:spelling",
-          "game": null,
-          "timestamp": "2026-01-12T17:50:26.224Z"
-        },
-        {
-          "page": "game:spelling",
-          "game": null,
-          "timestamp": "2026-01-12T17:50:56.223Z"
-        },
-        {
-          "page": "game:spelling",
-          "game": null,
-          "timestamp": "2026-01-12T17:51:43.224Z"
-        },
-        {
-          "page": "game:spelling",
-          "game": null,
-          "timestamp": "2026-01-12T17:52:43.224Z"
-        },
-        {
-          "page": "game:spelling",
-          "game": null,
-          "timestamp": "2026-01-12T17:52:56.033Z"
         }
       ]
     },

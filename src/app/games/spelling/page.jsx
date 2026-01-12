@@ -349,7 +349,7 @@ export default function SpellingBeePage() {
         <div className="grid grid-cols-3 gap-3 mb-6">
           <button
             onClick={handleBackspace}
-            className="py-3 bg-key-bg text-key-text rounded-lg hover:bg-key-bg-hover font-semibold transition-colors"
+            className="py-3 bg-key-bg text-key-text rounded-lg hover:bg-key-bg-hover font-semibold transition-colors py-3 bg-key-bg text-key-text rounded-lg hover:bg-key-bg-hover font-semibold transition-colors bg-card border border-card-border rounded-lg hover:bg-surface-hover"
           >
             Delete
           </button>
