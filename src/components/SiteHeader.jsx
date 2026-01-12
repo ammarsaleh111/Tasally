@@ -10,14 +10,6 @@ export default function SiteHeader() {
   return (
     <nav className="w-full flex items-center justify-between p-4 border-b border-border-default bg-background/80 backdrop-blur sticky top-0 z-50 transition-colors duration-300">
       <div className="flex items-center gap-4">
-        {/* Menu Icon Placeholder */}
-        <button className="text-text-muted hover:text-foreground p-2 transition-colors">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-        </button>
 
         <Link href="/" className="text-2xl font-serif font-bold tracking-tight hover:opacity-80 transition-opacity text-foreground">
             Ammar Times

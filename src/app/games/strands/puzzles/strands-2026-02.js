@@ -13,7 +13,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["B", "R", "I", "O", "C", "H", "E", "I"],
       ["P", "I", "T", "A", "L", "L", "A", "H"]
     ],
-    themeWords: ["BAGUETTE", "BRIOCHE", "CIABATTA", "CHALLAH", "ROLLS", "PITA"],
+    words: ["BAGUETTE", "BRIOCHE", "CIABATTA", "CHALLAH", "ROLLS", "PITA"],
     spangram: "BREADTYPES",
     spangramPath: [[0,0],[0,1],[0,2],[1,3],[2,3],[3,3],[4,3],[5,3],[4,4],[3,4]]
   },
@@ -28,7 +28,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["S", "T", "O", "R", "M", "S", "U", "N"],
       ["T", "H", "U", "N", "D", "E", "R", "P"]
     ],
-    themeWords: ["RAIN", "SNOW", "HAIL", "WIND", "THUNDER", "STORM"],
+    words: ["RAIN", "SNOW", "HAIL", "WIND", "THUNDER", "STORM"],
     spangram: "WEATHERCAST",
     spangramPath: [[0,0],[0,1],[1,1],[2,1],[3,1],[4,1],[4,2],[4,3],[4,4],[4,5],[5,5]]
   },
@@ -43,7 +43,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["J", "E", "L", "L", "Y", "F", "I", "S"],
       ["M", "A", "N", "T", "A", "R", "A", "Y"]
     ],
-    themeWords: ["WHALE", "SHARK", "DOLPHIN", "OCTOPUS", "MANTA", "CRAB"],
+    words: ["WHALE", "SHARK", "DOLPHIN", "OCTOPUS", "MANTA", "CRAB"],
     spangram: "SEALIFE",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[3,1],[3,2],[3,3]]
   },
@@ -58,7 +58,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["R", "U", "S", "T", "C", "S", "H", "P"],
       ["S", "C", "A", "L", "A", "P", "E", "R"]
     ],
-    themeWords: ["PYTHON", "JAVA", "RUBY", "SWIFT", "RUST", "SCALA"],
+    words: ["PYTHON", "JAVA", "RUBY", "SWIFT", "RUST", "SCALA"],
     spangram: "CODELANGUAGES",
     spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3],[4,4],[5,4],[5,5],[5,6],[5,7]]
   },
@@ -73,7 +73,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["P", "E", "E", "L", "E", "R", "G", "R"],
       ["T", "O", "N", "G", "S", "S", "I", "V"]
     ],
-    themeWords: ["SPOON", "FORK", "KNIFE", "WHISK", "TONGS", "PEELER"],
+    words: ["SPOON", "FORK", "KNIFE", "WHISK", "TONGS", "PEELER"],
     spangram: "SILVERWARE",
     spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[3,3],[3,4],[3,5],[4,5]]
   },
@@ -88,7 +88,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["C", "E", "L", "L", "O", "B", "A", "T"],
       ["E", "T", "R", "U", "M", "P", "E", "T"]
     ],
-    themeWords: ["PIANO", "GUITAR", "DRUMS", "FLUTE", "HARP", "CELLO"],
+    words: ["PIANO", "GUITAR", "DRUMS", "FLUTE", "HARP", "CELLO"],
     spangram: "ORCHESTRA",
     spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3],[4,4]]
   },
@@ -103,7 +103,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["C", "U", "R", "L", "I", "N", "G", "S"],
       ["N", "O", "W", "B", "O", "A", "R", "D"]
     ],
-    themeWords: ["SKIING", "HOCKEY", "SKATING", "LUGE", "BOBSLED", "CURLING"],
+    words: ["SKIING", "HOCKEY", "SKATING", "LUGE", "BOBSLED", "CURLING"],
     spangram: "WINTERSPORTS",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
@@ -118,7 +118,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["E", "R", "Y", "T", "O", "R", "N", "E"],
       ["T", "U", "R", "B", "I", "N", "E", "T"]
     ],
-    themeWords: ["CHROME", "FIREFOX", "SAFARI", "EDGE", "OPERA", "BRAVE"],
+    words: ["CHROME", "FIREFOX", "SAFARI", "EDGE", "OPERA", "BRAVE"],
     spangram: "WEBBROWSERS",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[4,3],[4,4],[5,4],[5,5]]
   },
@@ -133,7 +133,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["N", "K", "E", "D", "I", "N", "S", "N"],
       ["P", "I", "N", "T", "E", "R", "E", "S"]
     ],
-    themeWords: ["FACEBOOK", "TWITTER", "INSTAGRAM", "TIKTOK", "LINKEDIN", "PINTEREST"],
+    words: ["FACEBOOK", "TWITTER", "INSTAGRAM", "TIKTOK", "LINKEDIN", "PINTEREST"],
     spangram: "SOCIALMEDIA",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[5,5]]
   },
@@ -148,7 +148,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["L", "I", "V", "E", "R", "L", "U", "N"],
       ["G", "S", "P", "L", "E", "E", "N", "S"]
     ],
-    themeWords: ["HEART", "BRAIN", "LIVER", "KIDNEY", "STOMACH", "SPLEEN"],
+    words: ["HEART", "BRAIN", "LIVER", "KIDNEY", "STOMACH", "SPLEEN"],
     spangram: "VITALORGANS",
     spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3],[4,4],[5,4],[5,5]]
   },
@@ -163,7 +163,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["E", "P", "R", "I", "D", "E", "N", "V"],
       ["Y", "S", "H", "A", "M", "E", "G", "R"]
     ],
-    themeWords: ["HAPPY", "SAD", "ANGRY", "FEAR", "LOVE", "GRIEF"],
+    words: ["HAPPY", "SAD", "ANGRY", "FEAR", "LOVE", "GRIEF"],
     spangram: "FEELINGS",
     spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3]]
   },
@@ -178,7 +178,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["E", "R", "I", "S", "K", "C", "A", "N"],
       ["D", "Y", "L", "I", "F", "E", "D", "Y"]
     ],
-    themeWords: ["CHESS", "CHECKERS", "MONOPOLY", "SCRABBLE", "RISK", "CLUE"],
+    words: ["CHESS", "CHECKERS", "MONOPOLY", "SCRABBLE", "RISK", "CLUE"],
     spangram: "TABLEGAMES",
     spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3],[4,4],[5,4]]
   },
@@ -193,7 +193,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["O", "S", "P", "I", "N", "A", "C", "H"],
       ["K", "A", "L", "E", "C", "U", "C", "U"]
     ],
-    themeWords: ["CARROT", "BROCCOLI", "CELERY", "LETTUCE", "TOMATO", "SPINACH"],
+    words: ["CARROT", "BROCCOLI", "CELERY", "LETTUCE", "TOMATO", "SPINACH"],
     spangram: "VEGETABLES",
     spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3],[4,4],[5,4]]
   },
@@ -208,7 +208,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["O", "C", "O", "L", "A", "T", "E", "O"],
       ["F", "L", "O", "W", "E", "R", "S", "V"]
     ],
-    themeWords: ["ROSE", "HEART", "CUPID", "RING", "KISS", "CHOCOLATE"],
+    words: ["ROSE", "HEART", "CUPID", "RING", "KISS", "CHOCOLATE"],
     spangram: "VALENTINES",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4]]
   },
@@ -223,7 +223,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["M", "H", "A", "R", "D", "D", "R", "I"],
       ["V", "E", "S", "P", "E", "A", "K", "E"]
     ],
-    themeWords: ["KEYBOARD", "MOUSE", "MONITOR", "PRINTER", "CPU", "HARDDRIVE"],
+    words: ["KEYBOARD", "MOUSE", "MONITOR", "PRINTER", "CPU", "HARDDRIVE"],
     spangram: "COMPUTERHARDWARE",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4]]
   },
@@ -238,7 +238,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["R", "D", "F", "I", "S", "H", "P", "I"],
       ["K", "E", "M", "A", "C", "K", "E", "R"]
     ],
-    themeWords: ["SALMON", "TUNA", "TROUT", "COD", "BASS", "HALIBUT"],
+    words: ["SALMON", "TUNA", "TROUT", "COD", "BASS", "HALIBUT"],
     spangram: "FISHSPECIES",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5]]
   },
@@ -253,7 +253,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["I", "F", "L", "O", "O", "D", "V", "O"],
       ["L", "C", "A", "N", "O", "W", "I", "L"]
     ],
-    themeWords: ["EARTHQUAKE", "TORNADO", "HURRICANE", "TSUNAMI", "FLOOD", "VOLCANO"],
+    words: ["EARTHQUAKE", "TORNADO", "HURRICANE", "TSUNAMI", "FLOOD", "VOLCANO"],
     spangram: "NATURALDISASTERS",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5],[5,6],[5,7],[4,7],[3,7],[2,7]]
   },
@@ -268,7 +268,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["A", "P", "H", "R", "O", "D", "I", "T"],
       ["E", "H", "E", "R", "M", "E", "S", "E"]
     ],
-    themeWords: ["ZEUS", "ATHENA", "APOLLO", "POSEIDON", "HERA", "ARES"],
+    words: ["ZEUS", "ATHENA", "APOLLO", "POSEIDON", "HERA", "ARES"],
     spangram: "OLYMPIANS",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]]
   },
@@ -283,7 +283,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["C", "G", "E", "O", "G", "R", "A", "P"],
       ["H", "Y", "B", "I", "O", "L", "O", "G"]
     ],
-    themeWords: ["MATH", "SCIENCE", "HISTORY", "ENGLISH", "ART", "MUSIC"],
+    words: ["MATH", "SCIENCE", "HISTORY", "ENGLISH", "ART", "MUSIC"],
     spangram: "CURRICULUM",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4]]
   },
@@ -298,7 +298,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["T", "Y", "T", "A", "J", "M", "A", "H"],
       ["A", "L", "G", "R", "E", "A", "T", "W"]
     ],
-    themeWords: ["EIFFEL", "COLOSSEUM", "PYRAMIDS", "STATUE", "TAJMAHAL", "GREATWALL"],
+    words: ["EIFFEL", "COLOSSEUM", "PYRAMIDS", "STATUE", "TAJMAHAL", "GREATWALL"],
     spangram: "WORLDWONDERS",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5],[5,6]]
   },
@@ -313,7 +313,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["R", "E", "G", "G", "A", "E", "M", "E"],
       ["T", "A", "L", "C", "L", "A", "S", "S"]
     ],
-    themeWords: ["JAZZ", "ROCK", "POP", "BLUES", "COUNTRY", "HIPHOP"],
+    words: ["JAZZ", "ROCK", "POP", "BLUES", "COUNTRY", "HIPHOP"],
     spangram: "MUSICSTYLES",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5]]
   },
@@ -328,7 +328,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["P", "E", "B", "I", "N", "D", "E", "R"],
       ["H", "I", "G", "H", "L", "I", "G", "H"]
     ],
-    themeWords: ["PEN", "PAPER", "STAPLER", "CLIPS", "FOLDER", "BINDER"],
+    words: ["PEN", "PAPER", "STAPLER", "CLIPS", "FOLDER", "BINDER"],
     spangram: "OFFICESUPPLIES",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5],[5,6],[5,7],[4,7],[3,7]]
   },
@@ -343,7 +343,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["A", "L", "S", "U", "M", "M", "E", "R"],
       ["S", "E", "A", "S", "O", "N", "S", "P"]
     ],
-    themeWords: ["SPRING", "SUMMER", "FALL", "WINTER", "AUTUMN", "VERNAL"],
+    words: ["SPRING", "SUMMER", "FALL", "WINTER", "AUTUMN", "VERNAL"],
     spangram: "FOURSEASONS",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5]]
   },
@@ -358,7 +358,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["H", "I", "S", "T", "B", "L", "A", "C"],
       ["K", "J", "A", "C", "K", "G", "I", "N"]
     ],
-    themeWords: ["POKER", "BRIDGE", "RUMMY", "SOLITAIRE", "HEARTS", "BLACKJACK"],
+    words: ["POKER", "BRIDGE", "RUMMY", "SOLITAIRE", "HEARTS", "BLACKJACK"],
     spangram: "CARDGAMES",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]]
   },
@@ -373,7 +373,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["E", "V", "E", "L", "C", "H", "I", "S"],
       ["E", "L", "F", "I", "L", "E", "D", "R"]
     ],
-    themeWords: ["HAMMER", "WRENCH", "SCREWDRIVER", "PLIERS", "SAW", "LEVEL"],
+    words: ["HAMMER", "WRENCH", "SCREWDRIVER", "PLIERS", "SAW", "LEVEL"],
     spangram: "HANDTOOLS",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]]
   },
@@ -388,7 +388,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["H", "O", "C", "K", "E", "Y", "B", "O"],
       ["X", "I", "N", "G", "S", "W", "I", "M"]
     ],
-    themeWords: ["SOCCER", "TENNIS", "GOLF", "BASEBALL", "FOOTBALL", "HOCKEY"],
+    words: ["SOCCER", "TENNIS", "GOLF", "BASEBALL", "FOOTBALL", "HOCKEY"],
     spangram: "TEAMSPORTS",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4]]
   },
@@ -403,7 +403,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["P", "I", "N", "O", "T", "S", "H", "I"],
       ["R", "A", "Z", "S", "Y", "R", "A", "H"]
     ],
-    themeWords: ["MERLOT", "CHARDONNAY", "CABERNET", "RIESLING", "PINOT", "SHIRAZ"],
+    words: ["MERLOT", "CHARDONNAY", "CABERNET", "RIESLING", "PINOT", "SHIRAZ"],
     spangram: "WINEVARIETAL",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5],[5,6]]
   },
@@ -418,7 +418,7 @@ export const STRANDS_PUZZLES_FEB_2026 = [
       ["S", "E", "A", "H", "O", "R", "S", "E"],
       ["O", "T", "T", "E", "R", "M", "A", "N"]
     ],
-    themeWords: ["CRAB", "LOBSTER", "JELLYFISH", "STARFISH", "SEAL", "SEAHORSE"],
+    words: ["CRAB", "LOBSTER", "JELLYFISH", "STARFISH", "SEAL", "SEAHORSE"],
     spangram: "MARINELIFE",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4]]
   }
@@ -427,3 +427,4 @@ export const STRANDS_PUZZLES_FEB_2026 = [
 export const getStrandsForDate = (dateString) => {
   return STRANDS_PUZZLES_FEB_2026.find(puzzle => puzzle.date === dateString) || null;
 };
+

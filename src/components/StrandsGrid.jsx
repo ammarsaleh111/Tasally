@@ -21,6 +21,7 @@ const StrandsGrid = ({
   spangramPath = null, // Path for the found spangram
   isDragging,
   shouldShake,
+  hintedTiles = [], // Array of { row, col, letter } for tile-progressive hints
   onStart,
   onEnter,
   onEnd,
@@ -113,6 +114,12 @@ const StrandsGrid = ({
     return spangramPath.some(([pr, pc]) => pr === r && pc === c);
   };
 
+  // Check if cell has a hint (tile-progressive system)
+  const getHintedTile = (r, c) => {
+    if (!hintedTiles || hintedTiles.length === 0) return null;
+    return hintedTiles.find(t => t.row === r && t.col === c);
+  };
+
   return (
     <div
       className="select-none relative strands-grid-container"
@@ -162,7 +169,7 @@ const StrandsGrid = ({
       {/* Grid tiles */}
       <div
         ref={gridRef}
-        className={`grid gap-1 md:gap-1.5 relative z-10 ${shouldShake ? 'animate-shake' : ''}`}
+        className={`grid gap-2 relative z-10 ${shouldShake ? 'animate-shake' : ''}`}
         style={{ gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))` }}
       >
         {grid.map((row, r) => (
@@ -171,6 +178,7 @@ const StrandsGrid = ({
             const active = isInPath(r, c);
             const highlighted = isHighlighted(r, c);
             const isSpangram = isSpangramCell(r, c);
+            const hintedTile = getHintedTile(r, c);
             
             return (
               <div
@@ -184,43 +192,42 @@ const StrandsGrid = ({
                 onTouchMove={(e) => handleTouchMove(r, c, e)}
                 onTouchEnd={handleTouchEnd}
                 className={[
-                  // Base styles
-                  'aspect-square rounded-lg flex items-center justify-center',
-                  'font-bold text-xl md:text-2xl',
+                  // Base styles - COMPACT with smaller font
+                  'aspect-square flex items-center justify-center',
+                  'font-bold text-xs md:text-sm',
                   'transition-all duration-150 ease-out',
-                  'border-2',
+                  'border border-gray-200 dark:border-gray-700 rounded',
                   
                   // Locked/found state - subtle background, letters stay visible
                   locked && isSpangram 
-                    ? 'bg-amber-100/50 dark:bg-amber-900/30 border-amber-400 text-amber-900 dark:text-amber-100' 
+                    ? 'bg-amber-200/70 dark:bg-amber-800/50 text-amber-900 dark:text-amber-100' 
                     : locked 
-                      ? 'bg-emerald-100/50 dark:bg-emerald-900/30 border-emerald-400 text-emerald-900 dark:text-emerald-100'
-                      : 'bg-card/80 border-wordle-tile-border',
+                      ? 'bg-emerald-200/70 dark:bg-emerald-800/50 text-emerald-900 dark:text-emerald-100'
+                      : 'bg-white dark:bg-gray-800',
                   
                   // Active selection - minimal styling since ribbon handles visual
                   active && !locked 
-                    ? 'scale-105 border-transparent bg-transparent text-foreground font-black z-20' 
+                    ? 'scale-110 bg-blue-100 dark:bg-blue-900/50 text-blue-900 dark:text-blue-100 font-black z-20 border-blue-400' 
                     : '',
                   
-                  // Hint highlight
-                  highlighted && !locked && !active
-                    ? 'ring-2 ring-wordle-present ring-offset-2' 
+                  // HINTED TILE - Soft golden glow with pulse animation
+                  hintedTile && !locked && !active
+                    ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-200 font-black animate-pulse shadow-[0_0_8px_rgba(251,191,36,0.6)]' 
+                    : '',
+                  
+                  // Regular hint highlight
+                  highlighted && !locked && !active && !hintedTile
+                    ? 'ring-1 ring-yellow-400' 
                     : '',
                   
                   // Hover state for unselected, unlocked tiles
-                  !locked && !active 
-                    ? 'hover:scale-102 hover:border-strands-hover cursor-pointer' 
+                  !locked && !active && !hintedTile
+                    ? 'hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer' 
                     : '',
                   
                   // Cursor states
                   isDragging ? 'cursor-grabbing' : 'cursor-pointer',
                 ].filter(Boolean).join(' ')}
-                style={{
-                  // Ensure letters are always readable above ribbon
-                  textShadow: active && !locked 
-                    ? '0 0 8px rgba(255,255,255,0.9), 0 0 16px rgba(255,255,255,0.5)' 
-                    : undefined,
-                }}
               >
                 {ch}
               </div>

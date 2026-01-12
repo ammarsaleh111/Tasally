@@ -13,6 +13,7 @@ import LearningLogModal from '@/components/LearningLogModal';
 import { getGameTheme } from '@/utils/themeEngine';
 import { getTodayString, recordGameResult, getGameStats } from '@/utils/profileManager';
 import { addWordsToLog } from '@/utils/learningLogEngine';
+import { getNextStrandsHint, getStrandsHintButtonText, getAllHintedTiles } from '@/utils/strandsHints';
 import { STRANDS_2026_01 } from './puzzles/strands-2026-01';
 import { STRANDS_PUZZLES_FEB_2026 } from './puzzles/strands-2026-02';
 
@@ -39,6 +40,8 @@ export default function StrandsPage() {
   const [spangramPath, setSpangramPath] = useState(null);
   const [hintsUsed, setHintsUsed] = useState(0);
   const [highlightedSet, setHighlightedSet] = useState(new Set());
+  const [hintButtonText, setHintButtonText] = useState('Hint');
+  const [hintedTiles, setHintedTiles] = useState([]); // Array of {row, col, letter}
   const [startedAt, setStartedAt] = useState(null);
   const [completedAt, setCompletedAt] = useState(null);
   const [winModal, setWinModal] = useState(false);
@@ -103,6 +106,20 @@ export default function StrandsPage() {
       setCompletedAt(null);
     }
   }, [puzzle, savedProgress]);
+
+  // Update hint button text and load hinted tiles when puzzle or words change
+  useEffect(() => {
+    if (puzzle && puzzle.words) {
+      const puzzleId = `strands-${puzzle.date}`;
+      const foundWordStrings = foundWords.map(fw => fw.word);
+      const buttonText = getStrandsHintButtonText(puzzleId, puzzle.words, foundWordStrings, puzzle.grid);
+      setHintButtonText(buttonText);
+      
+      // Load all previously hinted tiles
+      const existingHints = getAllHintedTiles(puzzleId, puzzle.words, foundWordStrings, puzzle.grid);
+      setHintedTiles(existingHints);
+    }
+  }, [puzzle, foundWords]);
 
   // Persist progress
   useEffect(() => {
@@ -244,21 +261,27 @@ export default function StrandsPage() {
 
   const handleHint = () => {
     if (!puzzle) return;
-    const hint = getHint(puzzle, foundSet, spangramFound);
-    if (hint.type === 'none') return;
-    setHintsUsed((h) => h + 1);
-    // Simple hint: highlight tiles matching letter
-    const letter = hint.letter;
-    const positions = new Set();
-    puzzle.grid.forEach((row, r) => {
-      row.forEach((ch, c) => {
-        if (ch.toUpperCase() === letter) {
-          positions.add(serializePos(r, c));
-        }
-      });
-    });
-    setHighlightedSet(positions);
-    setTimeout(() => setHighlightedSet(new Set()), 1800);
+    
+    const puzzleId = `strands-${puzzle.date}`;
+    const foundWordStrings = foundWords.map(fw => fw.word);
+    
+    // Get next hint (visual, no text)
+    const hintResult = getNextStrandsHint(
+      puzzleId,
+      puzzle.words,
+      foundWordStrings,
+      puzzle.grid
+    );
+    
+    // Update tiles display (cumulative - all revealed tiles)
+    if (hintResult.allHintedTiles) {
+      setHintedTiles(hintResult.allHintedTiles);
+    }
+    setHintsUsed(hintResult.totalHintsUsed);
+    
+    // Update button text
+    const buttonText = getStrandsHintButtonText(puzzleId, puzzle.words, foundWordStrings, puzzle.grid);
+    setHintButtonText(buttonText);
   };
 
   const handleReset = () => {
@@ -270,6 +293,7 @@ export default function StrandsPage() {
     setSpangramFound(false);
     setSpangramPath(null);
     setHintsUsed(0);
+    setHintedTiles([]);
     setHighlightedSet(new Set());
     setStartedAt(Date.now());
     setCompletedAt(null);
@@ -335,24 +359,24 @@ export default function StrandsPage() {
                 )}
               </div>
 
-              {/* Hint Button */}
+              {/* Hint Button - ALWAYS AVAILABLE */}
               <button
                 onClick={handleHint}
-                disabled={wordsFoundCount < 3 || completedAt}
-                className="w-full py-3 px-4 rounded-full border-2 border-border-default bg-card text-foreground font-bold text-sm hover:bg-surface-hover disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                disabled={completedAt || hintButtonText === 'All Revealed' || hintButtonText.includes('Hint Limit')}
+                className="w-full py-3 px-4 rounded-full border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 font-bold text-sm hover:bg-amber-100 dark:hover:bg-amber-900/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
-                {wordsFoundCount < 3 ? '🔒 Hint (find 3 words)' : '💡 Hint'}
+                💡 {hintButtonText}
               </button>
 
               {hintsUsed > 0 && (
                 <div className="text-xs text-center text-text-muted">
-                  Hints used: {hintsUsed}
+                  {hintsUsed} hint{hintsUsed !== 1 ? 's' : ''} used
                 </div>
               )}
             </div>
 
-            {/* Right Grid Area */}
-            <div className="max-w-2xl mx-auto lg:mx-0 w-full">
+            {/* Right Grid Area - COMPACT for better visibility */}
+            <div className="max-w-md mx-auto lg:mx-0 w-full">
               <StrandsGrid
                 grid={puzzle.grid}
                 path={path}
@@ -362,6 +386,7 @@ export default function StrandsPage() {
                 spangramPath={spangramPath}
                 isDragging={isDragging}
                 shouldShake={shouldShake}
+                hintedTiles={hintedTiles}
                 onStart={onStart}
                 onEnter={onEnter}
                 onEnd={onEnd}

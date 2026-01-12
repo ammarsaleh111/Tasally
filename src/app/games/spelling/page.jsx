@@ -25,6 +25,7 @@ import {
 import { SPELLING_PUZZLES_JAN_2026 } from './puzzles/spelling-2026-01';
 import { SPELLING_PUZZLES_FEB_2026 } from './puzzles/spelling-2026-02';
 import { addWordsToLog } from '@/utils/learningLogEngine';
+import { getNextSpellingBeeHint, getSpellingBeeHintButtonText } from '@/utils/spellingBeeHints';
 
 // Merge January and February puzzles
 const ALL_SPELLING_PUZZLES = [...SPELLING_PUZZLES_JAN_2026, ...SPELLING_PUZZLES_FEB_2026];
@@ -50,6 +51,18 @@ export default function SpellingBeePage() {
   const [showRankUp, setShowRankUp] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [hintsUsed, setHintsUsed] = useState(0);
+  const [hintButtonText, setHintButtonText] = useState('Hint 1/5');
+
+  // Load progress from localStorage
+  const loadProgress = (date) => {
+    const saved = localStorage.getItem(`spelling-${date}`);
+    if (saved) {
+      const { foundWords: savedWords, score: savedScore, hintsUsed: savedHints } = JSON.parse(saved);
+      setFoundWords(savedWords || []);
+      setScore(savedScore || 0);
+      setHintsUsed(savedHints || 0);
+    }
+  };
 
   // Load today's puzzle
   useEffect(() => {
@@ -74,16 +87,14 @@ export default function SpellingBeePage() {
     }
   }, []);
 
-  // Load progress from localStorage
-  const loadProgress = (date) => {
-    const saved = localStorage.getItem(`spelling-${date}`);
-    if (saved) {
-      const { foundWords: savedWords, score: savedScore, hintsUsed: savedHints } = JSON.parse(saved);
-      setFoundWords(savedWords || []);
-      setScore(savedScore || 0);
-      setHintsUsed(savedHints || 0);
+  // Update hint button text when puzzle or words change
+  useEffect(() => {
+    if (puzzle) {
+      const puzzleId = `spelling-${puzzle.date}`;
+      const buttonText = getSpellingBeeHintButtonText(puzzleId, puzzle.validWords, foundWords);
+      setHintButtonText(buttonText);
     }
-  };
+  }, [puzzle, foundWords]);
 
   // Save progress
   useEffect(() => {
@@ -222,16 +233,25 @@ export default function SpellingBeePage() {
     setOuterLetters(prev => shuffleLetters(prev));
   };
 
-  // Show hint
+  // Show hint - Progressive letter-reveal system
   const handleHint = () => {
     if (!puzzle) return;
     
-    const hint = getHint(puzzle.validWords, foundWords);
-    if (hint) {
-      showToast(`Hint: Word starting with "${hint}"`, 'info');
-      setHintsUsed(prev => prev + 1);
-    } else {
-      showToast('All words found!', 'success');
+    const puzzleId = `spelling-${puzzle.date}`;
+    const hintResult = getNextSpellingBeeHint(
+      puzzleId,
+      puzzle.validWords,
+      foundWords,
+      currentWord // Pass current input so hints can be player-aware
+    );
+    
+    if (hintResult.pattern) {
+      showToast(hintResult.pattern, 'info');
+      setHintsUsed(hintResult.totalHintsUsed);
+      
+      // Update button text
+      const buttonText = getSpellingBeeHintButtonText(puzzleId, puzzle.validWords, foundWords);
+      setHintButtonText(buttonText);
     }
   };
 
@@ -352,8 +372,9 @@ export default function SpellingBeePage() {
           <button
             onClick={handleHint}
             className="w-full py-2 bg-card border border-card-border text-foreground rounded-lg hover:bg-surface-hover transition-colors text-sm font-medium"
+            disabled={hintButtonText === 'No Hints Left'}
           >
-            💡 Hint ({hintsUsed} used)
+            💡 {hintButtonText} {hintsUsed > 0 && `(${hintsUsed} used)`}
           </button>
         </div>
 
