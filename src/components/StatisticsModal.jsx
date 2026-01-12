@@ -115,13 +115,13 @@ const HistoryGraph = ({ data, compact = false }) => {
                       ? 'bg-wordle-correct'
                       : isLoss
                       ? 'bg-wordle-absent'
-                      : 'bg-gray-300'
+                      : 'bg-graph-bar'
                   } ${compact ? 'h-full' : 'h-full'} rounded-sm`}
                   title={`${day.date}: ${isWin ? 'Win' : 'Loss'}`}
                 />
               )}
               {!hasResult && (
-                <div className="w-full h-2 bg-gray-200 rounded-sm" />
+                <div className="w-full h-2 bg-graph-bg rounded-sm" />
               )}
             </div>
             {!compact && (

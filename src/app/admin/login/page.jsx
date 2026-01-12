@@ -67,8 +67,8 @@ export default function AdminLoginPage() {
         <SiteHeader />
         <div className="flex items-center justify-center h-96">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4" />
-            <p className="text-gray-500">Checking access…</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-button-primary mx-auto mb-4" />
+            <p className="text-text-muted">Checking access…</p>
           </div>
         </div>
       </div>
@@ -79,13 +79,13 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <div className="max-w-md mx-auto px-4 py-16">
-        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-lg">
+        <div className="bg-card border border-card-border rounded-2xl p-8 shadow-lg">
           <h1 className="text-3xl font-bold mb-2">Admin Access</h1>
-          <p className="text-gray-500 mb-8">Sign in with the dedicated admin credentials to manage live stats.</p>
+          <p className="text-text-muted mb-8">Sign in with the dedicated admin credentials to manage live stats.</p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2" htmlFor="admin-username">
+              <label className="block text-sm font-bold text-foreground mb-2" htmlFor="admin-username">
                 Username
               </label>
               <input
@@ -93,14 +93,14 @@ export default function AdminLoginPage() {
                 type="text"
                 value={username}
                 onChange={event => setUsername(event.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-border-default bg-background text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-border-active"
                 autoComplete="username"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2" htmlFor="admin-password">
+              <label className="block text-sm font-bold text-foreground mb-2" htmlFor="admin-password">
                 Password
               </label>
               <input
@@ -108,24 +108,24 @@ export default function AdminLoginPage() {
                 type="password"
                 value={password}
                 onChange={event => setPassword(event.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-3 border border-border-default bg-background text-foreground rounded-lg focus:outline-none focus:ring-2 focus:ring-border-active"
                 autoComplete="current-password"
                 required
               />
             </div>
 
-            {error && <p className="text-sm text-red-600">{error}</p>}
+            {error && <p className="text-sm text-foreground opacity-90">{error}</p>}
 
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg transition-colors disabled:opacity-60"
+              className="w-full py-3 bg-button-primary hover:bg-button-primary-hover text-button-text font-semibold rounded-lg transition-colors disabled:opacity-60"
             >
               {status === 'loading' ? 'Signing in…' : 'Access Dashboard'}
             </button>
           </form>
 
-          <p className="text-xs text-gray-400 mt-6">
+          <p className="text-xs text-text-muted mt-6">
             Tip: update ADMIN_USERNAME / ADMIN_PASSWORD env vars and redeploy to rotate credentials.
           </p>
         </div>

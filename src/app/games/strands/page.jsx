@@ -291,7 +291,7 @@ export default function StrandsPage() {
 
       <div className="max-w-7xl mx-auto px-4 pb-24">
         {validationErrors.length > 0 && (
-          <div className="bg-red-50 border border-red-300 rounded-lg p-4 mb-4">
+          <div className="bg-card border border-border-active rounded-lg p-4 mb-4">
             <h3 className="font-bold text-red-900 mb-2">Puzzle Validation Errors:</h3>
             <ul className="list-disc list-inside text-sm text-red-700">
               {validationErrors.map((err, i) => <li key={i}>{err}</li>)}

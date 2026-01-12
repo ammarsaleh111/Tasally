@@ -91,13 +91,13 @@ export default function ProfilePage() {
       
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Profile Header */}
-        <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white mb-8 shadow-xl">
+        <div className="bg-gradient-to-r from-wordle-correct to-connections-purple rounded-2xl p-8 text-white mb-8 shadow-xl">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-4xl font-bold mb-2">
                 {profile.name ? `${profile.name}'s Profile` : 'Your Profile'}
               </h1>
-              <p className="text-blue-100">
+              <p className="text-white/80">
                 Member since {new Date(profile.createdAt).toLocaleDateString()}
               </p>
             </div>
@@ -114,25 +114,29 @@ export default function ProfilePage() {
             icon="🎮" 
             value={totalGames} 
             label="Total Games" 
-            color="bg-blue-50 border-blue-200" 
+            colorClass="bg-connections-blue/10 border-connections-blue/30" 
+            textColor="text-connections-blue"
           />
           <StatCard 
             icon="🏆" 
             value={totalWins} 
             label="Total Wins" 
-            color="bg-green-50 border-green-200" 
+            colorClass="bg-wordle-correct/10 border-wordle-correct/30" 
+            textColor="text-wordle-correct"
           />
           <StatCard 
             icon="🔥" 
             value={bestCurrentStreak} 
             label="Best Current Streak" 
-            color="bg-orange-50 border-orange-200" 
+            colorClass="bg-connections-orange/10 border-connections-orange/30" 
+            textColor="text-connections-orange"
           />
           <StatCard 
             icon="⭐" 
             value={totalAchievements} 
             label={`Achievements (${achievementProgress}%)`} 
-            color="bg-yellow-50 border-yellow-200" 
+            colorClass="bg-wordle-present/10 border-wordle-present/30" 
+            textColor="text-wordle-present"
           />
         </div>
 
@@ -188,11 +192,11 @@ export default function ProfilePage() {
 }
 
 // Quick Stat Card Component
-const StatCard = ({ icon, value, label, color }) => (
-  <div className={`${color} border-2 rounded-xl p-6 text-center`}>
+const StatCard = ({ icon, value, label, colorClass, textColor }) => (
+  <div className={`${colorClass} border-2 rounded-xl p-6 text-center transition-all hover:scale-105`}>
     <div className="text-4xl mb-2">{icon}</div>
-    <div className="text-3xl font-bold text-gray-900">{value}</div>
-    <div className="text-sm text-gray-600 mt-1">{label}</div>
+    <div className={`text-3xl font-bold ${textColor}`}>{value}</div>
+    <div className="text-sm text-text-muted mt-1">{label}</div>
   </div>
 );
 
@@ -200,15 +204,15 @@ const StatCard = ({ icon, value, label, color }) => (
 const TabButton = ({ label, active, onClick, badge }) => (
   <button
     onClick={onClick}
-    className={`px-6 py-3 font-bold transition-colors relative ${
+    className={`px-6 py-3 font-bold transition-all relative whitespace-nowrap ${
       active
-        ? 'border-b-4 border-blue-500 text-blue-600'
-        : 'text-gray-500 hover:text-gray-700'
+        ? 'border-b-4 border-wordle-correct text-wordle-correct'
+        : 'text-text-muted hover:text-foreground hover:bg-surface-hover'
     }`}
   >
     {label}
     {badge !== undefined && badge > 0 && (
-      <span className="absolute -top-1 -right-1 bg-yellow-400 text-yellow-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+      <span className="absolute -top-1 -right-1 bg-wordle-present text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
         {badge}
       </span>
     )}
@@ -221,16 +225,16 @@ const OverviewTab = ({ stats }) => (
     <h2 className="text-2xl font-bold text-foreground mb-4">Game Overview</h2>
     
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <GameSummaryCard gameName="Wordle" stats={stats.wordle} icon="📝" color="from-green-400 to-emerald-500" />
-      <GameSummaryCard gameName="Connections" stats={stats.connections} icon="🔗" color="from-blue-400 to-cyan-500" />
-      <GameSummaryCard gameName="Crossword" stats={stats.crossword} icon="🧩" color="from-purple-400 to-pink-500" />
-      <GameSummaryCard gameName="Waffle" stats={stats.waffle} icon="🧇" color="from-amber-400 to-orange-500" />
-      <GameSummaryCard gameName="Combinations" stats={stats.combinations} icon="🧩" color="from-teal-400 to-cyan-500" />
-      <GameSummaryCard gameName="Numbers" stats={stats.numbers} icon="🔢" color="from-orange-400 to-red-500" />
-      <GameSummaryCard gameName="Trivia" stats={stats.trivia} icon="🎓" color="from-yellow-400 to-amber-500" />
-      <GameSummaryCard gameName="Strands" stats={stats.strands} icon="🧵" color="from-indigo-400 to-blue-500" />
+      <GameSummaryCard gameName="Wordle" stats={stats.wordle} icon="📝" color="from-wordle-correct to-wordle-correct/80" />
+      <GameSummaryCard gameName="Connections" stats={stats.connections} icon="🔗" color="from-connections-blue to-connections-purple" />
+      <GameSummaryCard gameName="Crossword" stats={stats.crossword} icon="🧩" color="from-connections-purple to-connections-blue" />
+      <GameSummaryCard gameName="Waffle" stats={stats.waffle} icon="🧇" color="from-connections-orange to-wordle-present" />
+      <GameSummaryCard gameName="Combinations" stats={stats.combinations} icon="🧩" color="from-connections-blue to-wordle-correct" />
+      <GameSummaryCard gameName="Numbers" stats={stats.numbers} icon="🔢" color="from-connections-orange to-connections-orange/80" />
+      <GameSummaryCard gameName="Trivia" stats={stats.trivia} icon="🎓" color="from-wordle-present to-wordle-correct" />
+      <GameSummaryCard gameName="Strands" stats={stats.strands} icon="🧵" color="from-connections-purple to-wordle-present" />
       {stats.spelling && (
-        <GameSummaryCard gameName="Spelling" stats={stats.spelling} icon="🐝" color="from-yellow-400 to-orange-500" />
+        <GameSummaryCard gameName="Spelling" stats={stats.spelling} icon="🐝" color="from-wordle-present to-connections-orange" />
       )}
     </div>
   </div>
@@ -248,7 +252,7 @@ const GameSummaryCard = ({ gameName, stats, icon, color }) => {
 
   return (
     <Link href={`/games/${gameName.toLowerCase()}`}>
-      <div className={`bg-gradient-to-r ${color} rounded-xl p-6 text-white hover:opacity-90 transition-opacity cursor-pointer shadow-lg`}>
+      <div className={`bg-gradient-to-r ${color} rounded-xl p-6 text-white hover:opacity-90 hover:scale-105 transition-all cursor-pointer shadow-lg`}>
         <div className="flex items-center justify-between mb-4">
           <div className="text-5xl">{icon}</div>
           <div className="text-right">
@@ -292,7 +296,7 @@ const StatsTab = ({ stats }) => (
       const perfectGames = gameStats?.perfectGames ?? 0;
 
       return (
-        <div key={gameName} className="bg-white rounded-xl p-6 shadow-md border-2 border-gray-100">
+        <div key={gameName} className="bg-card rounded-xl p-6 shadow-md border border-card-border hover:border-wordle-correct/50 transition-all">
           <h3 className="text-xl font-bold text-foreground mb-4 capitalize">{gameName}</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <StatItem label="Played" value={played} />
@@ -318,10 +322,10 @@ const StatsTab = ({ stats }) => (
 
 const StatItem = ({ label, value, highlight = false }) => (
   <div className="text-center">
-    <div className={`text-2xl font-bold ${highlight ? 'text-green-600' : 'text-gray-900'}`}>
+    <div className={`text-2xl font-bold ${highlight ? 'text-wordle-correct' : 'text-foreground'}`}>
       {value}
     </div>
-    <div className="text-xs text-gray-500 uppercase">{label}</div>
+    <div className="text-xs text-text-muted uppercase">{label}</div>
   </div>
 );
 
@@ -416,18 +420,18 @@ const LearningLogTab = () => {
       {/* Stats Summary */}
       {stats && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 text-center">
-            <div className="text-3xl font-bold text-blue-600">{stats.totalWords}</div>
-            <div className="text-sm text-gray-600">Words Learned</div>
+          <div className="bg-connections-blue/10 border border-connections-blue/30 rounded-xl p-4 text-center hover:scale-105 transition-transform">
+            <div className="text-3xl font-bold text-connections-blue">{stats.totalWords}</div>
+            <div className="text-sm text-text-muted">Words Learned</div>
           </div>
-          <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4 text-center">
-            <div className="text-3xl font-bold text-yellow-600">{stats.favorites}</div>
-            <div className="text-sm text-gray-600">Favorites</div>
+          <div className="bg-wordle-present/10 border border-wordle-present/30 rounded-xl p-4 text-center hover:scale-105 transition-transform">
+            <div className="text-3xl font-bold text-wordle-present">{stats.favorites}</div>
+            <div className="text-sm text-text-muted">Favorites</div>
           </div>
           {Object.entries(stats.byGame).slice(0, 2).map(([game, count]) => (
-            <div key={game} className="bg-green-50 border-2 border-green-200 rounded-xl p-4 text-center">
-              <div className="text-3xl font-bold text-green-600">{count}</div>
-              <div className="text-sm text-gray-600">{gameNames[game] || game}</div>
+            <div key={game} className="bg-wordle-correct/10 border border-wordle-correct/30 rounded-xl p-4 text-center hover:scale-105 transition-transform">
+              <div className="text-3xl font-bold text-wordle-correct">{count}</div>
+              <div className="text-sm text-text-muted">{gameNames[game] || game}</div>
             </div>
           ))}
         </div>
@@ -441,14 +445,14 @@ const LearningLogTab = () => {
             placeholder="Search words..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 pl-10 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 pl-10 border border-card-border rounded-lg focus:outline-none focus:ring-2 focus:ring-wordle-correct/50 bg-card text-foreground"
           />
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">🔍</span>
         </div>
         <select
           value={gameFilter}
           onChange={(e) => setGameFilter(e.target.value)}
-          className="px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500"
+          className="px-4 py-2 border border-card-border rounded-lg focus:outline-none focus:ring-2 focus:ring-wordle-correct/50 bg-card text-foreground"
         >
           <option value="all">All Games</option>
           {WORD_GAMES.map(g => (
@@ -457,8 +461,8 @@ const LearningLogTab = () => {
         </select>
         <button
           onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
-          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
-            showFavoritesOnly ? 'bg-yellow-400 text-yellow-900' : 'bg-gray-200 text-gray-700'
+          className={`px-4 py-2 rounded-lg font-bold transition-all ${
+            showFavoritesOnly ? 'bg-wordle-present text-black shadow-md' : 'bg-surface text-foreground border border-card-border hover:bg-surface-hover'
           }`}
         >
           ⭐ {showFavoritesOnly ? 'All' : 'Favorites'}
@@ -468,11 +472,11 @@ const LearningLogTab = () => {
       {/* Word List */}
       <div className="space-y-3">
         {filteredWords.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-text-muted">
             {words.length === 0 ? (
               <>
                 <div className="text-6xl mb-4">📚</div>
-                <p className="text-lg">No words learned yet!</p>
+                <p className="text-lg font-semibold text-foreground">No words learned yet!</p>
                 <p>Complete puzzles to build your vocabulary.</p>
               </>
             ) : (
@@ -486,7 +490,7 @@ const LearningLogTab = () => {
           filteredWords.map((wordEntry) => (
             <div 
               key={wordEntry.word}
-              className="bg-white border-2 border-gray-100 rounded-xl p-4 hover:border-blue-200 transition-colors"
+              className="bg-card border border-card-border rounded-xl p-4 hover:border-wordle-correct/50 hover:shadow-md transition-all"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -497,32 +501,32 @@ const LearningLogTab = () => {
                     {favorites.has(wordEntry.word) ? '⭐' : '☆'}
                   </button>
                   <div>
-                    <span className="font-bold text-xl">{wordEntry.word}</span>
+                    <span className="font-bold text-xl text-foreground">{wordEntry.word}</span>
                     {wordEntry.partOfSpeech && (
-                      <span className="ml-2 text-sm text-gray-500 italic">({wordEntry.partOfSpeech})</span>
+                      <span className="ml-2 text-sm text-text-muted italic">({wordEntry.partOfSpeech})</span>
                     )}
                   </div>
                 </div>
                 <div className="flex gap-1">
                   {wordEntry.games.map(g => (
-                    <span key={g} className="text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800">
+                    <span key={g} className="text-xs px-2 py-1 rounded-full bg-connections-blue/20 text-connections-blue">
                       {(gameNames[g] || g).slice(0, 4)}
                     </span>
                   ))}
                 </div>
               </div>
               {wordEntry.definition ? (
-                <p className="mt-2 text-gray-600">{wordEntry.definition}</p>
+                <p className="mt-2 text-text-muted">{wordEntry.definition}</p>
               ) : (
                 <button
                   onClick={() => handleFetchDefinition(wordEntry.word)}
                   disabled={loadingDefinition === wordEntry.word}
-                  className="mt-2 text-sm text-blue-500 hover:text-blue-700 disabled:opacity-50"
+                  className="mt-2 text-sm text-wordle-correct hover:underline disabled:opacity-50"
                 >
                   {loadingDefinition === wordEntry.word ? '⏳ Loading...' : '📖 Get definition'}
                 </button>
               )}
-              <div className="mt-2 text-xs text-gray-400">
+              <div className="mt-2 text-xs text-text-muted">
                 Learned: {new Date(wordEntry.dateAdded).toLocaleDateString()}
               </div>
             </div>
@@ -581,10 +585,10 @@ const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
 const FilterButton = ({ label, active, onClick }) => (
   <button
     onClick={onClick}
-    className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+    className={`px-4 py-2 rounded-lg font-bold transition-all ${
       active
-        ? 'bg-blue-500 text-white'
-        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+        ? 'bg-wordle-correct text-black shadow-md'
+        : 'bg-surface text-foreground border border-card-border hover:bg-surface-hover'
     }`}
   >
     {label}
@@ -639,16 +643,16 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
       <h2 className="text-2xl font-bold text-foreground mb-4">Settings</h2>
       
       {/* Player Name Section */}
-      <div className="bg-white rounded-xl p-6 shadow-md border-2 border-gray-100">
+      <div className="bg-card rounded-xl p-6 shadow-md border border-card-border">
         <h3 className="text-lg font-bold text-foreground mb-4">Player Identity</h3>
         
-        <div className="p-4 bg-gray-50 rounded-lg">
+        <div className="p-4 bg-surface rounded-lg">
           <div className="flex items-center justify-between mb-2">
             <div className="font-bold text-foreground">Display Name</div>
             {!editingName && (
               <button
                 onClick={() => setEditingName(true)}
-                className="text-sm text-blue-500 hover:text-blue-700"
+                className="text-sm text-wordle-correct hover:opacity-80"
               >
                 ✏️ Edit
               </button>
@@ -666,20 +670,20 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
                 }}
                 placeholder="Enter your name"
                 maxLength={50}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border border-card-border rounded-lg focus:outline-none focus:ring-2 focus:ring-wordle-correct/50 bg-card text-foreground"
               />
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-text-muted">
                 {newName.length}/50 characters
               </div>
               {nameError && (
-                <div className="p-2 bg-red-100 text-red-800 rounded text-sm">
+                <div className="p-2 bg-connections-orange/20 text-connections-orange rounded text-sm border border-connections-orange/30">
                   {nameError}
                 </div>
               )}
               <div className="flex gap-2">
                 <button
                   onClick={handleSaveName}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                  className="px-4 py-2 bg-wordle-correct text-black font-bold rounded-lg hover:opacity-90 transition-opacity"
                 >
                   Save
                 </button>
@@ -689,61 +693,61 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
                     setNewName(profile?.name || '');
                     setNameError('');
                   }}
-                  className="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400"
+                  className="px-4 py-2 bg-surface text-foreground border border-card-border rounded-lg hover:bg-surface-hover transition-colors"
                 >
                   Cancel
                 </button>
               </div>
             </div>
           ) : (
-            <div className="text-2xl font-bold text-blue-600">
+            <div className="text-2xl font-bold text-connections-blue">
               {profile?.name || 'Anonymous'}
             </div>
           )}
         </div>
         
-        <div className="mt-4 p-4 bg-purple-50 border-2 border-purple-200 rounded-lg">
-          <p className="text-sm text-purple-800">
+        <div className="mt-4 p-4 bg-connections-purple/10 border border-connections-purple/30 rounded-lg">
+          <p className="text-sm text-connections-purple">
             👤 <strong>Your name</strong> is displayed in your profile and visible to others in the admin dashboard.
           </p>
         </div>
       </div>
     
-      <div className="bg-white rounded-xl p-6 shadow-md border-2 border-gray-100">
+      <div className="bg-card rounded-xl p-6 shadow-md border border-card-border">
         <h3 className="text-lg font-bold text-foreground mb-4">Notifications</h3>
       
-      <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+      <div className="flex items-center justify-between p-4 bg-surface rounded-lg">
         <div>
           <div className="font-bold text-foreground">Daily Reminders</div>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-text-muted">
             Get notified when new puzzles are available
           </div>
         </div>
         <button
           onClick={onReminderToggle}
           className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
-            settings.remindersEnabled ? 'bg-green-500' : 'bg-gray-300'
+            settings.remindersEnabled ? 'bg-wordle-correct' : 'bg-card-border'
           }`}
         >
           <span
-            className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+            className={`inline-block h-6 w-6 transform rounded-full bg-card border-2 border-card-border shadow-md transition-transform ${
               settings.remindersEnabled ? 'translate-x-7' : 'translate-x-1'
             }`}
           />
         </button>
       </div>
 
-      <div className="mt-4 p-4 bg-blue-50 border-2 border-blue-200 rounded-lg">
-        <p className="text-sm text-blue-800">
+      <div className="mt-4 p-4 bg-connections-blue/10 border border-connections-blue/30 rounded-lg">
+        <p className="text-sm text-connections-blue">
           💡 <strong>Note:</strong> Browser notifications require permission. 
           Enable them in your browser settings if you haven&apos;t already.
         </p>
       </div>
     </div>
 
-    <div className="bg-white rounded-xl p-6 shadow-md border-2 border-gray-100">
+    <div className="bg-card rounded-xl p-6 shadow-md border border-card-border">
       <h3 className="text-lg font-bold text-foreground mb-4">About</h3>
-      <div className="space-y-2 text-sm text-gray-600">
+      <div className="space-y-2 text-sm text-text-muted">
         <p><strong>Platform:</strong> Ammar Times</p>
         <p><strong>Version:</strong> 1.0.0</p>
         <p><strong>Storage:</strong> Local (Browser Storage)</p>

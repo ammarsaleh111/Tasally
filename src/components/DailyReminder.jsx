@@ -26,7 +26,7 @@ const DailyReminder = ({ gameName, visible = true }) => {
   if (!visible || !playedToday) return null;
 
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl p-6 shadow-lg">
+    <div className="bg-wordle-correct text-button-text rounded-xl p-6 shadow-lg">
       <div className="text-center">
         <div className="text-2xl font-bold mb-2">
           ✅ Great job today!
@@ -34,7 +34,7 @@ const DailyReminder = ({ gameName, visible = true }) => {
         <div className="text-sm opacity-90 mb-4">
           Come back tomorrow for a new puzzle
         </div>
-        <div className="bg-white/20 rounded-lg p-4 backdrop-blur-sm">
+        <div className="bg-card/20 rounded-lg p-4 backdrop-blur-sm">
           <div className="text-xs uppercase tracking-wide opacity-75 mb-2">
             Next puzzle in
           </div>

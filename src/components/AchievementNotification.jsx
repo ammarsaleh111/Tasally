@@ -31,18 +31,18 @@ const AchievementNotification = ({ achievementId, onClose }) => {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}
       >
-        <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl shadow-2xl p-6 max-w-sm mx-4 border-4 border-yellow-300">
+        <div className="bg-wordle-correct rounded-2xl shadow-2xl p-6 max-w-sm mx-4 border-4 border-wordle-present">
           <div className="text-center">
             <div className="text-6xl mb-3 animate-bounce">
               {achievement.icon}
             </div>
-            <div className="text-sm font-bold uppercase tracking-wider text-yellow-900 mb-1">
+            <div className="text-sm font-bold uppercase tracking-wider text-background mb-1">
               Achievement Unlocked!
             </div>
-            <div className="text-xl font-bold text-white mb-2">
+            <div className="text-xl font-bold text-button-text mb-2">
               {achievement.name}
             </div>
-            <div className="text-sm text-yellow-100">
+            <div className="text-sm text-button-text opacity-90">
               {achievement.description}
             </div>
           </div>
@@ -51,7 +51,7 @@ const AchievementNotification = ({ achievementId, onClose }) => {
               setIsVisible(false);
               setTimeout(onClose, 300);
             }}
-            className="mt-4 w-full py-2 bg-white text-orange-600 rounded-lg font-bold hover:bg-yellow-50 transition-colors"
+            className="mt-4 w-full py-2 bg-card text-wordle-correct rounded-lg font-bold hover:bg-surface-hover transition-colors"
           >
             Awesome!
           </button>

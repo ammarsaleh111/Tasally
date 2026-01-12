@@ -293,7 +293,7 @@ export default function SpellingBeePage() {
           {/* Progress Bar */}
           <div className="relative h-3 bg-graph-bg rounded-full overflow-hidden">
             <div
-              className="absolute h-full bg-gradient-to-r from-yellow-400 to-amber-500 transition-all duration-500"
+              className="absolute h-full bg-wordle-present transition-all duration-500"
               style={{ width: `${(score / maxScore) * 100}%` }}
             />
           </div>
@@ -335,13 +335,13 @@ export default function SpellingBeePage() {
           </button>
           <button
             onClick={handleShuffle}
-            className="py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold transition-colors"
+            className="py-3 bg-button-primary text-button-text rounded-lg hover:bg-button-primary-hover font-semibold transition-colors"
           >
             🔄 Shuffle
           </button>
           <button
             onClick={handleSubmit}
-            className="py-3 bg-yellow-400 text-gray-900 dark:text-slate-900 rounded-lg hover:bg-yellow-500 font-semibold transition-colors"
+            className="py-3 bg-wordle-present text-background rounded-lg hover:bg-wordle-correct font-semibold transition-colors"
           >
             Enter
           </button>
@@ -351,7 +351,7 @@ export default function SpellingBeePage() {
         <div className="mb-6">
           <button
             onClick={handleHint}
-            className="w-full py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors text-sm font-medium"
+            className="w-full py-2 bg-card border border-card-border text-foreground rounded-lg hover:bg-surface-hover transition-colors text-sm font-medium"
           >
             💡 Hint ({hintsUsed} used)
           </button>
@@ -381,7 +381,7 @@ export default function SpellingBeePage() {
                   className={`
                     p-2 rounded text-center text-sm font-medium
                     ${puzzle.pangrams.includes(word)
-                      ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-900 dark:text-yellow-200 border border-yellow-400'
+                      ? 'bg-wordle-present text-background border border-wordle-correct'
                       : 'bg-surface-hover text-foreground'
                     }
                   `}
@@ -396,7 +396,7 @@ export default function SpellingBeePage() {
 
         {/* Complete Message */}
         {isComplete && (
-          <div className="mt-6 bg-gradient-to-r from-yellow-400 to-amber-500 rounded-lg shadow-lg p-6 text-center text-white">
+          <div className="mt-6 bg-wordle-correct rounded-lg shadow-lg p-6 text-center text-button-text">
             <div className="text-3xl mb-2">🎉</div>
             <div className="text-2xl font-bold mb-2">Congratulations!</div>
             <div className="text-lg mb-4">You found all {foundWords.length} words!</div>

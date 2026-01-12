@@ -33,7 +33,7 @@ const FragmentSelector = ({
               relative px-4 py-4 text-lg font-bold rounded-xl 
               transition-all duration-200 select-none
               ${isSelected 
-                ? 'bg-gradient-to-br from-wordle-correct to-green-600 text-white shadow-lg transform scale-105 ring-2 ring-wordle-correct/50' 
+                ? 'bg-wordle-correct text-button-text shadow-lg transform scale-105 ring-2 ring-wordle-correct/50' 
                 : 'bg-surface text-foreground border-2 border-card-border hover:border-wordle-correct/50 hover:bg-surface-hover'
               }
               ${!disabled && !isSelected ? 'cursor-pointer hover:scale-102 active:scale-95' : ''}

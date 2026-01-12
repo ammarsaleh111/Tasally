@@ -76,8 +76,8 @@ function HexButton({ letter, isCenter, onClick, isClicked, disabled }) {
         ${isClicked ? 'scale-110' : 'scale-100'}
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:scale-110'}
         ${isCenter 
-          ? 'bg-yellow-400 text-gray-900 dark:text-slate-900 hover:bg-yellow-300' 
-          : 'bg-key-bg text-key-text hover:bg-key-bg-hover'
+          ? 'bg-wordle-present text-background hover:bg-button-primary' 
+          : 'bg-key text-key-fg hover:bg-key-hover'
         }
       `}
       style={{

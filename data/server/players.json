@@ -412,7 +412,7 @@
     "userId": "user_1768166194329_m5slks7op",
     "name": "TestUser",
     "createdAt": "2026-01-11T21:16:34.329Z",
-    "updatedAt": "2026-01-11T22:53:28.272Z",
+    "updatedAt": "2026-01-11T23:59:05.388Z",
     "games": {
       "wordle": {
         "gamesPlayed": 0,
@@ -507,7 +507,7 @@
     "userId": "user_1768166638799_ew1q4ll5q",
     "name": "ammarr",
     "createdAt": "2026-01-11T21:23:58.799Z",
-    "updatedAt": "2026-01-11T23:06:42.237Z",
+    "updatedAt": "2026-01-12T00:15:26.228Z",
     "games": {
       "wordle": {
         "gamesPlayed": 1,

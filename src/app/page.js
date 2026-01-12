@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background text-foreground p-8 overflow-hidden relative">
-        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-700 via-background to-background"></div>
+        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-card-border via-background to-background"></div>
         
         <div className="z-10 text-center max-w-2xl animate-fade-in-up">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 font-serif tracking-tight">

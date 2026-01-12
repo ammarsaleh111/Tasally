@@ -1,17 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getAllStats } from '@/utils/profileManager';
 
 export default function GamesPage() {
   const [stats, setStats] = useState(null);
   const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
+  const initializeClient = useCallback(() => {
     setIsClient(true);
     setStats(getAllStats());
   }, []);
+
+  useEffect(() => {
+    initializeClient();
+  }, [initializeClient]);
+
+  const isReady = isClient;
 
   const games = [
     {
@@ -91,7 +97,7 @@ export default function GamesPage() {
           </p>
           <Link
             href="/profile"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-bold hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-button-primary text-button-text rounded-xl font-bold hover:bg-button-primary-hover transition-all"
           >
             👤 View Your Profile & Achievements
           </Link>
@@ -101,13 +107,13 @@ export default function GamesPage() {
           {games.map((game) => {
             const gameStats = stats?.[game.id];
             const streak = gameStats?.currentStreak || 0;
-            const showStreak = isClient && streak > 0;
+            const showStreak = isReady && streak > 0;
             
             return (
               <Link
                 key={game.id}
                 href={game.href}
-                className="group relative bg-card border-2 border-card-border rounded-2xl p-6 hover:bg-surface-hover hover:border-border-active transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1 flex flex-col"
+                className="group relative bg-card border-2 border-card-border rounded-2xl p-6 hover:bg-surface-hover hover:border-border-active transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 flex flex-col"
               >
                 {/* Icon */}
                 <div className="text-center mb-4">
@@ -120,7 +126,7 @@ export default function GamesPage() {
                     {game.name}
                   </h2>
                   {showStreak && (
-                    <div className="inline-flex items-center gap-1 text-orange-500 font-bold text-sm px-3 py-1 bg-orange-50 dark:bg-orange-900/20 rounded-full">
+                    <div className="inline-flex items-center gap-1 text-wordle-correct font-bold text-sm px-3 py-1 bg-wordle-present/20 rounded-full">
                       🔥 {streak} day streak
                     </div>
                   )}

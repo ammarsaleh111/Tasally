@@ -40,7 +40,7 @@ const WaffleGrid = ({
     
     // Selected state
     if (isSelected) {
-      stateClasses += ' ring-4 ring-blue-500 ring-offset-2 scale-110 z-10';
+      stateClasses += ' ring-4 ring-wordle-correct ring-offset-2 scale-110 z-10';
     }
     
     // Interactive states
