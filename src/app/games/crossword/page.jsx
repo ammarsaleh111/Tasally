@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   getTodaysPuzzle,
   loadGameState,
@@ -8,15 +8,18 @@ import {
   initializeGame,
   getWordCells,
   getNextCell,
+  getPreviousCell,
   checkPuzzle,
   isGridComplete,
   getClueNumber,
   GRID_SIZE,
-  loadStats,
-  saveStats,
-  updateStats,
-  getDefaultStats,
-  formatTime
+  formatTime,
+  loadPuzzleTimer,
+  savePuzzleTimer,
+  pausePuzzleTimer,
+  resumePuzzleTimer,
+  calculateElapsedTime,
+  initializeTimer,
 } from './crosswordLogic';
 import CrosswordGrid from '@/components/CrosswordGrid';
 import CluePanel from '@/components/CluePanel';
@@ -36,36 +39,127 @@ import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 
 export default function CrosswordGame() {
-  const [puzzle] = useState(() => getTodaysPuzzle());
-  const [gameState, setGameState] = useState(() => {
-    const currentPuzzle = getTodaysPuzzle();
-    const savedState = loadGameState();
-    if (savedState && savedState.date === currentPuzzle.date) {
-      return savedState;
-    }
-    return initializeGame(currentPuzzle);
-  });
+  // =========================================================================
+  // STATE INITIALIZATION
+  // =========================================================================
+  
+  const [puzzle, setPuzzle] = useState(null);
+  const [gameState, setGameState] = useState(null);
+  const [timerState, setTimerState] = useState(null);
+  const [displayTime, setDisplayTime] = useState(0);
   
   const [highlightCells, setHighlightCells] = useState([]);
   const [activeClue, setActiveClue] = useState(1);
   const [toast, setToast] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState(0);
   const [solvedWords, setSolvedWords] = useState(new Set());
-  const [isPaused, setIsPaused] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   
-  // Load stats on mount and track game start
+  const timerRef = useRef(null);
+  const inputRef = useRef(null);
+  
+  // =========================================================================
+  // INITIALIZATION
+  // =========================================================================
+  
   useEffect(() => {
+    // Generate or load puzzle
+    const currentPuzzle = getTodaysPuzzle();
+    setPuzzle(currentPuzzle);
+    
+    // Load saved state or initialize new game
+    const savedState = loadGameState();
+    if (savedState && savedState.date === currentPuzzle.date) {
+      setGameState(savedState);
+      
+      // Load timer state
+      const savedTimer = loadPuzzleTimer(currentPuzzle.date);
+      if (savedTimer) {
+        // Resume timer if game not solved
+        if (!savedState.isSolved) {
+          const resumed = resumePuzzleTimer(savedTimer, currentPuzzle.date);
+          setTimerState(resumed);
+        } else {
+          setTimerState(savedTimer);
+        }
+      } else {
+        setTimerState(initializeTimer());
+      }
+    } else {
+      const newState = initializeGame(currentPuzzle);
+      setGameState(newState);
+      setTimerState(newState.timerState);
+    }
+    
+    // Load stats
     const gameStats = getGameStats('crossword');
     setStats(gameStats);
     trackGameStart('crossword');
+    
+    setIsLoading(false);
   }, []);
+
+  // =========================================================================
+  // TIMER LOGIC - Proper visibility-aware timer
+  // =========================================================================
+  
+  // Handle visibility changes
+  useEffect(() => {
+    if (!puzzle || !timerState || gameState?.isSolved) return;
+    
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // Page is hidden - pause timer
+        const paused = pausePuzzleTimer(timerState, puzzle.date);
+        setTimerState(paused);
+      } else {
+        // Page is visible - resume timer
+        const resumed = resumePuzzleTimer(timerState, puzzle.date);
+        setTimerState(resumed);
+      }
+    };
+    
+    const handleBeforeUnload = () => {
+      // Save timer state before page unloads
+      if (timerState && puzzle) {
+        const paused = pausePuzzleTimer(timerState, puzzle.date);
+        savePuzzleTimer(puzzle.date, paused);
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [puzzle, timerState, gameState?.isSolved]);
+  
+  // Update display time every second
+  useEffect(() => {
+    if (!timerState || gameState?.isSolved) return;
+    
+    const updateDisplay = () => {
+      const elapsed = calculateElapsedTime(timerState);
+      setDisplayTime(elapsed);
+    };
+    
+    updateDisplay();
+    timerRef.current = setInterval(updateDisplay, 1000);
+    
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, [timerState, gameState?.isSolved]);
 
   // Save state whenever it changes
   useEffect(() => {
@@ -74,32 +168,13 @@ export default function CrosswordGame() {
     }
   }, [gameState]);
 
-  // Timer with pause on window blur
-  useEffect(() => {
-    const handleBlur = () => setIsPaused(true);
-    const handleFocus = () => setIsPaused(false);
-    
-    window.addEventListener('blur', handleBlur);
-    window.addEventListener('focus', handleFocus);
-    
-    return () => {
-      window.removeEventListener('blur', handleBlur);
-      window.removeEventListener('focus', handleFocus);
-    };
-  }, []);
+  // =========================================================================
+  // CELL & WORD HIGHLIGHTING
+  // =========================================================================
   
   useEffect(() => {
-    if (gameState.isSolved || gameState.endTime || isPaused) return;
+    if (!puzzle || !gameState) return;
     
-    const interval = setInterval(() => {
-      setElapsedTime(Math.floor((Date.now() - gameState.startTime) / 1000));
-    }, 1000);
-    
-    return () => clearInterval(interval);
-  }, [gameState.isSolved, gameState.endTime, gameState.startTime, isPaused]);
-
-  // Update highlighted cells when active cell changes
-  useEffect(() => {
     const cells = getWordCells(puzzle, gameState.activeCell.row, gameState.activeCell.col, gameState.direction);
     setHighlightCells(cells);
     
@@ -108,28 +183,39 @@ export default function CrosswordGame() {
     if (clueNum) {
       setActiveClue(clueNum);
     }
-  }, [puzzle, gameState.activeCell, gameState.direction]);
+  }, [puzzle, gameState?.activeCell, gameState?.direction]);
 
-  // Auto-check when grid is complete
+  // =========================================================================
+  // AUTO-CHECK ON COMPLETION
+  // =========================================================================
+  
   useEffect(() => {
-    if (gameState.isSolved) return;
+    if (!puzzle || !gameState || gameState.isSolved) return;
     
     if (isGridComplete(puzzle, gameState.userGrid)) {
       const isCorrect = checkPuzzle(puzzle, gameState.userGrid);
       if (isCorrect) {
+        // Puzzle solved!
+        const finalTime = calculateElapsedTime(timerState);
+        
+        // Pause and finalize timer
+        const finalTimer = pausePuzzleTimer(timerState, puzzle.date);
+        setTimerState(finalTimer);
+        setDisplayTime(finalTime);
+        
         const newState = {
           ...gameState,
           isSolved: true,
-          endTime: Date.now()
+          endTime: Date.now(),
+          finalTime: finalTime,
         };
         setGameState(newState);
         
-        // Update stats using profileManager
-        const timeInSeconds = Math.floor((newState.endTime - newState.startTime) / 1000);
+        // Record result
         const result = {
           date: getTodayString(),
           win: true,
-          time: timeInSeconds,
+          time: finalTime,
           puzzleId: `crossword-${puzzle.date}`,
         };
         
@@ -138,8 +224,7 @@ export default function CrosswordGame() {
         const updatedStats = getGameStats('crossword');
         setStats(updatedStats);
         
-        // Add all crossword words to Learning Log
-        // Extract words from puzzle.solution which contains {across: {1: 'WORD'}, down: {2: 'WORD'}}
+        // Add words to learning log
         const crosswordWords = [
           ...Object.values(puzzle.solution?.across || {}),
           ...Object.values(puzzle.solution?.down || {})
@@ -154,8 +239,12 @@ export default function CrosswordGame() {
         setTimeout(() => setShowResultModal(true), 500);
       }
     }
-  }, [puzzle, gameState, gameState.userGrid, gameState.isSolved]);
+  }, [puzzle, gameState, gameState?.userGrid, timerState]);
 
+  // =========================================================================
+  // EVENT HANDLERS
+  // =========================================================================
+  
   const showToast = useCallback((message, type = 'default') => {
     setToast({ message, type, id: Date.now() });
   }, []);
@@ -165,7 +254,14 @@ export default function CrosswordGame() {
   }, []);
 
   const handleCellClick = useCallback((row, col) => {
-    if (gameState.isSolved) return;
+    if (!puzzle || !gameState || gameState.isSolved) return;
+    
+    // Check if cell is a block
+    const isBlock = puzzle.template 
+      ? puzzle.template.blocks[row][col]
+      : puzzle.grid[row][col] === '';
+    
+    if (isBlock) return; // Can't click on blocks
     
     // If clicking same cell, toggle direction
     if (gameState.activeCell.row === row && gameState.activeCell.col === col) {
@@ -179,61 +275,69 @@ export default function CrosswordGame() {
         activeCell: { row, col }
       }));
     }
-  }, [gameState.activeCell, gameState.isSolved]);
+    
+    // Focus input for mobile
+    inputRef.current?.focus();
+  }, [puzzle, gameState]);
 
   const handleClueClick = useCallback((clueNum, dir) => {
+    if (!puzzle) return;
+    
+    const height = puzzle.height || GRID_SIZE;
+    const width = puzzle.width || GRID_SIZE;
+    
     // Find the cell that starts this clue
-    let count = 0;
-    for (let r = 0; r < GRID_SIZE; r++) {
-      for (let c = 0; c < GRID_SIZE; c++) {
-        if (puzzle.grid[r][c] === "") continue;
-        
-        const startsAcross = c === 0 || puzzle.grid[r][c - 1] === "";
-        const startsDown = r === 0 || puzzle.grid[r - 1][c] === "";
-        
-        if (startsAcross || startsDown) {
-          count++;
-          if (count === clueNum) {
-            setGameState(prev => ({
-              ...prev,
-              activeCell: { row: r, col: c },
-              direction: dir
-            }));
-            return;
-          }
+    for (let r = 0; r < height; r++) {
+      for (let c = 0; c < width; c++) {
+        if (puzzle.clueNumbers?.[r]?.[c] === clueNum) {
+          setGameState(prev => ({
+            ...prev,
+            activeCell: { row: r, col: c },
+            direction: dir
+          }));
+          inputRef.current?.focus();
+          return;
         }
       }
     }
   }, [puzzle]);
 
   // Check if a word is complete and correct
-  const checkWordSolved = useCallback((row, col, direction) => {
+  const checkWordSolved = useCallback((row, col, direction, userGrid) => {
+    if (!puzzle) return false;
+    
     const cells = getWordCells(puzzle, row, col, direction);
-    const userWord = cells.map(c => gameState.userGrid[c.row][c.col]).join('');
-    const correctWord = cells.map(c => puzzle.solution[c.row][c.col]).join('');
+    const userWord = cells.map(c => userGrid[c.row][c.col]).join('');
+    const correctWord = cells.map(c => puzzle.grid[c.row][c.col]).join('');
     
     if (userWord === correctWord && userWord.length > 0 && !userWord.includes('')) {
-      const clueNum = getClueNumber(puzzle, row, col);
+      const clueNum = getClueNumber(puzzle, cells[0].row, cells[0].col);
       if (clueNum) {
-        const wordKey = `${direction}-${clueNum}`;
-        setSolvedWords(prev => new Set([...prev, wordKey]));
-        return true;
+        return { complete: true, wordKey: `${direction}-${clueNum}` };
       }
     }
-    return false;
-  }, [puzzle, gameState.userGrid]);
+    return { complete: false };
+  }, [puzzle]);
   
   // Find next unsolved clue
-  const getNextUnsolvedClue = useCallback((currentDirection) => {
+  const getNextUnsolvedClue = useCallback((currentDirection, currentSolvedWords = solvedWords) => {
+    if (!puzzle) return null;
+    
+    const height = puzzle.height || GRID_SIZE;
+    const width = puzzle.width || GRID_SIZE;
+    
+    // Get clues for current direction
     const clues = currentDirection === 'across' ? puzzle.acrossClues : puzzle.downClues;
+    
+    if (!clues) return null;
     
     for (const clue of clues) {
       const wordKey = `${currentDirection}-${clue.number}`;
-      if (!solvedWords.has(wordKey)) {
+      if (!currentSolvedWords.has(wordKey)) {
         // Find first cell of this clue
-        for (let r = 0; r < GRID_SIZE; r++) {
-          for (let c = 0; c < GRID_SIZE; c++) {
-            if (puzzle.clueNumbers[r][c] === clue.number) {
+        for (let r = 0; r < height; r++) {
+          for (let c = 0; c < width; c++) {
+            if (puzzle.clueNumbers?.[r]?.[c] === clue.number) {
               return { row: r, col: c, direction: currentDirection };
             }
           }
@@ -245,12 +349,14 @@ export default function CrosswordGame() {
     const otherDirection = currentDirection === 'across' ? 'down' : 'across';
     const otherClues = otherDirection === 'across' ? puzzle.acrossClues : puzzle.downClues;
     
+    if (!otherClues) return null;
+    
     for (const clue of otherClues) {
       const wordKey = `${otherDirection}-${clue.number}`;
-      if (!solvedWords.has(wordKey)) {
-        for (let r = 0; r < GRID_SIZE; r++) {
-          for (let c = 0; c < GRID_SIZE; c++) {
-            if (puzzle.clueNumbers[r][c] === clue.number) {
+      if (!currentSolvedWords.has(wordKey)) {
+        for (let r = 0; r < height; r++) {
+          for (let c = 0; c < width; c++) {
+            if (puzzle.clueNumbers?.[r]?.[c] === clue.number) {
               return { row: r, col: c, direction: otherDirection };
             }
           }
@@ -262,9 +368,16 @@ export default function CrosswordGame() {
   }, [puzzle, solvedWords]);
 
   const handleKeyDown = useCallback((e) => {
-    if (gameState.isSolved) return;
+    if (!puzzle || !gameState || gameState.isSolved) return;
     
     const { row, col } = gameState.activeCell;
+    
+    // Check if current cell is a block (shouldn't happen but be safe)
+    const isBlock = puzzle.template 
+      ? puzzle.template.blocks[row][col]
+      : puzzle.grid[row][col] === '';
+    
+    if (isBlock) return;
     
     // Enter key - jump to next unsolved clue
     if (e.key === 'Enter') {
@@ -286,21 +399,15 @@ export default function CrosswordGame() {
       newGrid[row][col] = e.key.toUpperCase();
       
       // Check if word is complete with the NEW grid
-      const cells = getWordCells(puzzle, row, col, gameState.direction);
-      const userWord = cells.map(c => newGrid[c.row][c.col]).join('');
-      const correctWord = cells.map(c => puzzle.grid[c.row][c.col]).join('');
-      const wordComplete = userWord === correctWord && userWord.length > 0 && !userWord.includes('');
+      const wordCheck = checkWordSolved(row, col, gameState.direction, newGrid);
       
-      if (wordComplete) {
+      if (wordCheck.complete) {
         // Mark word as solved
-        const clueNum = getClueNumber(puzzle, row, col);
-        if (clueNum) {
-          const wordKey = `${gameState.direction}-${clueNum}`;
-          setSolvedWords(prev => new Set([...prev, wordKey]));
-        }
+        const newSolvedWords = new Set([...solvedWords, wordCheck.wordKey]);
+        setSolvedWords(newSolvedWords);
         
         // Update grid and advance to next unsolved clue
-        const nextClue = getNextUnsolvedClue(gameState.direction);
+        const nextClue = getNextUnsolvedClue(gameState.direction, newSolvedWords);
         if (nextClue) {
           setGameState(prev => ({
             ...prev,
@@ -339,11 +446,8 @@ export default function CrosswordGame() {
         setGameState(prev => ({ ...prev, userGrid: newGrid }));
       } else {
         // Move back and clear
-        const cells = getWordCells(puzzle, row, col, gameState.direction);
-        const currentIndex = cells.findIndex(c => c.row === row && c.col === col);
-        
-        if (currentIndex > 0) {
-          const prevCell = cells[currentIndex - 1];
+        const prevCell = getPreviousCell(puzzle, row, col, gameState.direction);
+        if (prevCell.row !== row || prevCell.col !== col) {
           newGrid[prevCell.row][prevCell.col] = '';
           setGameState(prev => ({
             ...prev,
@@ -357,29 +461,42 @@ export default function CrosswordGame() {
       return;
     }
     
-    // Arrow keys
+    // Arrow keys - navigate grid (respecting blocks)
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || 
         e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      
+      const height = puzzle.height || GRID_SIZE;
+      const width = puzzle.width || GRID_SIZE;
+      
+      const isBlockAt = (r, c) => {
+        if (r < 0 || r >= height || c < 0 || c >= width) return true;
+        return puzzle.template 
+          ? puzzle.template.blocks[r][c]
+          : puzzle.grid[r][c] === '';
+      };
       
       let newRow = row;
       let newCol = col;
       
       if (e.key === 'ArrowRight') {
-        newCol = Math.min(GRID_SIZE - 1, col + 1);
-        while (newCol < GRID_SIZE && puzzle.grid[row][newCol] === "") newCol++;
+        newCol = col + 1;
+        while (newCol < width && isBlockAt(row, newCol)) newCol++;
+        if (newCol >= width || isBlockAt(row, newCol)) newCol = col;
       } else if (e.key === 'ArrowLeft') {
-        newCol = Math.max(0, col - 1);
-        while (newCol >= 0 && puzzle.grid[row][newCol] === "") newCol--;
+        newCol = col - 1;
+        while (newCol >= 0 && isBlockAt(row, newCol)) newCol--;
+        if (newCol < 0 || isBlockAt(row, newCol)) newCol = col;
       } else if (e.key === 'ArrowDown') {
-        newRow = Math.min(GRID_SIZE - 1, row + 1);
-        while (newRow < GRID_SIZE && puzzle.grid[newRow][col] === "") newRow++;
+        newRow = row + 1;
+        while (newRow < height && isBlockAt(newRow, col)) newRow++;
+        if (newRow >= height || isBlockAt(newRow, col)) newRow = row;
       } else if (e.key === 'ArrowUp') {
-        newRow = Math.max(0, row - 1);
-        while (newRow >= 0 && puzzle.grid[newRow][col] === "") newRow--;
+        newRow = row - 1;
+        while (newRow >= 0 && isBlockAt(newRow, col)) newRow--;
+        if (newRow < 0 || isBlockAt(newRow, col)) newRow = row;
       }
       
-      if (newRow >= 0 && newRow < GRID_SIZE && newCol >= 0 && newCol < GRID_SIZE &&
-          puzzle.grid[newRow][newCol] !== "") {
+      if (newRow !== row || newCol !== col) {
         setGameState(prev => ({
           ...prev,
           activeCell: { row: newRow, col: newCol }
@@ -398,7 +515,7 @@ export default function CrosswordGame() {
       }));
       e.preventDefault();
     }
-  }, [puzzle, gameState, getNextUnsolvedClue]);
+  }, [puzzle, gameState, solvedWords, checkWordSolved, getNextUnsolvedClue]);
 
   // Keyboard listener
   useEffect(() => {
@@ -406,31 +523,31 @@ export default function CrosswordGame() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
   
-  // Auto-focus on mobile to show keyboard
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'ontouchstart' in window) {
-      const timer = setTimeout(() => {
-        const input = document.createElement('input');
-        input.style.position = 'absolute';
-        input.style.opacity = '0';
-        input.style.pointerEvents = 'none';
-        document.body.appendChild(input);
-        input.focus();
-        setTimeout(() => input.remove(), 100);
-      }, 500);
-      return () => clearTimeout(timer);
+  // Hidden input for mobile keyboard
+  const handleInputChange = useCallback((e) => {
+    const value = e.target.value;
+    if (value && /^[A-Za-z]$/.test(value)) {
+      // Simulate key press
+      handleKeyDown({ key: value, preventDefault: () => {} });
     }
-  }, []);
+    // Clear input for next character
+    e.target.value = '';
+  }, [handleKeyDown]);
 
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
+  // =========================================================================
+  // RENDER
+  // =========================================================================
+  
+  if (isLoading || !puzzle || !gameState) {
+    return (
+      <div className="flex flex-col items-center justify-center w-full min-h-screen">
+        <div className="text-lg text-text-muted">Loading puzzle...</div>
+      </div>
+    );
+  }
 
-  const solveTime = gameState.endTime 
-    ? Math.floor((gameState.endTime - gameState.startTime) / 1000)
-    : elapsedTime;
+  const solveTime = gameState.finalTime || displayTime;
+  const isPaused = timerState?.isPaused && !gameState.isSolved;
 
   return (
     <div className="flex flex-col items-center w-full min-h-screen pb-10 animate-fade-in-up">
@@ -442,54 +559,74 @@ export default function CrosswordGame() {
         gameComplete={gameState.isSolved}
       />
       
-      <div className="w-full max-w-5xl mx-auto px-4">
-      {gameState.isSolved && <Confetti />}
+      {/* Hidden input for mobile keyboard */}
+      <input
+        ref={inputRef}
+        type="text"
+        className="absolute opacity-0 pointer-events-none"
+        autoCapitalize="characters"
+        autoComplete="off"
+        autoCorrect="off"
+        onChange={handleInputChange}
+        aria-hidden="true"
+      />
       
-      {toast && (
-        <Toast 
-          key={toast.id}
-          message={toast.message} 
-          type={toast.type} 
-          onExited={handleToastExit} 
-        />
-      )}
-
-      {/* Timer Display */}
-      <div className="w-full mb-4 text-center">
-        <div className="text-lg font-mono font-bold text-foreground flex items-center justify-center gap-2">
-          {isPaused && (
-            <span className="text-sm text-yellow-500 animate-pulse">⏸</span>
-          )}
-          {formatTime(solveTime)}
-        </div>
-      </div>
-
-      {/* Grid and Clues Side by Side */}
-      <div className="flex flex-col lg:flex-row gap-6 w-full items-start justify-center">
-        {/* Clues on Left */}
-        <div className="w-full lg:flex-1 lg:min-w-0 lg:max-w-80 order-2 lg:order-1">
-          <CluePanel 
-            puzzle={puzzle}
-            activeClue={activeClue}
-            direction={gameState.direction}
-            onClueClick={handleClueClick}
-            solvedWords={solvedWords}
-          />
-        </div>
+      <div className="w-full max-w-5xl mx-auto px-4">
+        {gameState.isSolved && <Confetti />}
         
-        {/* Grid on Right */}
-        <div className="w-full lg:w-auto lg:flex-shrink-0 order-1 lg:order-2">
-          <CrosswordGrid 
-            puzzle={puzzle}
-            userGrid={gameState.userGrid}
-            activeCell={gameState.activeCell}
-            direction={gameState.direction}
-            onCellClick={handleCellClick}
-            highlightCells={highlightCells}
-            isSolved={gameState.isSolved}
+        {toast && (
+          <Toast 
+            key={toast.id}
+            message={toast.message} 
+            type={toast.type} 
+            onExited={handleToastExit} 
           />
+        )}
+
+        {/* Timer Display */}
+        <div className="w-full mb-4 text-center">
+          <div className="text-lg font-mono font-bold text-foreground flex items-center justify-center gap-2">
+            {isPaused && (
+              <span className="text-sm text-yellow-500 animate-pulse" title="Timer paused">⏸</span>
+            )}
+            {formatTime(solveTime)}
+          </div>
+          {puzzle.template && (
+            <div className="text-xs text-text-muted mt-1">
+              {puzzle.template.name}
+            </div>
+          )}
         </div>
-      </div>
+
+        {/* Grid and Clues Side by Side */}
+        <div className="flex flex-col lg:flex-row gap-6 w-full items-start justify-center">
+          {/* Clues on Left */}
+          <div className="w-full lg:flex-1 lg:min-w-0 lg:max-w-80 order-2 lg:order-1">
+            <CluePanel 
+              puzzle={puzzle}
+              activeClue={activeClue}
+              direction={gameState.direction}
+              onClueClick={handleClueClick}
+              solvedWords={solvedWords}
+            />
+          </div>
+          
+          {/* Grid on Right */}
+          <div 
+            className="w-full lg:w-auto lg:flex-shrink-0 order-1 lg:order-2"
+            onClick={() => inputRef.current?.focus()}
+          >
+            <CrosswordGrid 
+              puzzle={puzzle}
+              userGrid={gameState.userGrid}
+              activeCell={gameState.activeCell}
+              direction={gameState.direction}
+              onCellClick={handleCellClick}
+              highlightCells={highlightCells}
+              isSolved={gameState.isSolved}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Result Modal */}
