@@ -6,6 +6,8 @@
 import { syncProfile } from '@/utils/backendSync';
 import { secureGetItem, secureSetItem } from '@/utils/secureStorage';
 import { sanitizeName, sanitizeString } from '@/utils/inputSanitizer';
+import { DEFAULT_AVATAR_ID, isValidAvatarId } from '@/utils/avatarLibrary';
+import { calculateWinRate, validateGameStats } from '@/utils/statsCalculator';
 
 const PROFILE_KEY = 'ammarTimes_profile';
 
@@ -36,6 +38,7 @@ export function getProfile() {
   const newProfile = {
     userId: generateUserId(),
     name: null, // Will be set by user on first visit
+    avatarId: DEFAULT_AVATAR_ID, // Default 3D avatar
     createdAt: new Date().toISOString(),
     games: {
       wordle: initGameStats(),
@@ -472,4 +475,83 @@ export function getAchievementCount() {
 export function getUnlockedAchievements() {
   const profile = getProfile();
   return profile.achievements;
+}
+
+// Avatar Management Functions
+
+/**
+ * Get current avatar ID
+ * @returns {string} Avatar ID or default
+ */
+export function getAvatarId() {
+  const profile = getProfile();
+  if (!profile) return DEFAULT_AVATAR_ID;
+  
+  // Ensure avatar ID is valid
+  if (profile.avatarId && isValidAvatarId(profile.avatarId)) {
+    return profile.avatarId;
+  }
+  
+  return DEFAULT_AVATAR_ID;
+}
+
+/**
+ * Set player avatar
+ * @param {string} avatarId - ID of the avatar to set
+ * @returns {boolean} Success status
+ */
+export function setAvatar(avatarId) {
+  if (!avatarId || !isValidAvatarId(avatarId)) {
+    return false;
+  }
+  
+  const profile = getProfile();
+  if (!profile) return false;
+  
+  profile.avatarId = avatarId;
+  saveProfile(profile);
+  return true;
+}
+
+/**
+ * Ensure avatar field exists in profile (migration helper)
+ */
+export function ensureAvatarField() {
+  const profile = getProfile();
+  if (!profile) return;
+  
+  if (!profile.avatarId || !isValidAvatarId(profile.avatarId)) {
+    profile.avatarId = DEFAULT_AVATAR_ID;
+    saveProfile(profile);
+  }
+}
+
+/**
+ * Get calculated win rate for a game
+ * Uses centralized statsCalculator for consistency
+ * @param {string} gameName - Name of the game
+ * @returns {number} Win rate percentage (0-100)
+ */
+export function getWinRate(gameName) {
+  const profile = getProfile();
+  if (!profile || !profile.games || !profile.games[gameName]) {
+    return 0;
+  }
+  
+  const stats = profile.games[gameName];
+  return calculateWinRate(stats.gamesWon || 0, stats.gamesPlayed || 0);
+}
+
+/**
+ * Get validated game stats (prevents invalid win rates)
+ * @param {string} gameName - Name of the game
+ * @returns {Object} Validated game stats
+ */
+export function getValidatedGameStats(gameName) {
+  const profile = getProfile();
+  if (!profile || !profile.games || !profile.games[gameName]) {
+    return validateGameStats({});
+  }
+  
+  return validateGameStats(profile.games[gameName]);
 }

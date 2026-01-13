@@ -8,8 +8,12 @@ import {
   getUnlockedAchievements,
   getAchievementCount,
   updateSettings,
-  saveProfile
+  saveProfile,
+  setAvatar,
+  getAvatarId,
+  ensureAvatarField
 } from '@/utils/profileManager';
+import { calculateWinRate } from '@/utils/statsCalculator';
 import { 
   getLearningLog, 
   getWordsByGame, 
@@ -24,6 +28,8 @@ import { requestNotificationPermission, initNotifications } from '@/utils/notifi
 import AchievementBadge from '@/components/AchievementBadge';
 import SiteHeader from '@/components/SiteHeader';
 import FeedbackForm from '@/components/FeedbackForm';
+import Avatar3D from '@/components/Avatar3D';
+import AvatarPicker from '@/components/AvatarPicker';
 
 // Helper function to format time (seconds to MM:SS)
 const formatTime = (seconds) => {
@@ -38,9 +44,14 @@ export default function ProfilePage() {
   const [unlockedAchievements, setUnlockedAchievements] = useState([]);
   const [activeTab, setActiveTab] = useState('overview'); // overview, stats, achievements, settings, feedback
   const [showFeedback, setShowFeedback] = useState(false);
+  const [showAvatarPicker, setShowAvatarPicker] = useState(false);
+  const [currentAvatarId, setCurrentAvatarId] = useState(null);
 
   useEffect(() => {
     const loadProfile = () => {
+      // Ensure avatar field exists for existing users
+      ensureAvatarField();
+      
       const userProfile = getProfile();
       const allStats = getAllStats();
       const achievements = getUnlockedAchievements();
@@ -48,10 +59,18 @@ export default function ProfilePage() {
       setProfile(userProfile);
       setStats(allStats);
       setUnlockedAchievements(achievements);
+      setCurrentAvatarId(getAvatarId());
     };
     
     loadProfile();
   }, []);
+
+  const handleAvatarChange = (newAvatarId) => {
+    setAvatar(newAvatarId);
+    setCurrentAvatarId(newAvatarId);
+    // Update local profile state as well
+    setProfile(prev => ({ ...prev, avatarId: newAvatarId }));
+  };
 
   const handleReminderToggle = async () => {
     const newValue = !profile.settings.remindersEnabled;
@@ -80,6 +99,8 @@ export default function ProfilePage() {
   const statsValues = Object.values(stats || {});
   const totalGames = statsValues.reduce((sum, game) => sum + (game?.gamesPlayed || 0), 0);
   const totalWins = statsValues.reduce((sum, game) => sum + (game?.gamesWon || 0), 0);
+  // Use centralized win rate calculation
+  const overallWinRate = calculateWinRate(totalWins, totalGames);
   const bestCurrentStreak = statsValues.reduce((max, game) => {
     const streak = game?.currentStreak || 0;
     return Math.max(max, streak);
@@ -92,23 +113,50 @@ export default function ProfilePage() {
       <SiteHeader />
       
       <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Profile Header */}
+        {/* Profile Header with 3D Avatar */}
         <div className="bg-gradient-to-r from-wordle-correct to-connections-purple rounded-2xl p-8 text-white mb-8 shadow-xl">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold mb-2">
-                {profile.name ? `${profile.name}'s Profile` : 'Your Profile'}
-              </h1>
-              <p className="text-white/80">
-                Member since {new Date(profile.createdAt).toLocaleDateString()}
-              </p>
+          <div className="flex items-center justify-between gap-6">
+            {/* Avatar Section */}
+            <div className="flex items-center gap-6">
+              <Avatar3D 
+                avatarId={currentAvatarId}
+                size="xl"
+                onClick={() => setShowAvatarPicker(true)}
+                showEditBadge={true}
+              />
+              <div>
+                <h1 className="text-4xl font-bold mb-2">
+                  {profile.name ? `Hi, ${profile.name}!` : 'Welcome!'}
+                </h1>
+                <p className="text-white/80">
+                  Member since {new Date(profile.createdAt).toLocaleDateString()}
+                </p>
+                <p className="text-white/60 text-sm mt-1">
+                  Click avatar to customize
+                </p>
+              </div>
             </div>
-            <div className="text-right">
-              <div className="text-5xl font-bold">{totalGames}</div>
-              <div className="text-sm opacity-90">Total Games</div>
+            
+            {/* Stats Summary */}
+            <div className="text-right flex flex-col items-end gap-2">
+              <div>
+                <div className="text-5xl font-bold">{totalGames}</div>
+                <div className="text-sm opacity-90">Total Games</div>
+              </div>
+              <div className="text-lg opacity-90">
+                {overallWinRate}% Win Rate
+              </div>
             </div>
           </div>
         </div>
+        
+        {/* Avatar Picker Modal */}
+        <AvatarPicker
+          isOpen={showAvatarPicker}
+          onClose={() => setShowAvatarPicker(false)}
+          currentAvatarId={currentAvatarId}
+          onSelect={handleAvatarChange}
+        />
 
         {/* Quick Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
@@ -248,7 +296,7 @@ const OverviewTab = ({ stats }) => (
   </div>
 );
 
-// Game Summary Card
+// Game Summary Card - Uses centralized win rate calculation
 const GameSummaryCard = ({ gameName, stats, icon, color }) => {
   if (!stats) return null;
 
@@ -256,7 +304,8 @@ const GameSummaryCard = ({ gameName, stats, icon, color }) => {
   const streak = stats.currentStreak ?? 0;
   const longest = stats.longestStreak ?? stats.maxStreak ?? 0;
   const played = stats.gamesPlayed ?? 0;
-  const winRate = played > 0 ? Math.round((wins / played) * 100) : 0;
+  // Use centralized calculation - ensures win rate never exceeds 100%
+  const winRate = calculateWinRate(wins, played);
 
   return (
     <Link href={`/games/${gameName.toLowerCase()}`}>
@@ -288,7 +337,7 @@ const GameSummaryCard = ({ gameName, stats, icon, color }) => {
   );
 };
 
-// Stats Tab
+// Stats Tab - Uses centralized win rate calculation
 const StatsTab = ({ stats }) => (
   <div className="space-y-8">
     <h2 className="text-2xl font-bold text-foreground mb-4">Detailed Statistics</h2>
@@ -298,7 +347,8 @@ const StatsTab = ({ stats }) => (
       const wins = gameStats?.gamesWon ?? 0;
       const currentStreak = gameStats?.currentStreak ?? 0;
       const longestStreak = gameStats?.longestStreak ?? gameStats?.maxStreak ?? 0;
-      const winRate = played > 0 ? `${Math.round((wins / played) * 100)}%` : '0%';
+      // Use centralized calculation - ensures win rate never exceeds 100%
+      const winRate = `${calculateWinRate(wins, played)}%`;
       const bestTime = gameStats?.bestTime ?? null;
       const averageAttempts = gameStats?.averageAttempts ?? 0;
       const perfectGames = gameStats?.perfectGames ?? 0;

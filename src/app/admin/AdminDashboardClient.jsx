@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
+import { calculateWinRateDecimal } from '@/utils/statsCalculator';
 
 export default function AdminDashboardClient() {
   const router = useRouter();
@@ -63,7 +64,8 @@ export default function AdminDashboardClient() {
 
   const totalPlayers = players.length;
   const totalGames = gameAggregates.totalGames;
-  const overallWinRate = totalGames > 0 ? ((gameAggregates.totalWins / totalGames) * 100).toFixed(1) : '0.0';
+  // Use centralized win rate calculation - ensures it never exceeds 100%
+  const overallWinRate = calculateWinRateDecimal(gameAggregates.totalWins, totalGames);
 
   if (!lastUpdated) {
     return (
@@ -200,7 +202,7 @@ function renderContent({
                   <td className="text-right py-3 px-4">{data.won}</td>
                   <td className="text-right py-3 px-4">
                     <span className="inline-block px-3 py-1 bg-wordle-correct text-button-text rounded-full text-sm font-bold">
-                      {data.played > 0 ? ((data.won / data.played) * 100).toFixed(1) : '0.0'}%
+                      {calculateWinRateDecimal(data.won, data.played)}%
                     </span>
                   </td>
                   <td className="text-right py-3 px-4">

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import GameHeader from '@/components/GameHeader';
 import Modal from '@/components/Modal';
 import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
-import LearningLogModal from '@/components/LearningLogModal';
+// NOTE: Learning Log removed - Trivia is not a word-based game
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
@@ -40,7 +40,7 @@ export default function TriviaGame() {
   // Modals
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
-  const [showLearningLog, setShowLearningLog] = useState(false);
+  // Learning Log state removed - not applicable for trivia
   
   // Toast
   const [toast, setToast] = useState(null);
@@ -187,7 +187,7 @@ export default function TriviaGame() {
         title="Trivia"
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
-        onLearningLog={() => setShowLearningLog(true)}
+        // Learning Log removed - Trivia is not a word-based game
         gameComplete={gameComplete}
       />
 
@@ -402,12 +402,7 @@ export default function TriviaGame() {
         onClose={() => setShowHowToPlay(false)} 
       />
       
-      {/* Learning Log Modal */}
-      <LearningLogModal
-        isOpen={showLearningLog}
-        onClose={() => setShowLearningLog(false)}
-        gameName="trivia"
-      />
+      {/* Learning Log Modal removed - Trivia is not a word-based game */}
 
       {showStats && stats && (
         <StatisticsModal

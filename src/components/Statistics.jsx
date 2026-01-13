@@ -1,10 +1,12 @@
 import React from 'react';
 import Modal from './Modal';
+import { calculateWinRate } from '@/utils/statsCalculator';
 
 const Statistics = ({ isOpen, onClose, stats }) => {
   const { played = 0, won = 0, currentStreak = 0, maxStreak = 0, distribution = {} } = stats;
   
-  const winPercentage = played > 0 ? Math.round((won / played) * 100) : 0;
+  // Use centralized win rate calculation - ensures it never exceeds 100%
+  const winPercentage = calculateWinRate(won, played);
   
   // Find max count for scaling bars
   const maxCount = Math.max(...Object.values(distribution), 1);

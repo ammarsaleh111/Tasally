@@ -3,8 +3,8 @@
     {
       "userId": "user_1768083326679_pcwndb8jt",
       "name": "asdsdgf",
-      "lastSeen": "2026-01-13T00:13:05.139Z",
-      "currentPage": "&#x2F;games",
+      "lastSeen": "2026-01-13T00:36:06.172Z",
+      "currentPage": "games",
       "currentGame": null,
       "activities": [
         {
@@ -326,13 +326,98 @@
           "page": "&#x2F;games",
           "game": null,
           "timestamp": "2026-01-13T00:13:05.139Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-13T00:17:17.240Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-13T00:17:18.918Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-13T00:17:26.711Z"
+        },
+        {
+          "page": "game:combinations",
+          "game": "combinations",
+          "timestamp": "2026-01-13T00:17:29.080Z"
+        },
+        {
+          "page": "game:combinations",
+          "game": "combinations",
+          "timestamp": "2026-01-13T00:17:29.081Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-13T00:17:32.452Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-13T00:17:35.690Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-13T00:17:49.224Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-13T00:18:19.224Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-13T00:18:49.224Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-13T00:19:19.223Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-13T00:19:49.223Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-13T00:20:19.224Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-13T00:35:32.240Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-13T00:35:34.951Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-13T00:36:04.953Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-13T00:36:06.172Z"
         }
       ]
     },
     {
       "userId": "user_1768262436530_53d25gkx6",
       "name": "Anonymous",
-      "lastSeen": "2026-01-13T00:00:36.534Z",
+      "lastSeen": "2026-01-13T00:35:02.113Z",
       "currentPage": "home",
       "currentGame": null,
       "activities": [
@@ -340,6 +425,21 @@
           "page": "home",
           "game": null,
           "timestamp": "2026-01-13T00:00:36.534Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-13T00:32:26.626Z"
+        },
+        {
+          "page": "game:numbers",
+          "game": null,
+          "timestamp": "2026-01-13T00:32:38.142Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-13T00:35:02.113Z"
         }
       ]
     },

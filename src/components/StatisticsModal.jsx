@@ -3,6 +3,7 @@
 import React from 'react';
 import Modal from './Modal';
 import { getHistoryForDateRange } from '@/utils/profileManager';
+import { calculateWinRate } from '@/utils/statsCalculator';
 
 const StatisticsModal = ({ isOpen, onClose, gameName, stats, customContent }) => {
   const {
@@ -14,7 +15,8 @@ const StatisticsModal = ({ isOpen, onClose, gameName, stats, customContent }) =>
     averageAttempts = 0,
   } = stats || {};
 
-  const winPercentage = gamesPlayed > 0 ? Math.round((gamesWon / gamesPlayed) * 100) : 0;
+  // Use centralized win rate calculation - ensures it never exceeds 100%
+  const winPercentage = calculateWinRate(gamesWon, gamesPlayed);
 
   // Get 7-day and 30-day history
   const sevenDayHistory = getHistoryForDateRange(gameName, 7);
