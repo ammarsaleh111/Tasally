@@ -1,23 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { getAllStats } from '@/utils/profileManager';
+import PuzzleLoader from '@/components/PuzzleLoader';
+import { useSimplePuzzleLoader } from '@/hooks/usePuzzleLoader';
 
 export default function GamesPage() {
-  const [stats, setStats] = useState(null);
-  const [isClient, setIsClient] = useState(false);
-
-  const initializeClient = useCallback(() => {
-    setIsClient(true);
-    setStats(getAllStats());
-  }, []);
-
-  useEffect(() => {
-    initializeClient();
-  }, [initializeClient]);
-
-  const isReady = isClient;
+  const [stats] = useState(() => getAllStats()); // Initialize once
+  const isLoading = useSimplePuzzleLoader(); // Simple 800ms loader
 
   const games = [
     {
@@ -85,29 +76,34 @@ export default function GamesPage() {
     }
   ];
 
+  // RENDER GATE: Show ONLY loader OR page, never both
+  if (isLoading) {
+    return <PuzzleLoader isLoading={true} />;
+  }
+
   return (
     <div className="min-h-screen flex flex-col items-center p-8 animate-fade-in-up">
       <div className="max-w-7xl w-full">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-foreground mb-4">
-            Ammar Times Games
-          </h1>
-          <p className="text-xl text-text-muted mb-6">
-            Daily puzzles to challenge your mind
-          </p>
-          <Link
-            href="/profile"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-button-primary text-button-text rounded-xl font-bold hover:bg-button-primary-hover transition-all"
-          >
-            👤 View Your Profile & Achievements
-          </Link>
-        </div>
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-bold text-foreground mb-4">
+          Ammar Times Games
+        </h1>
+        <p className="text-xl text-text-muted mb-6">
+          Daily puzzles to challenge your mind
+        </p>
+        <Link
+          href="/profile"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-button-primary text-button-text rounded-xl font-bold hover:bg-button-primary-hover transition-all"
+        >
+          👤 View Your Profile & Achievements
+        </Link>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {games.map((game) => {
             const gameStats = stats?.[game.id];
             const streak = gameStats?.currentStreak || 0;
-            const showStreak = isReady && streak > 0;
+            const showStreak = stats && streak > 0;
             
             return (
               <Link
@@ -162,8 +158,8 @@ export default function GamesPage() {
             </svg>
             Back to Home
           </Link>
-        </div>
       </div>
     </div>
+  </div>
   );
 }

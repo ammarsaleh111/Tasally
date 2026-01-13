@@ -2,14 +2,14 @@ import { NextResponse } from 'next/server';
 
 /**
  * API Route for fetching word definitions
- * Uses Wordnik API with server-side caching
+ * Supports multiple sources with fallback chain
  */
 
 // In-memory cache for definitions (persists across requests in the same server instance)
 const definitionsCache = new Map();
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
-// Wordnik API configuration
+// Wordnik API configuration (optional - uses free tier if available)
 const WORDNIK_API_KEY = process.env.WORDNIK_API_KEY || '';
 const WORDNIK_BASE_URL = 'https://api.wordnik.com/v4/word.json';
 

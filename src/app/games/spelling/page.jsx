@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import GameHeader from '@/components/GameHeader';
 import HoneycombGrid from '@/components/HoneycombGrid';
 import Toast from '@/components/Toast';
@@ -32,15 +32,61 @@ const ALL_SPELLING_PUZZLES = [...SPELLING_PUZZLES_JAN_2026, ...SPELLING_PUZZLES_
 import { saveGameToProfile, getGameStats } from '@/utils/profileManager';
 
 export default function SpellingBeePage() {
-  // Game state
-  const [puzzle, setPuzzle] = useState(null);
-  const [currentWord, setCurrentWord] = useState('');
-  const [foundWords, setFoundWords] = useState([]);
-  const [score, setScore] = useState(0);
-  const [maxScore, setMaxScore] = useState(0);
-  const [outerLetters, setOuterLetters] = useState([]);
+  // Initialize puzzle on first render
+  const [puzzle] = useState(() => {
+    const today = new Date().toISOString().split('T')[0];
+    const todayPuzzle = ALL_SPELLING_PUZZLES.find(p => p.date === today);
+    return todayPuzzle || ALL_SPELLING_PUZZLES[0];
+  });
+
+  // Initialize outer letters (shuffled)
+  const [outerLetters, setOuterLetters] = useState(() => 
+    puzzle ? shuffleLetters(puzzle.letters) : []
+  );
+
+  // Initialize max score
+  const [maxScore] = useState(() => {
+    if (!puzzle) return 0;
+    const allLetters = [puzzle.center, ...puzzle.letters];
+    return calculateMaxScore(puzzle.validWords, allLetters);
+  });
+
+  // Game state - initialize with saved progress
+  const [foundWords, setFoundWords] = useState(() => {
+    if (!puzzle) return [];
+    const saved = localStorage.getItem(`spelling-${puzzle.date}`);
+    if (saved) {
+      const data = JSON.parse(saved);
+      return data.foundWords || [];
+    }
+    return [];
+  });
+
+  const [score, setScore] = useState(() => {
+    if (!puzzle) return 0;
+    const saved = localStorage.getItem(`spelling-${puzzle.date}`);
+    if (saved) {
+      const data = JSON.parse(saved);
+      return data.score || 0;
+    }
+    return 0;
+  });
+
+  const [hintsUsed, setHintsUsed] = useState(() => {
+    if (!puzzle) return 0;
+    const saved = localStorage.getItem(`spelling-${puzzle.date}`);
+    if (saved) {
+      const data = JSON.parse(saved);
+      return data.hintsUsed || 0;
+    }
+    return 0;
+  });
+
   const [rank, setRank] = useState(RANK_TIERS[0]);
   const [previousRank, setPreviousRank] = useState(null);
+  
+  // Current word being typed
+  const [currentWord, setCurrentWord] = useState('');
   
   // UI state
   const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
@@ -50,50 +96,12 @@ export default function SpellingBeePage() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showRankUp, setShowRankUp] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
-  const [hintsUsed, setHintsUsed] = useState(0);
-  const [hintButtonText, setHintButtonText] = useState('Hint 1/5');
 
-  // Load progress from localStorage
-  const loadProgress = (date) => {
-    const saved = localStorage.getItem(`spelling-${date}`);
-    if (saved) {
-      const { foundWords: savedWords, score: savedScore, hintsUsed: savedHints } = JSON.parse(saved);
-      setFoundWords(savedWords || []);
-      setScore(savedScore || 0);
-      setHintsUsed(savedHints || 0);
-    }
-  };
-
-  // Load today's puzzle
-  useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    const todayPuzzle = ALL_SPELLING_PUZZLES.find(p => p.date === today);
-    
-    if (todayPuzzle) {
-      setPuzzle(todayPuzzle);
-      const allLetters = [todayPuzzle.center, ...todayPuzzle.letters];
-      setOuterLetters(shuffleLetters(todayPuzzle.letters));
-      setMaxScore(calculateMaxScore(todayPuzzle.validWords, allLetters));
-      
-      // Load saved progress
-      loadProgress(today);
-    } else {
-      // Fallback to first puzzle
-      const fallback = ALL_SPELLING_PUZZLES[0];
-      setPuzzle(fallback);
-      const allLetters = [fallback.center, ...fallback.letters];
-      setOuterLetters(shuffleLetters(fallback.letters));
-      setMaxScore(calculateMaxScore(fallback.validWords, allLetters));
-    }
-  }, []);
-
-  // Update hint button text when puzzle or words change
-  useEffect(() => {
-    if (puzzle) {
-      const puzzleId = `spelling-${puzzle.date}`;
-      const buttonText = getSpellingBeeHintButtonText(puzzleId, puzzle.validWords, foundWords);
-      setHintButtonText(buttonText);
-    }
+  // Derived state: hint button text
+  const hintButtonText = useMemo(() => {
+    if (!puzzle) return 'Hint 1/5';
+    const puzzleId = `spelling-${puzzle.date}`;
+    return getSpellingBeeHintButtonText(puzzleId, puzzle.validWords, foundWords);
   }, [puzzle, foundWords]);
 
   // Save progress
@@ -114,26 +122,35 @@ export default function SpellingBeePage() {
     }
   }, [foundWords, score, puzzle, hintsUsed, maxScore]);
 
+  // Track previous rank for comparison
+  const prevRankRef = useRef(rank);
+
   // Update rank when score changes
   useEffect(() => {
     if (maxScore > 0) {
       const newRank = getCurrentRank(score, maxScore);
-      if (rank.name !== newRank.name) {
-        setPreviousRank(rank);
+      if (prevRankRef.current.name !== newRank.name) {
+        setPreviousRank(prevRankRef.current);
+        prevRankRef.current = newRank;
         setRank(newRank);
         setShowRankUp(true);
-        setTimeout(() => setShowRankUp(false), 3000);
-      } else {
+        const timer = setTimeout(() => setShowRankUp(false), 3000);
+        return () => clearTimeout(timer);
+      } else if (rank.name !== newRank.name) {
+        prevRankRef.current = newRank;
         setRank(newRank);
       }
     }
-  }, [score, maxScore]);
+  }, [score, maxScore, rank.name]);
 
   // Check if game is complete
   useEffect(() => {
-    if (puzzle && foundWords.length === puzzle.validWords.length) {
-      setIsComplete(true);
-      setShowConfetti(true);
+    if (puzzle && foundWords.length === puzzle.validWords.length && !isComplete) {
+      // Use microtask to avoid synchronous setState in effect
+      queueMicrotask(() => {
+        setIsComplete(true);
+        setShowConfetti(true);
+      });
       
       // Add all found words to Learning Log
       addWordsToLog(foundWords, 'spelling');
@@ -147,39 +164,16 @@ export default function SpellingBeePage() {
         stats
       });
     }
-  }, [foundWords, puzzle, score, maxScore]);
+  }, [foundWords, puzzle, score, maxScore, isComplete]);
 
-  // Handle letter click
-  const handleLetterClick = useCallback((letter) => {
-    setCurrentWord(prev => prev + letter);
+  // Show toast
+  const showToast = useCallback((message, type = 'info') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => setToast({ show: false, message: '', type: 'info' }), 2000);
   }, []);
 
-  // Handle keyboard input
-  useEffect(() => {
-    const handleKeyPress = (e) => {
-      if (showStats) return;
-      
-      const key = e.key.toLowerCase();
-      
-      if (key === 'enter') {
-        handleSubmit();
-      } else if (key === 'backspace') {
-        handleBackspace();
-      } else if (/^[a-z]$/.test(key)) {
-        const upperKey = key.toUpperCase();
-        const allLetters = [puzzle?.center, ...(puzzle?.letters || [])];
-        if (allLetters.includes(upperKey)) {
-          handleLetterClick(upperKey);
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [handleLetterClick, showStats, puzzle]);
-
   // Submit word
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     if (!puzzle || currentWord.length < 4) {
       if (currentWord.length > 0 && currentWord.length < 4) {
         showToast('Too short (minimum 4 letters)', 'error');
@@ -221,12 +215,40 @@ export default function SpellingBeePage() {
         setTimeout(() => wordDisplay.classList.remove('animate-shake'), 500);
       }
     }
-  };
+  }, [puzzle, currentWord, foundWords, showToast]);
 
-  // Backspace
-  const handleBackspace = () => {
+  const handleBackspace = useCallback(() => {
     setCurrentWord(prev => prev.slice(0, -1));
-  };
+  }, []);
+
+  // Handle letter click
+  const handleLetterClick = useCallback((letter) => {
+    setCurrentWord(prev => prev + letter);
+  }, []);
+
+  // Handle keyboard input
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (showStats) return;
+      
+      const key = e.key.toLowerCase();
+      
+      if (key === 'enter') {
+        handleSubmit();
+      } else if (key === 'backspace') {
+        handleBackspace();
+      } else if (/^[a-z]$/.test(key)) {
+        const upperKey = key.toUpperCase();
+        const allLetters = [puzzle?.center, ...(puzzle?.letters || [])];
+        if (allLetters.includes(upperKey)) {
+          handleLetterClick(upperKey);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [handleLetterClick, handleSubmit, handleBackspace, showStats, puzzle]);
 
   // Shuffle letters
   const handleShuffle = () => {
@@ -253,12 +275,6 @@ export default function SpellingBeePage() {
       const buttonText = getSpellingBeeHintButtonText(puzzleId, puzzle.validWords, foundWords);
       setHintButtonText(buttonText);
     }
-  };
-
-  // Show toast
-  const showToast = (message, type = 'info') => {
-    setToast({ show: true, message, type });
-    setTimeout(() => setToast({ show: false, message: '', type: 'info' }), 2000);
   };
 
   if (!puzzle) {

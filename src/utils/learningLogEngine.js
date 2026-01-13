@@ -1,10 +1,11 @@
 /**
  * Learning Log Engine
- * Tracks words learned across all games with definitions from Wordnik API
- * Words are only accessible after game completion
+ * Tracks words learned across all games with multi-source definitions
+ * Uses the new Definition Resolver for reliable, cached definitions
  */
 
 import { secureGetItem, secureSetItem } from './secureStorage';
+import { resolveDefinition, validateDefinition } from './definitionResolver';
 
 const LEARNING_LOG_KEY = 'ammarTimes_learningLog';
 const DEFINITIONS_CACHE_KEY = 'ammarTimes_definitionsCache';
@@ -240,7 +241,8 @@ export function getLearningLogStats() {
 }
 
 /**
- * Fetch definition from server-side API (Wordnik)
+ * Fetch definition using the new Definition Resolver
+ * Uses multi-source pipeline with caching and validation
  * @param {string} word - The word to define
  */
 export async function fetchDefinition(word) {
@@ -248,34 +250,33 @@ export async function fetchDefinition(word) {
   
   const normalizedWord = word.toUpperCase().trim();
   
-  // Check cache first
-  const cache = getDefinitionsCache();
-  if (cache[normalizedWord]) {
-    return cache[normalizedWord];
-  }
-  
   try {
-    const response = await fetch(`/api/word-definition?word=${encodeURIComponent(normalizedWord)}`);
+    // Use the new definition resolver
+    const definition = await resolveDefinition(normalizedWord, {
+      themeAware: true,
+      useCache: true,
+    });
     
-    if (!response.ok) {
-      console.warn(`Failed to fetch definition for ${normalizedWord}`);
+    // Validate the definition
+    if (!validateDefinition(definition)) {
+      console.warn(`Invalid definition for ${normalizedWord}`);
       return null;
     }
     
-    const data = await response.json();
+    // Update the word in the log with the validated definition
+    updateWordDefinition(
+      normalizedWord, 
+      definition.definition, 
+      definition.partOfSpeech,
+      definition.example
+    );
     
-    if (data.definition) {
-      // Cache the result
-      cache[normalizedWord] = data;
-      saveDefinitionsCache(cache);
-      
-      // Update the word in the log
-      updateWordDefinition(normalizedWord, data.definition, data.partOfSpeech);
-      
-      return data;
-    }
-    
-    return null;
+    return {
+      definition: definition.definition,
+      partOfSpeech: definition.partOfSpeech,
+      example: definition.example,
+      source: definition.source,
+    };
   } catch (error) {
     console.error('Error fetching definition:', error);
     return null;
@@ -284,20 +285,27 @@ export async function fetchDefinition(word) {
 
 /**
  * Update a word's definition in the log
+ * Ensures definitions are permanent and never change once stored
  * @param {string} word - The word to update
  * @param {string} definition - The definition text
  * @param {string} partOfSpeech - Part of speech
+ * @param {string} example - Example usage (optional)
  */
-export function updateWordDefinition(word, definition, partOfSpeech) {
+export function updateWordDefinition(word, definition, partOfSpeech, example = null) {
   const normalizedWord = word.toUpperCase().trim();
   const log = getLearningLog();
   
   const wordEntry = log.words.find(w => w.word === normalizedWord);
   if (wordEntry) {
-    wordEntry.definition = definition;
-    wordEntry.partOfSpeech = partOfSpeech;
-    wordEntry.definitionFetched = true;
-    saveLearningLog(log);
+    // Only update if no definition exists (preserve first definition)
+    if (!wordEntry.definitionFetched || !wordEntry.definition) {
+      wordEntry.definition = definition;
+      wordEntry.partOfSpeech = partOfSpeech;
+      wordEntry.example = example;
+      wordEntry.definitionFetched = true;
+      wordEntry.definitionTimestamp = new Date().toISOString();
+      saveLearningLog(log);
+    }
   }
 }
 

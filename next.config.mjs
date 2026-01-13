@@ -17,7 +17,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'", // unsafe-inline needed for Tailwind
               "img-src 'self' data: blob:",
               "font-src 'self' data:",
-              "connect-src 'self' https://formspree.io",
+              "connect-src 'self' https://formspree.io https://api.dictionaryapi.dev",
               "frame-ancestors 'none'", // Prevent clickjacking
               "base-uri 'self'",
               "form-action 'self'",
