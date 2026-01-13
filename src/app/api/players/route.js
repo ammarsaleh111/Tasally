@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAllPlayers, savePlayers } from '@/lib/serverData';
+import { getAllPlayers, savePlayers, getActivityStore, saveActivityStore } from '@/lib/serverData';
 import { sanitizeName, sanitizeString, isRateLimited } from '@/utils/inputSanitizer';
 
 // Rate limiting: 30 requests per minute per IP
@@ -154,6 +154,65 @@ export async function POST(request) {
     return NextResponse.json({ ok: true });
   } catch (error) {
     // Don't leak error details
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request) {
+  // Rate limit check
+  const clientId = getClientIdentifier(request);
+  if (isRateLimited(clientId, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
+  try {
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get('userId');
+
+    if (!userId) {
+      return NextResponse.json({ error: 'Missing userId' }, { status: 400 });
+    }
+
+    // Sanitize userId
+    const sanitizedUserId = sanitizeString(userId, 100);
+    if (!sanitizedUserId) {
+      return NextResponse.json({ error: 'Invalid userId' }, { status: 400 });
+    }
+
+    // Get current players
+    const players = await getAllPlayers();
+    const playerIndex = players.findIndex(p => p.userId === sanitizedUserId);
+
+    if (playerIndex === -1) {
+      return NextResponse.json({ error: 'Player not found' }, { status: 404 });
+    }
+
+    // Remove player from players array
+    const deletedPlayer = players.splice(playerIndex, 1)[0];
+    await savePlayers(players);
+
+    // Also remove from activity store
+    try {
+      const activityStore = await getActivityStore();
+      if (activityStore.sessions) {
+        activityStore.sessions = activityStore.sessions.filter(
+          s => s.userId !== sanitizedUserId
+        );
+        await saveActivityStore(activityStore);
+      }
+    } catch (error) {
+      console.warn('[DELETE] Failed to clean up activity data', error.message);
+    }
+
+    return NextResponse.json({ 
+      ok: true, 
+      deletedUser: {
+        userId: deletedPlayer.userId,
+        name: deletedPlayer.name,
+      }
+    });
+  } catch (error) {
+    console.error('[DELETE] Error deleting player:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

@@ -18,6 +18,10 @@ export default function AdminDashboardClient() {
   // Real-time state
   const [liveMetrics, setLiveMetrics] = useState(null);
   const [connectionStatus, setConnectionStatus] = useState('connecting');
+  
+  // Delete user state
+  const [deletingUserId, setDeletingUserId] = useState(null);
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   // Handle real-time metrics updates
   const handleRealtimeMetrics = useCallback((payload) => {
@@ -80,6 +84,45 @@ export default function AdminDashboardClient() {
     }
   };
 
+  const handleDeleteUser = async (userId, userName) => {
+    // Show confirmation dialog
+    setDeleteConfirm({ userId, userName });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteConfirm) return;
+
+    try {
+      setDeletingUserId(deleteConfirm.userId);
+      
+      const response = await fetch(`/api/players?userId=${encodeURIComponent(deleteConfirm.userId)}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete user');
+      }
+
+      const result = await response.json();
+      
+      // Remove user from local state
+      setPlayers(prev => prev.filter(p => p.userId !== deleteConfirm.userId));
+      setSessions(prev => prev.filter(s => s.userId !== deleteConfirm.userId));
+      
+      // Close confirmation dialog
+      setDeleteConfirm(null);
+      setDeletingUserId(null);
+    } catch (error) {
+      console.error('Failed to delete user:', error);
+      alert('Failed to delete user. Please try again.');
+      setDeletingUserId(null);
+    }
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirm(null);
+  };
+
   const gameAggregates = useMemo(() => aggregateGameStats(players), [players]);
   const activeSessions = useMemo(() => filterActiveSessions(sessions, 5), [sessions]);
   const activitySummary = useMemo(() => summarizeActivity(sessions), [sessions]);
@@ -119,6 +162,46 @@ export default function AdminDashboardClient() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-card border-2 border-wordle-absent rounded-xl p-6 max-w-md w-full">
+            <h2 className="text-2xl font-bold mb-4 text-wordle-absent">⚠️ Delete User Account</h2>
+            <p className="text-foreground mb-2">
+              Are you sure you want to permanently delete this user?
+            </p>
+            <div className="bg-surface-hover rounded-lg p-4 mb-6">
+              <p className="font-bold text-foreground">{deleteConfirm.userName || 'Anonymous'}</p>
+              <p className="text-xs text-text-muted font-mono mt-1">{deleteConfirm.userId}</p>
+            </div>
+            <p className="text-sm text-wordle-absent mb-6">
+              This will permanently delete:
+              <br />• Player profile and name
+              <br />• All game statistics and progress
+              <br />• Activity history and sessions
+              <br /><br />
+              <strong>This action cannot be undone!</strong>
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={cancelDelete}
+                disabled={!!deletingUserId}
+                className="flex-1 px-4 py-2 bg-card border border-card-border hover:bg-surface-hover text-foreground rounded-lg transition-colors disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmDelete}
+                disabled={!!deletingUserId}
+                className="flex-1 px-4 py-2 bg-wordle-absent hover:bg-red-700 text-button-text rounded-lg transition-colors disabled:opacity-50 font-bold"
+              >
+                {deletingUserId ? 'Deleting...' : 'Delete Forever'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
@@ -173,6 +256,8 @@ export default function AdminDashboardClient() {
           topPerformers,
           players,
           sessions,
+          onDeleteUser: handleDeleteUser,
+          deletingUserId,
         })}
       </div>
     </div>
@@ -193,6 +278,8 @@ function renderContent({
   topPerformers,
   players,
   sessions,
+  onDeleteUser,
+  deletingUserId,
 }) {
   return (
     <>
@@ -353,7 +440,8 @@ function renderContent({
                 <th className="text-left py-3 px-4 font-bold">Player Name</th>
                 <th className="text-left py-3 px-4 font-bold">User ID</th>
                 <th className="text-left py-3 px-4 font-bold">Last Seen</th>
-                <th className="text-right py-3 px-4 font-bold">Total Activities</th>
+                <th className="text-right py-3 px-4 font-bold">Activities</th>
+                <th className="text-right py-3 px-4 font-bold">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -362,6 +450,7 @@ function renderContent({
                 const lastSeen = activityRecord?.lastSeen || user.updatedAt;
                 const totalActivities = activityRecord?.activities?.length || 0;
                 const timeAgo = formatRelativeTime(lastSeen);
+                const isDeleting = deletingUserId === user.userId;
 
                 return (
                   <tr key={user.userId} className="border-b border-border-default hover:bg-surface-hover transition-colors">
@@ -370,6 +459,16 @@ function renderContent({
                     <td className="py-3 px-4 text-xs text-text-muted font-mono">{user.userId.slice(0, 20)}...</td>
                     <td className="py-3 px-4 text-text-muted">{timeAgo}</td>
                     <td className="text-right py-3 px-4">{totalActivities}</td>
+                    <td className="text-right py-3 px-4">
+                      <button
+                        onClick={() => onDeleteUser(user.userId, user.name)}
+                        disabled={isDeleting}
+                        className="px-3 py-1 bg-wordle-absent hover:bg-red-700 text-button-text text-xs rounded transition-colors disabled:opacity-50"
+                        title="Delete user account and all data"
+                      >
+                        {isDeleting ? '⏳' : '🗑️ Delete'}
+                      </button>
+                    </td>
                   </tr>
                 );
               })}
