@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { getAvatarById, DEFAULT_AVATAR_ID } from '@/utils/avatarLibrary';
+import { getBrowserInfo, prefersReducedMotion } from '@/utils/crossBrowser';
 
 /**
- * Avatar3D - 3D-style animated avatar display component
+ * Avatar3D - Cross-browser compatible 3D-style animated avatar display component
  * 
  * Features:
  * - Gradient backgrounds with depth effect
@@ -12,6 +13,9 @@ import { getAvatarById, DEFAULT_AVATAR_ID } from '@/utils/avatarLibrary';
  * - Multiple sizes (xs, sm, md, lg, xl)
  * - Click handler for avatar picker
  * - 3D depth with shadows and highlights
+ * - Cross-browser compatible (Firefox, Safari, Chrome)
+ * - Respects prefers-reduced-motion
+ * - Graceful degradation for older browsers
  */
 
 const SIZES = {
@@ -23,43 +27,68 @@ const SIZES = {
   '2xl': { container: 160, emoji: 80 },
 };
 
-// CSS animation keyframes
+// CSS animation keyframes - Cross-browser compatible
 const animations = {
   float: `
+    @-webkit-keyframes avatar-float {
+      0%, 100% { -webkit-transform: translateY(0px) rotate(0deg); transform: translateY(0px) rotate(0deg); }
+      50% { -webkit-transform: translateY(-4px) rotate(2deg); transform: translateY(-4px) rotate(2deg); }
+    }
     @keyframes avatar-float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-4px) rotate(2deg); }
+      0%, 100% { -webkit-transform: translateY(0px) rotate(0deg); transform: translateY(0px) rotate(0deg); }
+      50% { -webkit-transform: translateY(-4px) rotate(2deg); transform: translateY(-4px) rotate(2deg); }
     }
   `,
   pulse: `
+    @-webkit-keyframes avatar-pulse {
+      0%, 100% { -webkit-transform: scale(1); transform: scale(1); }
+      50% { -webkit-transform: scale(1.05); transform: scale(1.05); }
+    }
     @keyframes avatar-pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+      0%, 100% { -webkit-transform: scale(1); transform: scale(1); }
+      50% { -webkit-transform: scale(1.05); transform: scale(1.05); }
     }
   `,
   sparkle: `
+    @-webkit-keyframes avatar-sparkle {
+      0%, 100% { opacity: 1; -webkit-filter: brightness(1); filter: brightness(1); }
+      50% { opacity: 0.95; -webkit-filter: brightness(1.2); filter: brightness(1.2); }
+    }
     @keyframes avatar-sparkle {
-      0%, 100% { opacity: 1; filter: brightness(1); }
-      50% { opacity: 0.95; filter: brightness(1.2); }
+      0%, 100% { opacity: 1; -webkit-filter: brightness(1); filter: brightness(1); }
+      50% { opacity: 0.95; -webkit-filter: brightness(1.2); filter: brightness(1.2); }
     }
   `,
   bounce: `
+    @-webkit-keyframes avatar-bounce {
+      0%, 100% { -webkit-transform: translateY(0); transform: translateY(0); }
+      25% { -webkit-transform: translateY(-3px); transform: translateY(-3px); }
+      75% { -webkit-transform: translateY(1px); transform: translateY(1px); }
+    }
     @keyframes avatar-bounce {
-      0%, 100% { transform: translateY(0); }
-      25% { transform: translateY(-3px); }
-      75% { transform: translateY(1px); }
+      0%, 100% { -webkit-transform: translateY(0); transform: translateY(0); }
+      25% { -webkit-transform: translateY(-3px); transform: translateY(-3px); }
+      75% { -webkit-transform: translateY(1px); transform: translateY(1px); }
     }
   `,
   sway: `
+    @-webkit-keyframes avatar-sway {
+      0%, 100% { -webkit-transform: rotate(-3deg); transform: rotate(-3deg); }
+      50% { -webkit-transform: rotate(3deg); transform: rotate(3deg); }
+    }
     @keyframes avatar-sway {
-      0%, 100% { transform: rotate(-3deg); }
-      50% { transform: rotate(3deg); }
+      0%, 100% { -webkit-transform: rotate(-3deg); transform: rotate(-3deg); }
+      50% { -webkit-transform: rotate(3deg); transform: rotate(3deg); }
     }
   `,
   blink: `
+    @-webkit-keyframes avatar-blink {
+      0%, 45%, 55%, 100% { -webkit-transform: scaleY(1); transform: scaleY(1); }
+      50% { -webkit-transform: scaleY(0.9); transform: scaleY(0.9); }
+    }
     @keyframes avatar-blink {
-      0%, 45%, 55%, 100% { transform: scaleY(1); }
-      50% { transform: scaleY(0.9); }
+      0%, 45%, 55%, 100% { -webkit-transform: scaleY(1); transform: scaleY(1); }
+      50% { -webkit-transform: scaleY(0.9); transform: scaleY(0.9); }
     }
   `,
 };
@@ -72,11 +101,41 @@ const Avatar3D = ({
   className = '',
   animate = true,
 }) => {
+  // Initialize with proper reduced motion check
+  const [shouldAnimate, setShouldAnimate] = useState(() => {
+    if (typeof window === 'undefined') return animate;
+    return animate && !prefersReducedMotion();
+  });
+  
   const avatar = getAvatarById(avatarId || DEFAULT_AVATAR_ID);
   const sizeConfig = SIZES[size] || SIZES.md;
   
-  const animationStyle = animate && avatar.animation ? {
+  // Listen for changes to reduced motion preference
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const mediaQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (!mediaQuery) return;
+    
+    const handleChange = (e) => {
+      setShouldAnimate(animate && !e.matches);
+    };
+    
+    // Use the new API if available, otherwise fall back
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    } else if (mediaQuery.addListener) {
+      // Safari < 14 fallback
+      mediaQuery.addListener(handleChange);
+      return () => mediaQuery.removeListener(handleChange);
+    }
+  }, [animate]);
+  
+  const animationStyle = shouldAnimate && avatar.animation ? {
     animation: `avatar-${avatar.animation} 3s ease-in-out infinite`,
+    // Ensure animation works across browsers
+    WebkitAnimation: `avatar-${avatar.animation} 3s ease-in-out infinite`,
   } : {};
 
   return (

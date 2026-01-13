@@ -2,6 +2,7 @@
  * Session Tracker
  * Tracks user activity: page visits, game starts/ends, and timestamps
  * Updates every 30 seconds and on key events
+ * Now with real-time heartbeat support for live admin dashboard
  * 
  * Data structure:
  * {
@@ -22,6 +23,11 @@
  */
 
 import { syncActivityEvent } from '@/utils/backendSync';
+import { sendHeartbeat, sendGameTelemetry } from '@/utils/realtimeManager';
+
+// Heartbeat interval (every 15 seconds)
+let heartbeatInterval = null;
+const HEARTBEAT_INTERVAL = 15000;
 
 const SESSION_KEY = 'ammarTimes_session';
 const ALL_SESSIONS_KEY = 'ammarTimes_allSessions';
@@ -75,6 +81,51 @@ function createNewSession() {
 export function saveSession(session) {
   if (typeof window === 'undefined') return;
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  
+  // Send heartbeat for real-time tracking
+  sendHeartbeat({
+    sessionId: session.sessionId,
+    playerName: session.name,
+    currentGame: session.currentGame,
+    currentPage: session.currentPage,
+  });
+}
+
+// Start heartbeat interval for real-time updates
+export function startHeartbeat() {
+  if (typeof window === 'undefined') return;
+  if (heartbeatInterval) return; // Already running
+  
+  heartbeatInterval = setInterval(() => {
+    const session = getSession();
+    if (session) {
+      sendHeartbeat({
+        sessionId: session.sessionId,
+        playerName: session.name,
+        currentGame: session.currentGame,
+        currentPage: session.currentPage,
+      });
+    }
+  }, HEARTBEAT_INTERVAL);
+  
+  // Send initial heartbeat
+  const session = getSession();
+  if (session) {
+    sendHeartbeat({
+      sessionId: session.sessionId,
+      playerName: session.name,
+      currentGame: session.currentGame,
+      currentPage: session.currentPage,
+    });
+  }
+}
+
+// Stop heartbeat interval
+export function stopHeartbeat() {
+  if (heartbeatInterval) {
+    clearInterval(heartbeatInterval);
+    heartbeatInterval = null;
+  }
 }
 
 // Track an activity event
@@ -133,6 +184,13 @@ export function trackPageLoad(page) {
 // Track game start
 export function trackGameStart(gameName) {
   trackActivity('game_start', { game: gameName });
+  
+  // Send real-time telemetry
+  const session = getSession();
+  sendGameTelemetry(gameName, 'start', {
+    sessionId: session?.sessionId,
+    playerName: session?.name,
+  });
 }
 
 // Track game completion
@@ -141,6 +199,26 @@ export function trackGameEnd(gameName, result) {
     game: gameName,
     win: result.win,
     time: result.time,
+  });
+  
+  // Send real-time telemetry
+  const session = getSession();
+  sendGameTelemetry(gameName, 'end', {
+    sessionId: session?.sessionId,
+    playerName: session?.name,
+    won: result.win,
+    timeSpent: result.time,
+  });
+}
+
+// Track game progress (for live monitoring)
+export function trackGameProgress(gameName, progress, details = {}) {
+  const session = getSession();
+  sendGameTelemetry(gameName, 'progress', {
+    sessionId: session?.sessionId,
+    playerName: session?.name,
+    progress,
+    ...details,
   });
 }
 

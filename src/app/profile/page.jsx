@@ -842,7 +842,7 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
       <h3 className="text-lg font-bold text-foreground mb-4">About</h3>
       <div className="space-y-2 text-sm text-text-muted">
         <p><strong>Platform:</strong> Ammar Times</p>
-        <p><strong>Version:</strong> 1.0.0</p>
+        <p><strong>Version:</strong> 2.1.0</p>
         <p><strong>Storage:</strong> Local (Browser Storage)</p>
       </div>
     </div>

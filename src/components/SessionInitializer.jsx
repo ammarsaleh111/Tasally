@@ -1,12 +1,15 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { initSessionTracking, trackPageLoad } from '@/utils/sessionTracker';
+import { initSessionTracking, trackPageLoad, startHeartbeat, stopHeartbeat } from '@/utils/sessionTracker';
 
 const SessionInitializer = ({ children }) => {
   useEffect(() => {
     // Initialize session tracking
     const cleanup = initSessionTracking();
+    
+    // Start real-time heartbeat for live admin tracking
+    startHeartbeat();
 
     // Track navigation
     const handlePopState = () => {
@@ -17,6 +20,7 @@ const SessionInitializer = ({ children }) => {
 
     return () => {
       window.removeEventListener('popstate', handlePopState);
+      stopHeartbeat();
       if (cleanup) cleanup();
     };
   }, []);

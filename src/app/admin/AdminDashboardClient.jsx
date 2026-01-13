@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
 import { calculateWinRateDecimal } from '@/utils/statsCalculator';
+import { subscribeToRealtime, disconnectRealtime, getRealtimeStatus } from '@/utils/realtimeManager';
 
 export default function AdminDashboardClient() {
   const router = useRouter();
@@ -13,11 +14,24 @@ export default function AdminDashboardClient() {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [refreshCount, setRefreshCount] = useState(0);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  
+  // Real-time state
+  const [liveMetrics, setLiveMetrics] = useState(null);
+  const [connectionStatus, setConnectionStatus] = useState('connecting');
+
+  // Handle real-time metrics updates
+  const handleRealtimeMetrics = useCallback((payload) => {
+    setLiveMetrics(payload);
+    setLastUpdated(new Date());
+    setRefreshCount(count => count + 1);
+    setConnectionStatus('connected');
+  }, []);
 
   useEffect(() => {
     let mounted = true;
 
-    const loadData = async () => {
+    // Initial data load (for player history)
+    const loadInitialData = async () => {
       try {
         const [playersRes, activityRes] = await Promise.all([
           fetch('/api/players').then(res => res.json()),
@@ -34,17 +48,26 @@ export default function AdminDashboardClient() {
       }
     };
 
-    loadData();
-    const interval = setInterval(() => {
-      loadData();
-      setRefreshCount(count => count + 1);
-    }, 10000);
+    loadInitialData();
+    
+    // Subscribe to real-time metrics updates via SSE
+    const unsubscribe = subscribeToRealtime('metrics', handleRealtimeMetrics);
+    
+    // Fallback: poll every 30 seconds if SSE fails
+    const fallbackInterval = setInterval(() => {
+      const status = getRealtimeStatus();
+      if (!status.connected && !status.polling) {
+        loadInitialData();
+      }
+      setConnectionStatus(status.connected ? 'connected' : status.polling ? 'polling' : 'disconnected');
+    }, 30000);
 
     return () => {
       mounted = false;
-      clearInterval(interval);
+      unsubscribe();
+      clearInterval(fallbackInterval);
     };
-  }, []);
+  }, [handleRealtimeMetrics]);
 
   const handleLogout = async () => {
     try {
@@ -61,6 +84,18 @@ export default function AdminDashboardClient() {
   const activeSessions = useMemo(() => filterActiveSessions(sessions, 5), [sessions]);
   const activitySummary = useMemo(() => summarizeActivity(sessions), [sessions]);
   const topPerformers = useMemo(() => getTopPerformers(sessions), [sessions]);
+
+  // Use live metrics if available, otherwise fall back to computed values
+  const liveActivePlayers = liveMetrics?.activePlayers ?? activeSessions.length;
+  const liveActiveGames = liveMetrics?.activeGames ?? Object.keys(activitySummary.gamesPlaying).length;
+  const liveGameDistribution = liveMetrics?.gameDistribution ?? activitySummary.gamesPlaying;
+  const liveSessions = liveMetrics?.sessions ?? activeSessions.map(s => ({
+    id: s.sessionId?.substring(0, 8) + '...',
+    name: s.name,
+    currentGame: s.currentGame,
+    lastSeen: new Date(s.lastSeen).getTime(),
+  }));
+  const liveGames = liveMetrics?.liveGames ?? [];
 
   const totalPlayers = players.length;
   const totalGames = gameAggregates.totalGames;
@@ -89,9 +124,23 @@ export default function AdminDashboardClient() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
-            <p className="text-text-muted">
-              Last updated: {lastUpdated?.toLocaleTimeString()} (refresh #{refreshCount})
-            </p>
+            <div className="flex items-center gap-3">
+              <p className="text-text-muted">
+                Last updated: {lastUpdated?.toLocaleTimeString()} (refresh #{refreshCount})
+              </p>
+              <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full ${
+                connectionStatus === 'connected' 
+                  ? 'bg-wordle-correct text-button-text' 
+                  : connectionStatus === 'polling'
+                  ? 'bg-wordle-present text-button-text'
+                  : 'bg-wordle-absent text-button-text'
+              }`}>
+                <span className={`w-2 h-2 rounded-full ${
+                  connectionStatus === 'connected' ? 'bg-white animate-pulse' : 'bg-white/50'
+                }`}></span>
+                {connectionStatus === 'connected' ? '🔴 LIVE' : connectionStatus === 'polling' ? 'Polling' : 'Offline'}
+              </span>
+            </div>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -111,7 +160,11 @@ export default function AdminDashboardClient() {
         </div>
 
         {renderContent({
-          activeSessions,
+          activeSessions: liveSessions,
+          liveActivePlayers,
+          liveActiveGames,
+          liveGameDistribution,
+          liveGames,
           totalGames,
           overallWinRate,
           totalPlayers,
@@ -128,6 +181,10 @@ export default function AdminDashboardClient() {
 
 function renderContent({
   activeSessions,
+  liveActivePlayers,
+  liveActiveGames,
+  liveGameDistribution,
+  liveGames,
   totalGames,
   overallWinRate,
   totalPlayers,
@@ -141,16 +198,18 @@ function renderContent({
     <>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <MetricCard
-          label="Active Players (5 min)"
-          value={activeSessions.length}
+          label="Active Players (Live)"
+          value={liveActivePlayers}
           icon="👥"
           color="bg-card border-card-border"
+          live={true}
         />
         <MetricCard
-          label="Total Games Played"
-          value={totalGames}
+          label="Active Games (Live)"
+          value={liveActiveGames}
           icon="🎮"
           color="bg-card border-card-border"
+          live={true}
         />
         <MetricCard
           label="Overall Win Rate"
@@ -166,11 +225,48 @@ function renderContent({
         />
       </div>
 
-      {Object.keys(activitySummary.gamesPlaying).length > 0 && (
+      {/* Live Games Section */}
+      {liveGames && liveGames.length > 0 && (
+        <div className="bg-card border-2 border-wordle-correct rounded-xl p-6 mb-8">
+          <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+            <span className="w-3 h-3 bg-wordle-correct rounded-full animate-pulse"></span>
+            Games In Progress (Real-Time)
+          </h2>
+          <div className="space-y-3">
+            {liveGames.map((game, index) => (
+              <div key={index} className="flex items-center justify-between p-4 bg-surface-hover rounded-lg">
+                <div className="flex items-center gap-4">
+                  <div className="text-2xl">
+                    {game.game === 'wordle' ? '📝' : 
+                     game.game === 'connections' ? '🔗' :
+                     game.game === 'crossword' ? '✏️' :
+                     game.game === 'trivia' ? '❓' :
+                     game.game === 'numbers' ? '🔢' : '🎮'}
+                  </div>
+                  <div>
+                    <div className="font-bold">{game.player}</div>
+                    <div className="text-sm text-text-muted capitalize">Playing {game.game}</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold">
+                    {game.progress ? `${Math.round(game.progress * 100)}%` : `${game.attempts || 0} attempts`}
+                  </div>
+                  <div className="text-xs text-text-muted">
+                    {formatTimeAgo(game.timestamp)}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {Object.keys(liveGameDistribution || {}).length > 0 && (
         <div className="bg-card border border-card-border rounded-xl p-6 mb-8">
           <h2 className="text-2xl font-bold mb-4">Games Being Played Right Now</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {Object.entries(activitySummary.gamesPlaying).map(([game, count]) => (
+            {Object.entries(liveGameDistribution).map(([game, count]) => (
               <div key={game} className="bg-surface-hover rounded-lg p-4 text-center">
                 <div className="text-3xl font-bold text-button-primary">{count}</div>
                 <div className="text-sm text-text-muted capitalize mt-2">{game}</div>
@@ -347,9 +443,17 @@ function renderContent({
   );
 }
 
-function MetricCard({ label, value, icon, color }) {
+function MetricCard({ label, value, icon, color, live = false }) {
   return (
-    <div className={`${color} border rounded-xl p-6`}>
+    <div className={`${color} border rounded-xl p-6 ${live ? 'relative overflow-hidden' : ''}`}>
+      {live && (
+        <div className="absolute top-2 right-2">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-wordle-correct/20 text-wordle-correct text-xs rounded-full">
+            <span className="w-1.5 h-1.5 bg-wordle-correct rounded-full animate-pulse"></span>
+            LIVE
+          </span>
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <div>
           <div className="text-3xl font-bold text-foreground">{value}</div>
@@ -446,4 +550,14 @@ function formatRelativeTime(timestamp, short = false) {
   if (hours > 0) return short ? `${hours}h ago` : `${hours} hour${hours === 1 ? '' : 's'} ago`;
   if (minutes > 0) return short ? `${minutes}m ago` : `${minutes} minute${minutes === 1 ? '' : 's'} ago`;
   return 'Just now';
+}
+
+function formatTimeAgo(timestamp) {
+  if (!timestamp) return '';
+  const seconds = Math.floor((Date.now() - timestamp) / 1000);
+  if (seconds < 60) return `${seconds}s ago`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  return `${hours}h ago`;
 }
