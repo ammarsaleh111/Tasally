@@ -3,8 +3,8 @@
     {
       "userId": "user_1768241888057_s7bvpex9n",
       "name": "asad",
-      "lastSeen": "2026-01-13T01:04:43.224Z",
-      "currentPage": "admin",
+      "lastSeen": "2026-01-14T21:11:39.518Z",
+      "currentPage": "game:wordle",
       "currentGame": null,
       "activities": [
         {
@@ -941,6 +941,71 @@
           "page": "admin",
           "game": null,
           "timestamp": "2026-01-13T01:04:43.224Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-14T21:08:07.044Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-14T21:08:08.830Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-01-14T21:08:15.627Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": null,
+          "timestamp": "2026-01-14T21:08:38.832Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": null,
+          "timestamp": "2026-01-14T21:09:08.832Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": null,
+          "timestamp": "2026-01-14T21:09:39.519Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": null,
+          "timestamp": "2026-01-14T21:10:08.831Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": null,
+          "timestamp": "2026-01-14T21:10:39.519Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": null,
+          "timestamp": "2026-01-14T21:11:08.833Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-01-14T21:11:21.215Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-01-14T21:11:26.606Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-01-14T21:11:31.881Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": null,
+          "timestamp": "2026-01-14T21:11:39.518Z"
         }
       ]
     },

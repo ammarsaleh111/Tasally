@@ -3,34 +3,34 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Modal from './Modal';
 import {
-  getLearningLog,
-  getWordsByGame,
+  getTodaysWords,
+  getSavedWords,
   searchWords,
   toggleFavorite,
   isFavorite,
   fetchDefinition,
   getLearningLogStats,
-  getWordsByDate,
   WORD_GAMES,
+  performDailyCleanup,
 } from '@/utils/learningLogEngine';
 
 /**
- * LearningLogModal - Modal to view and manage learned words
+ * LearningLogModal - Daily, Intentional Learning Log
  * 
  * Features:
- * - Today's Words tab (words from current day)
- * - Favorites tab (starred words that persist)
- * - All Words tab
- * - Auto-fetch definitions
- * - Search and filter
+ * - Today tab: Temporary words that expire at end of day
+ * - Saved tab: Permanent favorites that persist
+ * - Clear distinction between temporary and permanent
+ * - Favoriting is explicit and intentional
  */
 const LearningLogModal = ({ isOpen, onClose, gameName }) => {
-  const [words, setWords] = useState([]);
-  const [filteredWords, setFilteredWords] = useState([]);
+  const [todaysWords, setTodaysWords] = useState([]);
+  const [savedWords, setSavedWords] = useState([]);
+  const [filteredToday, setFilteredToday] = useState([]);
+  const [filteredSaved, setFilteredSaved] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState('today'); // 'today', 'favorites', 'all'
+  const [activeTab, setActiveTab] = useState('today'); // 'today', 'saved'
   const [gameFilter, setGameFilter] = useState(gameName || 'all');
-  const [favorites, setFavorites] = useState(new Set());
   const [loadingDefinitions, setLoadingDefinitions] = useState(new Set());
   const [stats, setStats] = useState(null);
 
@@ -39,52 +39,43 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
     return new Date().toISOString().split('T')[0];
   };
 
-  // Filter words based on tab, search, and game
-  const filterWords = useCallback((wordList, query, game, tab, favSet) => {
+  // Filter words based on search and game
+  const filterWords = useCallback((wordList, query, game) => {
     let filtered = [...wordList];
-    
-    // Apply tab filter
-    if (tab === 'today') {
-      const today = getTodayDateString();
-      filtered = filtered.filter(w => w.dateAdded.startsWith(today));
-    } else if (tab === 'favorites') {
-      filtered = filtered.filter(w => favSet.has(w.word));
-    }
-    
+
     // Apply game filter
     if (game !== 'all') {
-      filtered = filtered.filter(w => w.games.includes(game));
+      filtered = filtered.filter(w => w.game === game);
     }
-    
+
     // Apply search filter
     if (query.trim()) {
       const normalizedQuery = query.toUpperCase().trim();
-      filtered = filtered.filter(w => 
+      filtered = filtered.filter(w =>
         w.word.includes(normalizedQuery) ||
         (w.definition && w.definition.toLowerCase().includes(query.toLowerCase()))
       );
     }
-    
-    // Sort: favorites first (if not on favorites tab), then by date (newest first)
-    filtered.sort((a, b) => {
-      if (tab !== 'favorites') {
-        const aFav = favSet.has(a.word);
-        const bFav = favSet.has(b.word);
-        if (aFav !== bFav) return bFav - aFav;
-      }
-      return new Date(b.dateAdded) - new Date(a.dateAdded);
-    });
-    
-    setFilteredWords(filtered);
+
+    // Sort by date (newest first)
+    filtered.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+
+    return filtered;
   }, []);
 
   const loadWords = useCallback(() => {
-    const log = getLearningLog();
-    setWords(log.words);
-    setFavorites(new Set(log.favorites));
+    performDailyCleanup();
+    
+    const today = getTodaysWords();
+    const saved = getSavedWords();
+    
+    setTodaysWords(today);
+    setSavedWords(saved);
     setStats(getLearningLogStats());
-    filterWords(log.words, searchQuery, gameFilter, activeTab, new Set(log.favorites));
-  }, [searchQuery, gameFilter, activeTab, filterWords]);
+    
+    setFilteredToday(filterWords(today, searchQuery, gameFilter));
+    setFilteredSaved(filterWords(saved, searchQuery, gameFilter));
+  }, [searchQuery, gameFilter, filterWords]);
 
   // Load words on mount and when modal opens
   useEffect(() => {
@@ -93,21 +84,23 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
     }
   }, [isOpen, loadWords]);
 
-  // Re-filter when search, filter, or tab change
+  // Re-filter when search or filter change
   useEffect(() => {
-    filterWords(words, searchQuery, gameFilter, activeTab, favorites);
-  }, [words, searchQuery, gameFilter, activeTab, favorites, filterWords]);
+    setFilteredToday(filterWords(todaysWords, searchQuery, gameFilter));
+    setFilteredSaved(filterWords(savedWords, searchQuery, gameFilter));
+  }, [todaysWords, savedWords, searchQuery, gameFilter, filterWords]);
 
   // Auto-fetch definitions for words without them (up to 3 at a time)
   useEffect(() => {
-    if (!isOpen || filteredWords.length === 0) return;
-    
-    const wordsNeedingDefinitions = filteredWords
-      .filter(w => !w.definition && !w.definitionFetched && !loadingDefinitions.has(w.word))
+    if (!isOpen) return;
+
+    const allWords = activeTab === 'today' ? filteredToday : filteredSaved;
+    const wordsNeedingDefinitions = allWords
+      .filter(w => !w.definition && !loadingDefinitions.has(w.word))
       .slice(0, 3);
-    
+
     if (wordsNeedingDefinitions.length === 0) return;
-    
+
     wordsNeedingDefinitions.forEach(async (wordEntry) => {
       setLoadingDefinitions(prev => new Set([...prev, wordEntry.word]));
       try {
@@ -123,26 +116,18 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
         });
       }
     });
-  }, [isOpen, filteredWords, loadingDefinitions, loadWords]);
+  }, [isOpen, filteredToday, filteredSaved, activeTab, loadingDefinitions, loadWords]);
 
   // Handle favorite toggle
   const handleToggleFavorite = (word) => {
-    const newFavoriteStatus = toggleFavorite(word);
-    setFavorites(prev => {
-      const next = new Set(prev);
-      if (newFavoriteStatus) {
-        next.add(word);
-      } else {
-        next.delete(word);
-      }
-      return next;
-    });
+    toggleFavorite(word);
+    loadWords(); // Reload to move between sections
   };
 
   // Handle manual definition fetch
   const handleFetchDefinition = async (word) => {
     if (loadingDefinitions.has(word)) return;
-    
+
     setLoadingDefinitions(prev => new Set([...prev, word]));
     try {
       await fetchDefinition(word);
@@ -158,11 +143,6 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
     }
   };
 
-  // Count words for each tab
-  const todayCount = words.filter(w => w.dateAdded.startsWith(getTodayDateString())).length;
-  const favoritesCount = favorites.size;
-  const allCount = words.length;
-
   // Game display names
   const gameNames = {
     wordle: 'Wordle',
@@ -175,14 +155,14 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
   };
 
   return (
-    <Modal 
-      isOpen={isOpen} 
-      onClose={onClose} 
-      title="📘 Learning Log"
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="📚 Learning Log"
       wide
     >
       <div className="space-y-4">
-        {/* Tab Navigation */}
+        {/* Tab Navigation - Two tabs only: Today and Saved */}
         <div className="flex gap-1 p-1 bg-surface rounded-lg">
           <button
             onClick={() => setActiveTab('today')}
@@ -192,27 +172,17 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
                 : 'text-text-muted hover:bg-surface-hover'
             }`}
           >
-            📅 Today ({todayCount})
+            📅 Today ({todaysWords.length})
           </button>
           <button
-            onClick={() => setActiveTab('favorites')}
+            onClick={() => setActiveTab('saved')}
             className={`flex-1 py-2 px-3 rounded-md text-sm font-semibold transition-all ${
-              activeTab === 'favorites'
+              activeTab === 'saved'
                 ? 'bg-wordle-present text-black shadow-sm'
                 : 'text-text-muted hover:bg-surface-hover'
             }`}
           >
-            ⭐ Favorites ({favoritesCount})
-          </button>
-          <button
-            onClick={() => setActiveTab('all')}
-            className={`flex-1 py-2 px-3 rounded-md text-sm font-semibold transition-all ${
-              activeTab === 'all'
-                ? 'bg-connections-purple text-white shadow-sm'
-                : 'text-text-muted hover:bg-surface-hover'
-            }`}
-          >
-            📚 All ({allCount})
+            ⭐ Saved Words ({savedWords.length})
           </button>
         </div>
 
@@ -245,54 +215,62 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
 
         {/* Word List */}
         <div className="max-h-80 overflow-y-auto space-y-2">
-          {filteredWords.length === 0 ? (
-            <div className="text-center py-8 text-text-muted">
-              {activeTab === 'today' && todayCount === 0 ? (
-                <>
-                  <div className="text-4xl mb-2">📅</div>
-                  <p className="font-semibold">No words learned today yet!</p>
-                  <p className="text-sm">Complete puzzles to add words to your daily log.</p>
-                </>
-              ) : activeTab === 'favorites' && favoritesCount === 0 ? (
-                <>
-                  <div className="text-4xl mb-2">⭐</div>
-                  <p className="font-semibold">No favorites yet!</p>
-                  <p className="text-sm">Star words you want to remember forever.</p>
-                </>
-              ) : words.length === 0 ? (
-                <>
-                  <div className="text-4xl mb-2">📚</div>
-                  <p className="font-semibold">No words learned yet!</p>
-                  <p className="text-sm">Complete puzzles to add words to your log.</p>
-                </>
-              ) : (
-                <>
-                  <div className="text-4xl mb-2">🔍</div>
-                  <p>No words match your search.</p>
-                </>
-              )}
-            </div>
+          {activeTab === 'today' ? (
+            // Today's words - temporary section
+            filteredToday.length === 0 ? (
+              <div className="text-center py-8 text-text-muted">
+                <div className="text-4xl mb-2">📅</div>
+                <p className="font-semibold">No words today yet!</p>
+                <p className="text-sm">Complete puzzles to add words to your daily workspace.</p>
+              </div>
+            ) : (
+              <>
+                <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3 text-xs text-blue-600 mb-2">
+                  💡 These words will disappear at the end of the day unless you save them with ⭐
+                </div>
+                {filteredToday.map((wordEntry) => (
+                  <WordCard
+                    key={wordEntry.word}
+                    wordEntry={wordEntry}
+                    isFavorited={isFavorite(wordEntry.word)}
+                    onToggleFavorite={() => handleToggleFavorite(wordEntry.word)}
+                    onFetchDefinition={() => handleFetchDefinition(wordEntry.word)}
+                    isLoadingDefinition={loadingDefinitions.has(wordEntry.word)}
+                    gameNames={gameNames}
+                    isTemporary={true}
+                  />
+                ))}
+              </>
+            )
           ) : (
-            filteredWords.map((wordEntry) => (
-              <WordCard
-                key={wordEntry.word}
-                wordEntry={wordEntry}
-                isFavorited={favorites.has(wordEntry.word)}
-                onToggleFavorite={() => handleToggleFavorite(wordEntry.word)}
-                onFetchDefinition={() => handleFetchDefinition(wordEntry.word)}
-                isLoadingDefinition={loadingDefinitions.has(wordEntry.word)}
-                gameNames={gameNames}
-              />
-            ))
+            // Saved words - permanent section
+            filteredSaved.length === 0 ? (
+              <div className="text-center py-8 text-text-muted">
+                <div className="text-4xl mb-2">⭐</div>
+                <p className="font-semibold">No saved words yet!</p>
+                <p className="text-sm">Star words in Today&apos;s section to keep them forever.</p>
+              </div>
+            ) : (
+              <>
+                <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3 text-xs text-yellow-700 mb-2">
+                  ⭐ These are your permanent vocabulary words. They&apos;ll never disappear!
+                </div>
+                {filteredSaved.map((wordEntry) => (
+                  <WordCard
+                    key={wordEntry.word}
+                    wordEntry={wordEntry}
+                    isFavorited={isFavorite(wordEntry.word)}
+                    onToggleFavorite={() => handleToggleFavorite(wordEntry.word)}
+                    onFetchDefinition={() => handleFetchDefinition(wordEntry.word)}
+                    isLoadingDefinition={loadingDefinitions.has(wordEntry.word)}
+                    gameNames={gameNames}
+                    isTemporary={false}
+                  />
+                ))}
+              </>
+            )
           )}
         </div>
-
-        {/* Info for favorites tab */}
-        {activeTab === 'favorites' && favoritesCount > 0 && (
-          <div className="text-center text-xs text-text-muted bg-wordle-present/10 rounded-lg p-2">
-            ⭐ Favorites are saved permanently and won&apos;t be cleared
-          </div>
-        )}
 
         {/* Close Button */}
         <button
@@ -309,23 +287,30 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
 /**
  * WordCard - Individual word entry in the learning log
  */
-const WordCard = ({ 
-  wordEntry, 
-  isFavorited, 
-  onToggleFavorite, 
-  onFetchDefinition, 
+const WordCard = ({
+  wordEntry,
+  isFavorited,
+  onToggleFavorite,
+  onFetchDefinition,
   isLoadingDefinition,
   gameNames,
+  isTemporary,
 }) => {
   return (
-    <div className="border border-card-border rounded-lg p-3 bg-card hover:border-wordle-correct/50 transition-colors">
+    <div className={`border rounded-lg p-3 transition-all ${
+      isTemporary
+        ? 'border-blue-300/50 bg-blue-50/30 hover:border-blue-400/70'
+        : 'border-yellow-300/50 bg-yellow-50/30 hover:border-yellow-400/70'
+    }`}>
       <div className="flex items-center justify-between gap-2">
         {/* Word and favorite */}
         <div className="flex items-center gap-2 min-w-0">
           <button
             onClick={onToggleFavorite}
-            className="text-xl hover:scale-110 transition-transform flex-shrink-0"
-            title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+            className={`text-xl hover:scale-110 transition-transform flex-shrink-0 ${
+              isFavorited ? 'animate-pulse' : ''
+            }`}
+            title={isFavorited ? 'Unsave word' : 'Save word to permanent collection'}
           >
             {isFavorited ? '⭐' : '☆'}
           </button>
@@ -339,22 +324,11 @@ const WordCard = ({
           </div>
         </div>
 
-        {/* Game badges */}
-        <div className="flex items-center gap-1 flex-shrink-0">
-          {wordEntry.games.slice(0, 2).map(game => (
-            <span
-              key={game}
-              className="text-xs px-2 py-0.5 rounded-full bg-connections-blue/20 text-connections-blue"
-              title={gameNames[game] || game}
-            >
-              {(gameNames[game] || game).slice(0, 3)}
-            </span>
-          ))}
-          {wordEntry.games.length > 2 && (
-            <span className="text-xs text-text-muted">
-              +{wordEntry.games.length - 2}
-            </span>
-          )}
+        {/* Game badge */}
+        <div className="flex-shrink-0">
+          <span className="text-xs px-2 py-0.5 rounded-full bg-connections-blue/20 text-connections-blue">
+            {(gameNames[wordEntry.game] || wordEntry.game).slice(0, 3)}
+          </span>
         </div>
       </div>
 
@@ -376,16 +350,22 @@ const WordCard = ({
         </button>
       )}
 
-      {/* Date - smaller on same line */}
-      <div className="mt-2 text-xs text-text-muted">
-        {new Date(wordEntry.dateAdded).toLocaleDateString('en-US', {
-          month: 'short',
-          day: 'numeric',
-          year: wordEntry.dateAdded.split('-')[0] !== new Date().getFullYear().toString() ? 'numeric' : undefined
-        })}
+      {/* Date and status */}
+      <div className="mt-2 text-xs text-text-muted flex items-center justify-between">
+        <span>
+          {new Date(wordEntry.dateAdded).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: wordEntry.dateAdded.split('-')[0] !== new Date().getFullYear().toString() ? 'numeric' : undefined
+          })}
+        </span>
+        {isTemporary && !isFavorited && (
+          <span className="text-xs text-blue-600">⏰ Expires end of day</span>
+        )}
       </div>
     </div>
   );
 };
 
 export default LearningLogModal;
+

@@ -120,18 +120,93 @@
     "userId": "user_1768241888057_s7bvpex9n",
     "name": "asad",
     "createdAt": "2026-01-12T18:18:08.057Z",
-    "updatedAt": "2026-01-13T01:04:41.468Z",
+    "updatedAt": "2026-01-14T21:11:31.880Z",
     "games": {
       "wordle": {
-        "gamesPlayed": 0,
+        "gamesPlayed": 1,
         "gamesWon": 0,
         "currentStreak": 0,
         "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
+        "lastPlayedDate": "2026-01-14",
+        "history": [
+          {
+            "date": "2026-01-14",
+            "win": false,
+            "attempts": 6,
+            "puzzleId": "unlimited-1768425091880",
+            "guesses": [
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "CHAMP",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "WORDY",
+                "evaluation": [
+                  "correct",
+                  "present",
+                  "absent",
+                  "correct",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "BINKS",
+                "evaluation": [
+                  "absent",
+                  "correct",
+                  "correct",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              }
+            ]
+          }
+        ],
         "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
+        "averageAttempts": "6.00",
+        "totalAttempts": 6,
         "perfectGames": 0
       },
       "connections": {
