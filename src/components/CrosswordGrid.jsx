@@ -127,9 +127,9 @@ const CrosswordGrid = React.memo(({
                   transition-all duration-150 ease-out
                   rounded-sm
                   ${active 
-                    ? 'bg-[var(--crossword-active)] ring-2 ring-[var(--crossword-active-ring)] ring-inset scale-105 z-10 shadow-lg' 
+                    ? 'bg-[hsl(var(--crossword-active))] ring-2 ring-[hsl(var(--crossword-active-ring))] ring-inset scale-105 z-10 shadow-lg' 
                     : highlighted 
-                      ? 'bg-[var(--crossword-highlight)] scale-[1.02]' 
+                      ? 'bg-[hsl(var(--crossword-highlight))] scale-[1.02]' 
                       : 'bg-background hover:bg-surface-hover'
                   }
                   ${!active && !highlighted ? 'hover:scale-[1.02]' : ''}
@@ -140,14 +140,14 @@ const CrosswordGrid = React.memo(({
                   <span className={`
                     absolute top-0.5 left-1 text-[10px] font-bold
                     transition-colors duration-150
-                    ${active ? 'text-[var(--button-text)]' : 'text-text-muted'}
+                    ${active ? 'text-[hsl(var(--button-text))]' : 'text-text-muted'}
                   `}>
                     {clueNum}
                   </span>
                 )}
                 <span className={`
                   transition-all duration-100
-                  ${active ? 'text-[var(--button-text)]' : 'text-foreground'}
+                  ${active ? 'text-[hsl(var(--button-text))]' : 'text-foreground'}
                   ${hasLetter ? 'animate-pop' : ''}
                 `}>
                   {(userGrid?.[row]?.[col] || '').toUpperCase()}

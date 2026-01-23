@@ -32,7 +32,7 @@ const HowToPlay = ({ isOpen, onClose }) => {
                   key={i}
                   className={`w-10 h-10 border-2 flex items-center justify-center text-lg font-bold ${
                     i === 0 
-                      ? 'bg-wordle-correct border-wordle-correct text-[var(--button-text)]' 
+                      ? 'bg-wordle-correct border-wordle-correct text-[hsl(var(--button-text))]' 
                       : 'border-border-default text-foreground'
                   }`}
                 >
@@ -53,7 +53,7 @@ const HowToPlay = ({ isOpen, onClose }) => {
                   key={i}
                   className={`w-10 h-10 border-2 flex items-center justify-center text-lg font-bold ${
                     i === 1 
-                      ? 'bg-wordle-present border-wordle-present text-[var(--button-text)]' 
+                      ? 'bg-wordle-present border-wordle-present text-[hsl(var(--button-text))]' 
                       : 'border-border-default text-foreground'
                   }`}
                 >
@@ -74,7 +74,7 @@ const HowToPlay = ({ isOpen, onClose }) => {
                   key={i}
                   className={`w-10 h-10 border-2 flex items-center justify-center text-lg font-bold ${
                     i === 2 
-                      ? 'bg-wordle-absent border-wordle-absent text-[var(--button-text)]' 
+                      ? 'bg-wordle-absent border-wordle-absent text-[hsl(var(--button-text))]' 
                       : 'border-border-default text-foreground'
                   }`}
                 >
@@ -95,7 +95,7 @@ const HowToPlay = ({ isOpen, onClose }) => {
         {/* Close Button */}
         <button 
           onClick={onClose}
-          className="w-full py-3 rounded-lg bg-[var(--button-primary)] text-[var(--button-text)] font-bold hover:bg-[var(--button-primary-hover)] transition-all"
+          className="w-full py-3 rounded-lg bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))] font-bold hover:bg-[hsl(var(--button-primary-hover))] transition-all"
         >
           Got It!
         </button>

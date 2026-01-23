@@ -28,7 +28,7 @@ export default function Home() {
               href="/games" 
               className="
                   inline-block px-8 py-4 
-                  bg-[var(--button-primary)] text-[var(--button-text)] 
+                bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))] 
                   rounded-full font-bold text-lg 
                   shadow-[0_0_20px_rgba(106,170,100,0.3)] 
                   hover:shadow-[0_0_30px_rgba(106,170,100,0.5)] 

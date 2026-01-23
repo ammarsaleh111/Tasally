@@ -52,7 +52,7 @@ const Statistics = ({ isOpen, onClose, stats }) => {
                   <div className="text-sm font-bold w-3 text-foreground">{guess}</div>
                   <div className="flex-1 flex items-center">
                     <div 
-                      className="bg-text-muted text-[var(--button-text)] text-xs font-bold px-2 py-1 rounded min-w-[2rem] text-right transition-all duration-300"
+                      className="bg-text-muted text-[hsl(var(--button-text))] text-xs font-bold px-2 py-1 rounded min-w-[2rem] text-right transition-all duration-300"
                       style={{ 
                         width: `${Math.max(percentage, count > 0 ? 8 : 0)}%`,
                         backgroundColor: count > 0 ? 'var(--wordle-correct)' : 'var(--text-muted)'
@@ -70,7 +70,7 @@ const Statistics = ({ isOpen, onClose, stats }) => {
         {/* Close Button */}
         <button 
           onClick={onClose}
-          className="w-full py-3 rounded-lg bg-[var(--button-primary)] text-[var(--button-text)] font-bold hover:bg-[var(--button-primary-hover)] transition-all"
+          className="w-full py-3 rounded-lg bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))] font-bold hover:bg-[hsl(var(--button-primary-hover))] transition-all"
         >
           Close
         </button>

@@ -1,112 +1,225 @@
 @import "tailwindcss";
 
-:root {
-  /* --- Light Theme (Clean & Crisp) --- */
-  --background: #ffffff;
-  --foreground: #111827; /* Gray 900 - Soft Black */
+/* 
+  Premium Puzzle Platform Design System
+  Deep Navy Blue Theme with Harmonized Game Colors
+  All colors in HSL for proper theming
+*/
 
-  /* UI Elements */
-  --key-bg: #e2e8f0; /* Slate 200 */
-  --key-bg-hover: #cbd5e1; /* Slate 300 */
-  --key-text: #0f172a; /* Slate 900 */
+@layer base {
+  :root {
+    /* --- Light Theme (Clean & Crisp with Subtle Blue Undertones) --- */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
 
-  --border-default: #e2e8f0; /* Slate 200 */
-  --border-active: #94a3b8; /* Slate 400 */
+    /* Surface Layers */
+    --card: 210 40% 98%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --surface-elevated: 210 40% 99%;
 
-  --text-muted: #64748b; /* Slate 500 */
-  --card-bg: #f8fafc; /* Slate 50 */
-  --card-border: #e2e8f0; /* Slate 200 */
-  --surface-hover: #f1f5f9; /* Slate 100 */
+    /* Primary & Secondary */
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 215 25% 93%;
+    --secondary-foreground: 222 47% 11%;
 
-  /* Button & Interactive States */
-  --button-primary: #6aaa64;
-  --button-primary-hover: #5a9454;
-  --button-text: #ffffff;
+    /* Muted & Accent */
+    --muted: 215 25% 93%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 215 25% 93%;
+    --accent-foreground: 222 47% 11%;
 
-  /* Toast & Feedback */
-  --toast-bg: #1e293b; /* Slate 800 */
-  --toast-fg: #f8fafc;
-  --toast-border: #334155; /* Slate 700 */
+    /* Semantic Colors */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 53% 48%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 100%;
 
-  /* Crossword Specific */
-  --crossword-active: #60a5fa; /* Blue 400 */
-  --crossword-active-ring: #2563eb; /* Blue 600 */
-  --crossword-highlight: #dbeafe; /* Blue 100 */
-  --crossword-black: #111827;
+    /* Borders & Inputs */
+    --border: 215 25% 88%;
+    --input: 215 25% 88%;
+    --ring: 222 47% 11%;
+    --focus-ring: 217 91% 60%;
 
-  /* Graph & Stats */
-  --graph-bar: #94a3b8; /* Slate 400 */
-  --graph-bg: #f1f5f9; /* Slate 100 */
+    /* UI Elements */
+    --key-bg: 215 25% 90%;
+    --key-bg-hover: 215 20% 85%;
+    --key-text: 222 47% 11%;
+    --border-default: 215 25% 88%;
+    --border-active: 215 20% 65%;
+    --text-muted: 215 16% 47%;
+    --card-bg: 210 40% 98%;
+    --card-border: 215 25% 88%;
+    --surface-hover: 215 25% 95%;
 
-  /* Connections Colors - Light */
-  --connections-yellow: #f9df6d;
-  --connections-green: #a0c35a;
-  --connections-blue: #b0c4ef;
-  --connections-purple: #ba81c5;
-  --connections-text-light: #0f172a;
-  --connections-text-dark: #ffffff;
+    /* Button & Interactive States */
+    --button-primary: 142 43% 54%;
+    --button-primary-hover: 142 43% 46%;
+    --button-text: 0 0% 100%;
 
-  /* Game Colors - Light */
-  --wordle-correct: #6aaa64;
-  --wordle-present: #c9b458;
-  --wordle-absent: #787c7e;
-  --wordle-tile-border: #cbd5e1; /* Slate 300 */
-  --wordle-tile-bg-filled: #ffffff;
+    /* Toast & Feedback */
+    --toast-bg: 222 47% 15%;
+    --toast-fg: 210 40% 98%;
+    --toast-border: 222 35% 25%;
 
-  /* Strands Ribbon Colors - Light */
-  --strands-ribbon: #3b82f6; /* Blue 500 */
-  --strands-glow: rgba(59, 130, 246, 0.5);
-  --strands-spangram-ribbon: #f59e0b; /* Amber 500 */
-  --strands-spangram-glow: rgba(245, 158, 11, 0.5);
-  --strands-word-locked: #22c55e; /* Green 500 */
-  --strands-bonus-locked: #8b5cf6; /* Violet 500 */
-  --strands-hover: #93c5fd; /* Blue 300 */
-}
+    /* Crossword Specific */
+    --crossword-active: 217 91% 68%;
+    --crossword-active-ring: 217 91% 50%;
+    --crossword-highlight: 217 91% 93%;
+    --crossword-black: 222 47% 11%;
 
-:root.dark {
-  /* --- Dark Theme (Deep Navy Blue) --- */
-  --background: #0f172a; /* Slate 900 */
-  --foreground: #f8fafc; /* Slate 50 */
+    /* Graph & Stats */
+    --graph-bar: 215 20% 65%;
+    --graph-bg: 215 25% 95%;
 
-  /* UI Elements - Dark */
-  --key-bg: #1e293b; /* Slate 800 */
-  --key-bg-hover: #334155; /* Slate 700 */
-  --key-text: #f8fafc;
+    /* Connections Colors - Light (Softened & Harmonized) */
+    --connections-yellow: 48 88% 66%;
+    --connections-green: 84 48% 52%;
+    --connections-blue: 220 60% 78%;
+    --connections-purple: 290 35% 60%;
+    --connections-text-light: 222 47% 11%;
+    --connections-text-dark: 0 0% 100%;
 
-  --border-default: #1e293b; /* Slate 800 - Blend in */
-  --border-active: #64748b; /* Slate 500 - Pop out */
+    /* Wordle Colors - Light (Unified Green Family) */
+    --wordle-correct: 142 43% 54%;
+    --wordle-present: 45 70% 55%;
+    --wordle-absent: 215 14% 50%;
+    --wordle-tile-border: 215 20% 80%;
+    --wordle-tile-bg-filled: 0 0% 100%;
 
-  --text-muted: #94a3b8; /* Slate 400 */
-  --card-bg: #1e293b; /* Slate 800 */
-  --card-border: #334155; /* Slate 700 */
-  --surface-hover: #334155; /* Slate 700 */
+    /* Strands Ribbon Colors - Light (Cohesive Blues & Accents) */
+    --strands-ribbon: 217 91% 60%;
+    --strands-glow: 217 91% 60% / 0.4;
+    --strands-spangram-ribbon: 38 80% 55%;
+    --strands-spangram-glow: 38 80% 55% / 0.4;
+    --strands-word-locked: 142 53% 48%;
+    --strands-bonus-locked: 258 65% 58%;
+    --strands-hover: 217 91% 80%;
 
-  /* Button & Interactive States */
-  --button-primary: #538d4e;
-  --button-primary-hover: #4a7d46;
-  --button-text: #ffffff;
+    /* Sidebar */
+    --sidebar-background: 210 40% 98%;
+    --sidebar-foreground: 215 16% 30%;
+    --sidebar-primary: 222 47% 11%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 215 25% 93%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 215 20% 91%;
+    --sidebar-ring: 217 91% 60%;
 
-  /* Toast & Feedback */
-  --toast-bg: #f8fafc; /* Slate 50 */
-  --toast-fg: #0f172a;
-  --toast-border: #e2e8f0; /* Slate 200 */
+    --radius: 0.625rem;
+  }
 
-  /* Crossword Specific */
-  --crossword-active: #60a5fa; /* Blue 400 */
-  --crossword-active-ring: #2563eb; /* Blue 600 */
-  --crossword-highlight: #1e3a8a; /* Blue 900/50 */
-  --crossword-black: #0f172a;
+  .dark {
+    /* --- Dark Theme (Deep Navy Blue - Premium & Calm) --- */
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
 
-  /* Graph & Stats */
-  --graph-bar: #64748b; /* Slate 500 */
-  --graph-bg: #1e293b; /* Slate 800 */
+    /* Surface Layers (3-tier system) */
+    --card: 222 40% 14%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 40% 14%;
+    --popover-foreground: 210 40% 98%;
+    --surface-elevated: 222 35% 18%;
 
-  /* Connections Colors - Dark */
-  --connections-yellow: #d4c05e;
-  --connections-green: #8aae4a;
-  --connections-blue: #9aaedf;
-  --connections-purple: #a66fb0;
-  --connections-text-light: #0f172a;
+    /* Primary & Secondary */
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
+    --secondary: 222 35% 20%;
+    --secondary-foreground: 210 40% 98%;
+
+    /* Muted & Accent */
+    --muted: 222 35% 20%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 222 35% 20%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Semantic Colors */
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 210 40% 98%;
+    --success: 142 50% 42%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 85% 48%;
+    --warning-foreground: 0 0% 100%;
+    --info: 217 80% 55%;
+    --info-foreground: 0 0% 100%;
+
+    /* Borders & Inputs */
+    --border: 222 35% 20%;
+    --input: 222 35% 20%;
+    --ring: 215 20% 65%;
+    --focus-ring: 217 80% 55%;
+
+    /* UI Elements - Dark */
+    --key-bg: 222 40% 14%;
+    --key-bg-hover: 222 35% 22%;
+    --key-text: 210 40% 98%;
+    --border-default: 222 35% 20%;
+    --border-active: 215 20% 50%;
+    --text-muted: 215 20% 65%;
+    --card-bg: 222 40% 14%;
+    --card-border: 222 35% 22%;
+    --surface-hover: 222 35% 22%;
+
+    /* Button & Interactive States */
+    --button-primary: 142 43% 42%;
+    --button-primary-hover: 142 43% 36%;
+    --button-text: 0 0% 100%;
+
+    /* Toast & Feedback */
+    --toast-bg: 210 40% 98%;
+    --toast-fg: 222 47% 11%;
+    --toast-border: 215 25% 88%;
+
+    /* Crossword Specific */
+    --crossword-active: 217 80% 60%;
+    --crossword-active-ring: 217 80% 50%;
+    --crossword-highlight: 222 60% 25%;
+    --crossword-black: 222 47% 11%;
+
+    /* Graph & Stats */
+    --graph-bar: 215 20% 50%;
+    --graph-bg: 222 40% 14%;
+
+    /* Connections Colors - Dark (Softer, Less Muddy) */
+    --connections-yellow: 48 75% 58%;
+    --connections-green: 84 45% 48%;
+    --connections-blue: 220 55% 65%;
+    --connections-purple: 290 35% 55%;
+    --connections-text-light: 222 47% 11%;
+    --connections-text-dark: 0 0% 100%;
+
+    /* Wordle Colors - Dark (Same Green Family, Adjusted Brightness) */
+    --wordle-correct: 142 43% 42%;
+    --wordle-present: 45 65% 48%;
+    --wordle-absent: 222 25% 35%;
+    --wordle-tile-border: 222 35% 25%;
+    --wordle-tile-bg-filled: 222 40% 14%;
+
+    /* Strands Ribbon Colors - Dark */
+    --strands-ribbon: 217 80% 55%;
+    --strands-glow: 217 80% 55% / 0.5;
+    --strands-spangram-ribbon: 38 75% 50%;
+    --strands-spangram-glow: 38 75% 50% / 0.5;
+    --strands-word-locked: 142 50% 42%;
+    --strands-bonus-locked: 258 60% 55%;
+    --strands-hover: 217 70% 45%;
+
+    /* Sidebar - Dark */
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 215 20% 75%;
+    --sidebar-primary: 217 80% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 35% 18%;
+    --sidebar-accent-foreground: 215 20% 75%;
+    --sidebar-border: 222 35% 18%;
+    --sidebar-ring: 217 80% 55%;
+  }
 }
 
 /* Crossword Grid Scaling */
@@ -127,77 +240,89 @@
     width: min(90vw, 340px);
   }
 }
-:root.dark {
-  --connections-text-dark: #ffffff;
-
-  /* Game Colors - Dark */
-  --wordle-correct: #538d4e;
-  --wordle-present: #b59f3b;
-  --wordle-absent: #3f3f46; /* Zinc 700 - Distinct Neutral */
-  --wordle-tile-border: #334155; /* Slate 700 */
-  --wordle-tile-bg-filled: #0f172a; /* Transparent/Matches BG */
-
-  /* Strands Ribbon Colors - Dark */
-  --strands-ribbon: #60a5fa; /* Blue 400 */
-  --strands-glow: rgba(96, 165, 250, 0.5);
-  --strands-spangram-ribbon: #fbbf24; /* Amber 400 */
-  --strands-spangram-glow: rgba(251, 191, 36, 0.5);
-  --strands-word-locked: #4ade80; /* Green 400 */
-  --strands-bonus-locked: #a78bfa; /* Violet 400 */
-  --strands-hover: #93c5fd; /* Blue 300 */
-}
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  /* Core semantic system (shadcn-style tokens) */
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+  --color-warning: hsl(var(--warning));
+  --color-warning-foreground: hsl(var(--warning-foreground));
+  --color-info: hsl(var(--info));
+  --color-info-foreground: hsl(var(--info-foreground));
+
+  /* Game tokens (used as Tailwind colors) */
+  --color-strands-ribbon: hsl(var(--strands-ribbon));
+  --color-strands-bonus: hsl(var(--strands-bonus-locked));
 
   /* New Semantic Colors */
-  --color-key: var(--key-bg);
-  --color-key-hover: var(--key-bg-hover);
-  --color-key-fg: var(--key-text);
+  --color-key: hsl(var(--key-bg));
+  --color-key-hover: hsl(var(--key-bg-hover));
+  --color-key-fg: hsl(var(--key-text));
 
-  --color-border-default: var(--border-default);
-  --color-border-active: var(--border-active);
+  --color-border-default: hsl(var(--border-default));
+  --color-border-active: hsl(var(--border-active));
 
-  --color-text-muted: var(--text-muted);
-  --color-card: var(--card-bg);
-  --color-card-border: var(--card-border);
-  --color-surface-hover: var(--surface-hover);
+  --color-text-muted: hsl(var(--text-muted));
+  --color-card: hsl(var(--card-bg));
+  --color-card-border: hsl(var(--card-border));
+  --color-surface-hover: hsl(var(--surface-hover));
 
   /* Button & Interactive */
-  --color-button-primary: var(--button-primary);
-  --color-button-primary-hover: var(--button-primary-hover);
-  --color-button-text: var(--button-text);
+  --color-button-primary: hsl(var(--button-primary));
+  --color-button-primary-hover: hsl(var(--button-primary-hover));
+  --color-button-text: hsl(var(--button-text));
 
   /* Toast */
-  --color-toast-bg: var(--toast-bg);
-  --color-toast-fg: var(--toast-fg);
-  --color-toast-border: var(--toast-border);
+  --color-toast-bg: hsl(var(--toast-bg));
+  --color-toast-fg: hsl(var(--toast-fg));
+  --color-toast-border: hsl(var(--toast-border));
 
   /* Crossword */
-  --color-crossword-active: var(--crossword-active);
-  --color-crossword-active-ring: var(--crossword-active-ring);
-  --color-crossword-highlight: var(--crossword-highlight);
-  --color-crossword-black: var(--crossword-black);
+  --color-crossword-active: hsl(var(--crossword-active));
+  --color-crossword-active-ring: hsl(var(--crossword-active-ring));
+  --color-crossword-highlight: hsl(var(--crossword-highlight));
+  --color-crossword-black: hsl(var(--crossword-black));
 
   /* Graph */
-  --color-graph-bar: var(--graph-bar);
-  --color-graph-bg: var(--graph-bg);
+  --color-graph-bar: hsl(var(--graph-bar));
+  --color-graph-bg: hsl(var(--graph-bg));
 
   /* Connections */
-  --color-connections-yellow: var(--connections-yellow);
-  --color-connections-green: var(--connections-green);
-  --color-connections-blue: var(--connections-blue);
-  --color-connections-purple: var(--connections-purple);
-  --color-connections-text-light: var(--connections-text-light);
-  --color-connections-text-dark: var(--connections-text-dark);
+  --color-connections-yellow: hsl(var(--connections-yellow));
+  --color-connections-green: hsl(var(--connections-green));
+  --color-connections-blue: hsl(var(--connections-blue));
+  --color-connections-purple: hsl(var(--connections-purple));
+  --color-connections-text-light: hsl(var(--connections-text-light));
+  --color-connections-text-dark: hsl(var(--connections-text-dark));
 
   /* Game Colors */
-  --color-wordle-correct: var(--wordle-correct);
-  --color-wordle-present: var(--wordle-present);
-  --color-wordle-absent: var(--wordle-absent);
-  --color-wordle-border: var(--wordle-tile-border);
-  --color-wordle-filled: var(--wordle-tile-bg-filled);
+  --color-wordle-correct: hsl(var(--wordle-correct));
+  --color-wordle-present: hsl(var(--wordle-present));
+  --color-wordle-absent: hsl(var(--wordle-absent));
+  --color-wordle-border: hsl(var(--wordle-tile-border));
+  --color-wordle-filled: hsl(var(--wordle-tile-bg-filled));
 
   --animate-fade-in-up: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-pop: pop 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -380,8 +505,8 @@
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-family: Arial, Helvetica, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }

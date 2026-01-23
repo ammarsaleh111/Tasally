@@ -3,15 +3,22 @@
 import React from 'react';
 import { getAchievementById } from '@/utils/achievementsEngine';
 
-const AchievementBadge = ({ achievementId, unlocked = false, unlockedAt = null, compact = false }) => {
-  const achievement = getAchievementById(achievementId);
+const AchievementBadge = ({
+  achievementId,
+  achievement: achievementProp = null,
+  unlocked = false,
+  unlockedAt = null,
+  compact = false,
+  className = '',
+}) => {
+  const achievement = achievementProp ?? getAchievementById(achievementId);
 
   if (!achievement) return null;
 
   if (compact) {
     return (
       <div
-        className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg ${
+        className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg ${className} ${
           unlocked
             ? 'bg-wordle-present border-2 border-wordle-correct'
             : 'bg-card border-2 border-border-default opacity-50'
@@ -28,7 +35,7 @@ const AchievementBadge = ({ achievementId, unlocked = false, unlockedAt = null, 
 
   return (
     <div
-      className={`p-4 rounded-xl transition-all ${
+      className={`p-4 rounded-xl transition-all ${className} ${
         unlocked
           ? 'bg-wordle-present border-2 border-wordle-correct shadow-lg'
           : 'bg-card border-2 border-border-default opacity-60'

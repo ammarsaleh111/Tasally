@@ -45,14 +45,13 @@ export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState(null);
   const [unlockedAchievements, setUnlockedAchievements] = useState([]);
-  const [activeTab, setActiveTab] = useState('overview'); // overview, stats, achievements, settings, feedback
+  const [activeTab, setActiveTab] = useState('overview');
   const [showFeedback, setShowFeedback] = useState(false);
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
   const [currentAvatarId, setCurrentAvatarId] = useState(null);
 
   useEffect(() => {
     const loadProfile = () => {
-      // Ensure avatar field exists for existing users
       ensureAvatarField();
       
       const userProfile = getProfile();
@@ -71,7 +70,6 @@ export default function ProfilePage() {
   const handleAvatarChange = (newAvatarId) => {
     setAvatar(newAvatarId);
     setCurrentAvatarId(newAvatarId);
-    // Update local profile state as well
     setProfile(prev => ({ ...prev, avatarId: newAvatarId }));
   };
 
@@ -79,7 +77,6 @@ export default function ProfilePage() {
     const newValue = !profile.settings.remindersEnabled;
     
     if (newValue) {
-      // Request permission when enabling
       const granted = await requestNotificationPermission();
       if (granted) {
         updateSettings({ remindersEnabled: true });
@@ -89,20 +86,25 @@ export default function ProfilePage() {
         alert('Please enable notifications in your browser settings to receive daily reminders.');
       }
     } else {
-      // Disable reminders
       updateSettings({ remindersEnabled: false });
       setProfile({ ...profile, settings: { ...profile.settings, remindersEnabled: false } });
     }
   };
 
   if (!profile || !stats) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-10 h-10 border-4 border-info border-t-transparent rounded-full animate-spin" />
+          <p className="text-muted-foreground animate-pulse">Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   const statsValues = Object.values(stats || {});
   const totalGames = statsValues.reduce((sum, game) => sum + (game?.gamesPlayed || 0), 0);
   const totalWins = statsValues.reduce((sum, game) => sum + (game?.gamesWon || 0), 0);
-  // Use centralized win rate calculation
   const overallWinRate = calculateWinRate(totalWins, totalGames);
   const bestCurrentStreak = statsValues.reduce((max, game) => {
     const streak = game?.currentStreak || 0;
@@ -112,41 +114,42 @@ export default function ProfilePage() {
   const achievementProgress = Math.round((totalAchievements / ACHIEVEMENTS.length) * 100);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <SiteHeader />
       
-      <div className="max-w-6xl mx-auto px-4 py-8">
+      <main className="max-w-4xl mx-auto px-4 py-8">
         {/* Profile Header with 3D Avatar */}
-        <div className="bg-gradient-to-r from-wordle-correct to-connections-purple rounded-2xl p-8 text-white mb-8 shadow-xl">
-          <div className="flex items-center justify-between gap-6">
+        <div className="bg-card border border-border rounded-2xl p-6 mb-6 shadow-sm transition-all duration-300 hover:shadow-md">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
             {/* Avatar Section */}
-            <div className="flex items-center gap-6">
-              <Avatar3D 
+            <div className="flex flex-col items-center gap-4">
+              <Avatar3D
                 avatarId={currentAvatarId}
-                size="xl"
+                size="lg"
                 onClick={() => setShowAvatarPicker(true)}
                 showEditBadge={true}
+                className="transition-transform duration-300 hover:scale-105 cursor-pointer"
               />
-              <div>
-                <h1 className="text-4xl font-bold mb-2">
+              <div className="text-center">
+                <h1 className="text-2xl font-bold text-foreground transition-colors">
                   {profile.name ? `Hi, ${profile.name}!` : 'Welcome!'}
                 </h1>
-                <p className="text-white/80">
+                <p className="text-sm text-muted-foreground mt-1">
                   Member since {new Date(profile.createdAt).toLocaleDateString()}
                 </p>
-                <p className="text-white/60 text-sm mt-1">
+                <p className="text-xs text-muted-foreground/70 mt-1">
                   Click avatar to customize
                 </p>
               </div>
             </div>
             
             {/* Stats Summary */}
-            <div className="text-right flex flex-col items-end gap-2">
-              <div>
-                <div className="text-5xl font-bold">{totalGames}</div>
-                <div className="text-sm opacity-90">Total Games</div>
+            <div className="flex-1 flex flex-col items-center sm:items-end gap-2">
+              <div className="text-center sm:text-right">
+                <p className="text-4xl font-bold text-foreground">{totalGames}</p>
+                <p className="text-sm text-muted-foreground">Total Games</p>
               </div>
-              <div className="text-lg opacity-90">
+              <div className="px-4 py-2 bg-success/10 text-success rounded-full text-sm font-semibold transition-colors duration-200">
                 {overallWinRate}% Win Rate
               </div>
             </div>
@@ -154,7 +157,7 @@ export default function ProfilePage() {
         </div>
         
         {/* Avatar Picker Modal */}
-        <AvatarPicker
+        <AvatarPicker 
           isOpen={showAvatarPicker}
           onClose={() => setShowAvatarPicker(false)}
           currentAvatarId={currentAvatarId}
@@ -162,100 +165,52 @@ export default function ProfilePage() {
         />
 
         {/* Quick Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <StatCard 
-            icon="🎮" 
-            value={totalGames} 
-            label="Total Games" 
-            colorClass="bg-connections-blue/10 border-connections-blue/30" 
-            textColor="text-connections-blue"
-          />
-          <StatCard 
-            icon="🏆" 
-            value={totalWins} 
-            label="Total Wins" 
-            colorClass="bg-wordle-correct/10 border-wordle-correct/30" 
-            textColor="text-wordle-correct"
-          />
-          <StatCard 
-            icon="🔥" 
-            value={bestCurrentStreak} 
-            label="Best Current Streak" 
-            colorClass="bg-connections-orange/10 border-connections-orange/30" 
-            textColor="text-connections-orange"
-          />
-          <StatCard 
-            icon="⭐" 
-            value={totalAchievements} 
-            label={`Achievements (${achievementProgress}%)`} 
-            colorClass="bg-wordle-present/10 border-wordle-present/30" 
-            textColor="text-wordle-present"
-          />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <StatCard icon="🎮" value={totalGames} label="Games Played" colorClass="bg-info/10" textColor="text-info" />
+          <StatCard icon="🏆" value={totalWins} label="Games Won" colorClass="bg-success/10" textColor="text-success" />
+          <StatCard icon="🔥" value={bestCurrentStreak} label="Best Streak" colorClass="bg-warning/10" textColor="text-warning" />
+          <StatCard icon="⭐" value={totalAchievements} label="Achievements" colorClass="bg-strands-bonus/10" textColor="text-strands-bonus" />
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 border-b border-border-default overflow-x-auto">
-          <TabButton 
-            label="Overview" 
-            active={activeTab === 'overview'} 
-            onClick={() => setActiveTab('overview')} 
-          />
-          <TabButton 
-            label="Stats" 
-            active={activeTab === 'stats'} 
-            onClick={() => setActiveTab('stats')} 
-          />
-          <TabButton 
-            label="📘 Learning Log" 
-            active={activeTab === 'learning'} 
-            onClick={() => setActiveTab('learning')} 
-          />
+        <div className="flex flex-wrap gap-2 mb-6 p-1 bg-secondary/50 rounded-xl">
+          <TabButton label="Overview" active={activeTab === 'overview'} onClick={() => setActiveTab('overview')} />
+          <TabButton label="Stats" active={activeTab === 'stats'} onClick={() => setActiveTab('stats')} />
+          <TabButton label="Learning" active={activeTab === 'learning'} onClick={() => setActiveTab('learning')} />
           <TabButton 
             label="Achievements" 
             active={activeTab === 'achievements'} 
             onClick={() => setActiveTab('achievements')} 
             badge={totalAchievements}
           />
-          <TabButton 
-            label="Settings" 
-            active={activeTab === 'settings'} 
-            onClick={() => setActiveTab('settings')} 
-          />
-          <TabButton 
-            label="💬 Send Feedback" 
-            active={activeTab === 'feedback'} 
-            onClick={() => setActiveTab('feedback')} 
-          />
+          <TabButton label="Settings" active={activeTab === 'settings'} onClick={() => setActiveTab('settings')} />
+          <TabButton label="Feedback" active={activeTab === 'feedback'} onClick={() => setActiveTab('feedback')} />
         </div>
 
         {/* Tab Content */}
-        {activeTab === 'overview' && <OverviewTab stats={stats} />}
-        {activeTab === 'stats' && <StatsTab stats={stats} />}
-        {activeTab === 'learning' && <LearningLogTab />}
-        {activeTab === 'achievements' && (
-          <AchievementsTab 
-            unlockedAchievements={unlockedAchievements} 
-            totalAchievements={ACHIEVEMENTS.length}
-          />
-        )}
-        {activeTab === 'settings' && (
-          <SettingsTab 
-            settings={profile.settings} 
-            onReminderToggle={handleReminderToggle} 
-          />
-        )}
-        {activeTab === 'feedback' && <FeedbackTab />}
-      </div>
+        <div className="transition-all duration-300">
+          {activeTab === 'overview' && <OverviewTab stats={stats} />}
+          {activeTab === 'stats' && <StatsTab stats={stats} />}
+          {activeTab === 'learning' && <LearningLogTab />}
+          {activeTab === 'achievements' && (
+            <AchievementsTab unlockedAchievements={unlockedAchievements} totalAchievements={totalAchievements} />
+          )}
+          {activeTab === 'settings' && (
+            <SettingsTab settings={profile.settings} onReminderToggle={handleReminderToggle} />
+          )}
+          {activeTab === 'feedback' && <FeedbackTab />}
+        </div>
+      </main>
     </div>
   );
 }
 
 // Quick Stat Card Component
 const StatCard = ({ icon, value, label, colorClass, textColor }) => (
-  <div className={`${colorClass} border-2 rounded-xl p-6 text-center transition-all hover:scale-105`}>
-    <div className="text-4xl mb-2">{icon}</div>
-    <div className={`text-3xl font-bold ${textColor}`}>{value}</div>
-    <div className="text-sm text-text-muted mt-1">{label}</div>
+  <div className={`${colorClass} rounded-xl p-4 text-center transition-all duration-200 hover:scale-[1.02] hover:shadow-sm border border-transparent hover:border-border/50`}>
+    <p className="text-2xl mb-1">{icon}</p>
+    <p className={`text-2xl font-bold ${textColor} transition-colors`}>{value}</p>
+    <p className="text-xs text-muted-foreground mt-1">{label}</p>
   </div>
 );
 
@@ -263,15 +218,17 @@ const StatCard = ({ icon, value, label, colorClass, textColor }) => (
 const TabButton = ({ label, active, onClick, badge }) => (
   <button
     onClick={onClick}
-    className={`px-6 py-3 font-bold transition-all relative whitespace-nowrap ${
-      active
-        ? 'border-b-4 border-wordle-correct text-wordle-correct'
-        : 'text-text-muted hover:text-foreground hover:bg-surface-hover'
+    className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
+      active 
+        ? 'bg-success text-success-foreground shadow-sm' 
+        : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
     }`}
   >
     {label}
     {badge !== undefined && badge > 0 && (
-      <span className="absolute -top-1 -right-1 bg-wordle-present text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
+      <span className={`px-2 py-0.5 text-xs rounded-full transition-colors ${
+        active ? 'bg-success-foreground/20 text-success-foreground' : 'bg-success/20 text-success'
+      }`}>
         {badge}
       </span>
     )}
@@ -280,26 +237,26 @@ const TabButton = ({ label, active, onClick, badge }) => (
 
 // Overview Tab
 const OverviewTab = ({ stats }) => (
-  <div className="space-y-6">
-    <h2 className="text-2xl font-bold text-foreground mb-4">Game Overview</h2>
+  <div className="space-y-4">
+    <h2 className="text-xl font-bold text-foreground mb-4">Game Overview</h2>
     
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <GameSummaryCard gameName="Wordle" stats={stats.wordle} icon="📝" color="from-wordle-correct to-wordle-correct/80" />
-      <GameSummaryCard gameName="Connections" stats={stats.connections} icon="🔗" color="from-connections-blue to-connections-purple" />
-      <GameSummaryCard gameName="Crossword" stats={stats.crossword} icon="🧩" color="from-connections-purple to-connections-blue" />
-      <GameSummaryCard gameName="Waffle" stats={stats.waffle} icon="🧇" color="from-connections-orange to-wordle-present" />
-      <GameSummaryCard gameName="Combinations" stats={stats.combinations} icon="🧩" color="from-connections-blue to-wordle-correct" />
-      <GameSummaryCard gameName="Numbers" stats={stats.numbers} icon="🔢" color="from-connections-orange to-connections-orange/80" />
-      <GameSummaryCard gameName="Trivia" stats={stats.trivia} icon="🎓" color="from-wordle-present to-wordle-correct" />
-      <GameSummaryCard gameName="Strands" stats={stats.strands} icon="🧵" color="from-connections-purple to-wordle-present" />
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <GameSummaryCard gameName="Wordle" stats={stats.wordle} icon="🟩" color="text-wordle-correct" />
+      <GameSummaryCard gameName="Connections" stats={stats.connections} icon="🔗" color="text-connections-purple" />
+      <GameSummaryCard gameName="Strands" stats={stats.strands} icon="🕸️" color="text-strands-ribbon" />
+      <GameSummaryCard gameName="Crossword" stats={stats.crossword} icon="📝" color="text-crossword-active" />
+      <GameSummaryCard gameName="Waffle" stats={stats.waffle} icon="🧇" color="text-warning" />
+      <GameSummaryCard gameName="Combinations" stats={stats.combinations} icon="🔀" color="text-info" />
+      <GameSummaryCard gameName="Letterbox" stats={stats.letterbox} icon="📬" color="text-destructive" />
+      <GameSummaryCard gameName="Sudoku" stats={stats.sudoku} icon="🔢" color="text-muted-foreground" />
       {stats.spelling && (
-        <GameSummaryCard gameName="Spelling" stats={stats.spelling} icon="🐝" color="from-wordle-present to-connections-orange" />
+        <GameSummaryCard gameName="Spelling Bee" stats={stats.spelling} icon="🐝" color="text-connections-yellow" />
       )}
     </div>
   </div>
 );
 
-// Game Summary Card - Uses centralized win rate calculation
+// Game Summary Card
 const GameSummaryCard = ({ gameName, stats, icon, color }) => {
   if (!stats) return null;
 
@@ -307,32 +264,33 @@ const GameSummaryCard = ({ gameName, stats, icon, color }) => {
   const streak = stats.currentStreak ?? 0;
   const longest = stats.longestStreak ?? stats.maxStreak ?? 0;
   const played = stats.gamesPlayed ?? 0;
-  // Use centralized calculation - ensures win rate never exceeds 100%
   const winRate = calculateWinRate(wins, played);
 
   return (
-    <Link href={`/games/${gameName.toLowerCase()}`}>
-      <div className={`bg-gradient-to-r ${color} rounded-xl p-6 text-white hover:opacity-90 hover:scale-105 transition-all cursor-pointer shadow-lg`}>
-        <div className="flex items-center justify-between mb-4">
-          <div className="text-5xl">{icon}</div>
-          <div className="text-right">
-            <div className="text-3xl font-bold">{played}</div>
-            <div className="text-sm opacity-90">Played</div>
+    <Link href={`/${gameName.toLowerCase().replace(' ', '-')}`}>
+      <div className="bg-card border border-border rounded-xl p-4 transition-all duration-200 hover:shadow-md hover:border-border/80 hover:-translate-y-0.5 cursor-pointer group">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <span className={`text-2xl ${color} transition-transform duration-200 group-hover:scale-110`}>{icon}</span>
+            <div>
+              <p className="text-2xl font-bold text-foreground">{played}</p>
+              <p className="text-xs text-muted-foreground">Played</p>
+            </div>
           </div>
         </div>
-        <h3 className="text-2xl font-bold mb-2">{gameName}</h3>
-        <div className="grid grid-cols-3 gap-2 text-sm">
-          <div>
-            <div className="font-bold text-lg">{winRate}%</div>
-            <div className="opacity-75">Win Rate</div>
+        <p className="font-semibold text-foreground mb-2">{gameName}</p>
+        <div className="flex justify-between text-sm">
+          <div className="text-center">
+            <p className="font-bold text-success">{winRate}%</p>
+            <p className="text-xs text-muted-foreground">Win Rate</p>
           </div>
-          <div>
-            <div className="font-bold text-lg">{streak}</div>
-            <div className="opacity-75">Streak</div>
+          <div className="text-center">
+            <p className="font-bold text-warning">{streak}</p>
+            <p className="text-xs text-muted-foreground">Streak</p>
           </div>
-          <div>
-            <div className="font-bold text-lg">{longest}</div>
-            <div className="opacity-75">Best</div>
+          <div className="text-center">
+            <p className="font-bold text-info">{longest}</p>
+            <p className="text-xs text-muted-foreground">Best</p>
           </div>
         </div>
       </div>
@@ -340,36 +298,36 @@ const GameSummaryCard = ({ gameName, stats, icon, color }) => {
   );
 };
 
-// Stats Tab - Uses centralized win rate calculation
+// Stats Tab
 const StatsTab = ({ stats }) => (
-  <div className="space-y-8">
-    <h2 className="text-2xl font-bold text-foreground mb-4">Detailed Statistics</h2>
+  <div className="space-y-6">
+    <h2 className="text-xl font-bold text-foreground">Detailed Statistics</h2>
     
     {Object.entries(stats).map(([gameName, gameStats]) => {
       const played = gameStats?.gamesPlayed ?? 0;
       const wins = gameStats?.gamesWon ?? 0;
       const currentStreak = gameStats?.currentStreak ?? 0;
       const longestStreak = gameStats?.longestStreak ?? gameStats?.maxStreak ?? 0;
-      // Use centralized calculation - ensures win rate never exceeds 100%
       const winRate = `${calculateWinRate(wins, played)}%`;
       const bestTime = gameStats?.bestTime ?? null;
-      const averageAttempts = gameStats?.averageAttempts ?? 0;
+      const averageAttemptsRaw = gameStats?.averageAttempts ?? 0;
+      const averageAttempts = Number(averageAttemptsRaw);
       const perfectGames = gameStats?.perfectGames ?? 0;
 
       return (
-        <div key={gameName} className="bg-card rounded-xl p-6 shadow-md border border-card-border hover:border-wordle-correct/50 transition-all">
-          <h3 className="text-xl font-bold text-foreground mb-4 capitalize">{gameName}</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <StatItem label="Played" value={played} />
-            <StatItem label="Won" value={wins} />
-            <StatItem label="Win Rate" value={winRate} />
-            <StatItem label="Current Streak" value={currentStreak} highlight />
+        <div key={gameName} className="bg-card border border-border rounded-xl p-5 transition-all duration-200 hover:shadow-sm">
+          <h3 className="text-lg font-bold text-foreground capitalize mb-4">{gameName}</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <StatItem label="Games Played" value={played} />
+            <StatItem label="Games Won" value={wins} />
+            <StatItem label="Win Rate" value={winRate} highlight />
+            <StatItem label="Current Streak" value={currentStreak} />
             <StatItem label="Longest Streak" value={longestStreak} />
             {bestTime !== null && (
               <StatItem label="Best Time" value={formatTime(bestTime)} />
             )}
-            {averageAttempts > 0 && (
-              <StatItem label="Avg Attempts" value={averageAttempts} />
+            {Number.isFinite(averageAttempts) && averageAttempts > 0 && (
+              <StatItem label="Avg Attempts" value={averageAttempts.toFixed(1)} />
             )}
             {perfectGames > 0 && (
               <StatItem label="Perfect Games" value={perfectGames} />
@@ -382,11 +340,13 @@ const StatsTab = ({ stats }) => (
 );
 
 const StatItem = ({ label, value, highlight = false }) => (
-  <div className="text-center">
-    <div className={`text-2xl font-bold ${highlight ? 'text-wordle-correct' : 'text-foreground'}`}>
+  <div className="text-center p-3 bg-secondary/30 rounded-lg transition-colors duration-200 hover:bg-secondary/50">
+    <p className={`text-xl font-bold transition-colors ${
+      highlight ? 'text-success' : 'text-foreground'
+    }`}>
       {value}
-    </div>
-    <div className="text-xs text-text-muted uppercase">{label}</div>
+    </p>
+    <p className="text-xs text-muted-foreground mt-1">{label}</p>
   </div>
 );
 
@@ -454,7 +414,7 @@ const LearningLogTab = () => {
 
   const handleToggleFavorite = (word) => {
     toggleFavorite(word);
-    loadWords(); // Reload to reflect word moving between today/saved
+    loadWords();
   };
 
   const handleFetchDefinition = async (word) => {
@@ -472,44 +432,46 @@ const LearningLogTab = () => {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-foreground">📘 Learning Log</h2>
+      <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+        📘 Learning Log
+      </h2>
       
       {/* Stats Summary */}
       {stats && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-connections-blue/10 border border-connections-blue/30 rounded-xl p-4 text-center hover:scale-105 transition-transform">
-            <div className="text-3xl font-bold text-connections-blue">{stats.totalWords || 0}</div>
-            <div className="text-sm text-text-muted">Words Learned</div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="bg-info/10 rounded-xl p-4 text-center transition-all duration-200 hover:bg-info/15">
+            <p className="text-2xl font-bold text-info">{stats.totalWords || 0}</p>
+            <p className="text-xs text-muted-foreground mt-1">Words Learned</p>
           </div>
-          <div className="bg-wordle-present/10 border border-wordle-present/30 rounded-xl p-4 text-center hover:scale-105 transition-transform">
-            <div className="text-3xl font-bold text-wordle-present">{stats.favorites || 0}</div>
-            <div className="text-sm text-text-muted">Favorites</div>
+          <div className="bg-warning/10 rounded-xl p-4 text-center transition-all duration-200 hover:bg-warning/15">
+            <p className="text-2xl font-bold text-warning">{stats.favorites || 0}</p>
+            <p className="text-xs text-muted-foreground mt-1">Favorites</p>
           </div>
           {stats.byGame && Object.entries(stats.byGame).slice(0, 2).map(([game, count]) => (
-            <div key={game} className="bg-wordle-correct/10 border border-wordle-correct/30 rounded-xl p-4 text-center hover:scale-105 transition-transform">
-              <div className="text-3xl font-bold text-wordle-correct">{count}</div>
-              <div className="text-sm text-text-muted">{gameNames[game] || game}</div>
+            <div key={game} className="bg-secondary/50 rounded-xl p-4 text-center transition-all duration-200 hover:bg-secondary/70">
+              <p className="text-2xl font-bold text-foreground">{count}</p>
+              <p className="text-xs text-muted-foreground mt-1">{gameNames[game] || game}</p>
             </div>
           ))}
         </div>
       )}
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        <div className="flex-1 relative">
+      <div className="flex flex-wrap gap-3 items-center">
+        <div className="relative flex-1 min-w-[200px]">
           <input
             type="text"
             placeholder="Search words..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 pl-10 border border-card-border rounded-lg focus:outline-none focus:ring-2 focus:ring-wordle-correct/50 bg-card text-foreground"
+            className="w-full px-4 py-2.5 pl-10 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-info/50 focus:border-info/50 transition-all duration-200"
           />
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">🔍</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">🔍</span>
         </div>
         <select
           value={gameFilter}
           onChange={(e) => setGameFilter(e.target.value)}
-          className="px-4 py-2 border border-card-border rounded-lg focus:outline-none focus:ring-2 focus:ring-wordle-correct/50 bg-card text-foreground"
+          className="px-4 py-2.5 bg-card border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-info/50 focus:border-info/50 transition-all duration-200 cursor-pointer"
         >
           <option value="all">All Games</option>
           {WORD_GAMES.map(g => (
@@ -518,8 +480,10 @@ const LearningLogTab = () => {
         </select>
         <button
           onClick={() => setShowFavoritesOnly(!showFavoritesOnly)}
-          className={`px-4 py-2 rounded-lg font-bold transition-all ${
-            showFavoritesOnly ? 'bg-wordle-present text-black shadow-md' : 'bg-surface text-foreground border border-card-border hover:bg-surface-hover'
+          className={`px-4 py-2.5 rounded-xl font-semibold transition-all duration-200 ${
+            showFavoritesOnly 
+              ? 'bg-warning text-warning-foreground shadow-sm' 
+              : 'bg-secondary text-foreground border border-border hover:bg-accent'
           }`}
         >
           ⭐ {showFavoritesOnly ? 'All' : 'Favorites'}
@@ -527,63 +491,61 @@ const LearningLogTab = () => {
       </div>
 
       {/* Word List */}
-      <div className="space-y-3">
+      <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2">
         {filteredWords.length === 0 ? (
-          <div className="text-center py-12 text-text-muted">
+          <div className="text-center py-12 bg-card border border-border rounded-xl">
             {words.length === 0 ? (
               <>
-                <div className="text-6xl mb-4">📚</div>
+                <p className="text-5xl mb-4">📚</p>
                 <p className="text-lg font-semibold text-foreground">No words learned yet!</p>
-                <p>Complete puzzles to build your vocabulary.</p>
+                <p className="text-sm text-muted-foreground mt-2">Complete puzzles to build your vocabulary.</p>
               </>
             ) : (
               <>
-                <div className="text-4xl mb-2">🔍</div>
-                <p>No words match your search.</p>
+                <p className="text-5xl mb-4">🔍</p>
+                <p className="text-lg font-semibold text-foreground">No words match your search.</p>
               </>
             )}
           </div>
         ) : (
           filteredWords.map((wordEntry) => (
             <div 
-              key={wordEntry.word}
-              className="bg-card border border-card-border rounded-xl p-4 hover:border-wordle-correct/50 hover:shadow-md transition-all"
+              key={`${wordEntry.word}-${wordEntry.game}`} 
+              className="bg-card border border-border rounded-xl p-4 transition-all duration-200 hover:shadow-sm hover:border-border/80"
             >
-              <div className="flex items-center justify-between">
+              <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => handleToggleFavorite(wordEntry.word)}
-                    className="text-2xl hover:scale-110 transition-transform"
+                    className="text-2xl transition-transform duration-200 hover:scale-110"
                   >
                     {favorites.has(wordEntry.word) ? '⭐' : '☆'}
                   </button>
                   <div>
-                    <span className="font-bold text-xl text-foreground">{wordEntry.word}</span>
+                    <span className="font-bold text-lg text-foreground">{wordEntry.word}</span>
                     {wordEntry.partOfSpeech && (
-                      <span className="ml-2 text-sm text-text-muted italic">({wordEntry.partOfSpeech})</span>
+                      <span className="text-sm text-muted-foreground ml-2">({wordEntry.partOfSpeech})</span>
                     )}
                   </div>
                 </div>
-                <div className="flex gap-1">
-                  <span className="text-xs px-2 py-1 rounded-full bg-connections-blue/20 text-connections-blue">
-                    {(gameNames[wordEntry.game] || wordEntry.game).slice(0, 4)}
-                  </span>
-                </div>
+                <span className="text-xs px-2.5 py-1 bg-secondary rounded-full text-muted-foreground font-medium">
+                  {(gameNames[wordEntry.game] || wordEntry.game).slice(0, 4)}
+                </span>
               </div>
               {wordEntry.definition ? (
-                <p className="mt-2 text-text-muted">{wordEntry.definition}</p>
+                <p className="text-sm text-muted-foreground mt-2 ml-11">{wordEntry.definition}</p>
               ) : (
                 <button
                   onClick={() => handleFetchDefinition(wordEntry.word)}
                   disabled={loadingDefinition === wordEntry.word}
-                  className="mt-2 text-sm text-wordle-correct hover:underline disabled:opacity-50"
+                  className="mt-2 ml-11 text-sm text-info hover:text-info/80 hover:underline disabled:opacity-50 transition-colors duration-200"
                 >
                   {loadingDefinition === wordEntry.word ? '⏳ Loading...' : '📖 Get definition'}
                 </button>
               )}
-              <div className="mt-2 text-xs text-text-muted">
+              <p className="text-xs text-muted-foreground/70 mt-2 ml-11">
                 Learned: {new Date(wordEntry.dateAdded).toLocaleDateString()}
-              </div>
+              </p>
             </div>
           ))
         )}
@@ -594,7 +556,7 @@ const LearningLogTab = () => {
 
 // Achievements Tab
 const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
-  const [filter, setFilter] = useState('all'); // all, unlocked, locked
+  const [filter, setFilter] = useState('all');
   
   const filteredAchievements = ACHIEVEMENTS.filter(achievement => {
     if (filter === 'unlocked') {
@@ -608,8 +570,8 @@ const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-foreground">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h2 className="text-xl font-bold text-foreground">
           Achievements ({unlockedAchievements.length}/{totalAchievements})
         </h2>
         
@@ -620,15 +582,16 @@ const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filteredAchievements.map(achievement => {
           const unlockedData = unlockedAchievements.find(a => a.id === achievement.id);
           return (
-            <AchievementBadge
-              key={achievement.id}
-              achievementId={achievement.id}
-              unlocked={!!unlockedData}
+            <AchievementBadge 
+              key={achievement.id} 
+              achievement={achievement} 
+              unlocked={!!unlockedData} 
               unlockedAt={unlockedData?.unlockedAt}
+              className="transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
             />
           );
         })}
@@ -640,10 +603,10 @@ const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
 const FilterButton = ({ label, active, onClick }) => (
   <button
     onClick={onClick}
-    className={`px-4 py-2 rounded-lg font-bold transition-all ${
-      active
-        ? 'bg-wordle-correct text-black shadow-md'
-        : 'bg-surface text-foreground border border-card-border hover:bg-surface-hover'
+    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+      active 
+        ? 'bg-info text-info-foreground shadow-sm' 
+        : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-accent'
     }`}
   >
     {label}
@@ -652,30 +615,28 @@ const FilterButton = ({ label, active, onClick }) => (
 
 // Feedback Tab
 const FeedbackTab = () => {
-  const [showForm, setShowForm] = useState(true);
-
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-foreground mb-4">💬 Send Feedback</h2>
+      <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+        💬 Send Feedback
+      </h2>
       
-      <div className="bg-card rounded-xl p-6 shadow-md border border-card-border">
-        <p className="text-text-muted mb-6">
+      <div className="bg-card border border-border rounded-xl p-6 transition-all duration-200">
+        <p className="text-muted-foreground mb-6">
           We value your feedback! Share your thoughts, report bugs, or suggest features to help us improve Ammar Times.
         </p>
         
-        {/* Embedded Feedback Form */}
-        <div className="max-w-2xl">
+        <div className="bg-secondary/30 rounded-xl p-4">
           <FeedbackForm 
-            isOpen={showForm} 
             onClose={() => {}} 
             isFloating={false} 
           />
         </div>
       </div>
       
-      <div className="bg-connections-blue/10 border border-connections-blue/30 rounded-xl p-6">
-        <h3 className="font-bold text-connections-blue mb-2">💡 Quick Tips</h3>
-        <ul className="text-sm text-text-muted space-y-2">
+      <div className="bg-info/10 border border-info/20 rounded-xl p-5 transition-all duration-200">
+        <h3 className="font-semibold text-foreground mb-3">💡 Quick Tips</h3>
+        <ul className="space-y-2 text-sm text-muted-foreground">
           <li>• Be specific about issues - include which game and what happened</li>
           <li>• Feature requests are always welcome!</li>
           <li>• We read every message and appreciate your time</li>
@@ -687,16 +648,10 @@ const FeedbackTab = () => {
 
 // Settings Tab
 const SettingsTab = ({ settings, onReminderToggle }) => {
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState(() => getProfile());
   const [editingName, setEditingName] = useState(false);
-  const [newName, setNewName] = useState('');
+  const [newName, setNewName] = useState(() => getProfile()?.name || '');
   const [nameError, setNameError] = useState('');
-
-  useEffect(() => {
-    const userProfile = getProfile();
-    setProfile(userProfile);
-    setNewName(userProfile.name || '');
-  }, []);
 
   const handleSaveName = () => {
     const trimmedName = newName.trim();
@@ -716,7 +671,6 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
       return;
     }
 
-    // Save name
     const updatedProfile = getProfile();
     updatedProfile.name = trimmedName;
     saveProfile(updatedProfile);
@@ -724,25 +678,24 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
     setEditingName(false);
     setNameError('');
     
-    // Reload page to update name everywhere
     window.location.reload();
   };
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-foreground mb-4">Settings</h2>
+      <h2 className="text-xl font-bold text-foreground">Settings</h2>
       
       {/* Player Name Section */}
-      <div className="bg-card rounded-xl p-6 shadow-md border border-card-border">
-        <h3 className="text-lg font-bold text-foreground mb-4">Player Identity</h3>
+      <div className="bg-card border border-border rounded-xl p-5 transition-all duration-200">
+        <h3 className="font-semibold text-foreground mb-4">Player Identity</h3>
         
-        <div className="p-4 bg-surface rounded-lg">
-          <div className="flex items-center justify-between mb-2">
-            <div className="font-bold text-foreground">Display Name</div>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-medium text-foreground">Display Name</p>
             {!editingName && (
               <button
                 onClick={() => setEditingName(true)}
-                className="text-sm text-wordle-correct hover:opacity-80"
+                className="text-sm text-info hover:text-info/80 transition-colors duration-200"
               >
                 ✏️ Edit
               </button>
@@ -760,20 +713,20 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
                 }}
                 placeholder="Enter your name"
                 maxLength={50}
-                className="w-full px-4 py-2 border border-card-border rounded-lg focus:outline-none focus:ring-2 focus:ring-wordle-correct/50 bg-card text-foreground"
+                className="w-full px-4 py-2.5 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-info/50 focus:border-info/50 transition-all duration-200"
               />
-              <div className="text-sm text-text-muted">
+              <p className="text-xs text-muted-foreground">
                 {newName.length}/50 characters
-              </div>
+              </p>
               {nameError && (
-                <div className="p-2 bg-connections-orange/20 text-connections-orange rounded text-sm border border-connections-orange/30">
+                <p className="text-sm text-destructive">
                   {nameError}
-                </div>
+                </p>
               )}
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <button
                   onClick={handleSaveName}
-                  className="px-4 py-2 bg-wordle-correct text-black font-bold rounded-lg hover:opacity-90 transition-opacity"
+                  className="px-4 py-2 bg-success text-success-foreground rounded-xl font-medium transition-all duration-200 hover:bg-success/90"
                 >
                   Save
                 </button>
@@ -783,110 +736,64 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
                     setNewName(profile?.name || '');
                     setNameError('');
                   }}
-                  className="px-4 py-2 bg-surface text-foreground border border-card-border rounded-lg hover:bg-surface-hover transition-colors"
+                  className="px-4 py-2 bg-secondary text-foreground border border-border rounded-xl font-medium transition-all duration-200 hover:bg-accent"
                 >
                   Cancel
                 </button>
               </div>
             </div>
           ) : (
-            <div className="text-2xl font-bold text-connections-blue">
+            <p className="text-lg font-medium text-foreground py-2">
               {profile?.name || 'Anonymous'}
-            </div>
+            </p>
           )}
         </div>
         
-        <div className="mt-4 p-4 bg-connections-purple/10 border border-connections-purple/30 rounded-lg">
-          <p className="text-sm text-connections-purple">
-            👤 <strong>Your name</strong> is displayed in your profile and visible to others in the admin dashboard.
+        <div className="mt-4 pt-4 border-t border-border">
+          <p className="text-xs text-muted-foreground">
+            👤 Your name is displayed in your profile and visible to others in the admin dashboard.
           </p>
         </div>
       </div>
     
-      <div className="bg-card rounded-xl p-6 shadow-md border border-card-border">
-        <h3 className="text-lg font-bold text-foreground mb-4">Notifications</h3>
-      
-      <div className="flex items-center justify-between p-4 bg-surface rounded-lg">
-        <div>
-          <div className="font-bold text-foreground">Daily Reminders</div>
-          <div className="text-sm text-text-muted">
-            Get notified when new puzzles are available
-          </div>
-        </div>
-        <button
-          onClick={onReminderToggle}
-          className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
-            settings.remindersEnabled ? 'bg-wordle-correct' : 'bg-card-border'
-          }`}
-        >
-          <span
-            className={`inline-block h-6 w-6 transform rounded-full bg-card border-2 border-card-border shadow-md transition-transform ${
-              settings.remindersEnabled ? 'translate-x-7' : 'translate-x-1'
-            }`}
-          />
-        </button>
-      </div>
-
-      <div className="mt-4 p-4 bg-connections-blue/10 border border-connections-blue/30 rounded-lg">
-        <p className="text-sm text-connections-blue">
-          💡 <strong>Note:</strong> Browser notifications require permission. 
-          Enable them in your browser settings if you haven&apos;t already.
-        </p>
-      </div>
-    </div>
-
-    <div className="bg-card rounded-xl p-6 shadow-md border border-card-border">
-      <h3 className="text-lg font-bold text-foreground mb-4">About</h3>
-      <div className="space-y-2 text-sm text-text-muted">
-        <p><strong>Platform:</strong> Ammar Times</p>
-        <p><strong>Version:</strong> 2.1.0</p>
-        <p><strong>Storage:</strong> Local (Browser Storage)</p>
-      </div>
-    </div>
-  </div>
-);
-// Feedback Tab
-const FeedbackTab = () => {
-  const [showForm, setShowForm] = useState(true);
-
-  return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-foreground mb-4">💬 Send Feedback</h2>
-      
-      <div className="bg-card rounded-xl p-6 shadow-md border border-card-border">
-        <p className="text-text-muted mb-6">
-          We value your feedback! Share your thoughts, report bugs, or suggest features to help us improve Ammar Times.
-        </p>
+      <div className="bg-card border border-border rounded-xl p-5 transition-all duration-200">
+        <h3 className="font-semibold text-foreground mb-4">Notifications</h3>
         
-        {/* Embedded Feedback Form */}
-        <div className="max-w-2xl">
-          <FeedbackForm 
-            isOpen={showForm} 
-            onClose={() => {}} 
-            isFloating={false} 
-          />
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="font-medium text-foreground">Daily Reminders</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              Get notified when new puzzles are available
+            </p>
+          </div>
+          <button 
+            onClick={onReminderToggle}
+            className={`w-12 h-7 rounded-full transition-all duration-200 relative ${
+              settings?.remindersEnabled ? 'bg-success' : 'bg-secondary'
+            }`}
+          >
+            <span className={`absolute w-5 h-5 bg-white rounded-full top-1 transition-all duration-200 shadow-sm ${
+              settings?.remindersEnabled ? 'left-6' : 'left-1'
+            }`} />
+          </button>
+        </div>
+
+        <div className="mt-4 pt-4 border-t border-border">
+          <p className="text-xs text-muted-foreground">
+            💡 Note: Browser notifications require permission. 
+            Enable them in your browser settings if you haven&apos;t already.
+          </p>
         </div>
       </div>
-      
-      <div className="bg-connections-blue/10 border border-connections-blue/30 rounded-xl p-6">
-        <h3 className="font-bold text-connections-blue mb-2">💡 Quick Tips</h3>
-        <ul className="text-sm text-text-muted space-y-2">
-          <li>• Be specific about issues - include which game and what happened</li>
-          <li>• Feature requests are always welcome!</li>
-          <li>• We read every message and appreciate your time</li>
-        </ul>
+
+      <div className="bg-secondary/30 rounded-xl p-5">
+        <h3 className="font-semibold text-foreground mb-3">About</h3>
+        <div className="space-y-1.5 text-sm text-muted-foreground">
+          <p>Platform: Ammar Times</p>
+          <p>Version: 2.1.0</p>
+          <p>Storage: Local (Browser Storage)</p>
+        </div>
       </div>
     </div>
   );
 };
-
-// Helper function
-function formatTime(seconds) {
-  if (seconds < 60) {
-    return `${seconds}s`;
-  }
-  const mins = Math.floor(seconds / 60);
-  const secs = seconds % 60;
-  return `${mins}:${String(secs).padStart(2, '0')}`;
-}
-}

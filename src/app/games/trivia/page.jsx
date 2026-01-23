@@ -213,7 +213,7 @@ export default function TriviaGame() {
               {/* Category Badge */}
               <div className="text-center">
                 <span
-                  className="inline-block px-4 py-1 rounded-full text-[var(--button-text)] text-sm font-semibold"
+                  className="inline-block px-4 py-1 rounded-full text-[hsl(var(--button-text))] text-sm font-semibold"
                   style={{ backgroundColor: getCategoryColor(currentQuestion.category) }}
                 >
                   {currentQuestion.category}
@@ -249,10 +249,10 @@ export default function TriviaGame() {
                   if (showResult) {
                     if (isCorrect) {
                       bgColor = 'bg-wordle-correct border-wordle-correct';
-                      textColor = 'text-[var(--button-text)]';
+                      textColor = 'text-[hsl(var(--button-text))]';
                     } else if (isSelected && !isCorrect) {
                       bgColor = 'bg-wordle-absent border-wordle-absent';
-                      textColor = 'text-[var(--button-text)]';
+                      textColor = 'text-[hsl(var(--button-text))]';
                     }
                   }
                   
@@ -355,7 +355,7 @@ export default function TriviaGame() {
               <div className="flex gap-3">
                 <button
                   onClick={handleRestart}
-                  className="flex-1 bg-[var(--button-primary)] text-[var(--button-text)] py-4 rounded-xl font-bold text-lg hover:bg-[var(--button-primary-hover)] transition-all"
+                  className="flex-1 bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))] py-4 rounded-xl font-bold text-lg hover:bg-[hsl(var(--button-primary-hover))] transition-all"
                 >
                   {mode === 'daily' ? 'Play Again' : 'New Quiz'}
                 </button>
@@ -375,7 +375,7 @@ export default function TriviaGame() {
               onClick={() => setMode('daily')}
               className={`px-6 py-2 rounded-lg font-semibold transition-all ${
                 mode === 'daily'
-                  ? 'bg-[var(--button-primary)] text-[var(--button-text)]'
+                  ? 'bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))]'
                   : 'bg-surface text-text-muted border border-card-border'
               }`}
             >
@@ -385,7 +385,7 @@ export default function TriviaGame() {
               onClick={() => setMode('practice')}
               className={`px-6 py-2 rounded-lg font-semibold transition-all ${
                 mode === 'practice'
-                  ? 'bg-[var(--button-primary)] text-[var(--button-text)]'
+                  ? 'bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))]'
                   : 'bg-surface text-text-muted border border-card-border'
               }`}
             >

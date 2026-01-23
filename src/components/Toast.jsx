@@ -32,7 +32,7 @@ const Toast = ({ message, type = 'default', duration = 2000, onExited = noop }) 
         className={`
             fixed top-20 left-1/2 -translate-x-1/2 z-50 px-4 py-3 rounded-md font-bold text-sm tracking-wide shadow-lg transition-all duration-300 ease-out
             ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}
-            bg-[var(--toast-bg)] text-[var(--toast-fg)] border border-[var(--toast-border)]
+            bg-[hsl(var(--toast-bg))] text-[hsl(var(--toast-fg))] border border-[hsl(var(--toast-border))]
         `}
     >
       {message}

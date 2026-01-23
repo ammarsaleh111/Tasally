@@ -2,10 +2,10 @@ import React from 'react';
 
 const GroupBar = ({ group, isAnimating = false }) => {
   const colorConfig = {
-    yellow: 'bg-[var(--connections-yellow)] text-[var(--connections-text-light)]',
-    green: 'bg-[var(--connections-green)] text-[var(--connections-text-light)]',
-    blue: 'bg-[var(--connections-blue)] text-[var(--connections-text-light)]',
-    purple: 'bg-[var(--connections-purple)] text-[var(--connections-text-dark)]'
+    yellow: 'bg-[hsl(var(--connections-yellow))] text-[hsl(var(--connections-text-light))]',
+    green: 'bg-[hsl(var(--connections-green))] text-[hsl(var(--connections-text-light))]',
+    blue: 'bg-[hsl(var(--connections-blue))] text-[hsl(var(--connections-text-light))]',
+    purple: 'bg-[hsl(var(--connections-purple))] text-[hsl(var(--connections-text-dark))]'
   };
 
   return (
