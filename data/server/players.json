@@ -120,7 +120,7 @@
     "userId": "user_1768241888057_s7bvpex9n",
     "name": "asad",
     "createdAt": "2026-01-12T18:18:08.057Z",
-    "updatedAt": "2026-01-14T21:11:31.880Z",
+    "updatedAt": "2026-01-23T22:40:38.226Z",
     "games": {
       "wordle": {
         "gamesPlayed": 1,
@@ -210,12 +210,26 @@
         "perfectGames": 0
       },
       "connections": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
+        "gamesPlayed": 1,
+        "gamesWon": 1,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "lastPlayedDate": "2026-01-24",
+        "history": [
+          {
+            "date": "2026-01-24",
+            "win": true,
+            "mistakes": 3,
+            "perfect": false,
+            "puzzleId": "connections-2026-01-23",
+            "solvedGroups": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        ],
         "bestTime": null,
         "averageAttempts": 0,
         "totalAttempts": 0,

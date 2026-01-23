@@ -3,85 +3,10 @@
     {
       "userId": "user_1768241888057_s7bvpex9n",
       "name": "asad",
-      "lastSeen": "2026-01-14T21:11:39.518Z",
-      "currentPage": "game:wordle",
+      "lastSeen": "2026-01-23T22:41:06.845Z",
+      "currentPage": "profile",
       "currentGame": null,
       "activities": [
-        {
-          "page": "games",
-          "game": null,
-          "timestamp": "2026-01-12T18:18:08.058Z"
-        },
-        {
-          "page": "&#x2F;games",
-          "game": null,
-          "timestamp": "2026-01-12T18:18:15.111Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:18:38.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:19:08.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:19:38.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:20:08.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:20:38.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:21:08.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:21:43.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:22:43.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:24:37.224Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:25:43.223Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:26:22.478Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:26:38.060Z"
-        },
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:27:08.059Z"
-        },
         {
           "page": "game:strands",
           "game": null,
@@ -1006,6 +931,81 @@
           "page": "game:wordle",
           "game": null,
           "timestamp": "2026-01-14T21:11:39.518Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-01-14T21:11:56.636Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-14T21:13:13.348Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-14T21:13:51.568Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-14T21:14:22.519Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-14T21:14:51.572Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-23T22:38:53.776Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-23T22:38:56.291Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-23T22:39:06.842Z"
+        },
+        {
+          "page": "game:connections",
+          "game": "connections",
+          "timestamp": "2026-01-23T22:39:08.361Z"
+        },
+        {
+          "page": "game:connections",
+          "game": "connections",
+          "timestamp": "2026-01-23T22:39:08.363Z"
+        },
+        {
+          "page": "game:connections",
+          "game": null,
+          "timestamp": "2026-01-23T22:39:36.845Z"
+        },
+        {
+          "page": "game:connections",
+          "game": null,
+          "timestamp": "2026-01-23T22:40:07.225Z"
+        },
+        {
+          "page": "game:connections",
+          "game": null,
+          "timestamp": "2026-01-23T22:40:36.844Z"
+        },
+        {
+          "page": "game:connections",
+          "game": "connections",
+          "timestamp": "2026-01-23T22:40:38.226Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-23T22:41:06.845Z"
         }
       ]
     },

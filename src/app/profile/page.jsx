@@ -15,12 +15,15 @@ import {
 } from '@/utils/profileManager';
 import { calculateWinRate } from '@/utils/statsCalculator';
 import { 
-  getLearningLog, 
+  getTodaysWords,
+  getSavedWords,
+  getAllWords,
   getWordsByGame, 
   searchWords, 
   toggleFavorite,
   fetchDefinition,
   getLearningLogStats,
+  isFavorite,
   WORD_GAMES 
 } from '@/utils/learningLogEngine';
 import { ACHIEVEMENTS } from '@/utils/achievementsEngine';
@@ -413,9 +416,10 @@ const LearningLogTab = () => {
   }, []);
 
   const loadWords = () => {
-    const log = getLearningLog();
-    setWords(log.words);
-    setFavorites(new Set(log.favorites));
+    const allWords = getAllWords();
+    const savedWords = getSavedWords();
+    setWords(allWords);
+    setFavorites(new Set(savedWords.map(w => w.word)));
     setStats(getLearningLogStats());
   };
 
@@ -423,7 +427,7 @@ const LearningLogTab = () => {
     let filtered = [...words];
     
     if (gameFilter !== 'all') {
-      filtered = filtered.filter(w => w.games.includes(gameFilter));
+      filtered = filtered.filter(w => w.game === gameFilter);
     }
     
     if (searchQuery.trim()) {
@@ -449,13 +453,8 @@ const LearningLogTab = () => {
   }, [words, searchQuery, gameFilter, showFavoritesOnly, favorites]);
 
   const handleToggleFavorite = (word) => {
-    const newStatus = toggleFavorite(word);
-    setFavorites(prev => {
-      const next = new Set(prev);
-      if (newStatus) next.add(word);
-      else next.delete(word);
-      return next;
-    });
+    toggleFavorite(word);
+    loadWords(); // Reload to reflect word moving between today/saved
   };
 
   const handleFetchDefinition = async (word) => {
@@ -566,11 +565,9 @@ const LearningLogTab = () => {
                   </div>
                 </div>
                 <div className="flex gap-1">
-                  {wordEntry.games.map(g => (
-                    <span key={g} className="text-xs px-2 py-1 rounded-full bg-connections-blue/20 text-connections-blue">
-                      {(gameNames[g] || g).slice(0, 4)}
-                    </span>
-                  ))}
+                  <span className="text-xs px-2 py-1 rounded-full bg-connections-blue/20 text-connections-blue">
+                    {(gameNames[wordEntry.game] || wordEntry.game).slice(0, 4)}
+                  </span>
                 </div>
               </div>
               {wordEntry.definition ? (
