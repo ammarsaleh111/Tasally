@@ -3,15 +3,10 @@
     {
       "userId": "user_1768241888057_s7bvpex9n",
       "name": "asad",
-      "lastSeen": "2026-01-23T22:41:06.845Z",
+      "lastSeen": "2026-01-23T22:41:37.225Z",
       "currentPage": "profile",
       "currentGame": null,
       "activities": [
-        {
-          "page": "game:strands",
-          "game": null,
-          "timestamp": "2026-01-12T18:27:38.224Z"
-        },
         {
           "page": "game:strands",
           "game": null,
@@ -1006,6 +1001,11 @@
           "page": "profile",
           "game": null,
           "timestamp": "2026-01-23T22:41:06.845Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-23T22:41:37.225Z"
         }
       ]
     },

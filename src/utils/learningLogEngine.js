@@ -329,6 +329,7 @@ export function getLearningLogStats() {
     todaysWords: log.today.length,
     savedWords: log.saved.length,
     totalWords: allWords.length,
+    favorites: log.saved.length, // Number of favorited/saved words
     byGame: {},
   };
 

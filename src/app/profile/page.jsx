@@ -478,14 +478,14 @@ const LearningLogTab = () => {
       {stats && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="bg-connections-blue/10 border border-connections-blue/30 rounded-xl p-4 text-center hover:scale-105 transition-transform">
-            <div className="text-3xl font-bold text-connections-blue">{stats.totalWords}</div>
+            <div className="text-3xl font-bold text-connections-blue">{stats.totalWords || 0}</div>
             <div className="text-sm text-text-muted">Words Learned</div>
           </div>
           <div className="bg-wordle-present/10 border border-wordle-present/30 rounded-xl p-4 text-center hover:scale-105 transition-transform">
-            <div className="text-3xl font-bold text-wordle-present">{stats.favorites}</div>
+            <div className="text-3xl font-bold text-wordle-present">{stats.favorites || 0}</div>
             <div className="text-sm text-text-muted">Favorites</div>
           </div>
-          {Object.entries(stats.byGame).slice(0, 2).map(([game, count]) => (
+          {stats.byGame && Object.entries(stats.byGame).slice(0, 2).map(([game, count]) => (
             <div key={game} className="bg-wordle-correct/10 border border-wordle-correct/30 rounded-xl p-4 text-center hover:scale-105 transition-transform">
               <div className="text-3xl font-bold text-wordle-correct">{count}</div>
               <div className="text-sm text-text-muted">{gameNames[game] || game}</div>
