@@ -105,9 +105,37 @@ export default function AdminDashboardClient() {
 
       const result = await response.json();
       
-      // Remove user from local state
-      setPlayers(prev => prev.filter(p => p.userId !== deleteConfirm.userId));
-      setSessions(prev => prev.filter(s => s.userId !== deleteConfirm.userId));
+      // Remove user from ALL local state (players, sessions, and live metrics)
+      const userIdToDelete = deleteConfirm.userId;
+      
+      setPlayers(prev => prev.filter(p => p.userId !== userIdToDelete));
+      setSessions(prev => prev.filter(s => s.userId !== userIdToDelete));
+      
+      // Also clear from live metrics if present
+      if (liveMetrics) {
+        setLiveMetrics(prev => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            sessions: prev.sessions?.filter(s => s.userId !== userIdToDelete) || [],
+          };
+        });
+      }
+      
+      // Force a data refresh to ensure consistency
+      setTimeout(async () => {
+        try {
+          const [playersRes, activityRes] = await Promise.all([
+            fetch('/api/players').then(res => res.json()),
+            fetch('/api/activity').then(res => res.json()),
+          ]);
+          
+          setPlayers(playersRes.players || []);
+          setSessions(activityRes.sessions || []);
+        } catch (error) {
+          console.error('Failed to refresh data after deletion', error);
+        }
+      }, 500);
       
       // Close confirmation dialog
       setDeleteConfirm(null);
@@ -126,7 +154,12 @@ export default function AdminDashboardClient() {
   const gameAggregates = useMemo(() => aggregateGameStats(players), [players]);
   const activeSessions = useMemo(() => filterActiveSessions(sessions, 5), [sessions]);
   const activitySummary = useMemo(() => summarizeActivity(sessions), [sessions]);
-  const topPerformers = useMemo(() => getTopPerformers(sessions), [sessions]);
+  const topPerformers = useMemo(() => {
+    const performers = getTopPerformers(sessions);
+    // Filter out any performers whose userId doesn't exist in players anymore
+    const validPlayerIds = new Set(players.map(p => p.userId));
+    return performers.filter(performer => validPlayerIds.has(performer.userId));
+  }, [sessions, players]);
 
   // Use live metrics if available, otherwise fall back to computed values
   const liveActivePlayers = liveMetrics?.activePlayers ?? activeSessions.length;

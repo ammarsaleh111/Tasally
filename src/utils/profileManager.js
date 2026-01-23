@@ -237,10 +237,11 @@ export function recordGameResult(gameName, result) {
   // Update last played date
   gameStats.lastPlayedDate = today;
   
-  // Update attempts average
+  // Update attempts average - store as number, not string
   if (result.attempts !== undefined) {
-    gameStats.totalAttempts += result.attempts;
-    gameStats.averageAttempts = (gameStats.totalAttempts / gameStats.gamesPlayed).toFixed(2);
+    gameStats.totalAttempts = (Number(gameStats.totalAttempts) || 0) + Number(result.attempts);
+    const avg = gameStats.totalAttempts / gameStats.gamesPlayed;
+    gameStats.averageAttempts = Number.isFinite(avg) ? Math.round(avg * 100) / 100 : 0;
   }
   
   // Update best time

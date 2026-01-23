@@ -36,8 +36,12 @@ import AvatarPicker from '@/components/AvatarPicker';
 
 // Helper function to format time (seconds to MM:SS)
 const formatTime = (seconds) => {
-  const mins = Math.floor(seconds / 60);
-  const secs = seconds % 60;
+  const numSeconds = Number(seconds);
+  if (!Number.isFinite(numSeconds) || numSeconds < 0) {
+    return '0:00';
+  }
+  const mins = Math.floor(numSeconds / 60);
+  const secs = Math.floor(numSeconds % 60);
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 };
 
@@ -266,8 +270,23 @@ const GameSummaryCard = ({ gameName, stats, icon, color }) => {
   const played = stats.gamesPlayed ?? 0;
   const winRate = calculateWinRate(wins, played);
 
+  // Map game names to their correct paths
+  const gamePathMap = {
+    'Wordle': '/games/wordle',
+    'Connections': '/games/connections',
+    'Strands': '/games/strands',
+    'Crossword': '/games/crossword',
+    'Waffle': '/games/waffle',
+    'Combinations': '/games/combinations',
+    'Letterbox': '/games/letterbox',
+    'Sudoku': '/games/sudoku',
+    'Spelling Bee': '/games/spelling'
+  };
+
+  const gamePath = gamePathMap[gameName] || `/games/${gameName.toLowerCase().replace(' ', '-')}`;
+
   return (
-    <Link href={`/${gameName.toLowerCase().replace(' ', '-')}`}>
+    <Link href={gamePath}>
       <div className="bg-card border border-border rounded-xl p-4 transition-all duration-200 hover:shadow-md hover:border-border/80 hover:-translate-y-0.5 cursor-pointer group">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
@@ -303,16 +322,22 @@ const StatsTab = ({ stats }) => (
   <div className="space-y-6">
     <h2 className="text-xl font-bold text-foreground">Detailed Statistics</h2>
     
-    {Object.entries(stats).map(([gameName, gameStats]) => {
-      const played = gameStats?.gamesPlayed ?? 0;
-      const wins = gameStats?.gamesWon ?? 0;
-      const currentStreak = gameStats?.currentStreak ?? 0;
-      const longestStreak = gameStats?.longestStreak ?? gameStats?.maxStreak ?? 0;
+    {Object.entries(stats || {}).map(([gameName, gameStats]) => {
+      if (!gameStats) return null;
+      
+      const played = Number(gameStats.gamesPlayed) || 0;
+      const wins = Number(gameStats.gamesWon) || 0;
+      const currentStreak = Number(gameStats.currentStreak) || 0;
+      const longestStreak = Number(gameStats.longestStreak ?? gameStats.maxStreak) || 0;
       const winRate = `${calculateWinRate(wins, played)}%`;
-      const bestTime = gameStats?.bestTime ?? null;
-      const averageAttemptsRaw = gameStats?.averageAttempts ?? 0;
-      const averageAttempts = Number(averageAttemptsRaw);
-      const perfectGames = gameStats?.perfectGames ?? 0;
+      const bestTime = gameStats.bestTime != null ? Number(gameStats.bestTime) : null;
+      const perfectGames = Number(gameStats.perfectGames) || 0;
+      
+      // Safely parse averageAttempts - it might be stored as a string from toFixed()
+      const averageAttemptsRaw = gameStats.averageAttempts;
+      const averageAttempts = typeof averageAttemptsRaw === 'string' 
+        ? parseFloat(averageAttemptsRaw) 
+        : Number(averageAttemptsRaw) || 0;
 
       return (
         <div key={gameName} className="bg-card border border-border rounded-xl p-5 transition-all duration-200 hover:shadow-sm">
@@ -323,7 +348,7 @@ const StatsTab = ({ stats }) => (
             <StatItem label="Win Rate" value={winRate} highlight />
             <StatItem label="Current Streak" value={currentStreak} />
             <StatItem label="Longest Streak" value={longestStreak} />
-            {bestTime !== null && (
+            {bestTime !== null && Number.isFinite(bestTime) && (
               <StatItem label="Best Time" value={formatTime(bestTime)} />
             )}
             {Number.isFinite(averageAttempts) && averageAttempts > 0 && (
@@ -335,7 +360,7 @@ const StatsTab = ({ stats }) => (
           </div>
         </div>
       );
-    })}
+    }).filter(Boolean)}
   </div>
 );
 
