@@ -423,6 +423,59 @@
       transform: translateY(-8px);
     }
   }
+
+  /* WIN Animation - Gentle Bounce */
+  @keyframes bounce-gentle {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+    25% {
+      transform: translateY(-10px) scale(1.05);
+    }
+    50% {
+      transform: translateY(-5px) scale(1.02);
+    }
+    75% {
+      transform: translateY(-2px) scale(1.01);
+    }
+  }
+
+  /* WIN Animation - Glow Pulse */
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 20px rgba(var(--success) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(var(--success) / 0.4);
+    }
+  }
+
+  /* LOSE Animation - Soft Fade In */
+  @keyframes soft-fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Subtle Pulse for WIN states */
+  @keyframes pulse-subtle {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.95;
+      transform: scale(1.02);
+    }
+  }
 }
 
 /* Utility classes that Tailwind theme config might miss for complex animations */
@@ -504,11 +557,37 @@
   will-change: transform;
 }
 
+.animate-bounce-gentle {
+  -webkit-animation: bounce-gentle 1.2s ease-in-out infinite;
+  animation: bounce-gentle 1.2s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-glow-pulse {
+  -webkit-animation: glow-pulse 2s ease-in-out infinite;
+  animation: glow-pulse 2s ease-in-out infinite;
+  will-change: box-shadow;
+}
+
+.animate-soft-fade-in {
+  -webkit-animation: soft-fade-in 0.8s ease-out;
+  animation: soft-fade-in 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.animate-pulse-subtle {
+  -webkit-animation: pulse-subtle 2s ease-in-out infinite;
+  animation: pulse-subtle 2s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: Arial, Helvetica, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Smooth theme transitions for all elements */

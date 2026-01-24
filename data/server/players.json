@@ -120,14 +120,14 @@
     "userId": "user_1768241888057_s7bvpex9n",
     "name": "asad",
     "createdAt": "2026-01-12T18:18:08.057Z",
-    "updatedAt": "2026-01-23T23:54:02.858Z",
+    "updatedAt": "2026-01-24T00:07:38.632Z",
     "games": {
       "wordle": {
-        "gamesPlayed": 1,
+        "gamesPlayed": 2,
         "gamesWon": 0,
         "currentStreak": 0,
         "longestStreak": 0,
-        "lastPlayedDate": "2026-01-14",
+        "lastPlayedDate": "2026-01-24",
         "history": [
           {
             "date": "2026-01-14",
@@ -202,16 +202,84 @@
                 ]
               }
             ]
+          },
+          {
+            "date": "2026-01-24",
+            "win": false,
+            "attempts": 6,
+            "puzzleId": "unlimited-1769213258632",
+            "guesses": [
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "present",
+                  "present",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "present",
+                  "present",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "present",
+                  "present",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "present",
+                  "present",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "present",
+                  "present",
+                  "absent"
+                ]
+              },
+              {
+                "word": "TRUTH",
+                "evaluation": [
+                  "present",
+                  "absent",
+                  "present",
+                  "absent",
+                  "absent"
+                ]
+              }
+            ]
           }
         ],
         "bestTime": null,
-        "averageAttempts": "6.00",
-        "totalAttempts": 6,
+        "averageAttempts": 6,
+        "totalAttempts": 12,
         "perfectGames": 0
       },
       "connections": {
         "gamesPlayed": 1,
-        "gamesWon": 5,
+        "gamesWon": 6,
         "currentStreak": 1,
         "longestStreak": 1,
         "lastPlayedDate": "2026-01-24",
@@ -219,9 +287,9 @@
           {
             "date": "2026-01-24",
             "win": true,
-            "mistakes": 3,
-            "perfect": false,
-            "puzzleId": "connections-2026-01-23",
+            "mistakes": 0,
+            "perfect": true,
+            "puzzleId": "connections-2026-01-24",
             "solvedGroups": [
               0,
               1,
@@ -233,7 +301,7 @@
         "bestTime": null,
         "averageAttempts": 0,
         "totalAttempts": 0,
-        "perfectGames": 0
+        "perfectGames": 1
       },
       "crossword": {
         "gamesPlayed": 0,
