@@ -18,7 +18,7 @@ const COOKIE_OPTIONS = {
   httpOnly: true,
   sameSite: 'strict',
   secure: process.env.NODE_ENV === 'production',
-  path: '/admin',
+  path: '/',
 };
 
 function getClientIp(request) {
@@ -29,7 +29,8 @@ function getClientIp(request) {
 }
 
 export async function GET(request) {
-  const token = cookies().get(COOKIE_NAME)?.value;
+  const cookieStore = await cookies();
+  const token = cookieStore.get(COOKIE_NAME)?.value;
   const authenticated = await validateAdminSession(token);
   return NextResponse.json({ authenticated });
 }
@@ -99,7 +100,7 @@ export async function POST(request) {
 }
 
 export async function DELETE() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
   
   if (token) {

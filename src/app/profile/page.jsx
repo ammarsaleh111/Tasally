@@ -33,6 +33,14 @@ import SiteHeader from '@/components/SiteHeader';
 import FeedbackForm from '@/components/FeedbackForm';
 import Avatar3D from '@/components/Avatar3D';
 import AvatarPicker from '@/components/AvatarPicker';
+import { 
+  useSeasonIdentity, 
+  SeasonPageHeader, 
+  SeasonCard, 
+  SeasonTexturedCard,
+  SeasonDivider,
+  SeasonIcon 
+} from '@/components/SeasonIdentity';
 
 // Helper function to format time (seconds to MM:SS)
 const formatTime = (seconds) => {
@@ -122,8 +130,17 @@ export default function ProfilePage() {
       <SiteHeader />
       
       <main className="max-w-4xl mx-auto px-4 py-8">
-        {/* Profile Header with 3D Avatar */}
-        <div className="bg-card border border-border rounded-2xl p-6 mb-6 shadow-sm transition-all duration-300 hover:shadow-md">
+        {/* Seasonal Page Header */}
+        <div className="text-center mb-6">
+          <SeasonPageHeader 
+            title="Your Profile"
+            subtitle="Track your progress, achievements, and game stats"
+            showBadge={true}
+          />
+        </div>
+        
+        {/* Profile Header with 3D Avatar - Seasonal Card */}
+        <SeasonTexturedCard className="p-6 mb-6 shadow-sm transition-all duration-300 hover:shadow-md">
           <div className="flex flex-col sm:flex-row items-center gap-6">
             {/* Avatar Section */}
             <div className="flex flex-col items-center gap-4">
@@ -135,8 +152,10 @@ export default function ProfilePage() {
                 className="transition-transform duration-300 hover:scale-105 cursor-pointer"
               />
               <div className="text-center">
-                <h1 className="text-2xl font-bold text-foreground transition-colors">
+                <h1 className="text-2xl font-bold text-foreground transition-colors flex items-center justify-center gap-2">
+                  <SeasonIcon index={0} />
                   {profile.name ? `Hi, ${profile.name}!` : 'Welcome!'}
+                  <SeasonIcon index={1} />
                 </h1>
                 <p className="text-sm text-muted-foreground mt-1">
                   Member since {new Date(profile.createdAt).toLocaleDateString()}
@@ -158,7 +177,7 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
-        </div>
+        </SeasonTexturedCard>
         
         {/* Avatar Picker Modal */}
         <AvatarPicker 
@@ -168,12 +187,15 @@ export default function ProfilePage() {
           onSelect={handleAvatarChange}
         />
 
-        {/* Quick Stats Cards */}
+        {/* Seasonal Divider */}
+        <SeasonDivider variant="icons" className="my-6" />
+
+        {/* Quick Stats Cards with Seasonal Styling */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <StatCard icon="🎮" value={totalGames} label="Games Played" colorClass="bg-info/10" textColor="text-info" />
-          <StatCard icon="🏆" value={totalWins} label="Games Won" colorClass="bg-success/10" textColor="text-success" />
-          <StatCard icon="🔥" value={bestCurrentStreak} label="Best Streak" colorClass="bg-warning/10" textColor="text-warning" />
-          <StatCard icon="⭐" value={totalAchievements} label="Achievements" colorClass="bg-strands-bonus/10" textColor="text-strands-bonus" />
+          <SeasonalStatCard icon="🎮" value={totalGames} label="Games Played" colorClass="bg-info/10" textColor="text-info" />
+          <SeasonalStatCard icon="🏆" value={totalWins} label="Games Won" colorClass="bg-success/10" textColor="text-success" />
+          <SeasonalStatCard icon="🔥" value={bestCurrentStreak} label="Best Streak" colorClass="bg-warning/10" textColor="text-warning" />
+          <SeasonalStatCard icon="⭐" value={totalAchievements} label="Achievements" colorClass="bg-strands-bonus/10" textColor="text-strands-bonus" />
         </div>
 
         {/* Tabs */}
@@ -204,19 +226,32 @@ export default function ProfilePage() {
           )}
           {activeTab === 'feedback' && <FeedbackTab />}
         </div>
+        
+        {/* Seasonal footer divider */}
+        <SeasonDivider variant="gradient" className="mt-8" />
       </main>
     </div>
   );
 }
 
-// Quick Stat Card Component
-const StatCard = ({ icon, value, label, colorClass, textColor }) => (
-  <div className={`${colorClass} rounded-xl p-4 text-center transition-all duration-200 hover:scale-[1.02] hover:shadow-sm border border-transparent hover:border-border/50`}>
-    <p className="text-2xl mb-1">{icon}</p>
-    <p className={`text-2xl font-bold ${textColor} transition-colors`}>{value}</p>
-    <p className="text-xs text-muted-foreground mt-1">{label}</p>
-  </div>
-);
+// Seasonal Quick Stat Card Component
+const SeasonalStatCard = ({ icon, value, label, colorClass, textColor }) => {
+  const { pack } = useSeasonIdentity();
+  
+  return (
+    <SeasonCard 
+      className={`${colorClass} p-4 text-center`}
+      hover={true}
+    >
+      <p className="text-2xl mb-1">{icon}</p>
+      <p className={`text-2xl font-bold ${textColor} transition-colors`}>{value}</p>
+      <p className="text-xs text-muted-foreground mt-1">{label}</p>
+      {pack && (
+        <div className="absolute bottom-1 right-1 text-xs opacity-30">{pack.microIcons[0]}</div>
+      )}
+    </SeasonCard>
+  );
+};
 
 // Tab Button Component
 const TabButton = ({ label, active, onClick, badge }) => (

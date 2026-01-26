@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <!-- Falling maple leaves -->
+    <pattern id="autumn-maple" patternUnits="userSpaceOnUse" width="80" height="80">
+      <!-- Maple leaf shape -->
+      <g transform="translate(40, 40) rotate(15)" fill="#D2691E" opacity="0.45">
+        <path d="M0 -15 L3 -8 L10 -10 L6 -3 L12 3 L5 2 L3 8 L0 4 L-3 8 L-5 2 L-12 3 L-6 -3 L-10 -10 L-3 -8 Z"/>
+        <line x1="0" y1="0" x2="0" y2="12" stroke="#8B4513" stroke-width="1.5"/>
+      </g>
+      <!-- Smaller leaf -->
+      <g transform="translate(15, 60) rotate(-20) scale(0.6)" fill="#CD853F" opacity="0.35">
+        <path d="M0 -15 L3 -8 L10 -10 L6 -3 L12 3 L5 2 L3 8 L0 4 L-3 8 L-5 2 L-12 3 L-6 -3 L-10 -10 L-3 -8 Z"/>
+      </g>
+    </pattern>
+    
+    <!-- Oak leaves and acorns -->
+    <pattern id="autumn-oak" patternUnits="userSpaceOnUse" width="100" height="100">
+      <!-- Oak leaf -->
+      <g transform="translate(50, 50)" fill="#8B4513" opacity="0.3">
+        <path d="M0 -20 Q8 -18 10 -12 Q6 -10 8 -5 Q12 -3 10 3 Q6 5 8 10 Q4 12 0 15 Q-4 12 -8 10 Q-6 5 -10 3 Q-12 -3 -8 -5 Q-6 -10 -10 -12 Q-8 -18 0 -20 Z"/>
+        <line x1="0" y1="0" x2="0" y2="20" stroke="#654321" stroke-width="1"/>
+      </g>
+      <!-- Acorn -->
+      <g transform="translate(20, 25)" opacity="0.4">
+        <ellipse cx="0" cy="5" rx="6" ry="8" fill="#8B4513"/>
+        <ellipse cx="0" cy="-2" rx="7" ry="4" fill="#A0522D"/>
+        <rect x="-1" y="-8" width="2" height="5" fill="#654321"/>
+      </g>
+    </pattern>
+    
+    <!-- Harvest wheat -->
+    <pattern id="autumn-wheat" patternUnits="userSpaceOnUse" width="60" height="120">
+      <g transform="translate(30, 60)" stroke="#DAA520" fill="none" opacity="0.25">
+        <line x1="0" y1="0" x2="0" y2="50" stroke-width="1.5"/>
+        <!-- Wheat grains -->
+        <ellipse cx="-3" cy="-5" rx="2" ry="5" fill="#DAA520"/>
+        <ellipse cx="3" cy="-8" rx="2" ry="5" fill="#DAA520"/>
+        <ellipse cx="-2" cy="-15" rx="2" ry="5" fill="#DAA520"/>
+        <ellipse cx="2" cy="-18" rx="2" ry="5" fill="#DAA520"/>
+        <ellipse cx="0" cy="-25" rx="2" ry="5" fill="#DAA520"/>
+        <!-- Whiskers -->
+        <line x1="0" y1="-28" x2="-5" y2="-38" stroke-width="0.5"/>
+        <line x1="0" y1="-28" x2="5" y2="-38" stroke-width="0.5"/>
+        <line x1="0" y1="-28" x2="0" y2="-40" stroke-width="0.5"/>
+      </g>
+    </pattern>
+  </defs>
+  
+  <rect width="200" height="200" fill="url(#autumn-maple)"/>
+  <rect width="200" height="200" fill="url(#autumn-oak)"/>
+  <rect width="200" height="200" fill="url(#autumn-wheat)"/>
+</svg>

@@ -2,6 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import SiteHeader from "@/components/SiteHeader";
+import { 
+  useSeasonIdentity, 
+  SeasonPageHeader, 
+  SeasonCard,
+  SeasonTexturedCard,
+  SeasonDivider,
+  SeasonIcon 
+} from "@/components/SeasonIdentity";
 
 const VALID_GAMES = [
   { key: "wordle", label: "Wordle", icon: "📝" },
@@ -84,16 +92,17 @@ export default function LeaderboardPage() {
       <SiteHeader />
       
       <main className="max-w-4xl mx-auto px-4 py-8">
-        {/* Header */}
+        {/* Seasonal Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2 flex items-center justify-center gap-3">
-            <span>🏆</span>
-            <span>Leaderboard</span>
-          </h1>
-          <p className="text-[hsl(var(--muted-foreground))]">
-            See how you rank against other players
-          </p>
+          <SeasonPageHeader 
+            title="Leaderboard"
+            subtitle="See how you rank against other players"
+            showBadge={true}
+          />
         </div>
+
+        {/* Seasonal Divider */}
+        <SeasonDivider variant="icons" className="mb-6" />
 
         {/* Controls */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
@@ -166,8 +175,8 @@ export default function LeaderboardPage() {
           </span>
         </div>
 
-        {/* Content */}
-        <div className="bg-[hsl(var(--card))] border border-[hsl(var(--border))] rounded-2xl overflow-hidden">
+        {/* Content - Seasonal Card */}
+        <SeasonTexturedCard className="overflow-hidden">
           {loading ? (
             <div className="flex items-center justify-center py-16">
               <div className="flex flex-col items-center gap-3">
@@ -189,8 +198,10 @@ export default function LeaderboardPage() {
           ) : (period === "daily" && dailyData.length === 0) || (period === "monthly" && monthlyData.length === 0) ? (
             <div className="flex flex-col items-center justify-center py-16 gap-3">
               <span className="text-5xl">🏅</span>
-              <p className="text-[hsl(var(--muted-foreground))] font-medium">
+              <p className="text-[hsl(var(--muted-foreground))] font-medium flex items-center gap-2">
+                <SeasonIcon index={0} />
                 No entries yet for {period === "daily" ? "today" : "this month"}.
+                <SeasonIcon index={1} />
               </p>
               <p className="text-sm text-[hsl(var(--muted-foreground))]">
                 Be the first to submit a score!
@@ -233,84 +244,107 @@ export default function LeaderboardPage() {
                 </thead>
                 <tbody className="divide-y divide-[hsl(var(--border))]">
                   {period === "daily"
-                    ? dailyData.map((entry) => {
-                        const rankDisplay = getRankDisplay(entry.rank);
-                        return (
-                          <tr
-                            key={entry.rank}
-                            className={`
-                              transition-colors duration-200
-                              hover:bg-[hsl(var(--surface-hover))]
-                              ${entry.rank <= 3 ? 'bg-[hsl(var(--accent))]/5' : ''}
-                            `}
-                          >
-                            <td className="py-4 px-4">
-                              <span className={`font-bold text-lg ${rankDisplay.color}`}>
-                                {rankDisplay.emoji}
-                              </span>
-                            </td>
-                            <td className="py-4 px-4">
-                              <span className="font-medium text-[hsl(var(--foreground))]">
-                                {entry.playerName}
-                              </span>
-                            </td>
-                            <td className="py-4 px-4 text-right">
-                              <span className="font-mono font-bold text-[hsl(var(--accent))]">
-                                {entry.score.toLocaleString()}
-                              </span>
-                            </td>
-                            <td className="py-4 px-4 text-right text-[hsl(var(--muted-foreground))] hidden sm:table-cell">
-                              {entry.attempts ?? "-"}
-                            </td>
-                            <td className="py-4 px-4 text-right text-[hsl(var(--muted-foreground))] text-sm hidden md:table-cell">
-                              {entry.durationMs ? `${Math.round(entry.durationMs / 1000)}s` : "-"}
-                            </td>
-                          </tr>
-                        );
-                      })
-                    : monthlyData.map((entry) => {
-                        const rankDisplay = getRankDisplay(entry.rank);
-                        return (
-                          <tr
-                            key={entry.rank}
-                            className={`
-                              transition-colors duration-200
-                              hover:bg-[hsl(var(--surface-hover))]
-                              ${entry.rank <= 3 ? 'bg-[hsl(var(--accent))]/5' : ''}
-                            `}
-                          >
-                            <td className="py-4 px-4">
-                              <span className={`font-bold text-lg ${rankDisplay.color}`}>
-                                {rankDisplay.emoji}
-                              </span>
-                            </td>
-                            <td className="py-4 px-4">
-                              <span className="font-medium text-[hsl(var(--foreground))]">
-                                {entry.playerName}
-                              </span>
-                            </td>
-                            <td className="py-4 px-4 text-right">
-                              <span className="font-mono font-bold text-[hsl(var(--accent))]">
-                                {entry.totalScore.toLocaleString()}
-                              </span>
-                            </td>
-                            <td className="py-4 px-4 text-right text-[hsl(var(--muted-foreground))]">
-                              {entry.gamesPlayed}
-                            </td>
-                          </tr>
-                        );
-                      })}
+                    ? dailyData.map((entry) => (
+                        <LeaderboardRow key={entry.rank} entry={entry} period={period} getRankDisplay={getRankDisplay} />
+                      ))
+                    : monthlyData.map((entry) => (
+                        <MonthlyLeaderboardRow key={entry.rank} entry={entry} getRankDisplay={getRankDisplay} />
+                      ))}
                 </tbody>
               </table>
             </div>
           )}
-        </div>
+        </SeasonTexturedCard>
+
+        {/* Seasonal Divider */}
+        <SeasonDivider variant="gradient" className="mt-6 mb-4" />
 
         {/* Footer Note */}
-        <p className="text-center text-xs text-[hsl(var(--muted-foreground))] mt-6">
+        <p className="text-center text-xs text-[hsl(var(--muted-foreground))] flex items-center justify-center gap-2">
+          <SeasonIcon index={2} />
           Only daily mode games are ranked. Sign in to display your name on the leaderboard!
+          <SeasonIcon index={3} />
         </p>
       </main>
     </div>
+  );
+}
+
+// Seasonal Leaderboard Row Component
+function LeaderboardRow({ entry, period, getRankDisplay }: { entry: DailyEntry; period: Period; getRankDisplay: (rank: number) => { emoji: string; color: string } }) {
+  const { pack } = useSeasonIdentity();
+  const rankDisplay = getRankDisplay(entry.rank);
+  
+  return (
+    <tr
+      className={`
+        transition-colors duration-200
+        hover:bg-[hsl(var(--surface-hover))]
+        ${entry.rank <= 3 ? 'bg-[hsl(var(--accent))]/5' : ''}
+      `}
+    >
+      <td className="py-4 px-4">
+        <span className={`font-bold text-lg ${rankDisplay.color}`}>
+          {rankDisplay.emoji}
+        </span>
+        {/* Seasonal decoration for top 3 */}
+        {pack && entry.rank <= 3 && (
+          <span className="ml-1 text-sm opacity-50">{pack.microIcons[entry.rank - 1]}</span>
+        )}
+      </td>
+      <td className="py-4 px-4">
+        <span className="font-medium text-[hsl(var(--foreground))]">
+          {entry.playerName}
+        </span>
+      </td>
+      <td className="py-4 px-4 text-right">
+        <span className="font-mono font-bold text-[hsl(var(--accent))]">
+          {entry.score.toLocaleString()}
+        </span>
+      </td>
+      <td className="py-4 px-4 text-right text-[hsl(var(--muted-foreground))] hidden sm:table-cell">
+        {entry.attempts ?? "-"}
+      </td>
+      <td className="py-4 px-4 text-right text-[hsl(var(--muted-foreground))] text-sm hidden md:table-cell">
+        {entry.durationMs ? `${Math.round(entry.durationMs / 1000)}s` : "-"}
+      </td>
+    </tr>
+  );
+}
+
+function MonthlyLeaderboardRow({ entry, getRankDisplay }: { entry: MonthlyEntry; getRankDisplay: (rank: number) => { emoji: string; color: string } }) {
+  const { pack } = useSeasonIdentity();
+  const rankDisplay = getRankDisplay(entry.rank);
+  
+  return (
+    <tr
+      className={`
+        transition-colors duration-200
+        hover:bg-[hsl(var(--surface-hover))]
+        ${entry.rank <= 3 ? 'bg-[hsl(var(--accent))]/5' : ''}
+      `}
+    >
+      <td className="py-4 px-4">
+        <span className={`font-bold text-lg ${rankDisplay.color}`}>
+          {rankDisplay.emoji}
+        </span>
+        {pack && entry.rank <= 3 && (
+          <span className="ml-1 text-sm opacity-50">{pack.microIcons[entry.rank - 1]}</span>
+        )}
+      </td>
+      <td className="py-4 px-4">
+        <span className="font-medium text-[hsl(var(--foreground))]">
+          {entry.playerName}
+        </span>
+      </td>
+      <td className="py-4 px-4 text-right">
+        <span className="font-mono font-bold text-[hsl(var(--accent))]">
+          {entry.totalScore.toLocaleString()}
+        </span>
+      </td>
+      <td className="py-4 px-4 text-right text-[hsl(var(--muted-foreground))]">
+        {entry.gamesPlayed}
+      </td>
+    </tr>
   );
 }

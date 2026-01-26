@@ -95,19 +95,25 @@ export async function PUT(request: NextRequest) {
       );
     }
 
+    // Convert empty strings to null for dates
+    const cleanRamadanStart = ramadanStart?.trim() || null;
+    const cleanRamadanEnd = ramadanEnd?.trim() || null;
+    const cleanEidStart = eidStart?.trim() || null;
+    const cleanEidEnd = eidEnd?.trim() || null;
+    
     // Validate date formats if provided
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     
-    if (ramadanStart && !dateRegex.test(ramadanStart)) {
+    if (cleanRamadanStart && !dateRegex.test(cleanRamadanStart)) {
       return NextResponse.json({ error: 'Invalid ramadanStart format' }, { status: 400 });
     }
-    if (ramadanEnd && !dateRegex.test(ramadanEnd)) {
+    if (cleanRamadanEnd && !dateRegex.test(cleanRamadanEnd)) {
       return NextResponse.json({ error: 'Invalid ramadanEnd format' }, { status: 400 });
     }
-    if (eidStart && !dateRegex.test(eidStart)) {
+    if (cleanEidStart && !dateRegex.test(cleanEidStart)) {
       return NextResponse.json({ error: 'Invalid eidStart format' }, { status: 400 });
     }
-    if (eidEnd && !dateRegex.test(eidEnd)) {
+    if (cleanEidEnd && !dateRegex.test(cleanEidEnd)) {
       return NextResponse.json({ error: 'Invalid eidEnd format' }, { status: 400 });
     }
 
@@ -123,12 +129,12 @@ export async function PUT(request: NextRequest) {
     const updateData = {
       activeDominantTheme: activeDominantTheme ?? null,
       useSchedule: useSchedule ?? true,
-      ramadanStart: ramadanStart ?? null,
-      ramadanEnd: ramadanEnd ?? null,
-      eidStart: eidStart ?? null,
-      eidEnd: eidEnd ?? null,
-      bannerTitle: bannerTitle ?? null,
-      bannerSubtitle: bannerSubtitle ?? null,
+      ramadanStart: cleanRamadanStart,
+      ramadanEnd: cleanRamadanEnd,
+      eidStart: cleanEidStart,
+      eidEnd: cleanEidEnd,
+      bannerTitle: bannerTitle?.trim() || null,
+      bannerSubtitle: bannerSubtitle?.trim() || null,
       bannerEnabled: bannerEnabled ?? true,
       updatedAt: new Date(),
     };

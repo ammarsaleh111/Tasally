@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProviderNew";
 import DominantThemeBanner from "@/components/DominantThemeBanner";
-import SeasonDecorations from "@/components/SeasonDecorations";
+import { SeasonIdentityProvider } from "@/components/SeasonIdentity";
 import NotificationInitializer from "@/components/NotificationInitializer";
 import IdentityProvider from "@/components/IdentityProvider";
 import SessionInitializer from "@/components/SessionInitializer";
@@ -34,11 +34,12 @@ export default function RootLayout({ children }) {
             <IdentityProvider>
               <ThemeProvider>
                 <NotificationInitializer>
-                  <SeasonDecorations />
-                  <DominantThemeBanner />
-                  <div className="relative z-10">
-                    {children}
-                  </div>
+                  <SeasonIdentityProvider showBackground={true} showCorners={true} showParticles={false}>
+                    <DominantThemeBanner />
+                    <div className="relative z-10">
+                      {children}
+                    </div>
+                  </SeasonIdentityProvider>
                 </NotificationInitializer>
               </ThemeProvider>
             </IdentityProvider>

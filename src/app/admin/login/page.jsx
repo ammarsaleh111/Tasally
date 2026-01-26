@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/admin';
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -20,7 +22,7 @@ export default function AdminLoginPage() {
         const res = await fetch('/api/admin/login');
         const data = await res.json();
         if (mounted && data.authenticated) {
-          router.replace('/admin');
+          router.replace(redirectTo);
         }
       } catch (err) {
         console.warn('Failed to check admin session', err);
@@ -35,7 +37,7 @@ export default function AdminLoginPage() {
     return () => {
       mounted = false;
     };
-  }, [router]);
+  }, [router, redirectTo]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -54,7 +56,7 @@ export default function AdminLoginPage() {
         throw new Error(payload.error || 'Unable to sign in');
       }
 
-      router.replace('/admin');
+      router.replace(redirectTo);
     } catch (err) {
       setError(err.message || 'Unable to sign in');
       setStatus('idle');

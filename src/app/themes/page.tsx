@@ -5,6 +5,16 @@ import Link from 'next/link';
 import { useTheme, useAvailableThemes } from '@/components/ThemeProviderNew';
 import { getDominantThemeCountdown } from '@/themes/engine';
 import type { DominantTheme, SeasonTheme, SeasonSkin } from '@/themes/types';
+import { 
+  useSeasonIdentity, 
+  SeasonPageHeader, 
+  SeasonCard as SeasonIdentityCard,
+  SeasonTexturedCard,
+  SeasonDivider,
+  SeasonIcon,
+  SEASON_PACKS,
+  DOMINANT_PACKS
+} from '@/components/SeasonIdentity';
 
 // ============================================================================
 // MAIN PAGE COMPONENT
@@ -20,16 +30,17 @@ export default function ThemesPage() {
   return (
     <div className="min-h-screen flex flex-col items-center p-4 sm:p-8 animate-fade-in-up">
       <div className="max-w-4xl w-full space-y-12">
-        {/* Header */}
-        <header className="text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
-            🎨 Theme Settings
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Customize your Ammar Times experience. Choose your appearance mode,
-            add seasonal decorations, and manage special event themes.
-          </p>
-        </header>
+        {/* Seasonal Header */}
+        <div className="text-center">
+          <SeasonPageHeader 
+            title="Theme Settings"
+            subtitle="Customize your Ammar Times experience. Choose your appearance mode, add seasonal decorations, and manage special event themes."
+            showBadge={true}
+          />
+        </div>
+        
+        {/* Visual Identity Showcase */}
+        <SeasonShowcaseSection />
         
         {/* Appearance Section */}
         <AppearanceSection />
@@ -43,6 +54,9 @@ export default function ThemesPage() {
         {/* Settings Section */}
         <SettingsSection />
         
+        {/* Seasonal Divider */}
+        <SeasonDivider variant="gradient" />
+        
         {/* Back Button */}
         <footer className="text-center pt-8 pb-4">
           <Link 
@@ -52,7 +66,9 @@ export default function ThemesPage() {
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
+            <SeasonIcon index={0} />
             Back to Games
+            <SeasonIcon index={1} />
           </Link>
         </footer>
       </div>
@@ -749,4 +765,109 @@ function formatDateRange(start: string, end: string): string {
   }
   
   return `${startMonth} ${startDay} - ${endMonth} ${endDay}`;
+}
+
+// ============================================================================
+// SEASON SHOWCASE SECTION - Visual Identity Preview
+// ============================================================================
+
+function SeasonShowcaseSection() {
+  const { pack, isDominant } = useSeasonIdentity();
+  
+  // Get all packs for showcase
+  const allPacks = { ...SEASON_PACKS, ...DOMINANT_PACKS };
+  
+  return (
+    <section>
+      <SectionHeader
+        icon="✨"
+        title="Visual Identity Preview"
+        subtitle="See how each season transforms the entire app experience"
+      />
+      
+      {/* Current Active Season Display */}
+      {pack && (
+        <SeasonTexturedCard className="mt-6 p-6">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <div 
+              className="w-24 h-24 rounded-2xl flex items-center justify-center text-5xl"
+              style={{ background: pack.headerGradient }}
+            >
+              {pack.emoji}
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+              <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
+                <span className="text-2xl font-bold text-foreground">{pack.name}</span>
+                {isDominant && (
+                  <span className="px-2 py-0.5 text-xs font-medium bg-warning/20 text-warning rounded-full">
+                    DOMINANT
+                  </span>
+                )}
+              </div>
+              <p className="text-muted-foreground mb-3">{pack.tagline}</p>
+              
+              {/* Visual Elements Preview */}
+              <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+                {pack.emojiSet.slice(0, 6).map((emoji, i) => (
+                  <span 
+                    key={i} 
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-lg"
+                    style={{ background: pack.colors.glow }}
+                  >
+                    {emoji}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          {/* 5 Layer Preview */}
+          <div className="mt-6 pt-6 border-t border-border">
+            <h4 className="text-sm font-medium text-muted-foreground mb-4 text-center">
+              5-Layer Visual System Active:
+            </h4>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center text-xs">
+              <div className="p-3 rounded-lg bg-card border border-border">
+                <div className="text-lg mb-1">🖼️</div>
+                <div className="font-medium">Background</div>
+                <div className="text-muted-foreground">Full-page pattern</div>
+              </div>
+              <div className="p-3 rounded-lg bg-card border border-border">
+                <div className="text-lg mb-1">🏷️</div>
+                <div className="font-medium">Header</div>
+                <div className="text-muted-foreground">Season badge</div>
+              </div>
+              <div className="p-3 rounded-lg bg-card border border-border">
+                <div className="text-lg mb-1">🎴</div>
+                <div className="font-medium">Cards</div>
+                <div className="text-muted-foreground">Textured surfaces</div>
+              </div>
+              <div className="p-3 rounded-lg bg-card border border-border">
+                <div className="text-lg mb-1">✨</div>
+                <div className="font-medium">Micro UI</div>
+                <div className="text-muted-foreground">Icons & dividers</div>
+              </div>
+              <div className="p-3 rounded-lg bg-card border border-border col-span-2 sm:col-span-1">
+                <div className="text-lg mb-1">🎬</div>
+                <div className="font-medium">Motion</div>
+                <div className="text-muted-foreground">Ambient effects</div>
+              </div>
+            </div>
+          </div>
+        </SeasonTexturedCard>
+      )}
+      
+      {!pack && (
+        <div className="mt-6 p-8 text-center bg-card rounded-2xl border border-border">
+          <div className="text-4xl mb-4">🎨</div>
+          <h3 className="font-semibold text-foreground mb-2">No Season Active</h3>
+          <p className="text-muted-foreground text-sm">
+            Select a season skin below to see the full visual transformation!
+          </p>
+        </div>
+      )}
+      
+      <SeasonDivider variant="icons" className="mt-8" />
+    </section>
+  );
 }

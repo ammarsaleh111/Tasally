@@ -15,7 +15,7 @@ export default async function AdminThemesPage() {
   const isAuthorized = await validateAdminSession(token);
 
   if (!isAuthorized) {
-    redirect('/admin/login');
+    redirect('/admin/login?redirect=/admin/themes');
   }
 
   return <AdminThemesClient />;
