@@ -3,8 +3,8 @@
     {
       "userId": "user_1768241888057_s7bvpex9n",
       "name": "asad",
-      "lastSeen": "2026-01-26T15:10:22.596Z",
-      "currentPage": "home",
+      "lastSeen": "2026-01-26T15:20:22.740Z",
+      "currentPage": "games",
       "currentGame": null,
       "activities": [
         {
@@ -831,6 +831,26 @@
           "page": "home",
           "game": null,
           "timestamp": "2026-01-26T15:10:22.596Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-26T15:18:52.244Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-26T15:19:22.740Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-26T15:19:52.739Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-26T15:20:22.740Z"
         }
       ]
     },

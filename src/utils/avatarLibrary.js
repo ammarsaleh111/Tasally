@@ -1,6 +1,6 @@
 /**
  * Avatar Library - 3D Avatar System
- * Collection of ~30 pre-made stylized avatars for player identity
+ * Collection of 50+ pre-made stylized avatars for player identity
  * 
  * Each avatar has:
  * - id: unique identifier
@@ -22,7 +22,7 @@ export const AVATAR_CATEGORIES = {
 };
 
 export const AVATARS = [
-  // Characters (6)
+  // Characters (11)
   {
     id: 'char-explorer',
     name: 'Explorer',
@@ -77,8 +77,53 @@ export const AVATARS = [
     accentColor: '#ff9a9e',
     animation: 'bounce',
   },
+  {
+    id: 'char-pirate',
+    name: 'Pirate',
+    emoji: '🏴‍☠️',
+    category: 'characters',
+    gradient: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+    accentColor: '#2a5298',
+    animation: 'sway',
+  },
+  {
+    id: 'char-detective',
+    name: 'Detective',
+    emoji: '🕵️',
+    category: 'characters',
+    gradient: 'linear-gradient(135deg, #8e9eab 0%, #eef2f3 100%)',
+    accentColor: '#8e9eab',
+    animation: 'pulse',
+  },
+  {
+    id: 'char-musician',
+    name: 'Musician',
+    emoji: '🎸',
+    category: 'characters',
+    gradient: 'linear-gradient(135deg, #ff0844 0%, #ffb199 100%)',
+    accentColor: '#ff0844',
+    animation: 'bounce',
+  },
+  {
+    id: 'char-athlete',
+    name: 'Athlete',
+    emoji: '⚽',
+    category: 'characters',
+    gradient: 'linear-gradient(135deg, #56ab2f 0%, #a8e063 100%)',
+    accentColor: '#56ab2f',
+    animation: 'float',
+  },
+  {
+    id: 'char-superhero',
+    name: 'Superhero',
+    emoji: '🦸',
+    category: 'characters',
+    gradient: 'linear-gradient(135deg, #dd1818 0%, #333333 100%)',
+    accentColor: '#dd1818',
+    animation: 'sparkle',
+  },
 
-  // Animals (6)
+  // Animals (14)
   {
     id: 'animal-fox',
     name: 'Clever Fox',
@@ -133,8 +178,71 @@ export const AVATARS = [
     accentColor: '#fbc2eb',
     animation: 'sparkle',
   },
+  {
+    id: 'animal-penguin',
+    name: 'Cool Penguin',
+    emoji: '🐧',
+    category: 'animals',
+    gradient: 'linear-gradient(135deg, #005aa7 0%, #fffde4 100%)',
+    accentColor: '#005aa7',
+    animation: 'bounce',
+  },
+  {
+    id: 'animal-koala',
+    name: 'Sleepy Koala',
+    emoji: '🐨',
+    category: 'animals',
+    gradient: 'linear-gradient(135deg, #9795f0 0%, #fbc8d4 100%)',
+    accentColor: '#9795f0',
+    animation: 'sway',
+  },
+  {
+    id: 'animal-lion',
+    name: 'Brave Lion',
+    emoji: '🦁',
+    category: 'animals',
+    gradient: 'linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%)',
+    accentColor: '#fdbb2d',
+    animation: 'pulse',
+  },
+  {
+    id: 'animal-turtle',
+    name: 'Wise Turtle',
+    emoji: '🐢',
+    category: 'animals',
+    gradient: 'linear-gradient(135deg, #134e5e 0%, #71b280 100%)',
+    accentColor: '#71b280',
+    animation: 'float',
+  },
+  {
+    id: 'animal-butterfly',
+    name: 'Flutter Butterfly',
+    emoji: '🦋',
+    category: 'animals',
+    gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    accentColor: '#fa709a',
+    animation: 'sparkle',
+  },
+  {
+    id: 'animal-octopus',
+    name: 'Smart Octopus',
+    emoji: '🐙',
+    category: 'animals',
+    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    accentColor: '#667eea',
+    animation: 'sway',
+  },
+  {
+    id: 'animal-eagle',
+    name: 'Soaring Eagle',
+    emoji: '🦅',
+    category: 'animals',
+    gradient: 'linear-gradient(135deg, #8b5a3c 0%, #f5deb3 100%)',
+    accentColor: '#8b5a3c',
+    animation: 'float',
+  },
 
-  // Robots (5)
+  // Robots (8)
   {
     id: 'robot-classic',
     name: 'Classic Bot',
@@ -180,8 +288,35 @@ export const AVATARS = [
     accentColor: '#D2691E',
     animation: 'sway',
   },
+  {
+    id: 'robot-neon',
+    name: 'Neon Bot',
+    emoji: '🌈',
+    category: 'robots',
+    gradient: 'linear-gradient(135deg, #fa71cd 0%, #c471f5 100%)',
+    accentColor: '#fa71cd',
+    animation: 'sparkle',
+  },
+  {
+    id: 'robot-pixel',
+    name: 'Pixel Bot',
+    emoji: '👾',
+    category: 'robots',
+    gradient: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+    accentColor: '#30cfd0',
+    animation: 'pulse',
+  },
+  {
+    id: 'robot-future',
+    name: 'Future Bot',
+    emoji: '🚀',
+    category: 'robots',
+    gradient: 'linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)',
+    accentColor: '#5ee7df',
+    animation: 'float',
+  },
 
-  // Mascots (5)
+  // Mascots (8)
   {
     id: 'mascot-star',
     name: 'Star',
@@ -227,8 +362,35 @@ export const AVATARS = [
     accentColor: '#f09819',
     animation: 'pulse',
   },
+  {
+    id: 'mascot-lightning',
+    name: 'Lightning Bolt',
+    emoji: '⚡',
+    category: 'mascots',
+    gradient: 'linear-gradient(135deg, #ffd700 0%, #ff8c00 100%)',
+    accentColor: '#ffd700',
+    animation: 'sparkle',
+  },
+  {
+    id: 'mascot-cloud',
+    name: 'Happy Cloud',
+    emoji: '☁️',
+    category: 'mascots',
+    gradient: 'linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%)',
+    accentColor: '#e0eafc',
+    animation: 'float',
+  },
+  {
+    id: 'mascot-rainbow',
+    name: 'Rainbow',
+    emoji: '🌈',
+    category: 'mascots',
+    gradient: 'linear-gradient(135deg, #ff0844 0%, #ffb199 50%, #56ab2f 100%)',
+    accentColor: '#ff0844',
+    animation: 'sparkle',
+  },
 
-  // Abstract (4)
+  // Abstract (7)
   {
     id: 'abstract-orb',
     name: 'Crystal Orb',
@@ -265,8 +427,35 @@ export const AVATARS = [
     accentColor: '#f7b733',
     animation: 'pulse',
   },
+  {
+    id: 'abstract-galaxy',
+    name: 'Galaxy',
+    emoji: '🌌',
+    category: 'abstract',
+    gradient: 'linear-gradient(135deg, #000428 0%, #004e92 100%)',
+    accentColor: '#004e92',
+    animation: 'sparkle',
+  },
+  {
+    id: 'abstract-aurora',
+    name: 'Aurora',
+    emoji: '🌠',
+    category: 'abstract',
+    gradient: 'linear-gradient(135deg, #00d2ff 0%, #928dab 100%)',
+    accentColor: '#00d2ff',
+    animation: 'float',
+  },
+  {
+    id: 'abstract-prism',
+    name: 'Prism',
+    emoji: '💠',
+    category: 'abstract',
+    gradient: 'linear-gradient(135deg, #ff6a00 0%, #ee0979 100%)',
+    accentColor: '#ff6a00',
+    animation: 'pulse',
+  },
 
-  // Puzzle Creatures (4)
+  // Puzzle Creatures (7)
   {
     id: 'puzzle-word',
     name: 'Word Wizard',
@@ -302,6 +491,33 @@ export const AVATARS = [
     gradient: 'linear-gradient(135deg, #f5af19 0%, #f12711 100%)',
     accentColor: '#f5af19',
     animation: 'bounce',
+  },
+  {
+    id: 'puzzle-crossword',
+    name: 'Crossword Champ',
+    emoji: '📰',
+    category: 'puzzle',
+    gradient: 'linear-gradient(135deg, #403b4a 0%, #e7e9bb 100%)',
+    accentColor: '#403b4a',
+    animation: 'sway',
+  },
+  {
+    id: 'puzzle-connections',
+    name: 'Connection Keeper',
+    emoji: '🔗',
+    category: 'puzzle',
+    gradient: 'linear-gradient(135deg, #dd5e89 0%, #f7bb97 100%)',
+    accentColor: '#dd5e89',
+    animation: 'pulse',
+  },
+  {
+    id: 'puzzle-trivia',
+    name: 'Trivia Titan',
+    emoji: '💡',
+    category: 'puzzle',
+    gradient: 'linear-gradient(135deg, #ffd89b 0%, #19547b 100%)',
+    accentColor: '#ffd89b',
+    animation: 'sparkle',
   },
 ];
 
