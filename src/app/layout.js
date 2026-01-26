@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import ThemeBanner from "@/components/ThemeBanner";
+import { ThemeProvider } from "@/components/ThemeProviderNew";
+import DominantThemeBanner from "@/components/DominantThemeBanner";
 import NotificationInitializer from "@/components/NotificationInitializer";
 import IdentityProvider from "@/components/IdentityProvider";
 import SessionInitializer from "@/components/SessionInitializer";
@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
             <IdentityProvider>
               <ThemeProvider>
                 <NotificationInitializer>
-                  <ThemeBanner />
+                  <DominantThemeBanner />
                   {children}
                 </NotificationInitializer>
               </ThemeProvider>

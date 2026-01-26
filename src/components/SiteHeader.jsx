@@ -3,11 +3,11 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { useTheme } from './ThemeProvider';
+import { useTheme } from './ThemeProviderNew';
 import AuthButton from './AuthButton';
 
 export default function SiteHeader() {
-  const { theme, toggleTheme } = useTheme();
+  const { appearance, toggleAppearance, isHydrated } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -92,7 +92,7 @@ export default function SiteHeader() {
 
               {/* Theme Toggle */}
               <button 
-                onClick={toggleTheme}
+                onClick={toggleAppearance}
                 className="
                   p-2.5 rounded-full
                   text-[hsl(var(--muted-foreground))]
@@ -101,10 +101,10 @@ export default function SiteHeader() {
                   transition-all duration-200
                   focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]
                 "
-                title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                aria-label={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                title={appearance === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                aria-label={appearance === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
               >
-                {theme === 'dark' ? (
+                {appearance === 'dark' ? (
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="5"></circle>
                     <line x1="12" y1="1" x2="12" y2="3"></line>
