@@ -988,3 +988,304 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ============================================
+   SEASON IDENTITY PACK SYSTEM
+   Visual distinctiveness WITHOUT palette changes
+   ============================================ */
+
+/* === SEASON PATTERN & DECORATION CSS VARIABLES === */
+:root {
+  /* Default (no season) */
+  --season-pattern-url: none;
+  --season-corner-url: none;
+  --season-pattern-opacity: 0;
+  --season-corner-opacity: 0;
+  --season-ambient-animation: none;
+}
+
+/* Spring Season */
+[data-season="spring"] {
+  --season-pattern-url: url("/themes/patterns/spring-pattern.svg");
+  --season-corner-url: url("/themes/corners/spring-corner.svg");
+  --season-pattern-opacity: 0.04;
+  --season-corner-opacity: 0.5;
+  --season-ambient-animation: spring-float 8s ease-in-out infinite;
+}
+
+/* Summer Season */
+[data-season="summer"] {
+  --season-pattern-url: url("/themes/patterns/summer-pattern.svg");
+  --season-corner-url: url("/themes/corners/summer-corner.svg");
+  --season-pattern-opacity: 0.035;
+  --season-corner-opacity: 0.45;
+  --season-ambient-animation: summer-shimmer 6s ease-in-out infinite;
+}
+
+/* Autumn Season */
+[data-season="autumn"] {
+  --season-pattern-url: url("/themes/patterns/autumn-pattern.svg");
+  --season-corner-url: url("/themes/corners/autumn-corner.svg");
+  --season-pattern-opacity: 0.05;
+  --season-corner-opacity: 0.55;
+  --season-ambient-animation: autumn-drift 10s ease-in-out infinite;
+}
+
+/* Winter Season */
+[data-season="winter"] {
+  --season-pattern-url: url("/themes/patterns/winter-pattern.svg");
+  --season-corner-url: url("/themes/corners/winter-corner.svg");
+  --season-pattern-opacity: 0.045;
+  --season-corner-opacity: 0.5;
+  --season-ambient-animation: winter-sparkle 4s ease-in-out infinite;
+}
+
+/* Ramadan Dominant Theme */
+[data-dominant="ramadan"] {
+  --season-pattern-url: url("/themes/patterns/ramadan-pattern.svg");
+  --season-corner-url: url("/themes/corners/ramadan-corner.svg");
+  --season-pattern-opacity: 0.06;
+  --season-corner-opacity: 0.6;
+  --season-ambient-animation: ramadan-glow 5s ease-in-out infinite;
+}
+
+/* Eid Dominant Theme */
+[data-dominant="eid"] {
+  --season-pattern-url: url("/themes/patterns/eid-pattern.svg");
+  --season-corner-url: url("/themes/corners/eid-corner.svg");
+  --season-pattern-opacity: 0.055;
+  --season-corner-opacity: 0.55;
+  --season-ambient-animation: eid-sparkle 3s ease-in-out infinite;
+}
+
+/* === SEASON BACKGROUND PATTERN LAYER === */
+.season-pattern-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: var(--season-pattern-url);
+  background-repeat: repeat;
+  background-size: 120px 120px;
+  opacity: var(--season-pattern-opacity);
+  transition: opacity 0.5s ease-out;
+}
+
+/* Dark mode adjustments for patterns */
+.dark .season-pattern-layer {
+  opacity: calc(var(--season-pattern-opacity) * 0.7);
+  filter: invert(1) brightness(1.2);
+}
+
+/* === CORNER DECORATIONS === */
+.season-corner {
+  position: fixed;
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+  z-index: 1;
+  background-image: var(--season-corner-url);
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: var(--season-corner-opacity);
+  transition: opacity 0.5s ease-out;
+}
+
+.season-corner--tl {
+  top: 0;
+  left: 0;
+}
+
+.season-corner--tr {
+  top: 0;
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.season-corner--bl {
+  bottom: 0;
+  left: 0;
+  transform: scaleY(-1);
+}
+
+.season-corner--br {
+  bottom: 0;
+  right: 0;
+  transform: scale(-1);
+}
+
+/* Dark mode corner adjustments */
+.dark .season-corner {
+  opacity: calc(var(--season-corner-opacity) * 0.6);
+  filter: invert(1) brightness(1.1);
+}
+
+/* === AMBIENT ANIMATIONS === */
+/* Spring: gentle floating */
+@keyframes spring-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) rotate(0.5deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-2px) rotate(-0.5deg);
+  }
+}
+
+/* Summer: warm shimmer */
+@keyframes summer-shimmer {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.02);
+  }
+}
+
+/* Autumn: gentle drift */
+@keyframes autumn-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+
+/* Winter: subtle sparkle */
+@keyframes winter-sparkle {
+  0%,
+  100% {
+    opacity: var(--season-pattern-opacity);
+  }
+  50% {
+    opacity: calc(var(--season-pattern-opacity) * 1.15);
+  }
+}
+
+/* Ramadan: soft glow pulse */
+@keyframes ramadan-glow {
+  0%,
+  100% {
+    filter: brightness(1) drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    filter: brightness(1.03) drop-shadow(0 0 8px hsl(270 60% 50% / 0.2));
+  }
+}
+
+/* Eid: celebration sparkle */
+@keyframes eid-sparkle {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  33% {
+    transform: scale(1.005);
+    filter: brightness(1.02);
+  }
+  66% {
+    transform: scale(0.998);
+    filter: brightness(1.01);
+  }
+}
+
+/* === AMBIENT ANIMATION CONTAINER === */
+.season-ambient {
+  animation: var(--season-ambient-animation);
+}
+
+/* === REDUCED MOTION SUPPORT === */
+@media (prefers-reduced-motion: reduce) {
+  .season-pattern-layer,
+  .season-corner,
+  .season-ambient {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* === THEME BANNER ENHANCEMENTS === */
+.theme-banner {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--season-pattern-url);
+  background-repeat: repeat;
+  background-size: 80px 80px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* === SEASON CARD STYLING === */
+.season-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.season-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background-image: var(--season-corner-url);
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  pointer-events: none;
+  transform: scale(-1);
+}
+
+.season-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px hsl(var(--foreground) / 0.1);
+}
+
+/* === UTILITY CLASSES FOR SEASON VISUALS === */
+.season-border {
+  border: 1px solid hsl(var(--border));
+  position: relative;
+}
+
+[data-season="spring"] .season-border {
+  border-color: hsl(142 50% 75%);
+}
+
+[data-season="summer"] .season-border {
+  border-color: hsl(45 90% 75%);
+}
+
+[data-season="autumn"] .season-border {
+  border-color: hsl(30 70% 70%);
+}
+
+[data-season="winter"] .season-border {
+  border-color: hsl(200 60% 80%);
+}
+
+[data-dominant="ramadan"] .season-border {
+  border-color: hsl(270 50% 70%);
+}
+
+[data-dominant="eid"] .season-border {
+  border-color: hsl(160 50% 65%);
+}

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <!-- Ramadan corner: crescent moon and lantern -->
+  <g fill="currentColor" opacity="0.35">
+    <!-- Crescent moon -->
+    <path d="M25 20 A15 15 0 1 1 25 50 A12 12 0 1 0 25 20"/>
+    <!-- Lantern -->
+    <g transform="translate(55 40)">
+      <!-- Top -->
+      <path d="M-8 0 L8 0 L6 -5 L-6 -5 Z"/>
+      <!-- Body -->
+      <rect x="-7" y="0" width="14" height="20" rx="2"/>
+      <!-- Light glow -->
+      <ellipse cx="0" cy="10" rx="4" ry="6" fill="currentColor" opacity="0.3"/>
+      <!-- Bottom -->
+      <path d="M-5 20 L5 20 L3 25 L-3 25 Z"/>
+      <!-- Hook -->
+      <line x1="0" y1="-5" x2="0" y2="-10" stroke="currentColor" stroke-width="1.5"/>
+    </g>
+    <!-- Stars -->
+    <circle cx="45" cy="15" r="1.5"/>
+    <circle cx="70" cy="25" r="1"/>
+    <circle cx="15" cy="60" r="1.2"/>
+  </g>
+</svg>

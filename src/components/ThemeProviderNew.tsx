@@ -8,10 +8,12 @@ import {
   setUserThemePrefs,
   resetUserThemePrefs,
   resolveEffectiveTheme,
+  resolveEffectiveThemeAsync,
   applyThemeToDOM,
   isBannerDismissed,
   dismissBanner as dismissBannerStorage,
   getDominantThemeCountdown,
+  clearServerSettingsCache,
 } from '@/themes/engine';
 import { DOMINANT_THEMES, SEASON_THEMES } from '@/themes/registry';
 
@@ -37,6 +39,7 @@ interface ThemeContextValue {
   // Dominant theme controls
   allowDominant: boolean;
   setAllowDominant: (allow: boolean) => void;
+  dominantId: string | null;
   
   // Banner state
   isBannerVisible: boolean;
@@ -45,6 +48,7 @@ interface ThemeContextValue {
   // Utilities
   resetToDefault: () => void;
   refreshTheme: () => void;
+  refreshFromServer: () => Promise<void>;
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
@@ -114,21 +118,41 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     if (hasMounted.current) return;
     hasMounted.current = true;
     
-    // Get state from localStorage
-    const { prefs, effective, bannerDismissed: dismissed } = getInitialState();
+    // Async initialization to fetch server settings
+    const initializeAsync = async () => {
+      // First apply local state immediately
+      const { prefs, effective, bannerDismissed: dismissed } = getInitialState();
+      applyThemeToDOM(effective);
+      document.documentElement.style.visibility = 'visible';
+      
+      // Update React state to match localStorage using startTransition
+      startTransition(() => {
+        setUserPrefsState(prefs);
+        setEffectiveTheme(effective);
+        setBannerDismissed(dismissed);
+        setIsHydrated(true);
+      });
+      
+      // Then fetch server settings and re-resolve (non-blocking)
+      try {
+        const serverResolved = await resolveEffectiveThemeAsync();
+        
+        // Only update if server settings changed the theme
+        if (serverResolved.dominantId !== effective.dominantId) {
+          applyThemeToDOM(serverResolved);
+          startTransition(() => {
+            setEffectiveTheme(serverResolved);
+            if (serverResolved.dominantId) {
+              setBannerDismissed(isBannerDismissed(serverResolved.dominantId));
+            }
+          });
+        }
+      } catch (error) {
+        console.warn('Failed to fetch server theme settings:', error);
+      }
+    };
     
-    // Apply theme to DOM (external system sync - valid effect usage)
-    applyThemeToDOM(effective);
-    document.documentElement.style.visibility = 'visible';
-    
-    // Update React state to match localStorage using startTransition
-    // to indicate this is a non-blocking hydration update
-    startTransition(() => {
-      setUserPrefsState(prefs);
-      setEffectiveTheme(effective);
-      setBannerDismissed(dismissed);
-      setIsHydrated(true);
-    });
+    initializeAsync();
   }, []);
 
   // ============================================================================
@@ -147,6 +171,25 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       setBannerDismissed(isBannerDismissed(resolved.dominantId));
     } else {
       setBannerDismissed(false);
+    }
+  }, []);
+  
+  // Force refresh from server (clear cache and re-fetch)
+  const refreshFromServer = useCallback(async () => {
+    clearServerSettingsCache();
+    
+    try {
+      const resolved = await resolveEffectiveThemeAsync();
+      applyThemeToDOM(resolved);
+      setEffectiveTheme(resolved);
+      
+      if (resolved.dominantId) {
+        setBannerDismissed(isBannerDismissed(resolved.dominantId));
+      } else {
+        setBannerDismissed(false);
+      }
+    } catch (error) {
+      console.warn('Failed to refresh from server:', error);
     }
   }, []);
   
@@ -228,12 +271,14 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     
     allowDominant: userPrefs.allowDominant,
     setAllowDominant,
+    dominantId: effectiveTheme.dominantId,
     
     isBannerVisible,
     dismissBanner: dismissBannerHandler,
     
     resetToDefault,
     refreshTheme,
+    refreshFromServer,
   }), [
     effectiveTheme,
     userPrefs,
@@ -246,6 +291,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     dismissBannerHandler,
     resetToDefault,
     refreshTheme,
+    refreshFromServer,
   ]);
 
   return (

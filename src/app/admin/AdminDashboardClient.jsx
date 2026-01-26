@@ -259,6 +259,12 @@ export default function AdminDashboardClient() {
             </div>
           </div>
           <div className="flex items-center gap-3">
+            <Link
+              href="/admin/themes"
+              className="px-6 py-2 bg-info/10 text-info border border-info/30 hover:bg-info/20 rounded-lg transition-colors font-medium"
+            >
+              🎨 Themes
+            </Link>
             <button
               onClick={handleLogout}
               disabled={isLoggingOut}

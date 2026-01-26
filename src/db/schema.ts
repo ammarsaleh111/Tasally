@@ -107,3 +107,37 @@ export const gameResults = pgTable(
     userPlayedIdx: index("game_results_user_played_idx").on(table.userId, table.playedAt),
   })
 );
+
+/**
+ * Theme Settings Table
+ * Stores admin-controlled theme configuration
+ * Uses singleton pattern (single row with id = 'main')
+ */
+export const themeSettings = pgTable("theme_settings", {
+  id: text("id").primaryKey().default("main"),
+  
+  // Active dominant theme (null = none, 'ramadan', 'eid')
+  activeDominantTheme: text("active_dominant_theme"),
+  
+  // Whether to use date-based scheduling
+  useSchedule: boolean("use_schedule").notNull().default(true),
+  
+  // Ramadan date range (used if useSchedule = true)
+  ramadanStart: date("ramadan_start"),
+  ramadanEnd: date("ramadan_end"),
+  
+  // Eid date range (used if useSchedule = true)
+  eidStart: date("eid_start"),
+  eidEnd: date("eid_end"),
+  
+  // Custom banner text (overrides theme defaults if set)
+  bannerTitle: text("banner_title"),
+  bannerSubtitle: text("banner_subtitle"),
+  
+  // Whether banner is enabled globally
+  bannerEnabled: boolean("banner_enabled").notNull().default(true),
+  
+  // Audit fields
+  updatedAt: timestamp("updated_at", { withTimezone: false }).defaultNow().notNull(),
+  updatedByUserId: uuid("updated_by_user_id").references(() => users.id, { onDelete: "set null" }),
+});

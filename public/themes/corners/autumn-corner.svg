@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <!-- Autumn corner: falling leaves -->
+  <g fill="currentColor" opacity="0.3">
+    <!-- Large maple leaf -->
+    <path d="M15 60 L18 50 L12 52 L20 42 L15 44 L25 30 L30 38 L28 32 L38 45 L32 43 L35 55 L28 52 L25 65 Z" 
+          transform="rotate(-15 25 45)"/>
+    <!-- Medium leaf -->
+    <path d="M50 25 L52 18 L48 20 L55 12 L58 18 L56 14 L62 22 L58 20 L55 28 Z"
+          transform="rotate(10 55 20)"/>
+    <!-- Small floating leaf -->
+    <ellipse cx="65" cy="45" rx="6" ry="10" transform="rotate(-25 65 45)" opacity="0.2"/>
+    <!-- Acorn -->
+    <ellipse cx="70" cy="65" rx="4" ry="5"/>
+    <rect x="68" y="58" width="4" height="3" rx="1"/>
+  </g>
+</svg>

@@ -106,7 +106,71 @@ export function setAllowDominant(allow: boolean): UserThemePrefs {
 // ============================================================================
 
 /**
- * Get the currently active dominant theme based on date
+ * Server theme settings cache
+ * Used to store admin-controlled settings from API
+ */
+let serverSettingsCache: ServerThemeSettings | null = null;
+let serverSettingsLastFetch = 0;
+const SERVER_SETTINGS_TTL = 5 * 60 * 1000; // 5 minutes cache
+
+interface ServerThemeSettings {
+  activeDominantTheme: string | null;
+  useSchedule: boolean;
+  ramadanStart: string | null;
+  ramadanEnd: string | null;
+  eidStart: string | null;
+  eidEnd: string | null;
+  bannerTitle: string | null;
+  bannerSubtitle: string | null;
+  bannerEnabled: boolean;
+}
+
+/**
+ * Fetch theme settings from server
+ * Returns cached value if still valid
+ */
+export async function fetchServerThemeSettings(): Promise<ServerThemeSettings | null> {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  
+  const now = Date.now();
+  
+  // Return cached if still valid
+  if (serverSettingsCache && now - serverSettingsLastFetch < SERVER_SETTINGS_TTL) {
+    return serverSettingsCache;
+  }
+  
+  try {
+    const res = await fetch('/api/theme/settings', {
+      cache: 'no-store',
+      next: { revalidate: 300 },
+    });
+    
+    if (!res.ok) {
+      console.warn('Failed to fetch theme settings:', res.status);
+      return serverSettingsCache; // Return stale cache if available
+    }
+    
+    serverSettingsCache = await res.json();
+    serverSettingsLastFetch = now;
+    return serverSettingsCache;
+  } catch (error) {
+    console.warn('Error fetching theme settings:', error);
+    return serverSettingsCache; // Return stale cache on error
+  }
+}
+
+/**
+ * Clear server settings cache (call when admin updates settings)
+ */
+export function clearServerSettingsCache(): void {
+  serverSettingsCache = null;
+  serverSettingsLastFetch = 0;
+}
+
+/**
+ * Get the currently active dominant theme based on date and server settings
  * Returns null if no dominant theme is active
  */
 export function getActiveDominantTheme(now: Date = new Date()): typeof DOMINANT_THEMES[keyof typeof DOMINANT_THEMES] | null {
@@ -116,6 +180,31 @@ export function getActiveDominantTheme(now: Date = new Date()): typeof DOMINANT_
     return DOMINANT_THEMES[forced];
   }
   
+  // If we have server settings with manual activation, use that
+  if (serverSettingsCache && !serverSettingsCache.useSchedule && serverSettingsCache.activeDominantTheme) {
+    return DOMINANT_THEMES[serverSettingsCache.activeDominantTheme] || null;
+  }
+  
+  // Check server-defined date ranges first
+  if (serverSettingsCache?.useSchedule) {
+    const todayStr = now.toISOString().split('T')[0];
+    
+    // Check Eid first (higher priority)
+    if (serverSettingsCache.eidStart && serverSettingsCache.eidEnd) {
+      if (todayStr >= serverSettingsCache.eidStart && todayStr <= serverSettingsCache.eidEnd) {
+        return DOMINANT_THEMES.eid || null;
+      }
+    }
+    
+    // Check Ramadan
+    if (serverSettingsCache.ramadanStart && serverSettingsCache.ramadanEnd) {
+      if (todayStr >= serverSettingsCache.ramadanStart && todayStr <= serverSettingsCache.ramadanEnd) {
+        return DOMINANT_THEMES.ramadan || null;
+      }
+    }
+  }
+  
+  // Fallback to config-based detection
   const todayStr = now.toISOString().split('T')[0];
   const sortedThemes = getDominantThemesSorted();
   
@@ -223,16 +312,36 @@ export function resolveEffectiveTheme(now: Date = new Date()): EffectiveTheme {
   if (shouldApplyDominant && activeDominant) {
     result.decorations = dominantDecorations[activeDominant.id] || null;
     result.tokenOverrides = activeDominant.tokenOverrides[userPrefs.appearance];
-    result.banner = {
+    
+    // Use server custom banner text if available
+    const customTitle = serverSettingsCache?.bannerTitle;
+    const customSubtitle = serverSettingsCache?.bannerSubtitle;
+    const bannerEnabled = serverSettingsCache?.bannerEnabled ?? true;
+    
+    result.banner = bannerEnabled ? {
       ...activeDominant.banner,
+      title: customTitle || activeDominant.banner.title,
+      subtitle: customSubtitle || activeDominant.banner.subtitle,
       endDate: activeDominant.dates.end,
-    };
+    } : null;
   } else if (userPrefs.season) {
     // Apply season decorations if no dominant theme
     result.decorations = seasonDecorations[userPrefs.season] || null;
   }
   
   return result;
+}
+
+/**
+ * Async version that fetches server settings first
+ * Use this on initial page load to ensure server settings are considered
+ */
+export async function resolveEffectiveThemeAsync(now: Date = new Date()): Promise<EffectiveTheme> {
+  // Fetch server settings if not cached
+  await fetchServerThemeSettings();
+  
+  // Now resolve with server settings in cache
+  return resolveEffectiveTheme(now);
 }
 
 // ============================================================================
@@ -364,6 +473,16 @@ export function dismissBanner(themeId: string): void {
  */
 export function initializeTheme(): EffectiveTheme {
   const effectiveTheme = resolveEffectiveTheme();
+  applyThemeToDOM(effectiveTheme);
+  return effectiveTheme;
+}
+
+/**
+ * Async version that fetches server settings first
+ * Use this for initial page load
+ */
+export async function initializeThemeAsync(): Promise<EffectiveTheme> {
+  const effectiveTheme = await resolveEffectiveThemeAsync();
   applyThemeToDOM(effectiveTheme);
   return effectiveTheme;
 }

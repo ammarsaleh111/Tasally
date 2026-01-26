@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <!-- Winter corner: snowflakes -->
+  <g fill="currentColor" opacity="0.3">
+    <!-- Large snowflake -->
+    <g transform="translate(20 55)">
+      <line x1="0" y1="-12" x2="0" y2="12" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="-10" y1="-6" x2="10" y2="6" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="-10" y1="6" x2="10" y2="-6" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Small branches -->
+      <line x1="0" y1="-8" x2="-3" y2="-11" stroke="currentColor" stroke-width="1"/>
+      <line x1="0" y1="-8" x2="3" y2="-11" stroke="currentColor" stroke-width="1"/>
+      <line x1="0" y1="8" x2="-3" y2="11" stroke="currentColor" stroke-width="1"/>
+      <line x1="0" y1="8" x2="3" y2="11" stroke="currentColor" stroke-width="1"/>
+    </g>
+    <!-- Medium snowflake -->
+    <g transform="translate(55 25)" opacity="0.6">
+      <line x1="0" y1="-8" x2="0" y2="8" stroke="currentColor" stroke-width="1"/>
+      <line x1="-7" y1="-4" x2="7" y2="4" stroke="currentColor" stroke-width="1"/>
+      <line x1="-7" y1="4" x2="7" y2="-4" stroke="currentColor" stroke-width="1"/>
+    </g>
+    <!-- Small dots (snow) -->
+    <circle cx="45" cy="50" r="1.5" opacity="0.4"/>
+    <circle cx="65" cy="60" r="1" opacity="0.3"/>
+    <circle cx="70" cy="40" r="1.5" opacity="0.25"/>
+  </g>
+</svg>
