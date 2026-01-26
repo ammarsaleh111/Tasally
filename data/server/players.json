@@ -120,7 +120,7 @@
     "userId": "user_1768241888057_s7bvpex9n",
     "name": "asad",
     "createdAt": "2026-01-12T18:18:08.057Z",
-    "updatedAt": "2026-01-26T09:30:17.466Z",
+    "updatedAt": "2026-01-26T09:53:04.696Z",
     "games": {
       "wordle": {
         "gamesPlayed": 2,
@@ -280,7 +280,7 @@
       "connections": {
         "gamesPlayed": 1,
         "gamesWon": 6,
-        "currentStreak": 1,
+        "currentStreak": 0,
         "longestStreak": 1,
         "lastPlayedDate": "2026-01-24",
         "history": [
