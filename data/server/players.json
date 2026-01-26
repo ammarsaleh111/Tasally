@@ -120,7 +120,7 @@
     "userId": "user_1768241888057_s7bvpex9n",
     "name": "asad",
     "createdAt": "2026-01-12T18:18:08.057Z",
-    "updatedAt": "2026-01-26T09:53:04.696Z",
+    "updatedAt": "2026-01-26T10:09:13.881Z",
     "games": {
       "wordle": {
         "gamesPlayed": 2,
@@ -384,6 +384,101 @@
         "averageAttempts": "6.00",
         "totalAttempts": 6,
         "perfectGames": 1
+      }
+    }
+  },
+  {
+    "userId": "user_1768245196003_j5q79gth0",
+    "name": "Testtttt",
+    "createdAt": "2026-01-12T19:13:16.003Z",
+    "updatedAt": "2026-01-26T10:18:06.196Z",
+    "games": {
+      "wordle": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "connections": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "crossword": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "numbers": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "trivia": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "spelling": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "maxStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "totalWords": 0,
+        "totalPangrams": 0,
+        "totalScore": 0,
+        "averageScore": 0,
+        "rankDistribution": {},
+        "queenBeeCount": 0
+      },
+      "strands": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
       }
     }
   }

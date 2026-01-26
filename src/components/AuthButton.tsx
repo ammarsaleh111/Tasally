@@ -11,7 +11,7 @@ export default function AuthButton() {
 
   if (status === "loading") {
     return (
-      <span className="text-sm text-text-muted animate-pulse">...</span>
+      <span className="text-sm text-[hsl(var(--muted-foreground))] animate-pulse">...</span>
     );
   }
 
@@ -24,19 +24,27 @@ export default function AuthButton() {
             alt=""
             width={28}
             height={28}
-            className="rounded-full border border-border-default"
+            className="rounded-full border border-[hsl(var(--border))]"
           />
         ) : (
-          <span className="w-7 h-7 rounded-full bg-surface-hover flex items-center justify-center text-sm">
+          <span className="w-7 h-7 rounded-full bg-[hsl(var(--surface-hover))] flex items-center justify-center text-sm font-medium text-[hsl(var(--foreground))]">
             {(session.user.name ?? session.user.email)?.[0]?.toUpperCase() ?? "U"}
           </span>
         )}
-        <span className="text-sm font-medium text-foreground hidden sm:inline">
+        <span className="text-sm font-medium text-[hsl(var(--foreground))] hidden sm:inline">
           {session.user.name ?? session.user.email?.split("@")[0]}
         </span>
         <button
           onClick={() => signOut()}
-          className="text-xs text-text-muted hover:text-foreground transition-colors"
+          className="
+            px-3 py-1.5 rounded-md
+            text-xs font-medium
+            text-[hsl(var(--muted-foreground))]
+            hover:text-[hsl(var(--foreground))]
+            hover:bg-[hsl(var(--surface-hover))]
+            transition-all duration-200
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]
+          "
         >
           Sign Out
         </button>
@@ -48,7 +56,16 @@ export default function AuthButton() {
     <>
       <button
         onClick={() => setShowModal(true)}
-        className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors"
+        className="
+          px-4 py-2 rounded-lg
+          text-sm font-semibold
+          bg-[hsl(var(--accent))] 
+          text-[hsl(var(--accent-foreground))]
+          hover:bg-[hsl(var(--accent))]/90
+          transition-all duration-200
+          focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]
+          shadow-sm hover:shadow-md
+        "
       >
         Sign In
       </button>

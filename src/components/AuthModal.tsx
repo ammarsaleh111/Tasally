@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { signIn, useSession } from "next-auth/react";
 
 interface AuthModalProps {
@@ -19,6 +20,11 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (status === "authenticated" && isOpen) {
@@ -108,18 +114,20 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
     }
   };
 
-  return (
+  if (!isOpen || !mounted) return null;
+
+  const modalContent = (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="bg-surface-default rounded-2xl shadow-xl p-6 w-full max-w-sm relative animate-fade-in-up">
+      <div className="bg-[hsl(var(--card))] rounded-2xl shadow-xl p-6 w-full max-w-sm relative animate-fade-in-up mx-4">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-text-muted hover:text-foreground transition-colors"
+          className="absolute top-3 right-3 text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] transition-colors"
           aria-label="Close"
         >
           ✕
         </button>
 
-        <h2 className="text-xl font-bold mb-4 text-foreground">
+        <h2 className="text-xl font-bold mb-4 text-[hsl(var(--foreground))]">
           {view === "login" ? "Sign In" : view === "register" ? "Create Account" : "Continue as Guest"}
         </h2>
 
@@ -137,7 +145,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
                 placeholder="Display Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 rounded bg-background border border-border-default text-foreground placeholder:text-text-muted"
+                className="w-full px-3 py-2 rounded bg-[hsl(var(--background))] border border-[hsl(var(--border))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))]"
               />
             )}
             <input
@@ -146,7 +154,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-3 py-2 rounded bg-background border border-border-default text-foreground placeholder:text-text-muted"
+              className="w-full px-3 py-2 rounded bg-[hsl(var(--background))] border border-[hsl(var(--border))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))]"
             />
             <input
               type="password"
@@ -155,12 +163,12 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={8}
-              className="w-full px-3 py-2 rounded bg-background border border-border-default text-foreground placeholder:text-text-muted"
+              className="w-full px-3 py-2 rounded bg-[hsl(var(--background))] border border-[hsl(var(--border))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))]"
             />
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2 rounded bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))] font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
+              className="w-full py-2 rounded bg-[hsl(var(--success))] text-white font-semibold hover:opacity-90 transition-opacity disabled:opacity-50"
             >
               {loading ? "..." : view === "login" ? "Sign In" : "Register"}
             </button>
@@ -171,7 +179,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
           <button
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="w-full py-2 rounded border border-border-default bg-surface-hover text-foreground font-medium flex items-center justify-center gap-2 hover:bg-surface-default transition-colors disabled:opacity-50"
+            className="w-full py-2 rounded border border-[hsl(var(--border))] bg-[hsl(var(--surface-hover))] text-[hsl(var(--foreground))] font-medium flex items-center justify-center gap-2 hover:bg-[hsl(var(--card))] transition-colors disabled:opacity-50"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -196,24 +204,24 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
 
           <button
             onClick={handleContinueAsGuest}
-            className="w-full py-2 rounded border border-border-default text-text-muted hover:text-foreground hover:border-foreground transition-colors"
+            className="w-full py-2 rounded border border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:border-[hsl(var(--foreground))] transition-colors"
           >
             Continue as Guest
           </button>
         </div>
 
-        <div className="mt-4 text-center text-sm text-text-muted">
+        <div className="mt-4 text-center text-sm text-[hsl(var(--muted-foreground))]">
           {view === "login" ? (
             <>
               No account?{" "}
-              <button onClick={() => setView("register")} className="text-foreground underline">
+              <button onClick={() => setView("register")} className="text-[hsl(var(--foreground))] underline">
                 Register
               </button>
             </>
           ) : view === "register" ? (
             <>
               Already have an account?{" "}
-              <button onClick={() => setView("login")} className="text-foreground underline">
+              <button onClick={() => setView("login")} className="text-[hsl(var(--foreground))] underline">
                 Sign In
               </button>
             </>
@@ -222,4 +230,6 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }
