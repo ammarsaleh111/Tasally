@@ -1,5 +1,5 @@
-import { db, gameResults, users } from "@/db";
-import { and, desc, eq, isNotNull, sql } from "drizzle-orm";
+import { db, gameResults, guestProfiles, users } from "@/db";
+import { and, desc, eq, isNotNull, or, sql } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 const VALID_GAMES = [
@@ -35,27 +35,30 @@ export async function GET(request: NextRequest) {
       .select({
         rank: sql<number>`ROW_NUMBER() OVER (ORDER BY SUM(${gameResults.score}) DESC)`,
         userId: gameResults.userId,
+        guestId: gameResults.guestId,
         totalScore: sql<number>`SUM(${gameResults.score})`,
         gamesPlayed: sql<number>`COUNT(*)`,
-        playerName: users.name,
+        userName: users.name,
+        guestName: guestProfiles.displayName,
       })
       .from(gameResults)
       .leftJoin(users, eq(gameResults.userId, users.id))
+      .leftJoin(guestProfiles, eq(gameResults.guestId, guestProfiles.id))
       .where(
         and(
           eq(gameResults.gameKey, game),
           eq(gameResults.monthKey, monthKey),
-          isNotNull(gameResults.userId),
+          or(isNotNull(gameResults.userId), isNotNull(gameResults.guestId)),
           eq(gameResults.mode, "daily")
         )
       )
-      .groupBy(gameResults.userId, users.name)
+      .groupBy(gameResults.userId, gameResults.guestId, users.name, guestProfiles.displayName)
       .orderBy(desc(sql`SUM(${gameResults.score})`))
       .limit(50);
 
     const leaderboard = rows.map((r) => ({
       rank: Number(r.rank),
-      playerName: r.playerName ?? "Anonymous",
+      playerName: r.userName ?? r.guestName ?? "Guest",
       totalScore: Number(r.totalScore),
       gamesPlayed: Number(r.gamesPlayed),
     }));

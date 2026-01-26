@@ -79,6 +79,7 @@ export const verificationTokens = pgTable(
 
 export const guestProfiles = pgTable("guest_profiles", {
   id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+  displayName: text("display_name"),
   createdAt: timestamp("created_at", { withTimezone: false }).defaultNow().notNull(),
   lastSeenAt: timestamp("last_seen_at", { withTimezone: false }),
 });

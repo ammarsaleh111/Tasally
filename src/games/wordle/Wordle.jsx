@@ -28,6 +28,7 @@ import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordToLog } from '@/utils/learningLogEngine';
+import { submitResult } from '@/utils/resultsClient';
 
 
 export default function WordleGame() {
@@ -109,6 +110,18 @@ export default function WordleGame() {
     
     // Track game end in session
     trackGameEnd('wordle', result);
+    
+    // Submit to leaderboard API (for database-backed leaderboard)
+    const endTime = Date.now();
+    const durationMs = startTimeRef.current ? endTime - startTimeRef.current : undefined;
+    submitResult({
+      gameKey: 'wordle',
+      mode: mode,
+      success: won,
+      attempts: guessCount,
+      durationMs: durationMs,
+      metadata: { wordLength, solution },
+    }).catch(err => console.warn('[Wordle] Failed to submit to leaderboard:', err));
     
     // Add solution word to Learning Log
     addWordToLog(solution, 'wordle');

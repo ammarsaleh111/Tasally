@@ -13,6 +13,7 @@ import LearningLogModal from '@/components/LearningLogModal';
 import { getGameTheme } from '@/utils/themeEngine';
 import { getTodayString, recordGameResult, getGameStats } from '@/utils/profileManager';
 import { addWordsToLog } from '@/utils/learningLogEngine';
+import { submitResult } from '@/utils/resultsClient';
 import { getNextStrandsHint, getStrandsHintButtonText, getAllHintedTiles } from '@/utils/strandsHints';
 import { STRANDS_2026_01 } from './puzzles/strands-2026-01';
 import { STRANDS_PUZZLES_FEB_2026 } from './puzzles/strands-2026-02';
@@ -246,6 +247,16 @@ export default function StrandsPage() {
       attempts: foundWords.length + (spangramFound ? 1 : 0),
       breakdown: { words: foundWords.map(f => f.word), spangram: spangramFound },
     });
+    
+    // Submit to leaderboard API
+    submitResult({
+      gameKey: 'strands',
+      mode: 'daily',
+      success: true,
+      attempts: foundWords.length + (spangramFound ? 1 : 0),
+      durationMs: timeSec * 1000,
+      metadata: { hintsUsed, perfect: hintsUsed === 0, puzzleDate: puzzle.date },
+    }).catch(err => console.warn('[Strands] Failed to submit to leaderboard:', err));
     
     // Add words to Learning Log
     const allWords = [

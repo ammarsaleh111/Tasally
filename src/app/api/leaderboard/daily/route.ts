@@ -1,5 +1,5 @@
-import { db, gameResults, users } from "@/db";
-import { and, desc, eq, gte, isNotNull, lt, sql } from "drizzle-orm";
+import { db, gameResults, guestProfiles, users } from "@/db";
+import { and, desc, eq, isNotNull, or, sql } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
 const VALID_GAMES = [
@@ -32,24 +32,28 @@ export async function GET(request: NextRequest) {
 
     const dayKey = parsedDate.toISOString().slice(0, 10);
 
+    // Query both authenticated users and guests
     const rows = await db
       .select({
         rank: sql<number>`ROW_NUMBER() OVER (ORDER BY ${gameResults.score} DESC)`,
         userId: gameResults.userId,
+        guestId: gameResults.guestId,
         score: gameResults.score,
         success: gameResults.success,
         attempts: gameResults.attempts,
         durationMs: gameResults.durationMs,
-        playerName: users.name,
+        userName: users.name,
+        guestName: guestProfiles.displayName,
         playedAt: gameResults.playedAt,
       })
       .from(gameResults)
       .leftJoin(users, eq(gameResults.userId, users.id))
+      .leftJoin(guestProfiles, eq(gameResults.guestId, guestProfiles.id))
       .where(
         and(
           eq(gameResults.gameKey, game),
           eq(gameResults.dayKey, sql`${dayKey}::date`),
-          isNotNull(gameResults.userId),
+          or(isNotNull(gameResults.userId), isNotNull(gameResults.guestId)),
           eq(gameResults.mode, "daily")
         )
       )
@@ -58,7 +62,7 @@ export async function GET(request: NextRequest) {
 
     const leaderboard = rows.map((r) => ({
       rank: Number(r.rank),
-      playerName: r.playerName ?? "Anonymous",
+      playerName: r.userName ?? r.guestName ?? "Guest",
       score: r.score,
       success: r.success,
       attempts: r.attempts,

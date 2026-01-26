@@ -30,6 +30,7 @@ import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordsToLog } from '@/utils/learningLogEngine';
+import { submitResult } from '@/utils/resultsClient';
 
 export default function ConnectionsGame() {
   const [puzzle, setPuzzle] = useState(() => getTodaysPuzzle());
@@ -83,6 +84,16 @@ export default function ConnectionsGame() {
       
       const achievements = recordGameResult('connections', result);
       trackGameEnd('connections', result);
+      
+      // Submit to leaderboard API
+      submitResult({
+        gameKey: 'connections',
+        mode: 'daily',
+        success: won,
+        attempts: gameState.mistakes,
+        metadata: { puzzleDate: puzzle.date, perfect: result.perfect },
+      }).catch(err => console.warn('[Connections] Failed to submit to leaderboard:', err));
+      
       const updatedStats = getGameStats('connections');
       setStats(updatedStats);
       

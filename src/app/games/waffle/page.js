@@ -28,6 +28,7 @@ import DailyReminder from '@/components/DailyReminder';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordsToLog } from '@/utils/learningLogEngine';
+import { submitResult } from '@/utils/resultsClient';
 
 export default function WafflePage() {
   const [mode, setMode] = useState('daily'); // 'daily' | 'unlimited'
@@ -82,6 +83,16 @@ export default function WafflePage() {
         
         const achievements = recordGameResult('waffle', result);
         trackGameEnd('waffle', result);
+        
+        // Submit to leaderboard API
+        submitResult({
+          gameKey: 'waffle',
+          mode: 'daily',
+          success: won,
+          attempts: gameState.movesUsed,
+          metadata: { perfect, swaps: gameState.movesUsed, maxSwaps: gameState.maxMoves, puzzleDate: puzzle.date },
+        }).catch(err => console.warn('[Waffle] Failed to submit to leaderboard:', err));
+        
         const updatedStats = getGameStats('waffle');
         setStats(updatedStats);
         

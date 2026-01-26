@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import AuthModal from "./AuthModal";
 
@@ -15,22 +14,12 @@ export default function AuthButton() {
     );
   }
 
-  if (session?.user) {
+    if (session?.user) {
     return (
       <div className="flex items-center gap-3">
-        {session.user.image ? (
-          <Image
-            src={session.user.image}
-            alt=""
-            width={28}
-            height={28}
-            className="rounded-full border border-[hsl(var(--border))]"
-          />
-        ) : (
-          <span className="w-7 h-7 rounded-full bg-[hsl(var(--surface-hover))] flex items-center justify-center text-sm font-medium text-[hsl(var(--foreground))]">
-            {(session.user.name ?? session.user.email)?.[0]?.toUpperCase() ?? "U"}
-          </span>
-        )}
+        <span className="w-7 h-7 rounded-full bg-[hsl(var(--surface-hover))] flex items-center justify-center text-sm font-medium text-[hsl(var(--foreground))]">
+          {(session.user.name ?? session.user.email)?.[0]?.toUpperCase() ?? "U"}
+        </span>
         <span className="text-sm font-medium text-[hsl(var(--foreground))] hidden sm:inline">
           {session.user.name ?? session.user.email?.split("@")[0]}
         </span>

@@ -28,6 +28,7 @@ import DailyReminder from '@/components/DailyReminder';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordsToLog } from '@/utils/learningLogEngine';
+import { submitResult } from '@/utils/resultsClient';
 
 export default function CombinationsPage() {
   const [mode, setMode] = useState('daily'); // 'daily' | 'unlimited'
@@ -79,6 +80,16 @@ export default function CombinationsPage() {
       
       const achievements = recordGameResult('combinations', result);
       trackGameEnd('combinations', result);
+      
+      // Submit to leaderboard API
+      submitResult({
+        gameKey: 'combinations',
+        mode: 'daily',
+        success: true,
+        attempts: gameState.wordsFound.length,
+        metadata: { score: gameState.score, wordsFound: gameState.wordsFound.length, bonusWordsFound: gameState.bonusWordsFound.length, puzzleDate: puzzle.date },
+      }).catch(err => console.warn('[Combinations] Failed to submit to leaderboard:', err));
+      
       const updatedStats = getGameStats('combinations');
       setStats(updatedStats);
       

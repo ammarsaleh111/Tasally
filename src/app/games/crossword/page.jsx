@@ -37,6 +37,7 @@ import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordsToLog } from '@/utils/learningLogEngine';
+import { submitResult } from '@/utils/resultsClient';
 
 export default function CrosswordGame() {
   // =========================================================================
@@ -221,6 +222,16 @@ export default function CrosswordGame() {
         
         const achievements = recordGameResult('crossword', result);
         trackGameEnd('crossword', result);
+        
+        // Submit to leaderboard API
+        submitResult({
+          gameKey: 'crossword',
+          mode: 'daily',
+          success: true,
+          durationMs: finalTime * 1000,
+          metadata: { puzzleDate: puzzle.date },
+        }).catch(err => console.warn('[Crossword] Failed to submit to leaderboard:', err));
+        
         const updatedStats = getGameStats('crossword');
         setStats(updatedStats);
         

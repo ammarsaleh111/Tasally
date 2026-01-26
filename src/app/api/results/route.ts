@@ -27,6 +27,7 @@ const ResultSchema = z.object({
   durationMs: z.number().int().nonnegative().optional(),
   metadata: z.record(z.unknown()).optional(),
   guestId: z.string().uuid().optional(),
+  displayName: z.string().max(50).optional(),
 });
 
 export async function POST(request: Request) {
@@ -39,7 +40,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid payload", details: parsed.error.flatten() }, { status: 400 });
     }
 
-    const { gameKey, mode, success, attempts, durationMs, metadata, guestId } = parsed.data;
+    const { gameKey, mode, success, attempts, durationMs, metadata, guestId, displayName } = parsed.data;
 
     let userId: string | null = session?.user?.id ?? null;
     let resolvedGuestId: string | null = null;
@@ -56,11 +57,16 @@ export async function POST(request: Request) {
       if (!guest) {
         const [created] = await db
           .insert(guestProfiles)
-          .values({ id: guestId, createdAt: new Date(), lastSeenAt: new Date() })
+          .values({ id: guestId, displayName: displayName ?? null, createdAt: new Date(), lastSeenAt: new Date() })
           .returning();
         guest = created;
       } else {
-        await db.update(guestProfiles).set({ lastSeenAt: new Date() }).where(eq(guestProfiles.id, guestId));
+        // Update display name if provided and different
+        const updates: { lastSeenAt: Date; displayName?: string } = { lastSeenAt: new Date() };
+        if (displayName && displayName !== guest.displayName) {
+          updates.displayName = displayName;
+        }
+        await db.update(guestProfiles).set(updates).where(eq(guestProfiles.id, guestId));
       }
 
       resolvedGuestId = guest.id;

@@ -3,7 +3,7 @@
  * Submits game results to the server for scoring and leaderboard tracking
  */
 
-import { getGuestId } from "./guestManager";
+import { ensureGuestId } from "./guestManager";
 
 export interface SubmitResultInput {
   gameKey: string;
@@ -12,6 +12,7 @@ export interface SubmitResultInput {
   attempts?: number;
   durationMs?: number;
   metadata?: Record<string, unknown>;
+  displayName?: string;
 }
 
 export interface SubmitResultResponse {
@@ -19,9 +20,26 @@ export interface SubmitResultResponse {
   score: number;
 }
 
+// Helper to get player name from localStorage (client-side only)
+function getPlayerNameFromStorage(): string | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const profile = localStorage.getItem("ammar_player_profile");
+    if (profile) {
+      const parsed = JSON.parse(profile);
+      return parsed?.name || null;
+    }
+  } catch {
+    // Ignore parse errors
+  }
+  return null;
+}
+
 export async function submitResult(input: SubmitResultInput): Promise<SubmitResultResponse | null> {
   try {
-    const guestId = getGuestId();
+    const guestId = ensureGuestId();
+    // Get player name from local profile if not provided
+    const displayName = input.displayName ?? getPlayerNameFromStorage();
 
     const res = await fetch("/api/results", {
       method: "POST",
@@ -29,6 +47,7 @@ export async function submitResult(input: SubmitResultInput): Promise<SubmitResu
       body: JSON.stringify({
         ...input,
         guestId: guestId ?? undefined,
+        displayName: displayName ?? undefined,
       }),
     });
 

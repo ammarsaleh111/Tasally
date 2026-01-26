@@ -30,6 +30,7 @@ import { getNextSpellingBeeHint, getSpellingBeeHintButtonText } from '@/utils/sp
 // Merge January and February puzzles
 const ALL_SPELLING_PUZZLES = [...SPELLING_PUZZLES_JAN_2026, ...SPELLING_PUZZLES_FEB_2026];
 import { saveGameToProfile, getGameStats } from '@/utils/profileManager';
+import { submitResult } from '@/utils/resultsClient';
 
 export default function SpellingBeePage() {
   // Initialize puzzle on first render
@@ -163,6 +164,15 @@ export default function SpellingBeePage() {
         completed: true,
         stats
       });
+      
+      // Submit to leaderboard API
+      submitResult({
+        gameKey: 'spelling',
+        mode: 'daily',
+        success: true,
+        attempts: foundWords.length,
+        metadata: { score, maxScore, wordsFound: foundWords.length, totalWords: puzzle.validWords.length, puzzleDate: puzzle.date },
+      }).catch(err => console.warn('[Spelling] Failed to submit to leaderboard:', err));
     }
   }, [foundWords, puzzle, score, maxScore, isComplete]);
 

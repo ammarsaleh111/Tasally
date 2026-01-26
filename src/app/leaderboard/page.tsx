@@ -308,7 +308,7 @@ export default function LeaderboardPage() {
 
         {/* Footer Note */}
         <p className="text-center text-xs text-[hsl(var(--muted-foreground))] mt-6">
-          Only daily mode games from authenticated users are ranked.
+          Only daily mode games are ranked. Sign in to display your name on the leaderboard!
         </p>
       </main>
     </div>
