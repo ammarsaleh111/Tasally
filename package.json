@@ -8,19 +8,36 @@
     "start": "next start",
     "lint": "eslint",
     "security-test": "node security-tests.js",
-    "validate-env": "node -e \"require('./src/utils/envValidation.js').logEnvironmentStatus()\""
+    "validate-env": "node -e \"require('./src/utils/envValidation.js').logEnvironmentStatus()\"",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:migrate": "drizzle-kit migrate",
+    "db:setup": "node scripts/migrate.js"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "^1.11.1",
     "an-array-of-english-words": "^2.0.0",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.45.1",
     "next": "16.1.1",
+    "next-auth": "^5.0.0-beta.25",
+    "postgres": "^3.4.8",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "wordlist-english": "^1.2.1"
+    "wordlist-english": "^1.2.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/bcrypt": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "@types/react": "^19.0.6",
+    "@types/react-dom": "^19.0.3",
+    "dotenv-cli": "^11.0.0",
+    "drizzle-kit": "^0.31.8",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "typescript": "^5.6.3"
   }
 }

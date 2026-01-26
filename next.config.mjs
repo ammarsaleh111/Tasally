@@ -15,9 +15,9 @@ const nextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // unsafe-inline needed for Next.js dev/hydration
               "style-src 'self' 'unsafe-inline'", // unsafe-inline needed for Tailwind
-              "img-src 'self' data: blob:",
+              "img-src 'self' data: blob: https://lh3.googleusercontent.com",
               "font-src 'self' data:",
-              "connect-src 'self' https://formspree.io https://api.dictionaryapi.dev",
+              "connect-src 'self' https://formspree.io https://api.dictionaryapi.dev https://accounts.google.com https://www.googleapis.com",
               "frame-ancestors 'none'", // Prevent clickjacking
               "base-uri 'self'",
               "form-action 'self'",

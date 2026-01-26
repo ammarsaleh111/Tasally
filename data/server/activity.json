@@ -3,40 +3,10 @@
     {
       "userId": "user_1768241888057_s7bvpex9n",
       "name": "asad",
-      "lastSeen": "2026-01-24T00:07:38.633Z",
-      "currentPage": "game:wordle",
-      "currentGame": "wordle",
+      "lastSeen": "2026-01-26T09:30:47.778Z",
+      "currentPage": ":leaderboard",
+      "currentGame": null,
       "activities": [
-        {
-          "page": "home",
-          "game": null,
-          "timestamp": "2026-01-12T23:34:28.224Z"
-        },
-        {
-          "page": "home",
-          "game": null,
-          "timestamp": "2026-01-12T23:34:58.223Z"
-        },
-        {
-          "page": "home",
-          "game": null,
-          "timestamp": "2026-01-12T23:35:28.225Z"
-        },
-        {
-          "page": "home",
-          "game": null,
-          "timestamp": "2026-01-12T23:36:43.225Z"
-        },
-        {
-          "page": "home",
-          "game": null,
-          "timestamp": "2026-01-12T23:37:43.225Z"
-        },
-        {
-          "page": "home",
-          "game": null,
-          "timestamp": "2026-01-12T23:38:43.224Z"
-        },
         {
           "page": "home",
           "game": null,
@@ -1006,6 +976,36 @@
           "page": "game:wordle",
           "game": "wordle",
           "timestamp": "2026-01-24T00:07:38.633Z"
+        },
+        {
+          "page": ":leaderboard",
+          "game": null,
+          "timestamp": "2026-01-26T09:28:59.754Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-26T09:29:13.428Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-26T09:29:43.430Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-01-26T09:30:13.430Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-26T09:30:17.467Z"
+        },
+        {
+          "page": ":leaderboard",
+          "game": null,
+          "timestamp": "2026-01-26T09:30:47.778Z"
         }
       ]
     },

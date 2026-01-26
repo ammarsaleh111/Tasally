@@ -59,6 +59,7 @@ Each theme includes:
 
 - Node.js 18+
 - npm, yarn, or pnpm
+- A Neon Postgres database (for cloud features)
 
 ### Installation
 
@@ -78,13 +79,55 @@ Open [http://localhost:3000](http://localhost:3000) to start playing!
 
 ### Environment Variables
 
-Create an `.env.local` file with your Wordnik key to unlock external validation:
+Copy `.env.example` to `.env.local` and configure:
 
-```
-WORDNIK_API_KEY=your_wordnik_api_key
+```bash
+cp .env.example .env.local
 ```
 
-If the key is missing, the platform still works but will skip the Wordnik layer and fall back to Datamuse/local dictionaries.
+**Required for database/auth features:**
+
+| Variable               | Description                                                           |
+| ---------------------- | --------------------------------------------------------------------- |
+| `DATABASE_URL`         | Neon Postgres pooled connection string                                |
+| `NEXTAUTH_SECRET`      | Random 32+ character secret (generate with `openssl rand -base64 32`) |
+| `NEXTAUTH_URL`         | Your app URL (`http://localhost:3000` for dev)                        |
+| `GOOGLE_CLIENT_ID`     | Google OAuth client ID                                                |
+| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret                                            |
+
+**Optional:**
+
+| Variable          | Description                                               |
+| ----------------- | --------------------------------------------------------- |
+| `WORDNIK_API_KEY` | External word validation (falls back to local dictionary) |
+| `ADMIN_USERNAME`  | Admin panel username                                      |
+| `ADMIN_PASSWORD`  | Admin panel password                                      |
+| `ADMIN_SECRET`    | Admin session secret                                      |
+
+### Database Setup (Neon Postgres)
+
+1. Create a Neon project at [neon.tech](https://neon.tech)
+2. Copy the pooled connection string to `DATABASE_URL`
+3. Run migrations:
+
+```bash
+# Generate migrations from schema
+npm run db:generate
+
+# Apply migrations to database
+npm run db:migrate
+```
+
+### Google OAuth Setup
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select existing
+3. Navigate to **APIs & Services > Credentials**
+4. Create **OAuth 2.0 Client ID** (Web application)
+5. Add authorized redirect URIs:
+   - `http://localhost:3000/api/auth/callback/google` (development)
+   - `https://your-domain.netlify.app/api/auth/callback/google` (production)
+6. Copy Client ID and Secret to your `.env.local`
 
 ## 🔐 Word Validation Pipeline
 
@@ -223,14 +266,38 @@ View all achievements in your Profile page!
 
 ## 🔮 Future Enhancements
 
-- [ ] Cloud sync for cross-device profiles
+- [x] Cloud sync for cross-device profiles
+- [x] Leaderboards (daily & monthly)
 - [ ] Multiplayer modes
 - [ ] Social features and friend challenges
-- [ ] Leaderboards
 - [ ] More themed events
 - [ ] Custom theme builder
 - [ ] Email notifications
 - [ ] Advanced analytics dashboard
+
+## 🚀 Deployment (Netlify)
+
+### Netlify Setup
+
+1. Connect your GitHub repository to Netlify
+2. Build settings (auto-detected for Next.js):
+   - **Build command:** `npm run build`
+   - **Publish directory:** `.next`
+3. Add environment variables in Netlify dashboard:
+   - `DATABASE_URL`
+   - `NEXTAUTH_SECRET`
+   - `NEXTAUTH_URL` (your Netlify URL, e.g., `https://ammar-times.netlify.app`)
+   - `GOOGLE_CLIENT_ID`
+   - `GOOGLE_CLIENT_SECRET`
+
+### Production Checklist
+
+- [ ] Rotate any exposed database passwords
+- [ ] Generate fresh `NEXTAUTH_SECRET` for production
+- [ ] Update Google OAuth redirect URIs for production domain
+- [ ] Verify `.env.local` is in `.gitignore` (it is by default)
+- [ ] Test login flow end-to-end
+- [ ] Test leaderboard submission and display
 
 ## 📚 Documentation
 

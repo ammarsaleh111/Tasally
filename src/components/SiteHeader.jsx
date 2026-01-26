@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import { useTheme } from './ThemeProvider';
+import AuthButton from './AuthButton';
 
 export default function SiteHeader() {
   const { theme, toggleTheme } = useTheme();
@@ -37,6 +38,16 @@ export default function SiteHeader() {
         >
             🎭 Themes
         </Link>
+
+        <Link 
+            href="/leaderboard" 
+            className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors"
+        >
+            🏆 Leaderboard
+        </Link>
+
+        {/* Auth Button */}
+        <AuthButton />
         
         {/* Theme Toggle */}
         <button 
