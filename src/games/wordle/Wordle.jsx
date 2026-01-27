@@ -24,7 +24,6 @@ import LearningLogModal from '@/components/LearningLogModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
-import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordToLog } from '@/utils/learningLogEngine';
@@ -129,7 +128,6 @@ export default function WordleGame() {
     // Update local stats display
     const updatedStats = getGameStats('wordle');
     setStats(updatedStats);
-    setStats(updatedStats);
     
     // Show achievements
     if (achievements && achievements.length > 0) {
@@ -137,6 +135,21 @@ export default function WordleGame() {
       setCurrentAchievementIndex(0);
     }
   };
+
+  /**
+   * Validates that a word matches the expected length.
+   * Returns the word if valid, or fetches a new one if not.
+   */
+  const validateAndGetWord = useCallback((word, expectedLength, mode) => {
+    if (word && word.length === expectedLength) {
+      return word;
+    }
+    // Word length mismatch - this should not happen with fixed logic
+    if (process.env.NODE_ENV === 'development') {
+      console.warn(`[Wordle] Word length mismatch: "${word}" (${word?.length}) vs expected ${expectedLength}. Fetching new word.`);
+    }
+    return mode === 'daily' ? getDailyWord() : getRandomWord(expectedLength);
+  }, []);
 
   // --- Initialization ---
   const startGame = (targetMode, targetLength) => {
@@ -155,7 +168,9 @@ export default function WordleGame() {
     
     // Check if we have an active game in storage matching this config, OR if it's daily and already completed
     if (savedState && (savedState.status === 'playing' || (targetMode === 'daily'))) {
-      const restoredSolution = savedState.solution || (targetMode === 'daily' ? getDailyWord() : getRandomWord(targetLength));
+      let restoredSolution = savedState.solution || (targetMode === 'daily' ? getDailyWord() : getRandomWord(targetLength));
+      // CRITICAL: Validate word length matches
+      restoredSolution = validateAndGetWord(restoredSolution, targetLength, targetMode);
       setSolution(restoredSolution);
       const restoredGuesses = (savedState.guesses || []).map((guess, index) => ({
         id: `restored-${index}`,
@@ -168,7 +183,9 @@ export default function WordleGame() {
       setKeyStatuses({});
       setCurrentGuess('');
     } else {
-      const newSolution = targetMode === 'daily' ? getDailyWord() : getRandomWord(targetLength);
+      let newSolution = targetMode === 'daily' ? getDailyWord() : getRandomWord(targetLength);
+      // CRITICAL: Validate word length matches
+      newSolution = validateAndGetWord(newSolution, targetLength, targetMode);
       setSolution(newSolution);
       syncGuesses(() => []);
       setGameStatus('playing');
@@ -235,9 +252,11 @@ export default function WordleGame() {
     
     // Reset for Unlimited
     if (mode === 'unlimited') {
-        const newSolution = getRandomWord(wordLength);
+        let newSolution = getRandomWord(wordLength);
+        // CRITICAL: Validate word length matches
+        newSolution = validateAndGetWord(newSolution, wordLength, mode);
         setSolution(newSolution);
-      syncGuesses(() => []);
+        syncGuesses(() => []);
         setGameStatus('playing');
         setKeyStatuses({});
         setCurrentGuess('');
@@ -380,7 +399,7 @@ export default function WordleGame() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full max-w-lg mx-auto min-h-screen pb-10 px-4 animate-fade-in-up">
+    <div className="flex flex-col items-center w-full min-h-screen animate-fade-in-up">
       {toast && (
         <Toast 
             key={toast.id}
@@ -454,89 +473,40 @@ export default function WordleGame() {
           </div>
       </Modal>
 
-      <div className="w-full mb-6">
-        {/* Header Row */}
-        <div className="flex justify-between items-center mb-3 border-b border-border-default pb-3">
-          <div className="flex items-center gap-2">
-            <button 
-              onClick={() => setView('MENU')} 
-              className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors flex items-center gap-1"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              Menu
-            </button>
+      {/* Unified GameHeader - consistent with all other games */}
+      <GameHeader
+        title={mode === 'unlimited' ? `Wordle ${wordLength}` : 'Wordle'}
+        onHowToPlay={() => setShowHowTo(true)}
+        onStats={() => setShowStats(true)}
+        onLearningLog={() => setShowLearningLog(true)}
+        gameComplete={gameStatus !== 'playing'}
+        mode={mode}
+      />
 
-            <Link 
-              href="/games" 
-              className="text-sm font-semibold text-text-muted hover:text-foreground transition-colors flex items-center gap-1"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-              All Games
-            </Link>
+      {/* Main Game Content */}
+      <div className="flex flex-col items-center w-full max-w-lg mx-auto px-4 pb-10">
+        {gameStatus === 'lost' && (
+          <div className="bg-red-500/10 border border-red-500/50 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg mb-6 text-center animate-in fade-in slide-in-from-top-4 w-full">
+            <p className="font-bold text-lg">The word was: <span className="uppercase tracking-widest">{solution}</span></p>
           </div>
-          
-          <h1 className="text-3xl font-bold text-foreground tracking-tight">Wordle</h1>
-          
-          <div className="flex gap-1">
-            <button 
-              onClick={() => setShowHowTo(true)} 
-              className="p-2 hover:bg-surface-hover rounded-md transition-colors"
-              title="How to Play"
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-foreground">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-              </svg>
-            </button>
-            <button 
-              onClick={() => setShowStats(true)} 
-              className="p-2 hover:bg-surface-hover rounded-md transition-colors"
-              title="Statistics"
-            >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-foreground">
-                <line x1="18" y1="20" x2="18" y2="10"></line>
-                <line x1="12" y1="20" x2="12" y2="4"></line>
-                <line x1="6" y1="20" x2="6" y2="14"></line>
-              </svg>
-            </button>
-            <button 
-              onClick={() => setShowLearningLog(true)} 
-              className={`p-2 hover:bg-surface-hover rounded-md transition-colors ${gameStatus === 'playing' ? 'opacity-50 cursor-not-allowed' : ''}`}
-              title="Learning Log"
-              disabled={gameStatus === 'playing'}
-            >
-              <span className="text-lg">📘</span>
-            </button>
-          </div>
-        </div>
+        )}
+
+        <WordleGrid 
+          guesses={guesses} 
+          currentGuess={currentGuess} 
+          length={wordLength} 
+          gameStatus={gameStatus}
+          solution={solution}
+          isShaking={isShaking}
+          isChecking={isChecking}
+        />
+        
+        <Keyboard 
+          onKey={onKey} 
+          keyStatuses={keyStatuses} 
+          disabled={isChecking}
+        />
       </div>
-
-      {gameStatus === 'lost' && (
-        <div className="bg-red-500/10 border border-red-500/50 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg mb-6 text-center animate-in fade-in slide-in-from-top-4">
-          <p className="font-bold text-lg">The word was: <span className="uppercase tracking-widest">{solution}</span></p>
-        </div>
-      )}
-
-      <WordleGrid 
-        guesses={guesses} 
-        currentGuess={currentGuess} 
-        length={wordLength} 
-        gameStatus={gameStatus}
-        solution={solution}
-        isShaking={isShaking}
-        isChecking={isChecking}
-      />
-      
-      <Keyboard 
-        onKey={onKey} 
-        keyStatuses={keyStatuses} 
-        disabled={isChecking}
-      />
 
       {/* Statistics Modal */}
       {stats && (

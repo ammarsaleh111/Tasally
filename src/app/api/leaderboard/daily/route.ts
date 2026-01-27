@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
         success: gameResults.success,
         attempts: gameResults.attempts,
         durationMs: gameResults.durationMs,
-        userName: users.name,
+        userDisplayName: users.displayName,
         guestName: guestProfiles.displayName,
         playedAt: gameResults.playedAt,
       })
@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
 
     const leaderboard = rows.map((r) => ({
       rank: Number(r.rank),
-      playerName: r.userName ?? r.guestName ?? "Guest",
+      playerName: r.userDisplayName ?? r.guestName ?? "Guest",
       score: r.score,
       success: r.success,
       attempts: r.attempts,
