@@ -496,7 +496,6 @@ export default function WordleGame() {
           currentGuess={currentGuess} 
           length={wordLength} 
           gameStatus={gameStatus}
-          solution={solution}
           isShaking={isShaking}
           isChecking={isChecking}
         />

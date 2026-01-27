@@ -1,7 +1,7 @@
 import React from 'react';
 import { LETTER_STATUS, MAX_GUESSES } from '../games/wordle/wordleLogic';
 
-const WordleGrid = React.memo(({ guesses, currentGuess, length = 5, isShaking = false, isChecking = false, gameStatus, solution }) => {
+const WordleGrid = React.memo(({ guesses, currentGuess, length = 5, isShaking = false, isChecking = false, gameStatus }) => {
   const hasActiveRow = guesses.length < MAX_GUESSES && gameStatus === 'playing';
   // Solution row removed per user request - checking logic handled in parent
   const placeholderCount = Math.max(0, MAX_GUESSES - guesses.length - (hasActiveRow ? 1 : 0));
@@ -28,6 +28,7 @@ const WordleGrid = React.memo(({ guesses, currentGuess, length = 5, isShaking = 
     </div>
   );
 });
+WordleGrid.displayName = 'WordleGrid';
 
 const getGridColsStyle = (length) => {
     switch(length) {
@@ -63,6 +64,7 @@ const CompletedRow = React.memo(({ guess, length }) => {
     </div>
   );
 });
+CompletedRow.displayName = 'CompletedRow';
 
 const CurrentRow = React.memo(({ guess, length, isShaking = false, isChecking = false }) => {
   const splitGuess = guess.split('');
@@ -95,6 +97,7 @@ const CurrentRow = React.memo(({ guess, length, isShaking = false, isChecking = 
     </div>
   );
 });
+CurrentRow.displayName = 'CurrentRow';
 
 const EmptyRow = React.memo(({ length }) => {
   return (
@@ -108,5 +111,6 @@ const EmptyRow = React.memo(({ length }) => {
     </div>
   );
 });
+EmptyRow.displayName = 'EmptyRow';
 
 export default WordleGrid;

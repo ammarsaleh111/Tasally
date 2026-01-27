@@ -766,14 +766,14 @@
     "userId": "user_1769530075204_uf919oebz",
     "name": "asdf",
     "createdAt": "2026-01-27T16:07:55.204Z",
-    "updatedAt": "2026-01-27T23:12:32.704Z",
+    "updatedAt": "2026-01-27T23:37:39.574Z",
     "games": {
       "wordle": {
-        "gamesPlayed": 1,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": "2026-01-27",
+        "gamesPlayed": 2,
+        "gamesWon": 2,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "lastPlayedDate": "2026-01-28",
         "history": [
           {
             "date": "2026-01-27",
@@ -842,11 +842,69 @@
                 ]
               }
             ]
+          },
+          {
+            "date": "2026-01-28",
+            "win": true,
+            "attempts": 5,
+            "puzzleId": "daily-2026-01-28",
+            "guesses": [
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "correct",
+                  "absent",
+                  "correct"
+                ]
+              },
+              {
+                "word": "CHAMP",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "absent",
+                  "present",
+                  "absent"
+                ]
+              },
+              {
+                "word": "BINKS",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "present"
+                ]
+              },
+              {
+                "word": "WORDY",
+                "evaluation": [
+                  "absent",
+                  "correct",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "MOUSE",
+                "evaluation": [
+                  "correct",
+                  "correct",
+                  "correct",
+                  "correct",
+                  "correct"
+                ]
+              }
+            ]
           }
         ],
         "bestTime": null,
-        "averageAttempts": 6,
-        "totalAttempts": 6,
+        "averageAttempts": 8,
+        "totalAttempts": 16,
         "perfectGames": 0
       },
       "connections": {

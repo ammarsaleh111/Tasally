@@ -30,7 +30,7 @@ const ModeSelection = ({ onSelectMode }) => {
             <h2 className="text-3xl font-serif font-bold mb-8 text-foreground animate-pop">
                 How many letters?
             </h2>
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center w-full mt-100">
                 {[4, 5, 6].map((l) => (
                     <button
                         key={l}
@@ -56,8 +56,15 @@ const ModeSelection = ({ onSelectMode }) => {
   }
 
   return (
-    <div className="absolute inset-0 z-40 bg-background flex flex-col items-center justify-center p-4 animate-fade-in-up">
-      <div className="max-w-md w-full space-y-6">
+    <div className="absolute inset-0 z-40 bg-background flex flex-col items-center justify-center p-4" >
+      <div className="max-w-md w-full space-y-6 flex flex-col items-center justify-center mx-auto" style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      transform: "none",         
+      translate: "none",          
+      willChange: "auto",
+    }}>
         <div className="text-center mb-8">
             <div className="w-16 h-16 bg-wordle-correct rounded mx-auto mb-4 flex items-center justify-center text-3xl font-bold text-white shadow-lg rotate-12">
                 W
@@ -68,15 +75,15 @@ const ModeSelection = ({ onSelectMode }) => {
             <p className="text-text-muted mt-2">Get 6 chances to guess the word.</p>
         </div>
 
-        <div className="grid gap-4">
+        <div className="grid gap-4 flex-col w-full justify-center items-center mt-100">
             <button
                 onClick={() => handleModeClick('daily')}
                 className="
-                    group relative p-6 rounded-xl border border-border-default bg-card text-left transition-all duration-200
+                    group relative p-6 rounded-xl border border-border-default bg-card text-center transition-all duration-200
                     hover:border-wordle-correct hover:shadow-md active:scale-[0.98]
                 "
             >
-                <div className="flex justify-between items-center mb-1">
+                <div className="flex flex-col items-center gap-2 mb-2">
                     <span className="text-xl font-bold text-foreground">Daily Puzzle</span>
                     <span className="text-xs font-bold px-2 py-1 rounded bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
                         JAN {new Date().getDate()}
@@ -90,11 +97,11 @@ const ModeSelection = ({ onSelectMode }) => {
             <button
                 onClick={() => handleModeClick('unlimited')}
                 className="
-                    group relative p-6 rounded-xl border border-border-default bg-card text-left transition-all duration-200
+                    group relative p-6 rounded-xl border border-border-default bg-card text-center transition-all duration-200
                     hover:border-wordle-present hover:shadow-md active:scale-[0.98]
                 "
             >
-                <div className="flex justify-between items-center mb-1">
+                <div className="flex flex-col items-center gap-2 mb-2">
                     <span className="text-xl font-bold text-foreground">Unlimited</span>
                     <span className="text-2xl">∞</span>
                 </div>
