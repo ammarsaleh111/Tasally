@@ -1,6 +1,240 @@
 {
   "sessions": [
     {
+      "userId": "user_1769530075204_uf919oebz",
+      "name": "asdf",
+      "lastSeen": "2026-01-27T23:12:32.341Z",
+      "currentPage": "game:spelling",
+      "currentGame": null,
+      "activities": [
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-27T22:36:55.450Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:37:25.452Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:37:56.073Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:38:26.074Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:38:56.074Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:39:26.075Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:39:56.073Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:41:03.075Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:42:03.074Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:43:03.074Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:43:48.075Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:44:03.074Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:45:03.074Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:46:03.074Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:47:03.073Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:47:44.491Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T22:47:47.113Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-27T22:59:40.286Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-27T23:00:02.509Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-27T23:00:11.074Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-27T23:00:40.292Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-27T23:01:11.074Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-01-27T23:01:41.074Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-27T23:02:10.077Z"
+        },
+        {
+          "page": "game:crossword",
+          "game": "crossword",
+          "timestamp": "2026-01-27T23:02:14.140Z"
+        },
+        {
+          "page": "game:crossword",
+          "game": "crossword",
+          "timestamp": "2026-01-27T23:02:14.157Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-01-27T23:02:17.103Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T23:02:41.073Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T23:03:11.074Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T23:03:41.074Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T23:04:11.075Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T23:04:41.076Z"
+        },
+        {
+          "page": "game:strands",
+          "game": null,
+          "timestamp": "2026-01-27T23:05:10.080Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:05:41.073Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:06:11.075Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:06:41.075Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:07:11.074Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:08:03.074Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:09:03.074Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:10:03.075Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:11:03.077Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:12:03.075Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:12:26.237Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:12:31.860Z"
+        },
+        {
+          "page": "game:spelling",
+          "game": null,
+          "timestamp": "2026-01-27T23:12:32.341Z"
+        }
+      ]
+    },
+    {
       "userId": "user_1768241888057_s7bvpex9n",
       "name": "asad",
       "lastSeen": "2026-01-27T14:43:28.574Z",

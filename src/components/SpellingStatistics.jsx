@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { getGameStats } from '@/utils/profileManager';
 
 /**
@@ -8,13 +8,7 @@ import { getGameStats } from '@/utils/profileManager';
  * Used inside Modal component which provides the title
  */
 export default function SpellingStatistics({ stats, onClose }) {
-  const [allTimeStats, setAllTimeStats] = useState(null);
-
-  useEffect(() => {
-    // Load all-time stats from profile
-    const profileStats = getGameStats('spelling');
-    setAllTimeStats(profileStats);
-  }, []);
+  const [allTimeStats] = useState(() => getGameStats('spelling'));
 
   if (!stats) {
     return (

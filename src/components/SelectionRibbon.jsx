@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useId, useMemo } from 'react';
 
 /**
  * SelectionRibbon - NYT-style smooth ribbon selection for Strands
@@ -19,12 +19,44 @@ import React, { useMemo } from 'react';
 export default function SelectionRibbon({
   path = [],
   gridSize = 6,
+  gridRows,
+  gridCols,
   tileSize = 48,
   gap = 4,
   color = 'var(--strands-ribbon)',
   opacity = 0.85,
   isSpangram = false,
+  previewPoint = null,
 }) {
+  const gradientId = useId();
+  const spangramId = useId();
+  const glowId = useId();
+  const shadowId = useId();
+
+  const buildSmoothPath = (points) => {
+    if (!points || points.length === 0) return '';
+    if (points.length === 1) {
+      return `M ${points[0].x} ${points[0].y}`;
+    }
+
+    let d = `M ${points[0].x} ${points[0].y}`;
+    for (let i = 0; i < points.length - 1; i++) {
+      const p0 = points[i - 1] || points[i];
+      const p1 = points[i];
+      const p2 = points[i + 1];
+      const p3 = points[i + 2] || p2;
+
+      const c1x = p1.x + (p2.x - p0.x) / 6;
+      const c1y = p1.y + (p2.y - p0.y) / 6;
+      const c2x = p2.x - (p3.x - p1.x) / 6;
+      const c2y = p2.y - (p3.y - p1.y) / 6;
+
+      d += ` C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2.x} ${p2.y}`;
+    }
+
+    return d;
+  };
+
   // Calculate ribbon path as SVG
   const ribbonPath = useMemo(() => {
     if (!path || path.length < 1) return null;
@@ -52,17 +84,7 @@ export default function SelectionRibbon({
 
     // Build smooth path through all selected cells
     const points = path.map(([r, c]) => getCenter(r, c));
-    
-    // Create SVG path with smooth curves
-    let d = `M ${points[0].x} ${points[0].y}`;
-    
-    for (let i = 1; i < points.length; i++) {
-      const prev = points[i - 1];
-      const curr = points[i];
-      
-      // Direct line to each point (the stroke-linejoin: round handles corners)
-      d += ` L ${curr.x} ${curr.y}`;
-    }
+    const d = buildSmoothPath(points);
 
     return {
       type: 'path',
@@ -85,16 +107,22 @@ export default function SelectionRibbon({
   }, [path, tileSize, gap]);
 
   // Calculate SVG dimensions
+  const resolvedRows = gridRows || gridSize;
+  const resolvedCols = gridCols || gridSize;
+
   const svgSize = useMemo(() => {
     const cellTotalSize = tileSize + gap;
-    return gridSize * cellTotalSize - gap;
-  }, [gridSize, tileSize, gap]);
+    return {
+      width: resolvedCols * cellTotalSize - gap,
+      height: resolvedRows * cellTotalSize - gap,
+    };
+  }, [resolvedCols, resolvedRows, tileSize, gap]);
 
   // Ribbon stroke width (70-80% of tile width)
-  const strokeWidth = tileSize * 0.75;
+  const strokeWidth = tileSize * 0.72;
 
   // Glow radius
-  const glowRadius = tileSize * 0.25;
+  const glowRadius = tileSize * 0.22;
 
   if (!ribbonPath) return null;
 
@@ -111,21 +139,21 @@ export default function SelectionRibbon({
       className="absolute inset-0 pointer-events-none z-0 selection-ribbon"
       width="100%"
       height="100%"
-      viewBox={`0 0 ${svgSize} ${svgSize}`}
+      viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}
       preserveAspectRatio="xMidYMid meet"
       style={{ overflow: 'visible' }}
     >
       {/* Gradient definitions for premium look */}
       <defs>
         {/* Main ribbon gradient */}
-        <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id={`ribbonGradient-${gradientId}`} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor={ribbonColor} stopOpacity={opacity} />
           <stop offset="50%" stopColor={ribbonColor} stopOpacity={opacity * 0.9} />
           <stop offset="100%" stopColor={ribbonColor} stopOpacity={opacity} />
         </linearGradient>
 
         {/* Spangram shimmer gradient */}
-        <linearGradient id="spangramGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <linearGradient id={`spangramGradient-${spangramId}`} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#fbbf24" stopOpacity={0.9} />
           <stop offset="25%" stopColor="#fcd34d" stopOpacity={0.95} />
           <stop offset="50%" stopColor="#fde68a" stopOpacity={1} />
@@ -134,7 +162,7 @@ export default function SelectionRibbon({
         </linearGradient>
 
         {/* Glow filter */}
-        <filter id="glowFilter" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id={`glowFilter-${glowId}`} x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="3" result="coloredBlur" />
           <feMerge>
             <feMergeNode in="coloredBlur" />
@@ -143,7 +171,7 @@ export default function SelectionRibbon({
         </filter>
 
         {/* Soft shadow for ribbon */}
-        <filter id="ribbonShadow" x="-20%" y="-20%" width="140%" height="140%">
+        <filter id={`ribbonShadow-${shadowId}`} x="-20%" y="-20%" width="140%" height="140%">
           <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.3" />
         </filter>
       </defs>
@@ -158,7 +186,7 @@ export default function SelectionRibbon({
             r={glowRadius}
             fill={glowColor}
             opacity={0.6}
-            filter="url(#glowFilter)"
+            filter={`url(#glowFilter-${glowId})`}
             className="animate-pulse"
           />
         ))}
@@ -171,22 +199,51 @@ export default function SelectionRibbon({
           cx={ribbonPath.center.x}
           cy={ribbonPath.center.y}
           r={ribbonPath.radius}
-          fill={isSpangram ? 'url(#spangramGradient)' : 'url(#ribbonGradient)'}
-          filter="url(#ribbonShadow)"
+          fill={isSpangram ? `url(#spangramGradient-${spangramId})` : `url(#ribbonGradient-${gradientId})`}
+          filter={`url(#ribbonShadow-${shadowId})`}
           className="animate-in zoom-in-50 duration-150"
         />
       ) : (
         // Multi-cell selection - render path
-        <path
-          d={ribbonPath.d}
-          fill="none"
-          stroke={isSpangram ? 'url(#spangramGradient)' : 'url(#ribbonGradient)'}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          filter="url(#ribbonShadow)"
-          className="animate-in fade-in duration-100"
-        />
+        <>
+          <path
+            d={ribbonPath.d}
+            fill="none"
+            stroke={isSpangram ? `url(#spangramGradient-${spangramId})` : `url(#ribbonGradient-${gradientId})`}
+            strokeWidth={strokeWidth}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter={`url(#ribbonShadow-${shadowId})`}
+            className="animate-in fade-in duration-100"
+          />
+          {previewPoint && ribbonPath.points && ribbonPath.points.length > 0 && (
+            <path
+              d={`M ${ribbonPath.points[ribbonPath.points.length - 1].x} ${ribbonPath.points[ribbonPath.points.length - 1].y} L ${previewPoint.x} ${previewPoint.y}`}
+              fill="none"
+              stroke={isSpangram ? `url(#spangramGradient-${spangramId})` : `url(#ribbonGradient-${gradientId})`}
+              strokeWidth={strokeWidth * 0.55}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              opacity={0.35}
+            />
+          )}
+        </>
+      )}
+
+      {/* Bridge nodes for subtle joins */}
+      {ribbonPath.type === 'path' && ribbonPath.points?.length > 1 && (
+        <g className="bridge-nodes">
+          {ribbonPath.points.map((point, idx) => (
+            <circle
+              key={`node-${idx}`}
+              cx={point.x}
+              cy={point.y}
+              r={strokeWidth * 0.18}
+              fill={isSpangram ? `url(#spangramGradient-${spangramId})` : `url(#ribbonGradient-${gradientId})`}
+              opacity={0.35}
+            />
+          ))}
+        </g>
       )}
     </svg>
   );
@@ -199,11 +256,14 @@ export default function SelectionRibbon({
 export function LockedWordRibbon({
   path = [],
   gridSize = 6,
+  gridRows,
+  gridCols,
   tileSize = 48,
   gap = 4,
   isSpangram = false,
   isThemeWord = true,
 }) {
+  const gradientId = useId();
   const ribbonPath = useMemo(() => {
     if (!path || path.length < 1) return null;
 
@@ -226,18 +286,30 @@ export function LockedWordRibbon({
 
     const points = path.map(([r, c]) => getCenter(r, c));
     let d = `M ${points[0].x} ${points[0].y}`;
-    
-    for (let i = 1; i < points.length; i++) {
-      d += ` L ${points[i].x} ${points[i].y}`;
+    for (let i = 0; i < points.length - 1; i++) {
+      const p0 = points[i - 1] || points[i];
+      const p1 = points[i];
+      const p2 = points[i + 1];
+      const p3 = points[i + 2] || p2;
+      const c1x = p1.x + (p2.x - p0.x) / 6;
+      const c1y = p1.y + (p2.y - p0.y) / 6;
+      const c2x = p2.x - (p3.x - p1.x) / 6;
+      const c2y = p2.y - (p3.y - p1.y) / 6;
+      d += ` C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2.x} ${p2.y}`;
     }
-
     return { type: 'path', d, points };
   }, [path, tileSize, gap]);
 
+  const resolvedRows = gridRows || gridSize;
+  const resolvedCols = gridCols || gridSize;
+
   const svgSize = useMemo(() => {
     const cellTotalSize = tileSize + gap;
-    return gridSize * cellTotalSize - gap;
-  }, [gridSize, tileSize, gap]);
+    return {
+      width: resolvedCols * cellTotalSize - gap,
+      height: resolvedRows * cellTotalSize - gap,
+    };
+  }, [resolvedCols, resolvedRows, tileSize, gap]);
 
   const strokeWidth = tileSize * 0.7;
 
@@ -255,12 +327,12 @@ export function LockedWordRibbon({
       className="absolute inset-0 pointer-events-none z-0"
       width="100%"
       height="100%"
-      viewBox={`0 0 ${svgSize} ${svgSize}`}
+      viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}
       preserveAspectRatio="xMidYMid meet"
       style={{ overflow: 'visible' }}
     >
       <defs>
-        <linearGradient id={`lockedGradient-${isSpangram ? 'spangram' : isThemeWord ? 'theme' : 'bonus'}`}>
+        <linearGradient id={`lockedGradient-${gradientId}`}>
           <stop offset="0%" stopColor={color} stopOpacity="0.7" />
           <stop offset="100%" stopColor={color} stopOpacity="0.5" />
         </linearGradient>
@@ -271,13 +343,13 @@ export function LockedWordRibbon({
           cx={ribbonPath.center.x}
           cy={ribbonPath.center.y}
           r={ribbonPath.radius}
-          fill={`url(#lockedGradient-${isSpangram ? 'spangram' : isThemeWord ? 'theme' : 'bonus'})`}
+          fill={`url(#lockedGradient-${gradientId})`}
         />
       ) : (
         <path
           d={ribbonPath.d}
           fill="none"
-          stroke={`url(#lockedGradient-${isSpangram ? 'spangram' : isThemeWord ? 'theme' : 'bonus'})`}
+          stroke={`url(#lockedGradient-${gradientId})`}
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeLinejoin="round"

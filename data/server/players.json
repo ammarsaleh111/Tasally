@@ -761,5 +761,197 @@
         "perfectGames": 0
       }
     }
+  },
+  {
+    "userId": "user_1769530075204_uf919oebz",
+    "name": "asdf",
+    "createdAt": "2026-01-27T16:07:55.204Z",
+    "updatedAt": "2026-01-27T23:12:32.704Z",
+    "games": {
+      "wordle": {
+        "gamesPlayed": 1,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": "2026-01-27",
+        "history": [
+          {
+            "date": "2026-01-27",
+            "win": false,
+            "attempts": 6,
+            "puzzleId": "daily-2026-01-27",
+            "guesses": [
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "correct",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "correct",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "correct",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "correct",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "correct",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "correct",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              }
+            ]
+          }
+        ],
+        "bestTime": null,
+        "averageAttempts": 6,
+        "totalAttempts": 6,
+        "perfectGames": 0
+      },
+      "connections": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "crossword": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "numbers": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "trivia": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "spelling": {
+        "gamesPlayed": 2,
+        "gamesWon": 0,
+        "currentStreak": 2,
+        "longestStreak": 2,
+        "maxStreak": 2,
+        "lastPlayedDate": "2026-01-28",
+        "history": [
+          {
+            "date": "2026-01-27",
+            "wordsFound": 3,
+            "totalWords": 12,
+            "pangramsFound": 0,
+            "totalPangrams": 0,
+            "score": 10,
+            "maxScore": 29,
+            "percentage": 34,
+            "rank": "Amazing",
+            "isComplete": false
+          },
+          {
+            "date": "2026-01-28",
+            "wordsFound": 4,
+            "totalWords": 12,
+            "pangramsFound": 0,
+            "totalPangrams": 0,
+            "score": 16,
+            "maxScore": 29,
+            "percentage": 55,
+            "rank": "Genius",
+            "isComplete": false
+          }
+        ],
+        "totalWords": 7,
+        "totalPangrams": 0,
+        "totalScore": 26,
+        "averageScore": 13,
+        "rankDistribution": {
+          "Amazing": 1,
+          "Genius": 1
+        },
+        "queenBeeCount": 0
+      },
+      "strands": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      }
+    }
   }
 ]

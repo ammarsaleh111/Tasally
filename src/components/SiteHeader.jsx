@@ -7,7 +7,7 @@ import { useTheme } from './ThemeProviderNew';
 import AuthButton from './AuthButton';
 
 export default function SiteHeader() {
-  const { appearance, toggleAppearance, isHydrated } = useTheme();
+  const { appearance, toggleAppearance } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -18,11 +18,6 @@ export default function SiteHeader() {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
   }, []);
 
   const navLinks = [

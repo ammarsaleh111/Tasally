@@ -527,21 +527,21 @@ export const STRANDS_2026_01 = [
     date: '2026-01-27',
     theme: 'Transportation',
     grid: [
-      ['C','A','R','B','U','S'],
-      ['T','R','A','I','N','P'],
-      ['P','L','A','N','E','L'],
-      ['B','O','A','T','B','I'],
-      ['B','I','K','E','S','K'],
-      ['S','U','B','W','A','Y']
+      ['V','E','H','I','C','L'],
+      ['T','R','A','I','N','E'],
+      ['P','L','A','N','E','S'],
+      ['B','O','A','T','B','U'],
+      ['B','I','K','E','T','R'],
+      ['T','R','U','C','K','S']
     ],
     words: [
-      'CAR',
-      'BUS',
       'TRAIN',
+      'PLANE',
       'BOAT',
-      'BIKE'
+      'BIKE',
+      'TRUCK'
     ],
-    spangram: 'PLANE'
+    spangram: 'VEHICLE'
   },
   {
     date: '2026-01-28',
@@ -561,7 +561,7 @@ export const STRANDS_2026_01 = [
       'ORCHID',
       'VIOLET'
     ],
-    spangram: 'TULIP'
+    spangram: 'ORCHID'
   },
   {
     date: '2026-01-29',

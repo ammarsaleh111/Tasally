@@ -27,8 +27,10 @@ const StrandsGrid = ({
   onEnd,
 }) => {
   const mouseDownRef = useRef(false);
+  const containerRef = useRef(null);
   const gridRef = useRef(null);
   const [dimensions, setDimensions] = useState({ tileSize: 48, gap: 4 });
+  const [pointerPoint, setPointerPoint] = useState(null);
 
   // Calculate actual tile dimensions from the grid element
   useEffect(() => {
@@ -77,17 +79,35 @@ const StrandsGrid = ({
       mouseDownRef.current = false;
       onEnd?.();
     }
+    setPointerPoint(null);
   }, [onEnd]);
+
+  const handlePointerMove = useCallback((event) => {
+    if (!mouseDownRef.current || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    setPointerPoint({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    });
+  }, []);
 
   // Touch handlers
   const handleTouchStart = useCallback((r, c, e) => {
     e.preventDefault();
+    mouseDownRef.current = true;
     onStart?.(r, c);
   }, [onStart]);
 
   const handleTouchMove = useCallback((r, c, e) => {
     e.preventDefault();
     const touch = e.touches[0];
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      setPointerPoint({
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
+      });
+    }
     const target = document.elementFromPoint(touch.clientX, touch.clientY);
     if (!target) return;
     const cell = target.closest('[data-cell]');
@@ -99,10 +119,13 @@ const StrandsGrid = ({
 
   const handleTouchEnd = useCallback((e) => {
     e.preventDefault();
+    mouseDownRef.current = false;
     onEnd?.();
+    setPointerPoint(null);
   }, [onEnd]);
 
-  const size = grid.length;
+  const rows = grid.length;
+  const cols = grid[0]?.length || 0;
 
   const isInPath = (r, c) => path?.some(([pr, pc]) => pr === r && pc === c);
   const isLocked = (r, c) => lockedSet?.has(`${r},${c}`);
@@ -122,9 +145,11 @@ const StrandsGrid = ({
 
   return (
     <div
-      className="select-none relative strands-grid-container"
+      ref={containerRef}
+      className="select-none relative strands-grid-container touch-none"
       onMouseLeave={handleMouseUp}
       onMouseUp={handleMouseUp}
+      onMouseMove={handlePointerMove}
     >
       {/* Locked word ribbons layer (behind everything) */}
       {foundWords && foundWords.length > 0 && foundWords.map((fw, idx) => (
@@ -132,7 +157,8 @@ const StrandsGrid = ({
           <LockedWordRibbon
             key={`locked-ribbon-${idx}`}
             path={fw.path}
-            gridSize={size}
+            gridRows={rows}
+            gridCols={cols}
             tileSize={dimensions.tileSize}
             gap={dimensions.gap}
             isSpangram={false}
@@ -145,7 +171,8 @@ const StrandsGrid = ({
       {spangramPath && (
         <LockedWordRibbon
           path={spangramPath}
-          gridSize={size}
+          gridRows={rows}
+          gridCols={cols}
           tileSize={dimensions.tileSize}
           gap={dimensions.gap}
           isSpangram={true}
@@ -157,12 +184,14 @@ const StrandsGrid = ({
       {path && path.length > 0 && (
         <SelectionRibbon
           path={path}
-          gridSize={size}
+          gridRows={rows}
+          gridCols={cols}
           tileSize={dimensions.tileSize}
           gap={dimensions.gap}
           color="var(--strands-ribbon, #3b82f6)"
           opacity={0.8}
           isSpangram={false}
+          previewPoint={pointerPoint}
         />
       )}
 
@@ -170,7 +199,7 @@ const StrandsGrid = ({
       <div
         ref={gridRef}
         className={`grid gap-2 relative z-10 ${shouldShake ? 'animate-shake' : ''}`}
-        style={{ gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))` }}
+        style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
       >
         {grid.map((row, r) => (
           row.map((ch, c) => {

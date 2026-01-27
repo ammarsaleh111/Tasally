@@ -26,6 +26,7 @@ export default function HoneycombGridEnhanced({
   const [pointerPos, setPointerPos] = useState(null);
   const [selectedLetters, setSelectedLetters] = useState([]);
   const [clickedLetter, setClickedLetter] = useState(null);
+  const suppressClickRef = useRef(false);
   
   // All letters in order: center first, then outer
   const allLetters = useMemo(() => [centerLetter, ...outerLetters], [centerLetter, outerLetters]);
@@ -86,6 +87,7 @@ export default function HoneycombGridEnhanced({
     
     e.preventDefault();
     e.target.setPointerCapture?.(e.pointerId);
+    suppressClickRef.current = false;
     
     setIsDragging(true);
     setSelectedLetters([letter]);
@@ -131,26 +133,33 @@ export default function HoneycombGridEnhanced({
     setPointerPos(null);
     
     // Build word from selected letters and notify parent
-    if (selectedLetters.length > 0) {
+    if (selectedLetters.length > 1) {
       const word = selectedLetters.join('');
       onWordChange?.(word);
+      suppressClickRef.current = true;
     }
     
     // Animate path fade out
-    setTimeout(() => {
-      setSelectedLetters([]);
-    }, 150);
+    if (selectedLetters.length > 1) {
+      setTimeout(() => {
+        setSelectedLetters([]);
+      }, 150);
+    }
   }, [isDragging, selectedLetters, onWordChange]);
 
   // Handle simple click (add single letter)
   const handleLetterClick = useCallback((letter) => {
     if (disabled) return;
+    if (suppressClickRef.current) {
+      suppressClickRef.current = false;
+      return;
+    }
     
     setClickedLetter(letter);
     onLetterClick?.(letter);
     
     // Add to selection for visual feedback
-    setSelectedLetters(prev => [...prev, letter]);
+    setSelectedLetters([letter]);
     setTimeout(() => setClickedLetter(null), 200);
     
     // Clear selection path after brief delay

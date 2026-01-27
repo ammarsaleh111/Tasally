@@ -6,38 +6,34 @@ import { getGameTheme } from '@/utils/themeEngine';
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('dark');
-  const [seasonalTheme, setSeasonalTheme] = useState(null);
-
-  useEffect(() => {
-    // Check local storage or preference
-    const saved = localStorage.getItem('theme');
-    if (saved) {
-        setTheme(saved);
-        document.documentElement.classList.toggle('dark', saved === 'dark');
-    } else {
-        // Default to dark per requirements
-        setTheme('dark');
-        document.documentElement.classList.add('dark');
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === 'undefined') {
+      return 'dark';
     }
-    
-    // Check for active seasonal theme
+    const saved = localStorage.getItem('theme');
+    return saved || 'dark';
+  });
+  const [seasonalTheme] = useState(() => {
+    if (typeof window === 'undefined') {
+      return null;
+    }
     try {
       const activeTheme = getGameTheme();
-      if (activeTheme && activeTheme.id) {
-        setSeasonalTheme(activeTheme.id);
-        document.documentElement.setAttribute('data-theme', activeTheme.id);
-      } else {
-        document.documentElement.removeAttribute('data-theme');
-      }
+      return activeTheme && activeTheme.id ? activeTheme.id : null;
     } catch {
-      // Theme engine not available
+      return null;
+    }
+  });
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    if (seasonalTheme) {
+      document.documentElement.setAttribute('data-theme', seasonalTheme);
+    } else {
       document.documentElement.removeAttribute('data-theme');
     }
-    
-    // Prevent flash of unstyled content
     document.documentElement.style.visibility = 'visible';
-  }, []);
+  }, [theme, seasonalTheme]);
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';

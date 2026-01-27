@@ -53,4 +53,6 @@ const Keyboard = React.memo(({ onKey, keyStatuses, disabled = false }) => {
   );
 });
 
+Keyboard.displayName = 'Keyboard';
+
 export default Keyboard;

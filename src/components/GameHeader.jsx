@@ -3,6 +3,29 @@
 import Link from 'next/link';
 import React from 'react';
 
+const HeaderButton = ({ onClick, disabled, icon, label, locked }) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    className={`
+      flex items-center gap-1.5 px-3 py-2 rounded-xl
+      text-sm font-medium
+      transition-all duration-200
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]
+      ${disabled
+        ? 'text-[hsl(var(--muted-foreground))]/40 cursor-not-allowed'
+        : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--surface-hover))] active:scale-95'
+      }
+    `}
+    title={locked ? `${label} - Available after game ends` : label}
+    aria-label={label}
+  >
+    <span className="text-base">{icon}</span>
+    <span className="hidden sm:inline">{label}</span>
+    {locked && <span className="text-xs">🔒</span>}
+  </button>
+);
+
 /**
  * Unified GameHeader - Consistent header for ALL games
  * 
@@ -33,29 +56,6 @@ const GameHeader = ({
   themeBadge,
 }) => {
   const canShowLearningLog = gameComplete || showLearningLog;
-
-  const HeaderButton = ({ onClick, disabled, icon, label, locked }) => (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={`
-        flex items-center gap-1.5 px-3 py-2 rounded-xl
-        text-sm font-medium
-        transition-all duration-200
-        focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]
-        ${disabled
-          ? 'text-[hsl(var(--muted-foreground))]/40 cursor-not-allowed'
-          : 'text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--surface-hover))] active:scale-95'
-        }
-      `}
-      title={locked ? `${label} - Available after game ends` : label}
-      aria-label={label}
-    >
-      <span className="text-base">{icon}</span>
-      <span className="hidden sm:inline">{label}</span>
-      {locked && <span className="text-xs">🔒</span>}
-    </button>
-  );
 
   return (
     <header 

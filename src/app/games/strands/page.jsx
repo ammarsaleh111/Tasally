@@ -1,6 +1,6 @@
-'use client';
+﻿'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import GameHeader from '@/components/GameHeader';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
@@ -10,7 +10,6 @@ import StatisticsModal from '@/components/StatisticsModal';
 import StrandsGrid from '@/components/StrandsGrid';
 import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
-import { getGameTheme } from '@/utils/themeEngine';
 import { getTodayString, recordGameResult, getGameStats } from '@/utils/profileManager';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
@@ -23,106 +22,97 @@ const ALL_STRANDS_PUZZLES = [...STRANDS_2026_01, ...STRANDS_PUZZLES_FEB_2026];
 import {
   serializePos,
   validateSelection,
-  getHint,
   saveProgress,
   loadProgress,
-  validatePuzzle,
+  clearProgress,
+  puzzlesHealthCheck,
 } from './strandsLogic';
+import { resetStrandsHints } from '@/utils/strandsHints';
 
-export default function StrandsPage() {
-  const todayStr = useMemo(() => getTodayString(), []);
-  const [puzzle, setPuzzle] = useState(null);
+const SAFE_PUZZLE = {
+  date: 'fallback',
+  theme: 'Seaside Escape',
+  grid: [
+    ['O', 'C', 'E', 'A', 'N', 'S'],
+    ['B', 'E', 'A', 'C', 'H', 'L'],
+    ['S', 'H', 'E', 'L', 'L', 'S'],
+    ['T', 'I', 'D', 'E', 'S', 'U'],
+    ['C', 'O', 'R', 'A', 'L', 'S'],
+    ['S', 'A', 'N', 'D', 'S', 'A'],
+  ],
+  words: ['BEACH', 'SHELLS', 'TIDES', 'CORAL', 'SANDS'],
+  spangram: 'OCEANS',
+};
+
+const getInitialState = (puzzle) => {
+  if (!puzzle) {
+    return {
+      foundWords: [],
+      foundSet: new Set(),
+      lockedSet: new Set(),
+      spangramFound: false,
+      hintsUsed: 0,
+      startedAt: Date.now(),
+      completedAt: null,
+    };
+  }
+
+  const savedProgress = loadProgress(puzzle.date);
+  if (savedProgress) {
+    return {
+      foundWords: savedProgress.foundWords || [],
+      foundSet: new Set(savedProgress.foundSet || []),
+      lockedSet: new Set(savedProgress.lockedSet || []),
+      spangramFound: !!savedProgress.spangramFound,
+      hintsUsed: savedProgress.hintsUsed || 0,
+      startedAt: savedProgress.startedAt || Date.now(),
+      completedAt: savedProgress.completedAt || null,
+    };
+  }
+
+  return {
+    foundWords: [],
+    foundSet: new Set(),
+    lockedSet: new Set(),
+    spangramFound: false,
+    hintsUsed: 0,
+    startedAt: Date.now(),
+    completedAt: null,
+  };
+};
+
+function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuzzle }) {
+  const initialState = useMemo(() => getInitialState(puzzle), [puzzle]);
+
   const [path, setPath] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
-  const [foundWords, setFoundWords] = useState([]); // { word, path }
-  const [foundSet, setFoundSet] = useState(new Set());
-  const [lockedSet, setLockedSet] = useState(new Set());
-  const [spangramFound, setSpangramFound] = useState(false);
+  const [foundWords, setFoundWords] = useState(initialState.foundWords);
+  const [foundSet, setFoundSet] = useState(initialState.foundSet);
+  const [lockedSet, setLockedSet] = useState(initialState.lockedSet);
+  const [spangramFound, setSpangramFound] = useState(initialState.spangramFound);
   const [spangramPath, setSpangramPath] = useState(null);
-  const [hintsUsed, setHintsUsed] = useState(0);
+  const [hintsUsed, setHintsUsed] = useState(initialState.hintsUsed);
   const [highlightedSet, setHighlightedSet] = useState(new Set());
-  const [hintButtonText, setHintButtonText] = useState('Hint');
-  const [hintedTiles, setHintedTiles] = useState([]); // Array of {row, col, letter}
-  const [startedAt, setStartedAt] = useState(null);
-  const [completedAt, setCompletedAt] = useState(null);
+  const [startedAt, setStartedAt] = useState(initialState.startedAt);
+  const [completedAt, setCompletedAt] = useState(initialState.completedAt);
   const [winModal, setWinModal] = useState(false);
   const [toast, setToast] = useState(null);
   const [shouldShake, setShouldShake] = useState(false);
   const [howToPlayModal, setHowToPlayModal] = useState(false);
   const [statsModal, setStatsModal] = useState(false);
   const [learningLogModal, setLearningLogModal] = useState(false);
-  const [validationErrors, setValidationErrors] = useState([]);
 
-  const gameTheme = getGameTheme('strands');
+  const foundWordStrings = useMemo(() => foundWords.map((fw) => fw.word), [foundWords]);
+  const puzzleId = puzzle ? `strands-${puzzle.date}` : null;
 
-  // Load and validate today's puzzle
-  const puzzleData = useMemo(() => {
-    const pools = [ALL_STRANDS_PUZZLES];
-    const all = pools.flat();
-    const today = all.find((p) => p.date === todayStr);
-    const puzzleToLoad = today || all[0] || null;
-    
-    if (puzzleToLoad) {
-      const validation = validatePuzzle(puzzleToLoad);
-      if (!validation.valid) {
-        console.error('Puzzle validation failed:', validation.errors);
-        return { puzzle: puzzleToLoad, errors: validation.errors };
-      }
-      return { puzzle: puzzleToLoad, errors: [] };
-    }
-    return { puzzle: null, errors: [] };
-  }, [todayStr]);
+  const hintButtonText = puzzle
+    ? getStrandsHintButtonText(puzzleId, puzzle.words, foundWordStrings, puzzle.grid)
+    : 'Hint';
 
-  // Set puzzle and validation errors from memoized data
-  useEffect(() => {
-    setPuzzle(puzzleData.puzzle);
-    setValidationErrors(puzzleData.errors);
-  }, [puzzleData]);
+  const hintedTiles = puzzle
+    ? getAllHintedTiles(puzzleId, puzzle.words, foundWordStrings, puzzle.grid)
+    : [];
 
-  // Load progress from saved data
-  const savedProgress = useMemo(() => {
-    if (!puzzle) return null;
-    return loadProgress(puzzle.date);
-  }, [puzzle]);
-
-  // Apply loaded progress to state
-  useEffect(() => {
-    if (!puzzle) return;
-    
-    if (savedProgress) {
-      setFoundWords(savedProgress.foundWords || []);
-      setFoundSet(new Set(savedProgress.foundSet || []));
-      setLockedSet(new Set(savedProgress.lockedSet || []));
-      setSpangramFound(!!savedProgress.spangramFound);
-      setHintsUsed(savedProgress.hintsUsed || 0);
-      setStartedAt(savedProgress.startedAt || Date.now());
-      setCompletedAt(savedProgress.completedAt || null);
-    } else {
-      setFoundWords([]);
-      setFoundSet(new Set());
-      setLockedSet(new Set());
-      setSpangramFound(false);
-      setHintsUsed(0);
-      setStartedAt(Date.now());
-      setCompletedAt(null);
-    }
-  }, [puzzle, savedProgress]);
-
-  // Update hint button text and load hinted tiles when puzzle or words change
-  useEffect(() => {
-    if (puzzle && puzzle.words) {
-      const puzzleId = `strands-${puzzle.date}`;
-      const foundWordStrings = foundWords.map(fw => fw.word);
-      const buttonText = getStrandsHintButtonText(puzzleId, puzzle.words, foundWordStrings, puzzle.grid);
-      setHintButtonText(buttonText);
-      
-      // Load all previously hinted tiles
-      const existingHints = getAllHintedTiles(puzzleId, puzzle.words, foundWordStrings, puzzle.grid);
-      setHintedTiles(existingHints);
-    }
-  }, [puzzle, foundWords]);
-
-  // Persist progress
   useEffect(() => {
     if (!puzzle) return;
     saveProgress(puzzle.date, {
@@ -135,6 +125,58 @@ export default function StrandsPage() {
       completedAt,
     });
   }, [puzzle, foundWords, foundSet, lockedSet, spangramFound, hintsUsed, startedAt, completedAt]);
+
+  const clearPathWithFade = () => {
+    setPath([]);
+  };
+
+  const lockPositions = (cells) => {
+    setLockedSet((prev) => {
+      const next = new Set(prev);
+      cells.forEach(([r, c]) => next.add(serializePos(r, c)));
+      return next;
+    });
+  };
+
+  const allWordsFound = (nextFoundSet) => {
+    if (!puzzle) return false;
+    return puzzle.words.every((word) => nextFoundSet.has(word.toUpperCase()));
+  };
+
+  const completeGame = (nextFoundWords, nextSpangramFound) => {
+    if (!puzzle || completedAt) return;
+
+    const end = Date.now();
+    const timeSec = Math.floor((end - (startedAt || end)) / 1000);
+
+    recordGameResult('strands', {
+      date: puzzle.date,
+      win: true,
+      time: timeSec,
+      hintsUsed,
+      perfect: hintsUsed === 0,
+      attempts: nextFoundWords.length + (nextSpangramFound ? 1 : 0),
+      breakdown: { words: nextFoundWords.map((f) => f.word), spangram: nextSpangramFound },
+    });
+
+    submitResult({
+      gameKey: 'strands',
+      mode: 'daily',
+      success: true,
+      attempts: nextFoundWords.length + (nextSpangramFound ? 1 : 0),
+      durationMs: timeSec * 1000,
+      metadata: { hintsUsed, perfect: hintsUsed === 0, puzzleDate: puzzle.date },
+    }).catch((err) => console.warn('[Strands] Failed to submit to leaderboard:', err));
+
+    const allWords = [
+      ...nextFoundWords.map((f) => f.word),
+      puzzle.spangram?.toUpperCase(),
+    ].filter(Boolean);
+    addWordsToLog(allWords, 'strands');
+
+    setCompletedAt(end);
+    setWinModal(true);
+  };
 
   const onStart = (r, c) => {
     if (completedAt) return;
@@ -151,20 +193,8 @@ export default function StrandsPage() {
     const adjacent = dr <= 1 && dc <= 1 && !(dr === 0 && dc === 0);
     const alreadyUsed = path.some(([pr, pc]) => pr === r && pc === c);
     if (adjacent && !alreadyUsed) {
-      setPath((p) => [...p, [r, c]]);
+      setPath((current) => [...current, [r, c]]);
     }
-  };
-
-  const clearPathWithFade = () => {
-    setPath([]);
-  };
-
-  const lockPositions = (cells) => {
-    setLockedSet((prev) => {
-      const next = new Set(prev);
-      cells.forEach(([r, c]) => next.add(serializePos(r, c)));
-      return next;
-    });
   };
 
   const onEnd = () => {
@@ -194,27 +224,39 @@ export default function StrandsPage() {
     }
 
     if (result.type === 'word') {
-      setFoundWords((fw) => [...fw, { word: result.word, path: [...path] }]);
-      setFoundSet((s) => new Set([...s, result.word]));
+      const nextFoundWords = [...foundWords, { word: result.word, path: [...path] }];
+      const nextFoundSet = new Set(foundSet);
+      nextFoundSet.add(result.word);
+
+      setFoundWords(nextFoundWords);
+      setFoundSet(nextFoundSet);
       lockPositions(path);
-      setToast('Nice!');
+      setToast({ message: `Found: ${result.word}`, duration: 1200 });
       setTimeout(() => setToast(null), 600);
       setPath([]);
+
+      if (allWordsFound(nextFoundSet) && spangramFound) {
+        completeGame(nextFoundWords, spangramFound);
+      }
       return;
     }
 
     if (result.type === 'spangram') {
+      const nextSpangramFound = true;
       setSpangramFound(true);
-      setSpangramPath([...path]); // Store spangram path for ribbon
+      setSpangramPath([...path]);
       lockPositions(path);
-      setToast('Spangram!');
+      setToast({ message: 'Spangram found!', duration: 1400 });
       setTimeout(() => setToast(null), 800);
       setPath([]);
+
+      if (allWordsFound(foundSet) && nextSpangramFound) {
+        completeGame(foundWords, nextSpangramFound);
+      }
       return;
     }
 
-    // invalid
-    setToast('Not in theme');
+    setToast({ message: 'Not in theme', duration: 1200 });
     setShouldShake(true);
     setTimeout(() => {
       setToast(null);
@@ -223,91 +265,45 @@ export default function StrandsPage() {
     clearPathWithFade();
   };
 
-  // Check if puzzle is complete
-  const isComplete = useMemo(() => {
-    if (!puzzle || completedAt) return false;
-    const allWordsFound = puzzle.words.every((w) => foundSet.has(w.toUpperCase()));
-    return allWordsFound && spangramFound;
-  }, [puzzle, foundSet, spangramFound, completedAt]);
-
-  // Handle win condition
-  useEffect(() => {
-    if (!isComplete || !puzzle) return;
-    
-    const end = Date.now();
-    const timeSec = Math.floor((end - (startedAt || end)) / 1000);
-    
-    // Record result
-    recordGameResult('strands', {
-      date: puzzle.date,
-      win: true,
-      time: timeSec,
-      hintsUsed,
-      perfect: hintsUsed === 0,
-      attempts: foundWords.length + (spangramFound ? 1 : 0),
-      breakdown: { words: foundWords.map(f => f.word), spangram: spangramFound },
-    });
-    
-    // Submit to leaderboard API
-    submitResult({
-      gameKey: 'strands',
-      mode: 'daily',
-      success: true,
-      attempts: foundWords.length + (spangramFound ? 1 : 0),
-      durationMs: timeSec * 1000,
-      metadata: { hintsUsed, perfect: hintsUsed === 0, puzzleDate: puzzle.date },
-    }).catch(err => console.warn('[Strands] Failed to submit to leaderboard:', err));
-    
-    // Add words to Learning Log
-    const allWords = [
-      ...foundWords.map(f => f.word),
-      puzzle.spangram?.toUpperCase(),
-    ].filter(Boolean);
-    addWordsToLog(allWords, 'strands');
-    
-    // Set completion state
-    setCompletedAt(end);
-    setWinModal(true);
-  }, [isComplete, puzzle, foundWords, hintsUsed, spangramFound, startedAt]);
-
   const handleHint = () => {
     if (!puzzle) return;
-    
-    const puzzleId = `strands-${puzzle.date}`;
-    const foundWordStrings = foundWords.map(fw => fw.word);
-    
-    // Get next hint (visual, no text)
+
     const hintResult = getNextStrandsHint(
       puzzleId,
       puzzle.words,
       foundWordStrings,
       puzzle.grid
     );
-    
-    // Update tiles display (cumulative - all revealed tiles)
-    if (hintResult.allHintedTiles) {
-      setHintedTiles(hintResult.allHintedTiles);
-    }
+
     setHintsUsed(hintResult.totalHintsUsed);
-    
-    // Update button text
-    const buttonText = getStrandsHintButtonText(puzzleId, puzzle.words, foundWordStrings, puzzle.grid);
-    setHintButtonText(buttonText);
   };
 
   const handleReset = () => {
     if (!puzzle) return;
+    clearProgress(puzzle.date);
+    resetStrandsHints(`strands-${puzzle.date}`);
     setPath([]);
+    setIsDragging(false);
     setFoundWords([]);
     setFoundSet(new Set());
     setLockedSet(new Set());
     setSpangramFound(false);
     setSpangramPath(null);
     setHintsUsed(0);
-    setHintedTiles([]);
     setHighlightedSet(new Set());
     setStartedAt(Date.now());
     setCompletedAt(null);
+    setWinModal(false);
+    setToast(null);
+    setShouldShake(false);
+  };
+
+  const handleNewPuzzle = () => {
+    if (!canCycle) {
+      handleReset();
+      return;
+    }
+    onNewPuzzle();
   };
 
   const wordsFoundCount = foundWords.length;
@@ -316,68 +312,85 @@ export default function StrandsPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <GameHeader 
-        title="Strands" 
-        onHowToPlay={() => setHowToPlayModal(true)} 
-        onStats={() => setStatsModal(true)} 
+      <GameHeader
+        title="Strands"
+        onHowToPlay={() => setHowToPlayModal(true)}
+        onStats={() => setStatsModal(true)}
         onLearningLog={() => setLearningLogModal(true)}
         gameComplete={!!completedAt}
       />
 
       <div className="max-w-7xl mx-auto px-4 pb-24">
-        {validationErrors.length > 0 && (
+        {invalidToday && process.env.NODE_ENV !== 'production' && (
           <div className="bg-card border border-border-active rounded-lg p-4 mb-4">
-            <h3 className="font-bold text-red-900 mb-2">Puzzle Validation Errors:</h3>
+            <h3 className="font-bold text-red-900 mb-2">Today&apos;s puzzle is invalid (dev fallback loaded):</h3>
             <ul className="list-disc list-inside text-sm text-red-700">
-              {validationErrors.map((err, i) => <li key={i}>{err}</li>)}
+              {invalidToday.errors.map((err, i) => <li key={i}>{err}</li>)}
             </ul>
           </div>
         )}
-        
+
+        {!hasValidPuzzles && (
+          <div className="bg-card border border-border-active rounded-lg p-4 mb-4">
+            <h3 className="font-bold text-red-900 mb-2">No valid puzzles available.</h3>
+            <p className="text-sm text-red-700">Showing a safe fallback puzzle.</p>
+          </div>
+        )}
+
         {puzzle ? (
           <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8 items-start">
-            {/* Left Sidebar */}
             <div className="space-y-6 lg:sticky lg:top-24">
-              {/* Theme */}
               <div className="bg-crossword-highlight border-2 border-crossword-active-ring rounded-xl p-4">
                 <div className="text-xs uppercase tracking-wide text-crossword-active-ring font-bold mb-2">Today&apos;s Theme</div>
                 <div className="text-xl font-serif font-bold text-foreground">{puzzle.theme}</div>
               </div>
 
-              {/* Progress */}
               <div className="bg-card border-2 border-card-border rounded-xl p-4">
                 <div className="text-sm text-text-muted mb-3">
                   <span className="font-bold text-2xl text-foreground">{wordsFoundCount}</span>
                   <span className="text-text-muted"> of {totalWords}</span>
                   <span className="text-text-muted"> theme words found.</span>
                 </div>
-                
-                {/* Found Words List */}
+
                 {foundWords.length > 0 && (
                   <div className="space-y-1 mb-4">
-                    {foundWords.map(f => (
-                      <div key={f.word} className="text-sm text-foreground font-medium">
-                        ✓ {f.word}
+                    {foundWords.map((found) => (
+                      <div key={found.word} className="text-sm text-foreground font-medium">
+                        ? {found.word}
                       </div>
                     ))}
                   </div>
                 )}
-                
+
                 {spangramFound && (
                   <div className="pt-3 border-t border-border-default">
-                    <div className="text-sm font-bold text-wordle-correct">✨ Spangram found!</div>
+                    <div className="text-sm font-bold text-wordle-correct">? Spangram found!</div>
                   </div>
                 )}
               </div>
 
-              {/* Hint Button - ALWAYS AVAILABLE */}
               <button
                 onClick={handleHint}
                 disabled={completedAt || hintButtonText === 'All Revealed' || hintButtonText.includes('Hint Limit')}
                 className="w-full py-3 px-4 rounded-full border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 font-bold text-sm hover:bg-amber-100 dark:hover:bg-amber-900/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
               >
-                💡 {hintButtonText}
+                ?? {hintButtonText}
               </button>
+
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                <button
+                  onClick={handleReset}
+                  className="py-2 rounded-lg border border-border text-sm font-semibold text-foreground hover:bg-surface-hover transition"
+                >
+                  Restart
+                </button>
+                <button
+                  onClick={handleNewPuzzle}
+                  className="py-2 rounded-lg border border-border text-sm font-semibold text-foreground hover:bg-surface-hover transition"
+                >
+                  New Puzzle
+                </button>
+              </div>
 
               {hintsUsed > 0 && (
                 <div className="text-xs text-center text-text-muted">
@@ -386,7 +399,6 @@ export default function StrandsPage() {
               )}
             </div>
 
-            {/* Right Grid Area - COMPACT for better visibility */}
             <div className="max-w-md mx-auto lg:mx-0 w-full">
               <StrandsGrid
                 grid={puzzle.grid}
@@ -409,44 +421,51 @@ export default function StrandsPage() {
         )}
       </div>
 
-            <Modal isOpen={winModal} title="You solved it!" actions={(
-              <>
-                <button
-                  onClick={() => setWinModal(false)}
-                  className="w-full py-3 bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))] rounded-lg hover:bg-[hsl(var(--button-primary-hover))] transition-all font-bold"
-                >
-                  Close
-                </button>
-              </>
-            )}>
-              <div className="text-center space-y-4">
-                <div className="text-text-muted">Theme: <span className="font-semibold text-foreground">{puzzle?.theme}</span></div>
-                <div className="flex items-center justify-center gap-6 text-sm">
-                  <div>Time: <span className="font-semibold">{Math.floor(((completedAt||0) - (startedAt||0)) / 1000)}s</span></div>
-                  <div>Hints: <span className="font-semibold">{hintsUsed}</span></div>
-                  <div>Perfect: {hintsUsed === 0 ? '✅' : '—'}</div>
-                </div>
-                <ShareResults
-                  gameName="strands"
-                  puzzleNumber={puzzle?.date}
-                  result={{
-                    wordsFound: foundWords.length,
-                    totalWords,
-                    spangram: spangramFound,
-                  }}
-                />
-              </div>
-              <Confetti />
-            </Modal>
+      <Modal isOpen={winModal} title="You solved it!" actions={(
+        <>
+          <button
+            onClick={() => setWinModal(false)}
+            className="w-full py-3 bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))] rounded-lg hover:bg-[hsl(var(--button-primary-hover))] transition-all font-bold"
+          >
+            Close
+          </button>
+          <button
+            onClick={() => {
+              setWinModal(false);
+              handleNewPuzzle();
+            }}
+            className="w-full py-3 border border-border rounded-lg hover:bg-surface-hover transition-all font-bold"
+          >
+            New Puzzle
+          </button>
+        </>
+      )}>
+        <div className="text-center space-y-4">
+          <div className="text-text-muted">Theme: <span className="font-semibold text-foreground">{puzzle?.theme}</span></div>
+          <div className="flex items-center justify-center gap-6 text-sm">
+            <div>Time: <span className="font-semibold">{Math.floor(((completedAt || 0) - (startedAt || 0)) / 1000)}s</span></div>
+            <div>Hints: <span className="font-semibold">{hintsUsed}</span></div>
+            <div>Perfect: {hintsUsed === 0 ? '?' : '—'}</div>
+          </div>
+          <ShareResults
+            gameName="strands"
+            puzzleNumber={puzzle?.date}
+            result={{
+              wordsFound: foundWords.length,
+              totalWords,
+              spangram: spangramFound,
+            }}
+          />
+        </div>
+        <Confetti />
+      </Modal>
 
-      {/* How to Play Modal - Unified */}
       <UnifiedHowToPlay
         isOpen={howToPlayModal}
         onClose={() => setHowToPlayModal(false)}
         gameName="strands"
       />
 
-      {/* Statistics Modal */}
       <StatisticsModal
         isOpen={statsModal}
         onClose={() => setStatsModal(false)}
@@ -454,7 +473,6 @@ export default function StrandsPage() {
         stats={gameStats}
       />
 
-      {/* Learning Log Modal */}
       <LearningLogModal
         isOpen={learningLogModal}
         onClose={() => setLearningLogModal(false)}
@@ -470,3 +488,89 @@ export default function StrandsPage() {
     </div>
   );
 }
+
+export default function StrandsPage() {
+  const todayStr = useMemo(() => getTodayString(), []);
+  const [puzzleOffset, setPuzzleOffset] = useState(0);
+  const healthLoggedRef = useRef(false);
+  const invalidLoggedRef = useRef(new Set());
+
+  const { valid: validPuzzles, invalid: invalidPuzzles } = useMemo(
+    () => puzzlesHealthCheck(ALL_STRANDS_PUZZLES),
+    []
+  );
+
+  const todayAllIndex = useMemo(() => {
+    return ALL_STRANDS_PUZZLES.findIndex((puzzle) => puzzle.date === todayStr);
+  }, [todayStr]);
+
+  const validIndexByDate = useMemo(() => {
+    return new Map(validPuzzles.map((puzzle, index) => [puzzle.date, index]));
+  }, [validPuzzles]);
+
+  const baseIndex = useMemo(() => {
+    if (validPuzzles.length === 0) return 0;
+    const todayValidIndex = validIndexByDate.get(todayStr);
+    if (typeof todayValidIndex === 'number') return todayValidIndex;
+    if (todayAllIndex === -1) return 0;
+
+    for (let offset = 1; offset <= ALL_STRANDS_PUZZLES.length; offset += 1) {
+      const probeIndex = (todayAllIndex + offset) % ALL_STRANDS_PUZZLES.length;
+      const probeDate = ALL_STRANDS_PUZZLES[probeIndex]?.date;
+      const probeValidIndex = validIndexByDate.get(probeDate);
+      if (typeof probeValidIndex === 'number') return probeValidIndex;
+    }
+    return 0;
+  }, [validPuzzles.length, validIndexByDate, todayStr, todayAllIndex]);
+
+  const puzzle = useMemo(() => {
+    if (validPuzzles.length === 0) {
+      return SAFE_PUZZLE;
+    }
+    const index = (baseIndex + puzzleOffset) % validPuzzles.length;
+    return validPuzzles[index];
+  }, [validPuzzles, baseIndex, puzzleOffset]);
+
+  const invalidToday = useMemo(() => {
+    return invalidPuzzles.find((item) => item.date === todayStr);
+  }, [invalidPuzzles, todayStr]);
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') return;
+    if (healthLoggedRef.current) return;
+    healthLoggedRef.current = true;
+
+    if (invalidPuzzles.length > 0) {
+      console.warn(`[Strands] Invalid puzzles detected: ${invalidPuzzles.length}`);
+      console.warn(invalidPuzzles);
+    }
+  }, [invalidPuzzles]);
+
+  useEffect(() => {
+    if (!invalidToday) return;
+    if (process.env.NODE_ENV === 'production') return;
+    if (invalidLoggedRef.current.has(invalidToday.date)) return;
+    invalidLoggedRef.current.add(invalidToday.date);
+    console.error(`[Strands] Puzzle validation failed for ${invalidToday.date}:`, invalidToday.errors);
+  }, [invalidToday]);
+
+  const handleNewPuzzle = () => {
+    if (validPuzzles.length <= 1) {
+      return;
+    }
+    setPuzzleOffset((prev) => (prev + 1) % validPuzzles.length);
+  };
+
+  return (
+    <StrandsGame
+      key={puzzle?.date || 'fallback'}
+      puzzle={puzzle}
+      invalidToday={invalidToday}
+      hasValidPuzzles={validPuzzles.length > 0}
+      canCycle={validPuzzles.length > 1}
+      onNewPuzzle={handleNewPuzzle}
+    />
+  );
+}
+
+
