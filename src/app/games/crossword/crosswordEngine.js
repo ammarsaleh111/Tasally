@@ -246,24 +246,32 @@ const detectSlotsInternal = (template) => {
 /**
  * Get a valid template for a specific date
  * Cycles through templates deterministically by date
- * Automatically skips invalid templates
+ * Prefers simpler templates (fewer slots = easier to solve)
  */
 export const getTemplateForDate = (dateString) => {
   const date = new Date(dateString);
   const dayOfYear = Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 86400000);
   
-  // Try templates starting from the day's index
+  // Try templates starting from the day's index, prefer simpler ones
+  const candidates = [];
+  
   for (let i = 0; i < GRID_TEMPLATES.length; i++) {
     const index = (dayOfYear + i) % GRID_TEMPLATES.length;
     const template = GRID_TEMPLATES[index];
     const validation = validateTemplate(template);
     
     if (validation.isValid && validation.slotCount >= 6) {
-      return template;
+      candidates.push({ template, slotCount: validation.slotCount });
     }
   }
   
-  // Fallback to first template (should not happen with valid templates)
+  // Prefer templates with fewer slots (easier to solve)
+  if (candidates.length > 0) {
+    candidates.sort((a, b) => a.slotCount - b.slotCount);
+    return candidates[0].template;
+  }
+  
+  // Fallback to first template
   return GRID_TEMPLATES[0];
 };
 
@@ -439,16 +447,21 @@ export const findIntersectingSlots = (slot, allSlots, template) => {
 
 /**
  * Check if a word can be placed in a slot given current constraints
+ * STRICT validation - word length MUST match slot length exactly
  * constraints is a Map of (row, col) => letter
  */
 export const canPlaceWord = (word, slot, constraints, template) => {
+  // CRITICAL: Strict length check
+  if (!word || word.length === 0) return false;
   if (word.length !== slot.length) return false;
-  if (word.length === 0) return false;
-
+  
   const cells = getSlotCells(slot, template);
 
+  // Check each letter against constraints
   for (let i = 0; i < word.length; i++) {
     const cell = cells[i];
+    if (!cell) return false; // Safety check
+    
     const key = `${cell.row},${cell.col}`;
 
     if (constraints.has(key)) {
@@ -464,6 +477,7 @@ export const canPlaceWord = (word, slot, constraints, template) => {
 
 /**
  * Place a word in constraints map
+ * Assumes word has already passed canPlaceWord validation
  */
 export const placeWord = (word, slot, constraints, template) => {
   const cells = getSlotCells(slot, template);
@@ -617,7 +631,8 @@ export const generatePuzzle = (dateString) => {
 // ============================================================================
 
 /**
- * Validate a generated puzzle
+ * Validate a generated puzzle - STRICT validation
+ * Ensures word length ALWAYS matches slot length
  */
 export const validatePuzzle = (puzzle) => {
   const errors = [];
@@ -626,6 +641,16 @@ export const validatePuzzle = (puzzle) => {
   for (const slot of puzzle.slots) {
     if (!puzzle.placement.has(slot.id)) {
       errors.push(`Slot ${slot.id} (${slot.direction}) has no word`);
+      continue;
+    }
+    
+    // CRITICAL: Verify word length matches slot length exactly
+    const word = puzzle.placement.get(slot.id);
+    if (word.length !== slot.length) {
+      errors.push(
+        `SLOT-FIT ERROR: Slot ${slot.id} (${slot.direction}) ` +
+        `has length ${slot.length} but word "${word}" has length ${word.length}`
+      );
     }
   }
 
@@ -636,7 +661,20 @@ export const validatePuzzle = (puzzle) => {
 
   for (const [slotId, word] of puzzle.placement) {
     const slot = puzzle.slots.find(s => s.id === slotId);
+    if (!slot) {
+      errors.push(`Word "${word}" references unknown slot ${slotId}`);
+      continue;
+    }
+    
     const cells = getSlotCells(slot, puzzle.template);
+    
+    // Verify cells match word length
+    if (cells.length !== word.length) {
+      errors.push(
+        `CELL-MISMATCH: Slot ${slot.id} has ${cells.length} cells but word "${word}" has ${word.length} letters`
+      );
+      continue;
+    }
 
     for (let i = 0; i < word.length; i++) {
       const cell = cells[i];

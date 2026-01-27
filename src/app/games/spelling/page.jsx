@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import GameHeader from '@/components/GameHeader';
-import HoneycombGrid from '@/components/HoneycombGrid';
+import HoneycombGridEnhanced from '@/components/HoneycombGridEnhanced';
 import Toast from '@/components/Toast';
 import Modal from '@/components/Modal';
 import Confetti from '@/components/Confetti';
@@ -55,6 +55,7 @@ export default function SpellingBeePage() {
   // Game state - initialize with saved progress
   const [foundWords, setFoundWords] = useState(() => {
     if (!puzzle) return [];
+    if (typeof window === 'undefined') return [];
     const saved = localStorage.getItem(`spelling-${puzzle.date}`);
     if (saved) {
       const data = JSON.parse(saved);
@@ -65,6 +66,7 @@ export default function SpellingBeePage() {
 
   const [score, setScore] = useState(() => {
     if (!puzzle) return 0;
+    if (typeof window === 'undefined') return 0;
     const saved = localStorage.getItem(`spelling-${puzzle.date}`);
     if (saved) {
       const data = JSON.parse(saved);
@@ -75,6 +77,7 @@ export default function SpellingBeePage() {
 
   const [hintsUsed, setHintsUsed] = useState(() => {
     if (!puzzle) return 0;
+    if (typeof window === 'undefined') return 0;
     const saved = localStorage.getItem(`spelling-${puzzle.date}`);
     if (saved) {
       const data = JSON.parse(saved);
@@ -97,6 +100,9 @@ export default function SpellingBeePage() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [showRankUp, setShowRankUp] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  
+  // For drag word submission
+  const [lastDragWord, setLastDragWord] = useState('');
 
   // Derived state: hint button text
   const hintButtonText = useMemo(() => {
@@ -236,6 +242,53 @@ export default function SpellingBeePage() {
     setCurrentWord(prev => prev + letter);
   }, []);
 
+  // Handle drag word change (from HoneycombGridEnhanced)
+  const handleDragWordChange = useCallback((word) => {
+    if (!word || word.length < 4) {
+      // Just update display, don't submit short words
+      if (word) {
+        setCurrentWord(word);
+      }
+      return;
+    }
+    
+    // Auto-submit the dragged word
+    setCurrentWord(word);
+    
+    // Submit after a brief delay to show the word
+    setTimeout(() => {
+      const allLetters = [puzzle.center, ...puzzle.letters];
+      const validation = validateWord(
+        word,
+        puzzle.center,
+        allLetters,
+        puzzle.validWords,
+        foundWords
+      );
+
+      if (validation.valid) {
+        const wordIsPangram = isPangram(word, allLetters);
+        const points = calculateWordPoints(word, wordIsPangram);
+        
+        setFoundWords(prev => [...prev, word.toUpperCase()]);
+        setScore(prev => prev + points);
+        
+        if (wordIsPangram) {
+          showToast(`Pangram! +${points} points! 🐝`, 'success');
+          setShowConfetti(true);
+          setTimeout(() => setShowConfetti(false), 3000);
+        } else {
+          showToast(`+${points} point${points > 1 ? 's' : ''}!`, 'success');
+        }
+        
+        setCurrentWord('');
+      } else {
+        showToast(validation.message, 'error');
+        setCurrentWord('');
+      }
+    }, 200);
+  }, [puzzle, foundWords, showToast]);
+
   // Handle keyboard input
   useEffect(() => {
     const handleKeyPress = (e) => {
@@ -280,10 +333,7 @@ export default function SpellingBeePage() {
     if (hintResult.pattern) {
       showToast(hintResult.pattern, 'info');
       setHintsUsed(hintResult.totalHintsUsed);
-      
-      // Update button text
-      const buttonText = getSpellingBeeHintButtonText(puzzleId, puzzle.validWords, foundWords);
-      setHintButtonText(buttonText);
+      // Note: hintButtonText updates automatically via useMemo when foundWords changes
     }
   };
 
@@ -361,12 +411,14 @@ export default function SpellingBeePage() {
           </div>
         </div>
 
-        {/* Honeycomb Grid */}
+        {/* Honeycomb Grid with Path Visualization */}
         <div className="mb-6">
-          <HoneycombGrid
+          <HoneycombGridEnhanced
             centerLetter={puzzle.center}
             outerLetters={outerLetters}
             onLetterClick={handleLetterClick}
+            onWordChange={handleDragWordChange}
+            currentWord={currentWord}
             disabled={isComplete}
           />
         </div>

@@ -61,6 +61,7 @@ export default function CrosswordGame() {
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [initError, setInitError] = useState(null);
   
   const timerRef = useRef(null);
   const inputRef = useRef(null);
@@ -70,32 +71,38 @@ export default function CrosswordGame() {
   // =========================================================================
   
   useEffect(() => {
-    // Generate or load puzzle
-    const currentPuzzle = getTodaysPuzzle();
-    setPuzzle(currentPuzzle);
-    
-    // Load saved state or initialize new game
-    const savedState = loadGameState();
-    if (savedState && savedState.date === currentPuzzle.date) {
-      setGameState(savedState);
+    try {
+      // Generate or load puzzle
+      const currentPuzzle = getTodaysPuzzle();
+      setPuzzle(currentPuzzle);
       
-      // Load timer state
-      const savedTimer = loadPuzzleTimer(currentPuzzle.date);
-      if (savedTimer) {
-        // Resume timer if game not solved
-        if (!savedState.isSolved) {
-          const resumed = resumePuzzleTimer(savedTimer, currentPuzzle.date);
-          setTimerState(resumed);
+      // Load saved state or initialize new game
+      const savedState = loadGameState();
+      if (savedState && savedState.date === currentPuzzle.date) {
+        setGameState(savedState);
+        
+        // Load timer state
+        const savedTimer = loadPuzzleTimer(currentPuzzle.date);
+        if (savedTimer) {
+          // Resume timer if game not solved
+          if (!savedState.isSolved) {
+            const resumed = resumePuzzleTimer(savedTimer, currentPuzzle.date);
+            setTimerState(resumed);
+          } else {
+            setTimerState(savedTimer);
+          }
         } else {
-          setTimerState(savedTimer);
+          setTimerState(initializeTimer());
         }
       } else {
-        setTimerState(initializeTimer());
+        const newState = initializeGame(currentPuzzle);
+        setGameState(newState);
+        setTimerState(newState.timerState);
       }
-    } else {
-      const newState = initializeGame(currentPuzzle);
-      setGameState(newState);
-      setTimerState(newState.timerState);
+    } catch (error) {
+      console.error('[CROSSWORD] Initialization error:', error);
+      setInitError(error.message || 'Failed to load puzzle');
+      setIsLoading(false);
     }
     
     // Load stats
@@ -549,10 +556,25 @@ export default function CrosswordGame() {
   // RENDER
   // =========================================================================
   
-  if (isLoading || !puzzle || !gameState) {
+  if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center w-full min-h-screen">
         <div className="text-lg text-text-muted">Loading puzzle...</div>
+      </div>
+    );
+  }
+  
+  if (initError || !puzzle || !gameState) {
+    return (
+      <div className="flex flex-col items-center justify-center w-full min-h-screen gap-4">
+        <div className="text-lg text-red-500">Error loading puzzle</div>
+        <div className="text-sm text-text-muted">{initError || 'Puzzle failed to initialize'}</div>
+        <button 
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-button-primary text-button-text rounded-lg hover:bg-button-primary-hover"
+        >
+          Reload Page
+        </button>
       </div>
     );
   }

@@ -3,10 +3,13 @@
 import React, { useState } from 'react';
 import Toast from './Toast';
 
-const ShareResults = ({ gameName, result, puzzleNumber }) => {
+const ShareResults = ({ gameName = '', result, puzzleNumber, text }) => {
   const [showToast, setShowToast] = useState(false);
 
   const generateShareText = () => {
+    // If text is provided directly, use it
+    if (text) return text;
+    
     const lines = [`Ammar Times ${gameName.charAt(0).toUpperCase() + gameName.slice(1)} ${puzzleNumber || ''}`];
 
     switch (gameName) {
@@ -40,7 +43,7 @@ const ShareResults = ({ gameName, result, puzzleNumber }) => {
   };
 
   const handleShare = async () => {
-    const shareText = generateShareText();
+    const shareText = text || generateShareText();
 
     try {
       if (navigator.share && /mobile/i.test(navigator.userAgent)) {

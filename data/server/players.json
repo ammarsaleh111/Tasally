@@ -120,7 +120,7 @@
     "userId": "user_1768241888057_s7bvpex9n",
     "name": "asad",
     "createdAt": "2026-01-12T18:18:08.057Z",
-    "updatedAt": "2026-01-26T15:19:01.550Z",
+    "updatedAt": "2026-01-27T14:39:11.021Z",
     "games": {
       "wordle": {
         "gamesPlayed": 3,
@@ -430,19 +430,34 @@
         "perfectGames": 0
       },
       "spelling": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "maxStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "totalWords": 0,
+        "gamesPlayed": 1,
+        "gamesWon": 1,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "maxStreak": 1,
+        "lastPlayedDate": "2026-01-27",
+        "history": [
+          {
+            "date": "2026-01-27",
+            "wordsFound": 12,
+            "totalWords": 12,
+            "pangramsFound": 0,
+            "totalPangrams": 0,
+            "score": 29,
+            "maxScore": 29,
+            "percentage": 100,
+            "rank": "Queen Bee",
+            "isComplete": true
+          }
+        ],
+        "totalWords": 12,
         "totalPangrams": 0,
-        "totalScore": 0,
-        "averageScore": 0,
-        "rankDistribution": {},
-        "queenBeeCount": 0
+        "totalScore": 29,
+        "averageScore": 29,
+        "rankDistribution": {
+          "Queen Bee": 1
+        },
+        "queenBeeCount": 1
       },
       "strands": {
         "gamesPlayed": 1,
@@ -582,6 +597,167 @@
         "bestTime": null,
         "averageAttempts": 0,
         "totalAttempts": 0,
+        "perfectGames": 0
+      }
+    }
+  },
+  {
+    "userId": "user_1768083326679_pcwndb8jt",
+    "name": "asdsdgf",
+    "createdAt": "2026-01-10T22:15:26.679Z",
+    "updatedAt": "2026-01-27T14:19:49.028Z",
+    "games": {
+      "wordle": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "connections": {
+        "gamesPlayed": 1,
+        "gamesWon": 1,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "lastPlayedDate": "2026-01-13",
+        "history": [
+          {
+            "date": "2026-01-13",
+            "win": true,
+            "mistakes": 0,
+            "perfect": true,
+            "puzzleId": "connections-2026-01-13",
+            "solvedGroups": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        ],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 1
+      },
+      "crossword": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "numbers": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "trivia": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "spelling": {
+        "gamesPlayed": 1,
+        "gamesWon": 1,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "maxStreak": 1,
+        "lastPlayedDate": "2026-01-27",
+        "history": [
+          {
+            "date": "2026-01-27",
+            "wordsFound": 12,
+            "totalWords": 12,
+            "pangramsFound": 0,
+            "totalPangrams": 0,
+            "score": 29,
+            "maxScore": 29,
+            "percentage": 100,
+            "rank": "Queen Bee",
+            "isComplete": true
+          }
+        ],
+        "totalWords": 12,
+        "totalPangrams": 0,
+        "totalScore": 29,
+        "averageScore": 29,
+        "rankDistribution": {
+          "Queen Bee": 1
+        },
+        "queenBeeCount": 1
+      },
+      "strands": {
+        "gamesPlayed": 2,
+        "gamesWon": 2,
+        "currentStreak": 2,
+        "longestStreak": 2,
+        "lastPlayedDate": "2026-01-12",
+        "history": [
+          {
+            "date": "2026-01-11",
+            "win": true,
+            "time": 227,
+            "hintsUsed": 1,
+            "perfect": false,
+            "attempts": 6,
+            "breakdown": {
+              "words": [
+                "REST",
+                "RELAX",
+                "RECESS",
+                "SLEEP",
+                "PAUSE"
+              ],
+              "spangram": true
+            }
+          },
+          {
+            "date": "2026-01-12",
+            "win": true,
+            "time": 37,
+            "hintsUsed": 4,
+            "perfect": false,
+            "attempts": 6,
+            "breakdown": {
+              "words": [
+                "SCARF",
+                "GLOVES",
+                "JACKET",
+                "PARKA",
+                "MITTEN"
+              ],
+              "spangram": true
+            }
+          }
+        ],
+        "bestTime": 37,
+        "averageAttempts": "6.00",
+        "totalAttempts": 12,
         "perfectGames": 0
       }
     }
