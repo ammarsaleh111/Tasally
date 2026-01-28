@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import SiteHeader from "@/components/SiteHeader";
+import AuthModal from "@/components/AuthModal";
 import { 
   useSeasonIdentity, 
   SeasonPageHeader, 
@@ -42,16 +45,57 @@ interface MonthlyEntry {
 }
 
 export default function LeaderboardPage() {
+  const { status } = useSession();
+  const router = useRouter();
   const [period, setPeriod] = useState<Period>("daily");
   const [game, setGame] = useState("wordle");
   const [dailyData, setDailyData] = useState<DailyEntry[]>([]);
   const [monthlyData, setMonthlyData] = useState<MonthlyEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authView, setAuthView] = useState<"login" | "register">("login");
+  const [authNotice, setAuthNotice] = useState("");
+  const [hadAuthenticated, setHadAuthenticated] = useState(false);
 
   const selectedGame = VALID_GAMES.find(g => g.key === game);
+  const isAuthenticated = status === "authenticated";
 
   useEffect(() => {
+    if (status === "authenticated") {
+      setHadAuthenticated(true);
+      setAuthNotice("");
+      return;
+    }
+
+    if (status === "unauthenticated") {
+      setDailyData([]);
+      setMonthlyData([]);
+      setLoading(false);
+      setError("");
+
+      if (hadAuthenticated) {
+        setAuthNotice("Your session expired. Please log in again to continue.");
+        setAuthView("login");
+        setShowAuthModal(true);
+      }
+    }
+  }, [status, hadAuthenticated]);
+
+  useEffect(() => {
+    if (status === "loading") {
+      setLoading(true);
+      return;
+    }
+
+    if (status !== "authenticated") {
+      setDailyData([]);
+      setMonthlyData([]);
+      setLoading(false);
+      setError("");
+      return;
+    }
+
     const fetchLeaderboard = async () => {
       setLoading(true);
       setError("");
@@ -61,6 +105,14 @@ export default function LeaderboardPage() {
             ? `/api/leaderboard/daily?game=${game}`
             : `/api/leaderboard/monthly?game=${game}`;
         const res = await fetch(url);
+        if (res.status === 401) {
+          setAuthNotice("Your session expired. Please log in again to continue.");
+          setAuthView("login");
+          setShowAuthModal(true);
+          setDailyData([]);
+          setMonthlyData([]);
+          return;
+        }
         if (!res.ok) throw new Error("Failed to load leaderboard");
         const data = await res.json();
         if (period === "daily") {
@@ -78,13 +130,22 @@ export default function LeaderboardPage() {
     };
 
     fetchLeaderboard();
-  }, [period, game]);
+  }, [status, period, game]);
+
 
   const getRankDisplay = (rank: number) => {
     if (rank === 1) return { emoji: "🥇", color: "text-yellow-500" };
     if (rank === 2) return { emoji: "🥈", color: "text-gray-400" };
     if (rank === 3) return { emoji: "🥉", color: "text-amber-600" };
     return { emoji: rank.toString(), color: "text-[hsl(var(--muted-foreground))]" };
+  };
+
+  const handleBack = () => {
+    if (typeof window !== "undefined" && window.history.length > 1) {
+      router.back();
+      return;
+    }
+    router.push("/");
   };
 
   return (
@@ -176,85 +237,140 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Content - Seasonal Card */}
-        <SeasonTexturedCard className="overflow-hidden">
-          {loading ? (
+        {status === "loading" ? (
+          <SeasonTexturedCard className="overflow-hidden">
             <div className="flex items-center justify-center py-16">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-8 h-8 border-3 border-[hsl(var(--accent))] border-t-transparent rounded-full animate-spin" />
-                <p className="text-[hsl(var(--muted-foreground))] text-sm animate-pulse">Loading rankings...</p>
+                <p className="text-[hsl(var(--muted-foreground))] text-sm animate-pulse">Checking session...</p>
               </div>
             </div>
-          ) : error ? (
-            <div className="flex flex-col items-center justify-center py-16 gap-3">
-              <span className="text-4xl">😕</span>
-              <p className="text-[hsl(var(--destructive))] font-medium">{error}</p>
-              <button
-                onClick={() => window.location.reload()}
-                className="text-sm text-[hsl(var(--accent))] hover:underline"
-              >
-                Try Again
-              </button>
+          </SeasonTexturedCard>
+        ) : !isAuthenticated ? (
+          <SeasonTexturedCard className="overflow-hidden">
+            <div className="flex flex-col items-center justify-center py-16 px-6 text-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-[hsl(var(--accent))]/10 flex items-center justify-center text-2xl">
+                🔒
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-2xl font-bold text-[hsl(var(--foreground))]">Login Required</h3>
+                <p className="text-sm text-[hsl(var(--muted-foreground))] max-w-md">
+                  To view the leaderboard and compete with other players, please log in or create an account.
+                </p>
+                {authNotice && (
+                  <p className="text-xs text-[hsl(var(--muted-foreground))]">{authNotice}</p>
+                )}
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                <button
+                  onClick={() => {
+                    setAuthView("login");
+                    setShowAuthModal(true);
+                  }}
+                  className="px-6 py-2.5 rounded-lg bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] font-semibold hover:opacity-90 transition-opacity"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => {
+                    setAuthView("register");
+                    setShowAuthModal(true);
+                  }}
+                  className="px-6 py-2.5 rounded-lg border border-[hsl(var(--border))] text-[hsl(var(--foreground))] font-semibold hover:bg-[hsl(var(--surface-hover))] transition-colors"
+                >
+                  Create Account
+                </button>
+                <button
+                  onClick={handleBack}
+                  className="px-6 py-2.5 rounded-lg text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--surface-hover))] transition-colors"
+                >
+                  Back
+                </button>
+              </div>
             </div>
-          ) : (period === "daily" && dailyData.length === 0) || (period === "monthly" && monthlyData.length === 0) ? (
-            <div className="flex flex-col items-center justify-center py-16 gap-3">
-              <span className="text-5xl">🏅</span>
-              <p className="text-[hsl(var(--muted-foreground))] font-medium flex items-center gap-2">
-                <SeasonIcon index={0} />
-                No entries yet for {period === "daily" ? "today" : "this month"}.
-                <SeasonIcon index={1} />
-              </p>
-              <p className="text-sm text-[hsl(var(--muted-foreground))]">
-                Be the first to submit a score!
-              </p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-[hsl(var(--border))] bg-[hsl(var(--surface-hover))]/50">
-                    <th className="py-3 px-4 text-left text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider w-16">
-                      Rank
-                    </th>
-                    <th className="py-3 px-4 text-left text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider">
-                      Player
-                    </th>
-                    {period === "daily" ? (
-                      <>
-                        <th className="py-3 px-4 text-right text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider">
-                          Score
-                        </th>
-                        <th className="py-3 px-4 text-right text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider hidden sm:table-cell">
-                          Attempts
-                        </th>
-                        <th className="py-3 px-4 text-right text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider hidden md:table-cell">
-                          Time
-                        </th>
-                      </>
-                    ) : (
-                      <>
-                        <th className="py-3 px-4 text-right text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider">
-                          Total Score
-                        </th>
-                        <th className="py-3 px-4 text-right text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider">
-                          Games
-                        </th>
-                      </>
-                    )}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[hsl(var(--border))]">
-                  {period === "daily"
-                    ? dailyData.map((entry) => (
-                        <LeaderboardRow key={entry.rank} entry={entry} period={period} getRankDisplay={getRankDisplay} />
-                      ))
-                    : monthlyData.map((entry) => (
-                        <MonthlyLeaderboardRow key={entry.rank} entry={entry} getRankDisplay={getRankDisplay} />
-                      ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </SeasonTexturedCard>
+          </SeasonTexturedCard>
+        ) : (
+          <SeasonTexturedCard className="overflow-hidden">
+            {loading ? (
+              <div className="flex items-center justify-center py-16">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-8 h-8 border-3 border-[hsl(var(--accent))] border-t-transparent rounded-full animate-spin" />
+                  <p className="text-[hsl(var(--muted-foreground))] text-sm animate-pulse">Loading rankings...</p>
+                </div>
+              </div>
+            ) : error ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <span className="text-4xl">????</span>
+                <p className="text-[hsl(var(--destructive))] font-medium">{error}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="text-sm text-[hsl(var(--accent))] hover:underline"
+                >
+                  Try Again
+                </button>
+              </div>
+            ) : (period === "daily" && dailyData.length === 0) || (period === "monthly" && monthlyData.length === 0) ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <span className="text-5xl">????</span>
+                <p className="text-[hsl(var(--muted-foreground))] font-medium flex items-center gap-2">
+                  <SeasonIcon index={0} />
+                  No entries yet for {period === "daily" ? "today" : "this month"}.
+                  <SeasonIcon index={1} />
+                </p>
+                <p className="text-sm text-[hsl(var(--muted-foreground))]">
+                  Be the first to submit a score!
+                </p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-[hsl(var(--border))] bg-[hsl(var(--surface-hover))]/50">
+                      <th className="py-3 px-4 text-left text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider w-16">
+                        Rank
+                      </th>
+                      <th className="py-3 px-4 text-left text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider">
+                        Player
+                      </th>
+                      {period === "daily" ? (
+                        <>
+                          <th className="py-3 px-4 text-right text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider">
+                            Score
+                          </th>
+                          <th className="py-3 px-4 text-right text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider hidden sm:table-cell">
+                            Attempts
+                          </th>
+                          <th className="py-3 px-4 text-right text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider hidden md:table-cell">
+                            Time
+                          </th>
+                        </>
+                      ) : (
+                        <>
+                          <th className="py-3 px-4 text-right text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider">
+                            Total Score
+                          </th>
+                          <th className="py-3 px-4 text-right text-xs font-semibold text-[hsl(var(--muted-foreground))] uppercase tracking-wider">
+                            Games
+                          </th>
+                        </>
+                      )}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[hsl(var(--border))]">
+                    {period === "daily"
+                      ? dailyData.map((entry) => (
+                          <LeaderboardRow key={entry.rank} entry={entry} period={period} getRankDisplay={getRankDisplay} />
+                        ))
+                      : monthlyData.map((entry) => (
+                          <MonthlyLeaderboardRow key={entry.rank} entry={entry} getRankDisplay={getRankDisplay} />
+                        ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </SeasonTexturedCard>
+        )}
+
 
         {/* Seasonal Divider */}
         <SeasonDivider variant="gradient" className="mt-6 mb-4" />
@@ -265,6 +381,17 @@ export default function LeaderboardPage() {
           Only daily mode games are ranked. Sign in to display your name on the leaderboard!
           <SeasonIcon index={3} />
         </p>
+
+
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onSuccess={() => {
+          setShowAuthModal(false);
+          setAuthNotice("");
+        }}
+        initialView={authView}
+      />
       </main>
     </div>
   );

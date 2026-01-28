@@ -1,6 +1,7 @@
-import { db, gameResults, guestProfiles, users } from "@/db";
-import { and, desc, eq, isNotNull, or, sql } from "drizzle-orm";
+import { db, gameResults, users } from "@/db";
+import { and, desc, eq, isNotNull, sql } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 
 const VALID_GAMES = [
   "wordle",
@@ -16,6 +17,11 @@ const VALID_GAMES = [
 
 export async function GET(request: NextRequest) {
   try {
+    const session = await auth();
+    if (!session?.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = request.nextUrl;
     const game = searchParams.get("game") ?? "wordle";
     const dateParam = searchParams.get("date");
@@ -32,28 +38,25 @@ export async function GET(request: NextRequest) {
 
     const dayKey = parsedDate.toISOString().slice(0, 10);
 
-    // Query both authenticated users and guests
+    // Only authenticated users appear on the leaderboard
     const rows = await db
       .select({
         rank: sql<number>`ROW_NUMBER() OVER (ORDER BY ${gameResults.score} DESC)`,
         userId: gameResults.userId,
-        guestId: gameResults.guestId,
         score: gameResults.score,
         success: gameResults.success,
         attempts: gameResults.attempts,
         durationMs: gameResults.durationMs,
         userDisplayName: users.displayName,
-        guestName: guestProfiles.displayName,
         playedAt: gameResults.playedAt,
       })
       .from(gameResults)
       .leftJoin(users, eq(gameResults.userId, users.id))
-      .leftJoin(guestProfiles, eq(gameResults.guestId, guestProfiles.id))
       .where(
         and(
           eq(gameResults.gameKey, game),
           eq(gameResults.dayKey, sql`${dayKey}::date`),
-          or(isNotNull(gameResults.userId), isNotNull(gameResults.guestId)),
+          isNotNull(gameResults.userId),
           eq(gameResults.mode, "daily")
         )
       )
@@ -62,7 +65,7 @@ export async function GET(request: NextRequest) {
 
     const leaderboard = rows.map((r) => ({
       rank: Number(r.rank),
-      playerName: r.userDisplayName ?? r.guestName ?? "Guest",
+      playerName: r.userDisplayName ?? "Player",
       score: r.score,
       success: r.success,
       attempts: r.attempts,

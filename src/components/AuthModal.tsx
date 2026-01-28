@@ -8,11 +8,12 @@ interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess?: () => void;
+  initialView?: View;
 }
 
 type View = "login" | "register" | "guest";
 
-export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
+export default function AuthModal({ isOpen, onClose, onSuccess, initialView }: AuthModalProps) {
   const { data: session, status } = useSession();
   const [view, setView] = useState<View>("login");
   const [email, setEmail] = useState("");
@@ -25,6 +26,12 @@ export default function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      setView(initialView ?? "login");
+    }
+  }, [isOpen, initialView]);
 
   useEffect(() => {
     if (status === "authenticated" && isOpen) {
