@@ -44,6 +44,7 @@ export async function GET(request: NextRequest) {
         totalScore: sql<number>`SUM(${gameResults.score})`,
         gamesPlayed: sql<number>`COUNT(*)`,
         userDisplayName: users.displayName,
+        userName: users.name,
       })
       .from(gameResults)
       .leftJoin(users, eq(gameResults.userId, users.id))
@@ -55,13 +56,13 @@ export async function GET(request: NextRequest) {
           eq(gameResults.mode, "daily")
         )
       )
-      .groupBy(gameResults.userId, users.displayName)
+      .groupBy(gameResults.userId, users.displayName, users.name)
       .orderBy(desc(sql`SUM(${gameResults.score})`))
       .limit(50);
 
     const leaderboard = rows.map((r) => ({
       rank: Number(r.rank),
-      playerName: r.userDisplayName ?? "Player",
+      playerName: r.userDisplayName ?? r.userName ?? "Player",
       totalScore: Number(r.totalScore),
       gamesPlayed: Number(r.gamesPlayed),
     }));

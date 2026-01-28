@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
+import DisplayName from '@/components/DisplayName';
 import { calculateWinRateDecimal } from '@/utils/statsCalculator';
 import { subscribeToRealtime, disconnectRealtime, getRealtimeStatus } from '@/utils/realtimeManager';
 
@@ -205,7 +206,10 @@ export default function AdminDashboardClient() {
               Are you sure you want to permanently delete this user?
             </p>
             <div className="bg-surface-hover rounded-lg p-4 mb-6">
-              <p className="font-bold text-foreground">{deleteConfirm.userName || 'Anonymous'}</p>
+              <DisplayName
+                name={deleteConfirm.userName || 'Anonymous'}
+                className="font-bold text-foreground"
+              />
               <p className="text-xs text-text-muted font-mono mt-1">{deleteConfirm.userId}</p>
             </div>
             <p className="text-sm text-wordle-absent mb-6">
@@ -370,7 +374,10 @@ function renderContent({
                      game.game === 'numbers' ? '🔢' : '🎮'}
                   </div>
                   <div>
-                    <div className="font-bold">{game.player}</div>
+                    <DisplayName
+                      name={game.player}
+                      className="font-bold"
+                    />
                     <div className="text-sm text-text-muted capitalize">Playing {game.game}</div>
                   </div>
                 </div>
@@ -455,7 +462,10 @@ function renderContent({
                 <div className="flex items-center gap-4">
                   <div className="text-2xl font-bold text-text-muted">#{index + 1}</div>
                   <div>
-                    <div className="font-bold">{player.name || 'Anonymous'}</div>
+                    <DisplayName
+                      name={player.name || 'Anonymous'}
+                      className="font-bold"
+                    />
                     <div className="text-sm text-text-muted">Playing: {player.currentGame}</div>
                   </div>
                 </div>
@@ -494,7 +504,9 @@ function renderContent({
                 return (
                   <tr key={user.userId} className="border-b border-border-default hover:bg-surface-hover transition-colors">
                     <td className="py-3 px-4 text-text-muted">{index + 1}</td>
-                    <td className="py-3 px-4 font-medium">{user.name || 'Anonymous'}</td>
+                    <td className="py-3 px-4 font-medium">
+                      <DisplayName name={user.name || 'Anonymous'} />
+                    </td>
                     <td className="py-3 px-4 text-xs text-text-muted font-mono">{user.userId.slice(0, 20)}...</td>
                     <td className="py-3 px-4 text-text-muted">{timeAgo}</td>
                     <td className="text-right py-3 px-4">{totalActivities}</td>
@@ -544,7 +556,9 @@ function renderContent({
 
                 return (
                   <tr key={sessionKey} className="border-b border-border-default hover:bg-surface-hover transition-colors">
-                    <td className="py-3 px-4 font-medium">{session.name || 'Anonymous'}</td>
+                    <td className="py-3 px-4 font-medium">
+                      <DisplayName name={session.name || 'Anonymous'} />
+                    </td>
                     <td className="py-3 px-4">
                       {lastActivity?.game ? (
                         <span className="inline-block px-3 py-1 bg-button-primary text-button-text rounded-full text-xs">

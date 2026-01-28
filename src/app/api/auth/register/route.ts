@@ -3,11 +3,12 @@ import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { MAX_INPUT_LENGTHS, sanitizeName } from "@/utils/inputSanitizer";
 
 const RegisterSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8, "Password must be at least 8 characters"),
-  name: z.string().min(1).max(80).optional(),
+  name: z.string().min(1).max(MAX_INPUT_LENGTHS.NAME).optional(),
 });
 
 export async function POST(request: Request) {
@@ -20,6 +21,15 @@ export async function POST(request: Request) {
     }
 
     const { email, password, name } = parsed.data;
+    let safeName: string | null = null;
+
+    if (name) {
+      const sanitized = sanitizeName(name);
+      if (!sanitized) {
+        return NextResponse.json({ error: "Invalid display name" }, { status: 400 });
+      }
+      safeName = sanitized;
+    }
 
     const existing = await db.query.users.findFirst({
       where: eq(users.email, email),
@@ -36,7 +46,8 @@ export async function POST(request: Request) {
       .insert(users)
       .values({
         email,
-        name: name ?? null,
+        name: safeName,
+        displayName: safeName,
         passwordHash,
         createdAt: now,
         updatedAt: now,

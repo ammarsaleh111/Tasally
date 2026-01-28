@@ -294,20 +294,79 @@
   },
   {
     "userId": "user_1769639130148_dc5r1h0iw",
-    "name": "Anonymous",
+    "name": "عمار",
     "createdAt": "2026-01-28T22:25:30.148Z",
-    "updatedAt": "2026-01-28T22:25:30.150Z",
+    "updatedAt": "2026-01-28T23:12:54.020Z",
     "games": {
       "wordle": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
+        "gamesPlayed": 1,
+        "gamesWon": 1,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "lastPlayedDate": "2026-01-29",
+        "history": [
+          {
+            "date": "2026-01-29",
+            "win": true,
+            "attempts": 5,
+            "puzzleId": "daily-2026-01-29",
+            "guesses": [
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "BINKS",
+                "evaluation": [
+                  "correct",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "WORDY",
+                "evaluation": [
+                  "absent",
+                  "correct",
+                  "present",
+                  "present",
+                  "absent"
+                ]
+              },
+              {
+                "word": "CHAMP",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "correct",
+                  "absent",
+                  "absent"
+                ]
+              },
+              {
+                "word": "BOARD",
+                "evaluation": [
+                  "correct",
+                  "correct",
+                  "correct",
+                  "correct",
+                  "correct"
+                ]
+              }
+            ]
+          }
+        ],
         "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
+        "averageAttempts": 5,
+        "totalAttempts": 5,
         "perfectGames": 0
       },
       "connections": {

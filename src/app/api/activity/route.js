@@ -25,7 +25,7 @@ export async function GET(request) {
   // Sanitize output before sending
   const safeSessions = (store.sessions || []).map(session => ({
     userId: sanitizeString(session.userId, 100),
-    name: sanitizeName(session.name),
+    name: sanitizeName(session.name) || 'Anonymous',
     lastSeen: session.lastSeen,
     currentPage: sanitizeString(session.currentPage, 100),
     currentGame: session.currentGame ? sanitizeString(session.currentGame, 50) : null,
@@ -69,6 +69,7 @@ export async function POST(request) {
 
     // Sanitize name
     const sanitizedName = name ? sanitizeName(name) : 'Anonymous';
+    const safeName = sanitizedName || 'Anonymous';
 
     // Sanitize event fields
     const sanitizedEvent = {
@@ -95,7 +96,7 @@ export async function POST(request) {
     if (!userSession) {
       userSession = {
         userId: sanitizedUserId,
-        name: sanitizedName,
+        name: safeName,
         lastSeen: new Date().toISOString(),
         currentPage: sanitizedEvent.page,
         currentGame: sanitizedEvent.game,
@@ -104,7 +105,7 @@ export async function POST(request) {
       sessions.push(userSession);
     }
 
-    userSession.name = sanitizedName;
+    userSession.name = safeName;
     userSession.lastSeen = sanitizedEvent.timestamp;
     userSession.currentPage = sanitizedEvent.page;
     userSession.currentGame = sanitizedEvent.game;

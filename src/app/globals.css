@@ -690,6 +690,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.name-text {
+  font-family: var(--font-arabic), var(--font-geist-sans), "Geist Sans", Arial, Helvetica, sans-serif;
+}
+
+.name-bidi {
+  unicode-bidi: plaintext;
+}
+
 /* Smooth theme transitions for all elements */
 * {
   transition-property: background-color, color, border-color, fill, stroke;

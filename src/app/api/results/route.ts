@@ -4,6 +4,7 @@ import { computeScore, ScoreInput } from "@/server/scoring";
 import { eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { MAX_INPUT_LENGTHS, sanitizeName } from "@/utils/inputSanitizer";
 
 const VALID_GAMES = [
   "wordle",
@@ -27,7 +28,7 @@ const ResultSchema = z.object({
   durationMs: z.number().int().nonnegative().optional(),
   metadata: z.record(z.unknown()).optional(),
   guestId: z.string().uuid().optional(),
-  displayName: z.string().max(50).optional(),
+  displayName: z.string().max(MAX_INPUT_LENGTHS.NAME).optional(),
 });
 
 export async function POST(request: Request) {
@@ -41,6 +42,11 @@ export async function POST(request: Request) {
     }
 
     const { gameKey, mode, success, attempts, durationMs, metadata, guestId, displayName } = parsed.data;
+    const safeDisplayName = displayName ? sanitizeName(displayName) : null;
+
+    if (displayName && !safeDisplayName) {
+      return NextResponse.json({ error: "Invalid display name" }, { status: 400 });
+    }
 
     let userId: string | null = session?.user?.id ?? null;
     let resolvedGuestId: string | null = null;
@@ -57,14 +63,14 @@ export async function POST(request: Request) {
       if (!guest) {
         const [created] = await db
           .insert(guestProfiles)
-          .values({ id: guestId, displayName: displayName ?? null, createdAt: new Date(), lastSeenAt: new Date() })
+          .values({ id: guestId, displayName: safeDisplayName ?? null, createdAt: new Date(), lastSeenAt: new Date() })
           .returning();
         guest = created;
       } else {
         // Update display name if provided and different
         const updates: { lastSeenAt: Date; displayName?: string } = { lastSeenAt: new Date() };
-        if (displayName && displayName !== guest.displayName) {
-          updates.displayName = displayName;
+        if (safeDisplayName && safeDisplayName !== guest.displayName) {
+          updates.displayName = safeDisplayName;
         }
         await db.update(guestProfiles).set(updates).where(eq(guestProfiles.id, guestId));
       }

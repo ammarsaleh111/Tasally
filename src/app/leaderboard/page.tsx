@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SiteHeader from "@/components/SiteHeader";
 import AuthModal from "@/components/AuthModal";
+import DisplayName from "@/components/DisplayName";
 import { 
   useSeasonIdentity, 
   SeasonPageHeader, 
@@ -420,9 +421,10 @@ function LeaderboardRow({ entry, period, getRankDisplay }: { entry: DailyEntry; 
         )}
       </td>
       <td className="py-4 px-4">
-        <span className="font-medium text-[hsl(var(--foreground))]">
-          {entry.playerName}
-        </span>
+        <DisplayName
+          name={entry.playerName}
+          className="font-medium text-[hsl(var(--foreground))]"
+        />
       </td>
       <td className="py-4 px-4 text-right">
         <span className="font-mono font-bold text-[hsl(var(--accent))]">
@@ -460,9 +462,10 @@ function MonthlyLeaderboardRow({ entry, getRankDisplay }: { entry: MonthlyEntry;
         )}
       </td>
       <td className="py-4 px-4">
-        <span className="font-medium text-[hsl(var(--foreground))]">
-          {entry.playerName}
-        </span>
+        <DisplayName
+          name={entry.playerName}
+          className="font-medium text-[hsl(var(--foreground))]"
+        />
       </td>
       <td className="py-4 px-4 text-right">
         <span className="font-mono font-bold text-[hsl(var(--accent))]">

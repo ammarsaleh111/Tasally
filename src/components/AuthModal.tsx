@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { signIn, useSession } from "next-auth/react";
+import { validateName, MAX_INPUT_LENGTHS } from "@/utils/inputSanitizer";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -48,11 +49,23 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView }: A
     setLoading(true);
 
     try {
+      let normalizedName = name.trim();
+
+      if (view === "register" && normalizedName) {
+        const validation = validateName(normalizedName);
+        if (!validation.valid) {
+          setError(validation.error);
+          setLoading(false);
+          return;
+        }
+        normalizedName = validation.value;
+      }
+
       if (view === "register") {
         const res = await fetch("/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, name }),
+          body: JSON.stringify({ email, password, name: normalizedName || undefined }),
         });
 
         if (!res.ok) {
@@ -151,8 +164,13 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView }: A
                 type="text"
                 placeholder="Display Name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 rounded bg-[hsl(var(--background))] border border-[hsl(var(--border))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))]"
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setError("");
+                }}
+                maxLength={MAX_INPUT_LENGTHS.NAME}
+                dir="auto"
+                className="w-full px-3 py-2 rounded bg-[hsl(var(--background))] border border-[hsl(var(--border))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] name-text"
               />
             )}
             <input

@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import AuthModal from "./AuthModal";
+import DisplayName from "./DisplayName";
+import { getDisplayInitial } from "@/utils/nameUtils";
 
 export default function AuthButton() {
   const { data: session, status } = useSession();
@@ -14,15 +16,19 @@ export default function AuthButton() {
     );
   }
 
-    if (session?.user) {
+  if (session?.user) {
+    const displayName = session.user.name ?? session.user.email?.split("@")[0] ?? "User";
+    const initial = getDisplayInitial(displayName) || "U";
+
     return (
       <div className="flex items-center gap-3">
         <span className="w-7 h-7 rounded-full bg-[hsl(var(--surface-hover))] flex items-center justify-center text-sm font-medium text-[hsl(var(--foreground))]">
-          {(session.user.name ?? session.user.email)?.[0]?.toUpperCase() ?? "U"}
+          {initial}
         </span>
-        <span className="text-sm font-medium text-[hsl(var(--foreground))] hidden sm:inline">
-          {session.user.name ?? session.user.email?.split("@")[0]}
-        </span>
+        <DisplayName
+          name={displayName}
+          className="text-sm font-medium text-[hsl(var(--foreground))] hidden sm:inline"
+        />
         <button
           onClick={() => signOut()}
           className="

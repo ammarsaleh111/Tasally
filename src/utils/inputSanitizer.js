@@ -12,7 +12,7 @@
 
 // Maximum lengths for different input types
 const MAX_LENGTHS = {
-  NAME: 50,
+  NAME: 30,
   WORD: 30,
   MESSAGE: 500,
   GENERAL: 200,
@@ -80,24 +80,54 @@ export function sanitizeString(input, maxLength = MAX_LENGTHS.GENERAL) {
  * @param {string} name - Raw name input
  * @returns {string} - Sanitized name
  */
-export function sanitizeName(name) {
+function getNameAllowedRegex() {
+  try {
+    return new RegExp("^[\\p{L}\\p{N} .,'_-]+$", "u");
+  } catch {
+    return /^[A-Za-z0-9\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\u0660-\u0669\u06F0-\u06F9 .,'_-]+$/;
+  }
+}
+
+function getNameRequiredRegex() {
+  try {
+    return new RegExp("[\\p{L}\\p{N}]", "u");
+  } catch {
+    return /[A-Za-z0-9\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\u0660-\u0669\u06F0-\u06F9]/;
+  }
+}
+
+const NAME_ALLOWED_REGEX = getNameAllowedRegex();
+const NAME_REQUIRED_REGEX = getNameRequiredRegex();
+
+export function validateName(name) {
   if (typeof name !== 'string') {
-    return '';
+    return { valid: false, error: 'Please enter a valid name', value: '' };
   }
 
-  let cleaned = sanitizeString(name, MAX_LENGTHS.NAME);
+  const trimmed = name.trim();
 
-  // Additional name-specific rules
-  // Only allow: letters, numbers, spaces, hyphens, apostrophes
-  cleaned = cleaned.replace(/[^a-zA-Z0-9\s\-']/g, '');
+  if (!trimmed) {
+    return { valid: false, error: 'Please enter your name', value: '' };
+  }
 
-  // Collapse multiple spaces
-  cleaned = cleaned.replace(/\s+/g, ' ');
+  if (trimmed.length > MAX_LENGTHS.NAME) {
+    return { valid: false, error: `Name must be ${MAX_LENGTHS.NAME} characters or less`, value: '' };
+  }
 
-  // Remove leading/trailing special chars
-  cleaned = cleaned.replace(/^[\s\-']+|[\s\-']+$/g, '');
+  if (!NAME_ALLOWED_REGEX.test(trimmed)) {
+    return { valid: false, error: 'Name can only contain letters, numbers, spaces, and . , \' - _', value: '' };
+  }
 
-  return cleaned.trim();
+  if (!NAME_REQUIRED_REGEX.test(trimmed)) {
+    return { valid: false, error: 'Please enter a valid name', value: '' };
+  }
+
+  return { valid: true, error: '', value: trimmed };
+}
+
+export function sanitizeName(name) {
+  const validation = validateName(name);
+  return validation.valid ? validation.value : '';
 }
 
 /**
@@ -195,11 +225,16 @@ export function sanitizeStorageData(data) {
       return data.map(sanitizeStorageData);
     }
 
+    const nameKeys = new Set(['name', 'displayname', 'playername']);
     const sanitized = {};
     for (const [key, value] of Object.entries(data)) {
       // Sanitize both keys and values
       const safeKey = sanitizeString(key);
-      sanitized[safeKey] = sanitizeStorageData(value);
+      if (nameKeys.has(key.toLowerCase()) && typeof value === 'string') {
+        sanitized[safeKey] = sanitizeName(value);
+      } else {
+        sanitized[safeKey] = sanitizeStorageData(value);
+      }
     }
     return sanitized;
   }

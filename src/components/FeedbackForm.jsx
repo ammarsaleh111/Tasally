@@ -105,7 +105,8 @@ export default function FeedbackForm({ isOpen = true, onClose = () => {}, isFloa
                 type="text"
                 value={profile.name}
                 readOnly
-                className="w-full px-4 py-3 rounded-lg bg-surface-hover border border-border-default text-text-muted cursor-not-allowed"
+                dir="auto"
+                className="w-full px-4 py-3 rounded-lg bg-surface-hover border border-border-default text-text-muted cursor-not-allowed name-text"
               />
             </div>
           )}
@@ -236,7 +237,8 @@ export default function FeedbackForm({ isOpen = true, onClose = () => {}, isFloa
                 type="text"
                 value={profile.name}
                 readOnly
-                className="w-full px-4 py-3 rounded-lg bg-surface-hover border border-border-default text-text-muted cursor-not-allowed"
+                dir="auto"
+                className="w-full px-4 py-3 rounded-lg bg-surface-hover border border-border-default text-text-muted cursor-not-allowed name-text"
               />
             </div>
           )}

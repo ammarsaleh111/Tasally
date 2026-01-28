@@ -34,6 +34,8 @@ import SiteHeader from '@/components/SiteHeader';
 import FeedbackForm from '@/components/FeedbackForm';
 import Avatar3D from '@/components/Avatar3D';
 import AvatarPicker from '@/components/AvatarPicker';
+import DisplayName from '@/components/DisplayName';
+import { validateName, MAX_INPUT_LENGTHS } from '@/utils/inputSanitizer';
 import { 
   useSeasonIdentity, 
   SeasonPageHeader, 
@@ -246,7 +248,13 @@ export default function ProfilePage() {
               <div className="text-center">
                 <h1 className="text-2xl font-bold text-foreground transition-colors flex items-center justify-center gap-2">
                   <SeasonIcon index={0} />
-                  {profile.name ? `Hi, ${profile.name}!` : 'Welcome!'}
+                  {profile.name ? (
+                    <>
+                      Hi, <DisplayName name={profile.name} className="inline-flex" />!
+                    </>
+                  ) : (
+                    'Welcome!'
+                  )}
                   <SeasonIcon index={1} />
                 </h1>
                 <p className="text-sm text-muted-foreground mt-1">
@@ -1125,25 +1133,14 @@ const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
   const [deleting, setDeleting] = useState(false);
 
   const handleSaveName = () => {
-    const trimmedName = newName.trim();
-    
-    if (!trimmedName) {
-      setNameError('Name cannot be empty');
-      return;
-    }
-    
-    if (trimmedName.length > 50) {
-      setNameError('Name must be 50 characters or less');
-      return;
-    }
-
-    if (!/^[a-zA-Z0-9\s\-']+$/.test(trimmedName)) {
-      setNameError('Name can only contain letters, numbers, spaces, hyphens, and apostrophes');
+    const validation = validateName(newName);
+    if (!validation.valid) {
+      setNameError(validation.error);
       return;
     }
 
     const updatedProfile = getProfile();
-    updatedProfile.name = trimmedName;
+    updatedProfile.name = validation.value;
     saveProfile(updatedProfile);
     setProfile(updatedProfile);
     setEditingName(false);
@@ -1228,11 +1225,12 @@ const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
                   setNameError('');
                 }}
                 placeholder="Enter your name"
-                maxLength={50}
-                className="w-full px-4 py-2.5 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-info/50 focus:border-info/50 transition-all duration-200"
+                maxLength={MAX_INPUT_LENGTHS.NAME}
+                dir="auto"
+                className="w-full px-4 py-2.5 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-info/50 focus:border-info/50 transition-all duration-200 name-text"
               />
               <p className="text-xs text-muted-foreground">
-                {newName.length}/50 characters
+                {newName.length}/{MAX_INPUT_LENGTHS.NAME} characters
               </p>
               {nameError && (
                 <p className="text-sm text-destructive">
@@ -1260,7 +1258,7 @@ const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
             </div>
           ) : (
             <p className="text-lg font-medium text-foreground py-2">
-              {profile?.name || 'Anonymous'}
+              <DisplayName name={profile?.name || 'Anonymous'} />
             </p>
           )}
         </div>

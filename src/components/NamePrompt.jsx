@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { getProfile, saveProfile } from '@/utils/profileManager';
-import { sanitizeName } from '@/utils/inputSanitizer';
+import { validateName, MAX_INPUT_LENGTHS } from '@/utils/inputSanitizer';
 
 const NamePrompt = ({ onNameSet, isOpen = true }) => {
   const [name, setName] = useState('');
@@ -13,29 +13,13 @@ const NamePrompt = ({ onNameSet, isOpen = true }) => {
     e.preventDefault();
     setError('');
 
-    // Sanitize and validate name
-    const sanitizedName = sanitizeName(name);
-    
-    if (!sanitizedName) {
-      setError('Please enter a valid name');
+    const validation = validateName(name);
+    if (!validation.valid) {
+      setError(validation.error);
       return;
     }
 
-    if (sanitizedName.length < 1) {
-      setError('Please enter your name');
-      return;
-    }
-
-    if (sanitizedName.length > 50) {
-      setError('Name must be 50 characters or less');
-      return;
-    }
-
-    // Additional validation - only allow safe characters
-    if (!/^[a-zA-Z0-9\s\-']+$/.test(sanitizedName)) {
-      setError('Name can only contain letters, numbers, spaces, hyphens, and apostrophes');
-      return;
-    }
+    const sanitizedName = validation.value;
 
     setIsSubmitting(true);
 
@@ -89,10 +73,16 @@ const NamePrompt = ({ onNameSet, isOpen = true }) => {
     setError('');
     
     // Real-time validation feedback
-    if (value.length > 50) {
-      setError('Name is too long');
-    } else if (value && !/^[a-zA-Z0-9\s\-']+$/.test(value)) {
-      setError('Only letters, numbers, spaces, hyphens, and apostrophes allowed');
+    if (!value.trim()) {
+      setError('');
+      return;
+    }
+
+    const validation = validateName(value);
+    if (!validation.valid) {
+      setError(validation.error);
+    } else {
+      setError('');
     }
   };
 
@@ -115,13 +105,14 @@ const NamePrompt = ({ onNameSet, isOpen = true }) => {
               onKeyPress={handleKeyPress}
               placeholder="Enter your name"
               disabled={isSubmitting}
-              maxLength={50}
+              maxLength={MAX_INPUT_LENGTHS.NAME}
               autoComplete="off"
               autoFocus
-              className="w-full px-4 py-3 border-2 border-border-default rounded-lg focus:outline-none focus:border-border-active bg-background text-foreground transition-colors"
+              dir="auto"
+              className="w-full px-4 py-3 border-2 border-border-default rounded-lg focus:outline-none focus:border-border-active bg-background text-foreground transition-colors name-text"
             />
             <div className="text-sm text-text-muted mt-2">
-              {name.length}/50 characters
+              {name.length}/{MAX_INPUT_LENGTHS.NAME} characters
             </div>
           </div>
 

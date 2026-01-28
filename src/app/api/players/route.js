@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getAllPlayers, savePlayers, getActivityStore, saveActivityStore } from '@/lib/serverData';
-import { sanitizeName, sanitizeString, isRateLimited } from '@/utils/inputSanitizer';
+import { sanitizeName, sanitizeString, isRateLimited, MAX_INPUT_LENGTHS } from '@/utils/inputSanitizer';
 
 // Rate limiting: 30 requests per minute per IP
 const RATE_LIMIT_MAX = 30;
@@ -32,7 +32,7 @@ export async function GET(request) {
     // Sanitize the name being checked
     const sanitizedName = sanitizeName(nameCheck);
     
-    if (!sanitizedName || sanitizedName.length < 1 || sanitizedName.length > 50) {
+    if (!sanitizedName || sanitizedName.length < 1 || sanitizedName.length > MAX_INPUT_LENGTHS.NAME) {
       return NextResponse.json({ available: false, error: 'invalid-name' });
     }
 
@@ -85,7 +85,7 @@ export async function POST(request) {
 
     // Validate and sanitize name
     const sanitizedName = sanitizeName(name);
-    if (!sanitizedName || sanitizedName.length < 1 || sanitizedName.length > 50) {
+    if (!sanitizedName || sanitizedName.length < 1 || sanitizedName.length > MAX_INPUT_LENGTHS.NAME) {
       return NextResponse.json({ error: 'Invalid name format' }, { status: 400 });
     }
 
