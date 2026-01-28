@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { 
   getProfile, 
@@ -54,6 +55,7 @@ const formatTime = (seconds) => {
 };
 
 export default function ProfilePage() {
+  const { status } = useSession();
   const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState(null);
   const [unlockedAchievements, setUnlockedAchievements] = useState([]);
@@ -104,7 +106,52 @@ export default function ProfilePage() {
   };
 
   if (!profile || !stats) {
-    return (
+    const handleDeleteAccount = async () => {
+    setDeleteError('');
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/account/delete', { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (window.indexedDB && indexedDB.databases) {
+            const dbs = await indexedDB.databases();
+            await Promise.all(
+              (dbs || []).map((db) =>
+                db?.name
+                  ? new Promise((resolve) => {
+                      const req = indexedDB.deleteDatabase(db.name);
+                      req.onsuccess = () => resolve(null);
+                      req.onerror = () => resolve(null);
+                      req.onblocked = () => resolve(null);
+                    })
+                  : Promise.resolve(null)
+              )
+            );
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (e) {
+          // Ignore cache clearing errors
+        }
+      }
+
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      setDeleteError('Could not delete your account. Please try again.');
+      setDeleting(false);
+    }
+  };
+
+  return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-4 border-info border-t-transparent rounded-full animate-spin" />
@@ -124,6 +171,51 @@ export default function ProfilePage() {
   }, 0);
   const totalAchievements = getAchievementCount();
   const achievementProgress = Math.round((totalAchievements / ACHIEVEMENTS.length) * 100);
+
+  const handleDeleteAccount = async () => {
+    setDeleteError('');
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/account/delete', { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (window.indexedDB && indexedDB.databases) {
+            const dbs = await indexedDB.databases();
+            await Promise.all(
+              (dbs || []).map((db) =>
+                db?.name
+                  ? new Promise((resolve) => {
+                      const req = indexedDB.deleteDatabase(db.name);
+                      req.onsuccess = () => resolve(null);
+                      req.onerror = () => resolve(null);
+                      req.onblocked = () => resolve(null);
+                    })
+                  : Promise.resolve(null)
+              )
+            );
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (e) {
+          // Ignore cache clearing errors
+        }
+      }
+
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      setDeleteError('Could not delete your account. Please try again.');
+      setDeleting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -222,7 +314,7 @@ export default function ProfilePage() {
             <AchievementsTab unlockedAchievements={unlockedAchievements} totalAchievements={totalAchievements} />
           )}
           {activeTab === 'settings' && (
-            <SettingsTab settings={profile.settings} onReminderToggle={handleReminderToggle} />
+            <SettingsTab settings={profile.settings} onReminderToggle={handleReminderToggle} isAuthenticated={status === 'authenticated'} />
           )}
           {activeTab === 'feedback' && <FeedbackTab />}
         </div>
@@ -238,6 +330,51 @@ export default function ProfilePage() {
 const SeasonalStatCard = ({ icon, value, label, colorClass, textColor }) => {
   const { pack } = useSeasonIdentity();
   
+  const handleDeleteAccount = async () => {
+    setDeleteError('');
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/account/delete', { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (window.indexedDB && indexedDB.databases) {
+            const dbs = await indexedDB.databases();
+            await Promise.all(
+              (dbs || []).map((db) =>
+                db?.name
+                  ? new Promise((resolve) => {
+                      const req = indexedDB.deleteDatabase(db.name);
+                      req.onsuccess = () => resolve(null);
+                      req.onerror = () => resolve(null);
+                      req.onblocked = () => resolve(null);
+                    })
+                  : Promise.resolve(null)
+              )
+            );
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (e) {
+          // Ignore cache clearing errors
+        }
+      }
+
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      setDeleteError('Could not delete your account. Please try again.');
+      setDeleting(false);
+    }
+  };
+
   return (
     <SeasonCard 
       className={`${colorClass} p-4 text-center`}
@@ -320,6 +457,51 @@ const GameSummaryCard = ({ gameName, stats, icon, color }) => {
 
   const gamePath = gamePathMap[gameName] || `/games/${gameName.toLowerCase().replace(' ', '-')}`;
 
+  const handleDeleteAccount = async () => {
+    setDeleteError('');
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/account/delete', { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (window.indexedDB && indexedDB.databases) {
+            const dbs = await indexedDB.databases();
+            await Promise.all(
+              (dbs || []).map((db) =>
+                db?.name
+                  ? new Promise((resolve) => {
+                      const req = indexedDB.deleteDatabase(db.name);
+                      req.onsuccess = () => resolve(null);
+                      req.onerror = () => resolve(null);
+                      req.onblocked = () => resolve(null);
+                    })
+                  : Promise.resolve(null)
+              )
+            );
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (e) {
+          // Ignore cache clearing errors
+        }
+      }
+
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      setDeleteError('Could not delete your account. Please try again.');
+      setDeleting(false);
+    }
+  };
+
   return (
     <Link href={gamePath}>
       <div className="bg-card border border-border rounded-xl p-4 transition-all duration-200 hover:shadow-md hover:border-border/80 hover:-translate-y-0.5 cursor-pointer group">
@@ -374,7 +556,52 @@ const StatsTab = ({ stats }) => (
         ? parseFloat(averageAttemptsRaw) 
         : Number(averageAttemptsRaw) || 0;
 
-      return (
+      const handleDeleteAccount = async () => {
+    setDeleteError('');
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/account/delete', { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (window.indexedDB && indexedDB.databases) {
+            const dbs = await indexedDB.databases();
+            await Promise.all(
+              (dbs || []).map((db) =>
+                db?.name
+                  ? new Promise((resolve) => {
+                      const req = indexedDB.deleteDatabase(db.name);
+                      req.onsuccess = () => resolve(null);
+                      req.onerror = () => resolve(null);
+                      req.onblocked = () => resolve(null);
+                    })
+                  : Promise.resolve(null)
+              )
+            );
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (e) {
+          // Ignore cache clearing errors
+        }
+      }
+
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      setDeleteError('Could not delete your account. Please try again.');
+      setDeleting(false);
+    }
+  };
+
+  return (
         <div key={gameName} className="bg-card border border-border rounded-xl p-5 transition-all duration-200 hover:shadow-sm">
           <h3 className="text-lg font-bold text-foreground capitalize mb-4">{gameName}</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -487,6 +714,51 @@ const LearningLogTab = () => {
       console.error(e);
     } finally {
       setLoadingDefinition(null);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeleteError('');
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/account/delete', { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (window.indexedDB && indexedDB.databases) {
+            const dbs = await indexedDB.databases();
+            await Promise.all(
+              (dbs || []).map((db) =>
+                db?.name
+                  ? new Promise((resolve) => {
+                      const req = indexedDB.deleteDatabase(db.name);
+                      req.onsuccess = () => resolve(null);
+                      req.onerror = () => resolve(null);
+                      req.onblocked = () => resolve(null);
+                    })
+                  : Promise.resolve(null)
+              )
+            );
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (e) {
+          // Ignore cache clearing errors
+        }
+      }
+
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      setDeleteError('Could not delete your account. Please try again.');
+      setDeleting(false);
     }
   };
 
@@ -628,6 +900,51 @@ const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
     return true;
   });
 
+  const handleDeleteAccount = async () => {
+    setDeleteError('');
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/account/delete', { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (window.indexedDB && indexedDB.databases) {
+            const dbs = await indexedDB.databases();
+            await Promise.all(
+              (dbs || []).map((db) =>
+                db?.name
+                  ? new Promise((resolve) => {
+                      const req = indexedDB.deleteDatabase(db.name);
+                      req.onsuccess = () => resolve(null);
+                      req.onerror = () => resolve(null);
+                      req.onblocked = () => resolve(null);
+                    })
+                  : Promise.resolve(null)
+              )
+            );
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (e) {
+          // Ignore cache clearing errors
+        }
+      }
+
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      setDeleteError('Could not delete your account. Please try again.');
+      setDeleting(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -645,7 +962,52 @@ const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {filteredAchievements.map(achievement => {
           const unlockedData = unlockedAchievements.find(a => a.id === achievement.id);
-          return (
+          const handleDeleteAccount = async () => {
+    setDeleteError('');
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/account/delete', { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (window.indexedDB && indexedDB.databases) {
+            const dbs = await indexedDB.databases();
+            await Promise.all(
+              (dbs || []).map((db) =>
+                db?.name
+                  ? new Promise((resolve) => {
+                      const req = indexedDB.deleteDatabase(db.name);
+                      req.onsuccess = () => resolve(null);
+                      req.onerror = () => resolve(null);
+                      req.onblocked = () => resolve(null);
+                    })
+                  : Promise.resolve(null)
+              )
+            );
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (e) {
+          // Ignore cache clearing errors
+        }
+      }
+
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      setDeleteError('Could not delete your account. Please try again.');
+      setDeleting(false);
+    }
+  };
+
+  return (
             <AchievementBadge 
               key={achievement.id} 
               achievement={achievement} 
@@ -675,6 +1037,51 @@ const FilterButton = ({ label, active, onClick }) => (
 
 // Feedback Tab
 const FeedbackTab = () => {
+  const handleDeleteAccount = async () => {
+    setDeleteError('');
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/account/delete', { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (window.indexedDB && indexedDB.databases) {
+            const dbs = await indexedDB.databases();
+            await Promise.all(
+              (dbs || []).map((db) =>
+                db?.name
+                  ? new Promise((resolve) => {
+                      const req = indexedDB.deleteDatabase(db.name);
+                      req.onsuccess = () => resolve(null);
+                      req.onerror = () => resolve(null);
+                      req.onblocked = () => resolve(null);
+                    })
+                  : Promise.resolve(null)
+              )
+            );
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (e) {
+          // Ignore cache clearing errors
+        }
+      }
+
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      setDeleteError('Could not delete your account. Please try again.');
+      setDeleting(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
@@ -707,11 +1114,15 @@ const FeedbackTab = () => {
 };
 
 // Settings Tab
-const SettingsTab = ({ settings, onReminderToggle }) => {
+const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
   const [profile, setProfile] = useState(() => getProfile());
   const [editingName, setEditingName] = useState(false);
   const [newName, setNewName] = useState(() => getProfile()?.name || '');
   const [nameError, setNameError] = useState('');
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteInput, setDeleteInput] = useState('');
+  const [deleteError, setDeleteError] = useState('');
+  const [deleting, setDeleting] = useState(false);
 
   const handleSaveName = () => {
     const trimmedName = newName.trim();
@@ -739,6 +1150,51 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
     setNameError('');
     
     window.location.reload();
+  };
+
+  const handleDeleteAccount = async () => {
+    setDeleteError('');
+    setDeleting(true);
+
+    try {
+      const response = await fetch('/api/account/delete', { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete');
+      }
+
+      if (typeof window !== 'undefined') {
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+          if (window.indexedDB && indexedDB.databases) {
+            const dbs = await indexedDB.databases();
+            await Promise.all(
+              (dbs || []).map((db) =>
+                db?.name
+                  ? new Promise((resolve) => {
+                      const req = indexedDB.deleteDatabase(db.name);
+                      req.onsuccess = () => resolve(null);
+                      req.onerror = () => resolve(null);
+                      req.onblocked = () => resolve(null);
+                    })
+                  : Promise.resolve(null)
+              )
+            );
+          }
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((key) => caches.delete(key)));
+          }
+        } catch (e) {
+          // Ignore cache clearing errors
+        }
+      }
+
+      await signOut({ callbackUrl: '/' });
+    } catch (error) {
+      setDeleteError('Could not delete your account. Please try again.');
+      setDeleting(false);
+    }
   };
 
   return (
@@ -845,6 +1301,70 @@ const SettingsTab = ({ settings, onReminderToggle }) => {
           </p>
         </div>
       </div>
+
+      <div className="bg-card border border-border rounded-xl p-5">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h3 className="font-semibold text-foreground">Delete Account</h3>
+            <p className="text-sm text-muted-foreground mt-2">
+              This permanently deletes your account, progress, achievements, and leaderboard rankings.
+            </p>
+          </div>
+          {isAuthenticated ? (
+            <button
+              onClick={() => {
+                setShowDeleteConfirm(true);
+                setDeleteInput('');
+                setDeleteError('');
+              }}
+              className="px-4 py-2 rounded-lg text-sm font-semibold bg-wordle-absent text-white hover:opacity-90 transition-opacity"
+            >
+              Delete Account
+            </button>
+          ) : (
+            <span className="text-xs text-muted-foreground">Sign in to delete your account.</span>
+          )}
+        </div>
+      </div>
+
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-card border border-wordle-absent rounded-2xl p-6 max-w-md w-full">
+            <h3 className="text-2xl font-bold text-wordle-absent mb-3">Delete Account Permanently?</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              This action is permanent. All your progress, achievements, and leaderboard rankings will be deleted and cannot be recovered.
+            </p>
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Type DELETE to confirm
+            </label>
+            <input
+              value={deleteInput}
+              onChange={(e) => setDeleteInput(e.target.value)}
+              placeholder="DELETE"
+              className="w-full px-3 py-2 rounded-lg bg-background border border-border text-foreground focus:outline-none focus:ring-2 focus:ring-wordle-absent/50"
+            />
+            {deleteError && (
+              <p className="text-sm text-wordle-absent mt-2">{deleteError}</p>
+            )}
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                className="flex-1 px-4 py-2 rounded-lg border border-border text-foreground hover:bg-surface-hover transition-colors"
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteAccount}
+                disabled={deleting || deleteInput !== 'DELETE'}
+                className="flex-1 px-4 py-2 rounded-lg bg-wordle-absent text-white font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {deleting ? 'Deleting...' : 'Confirm Delete'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="bg-secondary/30 rounded-xl p-5">
         <h3 className="font-semibold text-foreground mb-3">About</h3>

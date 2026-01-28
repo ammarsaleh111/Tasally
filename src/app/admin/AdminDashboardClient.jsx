@@ -535,12 +535,15 @@ function renderContent({
               </tr>
             </thead>
             <tbody>
-              {activeSessions.map(session => {
+              {activeSessions.map((session, index) => {
                 const lastActivity = session.activities?.[session.activities.length - 1];
                 const timeAgo = formatRelativeTime(session.lastSeen, true);
+                const sessionKey = session.sessionId
+                  ? session.sessionId
+                  : `${session.userId ?? 'guest'}-${session.lastSeen ?? index}`;
 
                 return (
-                  <tr key={session.userId} className="border-b border-border-default hover:bg-surface-hover transition-colors">
+                  <tr key={sessionKey} className="border-b border-border-default hover:bg-surface-hover transition-colors">
                     <td className="py-3 px-4 font-medium">{session.name || 'Anonymous'}</td>
                     <td className="py-3 px-4">
                       {lastActivity?.game ? (
