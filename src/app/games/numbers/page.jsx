@@ -9,7 +9,7 @@ import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
-import Confetti from '@/components/Confetti';
+import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import Toast from '@/components/Toast';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import {
@@ -143,7 +143,6 @@ export default function NumbersGame() {
     setGameWon(true);
     setShowConfetti(true);
     showToast(`🎉 Perfect! You hit ${puzzle.target}!`, 'success');
-    setTimeout(() => setShowConfetti(false), 4000);
     
     // Update stats using profileManager
     const result = {
@@ -246,7 +245,19 @@ export default function NumbersGame() {
         gameComplete={gameComplete}
       />
 
-      <div className="flex-1 flex flex-col items-center justify-center p-4 pb-32">
+      <div className="relative flex-1 flex flex-col items-center justify-center p-4 pb-32">
+        <WinConfettiOverlay
+          active={showConfetti}
+          durationMs={2800}
+          intensity={0.8}
+          origin={CONFETTI_ORIGINS.top}
+          palette={[
+            'hsl(var(--wordle-correct))',
+            'hsl(var(--warning))',
+            'hsl(var(--info))'
+          ]}
+          onDone={() => setShowConfetti(false)}
+        />
         <div className="max-w-2xl w-full space-y-6">
           {/* Target Display */}
           <div className="text-center">
@@ -456,7 +467,6 @@ export default function NumbersGame() {
         />
       )}
 
-      {showConfetti && <Confetti />}
       
       {toast && (
         <Toast

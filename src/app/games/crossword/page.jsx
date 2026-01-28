@@ -25,7 +25,7 @@ import CrosswordGrid from '@/components/CrosswordGrid';
 import CluePanel from '@/components/CluePanel';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
-import Confetti from '@/components/Confetti';
+import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import GameHeader from '@/components/GameHeader';
 import StatisticsModal from '@/components/StatisticsModal';
 import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
@@ -62,9 +62,14 @@ export default function CrosswordGame() {
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [initError, setInitError] = useState(null);
+  const [showWinConfetti, setShowWinConfetti] = useState(false);
+  const [hasCelebratedWin, setHasCelebratedWin] = useState(false);
   
   const timerRef = useRef(null);
   const inputRef = useRef(null);
+  const prevWinRef = useRef(false);
+  const initialWinHandledRef = useRef(false);
+  const winStorageKey = puzzle ? `crossword-win-celebrated-${puzzle.date}` : null;
   
   // =========================================================================
   // INITIALIZATION
@@ -112,6 +117,15 @@ export default function CrosswordGame() {
     
     setIsLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!winStorageKey) {
+      setHasCelebratedWin(false);
+      return;
+    }
+    setHasCelebratedWin(localStorage.getItem(winStorageKey) === '1');
+  }, [winStorageKey]);
 
   // =========================================================================
   // TIMER LOGIC - Proper visibility-aware timer
@@ -258,6 +272,23 @@ export default function CrosswordGame() {
       }
     }
   }, [puzzle, gameState, gameState?.userGrid, timerState]);
+
+  useEffect(() => {
+    const wonNow = Boolean(gameState?.isSolved);
+    if (!initialWinHandledRef.current) {
+      prevWinRef.current = wonNow;
+      initialWinHandledRef.current = true;
+      return;
+    }
+    if (wonNow && !prevWinRef.current && !hasCelebratedWin) {
+      setShowWinConfetti(true);
+      setHasCelebratedWin(true);
+      if (typeof window !== 'undefined' && winStorageKey) {
+        localStorage.setItem(winStorageKey, '1');
+      }
+    }
+    prevWinRef.current = wonNow;
+  }, [gameState?.isSolved, hasCelebratedWin, winStorageKey]);
 
   // =========================================================================
   // EVENT HANDLERS
@@ -604,8 +635,20 @@ export default function CrosswordGame() {
         aria-hidden="true"
       />
       
-      <div className="w-full max-w-5xl mx-auto px-4">
-        {gameState.isSolved && <Confetti />}
+      <div className="relative w-full max-w-5xl mx-auto px-4">
+        <WinConfettiOverlay
+          active={showWinConfetti}
+          durationMs={2800}
+          intensity={0.7}
+          origin={CONFETTI_ORIGINS.top}
+          palette={[
+            'hsl(var(--crossword-active-ring))',
+            'hsl(var(--info))',
+            'hsl(var(--warning))',
+            'hsl(var(--accent))'
+          ]}
+          onDone={() => setShowWinConfetti(false)}
+        />
         
         {toast && (
           <Toast 
@@ -614,6 +657,13 @@ export default function CrosswordGame() {
             type={toast.type} 
             onExited={handleToastExit} 
           />
+        )}
+
+        {gameState.isSolved && !showResultModal && (
+          <div className="mb-4 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-xs text-text-muted flex items-center justify-between">
+            <div className="font-semibold text-foreground">✅ Solved</div>
+            <div>Time: {formatTime(solveTime)}</div>
+          </div>
         )}
 
         {/* Timer Display */}

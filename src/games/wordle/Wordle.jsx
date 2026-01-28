@@ -24,6 +24,7 @@ import LearningLogModal from '@/components/LearningLogModal';
 import ShareResults from '@/components/ShareResults';
 import AchievementNotification from '@/components/AchievementNotification';
 import DailyReminder from '@/components/DailyReminder';
+import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordToLog } from '@/utils/learningLogEngine';
@@ -54,9 +55,14 @@ export default function WordleGame() {
   const [newAchievements, setNewAchievements] = useState([]);
   const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
   const [solveTime, setSolveTime] = useState(null);
+  const [showWinConfetti, setShowWinConfetti] = useState(false);
+  const [hasCelebratedWin, setHasCelebratedWin] = useState(false);
+  const [revealSolution, setRevealSolution] = useState(false);
 
   const guessesRef = useRef([]);
   const startTimeRef = useRef(null);
+  const prevWinRef = useRef(false);
+  const initialWinHandledRef = useRef(false);
   const confirmedGuesses = useMemo(() => guesses.filter(guess => !guess.pending), [guesses]);
 
 
@@ -72,6 +78,11 @@ export default function WordleGame() {
       const messages = ['Genius', 'Magnificent', 'Impressive', 'Splendid', 'Great', 'Phew'];
       return messages[Math.min(count - 1, 5)];
     }, []);
+
+  const winStorageKey = useMemo(() => {
+    if (mode !== 'daily') return null;
+    return `wordle-win-celebrated-${getTodayString()}-${wordLength}`;
+  }, [mode, wordLength]);
 
   // --- Helpers ---
   const showToast = useCallback((message, type = 'default') => {
@@ -91,6 +102,15 @@ export default function WordleGame() {
   useEffect(() => {
     guessesRef.current = guesses;
   }, [guesses]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (!winStorageKey) {
+      setHasCelebratedWin(false);
+      return;
+    }
+    setHasCelebratedWin(localStorage.getItem(winStorageKey) === '1');
+  }, [winStorageKey]);
 
   // Update stats when game ends using profileManager
   const updateStats = (won, guessCount, latestGuesses) => {
@@ -158,6 +178,9 @@ export default function WordleGame() {
     setWordLength(targetLength);
     setView('GAME');
     setIsChecking(false);
+    setShowWinConfetti(false);
+    setRevealSolution(false);
+    prevWinRef.current = false;
     
     // Track game start
     trackGameStart('wordle');
@@ -248,6 +271,9 @@ export default function WordleGame() {
     setShowResultModal(false);
     setIsChecking(false);
     setSolveTime(null);
+    setShowWinConfetti(false);
+    setRevealSolution(false);
+    prevWinRef.current = false;
     startTimeRef.current = Date.now();
     
     // Reset for Unlimited
@@ -260,6 +286,7 @@ export default function WordleGame() {
         setGameStatus('playing');
         setKeyStatuses({});
         setCurrentGuess('');
+        setHasCelebratedWin(false);
     } else {
         // For Daily, prevent immediate replay if just finished.
         // Return to menu
@@ -272,6 +299,7 @@ export default function WordleGame() {
 
   const handleMenuReturn = () => {
     setShowResultModal(false);
+    setRevealSolution(false);
     setView('MENU');
   };
 
@@ -392,6 +420,23 @@ export default function WordleGame() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onKey]);
 
+  useEffect(() => {
+    const wonNow = gameStatus === 'won';
+    if (!initialWinHandledRef.current) {
+      prevWinRef.current = wonNow;
+      initialWinHandledRef.current = true;
+      return;
+    }
+    if (wonNow && !prevWinRef.current && !hasCelebratedWin) {
+      setShowWinConfetti(true);
+      setHasCelebratedWin(true);
+      if (typeof window !== 'undefined' && winStorageKey) {
+        localStorage.setItem(winStorageKey, '1');
+      }
+    }
+    prevWinRef.current = wonNow;
+  }, [gameStatus, hasCelebratedWin, winStorageKey]);
+
   // --- Render ---
 
   if (view === 'MENU') {
@@ -410,67 +455,94 @@ export default function WordleGame() {
       )}
 
       {/* Result Modal */}
-      <Modal isOpen={showResultModal} title={gameStatus === 'won' ? '🎉 You solved it!' : 'Game Over'}>
-          <div className="flex flex-col items-center gap-4">
-            <div className="text-center">
-              <div className="text-lg mb-2">
-                The word was <span className="font-bold text-wordle-correct text-2xl">{solution}</span>
-              </div>
-              
-              {gameStatus === 'won' && (
-                <div className="space-y-1 text-sm text-text-muted">
-                  <div>Solved in <span className="font-bold text-foreground">{confirmedGuesses.length}</span> {confirmedGuesses.length === 1 ? 'try' : 'tries'}</div>
-                  {solveTime !== null && (
-                    <div>Time: <span className="font-bold text-foreground">{Math.floor(solveTime / 60)}:{(solveTime % 60).toString().padStart(2, '0')}</span></div>
+      <Modal
+        isOpen={showResultModal}
+        title={gameStatus === 'won' ? 'Solved!' : 'So close!'}
+        onClose={() => setShowResultModal(false)}
+      >
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-full rounded-2xl border border-border-default bg-card p-4 text-center">
+            {gameStatus === 'won' ? (
+              <>
+                <div className="text-sm uppercase tracking-wide text-text-muted">You nailed it</div>
+                <div className="text-3xl font-bold text-wordle-correct mt-2">{solution}</div>
+              </>
+            ) : (
+              <>
+                <div className="text-sm uppercase tracking-wide text-text-muted">Reason</div>
+                <div className="text-lg font-semibold text-foreground mt-2">
+                  You used all {MAX_GUESSES} attempts.
+                </div>
+                <div className="mt-3">
+                  {revealSolution ? (
+                    <div className="text-2xl font-bold text-wordle-correct">{solution}</div>
+                  ) : (
+                    <button
+                      onClick={() => setRevealSolution(true)}
+                      className="px-4 py-2 rounded-full border border-border-default text-sm font-semibold text-foreground hover:bg-surface-hover transition"
+                    >
+                      Reveal Answer
+                    </button>
                   )}
                 </div>
-              )}
+              </>
+            )}
+          </div>
+
+          <div className="w-full grid grid-cols-2 gap-3 text-sm">
+            <div className="rounded-xl border border-border-default bg-card px-3 py-2 text-center">
+              <div className="text-xs uppercase tracking-wide text-text-muted">Attempts</div>
+              <div className="text-lg font-bold text-foreground">{confirmedGuesses.length}</div>
             </div>
-            
-            <p className="text-text-muted text-sm">
-                {gameStatus === 'won' ? 'Excellent work!' : 'Better luck next time!'}
-            </p>
+            <div className="rounded-xl border border-border-default bg-card px-3 py-2 text-center">
+              <div className="text-xs uppercase tracking-wide text-text-muted">Time</div>
+              <div className="text-lg font-bold text-foreground">
+                {solveTime !== null ? `${Math.floor(solveTime / 60)}:${(solveTime % 60).toString().padStart(2, '0')}` : '?'}
+              </div>
+            </div>
+          </div>
 
-            {/* Share Results Button */}
-            {gameStatus === 'won' && (
-              <ShareResults 
-                gameName="wordle"
-                result={{
-                  guesses: confirmedGuesses,
-                  win: true
-                }}
-                puzzleNumber={mode === 'daily' ? `#${getTodayString()}` : ''}
-              />
-            )}
+          {gameStatus === 'won' && (
+            <ShareResults 
+              gameName="wordle"
+              result={{
+                guesses: confirmedGuesses,
+                win: true
+              }}
+              puzzleNumber={mode === 'daily' ? `#${getTodayString()}` : ''}
+            />
+          )}
 
-            {/* Daily Reminder for daily mode */}
-            {mode === 'daily' && (
-              <DailyReminder gameName="wordle" />
-            )}
+          {mode === 'daily' && (
+            <DailyReminder gameName="wordle" />
+          )}
 
-            <div className="w-full h-px bg-border-default my-2"></div>
+          <div className="w-full h-px bg-border-default my-1"></div>
 
+          <div className="flex flex-col gap-3 w-full">
             {mode === 'unlimited' ? (
-                <button 
-                    onClick={handlePlayAgain}
-                    className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity"
-                >
-                    ▶ Play Again
-                </button>
+              <button 
+                onClick={handlePlayAgain}
+                className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity"
+              >
+                Retry
+              </button>
             ) : (
-                 <div className="text-center py-2">
-                    <div className="text-xs uppercase tracking-wide text-text-muted mb-1">Next Daily Puzzle</div>
-                    <div className="text-sm font-bold text-foreground">Tomorrow</div>
-                 </div>
+              <button 
+                onClick={handlePlayAgain}
+                className="w-full py-3 rounded-lg border border-border-default text-foreground font-bold hover:bg-surface-hover transition-colors"
+              >
+                Next Daily Puzzle (Tomorrow)
+              </button>
             )}
-            
             <button 
-                onClick={handleMenuReturn}
-                className="w-full py-3 rounded-lg border border-border-default hover:bg-surface-hover font-bold transition-colors text-foreground"
+              onClick={handleMenuReturn}
+              className="w-full py-3 rounded-lg border border-border-default hover:bg-surface-hover font-bold transition-colors text-foreground"
             >
-                Back to Menu
+              Back to Menu
             </button>
           </div>
+        </div>
       </Modal>
 
       {/* Unified GameHeader - consistent with all other games */}
@@ -484,10 +556,29 @@ export default function WordleGame() {
       />
 
       {/* Main Game Content */}
-      <div className="flex flex-col items-center w-full max-w-lg mx-auto px-4 pb-10">
-        {gameStatus === 'lost' && (
-          <div className="bg-red-500/10 border border-red-500/50 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg mb-6 text-center animate-in fade-in slide-in-from-top-4 w-full">
-            <p className="font-bold text-lg">The word was: <span className="uppercase tracking-widest">{solution}</span></p>
+      <div className="relative flex flex-col items-center w-full max-w-lg mx-auto px-4 pb-10">
+        <WinConfettiOverlay
+          active={showWinConfetti}
+          durationMs={3200}
+          intensity={1}
+          origin={CONFETTI_ORIGINS.corners}
+          palette={[
+            'hsl(var(--wordle-correct))',
+            'hsl(var(--wordle-present))',
+            'hsl(var(--info))',
+            'hsl(var(--success))'
+          ]}
+          onDone={() => setShowWinConfetti(false)}
+        />
+
+        {gameStatus !== 'playing' && !showResultModal && (
+          <div className="mb-4 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-sm text-foreground flex items-center justify-between">
+            <div className="font-semibold">
+              {gameStatus === 'won' ? '✅ Solved' : '❌ Not solved'}
+            </div>
+            <div className="text-xs text-text-muted">
+              Attempts: {confirmedGuesses.length} · Time: {solveTime !== null ? `${Math.floor(solveTime / 60)}:${(solveTime % 60).toString().padStart(2, '0')}` : '—'}
+            </div>
           </div>
         )}
 

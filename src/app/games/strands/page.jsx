@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import GameHeader from '@/components/GameHeader';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
-import Confetti from '@/components/Confetti';
+import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import ShareResults from '@/components/ShareResults';
 import StatisticsModal from '@/components/StatisticsModal';
 import StrandsGrid from '@/components/StrandsGrid';
@@ -101,9 +101,15 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
   const [howToPlayModal, setHowToPlayModal] = useState(false);
   const [statsModal, setStatsModal] = useState(false);
   const [learningLogModal, setLearningLogModal] = useState(false);
+  const [showWinConfetti, setShowWinConfetti] = useState(false);
+  const [hasCelebratedWin, setHasCelebratedWin] = useState(false);
+
+  const prevWinRef = useRef(false);
+  const initialWinHandledRef = useRef(false);
 
   const foundWordStrings = useMemo(() => foundWords.map((fw) => fw.word), [foundWords]);
   const puzzleId = puzzle ? `strands-${puzzle.date}` : null;
+  const winStorageKey = puzzle ? `strands-win-celebrated-${puzzle.date}` : null;
 
   const hintButtonText = puzzle
     ? getStrandsHintButtonText(puzzleId, puzzle.words, foundWordStrings, puzzle.grid)
@@ -125,6 +131,17 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
       completedAt,
     });
   }, [puzzle, foundWords, foundSet, lockedSet, spangramFound, hintsUsed, startedAt, completedAt]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    queueMicrotask(() => {
+      if (!winStorageKey) {
+        setHasCelebratedWin(false);
+        return;
+      }
+      setHasCelebratedWin(localStorage.getItem(winStorageKey) === '1');
+    });
+  }, [winStorageKey]);
 
   const clearPathWithFade = () => {
     setPath([]);
@@ -296,6 +313,9 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
     setWinModal(false);
     setToast(null);
     setShouldShake(false);
+    setShowWinConfetti(false);
+    setHasCelebratedWin(false);
+    prevWinRef.current = false;
   };
 
   const handleNewPuzzle = () => {
@@ -309,6 +329,25 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
   const wordsFoundCount = foundWords.length;
   const totalWords = puzzle?.words?.length || 0;
   const gameStats = getGameStats('strands');
+
+  useEffect(() => {
+    const wonNow = Boolean(completedAt);
+    if (!initialWinHandledRef.current) {
+      prevWinRef.current = wonNow;
+      initialWinHandledRef.current = true;
+      return;
+    }
+    if (wonNow && !prevWinRef.current && !hasCelebratedWin) {
+      queueMicrotask(() => {
+        setShowWinConfetti(true);
+        setHasCelebratedWin(true);
+        if (typeof window !== 'undefined' && winStorageKey) {
+          localStorage.setItem(winStorageKey, '1');
+        }
+      });
+    }
+    prevWinRef.current = wonNow;
+  }, [completedAt, hasCelebratedWin, winStorageKey]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -399,7 +438,30 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
               )}
             </div>
 
-            <div className="max-w-md mx-auto lg:mx-0 w-full">
+            <div className="relative max-w-md mx-auto lg:mx-0 w-full">
+              <WinConfettiOverlay
+                active={showWinConfetti}
+                durationMs={3000}
+                intensity={0.9}
+                origin={CONFETTI_ORIGINS.corners}
+                palette={[
+                  'hsl(var(--strands-spangram-ribbon))',
+                  'hsl(var(--strands-ribbon))',
+                  'hsl(var(--connections-yellow))',
+                  'hsl(var(--info))'
+                ]}
+                onDone={() => setShowWinConfetti(false)}
+              />
+
+              {completedAt && !winModal && (
+                <div className="mb-3 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-xs text-text-muted flex items-center justify-between">
+                  <div className="font-semibold text-foreground">✅ Solved</div>
+                  <div>
+                    Time: {Math.floor(((completedAt || 0) - (startedAt || 0)) / 1000)}s · Hints: {hintsUsed} · Words: {wordsFoundCount}/{totalWords}
+                  </div>
+                </div>
+              )}
+
               <StrandsGrid
                 grid={puzzle.grid}
                 path={path}
@@ -421,31 +483,44 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
         )}
       </div>
 
-      <Modal isOpen={winModal} title="You solved it!" actions={(
-        <>
-          <button
-            onClick={() => setWinModal(false)}
-            className="w-full py-3 bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))] rounded-lg hover:bg-[hsl(var(--button-primary-hover))] transition-all font-bold"
-          >
-            Close
-          </button>
-          <button
-            onClick={() => {
-              setWinModal(false);
-              handleNewPuzzle();
-            }}
-            className="w-full py-3 border border-border rounded-lg hover:bg-surface-hover transition-all font-bold"
-          >
-            New Puzzle
-          </button>
-        </>
-      )}>
+      <Modal
+        isOpen={winModal}
+        title="Theme completed!"
+        actions={(
+          <>
+            <button
+              onClick={() => setWinModal(false)}
+              className="w-full py-3 bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))] rounded-lg hover:bg-[hsl(var(--button-primary-hover))] transition-all font-bold"
+            >
+              Close
+            </button>
+            <button
+              onClick={() => {
+                setWinModal(false);
+                handleNewPuzzle();
+              }}
+              className="w-full py-3 border border-border rounded-lg hover:bg-surface-hover transition-all font-bold"
+            >
+              New Puzzle
+            </button>
+          </>
+        )}
+      >
         <div className="text-center space-y-4">
           <div className="text-text-muted">Theme: <span className="font-semibold text-foreground">{puzzle?.theme}</span></div>
-          <div className="flex items-center justify-center gap-6 text-sm">
-            <div>Time: <span className="font-semibold">{Math.floor(((completedAt || 0) - (startedAt || 0)) / 1000)}s</span></div>
-            <div>Hints: <span className="font-semibold">{hintsUsed}</span></div>
-            <div>Perfect: {hintsUsed === 0 ? '?' : '—'}</div>
+          <div className="grid grid-cols-3 gap-3 text-sm">
+            <div className="rounded-xl border border-border-default bg-card px-3 py-2">
+              <div className="text-xs uppercase tracking-wide text-text-muted">Time</div>
+              <div className="text-lg font-bold text-foreground">{Math.floor(((completedAt || 0) - (startedAt || 0)) / 1000)}s</div>
+            </div>
+            <div className="rounded-xl border border-border-default bg-card px-3 py-2">
+              <div className="text-xs uppercase tracking-wide text-text-muted">Hints</div>
+              <div className="text-lg font-bold text-foreground">{hintsUsed}</div>
+            </div>
+            <div className="rounded-xl border border-border-default bg-card px-3 py-2">
+              <div className="text-xs uppercase tracking-wide text-text-muted">Perfect</div>
+              <div className="text-lg font-bold text-foreground">{hintsUsed === 0 ? 'Yes' : '?'}</div>
+            </div>
           </div>
           <ShareResults
             gameName="strands"
@@ -457,7 +532,6 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
             }}
           />
         </div>
-        <Confetti />
       </Modal>
 
       <UnifiedHowToPlay

@@ -766,12 +766,12 @@
     "userId": "user_1769530075204_uf919oebz",
     "name": "asdf",
     "createdAt": "2026-01-27T16:07:55.204Z",
-    "updatedAt": "2026-01-27T23:37:39.574Z",
+    "updatedAt": "2026-01-28T00:20:33.977Z",
     "games": {
       "wordle": {
         "gamesPlayed": 2,
         "gamesWon": 2,
-        "currentStreak": 1,
+        "currentStreak": 0,
         "longestStreak": 1,
         "lastPlayedDate": "2026-01-28",
         "history": [
@@ -845,18 +845,48 @@
           },
           {
             "date": "2026-01-28",
-            "win": true,
-            "attempts": 5,
-            "puzzleId": "daily-2026-01-28",
+            "win": false,
+            "attempts": 6,
+            "puzzleId": "unlimited-1769559483017",
             "guesses": [
               {
                 "word": "FLUTE",
                 "evaluation": [
                   "absent",
                   "absent",
-                  "correct",
+                  "present",
                   "absent",
-                  "correct"
+                  "present"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "present",
+                  "absent",
+                  "present"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "present",
+                  "absent",
+                  "present"
+                ]
+              },
+              {
+                "word": "FLUTE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "present",
+                  "absent",
+                  "present"
                 ]
               },
               {
@@ -865,59 +895,53 @@
                   "absent",
                   "absent",
                   "absent",
-                  "present",
+                  "absent",
                   "absent"
-                ]
-              },
-              {
-                "word": "BINKS",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "present"
                 ]
               },
               {
                 "word": "WORDY",
                 "evaluation": [
                   "absent",
-                  "correct",
                   "absent",
+                  "present",
                   "absent",
                   "absent"
-                ]
-              },
-              {
-                "word": "MOUSE",
-                "evaluation": [
-                  "correct",
-                  "correct",
-                  "correct",
-                  "correct",
-                  "correct"
                 ]
               }
             ]
           }
         ],
         "bestTime": null,
-        "averageAttempts": 8,
-        "totalAttempts": 16,
+        "averageAttempts": 11,
+        "totalAttempts": 22,
         "perfectGames": 0
       },
       "connections": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
+        "gamesPlayed": 1,
+        "gamesWon": 1,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "lastPlayedDate": "2026-01-28",
+        "history": [
+          {
+            "date": "2026-01-28",
+            "win": true,
+            "mistakes": 0,
+            "perfect": true,
+            "puzzleId": "connections-2026-01-28",
+            "solvedGroups": [
+              0,
+              1,
+              2,
+              3
+            ]
+          }
+        ],
         "bestTime": null,
         "averageAttempts": 0,
         "totalAttempts": 0,
-        "perfectGames": 0
+        "perfectGames": 1
       },
       "crossword": {
         "gamesPlayed": 0,
@@ -977,38 +1001,57 @@
           },
           {
             "date": "2026-01-28",
-            "wordsFound": 4,
-            "totalWords": 12,
+            "wordsFound": 2,
+            "totalWords": 9,
             "pangramsFound": 0,
             "totalPangrams": 0,
-            "score": 16,
-            "maxScore": 29,
-            "percentage": 55,
-            "rank": "Genius",
+            "score": 2,
+            "maxScore": 21,
+            "percentage": 10,
+            "rank": "Nice",
             "isComplete": false
           }
         ],
-        "totalWords": 7,
+        "totalWords": 5,
         "totalPangrams": 0,
-        "totalScore": 26,
-        "averageScore": 13,
+        "totalScore": 12,
+        "averageScore": 6,
         "rankDistribution": {
           "Amazing": 1,
-          "Genius": 1
+          "Nice": 1
         },
         "queenBeeCount": 0
       },
       "strands": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
+        "gamesPlayed": 1,
+        "gamesWon": 1,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "lastPlayedDate": "2026-01-28",
+        "history": [
+          {
+            "date": "2026-01-27",
+            "win": true,
+            "time": 18,
+            "hintsUsed": 0,
+            "perfect": true,
+            "attempts": 6,
+            "breakdown": {
+              "words": [
+                "TRAIN",
+                "PLANE",
+                "BOAT",
+                "BIKE",
+                "TRUCK"
+              ],
+              "spangram": true
+            }
+          }
+        ],
+        "bestTime": 18,
+        "averageAttempts": 6,
+        "totalAttempts": 6,
+        "perfectGames": 1
       }
     }
   }

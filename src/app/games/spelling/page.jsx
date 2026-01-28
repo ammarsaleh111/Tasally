@@ -5,7 +5,7 @@ import GameHeader from '@/components/GameHeader';
 import HoneycombGridEnhanced from '@/components/HoneycombGridEnhanced';
 import Toast from '@/components/Toast';
 import Modal from '@/components/Modal';
-import Confetti from '@/components/Confetti';
+import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import ShareResults from '@/components/ShareResults';
 import SpellingStatistics from '@/components/SpellingStatistics';
 import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
@@ -17,7 +17,6 @@ import {
   getCurrentRank,
   calculateMaxScore,
   shuffleLetters,
-  getHint,
   calculateStats,
   generateShareText,
   RANK_TIERS
@@ -97,12 +96,14 @@ export default function SpellingBeePage() {
   const [showStats, setShowStats] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
-  const [showConfetti, setShowConfetti] = useState(false);
+  const [showWinConfetti, setShowWinConfetti] = useState(false);
+  const [hasCelebratedWin, setHasCelebratedWin] = useState(false);
+  const prevWinRef = useRef(false);
+  const initialWinHandledRef = useRef(false);
   const [showRankUp, setShowRankUp] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   
-  // For drag word submission
-  const [lastDragWord, setLastDragWord] = useState('');
+  const winStorageKey = useMemo(() => (puzzle ? `spelling-win-celebrated-${puzzle.date}` : null), [puzzle]);
 
   // Derived state: hint button text
   const hintButtonText = useMemo(() => {
@@ -110,6 +111,17 @@ export default function SpellingBeePage() {
     const puzzleId = `spelling-${puzzle.date}`;
     return getSpellingBeeHintButtonText(puzzleId, puzzle.validWords, foundWords);
   }, [puzzle, foundWords]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    queueMicrotask(() => {
+      if (!winStorageKey) {
+        setHasCelebratedWin(false);
+        return;
+      }
+      setHasCelebratedWin(localStorage.getItem(winStorageKey) === '1');
+    });
+  }, [winStorageKey]);
 
   // Save progress
   useEffect(() => {
@@ -156,7 +168,6 @@ export default function SpellingBeePage() {
       // Use microtask to avoid synchronous setState in effect
       queueMicrotask(() => {
         setIsComplete(true);
-        setShowConfetti(true);
       });
       
       // Add all found words to Learning Log
@@ -181,6 +192,25 @@ export default function SpellingBeePage() {
       }).catch(err => console.warn('[Spelling] Failed to submit to leaderboard:', err));
     }
   }, [foundWords, puzzle, score, maxScore, isComplete]);
+
+  useEffect(() => {
+    const wonNow = Boolean(isComplete);
+    if (!initialWinHandledRef.current) {
+      prevWinRef.current = wonNow;
+      initialWinHandledRef.current = true;
+      return;
+    }
+    if (wonNow && !prevWinRef.current && !hasCelebratedWin) {
+      queueMicrotask(() => {
+        setShowWinConfetti(true);
+        setHasCelebratedWin(true);
+        if (typeof window !== 'undefined' && winStorageKey) {
+          localStorage.setItem(winStorageKey, '1');
+        }
+      });
+    }
+    prevWinRef.current = wonNow;
+  }, [isComplete, hasCelebratedWin, winStorageKey]);
 
   // Show toast
   const showToast = useCallback((message, type = 'info') => {
@@ -215,8 +245,6 @@ export default function SpellingBeePage() {
       
       if (wordIsPangram) {
         showToast(`Pangram! +${points} points! 🐝`, 'success');
-        setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 3000);
       } else {
         showToast(`+${points} point${points > 1 ? 's' : ''}!`, 'success');
       }
@@ -275,8 +303,6 @@ export default function SpellingBeePage() {
         
         if (wordIsPangram) {
           showToast(`Pangram! +${points} points! 🐝`, 'success');
-          setShowConfetti(true);
-          setTimeout(() => setShowConfetti(false), 3000);
         } else {
           showToast(`+${points} point${points > 1 ? 's' : ''}!`, 'success');
         }
@@ -358,7 +384,20 @@ export default function SpellingBeePage() {
         gameComplete={isComplete}
       />
 
-      <main className="max-w-2xl mx-auto px-4 pt-4">
+      <main className="relative max-w-2xl mx-auto px-4 pt-4">
+        <WinConfettiOverlay
+          active={showWinConfetti}
+          durationMs={3000}
+          intensity={0.8}
+          origin={CONFETTI_ORIGINS.top}
+          palette={[
+            'hsl(var(--wordle-present))',
+            'hsl(var(--warning))',
+            'hsl(var(--button-primary))',
+            'hsl(var(--info))'
+          ]}
+          onDone={() => setShowWinConfetti(false)}
+        />
         {/* Rank Display */}
         {showRankUp && previousRank && (
           <div className="mb-4 p-4 bg-card rounded-lg shadow-lg border-2 border-yellow-400 animate-bounce">
@@ -398,6 +437,13 @@ export default function SpellingBeePage() {
             <span>{Math.round((score / maxScore) * 100)}%</span>
           </div>
         </div>
+
+        {isComplete && (
+          <div className="mb-6 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-xs text-text-muted flex items-center justify-between">
+            <div className="font-semibold text-foreground">✅ Solved</div>
+            <div>Words: {foundWords.length}/{puzzle.validWords.length} · Pangrams: {puzzle.pangrams.filter(p => foundWords.includes(p)).length}</div>
+          </div>
+        )}
 
         {/* Current Word Display */}
         <div className="mb-6">
@@ -531,8 +577,6 @@ export default function SpellingBeePage() {
         <Toast message={toast.message} type={toast.type} />
       )}
 
-      {/* Confetti */}
-      {showConfetti && <Confetti />}
     </div>
   );
 }
