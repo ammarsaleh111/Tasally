@@ -17,7 +17,7 @@ import { getProfile } from '@/utils/profileManager';
  * @param {function} onClose - Callback when form is closed
  * @param {boolean} isFloating - If true, renders as floating panel from icon
  */
-export default function FeedbackForm({ isOpen, onClose, isFloating = false }) {
+export default function FeedbackForm({ isOpen = true, onClose = () => {}, isFloating = false }) {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState('idle'); // idle, sending, success, error
   const [profile, setProfile] = useState(() => {
@@ -31,13 +31,12 @@ export default function FeedbackForm({ isOpen, onClose, isFloating = false }) {
   useEffect(() => {
     if (status === 'success') {
       const timer = setTimeout(() => {
-        onClose();
         setStatus('idle');
         setMessage('');
       }, 2000);
       return () => clearTimeout(timer);
     }
-  }, [status, onClose]);
+  }, [status]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -74,7 +73,9 @@ export default function FeedbackForm({ isOpen, onClose, isFloating = false }) {
     }
   };
 
-  if (!isOpen) return null;
+  const shouldRender = isFloating ? isOpen : true;
+
+  if (!shouldRender) return null;
 
   // For embedded mode (Profile page), render without backdrop and with adjusted styling
   if (!isFloating) {
@@ -131,7 +132,7 @@ export default function FeedbackForm({ isOpen, onClose, isFloating = false }) {
               <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className="font-medium">Thank you — your feedback was sent</span>
+              <span className="font-medium">Thanks for your feedback!</span>
             </div>
           )}
 
@@ -163,7 +164,7 @@ export default function FeedbackForm({ isOpen, onClose, isFloating = false }) {
                 Sending...
               </span>
             ) : status === 'success' ? (
-              'Sent ✓'
+              'Sent'
             ) : (
               'Send Feedback'
             )}
@@ -262,7 +263,7 @@ export default function FeedbackForm({ isOpen, onClose, isFloating = false }) {
               <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className="font-medium">Thank you — your feedback was sent</span>
+              <span className="font-medium">Thanks for your feedback!</span>
             </div>
           )}
 
@@ -294,7 +295,7 @@ export default function FeedbackForm({ isOpen, onClose, isFloating = false }) {
                 Sending...
               </span>
             ) : status === 'success' ? (
-              'Sent ✓'
+              'Sent'
             ) : (
               'Send Feedback'
             )}
@@ -308,6 +309,10 @@ export default function FeedbackForm({ isOpen, onClose, isFloating = false }) {
       </div>
 
       <style jsx>{`
+        .animate-slideIn {
+          animation: slideIn 240ms ease-out;
+        }
+
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }

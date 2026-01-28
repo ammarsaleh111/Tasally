@@ -117,660 +117,14 @@
     }
   },
   {
-    "userId": "user_1768241888057_s7bvpex9n",
-    "name": "asad",
-    "createdAt": "2026-01-12T18:18:08.057Z",
-    "updatedAt": "2026-01-27T14:39:11.021Z",
-    "games": {
-      "wordle": {
-        "gamesPlayed": 3,
-        "gamesWon": 1,
-        "currentStreak": 1,
-        "longestStreak": 1,
-        "lastPlayedDate": "2026-01-26",
-        "history": [
-          {
-            "date": "2026-01-14",
-            "win": false,
-            "attempts": 6,
-            "puzzleId": "unlimited-1768425091880",
-            "guesses": [
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent"
-                ]
-              },
-              {
-                "word": "CHAMP",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent"
-                ]
-              },
-              {
-                "word": "WORDY",
-                "evaluation": [
-                  "correct",
-                  "present",
-                  "absent",
-                  "correct",
-                  "absent",
-                  "absent"
-                ]
-              },
-              {
-                "word": "BINKS",
-                "evaluation": [
-                  "absent",
-                  "correct",
-                  "correct",
-                  "absent",
-                  "absent",
-                  "absent"
-                ]
-              },
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent"
-                ]
-              },
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent"
-                ]
-              }
-            ]
-          },
-          {
-            "date": "2026-01-24",
-            "win": false,
-            "attempts": 6,
-            "puzzleId": "unlimited-1769213258632",
-            "guesses": [
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "present",
-                  "present",
-                  "absent"
-                ]
-              },
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "present",
-                  "present",
-                  "absent"
-                ]
-              },
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "present",
-                  "present",
-                  "absent"
-                ]
-              },
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "present",
-                  "present",
-                  "absent"
-                ]
-              },
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "present",
-                  "present",
-                  "absent"
-                ]
-              },
-              {
-                "word": "TRUTH",
-                "evaluation": [
-                  "present",
-                  "absent",
-                  "present",
-                  "absent",
-                  "absent"
-                ]
-              }
-            ]
-          },
-          {
-            "date": "2026-01-26",
-            "win": true,
-            "attempts": 6,
-            "puzzleId": "unlimited-1769429136921",
-            "guesses": [
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "present"
-                ]
-              },
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "present"
-                ]
-              },
-              {
-                "word": "CHAMP",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "present"
-                ]
-              },
-              {
-                "word": "BINKS",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "absent",
-                  "absent",
-                  "present"
-                ]
-              },
-              {
-                "word": "WORDY",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "absent",
-                  "present",
-                  "absent"
-                ]
-              },
-              {
-                "word": "SPEED",
-                "evaluation": [
-                  "correct",
-                  "correct",
-                  "correct",
-                  "correct",
-                  "correct"
-                ]
-              }
-            ]
-          }
-        ],
-        "bestTime": null,
-        "averageAttempts": 6,
-        "totalAttempts": 18,
-        "perfectGames": 0
-      },
-      "connections": {
-        "gamesPlayed": 2,
-        "gamesWon": 17,
-        "currentStreak": 1,
-        "longestStreak": 1,
-        "lastPlayedDate": "2026-01-26",
-        "history": [
-          {
-            "date": "2026-01-24",
-            "win": true,
-            "mistakes": 0,
-            "perfect": true,
-            "puzzleId": "connections-2026-01-24",
-            "solvedGroups": [
-              0,
-              1,
-              2,
-              3
-            ]
-          },
-          {
-            "date": "2026-01-26",
-            "win": true,
-            "mistakes": 0,
-            "perfect": true,
-            "puzzleId": "connections-2026-01-26",
-            "solvedGroups": [
-              0,
-              1,
-              2,
-              3
-            ]
-          }
-        ],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 12
-      },
-      "crossword": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "numbers": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "trivia": {
-        "gamesPlayed": 1,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": "2026-01-26",
-        "history": [
-          {
-            "date": "2026-01-26",
-            "win": false,
-            "score": 4,
-            "time": 37,
-            "puzzleId": "trivia-2026-01-26",
-            "totalQuestions": 10
-          }
-        ],
-        "bestTime": 37,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "spelling": {
-        "gamesPlayed": 1,
-        "gamesWon": 1,
-        "currentStreak": 1,
-        "longestStreak": 1,
-        "maxStreak": 1,
-        "lastPlayedDate": "2026-01-27",
-        "history": [
-          {
-            "date": "2026-01-27",
-            "wordsFound": 12,
-            "totalWords": 12,
-            "pangramsFound": 0,
-            "totalPangrams": 0,
-            "score": 29,
-            "maxScore": 29,
-            "percentage": 100,
-            "rank": "Queen Bee",
-            "isComplete": true
-          }
-        ],
-        "totalWords": 12,
-        "totalPangrams": 0,
-        "totalScore": 29,
-        "averageScore": 29,
-        "rankDistribution": {
-          "Queen Bee": 1
-        },
-        "queenBeeCount": 1
-      },
-      "strands": {
-        "gamesPlayed": 1,
-        "gamesWon": 1,
-        "currentStreak": 0,
-        "longestStreak": 1,
-        "lastPlayedDate": "2026-01-12",
-        "history": [
-          {
-            "date": "2026-01-12",
-            "win": true,
-            "time": 1420,
-            "hintsUsed": 0,
-            "perfect": true,
-            "attempts": 6,
-            "breakdown": {
-              "words": [
-                "SCARF",
-                "GLOVES",
-                "JACKET",
-                "PARKA",
-                "MITTEN"
-              ],
-              "spangram": true
-            }
-          }
-        ],
-        "bestTime": 1420,
-        "averageAttempts": "6.00",
-        "totalAttempts": 6,
-        "perfectGames": 1
-      }
-    }
-  },
-  {
-    "userId": "user_1768245196003_j5q79gth0",
-    "name": "Testtttt",
-    "createdAt": "2026-01-12T19:13:16.003Z",
-    "updatedAt": "2026-01-27T13:50:11.857Z",
-    "games": {
-      "wordle": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "connections": {
-        "gamesPlayed": 1,
-        "gamesWon": 3,
-        "currentStreak": 1,
-        "longestStreak": 1,
-        "lastPlayedDate": "2026-01-26",
-        "history": [
-          {
-            "date": "2026-01-26",
-            "win": true,
-            "mistakes": 0,
-            "perfect": true,
-            "puzzleId": "connections-2026-01-26",
-            "solvedGroups": [
-              0,
-              1,
-              2,
-              3
-            ]
-          }
-        ],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 3
-      },
-      "crossword": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "numbers": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "trivia": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "spelling": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "maxStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "totalWords": 0,
-        "totalPangrams": 0,
-        "totalScore": 0,
-        "averageScore": 0,
-        "rankDistribution": {},
-        "queenBeeCount": 0
-      },
-      "strands": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      }
-    }
-  },
-  {
-    "userId": "user_1768083326679_pcwndb8jt",
-    "name": "asdsdgf",
-    "createdAt": "2026-01-10T22:15:26.679Z",
-    "updatedAt": "2026-01-27T14:19:49.028Z",
-    "games": {
-      "wordle": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "connections": {
-        "gamesPlayed": 1,
-        "gamesWon": 1,
-        "currentStreak": 1,
-        "longestStreak": 1,
-        "lastPlayedDate": "2026-01-13",
-        "history": [
-          {
-            "date": "2026-01-13",
-            "win": true,
-            "mistakes": 0,
-            "perfect": true,
-            "puzzleId": "connections-2026-01-13",
-            "solvedGroups": [
-              0,
-              1,
-              2,
-              3
-            ]
-          }
-        ],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 1
-      },
-      "crossword": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "numbers": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "trivia": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
-        "perfectGames": 0
-      },
-      "spelling": {
-        "gamesPlayed": 1,
-        "gamesWon": 1,
-        "currentStreak": 1,
-        "longestStreak": 1,
-        "maxStreak": 1,
-        "lastPlayedDate": "2026-01-27",
-        "history": [
-          {
-            "date": "2026-01-27",
-            "wordsFound": 12,
-            "totalWords": 12,
-            "pangramsFound": 0,
-            "totalPangrams": 0,
-            "score": 29,
-            "maxScore": 29,
-            "percentage": 100,
-            "rank": "Queen Bee",
-            "isComplete": true
-          }
-        ],
-        "totalWords": 12,
-        "totalPangrams": 0,
-        "totalScore": 29,
-        "averageScore": 29,
-        "rankDistribution": {
-          "Queen Bee": 1
-        },
-        "queenBeeCount": 1
-      },
-      "strands": {
-        "gamesPlayed": 2,
-        "gamesWon": 2,
-        "currentStreak": 2,
-        "longestStreak": 2,
-        "lastPlayedDate": "2026-01-12",
-        "history": [
-          {
-            "date": "2026-01-11",
-            "win": true,
-            "time": 227,
-            "hintsUsed": 1,
-            "perfect": false,
-            "attempts": 6,
-            "breakdown": {
-              "words": [
-                "REST",
-                "RELAX",
-                "RECESS",
-                "SLEEP",
-                "PAUSE"
-              ],
-              "spangram": true
-            }
-          },
-          {
-            "date": "2026-01-12",
-            "win": true,
-            "time": 37,
-            "hintsUsed": 4,
-            "perfect": false,
-            "attempts": 6,
-            "breakdown": {
-              "words": [
-                "SCARF",
-                "GLOVES",
-                "JACKET",
-                "PARKA",
-                "MITTEN"
-              ],
-              "spangram": true
-            }
-          }
-        ],
-        "bestTime": 37,
-        "averageAttempts": "6.00",
-        "totalAttempts": 12,
-        "perfectGames": 0
-      }
-    }
-  },
-  {
     "userId": "user_1769530075204_uf919oebz",
     "name": "asdf",
     "createdAt": "2026-01-27T16:07:55.204Z",
-    "updatedAt": "2026-01-28T00:20:33.977Z",
+    "updatedAt": "2026-01-28T21:31:02.659Z",
     "games": {
       "wordle": {
         "gamesPlayed": 2,
-        "gamesWon": 2,
+        "gamesWon": 3,
         "currentStreak": 0,
         "longestStreak": 1,
         "lastPlayedDate": "2026-01-28",
@@ -845,18 +199,18 @@
           },
           {
             "date": "2026-01-28",
-            "win": false,
+            "win": true,
             "attempts": 6,
-            "puzzleId": "unlimited-1769559483017",
+            "puzzleId": "unlimited-1769635732383",
             "guesses": [
               {
                 "word": "FLUTE",
                 "evaluation": [
                   "absent",
                   "absent",
-                  "present",
+                  "correct",
                   "absent",
-                  "present"
+                  "absent"
                 ]
               },
               {
@@ -864,29 +218,9 @@
                 "evaluation": [
                   "absent",
                   "absent",
-                  "present",
+                  "correct",
                   "absent",
-                  "present"
-                ]
-              },
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "present",
-                  "absent",
-                  "present"
-                ]
-              },
-              {
-                "word": "FLUTE",
-                "evaluation": [
-                  "absent",
-                  "absent",
-                  "present",
-                  "absent",
-                  "present"
+                  "absent"
                 ]
               },
               {
@@ -900,21 +234,41 @@
                 ]
               },
               {
-                "word": "WORDY",
+                "word": "BINKS",
                 "evaluation": [
                   "absent",
                   "absent",
                   "present",
                   "absent",
+                  "present"
+                ]
+              },
+              {
+                "word": "WORDY",
+                "evaluation": [
+                  "absent",
+                  "correct",
+                  "absent",
+                  "present",
                   "absent"
+                ]
+              },
+              {
+                "word": "SOUND",
+                "evaluation": [
+                  "correct",
+                  "correct",
+                  "correct",
+                  "correct",
+                  "correct"
                 ]
               }
             ]
           }
         ],
         "bestTime": null,
-        "averageAttempts": 11,
-        "totalAttempts": 22,
+        "averageAttempts": 14,
+        "totalAttempts": 28,
         "perfectGames": 0
       },
       "connections": {
