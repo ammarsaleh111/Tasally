@@ -8,7 +8,9 @@ import DisplayName from '@/components/DisplayName';
 import { calculateWinRateDecimal } from '@/utils/statsCalculator';
 import { logout, useAppSession } from '@/utils/sessionManager';
 
-const POLL_INTERVAL_MS = 15000;
+const POLL_INTERVAL_MS = 20000;
+const ACTIVE_POLL_INTERVAL_MS = 5000;
+const USERS_REFRESH_MS = 60000;
 
 export default function AdminDashboardClient() {
   const router = useRouter();
@@ -21,6 +23,14 @@ export default function AdminDashboardClient() {
 
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [deletingUserId, setDeletingUserId] = useState(null);
+  const [deleteInput, setDeleteInput] = useState('');
+
+  const [registeredUsers, setRegisteredUsers] = useState([]);
+  const [activeUsers, setActiveUsers] = useState([]);
+  const [usersQuery, setUsersQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [isUsersLoading, setIsUsersLoading] = useState(false);
+  const [isActiveLoading, setIsActiveLoading] = useState(false);
 
   const loadMetrics = useCallback(async () => {
     try {
@@ -44,11 +54,79 @@ export default function AdminDashboardClient() {
     }
   }, [router]);
 
+  const loadUsers = useCallback(
+    async (query = '') => {
+      try {
+        setIsUsersLoading(true);
+        const queryString = query ? `?query=${encodeURIComponent(query)}` : '';
+        const response = await fetch(`/api/admin/users${queryString}`, { cache: 'no-store' });
+        if (response.status === 401 || response.status === 403) {
+          router.replace('/admin/login');
+          return;
+        }
+        if (!response.ok) {
+          throw new Error('Failed to load users');
+        }
+        const data = await response.json();
+        setRegisteredUsers(Array.isArray(data?.users) ? data.users : []);
+      } catch (error) {
+        console.error('Failed to load registered users', error);
+      } finally {
+        setIsUsersLoading(false);
+      }
+    },
+    [router]
+  );
+
+  const loadActiveUsers = useCallback(async () => {
+    try {
+      setIsActiveLoading(true);
+      const response = await fetch('/api/admin/active-users', { cache: 'no-store' });
+      if (response.status === 401 || response.status === 403) {
+        router.replace('/admin/login');
+        return;
+      }
+      if (!response.ok) {
+        throw new Error('Failed to load active users');
+      }
+      const data = await response.json();
+      setActiveUsers(Array.isArray(data?.activeUsers) ? data.activeUsers : []);
+    } catch (error) {
+      console.error('Failed to load active users', error);
+    } finally {
+      setIsActiveLoading(false);
+    }
+  }, [router]);
+
   useEffect(() => {
     loadMetrics();
     const interval = setInterval(loadMetrics, POLL_INTERVAL_MS);
     return () => clearInterval(interval);
   }, [loadMetrics]);
+
+  useEffect(() => {
+    const handle = setTimeout(() => {
+      setDebouncedQuery(usersQuery.trim());
+    }, 300);
+    return () => clearTimeout(handle);
+  }, [usersQuery]);
+
+  useEffect(() => {
+    loadUsers(debouncedQuery);
+  }, [loadUsers, debouncedQuery]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      loadUsers(debouncedQuery);
+    }, USERS_REFRESH_MS);
+    return () => clearInterval(interval);
+  }, [loadUsers, debouncedQuery]);
+
+  useEffect(() => {
+    loadActiveUsers();
+    const interval = setInterval(loadActiveUsers, ACTIVE_POLL_INTERVAL_MS);
+    return () => clearInterval(interval);
+  }, [loadActiveUsers]);
 
   useEffect(() => {
     if (!session) return;
@@ -68,24 +146,29 @@ export default function AdminDashboardClient() {
     }
   };
 
+  const handleCopyUserId = async (userId) => {
+    if (!userId) return;
+    try {
+      await navigator.clipboard.writeText(userId);
+    } catch (error) {
+      console.warn('Failed to copy user id', error);
+    }
+  };
+
   const handleDeleteUser = (player) => {
     setDeleteConfirm({
       id: player.id,
       displayName: player.displayName,
-      type: player.type,
     });
+    setDeleteInput('');
   };
 
   const confirmDelete = async () => {
-    if (!deleteConfirm) return;
+    if (!deleteConfirm || deleteInput.trim() !== 'DELETE') return;
 
     try {
       setDeletingUserId(deleteConfirm.id);
-      const query = deleteConfirm.type === 'GUEST'
-        ? `guestId=${encodeURIComponent(deleteConfirm.id)}`
-        : `userId=${encodeURIComponent(deleteConfirm.id)}`;
-
-      const response = await fetch(`/api/admin/users?${query}`, {
+      const response = await fetch(`/api/admin/users/${encodeURIComponent(deleteConfirm.id)}`, {
         method: 'DELETE',
       });
 
@@ -93,9 +176,12 @@ export default function AdminDashboardClient() {
         throw new Error('Failed to delete user');
       }
 
-      await loadMetrics();
+      setRegisteredUsers((prev) => prev.filter((user) => user.id !== deleteConfirm.id));
+      setActiveUsers((prev) => prev.filter((user) => user.id !== deleteConfirm.id));
+      await Promise.all([loadMetrics(), loadUsers(debouncedQuery), loadActiveUsers()]);
       setDeleteConfirm(null);
       setDeletingUserId(null);
+      setDeleteInput('');
     } catch (error) {
       console.error('Failed to delete user:', error);
       alert('Failed to delete user. Please try again.');
@@ -105,22 +191,19 @@ export default function AdminDashboardClient() {
 
   const cancelDelete = () => {
     setDeleteConfirm(null);
+    setDeleteInput('');
   };
 
   const derived = useMemo(() => {
     if (!metricsPayload) return null;
 
-    const { metrics, totals, gamePerformance, topPerformers, players } = metricsPayload;
-
-    const overallWinRate = calculateWinRateDecimal(totals.totalWins, totals.totalGames);
+    const { metrics, totals, gamePerformance, topPerformers } = metricsPayload;
 
     return {
       metrics,
       totals,
       gamePerformance,
       topPerformers,
-      players,
-      overallWinRate,
     };
   }, [metricsPayload]);
 
@@ -138,6 +221,8 @@ export default function AdminDashboardClient() {
     );
   }
 
+  const isDeleteArmed = deleteInput.trim() === 'DELETE';
+
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
@@ -145,9 +230,9 @@ export default function AdminDashboardClient() {
       {deleteConfirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-card border-2 border-wordle-absent rounded-xl p-6 max-w-md w-full">
-            <h2 className="text-2xl font-bold mb-4 text-wordle-absent">⚠️ Delete Player</h2>
+            <h2 className="text-2xl font-bold mb-4 text-wordle-absent">⚠️ Delete user permanently?</h2>
             <p className="text-foreground mb-2">
-              Are you sure you want to permanently delete this player?
+              All progress, wins, achievements, and leaderboard entries will be deleted forever.
             </p>
             <div className="bg-surface-hover rounded-lg p-4 mb-6">
               <DisplayName
@@ -155,16 +240,28 @@ export default function AdminDashboardClient() {
                 className="font-bold text-foreground"
               />
               <p className="text-xs text-text-muted font-mono mt-1">{deleteConfirm.id}</p>
-              <p className="text-xs text-text-muted mt-1">{deleteConfirm.type}</p>
             </div>
             <p className="text-sm text-wordle-absent mb-6">
               This will permanently delete:
               <br />• Player profile
-              <br />• Game results and activity
+              <br />• Game results, achievements, and activity
+              <br />• Leaderboard entries
               <br />• Presence/session data
               <br /><br />
               <strong>This action cannot be undone!</strong>
             </p>
+            <div className="mb-6">
+              <label className="block text-sm text-text-muted mb-2">
+                Type <span className="font-bold text-wordle-absent">DELETE</span> to confirm
+              </label>
+              <input
+                type="text"
+                value={deleteInput}
+                onChange={(event) => setDeleteInput(event.target.value)}
+                className="w-full px-3 py-2 bg-background border border-card-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-wordle-absent/60"
+                placeholder="DELETE"
+              />
+            </div>
             <div className="flex gap-3">
               <button
                 onClick={cancelDelete}
@@ -175,7 +272,7 @@ export default function AdminDashboardClient() {
               </button>
               <button
                 onClick={confirmDelete}
-                disabled={!!deletingUserId}
+                disabled={!!deletingUserId || !isDeleteArmed}
                 className="flex-1 px-4 py-2 bg-wordle-absent hover:bg-red-700 text-button-text rounded-lg transition-colors disabled:opacity-50 font-bold"
               >
                 {deletingUserId ? 'Deleting...' : 'Delete Forever'}
@@ -207,7 +304,7 @@ export default function AdminDashboardClient() {
                     connectionStatus === 'polling' ? 'bg-white/70' : 'bg-white'
                   }`}
                 ></span>
-                {connectionStatus === 'polling' ? 'Polling (15s)' : connectionStatus === 'disconnected' ? 'Offline' : 'Live'}
+                {connectionStatus === 'polling' ? 'Polling (20s)' : connectionStatus === 'disconnected' ? 'Offline' : 'Live'}
               </span>
             </div>
           </div>
@@ -237,12 +334,17 @@ export default function AdminDashboardClient() {
         {renderContent({
           metrics: derived.metrics,
           totals: derived.totals,
-          overallWinRate: derived.overallWinRate,
           gamePerformance: derived.gamePerformance,
           topPerformers: derived.topPerformers,
-          players: derived.players,
+          registeredUsers,
+          activeUsers,
+          usersQuery,
+          onSearchChange: setUsersQuery,
           onDeleteUser: handleDeleteUser,
+          onCopyUserId: handleCopyUserId,
           deletingUserId,
+          isUsersLoading,
+          isActiveLoading,
         })}
       </div>
     </div>
@@ -252,18 +354,25 @@ export default function AdminDashboardClient() {
 function renderContent({
   metrics,
   totals,
-  overallWinRate,
   gamePerformance,
   topPerformers,
-  players,
+  registeredUsers,
+  activeUsers,
+  usersQuery,
+  onSearchChange,
   onDeleteUser,
+  onCopyUserId,
   deletingUserId,
+  isUsersLoading,
+  isActiveLoading,
 }) {
-  const liveActivePlayers = metrics?.activePlayers ?? 0;
-  const liveActiveGames = metrics?.activeGames ?? 0;
+  const liveActivePlayers = activeUsers.length;
+  const liveActiveGames = activeUsers.filter((user) => user.state === 'PLAYING').length;
+  const totalPlayers = totals?.totalRegistered ?? totals?.totalPlayers ?? 0;
+  const totalWins = totals?.totalWins ?? 0;
   const liveGameDistribution = metrics?.gameDistribution ?? {};
   const liveGames = metrics?.liveGames ?? [];
-  const activeSessions = metrics?.activeSessions ?? [];
+  const hasUserQuery = usersQuery.trim().length > 0;
 
   return (
     <>
@@ -283,14 +392,14 @@ function renderContent({
           live={true}
         />
         <MetricCard
-          label="Overall Win Rate"
-          value={`${overallWinRate}%`}
+          label="Total Wins (All Time)"
+          value={totalWins}
           icon="🏆"
           color="bg-card border-card-border"
         />
         <MetricCard
           label="Total Players (All Time)"
-          value={totals.totalPlayers}
+          value={totalPlayers}
           icon="📊"
           color="bg-card border-card-border"
         />
@@ -416,12 +525,27 @@ function renderContent({
       )}
 
       <div className="bg-card border border-card-border rounded-xl p-6 mb-8">
-        <h2 className="text-2xl font-bold mb-4">
-          All Players ({totals.totalPlayers})
-          <span className="text-sm text-text-muted font-normal ml-2">
-            {totals.totalRegistered} registered · {totals.totalGuests} guests
-          </span>
-        </h2>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+          <div>
+            <h2 className="text-2xl font-bold">
+              Registered Users
+              <span className="text-sm text-text-muted font-normal ml-2">
+                {hasUserQuery ? `${registeredUsers.length} matched` : `${totalPlayers} total`}
+              </span>
+            </h2>
+            <p className="text-sm text-text-muted">Search by name (Arabic or English) or user ID</p>
+          </div>
+          <div className="w-full md:w-72">
+            <input
+              type="text"
+              value={usersQuery}
+              onChange={(event) => onSearchChange(event.target.value)}
+              dir="auto"
+              placeholder="Search users..."
+              className="w-full px-3 py-2 bg-background border border-card-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-button-primary/60"
+            />
+          </div>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -429,15 +553,15 @@ function renderContent({
                 <th className="text-left py-3 px-4 font-bold">#</th>
                 <th className="text-left py-3 px-4 font-bold">Player Name</th>
                 <th className="text-left py-3 px-4 font-bold">Player ID</th>
-                <th className="text-left py-3 px-4 font-bold">Type</th>
                 <th className="text-left py-3 px-4 font-bold">Last Seen</th>
-                <th className="text-right py-3 px-4 font-bold">Played</th>
+                <th className="text-right py-3 px-4 font-bold">Total Wins</th>
+                <th className="text-left py-3 px-4 font-bold">Created</th>
                 <th className="text-right py-3 px-4 font-bold">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {players.map((player, index) => {
-                const timeAgo = formatRelativeTime(player.lastSeenAt);
+              {registeredUsers.map((player, index) => {
+                const timeAgo = formatRelativeTime(player.lastSeenAt, true);
                 const isDeleting = deletingUserId === player.id;
 
                 return (
@@ -446,10 +570,22 @@ function renderContent({
                     <td className="py-3 px-4 font-medium">
                       <DisplayName name={player.displayName || 'Anonymous'} />
                     </td>
-                    <td className="py-3 px-4 text-xs text-text-muted font-mono">{player.id.slice(0, 20)}...</td>
-                    <td className="py-3 px-4 text-text-muted">{player.type}</td>
+                    <td className="py-3 px-4 text-xs text-text-muted font-mono">
+                      <div className="flex items-center gap-2">
+                        <span className="truncate max-w-[160px]" title={player.id}>
+                          {player.id}
+                        </span>
+                        <button
+                          onClick={() => onCopyUserId(player.id)}
+                          className="px-2 py-0.5 text-[10px] border border-card-border rounded text-text-muted hover:text-foreground hover:border-border-default"
+                        >
+                          Copy
+                        </button>
+                      </div>
+                    </td>
                     <td className="py-3 px-4 text-text-muted">{timeAgo}</td>
-                    <td className="text-right py-3 px-4">{player.totalPlays}</td>
+                    <td className="text-right py-3 px-4">{player.totalWins}</td>
+                    <td className="py-3 px-4 text-text-muted">{formatDate(player.createdAt)}</td>
                     <td className="text-right py-3 px-4">
                       <button
                         onClick={() => onDeleteUser(player)}
@@ -466,16 +602,21 @@ function renderContent({
             </tbody>
           </table>
 
-          {players.length === 0 && (
+          {registeredUsers.length === 0 && (
             <div className="text-center py-8 text-text-muted">
-              No players yet
+              {isUsersLoading ? 'Loading users...' : hasUserQuery ? 'No matching users' : 'No registered users yet'}
             </div>
           )}
         </div>
       </div>
 
       <div className="bg-card border border-card-border rounded-xl p-6">
-        <h2 className="text-2xl font-bold mb-4">Active Players</h2>
+        <h2 className="text-2xl font-bold mb-4">
+          Active Users
+          <span className="text-sm text-text-muted font-normal ml-2">
+            {activeUsers.length} in the last 5 minutes
+          </span>
+        </h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -487,9 +628,15 @@ function renderContent({
               </tr>
             </thead>
             <tbody>
-              {activeSessions.map((session, index) => {
+              {activeUsers.map((session, index) => {
                 const timeAgo = formatRelativeTime(session.lastSeenAt, true);
                 const sessionKey = session.id || `${session.displayName}-${index}`;
+                const statusClass =
+                  session.status === 'ONLINE'
+                    ? 'bg-wordle-correct text-button-text'
+                    : session.status === 'IDLE'
+                    ? 'bg-wordle-present text-button-text'
+                    : 'bg-wordle-absent text-button-text';
 
                 return (
                   <tr key={sessionKey} className="border-b border-border-default hover:bg-surface-hover transition-colors">
@@ -497,23 +644,14 @@ function renderContent({
                       <DisplayName name={session.displayName || 'Anonymous'} />
                     </td>
                     <td className="py-3 px-4">
-                      {session.state === 'PLAYING' && session.currentGame ? (
-                        <span className="inline-block px-3 py-1 bg-button-primary text-button-text rounded-full text-xs">
-                          Playing {session.currentGame}
-                        </span>
-                      ) : session.currentPage ? (
-                        <span className="inline-block px-3 py-1 bg-card border border-card-border text-foreground rounded-full text-xs">
-                          {session.currentPage}
-                        </span>
-                      ) : (
-                        <span className="text-text-muted">Idle</span>
-                      )}
+                      <span className="inline-block px-3 py-1 bg-card border border-card-border text-foreground rounded-full text-xs">
+                        {session.currentActivity}
+                      </span>
                     </td>
                     <td className="py-3 px-4 text-text-muted">{timeAgo}</td>
                     <td className="text-right py-3 px-4">
-                      <span className="inline-flex items-center gap-1">
-                        <span className="w-2 h-2 bg-wordle-correct rounded-full animate-pulse"></span>
-                        {session.state === 'PLAYING' ? 'Playing' : 'Online'}
+                      <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs ${statusClass}`}>
+                        {session.status}
                       </span>
                     </td>
                   </tr>
@@ -522,9 +660,9 @@ function renderContent({
             </tbody>
           </table>
 
-          {activeSessions.length === 0 && (
+          {activeUsers.length === 0 && (
             <div className="text-center py-8 text-text-muted">
-              No active players in the last 5 minutes
+              {isActiveLoading ? 'Loading active users...' : 'No active players in the last 5 minutes'}
             </div>
           )}
         </div>
@@ -555,9 +693,17 @@ function MetricCard({ label, value, icon, color, live = false }) {
   );
 }
 
+function formatDate(timestamp) {
+  if (!timestamp) return 'N/A';
+  const date = new Date(timestamp);
+  if (Number.isNaN(date.getTime())) return 'N/A';
+  return date.toLocaleDateString();
+}
+
 function formatRelativeTime(timestamp, short = false) {
   if (!timestamp) return 'N/A';
   const diffMs = Date.now() - new Date(timestamp).getTime();
+  const seconds = Math.floor(diffMs / 1000);
   const minutes = Math.floor(diffMs / 60000);
   const hours = Math.floor(minutes / 60);
   const days = Math.floor(hours / 24);
@@ -565,6 +711,7 @@ function formatRelativeTime(timestamp, short = false) {
   if (days > 0) return short ? `${days}d ago` : `${days} day${days === 1 ? '' : 's'} ago`;
   if (hours > 0) return short ? `${hours}h ago` : `${hours} hour${hours === 1 ? '' : 's'} ago`;
   if (minutes > 0) return short ? `${minutes}m ago` : `${minutes} minute${minutes === 1 ? '' : 's'} ago`;
+  if (seconds > 0 && short) return `${seconds}s ago`;
   return 'Just now';
 }
 

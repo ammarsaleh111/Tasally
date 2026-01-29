@@ -15,6 +15,13 @@
       "when": 1769649455733,
       "tag": "0001_silent_santa_claus",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1769715261622,
+      "tag": "0002_add_user_last_seen_role",
+      "breakpoints": true
     }
   ]
 }

@@ -5,6 +5,7 @@
 
 import { updateSession } from '../stream/route';
 import { db, guestProfiles, presenceSessions, users } from '@/db';
+import { sanitizeName } from '@/utils/inputSanitizer';
 import { eq, lt } from 'drizzle-orm';
 
 // In-memory store shared with stream route
@@ -41,10 +42,13 @@ export async function POST(request) {
     // Parse browser from user agent
     const browser = parseBrowser(userAgent);
     
+    const sanitizedDisplayName = typeof playerName === 'string' ? sanitizeName(playerName) : '';
+    const safeDisplayName = sanitizedDisplayName || 'Anonymous';
+
     // Update session in the stream module (in-memory SSE)
     updateSession(sessionId, {
       sessionId,
-      playerName: playerName || 'Anonymous',
+      playerName: safeDisplayName,
       currentGame,
       currentPage,
       browser,
@@ -55,7 +59,7 @@ export async function POST(request) {
     const now = new Date();
     const safeRole = typeof role === 'string' ? role.toUpperCase() : null;
     const normalizedRole = safeRole === 'ADMIN' || safeRole === 'USER' || safeRole === 'GUEST' ? safeRole : 'GUEST';
-    const lastHeartbeatAt = Number.isFinite(timestamp) ? new Date(timestamp) : now;
+    const lastHeartbeatAt = now;
     const safeUserId = coerceUuid(userId);
     const resolvedUserId = normalizedRole === 'USER' ? safeUserId : null;
     const resolvedGuestId = normalizedRole === 'GUEST' ? safeUserId : null;
@@ -87,7 +91,7 @@ export async function POST(request) {
         id: sessionId,
         userId: resolvedUserId ?? null,
         guestId: resolvedGuestId ?? null,
-        displayName: playerName || 'Anonymous',
+        displayName: safeDisplayName,
         role: normalizedRole,
         currentPage: currentPage || null,
         currentGame: currentGame || null,
@@ -100,7 +104,7 @@ export async function POST(request) {
         set: {
           userId: resolvedUserId ?? null,
           guestId: resolvedGuestId ?? null,
-          displayName: playerName || 'Anonymous',
+          displayName: safeDisplayName,
           role: normalizedRole,
           currentPage: currentPage || null,
           currentGame: currentGame || null,
@@ -109,6 +113,14 @@ export async function POST(request) {
           updatedAt: now,
         },
       });
+
+    if (resolvedUserId) {
+      const updates = { lastSeenAt: now };
+      if (sanitizedDisplayName) {
+        updates.displayName = sanitizedDisplayName;
+      }
+      await db.update(users).set(updates).where(eq(users.id, resolvedUserId));
+    }
 
     // Best-effort update for guest last-seen if profile exists
     if (resolvedGuestId) {

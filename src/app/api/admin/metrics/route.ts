@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { validateAdminSession } from "@/lib/adminAuth";
 import { db, gameResults, guestProfiles, presenceSessions, users } from "@/db";
 import { and, desc, eq, gte, inArray, isNotNull, sql } from "drizzle-orm";
+import { getUsersColumnFlags } from "@/server/dbIntrospection";
 
 const ACTIVE_WINDOW_MINUTES = 5;
 const RECENT_WINS_DAYS = 7;
@@ -71,6 +72,9 @@ export async function GET() {
     const activeCutoff = new Date(now.getTime() - ACTIVE_WINDOW_MINUTES * 60 * 1000);
     const recentCutoff = new Date(now.getTime() - RECENT_WINS_DAYS * 24 * 60 * 60 * 1000);
 
+    const { usersRole } = await getUsersColumnFlags();
+    const roleCondition = usersRole ? eq(users.role, "USER") : null;
+
     const activeSessionsRaw = await db
       .select({
         id: presenceSessions.id,
@@ -84,7 +88,7 @@ export async function GET() {
         lastHeartbeatAt: presenceSessions.lastHeartbeatAt,
       })
       .from(presenceSessions)
-      .where(gte(presenceSessions.lastHeartbeatAt, activeCutoff));
+      .where(and(isNotNull(presenceSessions.userId), gte(presenceSessions.lastHeartbeatAt, activeCutoff)));
 
     // Deduplicate sessions by player (user or guest), keep the most recent heartbeat
     const activeSessionMap = new Map<string, ActiveSession>();
@@ -113,9 +117,13 @@ export async function GET() {
       gameDistribution[session.currentGame] = (gameDistribution[session.currentGame] || 0) + 1;
     });
 
-    const [{ count: totalUsers = 0 }] = await db
+    let totalUsersQuery = db
       .select({ count: sql<number>`count(*)` })
       .from(users);
+    if (roleCondition) {
+      totalUsersQuery = totalUsersQuery.where(roleCondition);
+    }
+    const [{ count: totalUsers = 0 }] = await totalUsersQuery;
 
     const [{ count: totalGuests = 0 }] = await db
       .select({ count: sql<number>`count(*)` })
@@ -128,7 +136,8 @@ export async function GET() {
         played: sql<number>`count(*)`,
         wins: sql<number>`count(*) filter (where ${gameResults.success} = true)`,
       })
-      .from(gameResults);
+      .from(gameResults)
+      .where(isNotNull(gameResults.userId));
 
     const totalGames = Number(overallTotals?.played ?? 0);
     const totalWins = Number(overallTotals?.wins ?? 0);
@@ -141,6 +150,7 @@ export async function GET() {
         bestTimeMs: sql<number | null>`min(${gameResults.durationMs}) filter (where ${gameResults.success} = true)`,
       })
       .from(gameResults)
+      .where(isNotNull(gameResults.userId))
       .groupBy(gameResults.gameKey);
 
     const perGameMap = new Map(
@@ -209,15 +219,18 @@ export async function GET() {
         ])
     );
 
-    const userRows = await db
+    let userRowsQuery = db
       .select({
         id: users.id,
         displayName: users.displayName,
         name: users.name,
         createdAt: users.createdAt,
       })
-      .from(users)
-      .orderBy(desc(users.createdAt));
+      .from(users);
+    if (roleCondition) {
+      userRowsQuery = userRowsQuery.where(roleCondition);
+    }
+    const userRows = await userRowsQuery.orderBy(desc(users.createdAt));
 
     const guestRows = await db
       .select({
@@ -381,6 +394,9 @@ export async function GET() {
       .slice(0, 5);
 
     const response = NextResponse.json({
+      totalPlayers,
+      totalWinsOverall: totalWins,
+      perGame: gamePerformance,
       metrics: {
         activePlayers,
         activeGames,

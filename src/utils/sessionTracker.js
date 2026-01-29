@@ -27,9 +27,9 @@ import { sendHeartbeat, sendGameTelemetry } from '@/utils/realtimeManager';
 import { ensureSession, getSession as getAppSession } from '@/utils/sessionManager';
 import { getUserStorageKey } from '@/utils/storageKeys';
 
-// Heartbeat interval (every 15 seconds)
+// Heartbeat interval (every 20 seconds)
 let heartbeatInterval = null;
-const HEARTBEAT_INTERVAL = 15000;
+const HEARTBEAT_INTERVAL = 20000;
 const DEFAULT_STATE = 'IDLE';
 
 const SESSION_KEY = 'session-tracker';

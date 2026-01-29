@@ -8,11 +8,13 @@ export const users = pgTable(
     id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
     name: text("name"),
     displayName: text("display_name"),
+    role: text("role").notNull().default("USER"),
     email: text("email").unique(),
     emailVerified: timestamp("email_verified", { withTimezone: false }),
     image: text("image"),
     passwordHash: text("password_hash"),
     createdAt: timestamp("created_at", { withTimezone: false }).defaultNow().notNull(),
+    lastSeenAt: timestamp("last_seen_at", { withTimezone: false }),
     updatedAt: timestamp("updated_at", { withTimezone: false }).defaultNow().notNull(),
   },
   (table) => ({

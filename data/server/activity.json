@@ -1,6 +1,20 @@
 {
   "sessions": [
     {
+      "userId": "fcea5b1a-464a-4dfc-b62c-5c4aa2482e6b",
+      "name": "Anonymous",
+      "lastSeen": "2026-01-29T01:54:39.533Z",
+      "currentPage": "home",
+      "currentGame": null,
+      "activities": [
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-01-29T01:54:39.533Z"
+        }
+      ]
+    },
+    {
       "userId": "user_1768095902889_cri6fqd42",
       "name": "se5",
       "lastSeen": "2026-01-26T12:47:34.776Z",
