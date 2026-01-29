@@ -3,9 +3,16 @@
 import React, { useEffect } from 'react';
 import { initSessionTracking, trackPageLoad, startHeartbeat, stopHeartbeat } from '@/utils/sessionTracker';
 import { performDailyCleanup } from '@/utils/learningLogEngine';
+import { ensureSession, getSession } from '@/utils/sessionManager';
 
 const SessionInitializer = ({ children }) => {
   useEffect(() => {
+    // Ensure there is a single active session identity
+    ensureSession();
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('[SESSION]', getSession());
+    }
+
     // Initialize session tracking
     const cleanup = initSessionTracking();
     

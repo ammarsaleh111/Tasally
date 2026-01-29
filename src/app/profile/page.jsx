@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { signOut, useSession } from 'next-auth/react';
+import { useAppSession, logout } from '@/utils/sessionManager';
 import Link from 'next/link';
 import { 
   getProfile, 
@@ -57,7 +57,7 @@ const formatTime = (seconds) => {
 };
 
 export default function ProfilePage() {
-  const { status } = useSession();
+  const session = useAppSession();
   const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState(null);
   const [unlockedAchievements, setUnlockedAchievements] = useState([]);
@@ -146,7 +146,8 @@ export default function ProfilePage() {
         }
       }
 
-      await signOut({ callbackUrl: '/' });
+      await logout();
+      window.location.href = '/';
     } catch (error) {
       setDeleteError('Could not delete your account. Please try again.');
       setDeleting(false);
@@ -212,7 +213,8 @@ export default function ProfilePage() {
         }
       }
 
-      await signOut({ callbackUrl: '/' });
+      await logout();
+      window.location.href = '/';
     } catch (error) {
       setDeleteError('Could not delete your account. Please try again.');
       setDeleting(false);
@@ -322,7 +324,7 @@ export default function ProfilePage() {
             <AchievementsTab unlockedAchievements={unlockedAchievements} totalAchievements={totalAchievements} />
           )}
           {activeTab === 'settings' && (
-            <SettingsTab settings={profile.settings} onReminderToggle={handleReminderToggle} isAuthenticated={status === 'authenticated'} />
+            <SettingsTab settings={profile.settings} onReminderToggle={handleReminderToggle} isAuthenticated={session?.role === 'USER'} />
           )}
           {activeTab === 'feedback' && <FeedbackTab />}
         </div>
@@ -376,7 +378,8 @@ const SeasonalStatCard = ({ icon, value, label, colorClass, textColor }) => {
         }
       }
 
-      await signOut({ callbackUrl: '/' });
+      await logout();
+      window.location.href = '/';
     } catch (error) {
       setDeleteError('Could not delete your account. Please try again.');
       setDeleting(false);
@@ -503,7 +506,8 @@ const GameSummaryCard = ({ gameName, stats, icon, color }) => {
         }
       }
 
-      await signOut({ callbackUrl: '/' });
+      await logout();
+      window.location.href = '/';
     } catch (error) {
       setDeleteError('Could not delete your account. Please try again.');
       setDeleting(false);
@@ -602,7 +606,8 @@ const StatsTab = ({ stats }) => (
         }
       }
 
-      await signOut({ callbackUrl: '/' });
+      await logout();
+      window.location.href = '/';
     } catch (error) {
       setDeleteError('Could not delete your account. Please try again.');
       setDeleting(false);
@@ -763,7 +768,8 @@ const LearningLogTab = () => {
         }
       }
 
-      await signOut({ callbackUrl: '/' });
+      await logout();
+      window.location.href = '/';
     } catch (error) {
       setDeleteError('Could not delete your account. Please try again.');
       setDeleting(false);
@@ -946,7 +952,8 @@ const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
         }
       }
 
-      await signOut({ callbackUrl: '/' });
+      await logout();
+      window.location.href = '/';
     } catch (error) {
       setDeleteError('Could not delete your account. Please try again.');
       setDeleting(false);
@@ -1008,7 +1015,8 @@ const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
         }
       }
 
-      await signOut({ callbackUrl: '/' });
+      await logout();
+      window.location.href = '/';
     } catch (error) {
       setDeleteError('Could not delete your account. Please try again.');
       setDeleting(false);
@@ -1083,7 +1091,8 @@ const FeedbackTab = () => {
         }
       }
 
-      await signOut({ callbackUrl: '/' });
+      await logout();
+      window.location.href = '/';
     } catch (error) {
       setDeleteError('Could not delete your account. Please try again.');
       setDeleting(false);
@@ -1187,7 +1196,8 @@ const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
         }
       }
 
-      await signOut({ callbackUrl: '/' });
+      await logout();
+      window.location.href = '/';
     } catch (error) {
       setDeleteError('Could not delete your account. Please try again.');
       setDeleting(false);
@@ -1375,3 +1385,4 @@ const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
     </div>
   );
 };
+

@@ -25,6 +25,7 @@ import { SPELLING_PUZZLES_JAN_2026 } from './puzzles/spelling-2026-01';
 import { SPELLING_PUZZLES_FEB_2026 } from './puzzles/spelling-2026-02';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { getNextSpellingBeeHint, getSpellingBeeHintButtonText } from '@/utils/spellingBeeHints';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 // Merge January and February puzzles
 const ALL_SPELLING_PUZZLES = [...SPELLING_PUZZLES_JAN_2026, ...SPELLING_PUZZLES_FEB_2026];
@@ -55,7 +56,7 @@ export default function SpellingBeePage() {
   const [foundWords, setFoundWords] = useState(() => {
     if (!puzzle) return [];
     if (typeof window === 'undefined') return [];
-    const saved = localStorage.getItem(`spelling-${puzzle.date}`);
+    const saved = localStorage.getItem(getUserStorageKey(`spelling-${puzzle.date}`));
     if (saved) {
       const data = JSON.parse(saved);
       return data.foundWords || [];
@@ -66,7 +67,7 @@ export default function SpellingBeePage() {
   const [score, setScore] = useState(() => {
     if (!puzzle) return 0;
     if (typeof window === 'undefined') return 0;
-    const saved = localStorage.getItem(`spelling-${puzzle.date}`);
+    const saved = localStorage.getItem(getUserStorageKey(`spelling-${puzzle.date}`));
     if (saved) {
       const data = JSON.parse(saved);
       return data.score || 0;
@@ -77,7 +78,7 @@ export default function SpellingBeePage() {
   const [hintsUsed, setHintsUsed] = useState(() => {
     if (!puzzle) return 0;
     if (typeof window === 'undefined') return 0;
-    const saved = localStorage.getItem(`spelling-${puzzle.date}`);
+    const saved = localStorage.getItem(getUserStorageKey(`spelling-${puzzle.date}`));
     if (saved) {
       const data = JSON.parse(saved);
       return data.hintsUsed || 0;
@@ -103,7 +104,7 @@ export default function SpellingBeePage() {
   const [showRankUp, setShowRankUp] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   
-  const winStorageKey = useMemo(() => (puzzle ? `spelling-win-celebrated-${puzzle.date}` : null), [puzzle]);
+  const winStorageKey = useMemo(() => (puzzle ? getUserStorageKey(`spelling-win-celebrated-${puzzle.date}`) : null), [puzzle]);
 
   // Derived state: hint button text
   const hintButtonText = useMemo(() => {
@@ -132,7 +133,7 @@ export default function SpellingBeePage() {
         hintsUsed,
         date: puzzle.date
       };
-      localStorage.setItem(`spelling-${puzzle.date}`, JSON.stringify(saveData));
+      localStorage.setItem(getUserStorageKey(`spelling-${puzzle.date}`), JSON.stringify(saveData));
 
       // Save to global profile
       const allLetters = [puzzle.center, ...puzzle.letters];

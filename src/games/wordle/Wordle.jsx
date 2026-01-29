@@ -29,6 +29,7 @@ import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileM
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 
 export default function WordleGame() {
@@ -81,7 +82,7 @@ export default function WordleGame() {
 
   const winStorageKey = useMemo(() => {
     if (mode !== 'daily') return null;
-    return `wordle-win-celebrated-${getTodayString()}-${wordLength}`;
+    return getUserStorageKey(`wordle-win-celebrated-${getTodayString()}-${wordLength}`);
   }, [mode, wordLength]);
 
   // --- Helpers ---

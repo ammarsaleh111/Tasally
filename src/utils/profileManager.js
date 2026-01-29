@@ -8,16 +8,22 @@ import { secureGetItem, secureSetItem } from '@/utils/secureStorage';
 import { sanitizeName, sanitizeString } from '@/utils/inputSanitizer';
 import { DEFAULT_AVATAR_ID, isValidAvatarId } from '@/utils/avatarLibrary';
 import { calculateWinRate, validateGameStats } from '@/utils/statsCalculator';
+import { ensureSession, getSession, updateSession } from '@/utils/sessionManager';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
-const PROFILE_KEY = 'ammarTimes_profile';
+const PROFILE_KEY = 'profile';
+
+const getProfileStorageKey = () => getUserStorageKey(PROFILE_KEY);
 
 // Initialize or get user profile
 export function getProfile() {
   if (typeof window === 'undefined') return null;
-  
-  const stored = secureGetItem(PROFILE_KEY);
+
+  const session = ensureSession();
+  const stored = secureGetItem(getProfileStorageKey());
   if (stored) {
     const profile = stored;
+    let updated = false;
     
     // Sanitize critical fields
     if (profile.name) {
@@ -26,18 +32,32 @@ export function getProfile() {
     if (profile.userId) {
       profile.userId = sanitizeString(profile.userId, 100);
     }
+
+    if (!profile.userId && session.userId) {
+      profile.userId = session.userId;
+      updated = true;
+    }
+
+    const sessionName = session.displayName ? sanitizeName(session.displayName) : null;
+    if (!profile.name && sessionName) {
+      profile.name = sessionName;
+      updated = true;
+    }
     
-    const updated = ensureGameEntries(profile);
-    if (updated) {
+    const gameUpdated = ensureGameEntries(profile);
+    if (updated || gameUpdated) {
       saveProfile(profile);
+    }
+    if (profile.name && session.displayName !== profile.name) {
+      updateSession({ displayName: profile.name });
     }
     return profile;
   }
   
   // Create new profile
   const newProfile = {
-    userId: generateUserId(),
-    name: null, // Will be set by user on first visit
+    userId: session.userId || generateUserId(),
+    name: session.displayName || null, // Will be set by user on first visit
     avatarId: DEFAULT_AVATAR_ID, // Default 3D avatar
     createdAt: new Date().toISOString(),
     games: {
@@ -100,8 +120,15 @@ export function saveProfile(profile) {
     profile.name = sanitizeName(profile.name);
   }
   
-  secureSetItem(PROFILE_KEY, profile);
-  syncProfile(profile);
+  secureSetItem(getProfileStorageKey(), profile);
+  const session = getSession();
+  if (!session || session.role !== 'ADMIN') {
+    syncProfile(profile);
+  }
+
+  if (session && session.role !== 'ADMIN' && profile.name && session.displayName !== profile.name) {
+    updateSession({ displayName: profile.name });
+  }
 }
 
 // Check if player has set their name

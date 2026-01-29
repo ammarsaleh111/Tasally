@@ -32,6 +32,8 @@
  * @property {number} lastHintTime - Timestamp of last hint
  */
 
+import { getUserStorageKey } from '@/utils/storageKeys';
+
 const STORAGE_PREFIX = 'hint_state_';
 
 // ============================================================================
@@ -47,7 +49,7 @@ export const loadHintState = (puzzleId) => {
   if (typeof window === 'undefined') return null;
   
   try {
-    const key = STORAGE_PREFIX + puzzleId;
+    const key = getUserStorageKey(STORAGE_PREFIX + puzzleId);
     const saved = localStorage.getItem(key);
     
     if (!saved) return null;
@@ -68,7 +70,7 @@ export const saveHintState = (puzzleId, state) => {
   if (typeof window === 'undefined') return;
   
   try {
-    const key = STORAGE_PREFIX + puzzleId;
+    const key = getUserStorageKey(STORAGE_PREFIX + puzzleId);
     localStorage.setItem(key, JSON.stringify(state));
   } catch (error) {
     console.error('Failed to save hint state:', error);

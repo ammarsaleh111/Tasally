@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useTheme } from './ThemeProviderNew';
 import AuthButton from './AuthButton';
+import { logout } from '@/utils/sessionManager';
 
 export default function SiteHeader() {
   const { appearance, toggleAppearance } = useTheme();
@@ -84,6 +85,24 @@ export default function SiteHeader() {
               <div className="hidden sm:block">
                 <AuthButton />
               </div>
+
+              {process.env.NODE_ENV !== 'production' && (
+                <button
+                  onClick={() => logout()}
+                  className="
+                    hidden sm:inline-flex
+                    px-2.5 py-1.5 rounded-md
+                    text-xs font-semibold
+                    bg-[hsl(var(--surface-hover))]
+                    text-[hsl(var(--foreground))]
+                    hover:bg-[hsl(var(--muted))]
+                    transition-colors duration-200
+                  "
+                  title="Reset session (dev only)"
+                >
+                  Reset Session
+                </button>
+              )}
 
               {/* Theme Toggle */}
               <button 

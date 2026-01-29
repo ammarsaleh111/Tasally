@@ -18,6 +18,8 @@
  * - Player-aware: skips tiles player already locked
  */
 
+import { getUserStorageKey } from '@/utils/storageKeys';
+
 const STORAGE_KEY_PREFIX = 'strands_visual_hints_';
 const MAX_HINTS_PER_DAY = 5;
 
@@ -42,7 +44,7 @@ const MAX_HINTS_PER_DAY = 5;
 const loadHintState = (puzzleId) => {
   if (typeof window === 'undefined') return null;
   try {
-    const key = STORAGE_KEY_PREFIX + puzzleId;
+    const key = getUserStorageKey(STORAGE_KEY_PREFIX + puzzleId);
     const saved = localStorage.getItem(key);
     return saved ? JSON.parse(saved) : null;
   } catch {
@@ -53,7 +55,7 @@ const loadHintState = (puzzleId) => {
 const saveHintState = (puzzleId, state) => {
   if (typeof window === 'undefined') return;
   try {
-    const key = STORAGE_KEY_PREFIX + puzzleId;
+    const key = getUserStorageKey(STORAGE_KEY_PREFIX + puzzleId);
     localStorage.setItem(key, JSON.stringify(state));
   } catch (e) {
     console.error('Failed to save hint state:', e);
@@ -434,7 +436,7 @@ export const getStrandsHintButtonText = (puzzleId, wordsData, foundWords = [], g
  */
 export const resetStrandsHints = (puzzleId) => {
   if (typeof window === 'undefined') return;
-  localStorage.removeItem(STORAGE_KEY_PREFIX + puzzleId);
+  localStorage.removeItem(getUserStorageKey(STORAGE_KEY_PREFIX + puzzleId));
 };
 
 // ============================================================================

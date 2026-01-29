@@ -7,9 +7,11 @@ import SiteHeader from '@/components/SiteHeader';
 import DisplayName from '@/components/DisplayName';
 import { calculateWinRateDecimal } from '@/utils/statsCalculator';
 import { subscribeToRealtime, disconnectRealtime, getRealtimeStatus } from '@/utils/realtimeManager';
+import { logout, useAppSession } from '@/utils/sessionManager';
 
 export default function AdminDashboardClient() {
   const router = useRouter();
+  const session = useAppSession();
   const [players, setPlayers] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
@@ -74,10 +76,17 @@ export default function AdminDashboardClient() {
     };
   }, [handleRealtimeMetrics]);
 
+  useEffect(() => {
+    if (!session) return;
+    if (session.role !== 'ADMIN') {
+      router.replace('/login?next=/admin');
+    }
+  }, [session?.role, router]);
+
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      await fetch('/api/admin/login', { method: 'DELETE' });
+      await logout();
       router.replace('/admin/login');
     } catch (error) {
       console.error('Failed to log out admin', error);

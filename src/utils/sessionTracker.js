@@ -24,19 +24,32 @@
 
 import { syncActivityEvent } from '@/utils/backendSync';
 import { sendHeartbeat, sendGameTelemetry } from '@/utils/realtimeManager';
+import { ensureSession, getSession as getAppSession } from '@/utils/sessionManager';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 // Heartbeat interval (every 15 seconds)
 let heartbeatInterval = null;
 const HEARTBEAT_INTERVAL = 15000;
 
-const SESSION_KEY = 'ammarTimes_session';
-const ALL_SESSIONS_KEY = 'ammarTimes_allSessions';
+const SESSION_KEY = 'session-tracker';
+const ALL_SESSIONS_KEY = 'session-tracker-all';
+
+function getStorageKey(baseKey) {
+  const appSession = getAppSession() || ensureSession();
+  if (!appSession || appSession.role === 'ADMIN') {
+    return null;
+  }
+  return getUserStorageKey(baseKey, appSession);
+}
 
 // Initialize or get current session
 export function getSession() {
   if (typeof window === 'undefined') return null;
 
-  const stored = localStorage.getItem(SESSION_KEY);
+  const storageKey = getStorageKey(SESSION_KEY);
+  if (!storageKey) return null;
+
+  const stored = localStorage.getItem(storageKey);
   if (stored) {
     try {
       return JSON.parse(stored);
@@ -53,12 +66,14 @@ export function getSession() {
 function createNewSession() {
   if (typeof window === 'undefined') return null;
 
-  const { getProfile } = require('./profileManager');
-  const profile = getProfile();
+  const appSession = getAppSession() || ensureSession();
+  if (!appSession || appSession.role === 'ADMIN') {
+    return null;
+  }
 
   const session = {
-    userId: profile.userId,
-    name: profile.name || 'Anonymous',
+    userId: appSession.userId,
+    name: appSession.displayName || 'Anonymous',
     sessionId: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     startTime: new Date().toISOString(),
     currentPage: getCurrentPage(),
@@ -80,7 +95,9 @@ function createNewSession() {
 // Save session to localStorage
 export function saveSession(session) {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+  const storageKey = getStorageKey(SESSION_KEY);
+  if (!storageKey) return;
+  localStorage.setItem(storageKey, JSON.stringify(session));
   
   // Send heartbeat for real-time tracking
   sendHeartbeat({
@@ -136,12 +153,12 @@ export function trackActivity(type, details = {}) {
   if (!session) {
     session = createNewSession();
   }
+  if (!session) return;
 
-  // Update name from profile if changed
-  const { getProfile } = require('./profileManager');
-  const profile = getProfile();
-  if (profile && profile.name && profile.name !== session.name) {
-    session.name = profile.name;
+  // Update name from app session if changed
+  const appSession = getAppSession();
+  if (appSession?.displayName && appSession.displayName !== session.name) {
+    session.name = appSession.displayName;
   }
 
   const event = {
@@ -242,9 +259,12 @@ function getCurrentPage() {
 function archiveActivity(userId, playerName, event) {
   if (typeof window === 'undefined') return;
 
+  const storageKey = getStorageKey(ALL_SESSIONS_KEY);
+  if (!storageKey) return;
+
   let allSessions = [];
   try {
-    const stored = localStorage.getItem(ALL_SESSIONS_KEY);
+    const stored = localStorage.getItem(storageKey);
     if (stored) {
       allSessions = JSON.parse(stored);
     }
@@ -281,7 +301,7 @@ function archiveActivity(userId, playerName, event) {
     allSessions = allSessions.sort((a, b) => new Date(b.lastSeen) - new Date(a.lastSeen)).slice(0, 1000);
   }
 
-  localStorage.setItem(ALL_SESSIONS_KEY, JSON.stringify(allSessions));
+  localStorage.setItem(storageKey, JSON.stringify(allSessions));
 }
 
 // Get all active sessions (online users)
@@ -289,7 +309,9 @@ export function getActiveSessions(minutesActive = 5) {
   if (typeof window === 'undefined') return [];
 
   try {
-    const stored = localStorage.getItem(ALL_SESSIONS_KEY);
+    const storageKey = getStorageKey(ALL_SESSIONS_KEY);
+    if (!storageKey) return [];
+    const stored = localStorage.getItem(storageKey);
     if (!stored) return [];
 
     const allSessions = JSON.parse(stored);
@@ -310,7 +332,9 @@ export function getUserActivitySummary(userId) {
   if (typeof window === 'undefined') return null;
 
   try {
-    const stored = localStorage.getItem(ALL_SESSIONS_KEY);
+    const storageKey = getStorageKey(ALL_SESSIONS_KEY);
+    if (!storageKey) return null;
+    const stored = localStorage.getItem(storageKey);
     if (!stored) return null;
 
     const allSessions = JSON.parse(stored);
@@ -326,7 +350,9 @@ export function getTotalUniqueUsers() {
   if (typeof window === 'undefined') return 0;
 
   try {
-    const stored = localStorage.getItem(ALL_SESSIONS_KEY);
+    const storageKey = getStorageKey(ALL_SESSIONS_KEY);
+    if (!storageKey) return 0;
+    const stored = localStorage.getItem(storageKey);
     if (!stored) return 0;
 
     const allSessions = JSON.parse(stored);
@@ -343,7 +369,9 @@ export function getAllUsers() {
   if (typeof window === 'undefined') return [];
 
   try {
-    const stored = localStorage.getItem(ALL_SESSIONS_KEY);
+    const storageKey = getStorageKey(ALL_SESSIONS_KEY);
+    if (!storageKey) return [];
+    const stored = localStorage.getItem(storageKey);
     if (!stored) return [];
 
     const allSessions = JSON.parse(stored);
@@ -415,7 +443,9 @@ export function cleanupOldSessions(daysToKeep = 7) {
   if (typeof window === 'undefined') return;
 
   try {
-    const stored = localStorage.getItem(ALL_SESSIONS_KEY);
+    const storageKey = getStorageKey(ALL_SESSIONS_KEY);
+    if (!storageKey) return;
+    const stored = localStorage.getItem(storageKey);
     if (!stored) return;
 
     const allSessions = JSON.parse(stored);
@@ -426,7 +456,7 @@ export function cleanupOldSessions(daysToKeep = 7) {
       return lastSeen > cutoffTime;
     });
 
-    localStorage.setItem(ALL_SESSIONS_KEY, JSON.stringify(filtered));
+    localStorage.setItem(storageKey, JSON.stringify(filtered));
   } catch (e) {
     console.error('Error cleaning up sessions:', e);
   }

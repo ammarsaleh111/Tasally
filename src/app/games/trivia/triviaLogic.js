@@ -2,6 +2,7 @@ import { TRIVIA_SETS as TRIVIA_SETS_JAN } from './questions/trivia-2026-01';
 import { TRIVIA_SETS as TRIVIA_SETS_FEB } from './questions/trivia-2026-02';
 import { getThemedTrivia } from './questions/themed';
 import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 // Merge January and February trivia sets
 const TRIVIA_SETS = [...TRIVIA_SETS_JAN, ...TRIVIA_SETS_FEB];
@@ -142,7 +143,7 @@ export const getStreakBonus = (streak) => {
  */
 export const saveStats = (stats) => {
   if (typeof window !== 'undefined') {
-    localStorage.setItem('ammar-times-trivia-stats', JSON.stringify(stats));
+    localStorage.setItem(getUserStorageKey('ammar-times-trivia-stats'), JSON.stringify(stats));
   }
 };
 
@@ -151,7 +152,7 @@ export const saveStats = (stats) => {
  */
 export const loadStats = () => {
   if (typeof window !== 'undefined') {
-    const saved = localStorage.getItem('ammar-times-trivia-stats');
+    const saved = localStorage.getItem(getUserStorageKey('ammar-times-trivia-stats'));
     if (saved) {
       try {
         return JSON.parse(saved);

@@ -7,6 +7,7 @@
 import { WAFFLE_PUZZLES_JAN_2026 } from './puzzles/waffle-2026-01';
 import { WAFFLE_PUZZLES_FEB_2026 } from './puzzles/waffle-2026-02';
 import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 // Merge all puzzles
 const ALL_WAFFLE_PUZZLES = [...WAFFLE_PUZZLES_JAN_2026, ...WAFFLE_PUZZLES_FEB_2026];
@@ -324,7 +325,7 @@ const STATS_KEY = 'waffleStats';
 export const loadGameState = () => {
   if (typeof window === 'undefined') return null;
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = localStorage.getItem(getUserStorageKey(STORAGE_KEY));
     return saved ? JSON.parse(saved) : null;
   } catch {
     return null;
@@ -334,7 +335,7 @@ export const loadGameState = () => {
 export const saveGameState = (state) => {
   if (typeof window === 'undefined') return;
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(getUserStorageKey(STORAGE_KEY), JSON.stringify(state));
   } catch {
     // Ignore storage errors
   }
@@ -343,7 +344,7 @@ export const saveGameState = (state) => {
 export const loadStats = () => {
   if (typeof window === 'undefined') return getDefaultStats();
   try {
-    const saved = localStorage.getItem(STATS_KEY);
+    const saved = localStorage.getItem(getUserStorageKey(STATS_KEY));
     return saved ? JSON.parse(saved) : getDefaultStats();
   } catch {
     return getDefaultStats();
@@ -353,7 +354,7 @@ export const loadStats = () => {
 export const saveStats = (stats) => {
   if (typeof window === 'undefined') return;
   try {
-    localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+    localStorage.setItem(getUserStorageKey(STATS_KEY), JSON.stringify(stats));
   } catch {
     // Ignore storage errors
   }

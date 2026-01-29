@@ -3,7 +3,9 @@
  * Handles browser notifications for daily reminders
  */
 
-const NOTIFICATION_PERMISSION_KEY = 'ammarTimes_notificationPermission';
+import { getUserStorageKey } from '@/utils/storageKeys';
+
+const NOTIFICATION_PERMISSION_KEY = 'notificationPermission';
 
 // Request notification permission
 export async function requestNotificationPermission() {
@@ -18,7 +20,7 @@ export async function requestNotificationPermission() {
 
   if (Notification.permission !== 'denied') {
     const permission = await Notification.requestPermission();
-    localStorage.setItem(NOTIFICATION_PERMISSION_KEY, permission);
+    localStorage.setItem(getUserStorageKey(NOTIFICATION_PERMISSION_KEY), permission);
     return permission === 'granted';
   }
 
@@ -87,7 +89,7 @@ export function scheduleDailyReminder() {
 
 // Send daily reminder notification
 function sendDailyReminder() {
-  const lastSent = localStorage.getItem('lastReminderSent');
+  const lastSent = localStorage.getItem(getUserStorageKey('lastReminderSent'));
   const today = new Date().toISOString().split('T')[0];
 
   // Don't send if already sent today
@@ -103,7 +105,7 @@ function sendDailyReminder() {
     },
   });
 
-  localStorage.setItem('lastReminderSent', today);
+  localStorage.setItem(getUserStorageKey('lastReminderSent'), today);
 }
 
 // Initialize notification system

@@ -1,4 +1,5 @@
 // Pure functions for Strands game logic
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 export const serializePos = (r, c) => `${r},${c}`;
 export const parsePos = (s) => s.split(',').map(Number);
@@ -260,17 +261,17 @@ export function getHint(puzzle, foundWordsSet, spangramFound) {
 
 export function loadProgress(dateStr) {
   if (typeof window === 'undefined') return null;
-  const raw = localStorage.getItem(`strands-${dateStr}`);
+  const raw = localStorage.getItem(getUserStorageKey(`strands-${dateStr}`));
   if (!raw) return null;
   try { return JSON.parse(raw); } catch { return null; }
 }
 
 export function saveProgress(dateStr, state) {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(`strands-${dateStr}`, JSON.stringify(state));
+  localStorage.setItem(getUserStorageKey(`strands-${dateStr}`), JSON.stringify(state));
 }
 
 export function clearProgress(dateStr) {
   if (typeof window === 'undefined') return;
-  localStorage.removeItem(`strands-${dateStr}`);
+  localStorage.removeItem(getUserStorageKey(`strands-${dateStr}`));
 }

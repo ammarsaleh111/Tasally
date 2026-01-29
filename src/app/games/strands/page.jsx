@@ -14,6 +14,7 @@ import { getTodayString, recordGameResult, getGameStats } from '@/utils/profileM
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
 import { getNextStrandsHint, getStrandsHintButtonText, getAllHintedTiles } from '@/utils/strandsHints';
+import { getUserStorageKey } from '@/utils/storageKeys';
 import { STRANDS_2026_01 } from './puzzles/strands-2026-01';
 import { STRANDS_PUZZLES_FEB_2026 } from './puzzles/strands-2026-02';
 
@@ -109,7 +110,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
 
   const foundWordStrings = useMemo(() => foundWords.map((fw) => fw.word), [foundWords]);
   const puzzleId = puzzle ? `strands-${puzzle.date}` : null;
-  const winStorageKey = puzzle ? `strands-win-celebrated-${puzzle.date}` : null;
+  const winStorageKey = puzzle ? getUserStorageKey(`strands-win-celebrated-${puzzle.date}`) : null;
 
   const hintButtonText = puzzle
     ? getStrandsHintButtonText(puzzleId, puzzle.words, foundWordStrings, puzzle.grid)

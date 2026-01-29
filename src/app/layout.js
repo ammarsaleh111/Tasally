@@ -7,6 +7,7 @@ import NotificationInitializer from "@/components/NotificationInitializer";
 import IdentityProvider from "@/components/IdentityProvider";
 import SessionInitializer from "@/components/SessionInitializer";
 import AuthProvider from "@/components/AuthProvider";
+import SessionBridge from "@/components/SessionBridge";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} ${cairo.variable} antialiased bg-background text-foreground transition-colors duration-300`}
       >
         <AuthProvider>
+          <SessionBridge />
           <SessionInitializer>
             <IdentityProvider>
               <ThemeProvider>

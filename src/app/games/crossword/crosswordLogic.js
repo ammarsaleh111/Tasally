@@ -22,6 +22,7 @@ import {
   resumeTimer,
   formatTime as formatTimeEngine,
 } from './crosswordEngine';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 import {
   WORD_CLUES,
@@ -553,7 +554,7 @@ export const loadGameState = () => {
   if (typeof window === 'undefined') return null;
   
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = localStorage.getItem(getUserStorageKey(STORAGE_KEY));
     if (!saved) return null;
     
     const state = JSON.parse(saved);
@@ -578,7 +579,7 @@ export const saveGameState = (state) => {
   if (typeof window === 'undefined') return;
   
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(getUserStorageKey(STORAGE_KEY), JSON.stringify(state));
   } catch (error) {
     console.error('Failed to save crossword state:', error);
   }
@@ -700,7 +701,7 @@ export const loadStats = () => {
   if (typeof window === 'undefined') return getDefaultStats();
   
   try {
-    const saved = localStorage.getItem('ammar-times-crossword-stats');
+    const saved = localStorage.getItem(getUserStorageKey('ammar-times-crossword-stats'));
     if (saved) {
       return JSON.parse(saved);
     }
@@ -714,7 +715,7 @@ export const saveStats = (stats) => {
   if (typeof window === 'undefined') return;
   
   try {
-    localStorage.setItem('ammar-times-crossword-stats', JSON.stringify(stats));
+    localStorage.setItem(getUserStorageKey('ammar-times-crossword-stats'), JSON.stringify(stats));
   } catch (error) {
     console.error('Error saving stats:', error);
   }

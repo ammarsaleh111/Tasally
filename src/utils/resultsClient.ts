@@ -4,6 +4,8 @@
  */
 
 import { ensureGuestId } from "./guestManager";
+import { getSession } from "./sessionManager";
+import { getProfile } from "./profileManager";
 
 export interface SubmitResultInput {
   gameKey: string;
@@ -24,10 +26,9 @@ export interface SubmitResultResponse {
 function getPlayerNameFromStorage(): string | null {
   if (typeof window === "undefined") return null;
   try {
-    const profile = localStorage.getItem("ammar_player_profile");
-    if (profile) {
-      const parsed = JSON.parse(profile);
-      return parsed?.name || null;
+    const profile = getProfile();
+    if (profile?.name) {
+      return profile.name;
     }
   } catch {
     // Ignore parse errors
@@ -37,9 +38,11 @@ function getPlayerNameFromStorage(): string | null {
 
 export async function submitResult(input: SubmitResultInput): Promise<SubmitResultResponse | null> {
   try {
-    const guestId = ensureGuestId();
+    const session = getSession();
+    const guestId = session?.role === "GUEST" ? ensureGuestId() : null;
     // Get player name from local profile if not provided
-    const displayName = input.displayName ?? getPlayerNameFromStorage();
+    const displayName =
+      input.displayName ?? session?.displayName ?? getPlayerNameFromStorage();
 
     const res = await fetch("/api/results", {
       method: "POST",

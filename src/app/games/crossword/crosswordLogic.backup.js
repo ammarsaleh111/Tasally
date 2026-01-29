@@ -1,5 +1,6 @@
 import { CROSSWORD_PUZZLES_JAN_2026 } from './puzzles/crossword-2026-01';
 import { CROSSWORD_PUZZLES_FEB_2026 } from './puzzles/crossword-2026-02';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 // Merge January and February puzzles
 const ALL_CROSSWORD_PUZZLES = [...CROSSWORD_PUZZLES_JAN_2026, ...CROSSWORD_PUZZLES_FEB_2026];
@@ -177,7 +178,7 @@ export const loadGameState = () => {
   if (typeof window === 'undefined') return null;
   
   try {
-    const saved = localStorage.getItem('crossword_state');
+    const saved = localStorage.getItem(getUserStorageKey('crossword_state'));
     if (!saved) return null;
     
     const state = JSON.parse(saved);
@@ -201,7 +202,7 @@ export const saveGameState = (state) => {
   if (typeof window === 'undefined') return;
   
   try {
-    localStorage.setItem('crossword_state', JSON.stringify(state));
+    localStorage.setItem(getUserStorageKey('crossword_state'), JSON.stringify(state));
   } catch (error) {
     console.error('Failed to save crossword state:', error);
   }
@@ -247,7 +248,7 @@ export const loadStats = () => {
   if (typeof window === 'undefined') return getDefaultStats();
   
   try {
-    const saved = localStorage.getItem('ammar-times-crossword-stats');
+    const saved = localStorage.getItem(getUserStorageKey('ammar-times-crossword-stats'));
     if (saved) {
       return JSON.parse(saved);
     }
@@ -264,7 +265,7 @@ export const saveStats = (stats) => {
   if (typeof window === 'undefined') return;
   
   try {
-    localStorage.setItem('ammar-times-crossword-stats', JSON.stringify(stats));
+    localStorage.setItem(getUserStorageKey('ammar-times-crossword-stats'), JSON.stringify(stats));
   } catch (error) {
     console.error('Error saving stats:', error);
   }

@@ -38,6 +38,7 @@ import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileM
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 export default function CrosswordGame() {
   // =========================================================================
@@ -69,7 +70,7 @@ export default function CrosswordGame() {
   const inputRef = useRef(null);
   const prevWinRef = useRef(false);
   const initialWinHandledRef = useRef(false);
-  const winStorageKey = puzzle ? `crossword-win-celebrated-${puzzle.date}` : null;
+  const winStorageKey = puzzle ? getUserStorageKey(`crossword-win-celebrated-${puzzle.date}`) : null;
   
   // =========================================================================
   // INITIALIZATION

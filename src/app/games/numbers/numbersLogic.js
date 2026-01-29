@@ -1,5 +1,6 @@
 import { NUMBERS_PUZZLES as NUMBERS_PUZZLES_JAN } from './puzzles/numbers-2026-01';
 import { NUMBERS_PUZZLES_FEB_2026 } from './puzzles/numbers-2026-02';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 // Merge January and February puzzles
 const NUMBERS_PUZZLES = [...NUMBERS_PUZZLES_JAN, ...NUMBERS_PUZZLES_FEB_2026];
@@ -209,7 +210,7 @@ export const loadStats = () => {
   if (typeof window === 'undefined') return getDefaultStats();
   
   try {
-    const saved = localStorage.getItem('ammar-times-numbers-stats');
+    const saved = localStorage.getItem(getUserStorageKey('ammar-times-numbers-stats'));
     if (saved) {
       return JSON.parse(saved);
     }
@@ -226,7 +227,7 @@ export const saveStats = (stats) => {
   if (typeof window === 'undefined') return;
   
   try {
-    localStorage.setItem('ammar-times-numbers-stats', JSON.stringify(stats));
+    localStorage.setItem(getUserStorageKey('ammar-times-numbers-stats'), JSON.stringify(stats));
   } catch (error) {
     console.error('Error saving stats:', error);
   }

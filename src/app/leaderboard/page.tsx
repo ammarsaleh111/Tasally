@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import SiteHeader from "@/components/SiteHeader";
 import AuthModal from "@/components/AuthModal";
 import DisplayName from "@/components/DisplayName";
+import { useAppSession } from "@/utils/sessionManager";
 import { 
   useSeasonIdentity, 
   SeasonPageHeader, 
@@ -46,7 +46,7 @@ interface MonthlyEntry {
 }
 
 export default function LeaderboardPage() {
-  const { status } = useSession();
+  const session = useAppSession();
   const router = useRouter();
   const [period, setPeriod] = useState<Period>("daily");
   const [game, setGame] = useState("wordle");
@@ -60,16 +60,22 @@ export default function LeaderboardPage() {
   const [hadAuthenticated, setHadAuthenticated] = useState(false);
 
   const selectedGame = VALID_GAMES.find(g => g.key === game);
-  const isAuthenticated = status === "authenticated";
+  const isAuthenticated = session?.role === "USER";
+  const isLoadingSession = !session;
 
   useEffect(() => {
-    if (status === "authenticated") {
+    if (isLoadingSession) {
+      setLoading(true);
+      return;
+    }
+
+    if (isAuthenticated) {
       setHadAuthenticated(true);
       setAuthNotice("");
       return;
     }
 
-    if (status === "unauthenticated") {
+    if (!isAuthenticated) {
       setDailyData([]);
       setMonthlyData([]);
       setLoading(false);
@@ -81,19 +87,24 @@ export default function LeaderboardPage() {
         setShowAuthModal(true);
       }
     }
-  }, [status, hadAuthenticated]);
+  }, [isAuthenticated, isLoadingSession, hadAuthenticated]);
 
   useEffect(() => {
-    if (status === "loading") {
+    if (isLoadingSession) {
       setLoading(true);
       return;
     }
 
-    if (status !== "authenticated") {
+    if (!isAuthenticated) {
       setDailyData([]);
       setMonthlyData([]);
       setLoading(false);
       setError("");
+      if (session?.role === "GUEST") {
+        router.replace("/login?next=/leaderboard");
+        setShowAuthModal(true);
+        setAuthView("login");
+      }
       return;
     }
 
@@ -131,7 +142,7 @@ export default function LeaderboardPage() {
     };
 
     fetchLeaderboard();
-  }, [status, period, game]);
+  }, [isAuthenticated, isLoadingSession, period, game, session?.role]);
 
 
   const getRankDisplay = (rank: number) => {

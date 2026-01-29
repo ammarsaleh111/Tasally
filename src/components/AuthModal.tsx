@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { validateName, MAX_INPUT_LENGTHS } from "@/utils/inputSanitizer";
+import { clearGuestId, getGuestId } from "@/utils/guestManager";
+import { logout, useAppSession } from "@/utils/sessionManager";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -15,7 +17,7 @@ interface AuthModalProps {
 type View = "login" | "register" | "guest";
 
 export default function AuthModal({ isOpen, onClose, onSuccess, initialView }: AuthModalProps) {
-  const { data: session, status } = useSession();
+  const session = useAppSession();
   const [view, setView] = useState<View>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,11 +37,11 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView }: A
   }, [isOpen, initialView]);
 
   useEffect(() => {
-    if (status === "authenticated" && isOpen) {
+    if (session?.role === "USER" && isOpen) {
       onClose();
       onSuccess?.();
     }
-  }, [status, isOpen, onClose, onSuccess]);
+  }, [session?.role, isOpen, onClose, onSuccess]);
 
   if (!isOpen) return null;
 
@@ -104,19 +106,16 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView }: A
     }
   };
 
-  const handleContinueAsGuest = () => {
-    if (typeof window !== "undefined") {
-      const existing = localStorage.getItem("ammar_guest_id");
-      if (!existing) {
-        localStorage.setItem("ammar_guest_id", crypto.randomUUID());
-      }
+  const handleContinueAsGuest = async () => {
+    if (session?.role !== "GUEST") {
+      await logout();
     }
     onClose();
   };
 
   const linkGuestIfNeeded = async () => {
     if (typeof window === "undefined") return;
-    const guestId = localStorage.getItem("ammar_guest_id");
+    const guestId = getGuestId();
     if (!guestId) return;
 
     try {
@@ -127,7 +126,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView }: A
       });
 
       if (res.ok) {
-        localStorage.removeItem("ammar_guest_id");
+        clearGuestId();
       }
     } catch (e) {
       console.warn("Failed to link guest:", e);

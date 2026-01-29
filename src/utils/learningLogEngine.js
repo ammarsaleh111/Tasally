@@ -24,11 +24,12 @@
  */
 
 import { secureGetItem, secureSetItem } from './secureStorage';
+import { getUserStorageKey } from './storageKeys';
 import { resolveDefinition, validateDefinition } from './definitionResolver';
 
-const LEARNING_LOG_KEY = 'ammarTimes_learningLog_v2';
-const DEFINITIONS_CACHE_KEY = 'ammarTimes_definitionsCache';
-const LAST_CLEANUP_KEY = 'ammarTimes_lastCleanup';
+const LEARNING_LOG_KEY = 'learningLog_v2';
+const DEFINITIONS_CACHE_KEY = 'definitionsCache';
+const LAST_CLEANUP_KEY = 'lastCleanup';
 
 // Game types that contribute words to the learning log
 export const WORD_GAMES = [
@@ -67,7 +68,7 @@ export function getLearningLog() {
     return initializeLearningLog();
   }
 
-  const stored = secureGetItem(LEARNING_LOG_KEY);
+  const stored = secureGetItem(getUserStorageKey(LEARNING_LOG_KEY));
   
   if (!stored) {
     return initializeLearningLog();
@@ -86,7 +87,7 @@ export function getLearningLog() {
  */
 export function saveLearningLog(log) {
   if (typeof window === 'undefined') return;
-  secureSetItem(LEARNING_LOG_KEY, log);
+  secureSetItem(getUserStorageKey(LEARNING_LOG_KEY), log);
 }
 
 /**
@@ -119,7 +120,7 @@ export function performDailyCleanup() {
 function getDefinitionsCache() {
   if (typeof window === 'undefined') return {};
 
-  const stored = secureGetItem(DEFINITIONS_CACHE_KEY);
+  const stored = secureGetItem(getUserStorageKey(DEFINITIONS_CACHE_KEY));
   return stored || {};
 }
 
@@ -128,7 +129,7 @@ function getDefinitionsCache() {
  */
 function saveDefinitionsCache(cache) {
   if (typeof window === 'undefined') return;
-  secureSetItem(DEFINITIONS_CACHE_KEY, cache);
+  secureSetItem(getUserStorageKey(DEFINITIONS_CACHE_KEY), cache);
 }
 
 /**

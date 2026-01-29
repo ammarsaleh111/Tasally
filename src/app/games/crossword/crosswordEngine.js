@@ -10,6 +10,8 @@
  * - Full validation
  */
 
+import { getUserStorageKey } from '@/utils/storageKeys';
+
 // ============================================================================
 // GRID TEMPLATES - 10+ distinct shapes
 // ============================================================================
@@ -737,7 +739,7 @@ export const saveTimerState = (puzzleDate, timerState) => {
   if (typeof window === 'undefined') return;
 
   try {
-    const key = `crossword-timer-${puzzleDate}`;
+    const key = getUserStorageKey(`crossword-timer-${puzzleDate}`);
     localStorage.setItem(key, JSON.stringify(timerState));
   } catch (error) {
     console.error('Failed to save timer state:', error);
@@ -751,7 +753,7 @@ export const loadTimerState = (puzzleDate) => {
   if (typeof window === 'undefined') return null;
 
   try {
-    const key = `crossword-timer-${puzzleDate}`;
+    const key = getUserStorageKey(`crossword-timer-${puzzleDate}`);
     const saved = localStorage.getItem(key);
     if (saved) {
       return JSON.parse(saved);

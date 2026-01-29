@@ -12,8 +12,9 @@
 
 import { secureGetItem, secureSetItem } from './secureStorage';
 import { getGameTheme } from './themeEngine';
+import { getUserStorageKey } from './storageKeys';
 
-const DEFINITIONS_CACHE_KEY = 'ammarTimes_definitionsCache';
+const DEFINITIONS_CACHE_KEY = 'definitionsCache';
 const CACHE_VERSION = 1;
 
 /**
@@ -48,7 +49,7 @@ export class Definition {
  */
 function getCache() {
   if (typeof window === 'undefined') return {};
-  const stored = secureGetItem(DEFINITIONS_CACHE_KEY);
+  const stored = secureGetItem(getUserStorageKey(DEFINITIONS_CACHE_KEY));
   return stored || {};
 }
 
@@ -60,7 +61,7 @@ function saveToCache(word, definition) {
   
   const cache = getCache();
   cache[word.toUpperCase()] = definition;
-  secureSetItem(DEFINITIONS_CACHE_KEY, cache);
+  secureSetItem(getUserStorageKey(DEFINITIONS_CACHE_KEY), cache);
 }
 
 /**
@@ -312,7 +313,7 @@ export function validateDefinition(definition) {
  */
 export function clearDefinitionsCache() {
   if (typeof window === 'undefined') return;
-  secureSetItem(DEFINITIONS_CACHE_KEY, {});
+  secureSetItem(getUserStorageKey(DEFINITIONS_CACHE_KEY), {});
 }
 
 /**

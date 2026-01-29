@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
+import { signOut } from 'next-auth/react';
+import { replaceSession } from '@/utils/sessionManager';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -22,6 +24,14 @@ export default function AdminLoginPage() {
         const res = await fetch('/api/admin/login');
         const data = await res.json();
         if (mounted && data.authenticated) {
+          replaceSession({
+            userId: username,
+            displayName: username,
+            role: 'ADMIN',
+            createdAt: new Date().toISOString(),
+            token: null,
+            version: 1,
+          });
           router.replace(redirectTo);
         }
       } catch (err) {
@@ -55,6 +65,16 @@ export default function AdminLoginPage() {
         const payload = await res.json();
         throw new Error(payload.error || 'Unable to sign in');
       }
+
+      await signOut({ redirect: false });
+      replaceSession({
+        userId: username,
+        displayName: username,
+        role: 'ADMIN',
+        createdAt: new Date().toISOString(),
+        token: null,
+        version: 1,
+      });
 
       router.replace(redirectTo);
     } catch (err) {

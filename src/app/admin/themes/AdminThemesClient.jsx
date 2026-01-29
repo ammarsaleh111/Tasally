@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
+import { useAppSession } from '@/utils/sessionManager';
 
 const DOMINANT_THEMES = [
   {
@@ -24,6 +25,7 @@ const DOMINANT_THEMES = [
 
 export default function AdminThemesClient() {
   const router = useRouter();
+  const session = useAppSession();
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -77,6 +79,13 @@ export default function AdminThemesClient() {
   useEffect(() => {
     fetchSettings();
   }, [fetchSettings]);
+
+  useEffect(() => {
+    if (!session) return;
+    if (session.role !== 'ADMIN') {
+      router.replace('/login?next=/admin/themes');
+    }
+  }, [session?.role, router]);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));

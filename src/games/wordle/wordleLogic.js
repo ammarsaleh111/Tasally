@@ -9,6 +9,7 @@ import { WORDS_4 as RAW_WORDS_4 } from './wordLists/words4';
 import { WORDS_6 as RAW_WORDS_6 } from './wordLists/words6';
 import { getThemedWordList } from './wordLists/themed';
 import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 // Constants
 export const DEFAULT_WORD_LENGTH = 5;
@@ -161,7 +162,7 @@ export const loadGameState = (mode = 'daily', length = 5) => {
   if (typeof window === 'undefined') return null;
   
   try {
-    const key = `wordle_${mode}_${length}_state`;
+    const key = getUserStorageKey(`wordle_${mode}_${length}_state`);
     const saved = localStorage.getItem(key);
     if (!saved) return null;
     
@@ -195,6 +196,6 @@ export const saveGameState = (guesses, status, solution, mode = 'daily', length 
     solution: mode === 'unlimited' ? solution : undefined // Persist solution for unlimited
   };
   
-  const key = `wordle_${mode}_${length}_state`;
+  const key = getUserStorageKey(`wordle_${mode}_${length}_state`);
   localStorage.setItem(key, JSON.stringify(state));
 };

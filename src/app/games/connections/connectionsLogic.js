@@ -1,5 +1,6 @@
 import { CONNECTIONS_PUZZLES_JAN_2026 } from './puzzles/connections-2026-01';
 import { CONNECTIONS_PUZZLES_FEB_2026 } from './puzzles/connections-2026-02';
+import { getUserStorageKey } from '@/utils/storageKeys';
 
 // Merge January and February puzzles
 const ALL_CONNECTIONS_PUZZLES = [...CONNECTIONS_PUZZLES_JAN_2026, ...CONNECTIONS_PUZZLES_FEB_2026];
@@ -110,7 +111,7 @@ export const loadGameState = () => {
   if (typeof window === 'undefined') return null;
   
   try {
-    const saved = localStorage.getItem('connections_state');
+    const saved = localStorage.getItem(getUserStorageKey('connections_state'));
     if (!saved) return null;
     
     const state = JSON.parse(saved);
@@ -135,7 +136,7 @@ export const saveGameState = (state) => {
   if (typeof window === 'undefined') return;
   
   try {
-    localStorage.setItem('connections_state', JSON.stringify(state));
+    localStorage.setItem(getUserStorageKey('connections_state'), JSON.stringify(state));
   } catch (error) {
     console.error('Failed to save game state:', error);
   }
@@ -176,7 +177,7 @@ export const loadStats = () => {
   if (typeof window === 'undefined') return getDefaultStats();
   
   try {
-    const saved = localStorage.getItem('ammar-times-connections-stats');
+    const saved = localStorage.getItem(getUserStorageKey('ammar-times-connections-stats'));
     if (saved) {
       return JSON.parse(saved);
     }
@@ -193,7 +194,7 @@ export const saveStats = (stats) => {
   if (typeof window === 'undefined') return;
   
   try {
-    localStorage.setItem('ammar-times-connections-stats', JSON.stringify(stats));
+    localStorage.setItem(getUserStorageKey('ammar-times-connections-stats'), JSON.stringify(stats));
   } catch (error) {
     console.error('Error saving stats:', error);
   }
