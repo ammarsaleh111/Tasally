@@ -229,6 +229,25 @@ export async function logout() {
   clearSession();
 }
 
+export async function handleAccountDeleted(message?: string) {
+  if (typeof window === "undefined") return;
+
+  const noticeKey = "ammarTimes_account_deleted_notice";
+  const defaultMessage = "Your account was deleted by an admin.";
+
+  try {
+    if (!window.sessionStorage.getItem(noticeKey)) {
+      window.sessionStorage.setItem(noticeKey, "1");
+      window.alert(message || defaultMessage);
+    }
+  } catch {
+    window.alert(message || defaultMessage);
+  }
+
+  await logout();
+  window.location.replace("/login?reason=deleted");
+}
+
 export function useAppSession() {
   // Lazy import to avoid bundling React for non-React consumers
   const { useSyncExternalStore } = require("react");

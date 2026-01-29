@@ -30,6 +30,7 @@ import { getUserStorageKey } from '@/utils/storageKeys';
 // Heartbeat interval (every 15 seconds)
 let heartbeatInterval = null;
 const HEARTBEAT_INTERVAL = 15000;
+const DEFAULT_STATE = 'IDLE';
 
 const SESSION_KEY = 'session-tracker';
 const ALL_SESSIONS_KEY = 'session-tracker-all';
@@ -52,7 +53,17 @@ export function getSession() {
   const stored = localStorage.getItem(storageKey);
   if (stored) {
     try {
-      return JSON.parse(stored);
+      const parsed = JSON.parse(stored);
+      if (!parsed.role) {
+        const appSession = getAppSession();
+        parsed.role = appSession?.role || 'GUEST';
+        saveSession(parsed);
+      }
+      if (!parsed.state) {
+        parsed.state = DEFAULT_STATE;
+        saveSession(parsed);
+      }
+      return parsed;
     } catch (e) {
       console.error('Error parsing session:', e);
       return createNewSession();
@@ -74,10 +85,12 @@ function createNewSession() {
   const session = {
     userId: appSession.userId,
     name: appSession.displayName || 'Anonymous',
+    role: appSession.role,
     sessionId: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     startTime: new Date().toISOString(),
     currentPage: getCurrentPage(),
     currentGame: null,
+    state: DEFAULT_STATE,
     lastActivity: new Date().toISOString(),
     events: [
       {
@@ -105,6 +118,9 @@ export function saveSession(session) {
     playerName: session.name,
     currentGame: session.currentGame,
     currentPage: session.currentPage,
+    userId: session.userId,
+    role: session.role,
+    state: session.state,
   });
 }
 
@@ -121,6 +137,9 @@ export function startHeartbeat() {
         playerName: session.name,
         currentGame: session.currentGame,
         currentPage: session.currentPage,
+        userId: session.userId,
+        role: session.role,
+        state: session.state,
       });
     }
   }, HEARTBEAT_INTERVAL);
@@ -133,6 +152,9 @@ export function startHeartbeat() {
       playerName: session.name,
       currentGame: session.currentGame,
       currentPage: session.currentPage,
+      userId: session.userId,
+      role: session.role,
+      state: session.state,
     });
   }
 }
@@ -160,6 +182,9 @@ export function trackActivity(type, details = {}) {
   if (appSession?.displayName && appSession.displayName !== session.name) {
     session.name = appSession.displayName;
   }
+  if (appSession?.role && appSession.role !== session.role) {
+    session.role = appSession.role;
+  }
 
   const event = {
     type,
@@ -172,6 +197,17 @@ export function trackActivity(type, details = {}) {
   session.currentPage = getCurrentPage();
   if (details.game) {
     session.currentGame = details.game;
+  }
+  if (type === 'game_start') {
+    session.state = 'PLAYING';
+  } else if (type === 'game_end') {
+    session.state = DEFAULT_STATE;
+  } else if (type === 'page_load') {
+    const page = session.currentPage;
+    if (!page || !page.startsWith('game:')) {
+      session.currentGame = null;
+      session.state = DEFAULT_STATE;
+    }
   }
   session.lastActivity = new Date().toISOString();
 
@@ -207,6 +243,8 @@ export function trackGameStart(gameName) {
   sendGameTelemetry(gameName, 'start', {
     sessionId: session?.sessionId,
     playerName: session?.name,
+    userId: session?.userId,
+    role: session?.role,
   });
 }
 
@@ -223,6 +261,8 @@ export function trackGameEnd(gameName, result) {
   sendGameTelemetry(gameName, 'end', {
     sessionId: session?.sessionId,
     playerName: session?.name,
+    userId: session?.userId,
+    role: session?.role,
     won: result.win,
     timeSpent: result.time,
   });
@@ -234,6 +274,8 @@ export function trackGameProgress(gameName, progress, details = {}) {
   sendGameTelemetry(gameName, 'progress', {
     sessionId: session?.sessionId,
     playerName: session?.name,
+    userId: session?.userId,
+    role: session?.role,
     progress,
     ...details,
   });

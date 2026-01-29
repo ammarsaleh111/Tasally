@@ -85,6 +85,27 @@ export const guestProfiles = pgTable("guest_profiles", {
   lastSeenAt: timestamp("last_seen_at", { withTimezone: false }),
 });
 
+export const presenceSessions = pgTable(
+  "presence_sessions",
+  {
+    id: text("id").primaryKey(),
+    userId: uuid("user_id").references(() => users.id, { onDelete: "set null" }),
+    guestId: uuid("guest_id").references(() => guestProfiles.id, { onDelete: "set null" }),
+    displayName: text("display_name"),
+    role: text("role"),
+    currentPage: text("current_page"),
+    currentGame: text("current_game"),
+    state: text("state").notNull().default("IDLE"),
+    lastHeartbeatAt: timestamp("last_heartbeat_at", { withTimezone: false }).notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: false }).defaultNow().notNull(),
+  },
+  (table) => ({
+    lastHeartbeatIdx: index("presence_last_heartbeat_idx").on(table.lastHeartbeatAt),
+    userIdx: index("presence_user_idx").on(table.userId),
+    guestIdx: index("presence_guest_idx").on(table.guestId),
+  })
+);
+
 export const gameResults = pgTable(
   "game_results",
   {
@@ -106,6 +127,25 @@ export const gameResults = pgTable(
     dailyIdx: index("game_results_daily_idx").on(table.gameKey, table.dayKey, table.score),
     monthlyIdx: index("game_results_monthly_idx").on(table.gameKey, table.monthKey, table.score),
     userPlayedIdx: index("game_results_user_played_idx").on(table.userId, table.playedAt),
+  })
+);
+
+export const gameEvents = pgTable(
+  "game_events",
+  {
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    userId: uuid("user_id").references(() => users.id, { onDelete: "set null" }),
+    guestId: uuid("guest_id").references(() => guestProfiles.id, { onDelete: "set null" }),
+    gameKey: text("game_key").notNull(),
+    type: text("type").notNull(),
+    score: integer("score"),
+    durationMs: integer("duration_ms"),
+    createdAt: timestamp("created_at", { withTimezone: false }).defaultNow().notNull(),
+  },
+  (table) => ({
+    gameIdx: index("game_events_game_idx").on(table.gameKey, table.createdAt),
+    userIdx: index("game_events_user_idx").on(table.userId, table.createdAt),
+    guestIdx: index("game_events_guest_idx").on(table.guestId, table.createdAt),
   })
 );
 

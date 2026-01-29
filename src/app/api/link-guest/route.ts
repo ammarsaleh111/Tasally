@@ -1,4 +1,4 @@
-import { db, guestProfiles, gameResults } from "@/db";
+import { db, gameEvents, guestProfiles, gameResults } from "@/db";
 import { auth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
@@ -37,6 +37,11 @@ export async function POST(request: Request) {
       .update(gameResults)
       .set({ userId, guestId: null })
       .where(eq(gameResults.guestId, guestId));
+
+    await db
+      .update(gameEvents)
+      .set({ userId, guestId: null })
+      .where(eq(gameEvents.guestId, guestId));
 
     await db.delete(guestProfiles).where(eq(guestProfiles.id, guestId));
 

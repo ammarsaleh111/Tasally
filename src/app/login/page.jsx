@@ -11,6 +11,7 @@ export default function LoginPage() {
   const searchParams = useSearchParams();
   const session = useAppSession();
   const [showModal, setShowModal] = useState(true);
+  const reason = searchParams.get("reason");
 
   const nextPath = useMemo(() => {
     const nextParam = searchParams.get("next");
@@ -38,6 +39,11 @@ export default function LoginPage() {
         <p className="text-[hsl(var(--muted-foreground))] mb-6">
           Continue to your account to access leaderboards and saved progress.
         </p>
+        {reason === "deleted" && (
+          <div className="mb-6 rounded-lg border border-wordle-absent/40 bg-wordle-absent/10 px-4 py-3 text-sm text-wordle-absent">
+            Your account was deleted by an admin. Please contact support if this is unexpected.
+          </div>
+        )}
         <button
           onClick={() => setShowModal(true)}
           className="

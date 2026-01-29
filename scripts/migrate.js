@@ -6,8 +6,6 @@
  */
 
 const { execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
 
 // Load environment variables
 require("dotenv").config({ path: ".env.local" });
@@ -33,19 +31,14 @@ if (!DATABASE_URL.startsWith("postgres://") && !DATABASE_URL.startsWith("postgre
 console.log("✅ DATABASE_URL is set");
 console.log("🗄️  Database host:", DATABASE_URL.match(/@([^:]+)/)?.[1] || "unknown");
 
-// Check if drizzle directory exists
-const drizzlePath = path.join(__dirname, "drizzle");
-const hasMigrations = fs.existsSync(drizzlePath);
-
-if (!hasMigrations) {
-  console.log("\n📦 No migrations found. Generating...");
-  try {
-    execSync("npm run db:generate", { stdio: "inherit" });
-    console.log("✅ Migrations generated");
-  } catch (error) {
-    console.error("❌ Failed to generate migrations");
-    process.exit(1);
-  }
+// Always attempt to generate migrations so schema changes are included
+console.log("\n📦 Generating migrations...");
+try {
+  execSync("npm run db:generate", { stdio: "inherit" });
+  console.log("✅ Migration generation complete");
+} catch (error) {
+  console.error("❌ Failed to generate migrations");
+  process.exit(1);
 }
 
 console.log("\n🚀 Applying migrations...");

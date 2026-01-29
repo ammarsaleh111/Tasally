@@ -8,6 +8,13 @@
       "when": 1769436979517,
       "tag": "0000_worthless_roland_deschain",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1769649455733,
+      "tag": "0001_silent_santa_claus",
+      "breakpoints": true
     }
   ]
 }

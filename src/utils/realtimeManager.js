@@ -11,6 +11,8 @@
  * - Cross-browser compatible (works on Firefox, Safari, Chrome)
  */
 
+import { handleAccountDeleted } from './sessionManager';
+
 // Global state for real-time data
 let eventSource = null;
 let listeners = new Map();
@@ -171,7 +173,7 @@ export async function sendHeartbeat(data) {
   if (typeof window === 'undefined') return;
   
   try {
-    await fetch('/api/realtime/heartbeat', {
+    const response = await fetch('/api/realtime/heartbeat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -180,6 +182,16 @@ export async function sendHeartbeat(data) {
         userAgent: navigator.userAgent,
       }),
     });
+    
+    if (response.status === 410) {
+      let payload = null;
+      try {
+        payload = await response.json();
+      } catch {
+        // ignore json parse errors
+      }
+      await handleAccountDeleted(payload?.message);
+    }
   } catch (e) {
     console.warn('[Realtime] Heartbeat failed:', e);
   }
@@ -195,13 +207,24 @@ export async function sendGameTelemetry(game, eventType, details = {}) {
   if (typeof window === 'undefined') return;
   
   try {
+    const {
+      sessionId,
+      playerName,
+      userId,
+      role,
+      ...restDetails
+    } = details || {};
     await fetch('/api/realtime/telemetry', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         game,
         eventType,
-        details,
+        details: restDetails,
+        sessionId,
+        playerName,
+        userId,
+        role,
         timestamp: Date.now(),
       }),
     });

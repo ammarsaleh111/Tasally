@@ -3,7 +3,9 @@ import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import {
   accounts,
+  gameEvents,
   gameResults,
+  presenceSessions,
   sessions,
   themeSettings,
   users,
@@ -42,6 +44,8 @@ export async function DELETE() {
     try {
       await db.transaction(async (tx) => {
         await tx.delete(gameResults).where(eq(gameResults.userId, userId));
+        await tx.delete(gameEvents).where(eq(gameEvents.userId, userId));
+        await tx.delete(presenceSessions).where(eq(presenceSessions.userId, userId));
         await tx.delete(sessions).where(eq(sessions.userId, userId));
         await tx.delete(accounts).where(eq(accounts.userId, userId));
         if (email) {

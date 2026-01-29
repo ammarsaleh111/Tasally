@@ -4,6 +4,14 @@
  */
 
 import { updateGameState } from '../stream/route';
+import { db, gameEvents } from '@/db';
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+function coerceUuid(value) {
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  return UUID_REGEX.test(trimmed) ? trimmed : null;
+}
 
 // In-memory store for recent telemetry events
 const recentEvents = [];
@@ -16,6 +24,8 @@ export async function POST(request) {
     const {
       sessionId,
       playerName,
+      userId,
+      role,
       game,
       eventType,
       details,
@@ -48,6 +58,29 @@ export async function POST(request) {
       details: summarizeDetails(details),
       timestamp: timestamp || Date.now(),
     });
+
+    // Persist START events for analytics
+    if (eventType === 'start') {
+      const safeRole = typeof role === 'string' ? role.toUpperCase() : null;
+      const normalizedRole = safeRole === 'ADMIN' || safeRole === 'USER' || safeRole === 'GUEST' ? safeRole : null;
+      const safeUserId = coerceUuid(userId);
+      const resolvedUserId = normalizedRole === 'USER' ? safeUserId : null;
+      const resolvedGuestId = normalizedRole === 'GUEST' ? safeUserId : null;
+
+      try {
+        await db.insert(gameEvents).values({
+          userId: resolvedUserId ?? null,
+          guestId: resolvedGuestId ?? null,
+          gameKey: game,
+          type: 'START',
+          createdAt: new Date(timestamp || Date.now()),
+        });
+      } catch (error) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.warn('[Telemetry] Failed to append START event', error);
+        }
+      }
+    }
     
     // Keep only recent events
     if (recentEvents.length > MAX_EVENTS) {

@@ -1,4 +1,4 @@
-import { db, gameResults, guestProfiles } from "@/db";
+import { db, gameEvents, gameResults, guestProfiles } from "@/db";
 import { auth } from "@/lib/auth";
 import { computeScore, ScoreInput } from "@/server/scoring";
 import { eq, sql } from "drizzle-orm";
@@ -110,6 +110,21 @@ export async function POST(request: Request) {
         metadata: result.metadata ?? {},
       })
       .returning({ id: gameResults.id, score: gameResults.score });
+
+    // Append event log for analytics (WIN / LOSE)
+    try {
+      await db.insert(gameEvents).values({
+        userId,
+        guestId: resolvedGuestId,
+        gameKey,
+        type: success ? "WIN" : "LOSE",
+        score: result.score,
+        durationMs: result.durationMs ?? null,
+        createdAt: now,
+      });
+    } catch (error) {
+      console.warn("[results] failed to append game event", error);
+    }
 
     return NextResponse.json({
       id: inserted.id,
