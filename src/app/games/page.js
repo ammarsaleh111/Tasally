@@ -23,8 +23,10 @@ export default function GamesPage() {
   const isLoading = useSimplePuzzleLoader();
 
   useEffect(() => {
-    setStats(getAllStats());
-    setActiveTheme(getActiveTheme());
+    queueMicrotask(() => {
+      setStats(getAllStats());
+      setActiveTheme(getActiveTheme());
+    });
   }, []);
 
   const games = [
@@ -145,7 +147,7 @@ export default function GamesPage() {
                 transition-all duration-200
               "
             >
-              👤 View Profile & Achievements
+              👤 View Profile & Badges
             </Link>
             <Link
               href="/leaderboard"

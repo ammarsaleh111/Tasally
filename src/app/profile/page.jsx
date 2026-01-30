@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { 
   getProfile, 
   getAllStats, 
-  getUnlockedAchievements,
   getAchievementCount,
   updateSettings,
   saveProfile,
@@ -27,9 +26,12 @@ import {
   isFavorite,
   WORD_GAMES 
 } from '@/utils/learningLogEngine';
-import { ACHIEVEMENTS } from '@/utils/achievementsEngine';
 import { requestNotificationPermission, initNotifications } from '@/utils/notificationManager';
-import AchievementBadge from '@/components/AchievementBadge';
+import { BADGES } from '@/utils/badgesEngine';
+import { buildBadgeViewModel } from '@/utils/badgesUtils';
+import BadgeCard from '@/components/BadgeCard';
+import BadgesCollection from '@/components/BadgesCollection';
+import BadgesProgressWidget from '@/components/BadgesProgressWidget';
 import SiteHeader from '@/components/SiteHeader';
 import FeedbackForm from '@/components/FeedbackForm';
 import Avatar3D from '@/components/Avatar3D';
@@ -60,7 +62,7 @@ export default function ProfilePage() {
   const session = useAppSession();
   const [profile, setProfile] = useState(null);
   const [stats, setStats] = useState(null);
-  const [unlockedAchievements, setUnlockedAchievements] = useState([]);
+  const [badgeViewModel, setBadgeViewModel] = useState([]);
   const [activeTab, setActiveTab] = useState('overview');
   const [showFeedback, setShowFeedback] = useState(false);
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
@@ -72,11 +74,11 @@ export default function ProfilePage() {
       
       const userProfile = getProfile();
       const allStats = getAllStats();
-      const achievements = getUnlockedAchievements();
+      const badgeModels = buildBadgeViewModel(userProfile);
       
       setProfile(userProfile);
       setStats(allStats);
-      setUnlockedAchievements(achievements);
+      setBadgeViewModel(badgeModels);
       setCurrentAvatarId(getAvatarId());
     };
     
@@ -172,8 +174,11 @@ export default function ProfilePage() {
     const streak = game?.currentStreak || 0;
     return Math.max(max, streak);
   }, 0);
-  const totalAchievements = getAchievementCount();
-  const achievementProgress = Math.round((totalAchievements / ACHIEVEMENTS.length) * 100);
+  const totalBadges = BADGES.length;
+  const earnedBadges = getAchievementCount();
+  const badgeProgress = totalBadges ? Math.round((earnedBadges / totalBadges) * 100) : 0;
+  const earnedBadgesList = badgeViewModel.filter((badge) => badge.earned);
+  const previewBadges = earnedBadgesList.slice(0, 6);
 
   const handleDeleteAccount = async () => {
     setDeleteError('');
@@ -230,7 +235,7 @@ export default function ProfilePage() {
         <div className="text-center mb-6">
           <SeasonPageHeader 
             title="Your Profile"
-            subtitle="Track your progress, achievements, and game stats"
+            subtitle="Track your progress, badges, and game stats"
             showBadge={true}
           />
         </div>
@@ -297,8 +302,48 @@ export default function ProfilePage() {
           <SeasonalStatCard icon="🎮" value={totalGames} label="Games Played" colorClass="bg-info/10" textColor="text-info" />
           <SeasonalStatCard icon="🏆" value={totalWins} label="Games Won" colorClass="bg-success/10" textColor="text-success" />
           <SeasonalStatCard icon="🔥" value={bestCurrentStreak} label="Best Streak" colorClass="bg-warning/10" textColor="text-warning" />
-          <SeasonalStatCard icon="⭐" value={totalAchievements} label="Achievements" colorClass="bg-strands-bonus/10" textColor="text-strands-bonus" />
+          <SeasonalStatCard icon="⭐" value={earnedBadges} label="Badges" colorClass="bg-strands-bonus/10" textColor="text-strands-bonus" />
         </div>
+
+        {/* Badges Preview Section */}
+        <SeasonTexturedCard className="p-5 mb-6">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 className="text-lg font-bold text-foreground">Badges</h2>
+              <p className="text-sm text-muted-foreground">
+                {earnedBadges}/{totalBadges} earned - {badgeProgress}% complete
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Link
+                href="/badges"
+                className="px-4 py-2 rounded-full bg-[hsl(var(--badge-new))] text-foreground text-sm font-semibold hover:opacity-90 transition"
+              >
+                View all
+              </Link>
+              <button
+                onClick={() => setActiveTab('badges')}
+                className="px-4 py-2 rounded-full border border-border text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-surface-hover transition"
+              >
+                See progress
+              </button>
+            </div>
+          </div>
+          <div className="flex gap-3 overflow-x-auto pb-2">
+            {previewBadges.length ? (
+              previewBadges.map((badge) => (
+                <BadgeCard key={badge.id} badge={badge} compact showProgress={false} />
+              ))
+            ) : (
+              <div className="text-sm text-muted-foreground">
+                Play a game to start earning badges.
+              </div>
+            )}
+          </div>
+          <div className="mt-4">
+            <BadgesProgressWidget variant="compact" />
+          </div>
+        </SeasonTexturedCard>
 
         {/* Tabs */}
         <div className="flex flex-wrap gap-2 mb-6 p-1 bg-secondary/50 rounded-xl">
@@ -306,10 +351,10 @@ export default function ProfilePage() {
           <TabButton label="Stats" active={activeTab === 'stats'} onClick={() => setActiveTab('stats')} />
           <TabButton label="Learning" active={activeTab === 'learning'} onClick={() => setActiveTab('learning')} />
           <TabButton 
-            label="Achievements" 
-            active={activeTab === 'achievements'} 
-            onClick={() => setActiveTab('achievements')} 
-            badge={totalAchievements}
+            label="Badges" 
+            active={activeTab === 'badges'} 
+            onClick={() => setActiveTab('badges')} 
+            badge={earnedBadges}
           />
           <TabButton label="Settings" active={activeTab === 'settings'} onClick={() => setActiveTab('settings')} />
           <TabButton label="Feedback" active={activeTab === 'feedback'} onClick={() => setActiveTab('feedback')} />
@@ -320,8 +365,8 @@ export default function ProfilePage() {
           {activeTab === 'overview' && <OverviewTab stats={stats} />}
           {activeTab === 'stats' && <StatsTab stats={stats} />}
           {activeTab === 'learning' && <LearningLogTab />}
-          {activeTab === 'achievements' && (
-            <AchievementsTab unlockedAchievements={unlockedAchievements} totalAchievements={totalAchievements} />
+          {activeTab === 'badges' && (
+            <BadgesTab />
           )}
           {activeTab === 'settings' && (
             <SettingsTab settings={profile.settings} onReminderToggle={handleReminderToggle} isAuthenticated={session?.role === 'USER'} />
@@ -900,155 +945,11 @@ const LearningLogTab = () => {
   );
 };
 
-// Achievements Tab
-const AchievementsTab = ({ unlockedAchievements, totalAchievements }) => {
-  const [filter, setFilter] = useState('all');
-  
-  const filteredAchievements = ACHIEVEMENTS.filter(achievement => {
-    if (filter === 'unlocked') {
-      return unlockedAchievements.some(a => a.id === achievement.id);
-    }
-    if (filter === 'locked') {
-      return !unlockedAchievements.some(a => a.id === achievement.id);
-    }
-    return true;
-  });
-
-  const handleDeleteAccount = async () => {
-    setDeleteError('');
-    setDeleting(true);
-
-    try {
-      const response = await fetch('/api/account/delete', { method: 'DELETE' });
-      if (!response.ok) {
-        throw new Error('Failed to delete');
-      }
-
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.clear();
-          sessionStorage.clear();
-          if (window.indexedDB && indexedDB.databases) {
-            const dbs = await indexedDB.databases();
-            await Promise.all(
-              (dbs || []).map((db) =>
-                db?.name
-                  ? new Promise((resolve) => {
-                      const req = indexedDB.deleteDatabase(db.name);
-                      req.onsuccess = () => resolve(null);
-                      req.onerror = () => resolve(null);
-                      req.onblocked = () => resolve(null);
-                    })
-                  : Promise.resolve(null)
-              )
-            );
-          }
-          if ('caches' in window) {
-            const keys = await caches.keys();
-            await Promise.all(keys.map((key) => caches.delete(key)));
-          }
-        } catch (e) {
-          // Ignore cache clearing errors
-        }
-      }
-
-      await logout();
-      window.location.href = '/';
-    } catch (error) {
-      setDeleteError('Could not delete your account. Please try again.');
-      setDeleting(false);
-    }
-  };
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 className="text-xl font-bold text-foreground">
-          Achievements ({unlockedAchievements.length}/{totalAchievements})
-        </h2>
-        
-        <div className="flex gap-2">
-          <FilterButton label="All" active={filter === 'all'} onClick={() => setFilter('all')} />
-          <FilterButton label="Unlocked" active={filter === 'unlocked'} onClick={() => setFilter('unlocked')} />
-          <FilterButton label="Locked" active={filter === 'locked'} onClick={() => setFilter('locked')} />
-        </div>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredAchievements.map(achievement => {
-          const unlockedData = unlockedAchievements.find(a => a.id === achievement.id);
-          const handleDeleteAccount = async () => {
-    setDeleteError('');
-    setDeleting(true);
-
-    try {
-      const response = await fetch('/api/account/delete', { method: 'DELETE' });
-      if (!response.ok) {
-        throw new Error('Failed to delete');
-      }
-
-      if (typeof window !== 'undefined') {
-        try {
-          localStorage.clear();
-          sessionStorage.clear();
-          if (window.indexedDB && indexedDB.databases) {
-            const dbs = await indexedDB.databases();
-            await Promise.all(
-              (dbs || []).map((db) =>
-                db?.name
-                  ? new Promise((resolve) => {
-                      const req = indexedDB.deleteDatabase(db.name);
-                      req.onsuccess = () => resolve(null);
-                      req.onerror = () => resolve(null);
-                      req.onblocked = () => resolve(null);
-                    })
-                  : Promise.resolve(null)
-              )
-            );
-          }
-          if ('caches' in window) {
-            const keys = await caches.keys();
-            await Promise.all(keys.map((key) => caches.delete(key)));
-          }
-        } catch (e) {
-          // Ignore cache clearing errors
-        }
-      }
-
-      await logout();
-      window.location.href = '/';
-    } catch (error) {
-      setDeleteError('Could not delete your account. Please try again.');
-      setDeleting(false);
-    }
-  };
-
-  return (
-            <AchievementBadge 
-              key={achievement.id} 
-              achievement={achievement} 
-              unlocked={!!unlockedData} 
-              unlockedAt={unlockedData?.unlockedAt}
-              className="transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
-            />
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-const FilterButton = ({ label, active, onClick }) => (
-  <button
-    onClick={onClick}
-    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-      active 
-        ? 'bg-info text-info-foreground shadow-sm' 
-        : 'bg-secondary text-muted-foreground hover:text-foreground hover:bg-accent'
-    }`}
-  >
-    {label}
-  </button>
+// Badges Tab
+const BadgesTab = () => (
+  <div className="space-y-4">
+    <BadgesCollection variant="embedded" />
+  </div>
 );
 
 // Feedback Tab
@@ -1315,7 +1216,7 @@ const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
           <div>
             <h3 className="font-semibold text-foreground">Delete Account</h3>
             <p className="text-sm text-muted-foreground mt-2">
-              This permanently deletes your account, progress, achievements, and leaderboard rankings.
+              This permanently deletes your account, progress, badges, and leaderboard rankings.
             </p>
           </div>
           {isAuthenticated ? (
@@ -1340,7 +1241,7 @@ const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
           <div className="bg-card border border-wordle-absent rounded-2xl p-6 max-w-md w-full">
             <h3 className="text-2xl font-bold text-wordle-absent mb-3">Delete Account Permanently?</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              This action is permanent. All your progress, achievements, and leaderboard rankings will be deleted and cannot be recovered.
+              This action is permanent. All your progress, badges, and leaderboard rankings will be deleted and cannot be recovered.
             </p>
             <label className="block text-sm font-medium text-foreground mb-2">
               Type DELETE to confirm

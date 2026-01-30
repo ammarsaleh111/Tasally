@@ -6,6 +6,11 @@ import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
 import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import ShareResults from '@/components/ShareResults';
+import BadgeToastQueue from '@/components/BadgeToastQueue';
+import BadgeDetailsSheet from '@/components/BadgeDetailsSheet';
+import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
+import BadgesProgressWidget from '@/components/BadgesProgressWidget';
+import BadgesDrawer from '@/components/BadgesDrawer';
 import StatisticsModal from '@/components/StatisticsModal';
 import StrandsGrid from '@/components/StrandsGrid';
 import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
@@ -99,6 +104,9 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
   const [winModal, setWinModal] = useState(false);
   const [toast, setToast] = useState(null);
   const [shouldShake, setShouldShake] = useState(false);
+  const [badgeUnlocks, setBadgeUnlocks] = useState([]);
+  const [selectedBadge, setSelectedBadge] = useState(null);
+  const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
   const [howToPlayModal, setHowToPlayModal] = useState(false);
   const [statsModal, setStatsModal] = useState(false);
   const [learningLogModal, setLearningLogModal] = useState(false);
@@ -167,7 +175,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
     const end = Date.now();
     const timeSec = Math.floor((end - (startedAt || end)) / 1000);
 
-    recordGameResult('strands', {
+    const achievements = recordGameResult('strands', {
       date: puzzle.date,
       win: true,
       time: timeSec,
@@ -176,6 +184,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
       attempts: nextFoundWords.length + (nextSpangramFound ? 1 : 0),
       breakdown: { words: nextFoundWords.map((f) => f.word), spangram: nextSpangramFound },
     });
+    setBadgeUnlocks(achievements || []);
 
     submitResult({
       gameKey: 'strands',
@@ -356,6 +365,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
         title="Strands"
         onHowToPlay={() => setHowToPlayModal(true)}
         onStats={() => setStatsModal(true)}
+        onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setLearningLogModal(true)}
         gameComplete={!!completedAt}
       />
@@ -532,8 +542,23 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
               spangram: spangramFound,
             }}
           />
+          <BadgeEarnedRecap badges={badgeUnlocks} />
+          <div className="mt-3">
+            <BadgesProgressWidget variant="compact" />
+          </div>
         </div>
       </Modal>
+
+      <BadgesDrawer
+        isOpen={showBadgesDrawer}
+        onClose={() => setShowBadgesDrawer(false)}
+      />
+
+      <BadgeDetailsSheet
+        badge={selectedBadge}
+        isOpen={!!selectedBadge}
+        onClose={() => setSelectedBadge(null)}
+      />
 
       <UnifiedHowToPlay
         isOpen={howToPlayModal}
@@ -560,6 +585,11 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
           onExited={() => setToast(null)}
         />
       )}
+
+      <BadgeToastQueue
+        unlocks={badgeUnlocks}
+        onView={(badge) => setSelectedBadge(badge)}
+      />
     </div>
   );
 }

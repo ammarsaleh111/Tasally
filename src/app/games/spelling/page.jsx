@@ -7,6 +7,11 @@ import Toast from '@/components/Toast';
 import Modal from '@/components/Modal';
 import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import ShareResults from '@/components/ShareResults';
+import BadgeToastQueue from '@/components/BadgeToastQueue';
+import BadgeDetailsSheet from '@/components/BadgeDetailsSheet';
+import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
+import BadgesProgressWidget from '@/components/BadgesProgressWidget';
+import BadgesDrawer from '@/components/BadgesDrawer';
 import SpellingStatistics from '@/components/SpellingStatistics';
 import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
@@ -29,7 +34,7 @@ import { getUserStorageKey } from '@/utils/storageKeys';
 
 // Merge January and February puzzles
 const ALL_SPELLING_PUZZLES = [...SPELLING_PUZZLES_JAN_2026, ...SPELLING_PUZZLES_FEB_2026];
-import { saveGameToProfile, getGameStats } from '@/utils/profileManager';
+import { saveGameToProfile, getGameStats, checkAchievementsForGame } from '@/utils/profileManager';
 import { submitResult } from '@/utils/resultsClient';
 
 export default function SpellingBeePage() {
@@ -94,6 +99,9 @@ export default function SpellingBeePage() {
   
   // UI state
   const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
+  const [badgeUnlocks, setBadgeUnlocks] = useState([]);
+  const [selectedBadge, setSelectedBadge] = useState(null);
+  const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
@@ -139,6 +147,12 @@ export default function SpellingBeePage() {
       const allLetters = [puzzle.center, ...puzzle.letters];
       const currentStats = calculateStats(foundWords, puzzle.validWords, allLetters, score, maxScore);
       saveGameToProfile('spelling', { stats: currentStats });
+      const achievements = checkAchievementsForGame('spelling', { rank: getCurrentRank(score, maxScore).name });
+      if (achievements && achievements.length > 0) {
+        queueMicrotask(() => {
+          setBadgeUnlocks(achievements);
+        });
+      }
     }
   }, [foundWords, score, puzzle, hintsUsed, maxScore]);
 
@@ -182,6 +196,12 @@ export default function SpellingBeePage() {
         completed: true,
         stats
       });
+      const achievements = checkAchievementsForGame('spelling', { rank: getCurrentRank(score, maxScore).name });
+      if (achievements && achievements.length > 0) {
+        queueMicrotask(() => {
+          setBadgeUnlocks(achievements);
+        });
+      }
       
       // Submit to leaderboard API
       submitResult({
@@ -381,6 +401,7 @@ export default function SpellingBeePage() {
         title="Spelling Bee"
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
         gameComplete={isComplete}
       />
@@ -547,6 +568,10 @@ export default function SpellingBeePage() {
             <div className="text-2xl font-bold mb-2">Congratulations!</div>
             <div className="text-lg mb-4">You found all {foundWords.length} words!</div>
             <ShareResults text={generateShareText(currentGameStats, puzzle.date)} />
+            <BadgeEarnedRecap badges={badgeUnlocks} />
+            <div className="mt-3">
+              <BadgesProgressWidget variant="compact" />
+            </div>
           </div>
         )}
       </main>
@@ -573,10 +598,26 @@ export default function SpellingBeePage() {
         gameName="spelling"
       />
 
+      <BadgesDrawer
+        isOpen={showBadgesDrawer}
+        onClose={() => setShowBadgesDrawer(false)}
+      />
+
+      <BadgeDetailsSheet
+        badge={selectedBadge}
+        isOpen={!!selectedBadge}
+        onClose={() => setSelectedBadge(null)}
+      />
+
       {/* Toast */}
       {toast.show && (
         <Toast message={toast.message} type={toast.type} />
       )}
+
+      <BadgeToastQueue
+        unlocks={badgeUnlocks}
+        onView={(badge) => setSelectedBadge(badge)}
+      />
 
     </div>
   );

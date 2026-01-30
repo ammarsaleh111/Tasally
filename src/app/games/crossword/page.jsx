@@ -31,7 +31,11 @@ import StatisticsModal from '@/components/StatisticsModal';
 import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
 import ShareResults from '@/components/ShareResults';
-import AchievementNotification from '@/components/AchievementNotification';
+import BadgeToastQueue from '@/components/BadgeToastQueue';
+import BadgeDetailsSheet from '@/components/BadgeDetailsSheet';
+import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
+import BadgesProgressWidget from '@/components/BadgesProgressWidget';
+import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
 import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
@@ -59,8 +63,9 @@ export default function CrosswordGame() {
   const [showStats, setShowStats] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
-  const [newAchievements, setNewAchievements] = useState([]);
-  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
+  const [badgeUnlocks, setBadgeUnlocks] = useState([]);
+  const [selectedBadge, setSelectedBadge] = useState(null);
+  const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [initError, setInitError] = useState(null);
   const [showWinConfetti, setShowWinConfetti] = useState(false);
@@ -264,10 +269,7 @@ export default function CrosswordGame() {
         ].filter(Boolean);
         addWordsToLog(crosswordWords, 'crossword');
         
-        if (achievements && achievements.length > 0) {
-          setNewAchievements(achievements);
-          setCurrentAchievementIndex(0);
-        }
+        setBadgeUnlocks(achievements || []);
         
         setTimeout(() => setShowResultModal(true), 500);
       }
@@ -620,6 +622,7 @@ export default function CrosswordGame() {
         title="Mini Crossword" 
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
         gameComplete={gameState.isSolved}
       />
@@ -659,6 +662,11 @@ export default function CrosswordGame() {
             onExited={handleToastExit} 
           />
         )}
+
+        <BadgeToastQueue
+          unlocks={badgeUnlocks}
+          onView={(badge) => setSelectedBadge(badge)}
+        />
 
         {gameState.isSolved && !showResultModal && (
           <div className="mb-4 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-xs text-text-muted flex items-center justify-between">
@@ -738,6 +746,11 @@ export default function CrosswordGame() {
           {/* Daily Reminder */}
           <DailyReminder gameName="crossword" />
 
+          <BadgeEarnedRecap badges={badgeUnlocks} />
+          <div className="mt-3 w-full">
+            <BadgesProgressWidget variant="compact" />
+          </div>
+
           <div className="w-full h-px bg-border-default my-2"></div>
 
           <button
@@ -773,20 +786,16 @@ export default function CrosswordGame() {
         />
       )}
 
-      {/* Achievement Notifications */}
-      {newAchievements.length > 0 && currentAchievementIndex < newAchievements.length && (
-        <AchievementNotification
-          achievementId={newAchievements[currentAchievementIndex].id}
-          onClose={() => {
-            if (currentAchievementIndex < newAchievements.length - 1) {
-              setCurrentAchievementIndex(currentAchievementIndex + 1);
-            } else {
-              setNewAchievements([]);
-              setCurrentAchievementIndex(0);
-            }
-          }}
-        />
-      )}
+      <BadgesDrawer
+        isOpen={showBadgesDrawer}
+        onClose={() => setShowBadgesDrawer(false)}
+      />
+
+      <BadgeDetailsSheet
+        badge={selectedBadge}
+        isOpen={!!selectedBadge}
+        onClose={() => setSelectedBadge(null)}
+      />
     </div>
   );
 }

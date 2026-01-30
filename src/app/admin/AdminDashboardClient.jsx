@@ -232,7 +232,7 @@ export default function AdminDashboardClient() {
           <div className="bg-card border-2 border-wordle-absent rounded-xl p-6 max-w-md w-full">
             <h2 className="text-2xl font-bold mb-4 text-wordle-absent">⚠️ Delete user permanently?</h2>
             <p className="text-foreground mb-2">
-              All progress, wins, achievements, and leaderboard entries will be deleted forever.
+              All progress, wins, badges, and leaderboard entries will be deleted forever.
             </p>
             <div className="bg-surface-hover rounded-lg p-4 mb-6">
               <DisplayName
@@ -244,7 +244,7 @@ export default function AdminDashboardClient() {
             <p className="text-sm text-wordle-absent mb-6">
               This will permanently delete:
               <br />• Player profile
-              <br />• Game results, achievements, and activity
+              <br />• Game results, badges, and activity
               <br />• Leaderboard entries
               <br />• Presence/session data
               <br /><br />

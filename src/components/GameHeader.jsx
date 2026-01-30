@@ -8,7 +8,7 @@ const HeaderButton = ({ onClick, disabled, icon, label, locked }) => (
     onClick={onClick}
     disabled={disabled}
     className={`
-      flex items-center gap-1.5 px-3 py-2 rounded-xl
+      flex items-center gap-1.5 px-3 py-2 rounded-xl min-h-[44px]
       text-sm font-medium
       transition-all duration-200
       focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]
@@ -40,6 +40,7 @@ const HeaderButton = ({ onClick, disabled, icon, label, locked }) => (
  * @param {function} onHowToPlay - Handler for How to Play modal
  * @param {function} onStats - Handler for Stats modal
  * @param {function} onLearningLog - Handler for Learning Log modal
+ * @param {function} onBadges - Handler for Badges drawer
  * @param {boolean} gameComplete - Whether the game has ended
  * @param {boolean} showLearningLog - Override to show Learning Log button
  * @param {string} mode - Game mode (daily/practice/unlimited) for badge display
@@ -50,6 +51,7 @@ const GameHeader = ({
   onHowToPlay, 
   onStats, 
   onLearningLog,
+  onBadges,
   gameComplete = false,
   showLearningLog = false,
   mode,
@@ -129,7 +131,15 @@ const GameHeader = ({
                 label="Stats"
               />
             )}
-            
+
+            {onBadges && (
+              <HeaderButton
+                onClick={onBadges}
+                icon="🏅"
+                label="Badges"
+              />
+            )}
+
             {onLearningLog && (
               <HeaderButton
                 onClick={onLearningLog}

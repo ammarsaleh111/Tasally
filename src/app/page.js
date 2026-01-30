@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import PuzzleLoader from '@/components/PuzzleLoader';
 import { useSimplePuzzleLoader } from '@/hooks/usePuzzleLoader';
 import { getAllStats, getUnlockedAchievements, getAchievementCount } from '@/utils/profileManager';
-import { ACHIEVEMENTS } from '@/utils/achievementsEngine';
+import { BADGES } from '@/utils/badgesEngine';
 import { getActiveTheme } from '@/utils/themeEngine';
 import {
   useSeasonIdentity,
@@ -38,21 +38,25 @@ export default function Home() {
 
   const [mounted, setMounted] = useState(false);
   const [stats, setStats] = useState(null);
-  const [achievements, setAchievements] = useState([]);
+  const [badges, setBadges] = useState([]);
   const [countdown, setCountdown] = useState('00:00:00');
   const [activeTheme, setActiveTheme] = useState(null);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    queueMicrotask(() => setMounted(true));
+  }, []);
 
   useEffect(() => {
     // REAL DATA (same as your version)
     const allStats = getAllStats();
-    const unlockedAchievements = getUnlockedAchievements();
+    const unlockedBadges = getUnlockedAchievements();
     const theme = getActiveTheme();
 
-    setStats(allStats);
-    setAchievements(unlockedAchievements);
-    setActiveTheme(theme);
+    queueMicrotask(() => {
+      setStats(allStats);
+      setBadges(unlockedBadges);
+      setActiveTheme(theme);
+    });
   }, []);
 
   // Countdown to next puzzle (midnight UTC) — real
@@ -83,11 +87,11 @@ export default function Home() {
     const statsValues = stats ? Object.values(stats) : [];
     const totalGames = statsValues.reduce((sum, game) => sum + (game?.gamesPlayed || 0), 0);
     const bestStreak = statsValues.reduce((mx, game) => Math.max(mx, game?.currentStreak || 0), 0);
-    const totalAchievements = getAchievementCount();
-    const achievementProgress =
-      ACHIEVEMENTS.length > 0 ? Math.round((totalAchievements / ACHIEVEMENTS.length) * 100) : 0;
+    const totalBadges = getAchievementCount();
+    const badgeProgress =
+      BADGES.length > 0 ? Math.round((totalBadges / BADGES.length) * 100) : 0;
 
-    return { totalGames, bestStreak, totalAchievements, achievementProgress };
+    return { totalGames, bestStreak, totalBadges, badgeProgress };
   }, [stats]);
 
   if (!mounted) return null;
@@ -250,14 +254,14 @@ export default function Home() {
               />
               <SeasonalStatCard
                 icon="⭐"
-                value={computed.totalAchievements}
-                label="Achievements"
+                value={computed.totalBadges}
+                label="Badges"
                 colorClass="bg-[hsl(var(--accent))]/10"
                 textColor="text-[hsl(var(--accent))]"
               />
               <SeasonalStatCard
                 icon="📈"
-                value={`${computed.achievementProgress}%`}
+                value={`${computed.badgeProgress}%`}
                 label="Completion"
                 colorClass="bg-[hsl(var(--success))]/10"
                 textColor="text-[hsl(var(--success))]"
@@ -267,8 +271,8 @@ export default function Home() {
         </motion.section>
       )}
 
-      {/* Recent Achievements (REAL) */}
-      {achievements.length > 0 && (
+      {/* Recent Badges (REAL) */}
+      {badges.length > 0 && (
         <motion.section
           className="py-8 px-4 border-t border-[hsl(var(--border))] bg-[hsl(var(--card))]/50"
           initial={{ opacity: 0, y: 28 }}
@@ -280,19 +284,19 @@ export default function Home() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-sm font-medium text-[hsl(var(--muted-foreground))] uppercase tracking-wider flex items-center gap-2">
                 <SeasonIcon index={4} />
-                Recent Achievements
+                Recent Badges
               </h2>
-              <Link href="/profile" className="text-sm text-[hsl(var(--accent))] hover:underline">
+              <Link href="/badges" className="text-sm text-[hsl(var(--accent))] hover:underline">
                 View All →
               </Link>
             </div>
 
             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-              {achievements.slice(0, 5).map((achievement, index) => {
-                const meta = ACHIEVEMENTS.find((a) => a.id === achievement.id);
+              {badges.slice(0, 5).map((badge, index) => {
+                const meta = BADGES.find((a) => a.id === badge.id);
                 return (
                   <motion.div
-                    key={`${achievement.id}-${index}`}
+                    key={`${badge.id}-${index}`}
                     whileHover={{ y: -3, scale: 1.02 }}
                     transition={{ duration: 0.18 }}
                     className="flex-shrink-0"
@@ -300,7 +304,7 @@ export default function Home() {
                     <SeasonCard className="flex items-center gap-2 px-4 py-2" hover={true}>
                       <span className="text-xl">{meta?.icon || '🏆'}</span>
                       <span className="text-sm font-medium text-[hsl(var(--foreground))]">
-                        {meta?.name || 'Achievement'}
+                        {meta?.name || 'Badge'}
                       </span>
                     </SeasonCard>
                   </motion.div>

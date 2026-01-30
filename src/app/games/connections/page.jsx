@@ -22,7 +22,11 @@ import Toast from '@/components/Toast';
 import GameHeader from '@/components/GameHeader';
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
-import AchievementNotification from '@/components/AchievementNotification';
+import BadgeToastQueue from '@/components/BadgeToastQueue';
+import BadgeDetailsSheet from '@/components/BadgeDetailsSheet';
+import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
+import BadgesProgressWidget from '@/components/BadgesProgressWidget';
+import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
 import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
@@ -51,8 +55,9 @@ export default function ConnectionsGame() {
   const [showStats, setShowStats] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
-  const [newAchievements, setNewAchievements] = useState([]);
-  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
+  const [badgeUnlocks, setBadgeUnlocks] = useState([]);
+  const [selectedBadge, setSelectedBadge] = useState(null);
+  const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
   
   // Load stats on mount and track game start
   useEffect(() => {
@@ -101,10 +106,7 @@ export default function ConnectionsGame() {
       const allWords = puzzle.groups.flatMap(g => g.words);
       addWordsToLog(allWords, 'connections');
       
-      if (achievements && achievements.length > 0) {
-        setNewAchievements(achievements);
-        setCurrentAchievementIndex(0);
-      }
+      setBadgeUnlocks(achievements || []);
       
       setTimeout(() => setShowResultModal(true), 1000);
     }
@@ -217,6 +219,7 @@ export default function ConnectionsGame() {
         title="Connections" 
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
         gameComplete={gameComplete}
       />
@@ -229,6 +232,11 @@ export default function ConnectionsGame() {
           onExited={handleToastExit} 
         />
       )}
+
+      <BadgeToastQueue
+        unlocks={badgeUnlocks}
+        onView={(badge) => setSelectedBadge(badge)}
+      />
 
       {/* Result Modal */}
       <Modal isOpen={showResultModal} title={gameState.gameStatus === 'won' ? 'Puzzle Complete!' : 'Next Time!'}>
@@ -265,6 +273,11 @@ export default function ConnectionsGame() {
           {/* Daily Reminder */}
           <DailyReminder gameName="connections" />
 
+          <BadgeEarnedRecap badges={badgeUnlocks} />
+          <div className="mt-3 w-full">
+            <BadgesProgressWidget variant="compact" />
+          </div>
+
           <div className="w-full h-px bg-border-default my-2"></div>
 
           <button
@@ -300,20 +313,16 @@ export default function ConnectionsGame() {
         />
       )}
 
-      {/* Achievement Notifications */}
-      {newAchievements.length > 0 && currentAchievementIndex < newAchievements.length && (
-        <AchievementNotification
-          achievementId={newAchievements[currentAchievementIndex].id}
-          onClose={() => {
-            if (currentAchievementIndex < newAchievements.length - 1) {
-              setCurrentAchievementIndex(currentAchievementIndex + 1);
-            } else {
-              setNewAchievements([]);
-              setCurrentAchievementIndex(0);
-            }
-          }}
-        />
-      )}
+      <BadgesDrawer
+        isOpen={showBadgesDrawer}
+        onClose={() => setShowBadgesDrawer(false)}
+      />
+
+      <BadgeDetailsSheet
+        badge={selectedBadge}
+        isOpen={!!selectedBadge}
+        onClose={() => setSelectedBadge(null)}
+      />
 
       {/* Header */}
       <div className="w-full mb-6 px-4">

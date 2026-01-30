@@ -45,7 +45,8 @@ export function getProfile() {
     }
     
     const gameUpdated = ensureGameEntries(profile);
-    if (updated || gameUpdated) {
+    const badgeUpdated = ensureBadgeSeenField(profile);
+    if (updated || gameUpdated || badgeUpdated) {
       saveProfile(profile);
     }
     if (profile.name && session.displayName !== profile.name) {
@@ -72,6 +73,7 @@ export function getProfile() {
       combinations: initCombinationsStats(),
     },
     achievements: [],
+    lastSeenBadgeEarnedAt: null,
     settings: {
       remindersEnabled: false,
       lastReminderSent: null,
@@ -129,6 +131,26 @@ export function saveProfile(profile) {
   if (session && session.role !== 'ADMIN' && profile.name && session.displayName !== profile.name) {
     updateSession({ displayName: profile.name });
   }
+}
+
+function ensureBadgeSeenField(profile) {
+  if (!profile) return false;
+  if (profile.lastSeenBadgeEarnedAt !== undefined && profile.lastSeenBadgeEarnedAt !== null) {
+    return false;
+  }
+
+  if (Array.isArray(profile.achievements) && profile.achievements.length > 0) {
+    const latest = profile.achievements.reduce((acc, entry) => {
+      if (!entry?.unlockedAt) return acc;
+      if (!acc) return entry.unlockedAt;
+      return entry.unlockedAt > acc ? entry.unlockedAt : acc;
+    }, null);
+    profile.lastSeenBadgeEarnedAt = latest || profile.createdAt || new Date().toISOString();
+  } else {
+    profile.lastSeenBadgeEarnedAt = profile.createdAt || new Date().toISOString();
+  }
+
+  return true;
 }
 
 // Check if player has set their name
@@ -437,6 +459,15 @@ function checkAchievements(profile, gameName, result) {
   }
   
   return newAchievements;
+}
+
+// Check achievements for a specific game without altering stats
+export function checkAchievementsForGame(gameName, result) {
+  const profile = getProfile();
+  if (!profile || !profile.games || !profile.games[gameName]) {
+    return [];
+  }
+  return checkAchievements(profile, gameName, result);
 }
 
 // Get history for date range

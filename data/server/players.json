@@ -98,7 +98,7 @@
     "userId": "a770d052-b0f9-4698-aade-768ba44145cd",
     "name": "joo",
     "createdAt": "2026-01-29T01:54:39.735Z",
-    "updatedAt": "2026-01-29T01:54:39.737Z",
+    "updatedAt": "2026-01-29T21:06:14.021Z",
     "games": {
       "wordle": {
         "gamesPlayed": 0,
@@ -176,15 +176,34 @@
         "queenBeeCount": 0
       },
       "strands": {
-        "gamesPlayed": 0,
-        "gamesWon": 0,
-        "currentStreak": 0,
-        "longestStreak": 0,
-        "lastPlayedDate": null,
-        "history": [],
-        "bestTime": null,
-        "averageAttempts": 0,
-        "totalAttempts": 0,
+        "gamesPlayed": 1,
+        "gamesWon": 1,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "lastPlayedDate": "2026-01-29",
+        "history": [
+          {
+            "date": "2026-01-30",
+            "win": true,
+            "time": 93,
+            "hintsUsed": 5,
+            "perfect": false,
+            "attempts": 6,
+            "breakdown": {
+              "words": [
+                "EGGS",
+                "BACON",
+                "TOAST",
+                "PANCAKE",
+                "WAFFLE"
+              ],
+              "spangram": true
+            }
+          }
+        ],
+        "bestTime": 93,
+        "averageAttempts": 6,
+        "totalAttempts": 6,
         "perfectGames": 0
       }
     }

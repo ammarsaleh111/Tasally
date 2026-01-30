@@ -7,7 +7,11 @@ import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 // NOTE: Learning Log removed - Trivia is not a word-based game
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
-import AchievementNotification from '@/components/AchievementNotification';
+import BadgeToastQueue from '@/components/BadgeToastQueue';
+import BadgeDetailsSheet from '@/components/BadgeDetailsSheet';
+import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
+import BadgesProgressWidget from '@/components/BadgesProgressWidget';
+import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
 import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import Toast from '@/components/Toast';
@@ -50,8 +54,9 @@ export default function TriviaGame() {
   
   // Stats
   const [stats, setStats] = useState(null);
-  const [newAchievements, setNewAchievements] = useState([]);
-  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
+  const [badgeUnlocks, setBadgeUnlocks] = useState([]);
+  const [selectedBadge, setSelectedBadge] = useState(null);
+  const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
 
   // Toast handler
   const handleToastExit = () => {
@@ -153,10 +158,7 @@ export default function TriviaGame() {
     const updatedStats = getGameStats('trivia');
     setStats(updatedStats);
     
-    if (achievements && achievements.length > 0) {
-      setNewAchievements(achievements);
-      setCurrentAchievementIndex(0);
-    }
+    setBadgeUnlocks(achievements || []);
     
     if (percentage >= 80) {
       setShowConfetti(true);
@@ -186,8 +188,14 @@ export default function TriviaGame() {
         title="Trivia"
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onBadges={() => setShowBadgesDrawer(true)}
         // Learning Log removed - Trivia is not a word-based game
         gameComplete={gameComplete}
+      />
+
+      <BadgeToastQueue
+        unlocks={badgeUnlocks}
+        onView={(badge) => setSelectedBadge(badge)}
       />
 
       <div className="relative flex-1 flex flex-col items-center justify-center p-4 pb-32">
@@ -362,6 +370,11 @@ export default function TriviaGame() {
               {/* Daily Reminder */}
               {mode === 'daily' && <DailyReminder gameName="trivia" />}
 
+              <BadgeEarnedRecap badges={badgeUnlocks} />
+              <div className="mt-3">
+                <BadgesProgressWidget variant="compact" />
+              </div>
+
               {/* Action Buttons */}
               <div className="flex gap-3">
                 <button
@@ -424,22 +437,17 @@ export default function TriviaGame() {
         />
       )}
 
-      {/* Achievement Notifications */}
-      {newAchievements.length > 0 && currentAchievementIndex < newAchievements.length && (
-        <AchievementNotification
-          achievementId={newAchievements[currentAchievementIndex].id}
-          onClose={() => {
-            if (currentAchievementIndex < newAchievements.length - 1) {
-              setCurrentAchievementIndex(currentAchievementIndex + 1);
-            } else {
-              setNewAchievements([]);
-              setCurrentAchievementIndex(0);
-            }
-          }}
-        />
-      )}
+      <BadgesDrawer
+        isOpen={showBadgesDrawer}
+        onClose={() => setShowBadgesDrawer(false)}
+      />
 
-      
+      <BadgeDetailsSheet
+        badge={selectedBadge}
+        isOpen={!!selectedBadge}
+        onClose={() => setSelectedBadge(null)}
+      />
+
       {toast && (
         <Toast
           key={toast.id}

@@ -22,7 +22,11 @@ import StatisticsModal from '@/components/StatisticsModal';
 import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
 import ShareResults from '@/components/ShareResults';
-import AchievementNotification from '@/components/AchievementNotification';
+import BadgeToastQueue from '@/components/BadgeToastQueue';
+import BadgeDetailsSheet from '@/components/BadgeDetailsSheet';
+import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
+import BadgesProgressWidget from '@/components/BadgesProgressWidget';
+import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
 import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
@@ -53,8 +57,9 @@ export default function WordleGame() {
   const [stats, setStats] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
   const [isChecking, setIsChecking] = useState(false);
-  const [newAchievements, setNewAchievements] = useState([]);
-  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
+  const [badgeUnlocks, setBadgeUnlocks] = useState([]);
+  const [selectedBadge, setSelectedBadge] = useState(null);
+  const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
   const [solveTime, setSolveTime] = useState(null);
   const [showWinConfetti, setShowWinConfetti] = useState(false);
   const [hasCelebratedWin, setHasCelebratedWin] = useState(false);
@@ -150,11 +155,8 @@ export default function WordleGame() {
     const updatedStats = getGameStats('wordle');
     setStats(updatedStats);
     
-    // Show achievements
-    if (achievements && achievements.length > 0) {
-      setNewAchievements(achievements);
-      setCurrentAchievementIndex(0);
-    }
+    // Show badges
+    setBadgeUnlocks(achievements || []);
   };
 
   /**
@@ -455,6 +457,11 @@ export default function WordleGame() {
         />
       )}
 
+      <BadgeToastQueue
+        unlocks={badgeUnlocks}
+        onView={(badge) => setSelectedBadge(badge)}
+      />
+
       {/* Result Modal */}
       <Modal
         isOpen={showResultModal}
@@ -518,6 +525,11 @@ export default function WordleGame() {
             <DailyReminder gameName="wordle" />
           )}
 
+          <BadgeEarnedRecap badges={badgeUnlocks} />
+          <div className="mt-3">
+            <BadgesProgressWidget variant="compact" />
+          </div>
+
           <div className="w-full h-px bg-border-default my-1"></div>
 
           <div className="flex flex-col gap-3 w-full">
@@ -551,6 +563,7 @@ export default function WordleGame() {
         title={mode === 'unlimited' ? `Wordle ${wordLength}` : 'Wordle'}
         onHowToPlay={() => setShowHowTo(true)}
         onStats={() => setShowStats(true)}
+        onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
         gameComplete={gameStatus !== 'playing'}
         mode={mode}
@@ -609,21 +622,6 @@ export default function WordleGame() {
         />
       )}
 
-      {/* Achievement Notifications */}
-      {newAchievements.length > 0 && currentAchievementIndex < newAchievements.length && (
-        <AchievementNotification
-          achievementId={newAchievements[currentAchievementIndex].id}
-          onClose={() => {
-            if (currentAchievementIndex < newAchievements.length - 1) {
-              setCurrentAchievementIndex(currentAchievementIndex + 1);
-            } else {
-              setNewAchievements([]);
-              setCurrentAchievementIndex(0);
-            }
-          }}
-        />
-      )}
-
       {/* How To Play Modal */}
       <UnifiedHowToPlay 
         isOpen={showHowTo} 
@@ -636,6 +634,17 @@ export default function WordleGame() {
         isOpen={showLearningLog}
         onClose={() => setShowLearningLog(false)}
         gameName="wordle"
+      />
+
+      <BadgesDrawer
+        isOpen={showBadgesDrawer}
+        onClose={() => setShowBadgesDrawer(false)}
+      />
+
+      <BadgeDetailsSheet
+        badge={selectedBadge}
+        isOpen={!!selectedBadge}
+        onClose={() => setSelectedBadge(null)}
       />
     </div>
   );

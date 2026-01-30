@@ -23,7 +23,11 @@ import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
-import AchievementNotification from '@/components/AchievementNotification';
+import BadgeToastQueue from '@/components/BadgeToastQueue';
+import BadgeDetailsSheet from '@/components/BadgeDetailsSheet';
+import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
+import BadgesProgressWidget from '@/components/BadgesProgressWidget';
+import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
@@ -47,8 +51,9 @@ export default function CombinationsPage() {
   const [showStats, setShowStats] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
-  const [newAchievements, setNewAchievements] = useState([]);
-  const [currentAchievementIndex, setCurrentAchievementIndex] = useState(0);
+  const [badgeUnlocks, setBadgeUnlocks] = useState([]);
+  const [selectedBadge, setSelectedBadge] = useState(null);
+  const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
   const [justSubmittedWord, setJustSubmittedWord] = useState(null);
 
   // Load stats on mount
@@ -99,10 +104,7 @@ export default function CombinationsPage() {
         addWordsToLog(allWords, 'combinations');
       }
       
-      if (achievements && achievements.length > 0) {
-        setNewAchievements(achievements);
-        setCurrentAchievementIndex(0);
-      }
+      setBadgeUnlocks(achievements || []);
       
       setTimeout(() => setShowResultModal(true), 500);
     }
@@ -176,15 +178,6 @@ export default function CombinationsPage() {
     setShowResultModal(false);
   }, []);
 
-  const handleAchievementDismiss = useCallback(() => {
-    if (currentAchievementIndex < newAchievements.length - 1) {
-      setCurrentAchievementIndex(prev => prev + 1);
-    } else {
-      setNewAchievements([]);
-      setCurrentAchievementIndex(0);
-    }
-  }, [currentAchievementIndex, newAchievements.length]);
-
   // Build current word preview
   const currentWord = buildWord(gameState.fragments, gameState.currentSelection);
   const previewScore = gameState.currentSelection.length > 0 
@@ -201,6 +194,7 @@ export default function CombinationsPage() {
         title="Combinations"
         onHowToPlay={() => setShowHowToPlay(true)}
         onStats={() => setShowStats(true)}
+        onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
         gameComplete={gameComplete}
       />
@@ -413,6 +407,11 @@ export default function CombinationsPage() {
               </div>
             )}
 
+            <BadgeEarnedRecap badges={badgeUnlocks} />
+            <div className="mt-3">
+              <BadgesProgressWidget variant="compact" />
+            </div>
+
             <div className="flex gap-3 justify-center">
               {mode === 'unlimited' && (
                 <button
@@ -457,13 +456,16 @@ export default function CombinationsPage() {
         />
       )}
 
-      {/* Achievement Notification */}
-      {newAchievements.length > 0 && newAchievements[currentAchievementIndex] && (
-        <AchievementNotification
-          achievement={newAchievements[currentAchievementIndex]}
-          onDismiss={handleAchievementDismiss}
-        />
-      )}
+      <BadgesDrawer
+        isOpen={showBadgesDrawer}
+        onClose={() => setShowBadgesDrawer(false)}
+      />
+
+      <BadgeDetailsSheet
+        badge={selectedBadge}
+        isOpen={!!selectedBadge}
+        onClose={() => setSelectedBadge(null)}
+      />
 
       {/* Toast */}
       {toast && (
@@ -473,6 +475,11 @@ export default function CombinationsPage() {
           onExited={handleToastExit}
         />
       )}
+
+      <BadgeToastQueue
+        unlocks={badgeUnlocks}
+        onView={(badge) => setSelectedBadge(badge)}
+      />
 
       {/* Daily Reminder */}
       <DailyReminder />
