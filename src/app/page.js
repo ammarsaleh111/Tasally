@@ -9,6 +9,8 @@ import { useSimplePuzzleLoader } from '@/hooks/usePuzzleLoader';
 import { getAllStats, getUnlockedAchievements, getAchievementCount } from '@/utils/profileManager';
 import { BADGES } from '@/utils/badgesEngine';
 import { getActiveTheme } from '@/utils/themeEngine';
+import { useTutorial } from '@/hooks/useTutorial';
+import { GLOBAL_TUTORIAL } from '@/data/tutorials';
 import {
   useSeasonIdentity,
   SeasonPageHeader,
@@ -35,6 +37,7 @@ const scaleVariants = {
 
 export default function Home() {
   const isLoading = useSimplePuzzleLoader();
+  const { openManual: openGlobalTutorial } = useTutorial(GLOBAL_TUTORIAL.id, { auto: false });
 
   const [mounted, setMounted] = useState(false);
   const [stats, setStats] = useState(null);
@@ -212,6 +215,20 @@ export default function Home() {
                 <span className="text-xl">👤</span>
                 <span>View Profile</span>
               </Link>
+
+              <button
+                type="button"
+                onClick={openGlobalTutorial}
+                className="
+                  inline-flex items-center gap-2 px-6 py-3
+                  text-[hsl(var(--muted-foreground))]
+                  hover:text-[hsl(var(--foreground))]
+                  font-medium transition-colors duration-200
+                "
+              >
+                <span className="text-xl">?</span>
+                <span>How it works</span>
+              </button>
             </div>
           </motion.div>
         </motion.div>

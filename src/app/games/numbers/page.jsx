@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import GameHeader from '@/components/GameHeader';
-import Modal from '@/components/Modal';
-import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 // NOTE: Learning Log removed - Numbers is not a word-based game
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
@@ -15,6 +13,9 @@ import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
 import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import Toast from '@/components/Toast';
+import TutorialPanel from '@/components/tutorial/TutorialPanel';
+import { GAME_TUTORIALS } from '@/data/tutorials';
+import { useTutorial } from '@/hooks/useTutorial';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import {
   getDailyPuzzle,
@@ -37,7 +38,6 @@ export default function NumbersGame() {
   const [showConfetti, setShowConfetti] = useState(false);
   
   // Modals
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
   // Learning Log state removed - not applicable for math puzzles
   
@@ -52,6 +52,18 @@ export default function NumbersGame() {
   const [badgeUnlocks, setBadgeUnlocks] = useState([]);
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
+
+  const tutorial = GAME_TUTORIALS.numbers;
+  const {
+    isOpen: isTutorialOpen,
+    openManual: openHowToPlay,
+    close: closeTutorial,
+    skip: skipTutorial,
+    complete: completeTutorial,
+    updateStep: updateTutorialStep,
+    startMode,
+    lastStep,
+  } = useTutorial(tutorial.id);
   
   // Toast handler
   const handleToastExit = () => {
@@ -242,7 +254,7 @@ export default function NumbersGame() {
     <div className="min-h-screen flex flex-col animate-fade-in-up">
       <GameHeader
         title="Numbers"
-        onHowToPlay={() => setShowHowToPlay(true)}
+        onHowToPlay={openHowToPlay}
         onStats={() => setShowStats(true)}
         onBadges={() => setShowBadgesDrawer(true)}
         // Learning Log removed - Numbers is not a word-based game
@@ -269,7 +281,7 @@ export default function NumbersGame() {
         />
         <div className="max-w-2xl w-full space-y-6">
           {/* Target Display */}
-          <div className="text-center">
+          <div className="text-center" data-tutorial="numbers-target">
             <div className="text-sm text-text-muted mb-2">Target Number</div>
             <div className="text-6xl font-bold text-wordle-correct mb-4">
               {puzzle.target}
@@ -304,7 +316,7 @@ export default function NumbersGame() {
           )}
 
           {/* Available Numbers */}
-          <div>
+          <div data-tutorial="numbers-choices">
             <div className="text-sm text-text-muted mb-3 text-center">
               Available Numbers ({availableNumbers.length})
             </div>
@@ -331,7 +343,7 @@ export default function NumbersGame() {
           </div>
 
           {/* Operators */}
-          <div>
+          <div data-tutorial="numbers-operators">
             <div className="text-sm text-text-muted mb-3 text-center">
               Choose Operation
             </div>
@@ -448,11 +460,15 @@ export default function NumbersGame() {
         </div>
       </div>
 
-      {/* Modals */}
-      <UnifiedHowToPlay 
-        gameName="numbers" 
-        isOpen={showHowToPlay} 
-        onClose={() => setShowHowToPlay(false)} 
+      <TutorialPanel
+        isOpen={isTutorialOpen}
+        tutorial={tutorial}
+        startAt={startMode === 'resume' ? lastStep : 0}
+        resumeStep={lastStep}
+        onStepChange={updateTutorialStep}
+        onClose={closeTutorial}
+        onSkip={skipTutorial}
+        onComplete={completeTutorial}
       />
       
       {/* Learning Log Modal removed - Numbers is not a word-based game */}

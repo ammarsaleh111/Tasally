@@ -19,7 +19,6 @@ import FragmentSelector from '@/components/FragmentSelector';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
 import GameHeader from '@/components/GameHeader';
-import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
@@ -33,6 +32,9 @@ import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileM
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
+import TutorialPanel from '@/components/tutorial/TutorialPanel';
+import { GAME_TUTORIALS } from '@/data/tutorials';
+import { useTutorial } from '@/hooks/useTutorial';
 
 export default function CombinationsPage() {
   const [mode, setMode] = useState('daily'); // 'daily' | 'unlimited'
@@ -47,7 +49,6 @@ export default function CombinationsPage() {
   });
   const [toast, setToast] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
@@ -55,6 +56,18 @@ export default function CombinationsPage() {
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
   const [justSubmittedWord, setJustSubmittedWord] = useState(null);
+
+  const tutorial = GAME_TUTORIALS.combinations;
+  const {
+    isOpen: isTutorialOpen,
+    openManual: openHowToPlay,
+    close: closeTutorial,
+    skip: skipTutorial,
+    complete: completeTutorial,
+    updateStep: updateTutorialStep,
+    startMode,
+    lastStep,
+  } = useTutorial(tutorial.id);
 
   // Load stats on mount
   useEffect(() => {
@@ -192,7 +205,7 @@ export default function CombinationsPage() {
     <div className="min-h-screen flex flex-col animate-fade-in-up">
       <GameHeader
         title="Combinations"
-        onHowToPlay={() => setShowHowToPlay(true)}
+        onHowToPlay={openHowToPlay}
         onStats={() => setShowStats(true)}
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
@@ -225,7 +238,7 @@ export default function CombinationsPage() {
         </div>
 
         {/* Score card */}
-        <div className="w-full bg-card rounded-xl p-4 mb-4 border border-card-border shadow-sm">
+        <div className="w-full bg-card rounded-xl p-4 mb-4 border border-card-border shadow-sm" data-tutorial="combinations-score">
           <div className="flex justify-between items-center mb-3">
             <div className="text-center flex-1">
               <div className="text-xs text-text-muted uppercase tracking-wider">Score</div>
@@ -275,7 +288,7 @@ export default function CombinationsPage() {
         </div>
 
         {/* Fragment selector */}
-        <div className="w-full bg-card rounded-xl p-4 mb-4 border border-card-border shadow-sm">
+        <div className="w-full bg-card rounded-xl p-4 mb-4 border border-card-border shadow-sm" data-tutorial="combinations-fragments">
           <FragmentSelector
             fragments={puzzle.fragments}
             selectedIndices={gameState.currentSelection}
@@ -285,7 +298,7 @@ export default function CombinationsPage() {
         </div>
 
         {/* Action buttons */}
-        <div className="flex gap-3 w-full mb-4">
+        <div className="flex gap-3 w-full mb-4" data-tutorial="combinations-actions">
           <button
             onClick={handleClearSelection}
             disabled={gameState.currentSelection.length === 0}
@@ -432,11 +445,15 @@ export default function CombinationsPage() {
         </Modal>
       )}
 
-      {/* How to Play Modal */}
-      <UnifiedHowToPlay 
-        gameName="combinations" 
-        isOpen={showHowToPlay} 
-        onClose={() => setShowHowToPlay(false)} 
+      <TutorialPanel
+        isOpen={isTutorialOpen}
+        tutorial={tutorial}
+        startAt={startMode === 'resume' ? lastStep : 0}
+        resumeStep={lastStep}
+        onStepChange={updateTutorialStep}
+        onClose={closeTutorial}
+        onSkip={skipTutorial}
+        onComplete={completeTutorial}
       />
       
       {/* Learning Log Modal */}

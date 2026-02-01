@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import GameHeader from '@/components/GameHeader';
-import Modal from '@/components/Modal';
-import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 // NOTE: Learning Log removed - Trivia is not a word-based game
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
@@ -15,6 +13,9 @@ import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
 import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import Toast from '@/components/Toast';
+import TutorialPanel from '@/components/tutorial/TutorialPanel';
+import { GAME_TUTORIALS } from '@/data/tutorials';
+import { useTutorial } from '@/hooks/useTutorial';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import {
   getDailyTrivia,
@@ -42,7 +43,6 @@ export default function TriviaGame() {
   const [timerActive, setTimerActive] = useState(false);
   
   // Modals
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
   // Learning Log state removed - not applicable for trivia
   
@@ -58,6 +58,18 @@ export default function TriviaGame() {
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
 
+  const tutorial = GAME_TUTORIALS.trivia;
+  const {
+    isOpen: isTutorialOpen,
+    openManual: openHowToPlay,
+    close: closeTutorial,
+    skip: skipTutorial,
+    complete: completeTutorial,
+    updateStep: updateTutorialStep,
+    startMode,
+    lastStep,
+  } = useTutorial(tutorial.id);
+
   // Toast handler
   const handleToastExit = () => {
     setToast(null);
@@ -72,7 +84,7 @@ export default function TriviaGame() {
     setCorrectCount(0);
     setGameComplete(false);
     setTimeElapsed(0);
-    setTimerActive(true);
+    setTimerActive(false);
     setCurrentStreak(0);
   };
 
@@ -94,6 +106,15 @@ export default function TriviaGame() {
     }
     return () => clearInterval(interval);
   }, [timerActive, gameComplete]);
+
+  useEffect(() => {
+    if (!triviaSet || gameComplete) return;
+    if (isTutorialOpen) {
+      if (timerActive) setTimerActive(false);
+      return;
+    }
+    if (!timerActive) setTimerActive(true);
+  }, [isTutorialOpen, triviaSet, gameComplete, timerActive]);
 
   const showToast = (message, type = 'info') => {
     setToast({ message, type, id: Date.now() });
@@ -186,7 +207,7 @@ export default function TriviaGame() {
     <div className="min-h-screen flex flex-col animate-fade-in-up">
       <GameHeader
         title="Trivia"
-        onHowToPlay={() => setShowHowToPlay(true)}
+        onHowToPlay={openHowToPlay}
         onStats={() => setShowStats(true)}
         onBadges={() => setShowBadgesDrawer(true)}
         // Learning Log removed - Trivia is not a word-based game
@@ -216,7 +237,7 @@ export default function TriviaGame() {
           {!gameComplete ? (
             <>
               {/* Progress Bar */}
-              <div className="space-y-2">
+              <div className="space-y-2" data-tutorial="trivia-timer">
                 <div className="flex justify-between text-sm text-text-muted">
                   <span>Question {currentQuestionIndex + 1} of {triviaSet.questions.length}</span>
                   <span>⏱️ {formatTime(timeElapsed)}</span>
@@ -240,7 +261,10 @@ export default function TriviaGame() {
               </div>
 
               {/* Question Card */}
-              <div className="bg-card border-2 border-card-border rounded-2xl p-8 min-h-[200px] flex items-center justify-center">
+              <div
+                className="bg-card border-2 border-card-border rounded-2xl p-8 min-h-[200px] flex items-center justify-center"
+                data-tutorial="trivia-question"
+              >
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center">
                   {currentQuestion.question}
                 </h2>
@@ -256,7 +280,7 @@ export default function TriviaGame() {
               )}
 
               {/* Answer Options */}
-              <div className="grid grid-cols-1 gap-3">
+              <div className="grid grid-cols-1 gap-3" data-tutorial="trivia-options">
                 {currentQuestion.options.map((option, index) => {
                   const isSelected = selectedAnswer === option;
                   const isCorrect = option === currentQuestion.answer;
@@ -302,7 +326,7 @@ export default function TriviaGame() {
               </div>
 
               {/* Score Display */}
-              <div className="text-center">
+              <div className="text-center" data-tutorial="trivia-score">
                 <div className="inline-flex items-center gap-6 px-6 py-3 bg-surface rounded-lg border border-card-border">
                   <div>
                     <div className="text-sm text-text-muted">Correct</div>
@@ -419,11 +443,15 @@ export default function TriviaGame() {
         </div>
       </div>
 
-      {/* Modals */}
-      <UnifiedHowToPlay 
-        gameName="trivia" 
-        isOpen={showHowToPlay} 
-        onClose={() => setShowHowToPlay(false)} 
+      <TutorialPanel
+        isOpen={isTutorialOpen}
+        tutorial={tutorial}
+        startAt={startMode === 'resume' ? lastStep : 0}
+        resumeStep={lastStep}
+        onStepChange={updateTutorialStep}
+        onClose={closeTutorial}
+        onSkip={skipTutorial}
+        onComplete={completeTutorial}
       />
       
       {/* Learning Log Modal removed - Trivia is not a word-based game */}

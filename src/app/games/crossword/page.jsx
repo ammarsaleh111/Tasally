@@ -28,7 +28,6 @@ import Toast from '@/components/Toast';
 import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
 import GameHeader from '@/components/GameHeader';
 import StatisticsModal from '@/components/StatisticsModal';
-import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
 import ShareResults from '@/components/ShareResults';
 import BadgeToastQueue from '@/components/BadgeToastQueue';
@@ -43,6 +42,9 @@ import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
 import { getUserStorageKey } from '@/utils/storageKeys';
+import TutorialPanel from '@/components/tutorial/TutorialPanel';
+import { GAME_TUTORIALS } from '@/data/tutorials';
+import { useTutorial } from '@/hooks/useTutorial';
 
 export default function CrosswordGame() {
   // =========================================================================
@@ -59,7 +61,6 @@ export default function CrosswordGame() {
   const [toast, setToast] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
   const [solvedWords, setSolvedWords] = useState(new Set());
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
@@ -76,6 +77,18 @@ export default function CrosswordGame() {
   const prevWinRef = useRef(false);
   const initialWinHandledRef = useRef(false);
   const winStorageKey = puzzle ? getUserStorageKey(`crossword-win-celebrated-${puzzle.date}`) : null;
+
+  const tutorial = GAME_TUTORIALS.crossword;
+  const {
+    isOpen: isTutorialOpen,
+    openManual: openHowToPlay,
+    close: closeTutorial,
+    skip: skipTutorial,
+    complete: completeTutorial,
+    updateStep: updateTutorialStep,
+    startMode,
+    lastStep,
+  } = useTutorial(tutorial.id);
   
   // =========================================================================
   // INITIALIZATION
@@ -169,6 +182,21 @@ export default function CrosswordGame() {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [puzzle, timerState, gameState?.isSolved]);
+
+  useEffect(() => {
+    if (!puzzle || !timerState || gameState?.isSolved) return;
+
+    if (isTutorialOpen && !timerState.isPaused) {
+      const paused = pausePuzzleTimer(timerState, puzzle.date);
+      setTimerState(paused);
+      return;
+    }
+
+    if (!isTutorialOpen && timerState.isPaused && !document.hidden) {
+      const resumed = resumePuzzleTimer(timerState, puzzle.date);
+      setTimerState(resumed);
+    }
+  }, [isTutorialOpen, puzzle, timerState, gameState?.isSolved]);
   
   // Update display time every second
   useEffect(() => {
@@ -306,6 +334,7 @@ export default function CrosswordGame() {
   }, []);
 
   const handleCellClick = useCallback((row, col) => {
+    if (isTutorialOpen) return;
     if (!puzzle || !gameState || gameState.isSolved) return;
     
     // Check if cell is a block
@@ -330,9 +359,10 @@ export default function CrosswordGame() {
     
     // Focus input for mobile
     inputRef.current?.focus();
-  }, [puzzle, gameState]);
+  }, [isTutorialOpen, puzzle, gameState]);
 
   const handleClueClick = useCallback((clueNum, dir) => {
+    if (isTutorialOpen) return;
     if (!puzzle) return;
     
     const height = puzzle.height || GRID_SIZE;
@@ -352,7 +382,7 @@ export default function CrosswordGame() {
         }
       }
     }
-  }, [puzzle]);
+  }, [isTutorialOpen, puzzle]);
 
   // Check if a word is complete and correct
   const checkWordSolved = useCallback((row, col, direction, userGrid) => {
@@ -420,6 +450,7 @@ export default function CrosswordGame() {
   }, [puzzle, solvedWords]);
 
   const handleKeyDown = useCallback((e) => {
+    if (isTutorialOpen) return;
     if (!puzzle || !gameState || gameState.isSolved) return;
     
     const { row, col } = gameState.activeCell;
@@ -567,7 +598,7 @@ export default function CrosswordGame() {
       }));
       e.preventDefault();
     }
-  }, [puzzle, gameState, solvedWords, checkWordSolved, getNextUnsolvedClue]);
+  }, [isTutorialOpen, puzzle, gameState, solvedWords, checkWordSolved, getNextUnsolvedClue]);
 
   // Keyboard listener
   useEffect(() => {
@@ -620,7 +651,7 @@ export default function CrosswordGame() {
     <div className="flex flex-col items-center w-full min-h-screen pb-10 animate-fade-in-up">
       <GameHeader 
         title="Mini Crossword" 
-        onHowToPlay={() => setShowHowToPlay(true)}
+        onHowToPlay={openHowToPlay}
         onStats={() => setShowStats(true)}
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
@@ -676,7 +707,7 @@ export default function CrosswordGame() {
         )}
 
         {/* Timer Display */}
-        <div className="w-full mb-4 text-center">
+        <div className="w-full mb-4 text-center" data-tutorial="crossword-timer">
           <div className="text-lg font-mono font-bold text-foreground flex items-center justify-center gap-2">
             {isPaused && (
               <span className="text-sm text-yellow-500 animate-pulse" title="Timer paused">⏸</span>
@@ -693,7 +724,7 @@ export default function CrosswordGame() {
         {/* Grid and Clues Side by Side */}
         <div className="flex flex-col lg:flex-row gap-6 w-full items-start justify-center">
           {/* Clues on Left */}
-          <div className="w-full lg:flex-1 lg:min-w-0 lg:max-w-80 order-2 lg:order-1">
+          <div className="w-full lg:flex-1 lg:min-w-0 lg:max-w-80 order-2 lg:order-1" data-tutorial="crossword-clues">
             <CluePanel 
               puzzle={puzzle}
               activeClue={activeClue}
@@ -706,6 +737,7 @@ export default function CrosswordGame() {
           {/* Grid on Right */}
           <div 
             className="w-full lg:w-auto lg:flex-shrink-0 order-1 lg:order-2"
+            data-tutorial="crossword-grid"
             onClick={() => inputRef.current?.focus()}
           >
             <CrosswordGrid 
@@ -762,11 +794,15 @@ export default function CrosswordGame() {
         </div>
       </Modal>
       
-      {/* How to Play Modal */}
-      <UnifiedHowToPlay 
-        gameName="crossword" 
-        isOpen={showHowToPlay} 
-        onClose={() => setShowHowToPlay(false)} 
+      <TutorialPanel
+        isOpen={isTutorialOpen}
+        tutorial={tutorial}
+        startAt={startMode === 'resume' ? lastStep : 0}
+        resumeStep={lastStep}
+        onStepChange={updateTutorialStep}
+        onClose={closeTutorial}
+        onSkip={skipTutorial}
+        onComplete={completeTutorial}
       />
       
       {/* Learning Log Modal */}

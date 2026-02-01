@@ -8,6 +8,8 @@ import IdentityProvider from "@/components/IdentityProvider";
 import SessionInitializer from "@/components/SessionInitializer";
 import AuthProvider from "@/components/AuthProvider";
 import SessionBridge from "@/components/SessionBridge";
+import { TutorialProvider } from "@/components/tutorial/TutorialProvider";
+import GlobalTutorial from "@/components/tutorial/GlobalTutorial";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,12 +44,15 @@ export default function RootLayout({ children }) {
             <IdentityProvider>
               <ThemeProvider>
                 <NotificationInitializer>
-                  <SeasonIdentityProvider showBackground={true} showCorners={true} showParticles={false}>
-                    <DominantThemeBanner />
-                    <div className="relative z-10">
-                      {children}
-                    </div>
-                  </SeasonIdentityProvider>
+                  <TutorialProvider>
+                    <SeasonIdentityProvider showBackground={true} showCorners={true} showParticles={false}>
+                      <DominantThemeBanner />
+                      <GlobalTutorial />
+                      <div className="relative z-10">
+                        {children}
+                      </div>
+                    </SeasonIdentityProvider>
+                  </TutorialProvider>
                 </NotificationInitializer>
               </ThemeProvider>
             </IdentityProvider>

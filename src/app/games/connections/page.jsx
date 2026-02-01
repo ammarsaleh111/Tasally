@@ -28,13 +28,15 @@ import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
 import BadgesProgressWidget from '@/components/BadgesProgressWidget';
 import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
-import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
 import Link from 'next/link';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
+import TutorialPanel from '@/components/tutorial/TutorialPanel';
+import { GAME_TUTORIALS } from '@/data/tutorials';
+import { useTutorial } from '@/hooks/useTutorial';
 
 export default function ConnectionsGame() {
   const [puzzle, setPuzzle] = useState(() => getTodaysPuzzle());
@@ -51,13 +53,24 @@ export default function ConnectionsGame() {
   const [toast, setToast] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
   const [badgeUnlocks, setBadgeUnlocks] = useState([]);
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
+
+  const tutorial = GAME_TUTORIALS.connections;
+  const {
+    isOpen: isTutorialOpen,
+    openManual: openHowToPlay,
+    close: closeTutorial,
+    skip: skipTutorial,
+    complete: completeTutorial,
+    updateStep: updateTutorialStep,
+    startMode,
+    lastStep,
+  } = useTutorial(tutorial.id);
   
   // Load stats on mount and track game start
   useEffect(() => {
@@ -217,7 +230,7 @@ export default function ConnectionsGame() {
     <div className="flex flex-col items-center w-full min-h-screen pb-10 animate-fade-in-up">
       <GameHeader 
         title="Connections" 
-        onHowToPlay={() => setShowHowToPlay(true)}
+        onHowToPlay={openHowToPlay}
         onStats={() => setShowStats(true)}
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
@@ -289,11 +302,15 @@ export default function ConnectionsGame() {
         </div>
       </Modal>
       
-      {/* How to Play Modal */}
-      <UnifiedHowToPlay 
-        gameName="connections" 
-        isOpen={showHowToPlay} 
-        onClose={() => setShowHowToPlay(false)} 
+      <TutorialPanel
+        isOpen={isTutorialOpen}
+        tutorial={tutorial}
+        startAt={startMode === 'resume' ? lastStep : 0}
+        resumeStep={lastStep}
+        onStepChange={updateTutorialStep}
+        onClose={closeTutorial}
+        onSkip={skipTutorial}
+        onComplete={completeTutorial}
       />
       
       {/* Learning Log Modal */}
@@ -342,17 +359,19 @@ export default function ConnectionsGame() {
 
       {/* Grid */}
       {remainingWords.length > 0 && (
-        <ConnectionsGrid 
-          words={remainingWords}
-          selectedWords={selectedWords}
-          onWordClick={handleWordClick}
-          isShaking={isShaking}
-          disabled={gameState.gameStatus !== 'playing' || isSubmitting}
-        />
+        <div data-tutorial="connections-grid">
+          <ConnectionsGrid 
+            words={remainingWords}
+            selectedWords={selectedWords}
+            onWordClick={handleWordClick}
+            isShaking={isShaking}
+            disabled={gameState.gameStatus !== 'playing' || isSubmitting}
+          />
+        </div>
       )}
 
       {/* Mistakes Indicator */}
-      <div className="flex items-center gap-2 mb-6">
+      <div className="flex items-center gap-2 mb-6" data-tutorial="connections-mistakes">
         <span className="text-sm text-text-muted">Mistakes remaining:</span>
         <div className="flex gap-1">
           {[...Array(MAX_MISTAKES)].map((_, idx) => (
@@ -368,7 +387,7 @@ export default function ConnectionsGame() {
 
       {/* Controls */}
       {gameState.gameStatus === 'playing' && (
-        <div className="flex gap-3 mb-4">
+        <div className="flex gap-3 mb-4" data-tutorial="connections-controls">
           <button
             onClick={handleShuffle}
             disabled={isSubmitting}

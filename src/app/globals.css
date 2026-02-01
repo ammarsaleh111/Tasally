@@ -709,7 +709,9 @@ body {
 }
 
 .name-text {
-  font-family: var(--font-arabic), var(--font-geist-sans), "Geist Sans", Arial, Helvetica, sans-serif;
+  font-family:
+    var(--font-arabic), var(--font-geist-sans), "Geist Sans", Arial, Helvetica,
+    sans-serif;
 }
 
 .name-bidi {
@@ -986,6 +988,31 @@ body {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* ============================
+   Tutorial Scroll Lock Utilities
+   Prevents scrolling when tutorial is active
+   ============================ */
+
+/* Note: Scroll lock is now handled via inline styles in TutorialPanel.jsx
+   These utility classes are kept for potential manual usage */
+
+/* Prevent any overflow on tutorial overlay */
+.tutorial-overlay {
+  overflow: hidden;
+  -webkit-overflow-scrolling: auto;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+/* Tutorial popup - contained within viewport */
+.tutorial-popup {
+  max-height: calc(100vh - 32px);
+  max-width: calc(100vw - 32px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
 }
 
 /* Text balance for better readability */
@@ -1726,7 +1753,7 @@ body {
 
 .badge-sparkle::before,
 .badge-sparkle::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 6px;
   height: 6px;
@@ -1762,11 +1789,13 @@ body {
 @keyframes badge-glow {
   0%,
   100% {
-    box-shadow: 0 0 0 1px hsl(var(--badge-card-border)),
+    box-shadow:
+      0 0 0 1px hsl(var(--badge-card-border)),
       0 10px 22px hsl(var(--badge-accent-glow));
   }
   50% {
-    box-shadow: 0 0 0 1px hsl(var(--badge-card-border)),
+    box-shadow:
+      0 0 0 1px hsl(var(--badge-card-border)),
       0 16px 30px hsl(var(--badge-accent-glow));
   }
 }

@@ -19,7 +19,6 @@ import WaffleGrid from '@/components/WaffleGrid';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
 import GameHeader from '@/components/GameHeader';
-import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
 import StatisticsModal from '@/components/StatisticsModal';
 import ShareResults from '@/components/ShareResults';
@@ -33,6 +32,9 @@ import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileM
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
+import TutorialPanel from '@/components/tutorial/TutorialPanel';
+import { GAME_TUTORIALS } from '@/data/tutorials';
+import { useTutorial } from '@/hooks/useTutorial';
 
 export default function WafflePage() {
   const [mode, setMode] = useState('daily'); // 'daily' | 'unlimited'
@@ -47,13 +49,24 @@ export default function WafflePage() {
   });
   const [toast, setToast] = useState(null);
   const [showResultModal, setShowResultModal] = useState(false);
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
   const [badgeUnlocks, setBadgeUnlocks] = useState([]);
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
+
+  const tutorial = GAME_TUTORIALS.waffle;
+  const {
+    isOpen: isTutorialOpen,
+    openManual: openHowToPlay,
+    close: closeTutorial,
+    skip: skipTutorial,
+    complete: completeTutorial,
+    updateStep: updateTutorialStep,
+    startMode,
+    lastStep,
+  } = useTutorial(tutorial.id);
 
   // Load stats on mount
   useEffect(() => {
@@ -199,7 +212,7 @@ export default function WafflePage() {
     <div className="min-h-screen flex flex-col">
       <GameHeader
         title="Waffle"
-        onHowToPlay={() => setShowHowToPlay(true)}
+        onHowToPlay={openHowToPlay}
         onStats={() => setShowStats(true)}
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
@@ -232,7 +245,7 @@ export default function WafflePage() {
         </div>
 
         {/* Move counter */}
-        <div className="mb-4 text-center">
+        <div className="mb-4 text-center" data-tutorial="waffle-moves">
           <div className="text-lg font-bold text-foreground">
             Moves: {gameState.movesUsed} / {gameState.maxMoves}
           </div>
@@ -242,14 +255,16 @@ export default function WafflePage() {
         </div>
 
         {/* Game grid */}
-        <WaffleGrid
-          grid={gameState.currentGrid}
-          pattern={gameState.pattern}
-          cellStates={gameState.cellStates}
-          selectedCell={gameState.selectedCell}
-          onCellClick={handleCellClick}
-          disabled={gameState.gameStatus !== 'playing'}
-        />
+        <div data-tutorial="waffle-grid">
+          <WaffleGrid
+            grid={gameState.currentGrid}
+            pattern={gameState.pattern}
+            cellStates={gameState.cellStates}
+            selectedCell={gameState.selectedCell}
+            onCellClick={handleCellClick}
+            disabled={gameState.gameStatus !== 'playing'}
+          />
+        </div>
 
         {/* Instructions */}
         <div className="mt-6 text-center text-text-muted max-w-md">
@@ -342,11 +357,15 @@ export default function WafflePage() {
         </Modal>
       )}
 
-      {/* How to Play Modal */}
-      <UnifiedHowToPlay 
-        gameName="waffle" 
-        isOpen={showHowToPlay} 
-        onClose={() => setShowHowToPlay(false)} 
+      <TutorialPanel
+        isOpen={isTutorialOpen}
+        tutorial={tutorial}
+        startAt={startMode === 'resume' ? lastStep : 0}
+        resumeStep={lastStep}
+        onStepChange={updateTutorialStep}
+        onClose={closeTutorial}
+        onSkip={skipTutorial}
+        onComplete={completeTutorial}
       />
       
       {/* Learning Log Modal */}

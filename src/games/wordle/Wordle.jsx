@@ -19,7 +19,6 @@ import Toast from '@/components/Toast';
 import Modal from '@/components/Modal';
 import ModeSelection from './ModeSelection';
 import StatisticsModal from '@/components/StatisticsModal';
-import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
 import ShareResults from '@/components/ShareResults';
 import BadgeToastQueue from '@/components/BadgeToastQueue';
@@ -34,6 +33,9 @@ import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
 import { getUserStorageKey } from '@/utils/storageKeys';
+import TutorialPanel from '@/components/tutorial/TutorialPanel';
+import { GAME_TUTORIALS } from '@/data/tutorials';
+import { useTutorial } from '@/hooks/useTutorial';
 
 
 export default function WordleGame() {
@@ -52,7 +54,6 @@ export default function WordleGame() {
   const [toast, setToast] = useState(null); // { message, type, id }
   const [showResultModal, setShowResultModal] = useState(false);
   const [showStats, setShowStats] = useState(false);
-  const [showHowTo, setShowHowTo] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
   const [stats, setStats] = useState(null);
   const [isShaking, setIsShaking] = useState(false);
@@ -70,6 +71,18 @@ export default function WordleGame() {
   const prevWinRef = useRef(false);
   const initialWinHandledRef = useRef(false);
   const confirmedGuesses = useMemo(() => guesses.filter(guess => !guess.pending), [guesses]);
+
+  const tutorial = GAME_TUTORIALS.wordle;
+  const {
+    isOpen: isTutorialOpen,
+    openManual: openHowToPlay,
+    close: closeTutorial,
+    skip: skipTutorial,
+    complete: completeTutorial,
+    updateStep: updateTutorialStep,
+    startMode,
+    lastStep,
+  } = useTutorial(tutorial.id, { auto: view === 'GAME' });
 
 
   const syncGuesses = useCallback((updater) => {
@@ -395,6 +408,7 @@ export default function WordleGame() {
   }, [gameStatus, view, isChecking, currentGuess, wordLength, isWordLocallyKnown, syncGuesses, validateWordAsync, triggerInvalidWordFeedback, evaluateGuess, solution, handleConfirmedGuess]);
 
   const onKey = useCallback((key) => {
+    if (isTutorialOpen) return;
     if (gameStatus !== 'playing' || view !== 'GAME' || isChecking) return;
 
     if (key === 'ENTER') {
@@ -406,7 +420,7 @@ export default function WordleGame() {
         setCurrentGuess(prev => prev + key);
       }
     }
-  }, [gameStatus, view, isChecking, currentGuess, wordLength, submitGuess]);
+  }, [isTutorialOpen, gameStatus, view, isChecking, currentGuess, wordLength, submitGuess]);
 
   // Keyboard Event Listener
   useEffect(() => {
@@ -561,7 +575,7 @@ export default function WordleGame() {
       {/* Unified GameHeader - consistent with all other games */}
       <GameHeader
         title={mode === 'unlimited' ? `Wordle ${wordLength}` : 'Wordle'}
-        onHowToPlay={() => setShowHowTo(true)}
+        onHowToPlay={openHowToPlay}
         onStats={() => setShowStats(true)}
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
@@ -596,20 +610,24 @@ export default function WordleGame() {
           </div>
         )}
 
-        <WordleGrid 
-          guesses={guesses} 
-          currentGuess={currentGuess} 
-          length={wordLength} 
-          gameStatus={gameStatus}
-          isShaking={isShaking}
-          isChecking={isChecking}
-        />
+        <div data-tutorial="wordle-board" className="w-full">
+          <WordleGrid 
+            guesses={guesses} 
+            currentGuess={currentGuess} 
+            length={wordLength} 
+            gameStatus={gameStatus}
+            isShaking={isShaking}
+            isChecking={isChecking}
+          />
+        </div>
         
-        <Keyboard 
-          onKey={onKey} 
-          keyStatuses={keyStatuses} 
-          disabled={isChecking}
-        />
+        <div data-tutorial="wordle-controls" className="w-full">
+          <Keyboard 
+            onKey={onKey} 
+            keyStatuses={keyStatuses} 
+            disabled={isChecking || isTutorialOpen}
+          />
+        </div>
       </div>
 
       {/* Statistics Modal */}
@@ -622,11 +640,15 @@ export default function WordleGame() {
         />
       )}
 
-      {/* How To Play Modal */}
-      <UnifiedHowToPlay 
-        isOpen={showHowTo} 
-        onClose={() => setShowHowTo(false)} 
-        gameName="wordle"
+      <TutorialPanel
+        isOpen={isTutorialOpen}
+        tutorial={tutorial}
+        startAt={startMode === 'resume' ? lastStep : 0}
+        resumeStep={lastStep}
+        onStepChange={updateTutorialStep}
+        onClose={closeTutorial}
+        onSkip={skipTutorial}
+        onComplete={completeTutorial}
       />
       
       {/* Learning Log Modal */}

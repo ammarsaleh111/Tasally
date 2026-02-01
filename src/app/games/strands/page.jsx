@@ -13,13 +13,15 @@ import BadgesProgressWidget from '@/components/BadgesProgressWidget';
 import BadgesDrawer from '@/components/BadgesDrawer';
 import StatisticsModal from '@/components/StatisticsModal';
 import StrandsGrid from '@/components/StrandsGrid';
-import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
 import { getTodayString, recordGameResult, getGameStats } from '@/utils/profileManager';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
 import { getNextStrandsHint, getStrandsHintButtonText, getAllHintedTiles } from '@/utils/strandsHints';
 import { getUserStorageKey } from '@/utils/storageKeys';
+import TutorialPanel from '@/components/tutorial/TutorialPanel';
+import { GAME_TUTORIALS } from '@/data/tutorials';
+import { useTutorial } from '@/hooks/useTutorial';
 import { STRANDS_2026_01 } from './puzzles/strands-2026-01';
 import { STRANDS_PUZZLES_FEB_2026 } from './puzzles/strands-2026-02';
 
@@ -107,11 +109,22 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
   const [badgeUnlocks, setBadgeUnlocks] = useState([]);
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
-  const [howToPlayModal, setHowToPlayModal] = useState(false);
   const [statsModal, setStatsModal] = useState(false);
   const [learningLogModal, setLearningLogModal] = useState(false);
   const [showWinConfetti, setShowWinConfetti] = useState(false);
   const [hasCelebratedWin, setHasCelebratedWin] = useState(false);
+
+  const tutorial = GAME_TUTORIALS.strands;
+  const {
+    isOpen: isTutorialOpen,
+    openManual: openHowToPlay,
+    close: closeTutorial,
+    skip: skipTutorial,
+    complete: completeTutorial,
+    updateStep: updateTutorialStep,
+    startMode,
+    lastStep,
+  } = useTutorial(tutorial.id);
 
   const prevWinRef = useRef(false);
   const initialWinHandledRef = useRef(false);
@@ -363,7 +376,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
     <div className="min-h-screen bg-background">
       <GameHeader
         title="Strands"
-        onHowToPlay={() => setHowToPlayModal(true)}
+        onHowToPlay={openHowToPlay}
         onStats={() => setStatsModal(true)}
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setLearningLogModal(true)}
@@ -390,7 +403,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
         {puzzle ? (
           <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8 items-start">
             <div className="space-y-6 lg:sticky lg:top-24">
-              <div className="bg-crossword-highlight border-2 border-crossword-active-ring rounded-xl p-4">
+              <div className="bg-crossword-highlight border-2 border-crossword-active-ring rounded-xl p-4" data-tutorial="strands-theme">
                 <div className="text-xs uppercase tracking-wide text-crossword-active-ring font-bold mb-2">Today&apos;s Theme</div>
                 <div className="text-xl font-serif font-bold text-foreground">{puzzle.theme}</div>
               </div>
@@ -422,7 +435,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
               <button
                 onClick={handleHint}
                 disabled={completedAt || hintButtonText === 'All Revealed' || hintButtonText.includes('Hint Limit')}
-                className="w-full py-3 px-4 rounded-full border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 font-bold text-sm hover:bg-amber-100 dark:hover:bg-amber-900/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                className="w-full py-3 px-4 rounded-full border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 font-bold text-sm hover:bg-amber-100 dark:hover:bg-amber-900/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all" data-tutorial="strands-hint"
               >
                 ?? {hintButtonText}
               </button>
@@ -449,7 +462,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
               )}
             </div>
 
-            <div className="relative max-w-md mx-auto lg:mx-0 w-full">
+            <div className="relative max-w-md mx-auto lg:mx-0 w-full" data-tutorial="strands-grid">
               <WinConfettiOverlay
                 active={showWinConfetti}
                 durationMs={3000}
@@ -560,10 +573,15 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
         onClose={() => setSelectedBadge(null)}
       />
 
-      <UnifiedHowToPlay
-        isOpen={howToPlayModal}
-        onClose={() => setHowToPlayModal(false)}
-        gameName="strands"
+      <TutorialPanel
+        isOpen={isTutorialOpen}
+        tutorial={tutorial}
+        startAt={startMode === 'resume' ? lastStep : 0}
+        resumeStep={lastStep}
+        onStepChange={updateTutorialStep}
+        onClose={closeTutorial}
+        onSkip={skipTutorial}
+        onComplete={completeTutorial}
       />
 
       <StatisticsModal

@@ -3,10 +3,11 @@
 import Link from 'next/link';
 import React from 'react';
 
-const HeaderButton = ({ onClick, disabled, icon, label, locked }) => (
+const HeaderButton = ({ onClick, disabled, icon, label, locked, dataTutorial }) => (
   <button
     onClick={onClick}
     disabled={disabled}
+    data-tutorial={dataTutorial}
     className={`
       flex items-center gap-1.5 px-3 py-2 rounded-xl min-h-[44px]
       text-sm font-medium
@@ -95,6 +96,7 @@ const GameHeader = ({
                 onClick={onHowToPlay}
                 icon="❓"
                 label="How to Play"
+                dataTutorial="how-to-play"
               />
             )}
           </div>
@@ -129,14 +131,7 @@ const GameHeader = ({
                 onClick={onStats}
                 icon="📊"
                 label="Stats"
-              />
-            )}
-
-            {onBadges && (
-              <HeaderButton
-                onClick={onBadges}
-                icon="🏅"
-                label="Badges"
+                dataTutorial="stats-button"
               />
             )}
 
@@ -147,6 +142,7 @@ const GameHeader = ({
                 icon="📘"
                 label="Learn"
                 locked={!canShowLearningLog}
+                dataTutorial="learning-log-button"
               />
             )}
             

@@ -13,8 +13,10 @@ import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
 import BadgesProgressWidget from '@/components/BadgesProgressWidget';
 import BadgesDrawer from '@/components/BadgesDrawer';
 import SpellingStatistics from '@/components/SpellingStatistics';
-import UnifiedHowToPlay from '@/components/UnifiedHowToPlay';
 import LearningLogModal from '@/components/LearningLogModal';
+import TutorialPanel from '@/components/tutorial/TutorialPanel';
+import { GAME_TUTORIALS } from '@/data/tutorials';
+import { useTutorial } from '@/hooks/useTutorial';
 import {
   validateWord,
   calculateWordPoints,
@@ -103,7 +105,6 @@ export default function SpellingBeePage() {
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
   const [showStats, setShowStats] = useState(false);
-  const [showHowToPlay, setShowHowToPlay] = useState(false);
   const [showLearningLog, setShowLearningLog] = useState(false);
   const [showWinConfetti, setShowWinConfetti] = useState(false);
   const [hasCelebratedWin, setHasCelebratedWin] = useState(false);
@@ -111,6 +112,18 @@ export default function SpellingBeePage() {
   const initialWinHandledRef = useRef(false);
   const [showRankUp, setShowRankUp] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+
+  const tutorial = GAME_TUTORIALS.spelling;
+  const {
+    isOpen: isTutorialOpen,
+    openManual: openHowToPlay,
+    close: closeTutorial,
+    skip: skipTutorial,
+    complete: completeTutorial,
+    updateStep: updateTutorialStep,
+    startMode,
+    lastStep,
+  } = useTutorial(tutorial.id);
   
   const winStorageKey = useMemo(() => (puzzle ? getUserStorageKey(`spelling-win-celebrated-${puzzle.date}`) : null), [puzzle]);
 
@@ -339,6 +352,7 @@ export default function SpellingBeePage() {
   // Handle keyboard input
   useEffect(() => {
     const handleKeyPress = (e) => {
+      if (isTutorialOpen) return;
       if (showStats) return;
       
       const key = e.key.toLowerCase();
@@ -358,7 +372,7 @@ export default function SpellingBeePage() {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [handleLetterClick, handleSubmit, handleBackspace, showStats, puzzle]);
+  }, [isTutorialOpen, handleLetterClick, handleSubmit, handleBackspace, showStats, puzzle]);
 
   // Shuffle letters
   const handleShuffle = () => {
@@ -399,7 +413,7 @@ export default function SpellingBeePage() {
     <div className="min-h-screen bg-background pb-20">
       <GameHeader 
         title="Spelling Bee"
-        onHowToPlay={() => setShowHowToPlay(true)}
+        onHowToPlay={openHowToPlay}
         onStats={() => setShowStats(true)}
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
@@ -433,7 +447,7 @@ export default function SpellingBeePage() {
         )}
 
         {/* Score and Progress */}
-        <div className="mb-6 bg-card rounded-lg shadow-md p-6 border border-card-border">
+        <div className="mb-6 bg-card rounded-lg shadow-md p-6 border border-card-border" data-tutorial="spelling-score">
           <div className="flex justify-between items-center mb-4">
             <div>
               <div className="text-sm text-text-muted">Score</div>
@@ -480,7 +494,7 @@ export default function SpellingBeePage() {
         </div>
 
         {/* Honeycomb Grid with Path Visualization */}
-        <div className="mb-6">
+        <div className="mb-6" data-tutorial="spelling-grid">
           <HoneycombGridEnhanced
             centerLetter={puzzle.center}
             outerLetters={outerLetters}
@@ -492,7 +506,7 @@ export default function SpellingBeePage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
+        <div className="grid grid-cols-3 gap-3 mb-6" data-tutorial="spelling-actions">
           <button
             onClick={handleBackspace}
             className="py-3 bg-key-bg text-key-text rounded-lg hover:bg-key-bg-hover font-semibold transition-colors py-3 bg-key-bg text-key-text rounded-lg hover:bg-key-bg-hover font-semibold transition-colors bg-card border border-card-border rounded-lg hover:bg-surface-hover"
@@ -584,11 +598,15 @@ export default function SpellingBeePage() {
         />
       </Modal>
       
-      {/* How to Play Modal */}
-      <UnifiedHowToPlay 
-        gameName="spelling" 
-        isOpen={showHowToPlay} 
-        onClose={() => setShowHowToPlay(false)} 
+      <TutorialPanel
+        isOpen={isTutorialOpen}
+        tutorial={tutorial}
+        startAt={startMode === 'resume' ? lastStep : 0}
+        resumeStep={lastStep}
+        onStepChange={updateTutorialStep}
+        onClose={closeTutorial}
+        onSkip={skipTutorial}
+        onComplete={completeTutorial}
       />
       
       {/* Learning Log Modal */}
