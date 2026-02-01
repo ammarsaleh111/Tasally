@@ -5,12 +5,16 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useTheme } from './ThemeProviderNew';
 import AuthButton from './AuthButton';
-import { logout } from '@/utils/sessionManager';
+import { logout, useAppSession } from '@/utils/sessionManager';
 
 export default function SiteHeader() {
   const { appearance, toggleAppearance } = useTheme();
+  const session = useAppSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Determine if user is admin (only render Reset Session for admins)
+  const isAdmin = session?.role === 'ADMIN';
 
   // Track scroll for header background
   useEffect(() => {
@@ -86,7 +90,8 @@ export default function SiteHeader() {
                 <AuthButton />
               </div>
 
-              {process.env.NODE_ENV !== 'production' && (
+              {/* Reset Session - ADMIN ONLY */}
+              {isAdmin && (
                 <button
                   onClick={() => logout()}
                   className="
@@ -98,7 +103,7 @@ export default function SiteHeader() {
                     hover:bg-[hsl(var(--muted))]
                     transition-colors duration-200
                   "
-                  title="Reset session (dev only)"
+                  title="Reset session (admin only)"
                 >
                   Reset Session
                 </button>

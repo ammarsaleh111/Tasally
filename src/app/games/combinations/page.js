@@ -202,7 +202,7 @@ export default function CombinationsPage() {
   const gameComplete = gameState.gameStatus === 'won';
 
   return (
-    <div className="min-h-screen flex flex-col animate-fade-in-up">
+<div className="h-screen flex flex-col overflow-hidden animate-fade-in-up">
       <GameHeader
         title="Combinations"
         onHowToPlay={openHowToPlay}
@@ -212,7 +212,8 @@ export default function CombinationsPage() {
         gameComplete={gameComplete}
       />
 
-      <main className="flex-1 flex flex-col items-center px-4 py-4 max-w-2xl mx-auto w-full">
+<main className="flex-1 overflow-y-auto scrollbar-hide">
+  <div className="flex flex-col items-center px-4 py-6 max-w-2xl mx-auto w-full min-h-full">
         {/* Mode selector */}
         <div className="flex gap-2 mb-4">
           <button
@@ -378,6 +379,7 @@ export default function CombinationsPage() {
             New Puzzle
           </button>
         )}
+      </div>
       </main>
 
       {/* Result Modal */}

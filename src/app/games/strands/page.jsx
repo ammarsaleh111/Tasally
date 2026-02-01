@@ -14,6 +14,7 @@ import BadgesDrawer from '@/components/BadgesDrawer';
 import StatisticsModal from '@/components/StatisticsModal';
 import StrandsGrid from '@/components/StrandsGrid';
 import LearningLogModal from '@/components/LearningLogModal';
+import DailyReminder from '@/components/DailyReminder';
 import { getTodayString, recordGameResult, getGameStats } from '@/utils/profileManager';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { submitResult } from '@/utils/resultsClient';
@@ -24,9 +25,6 @@ import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
 import { STRANDS_2026_01 } from './puzzles/strands-2026-01';
 import { STRANDS_PUZZLES_FEB_2026 } from './puzzles/strands-2026-02';
-
-// Merge January and February puzzles
-const ALL_STRANDS_PUZZLES = [...STRANDS_2026_01, ...STRANDS_PUZZLES_FEB_2026];
 import {
   serializePos,
   validateSelection,
@@ -36,6 +34,9 @@ import {
   puzzlesHealthCheck,
 } from './strandsLogic';
 import { resetStrandsHints } from '@/utils/strandsHints';
+
+// Merge January and February puzzles
+const ALL_STRANDS_PUZZLES = [...STRANDS_2026_01, ...STRANDS_PUZZLES_FEB_2026];
 
 const SAFE_PUZZLE = {
   date: 'fallback',
@@ -113,6 +114,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
   const [learningLogModal, setLearningLogModal] = useState(false);
   const [showWinConfetti, setShowWinConfetti] = useState(false);
   const [hasCelebratedWin, setHasCelebratedWin] = useState(false);
+  const [showFoundWords, setShowFoundWords] = useState(false);
 
   const tutorial = GAME_TUTORIALS.strands;
   const {
@@ -371,9 +373,9 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
     }
     prevWinRef.current = wonNow;
   }, [completedAt, hasCelebratedWin, winStorageKey]);
-
+  
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen flex flex-col overflow-hidden bg-background">
       <GameHeader
         title="Strands"
         onHowToPlay={openHowToPlay}
@@ -383,169 +385,315 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
         gameComplete={!!completedAt}
       />
 
-      <div className="max-w-7xl mx-auto px-4 pb-24">
-        {invalidToday && process.env.NODE_ENV !== 'production' && (
-          <div className="bg-card border border-border-active rounded-lg p-4 mb-4">
-            <h3 className="font-bold text-red-900 mb-2">Today&apos;s puzzle is invalid (dev fallback loaded):</h3>
-            <ul className="list-disc list-inside text-sm text-red-700">
-              {invalidToday.errors.map((err, i) => <li key={i}>{err}</li>)}
-            </ul>
-          </div>
-        )}
+      <BadgeToastQueue
+        unlocks={badgeUnlocks}
+        onView={(badge) => setSelectedBadge(badge)}
+      />
 
-        {!hasValidPuzzles && (
-          <div className="bg-card border border-border-active rounded-lg p-4 mb-4">
-            <h3 className="font-bold text-red-900 mb-2">No valid puzzles available.</h3>
-            <p className="text-sm text-red-700">Showing a safe fallback puzzle.</p>
-          </div>
-        )}
-
+      {/* VIEWPORT-FIT CONTENT - NO SCROLL */}
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
         {puzzle ? (
-          <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8 items-start">
-            <div className="space-y-6 lg:sticky lg:top-24">
-              <div className="bg-crossword-highlight border-2 border-crossword-active-ring rounded-xl p-4" data-tutorial="strands-theme">
-                <div className="text-xs uppercase tracking-wide text-crossword-active-ring font-bold mb-2">Today&apos;s Theme</div>
-                <div className="text-xl font-serif font-bold text-foreground">{puzzle.theme}</div>
+          <>
+            {/* DESKTOP SIDEBAR - Hidden on mobile */}
+            <aside className="hidden lg:flex lg:flex-col lg:w-[340px] xl:w-[360px] border-r border-border p-4 gap-3 overflow-y-auto scrollbar-thin">
+              {/* Theme Card */}
+              <div 
+                className="bg-gradient-to-br from-strands-ribbon/10 via-info/5 to-transparent border-2 border-strands-ribbon/40 rounded-2xl p-4 shadow-lg relative overflow-hidden" 
+                data-tutorial="strands-theme"
+              >
+                <div className="absolute top-0 right-0 w-24 h-24 bg-strands-ribbon/5 rounded-full blur-3xl"></div>
+                <div className="relative">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-strands-ribbon animate-pulse"></div>
+                    <div className="text-[10px] uppercase tracking-widest text-strands-ribbon font-bold">Today's Theme</div>
+                  </div>
+                  <div className="text-xl font-serif font-bold text-foreground leading-tight">
+                    {puzzle.theme}
+                  </div>
+                </div>
               </div>
 
-              <div className="bg-card border-2 border-card-border rounded-xl p-4">
-                <div className="text-sm text-text-muted mb-3">
-                  <span className="font-bold text-2xl text-foreground">{wordsFoundCount}</span>
-                  <span className="text-text-muted"> of {totalWords}</span>
-                  <span className="text-text-muted"> theme words found.</span>
+              {/* Progress Card */}
+              <div className="bg-card border-2 border-card-border rounded-2xl p-4 shadow-sm flex-shrink-0">
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-3xl font-bold text-wordle-correct">{wordsFoundCount}</span>
+                  <span className="text-sm text-text-muted">of {totalWords} words</span>
+                </div>
+                
+                {/* Progress bar */}
+                <div className="h-2.5 bg-surface rounded-full overflow-hidden mb-3">
+                  <div 
+                    className="h-full bg-gradient-to-r from-wordle-correct to-connections-green transition-all duration-500 ease-out"
+                    style={{ width: `${(wordsFoundCount / totalWords) * 100}%` }}
+                  />
                 </div>
 
+                {/* Found words list - scrollable if many */}
                 {foundWords.length > 0 && (
-                  <div className="space-y-1 mb-4">
+                  <div className="space-y-1.5 max-h-40 overflow-y-auto scrollbar-thin">
                     {foundWords.map((found) => (
-                      <div key={found.word} className="text-sm text-foreground font-medium">
-                        ? {found.word}
+                      <div 
+                        key={found.word} 
+                        className="flex items-center gap-2 text-xs bg-surface/50 px-2.5 py-1.5 rounded-lg"
+                      >
+                        <div className="w-1 h-1 rounded-full bg-wordle-correct flex-shrink-0"></div>
+                        <span className="font-semibold text-foreground">{found.word}</span>
                       </div>
                     ))}
                   </div>
                 )}
 
+                {/* Spangram */}
                 {spangramFound && (
-                  <div className="pt-3 border-t border-border-default">
-                    <div className="text-sm font-bold text-wordle-correct">? Spangram found!</div>
+                  <div className="mt-3 pt-3 border-t border-border-default">
+                    <div className="flex items-center gap-2 text-xs bg-gradient-to-r from-wordle-present/20 to-wordle-correct/20 px-2.5 py-1.5 rounded-lg border border-wordle-present/40">
+                      <span>✨</span>
+                      <span className="font-bold text-wordle-present">Spangram found!</span>
+                    </div>
                   </div>
                 )}
               </div>
 
+              {/* Hint Button */}
               <button
                 onClick={handleHint}
                 disabled={completedAt || hintButtonText === 'All Revealed' || hintButtonText.includes('Hint Limit')}
-                className="w-full py-3 px-4 rounded-full border-2 border-amber-400 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 font-bold text-sm hover:bg-amber-100 dark:hover:bg-amber-900/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all" data-tutorial="strands-hint"
+                className="w-full py-3 px-4 rounded-xl border-2 border-amber-400 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/20 dark:to-amber-900/30 text-amber-900 dark:text-amber-100 font-bold text-sm hover:shadow-md hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all flex-shrink-0" 
+                data-tutorial="strands-hint"
               >
-                ?? {hintButtonText}
+                <span className="flex items-center justify-center gap-2">
+                  <span>💡</span>
+                  <span>{hintButtonText}</span>
+                </span>
               </button>
 
-              <div className="grid grid-cols-2 gap-2 pt-1">
+              {/* Actions */}
+              <div className="grid grid-cols-2 gap-2 flex-shrink-0">
                 <button
                   onClick={handleReset}
-                  className="py-2 rounded-lg border border-border text-sm font-semibold text-foreground hover:bg-surface-hover transition"
+                  className="py-2 rounded-lg border border-border bg-surface text-xs font-semibold text-foreground hover:bg-surface-hover transition-colors"
+                  title="Restart puzzle"
                 >
                   Restart
                 </button>
                 <button
                   onClick={handleNewPuzzle}
-                  className="py-2 rounded-lg border border-border text-sm font-semibold text-foreground hover:bg-surface-hover transition"
+                  className="py-2 rounded-lg border border-border bg-surface text-xs font-semibold text-foreground hover:bg-surface-hover transition-colors"
+                  title="Load new puzzle"
                 >
                   New Puzzle
                 </button>
               </div>
 
               {hintsUsed > 0 && (
-                <div className="text-xs text-center text-text-muted">
+                <div className="text-[10px] text-center text-text-muted bg-surface px-2 py-1.5 rounded-lg flex-shrink-0">
                   {hintsUsed} hint{hintsUsed !== 1 ? 's' : ''} used
                 </div>
               )}
-            </div>
+            </aside>
 
-            <div className="relative max-w-md mx-auto lg:mx-0 w-full" data-tutorial="strands-grid">
-              <WinConfettiOverlay
-                active={showWinConfetti}
-                durationMs={3000}
-                intensity={0.9}
-                origin={CONFETTI_ORIGINS.corners}
-                palette={[
-                  'hsl(var(--strands-spangram-ribbon))',
-                  'hsl(var(--strands-ribbon))',
-                  'hsl(var(--connections-yellow))',
-                  'hsl(var(--info))'
-                ]}
-                onDone={() => setShowWinConfetti(false)}
-              />
+            {/* MAIN GRID AREA - Takes remaining space */}
+            <main className="flex-1 flex flex-col overflow-hidden">
+              {/* MOBILE TOP BAR - Only visible on mobile */}
+              <div className="lg:hidden border-b border-border p-3 flex-shrink-0">
+                <div className="flex items-center justify-between gap-2">
+                  {/* Theme (compact) */}
+                  <div className="flex-1 bg-gradient-to-r from-strands-ribbon/10 to-transparent border border-strands-ribbon/30 rounded-xl px-3 py-2">
+                    <div className="text-[9px] uppercase tracking-wide text-strands-ribbon font-bold mb-0.5">Theme</div>
+                    <div className="text-sm font-bold text-foreground line-clamp-1">{puzzle.theme}</div>
+                  </div>
 
-              {completedAt && !winModal && (
-                <div className="mb-3 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-xs text-text-muted flex items-center justify-between">
-                  <div className="font-semibold text-foreground">✅ Solved</div>
-                  <div>
-                    Time: {Math.floor(((completedAt || 0) - (startedAt || 0)) / 1000)}s · Hints: {hintsUsed} · Words: {wordsFoundCount}/{totalWords}
+                  {/* Progress (compact) */}
+                  <button
+                    onClick={() => setShowFoundWords(true)}
+                    className="bg-card border border-card-border rounded-xl px-3 py-2 hover:bg-surface-hover transition-colors"
+                  >
+                    <div className="text-[9px] uppercase tracking-wide text-text-muted font-bold mb-0.5">Words</div>
+                    <div className="text-sm font-bold text-wordle-correct">{wordsFoundCount}/{totalWords}</div>
+                  </button>
+                </div>
+              </div>
+
+              {/* GRID CONTAINER - Centers vertically and horizontally */}
+              <div className="flex-1 flex items-center justify-center p-3 lg:p-6 overflow-hidden" data-tutorial="strands-grid">
+                <div className="w-full max-w-[min(92vw,520px)] lg:max-w-[550px]">
+                  <WinConfettiOverlay
+                    active={showWinConfetti}
+                    durationMs={3000}
+                    intensity={0.9}
+                    origin={CONFETTI_ORIGINS.corners}
+                    palette={[
+                      'hsl(var(--strands-spangram-ribbon))',
+                      'hsl(var(--strands-ribbon))',
+                      'hsl(var(--connections-yellow))',
+                      'hsl(var(--info))'
+                    ]}
+                    onDone={() => setShowWinConfetti(false)}
+                  />
+
+                  {/* Win banner - appears in reserved space, doesn't shift layout */}
+                  {completedAt && !winModal && (
+                    <div className="mb-3 rounded-xl border-2 border-wordle-correct bg-gradient-to-r from-wordle-correct/10 to-connections-green/10 px-3 py-2 shadow-md animate-fade-in">
+                      <div className="flex items-center justify-between text-xs">
+                        <div className="font-bold text-wordle-correct flex items-center gap-1.5">
+                          <span>✅</span>
+                          <span className="hidden sm:inline">Solved!</span>
+                        </div>
+                        <div className="text-text-muted text-[10px]">
+                          {Math.floor(((completedAt || 0) - (startedAt || 0)) / 1000)}s · {hintsUsed} hints
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Premium Grid Container */}
+                  <div className="bg-card border-2 border-card-border rounded-2xl p-3 lg:p-4 shadow-2xl relative overflow-hidden">
+                    {/* Subtle inner glow effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-strands-ribbon/5 via-transparent to-info/5 pointer-events-none rounded-2xl"></div>
+                    
+                    <div className="relative">
+                      <StrandsGrid
+                        grid={puzzle.grid}
+                        path={path}
+                        lockedSet={lockedSet}
+                        highlightedSet={highlightedSet}
+                        foundWords={foundWords}
+                        spangramPath={spangramPath}
+                        isDragging={isDragging}
+                        shouldShake={shouldShake}
+                        hintedTiles={hintedTiles}
+                        onStart={onStart}
+                        onEnter={onEnter}
+                        onEnd={onEnd}
+                      />
+                    </div>
                   </div>
                 </div>
-              )}
+              </div>
 
-              <StrandsGrid
-                grid={puzzle.grid}
-                path={path}
-                lockedSet={lockedSet}
-                highlightedSet={highlightedSet}
-                foundWords={foundWords}
-                spangramPath={spangramPath}
-                isDragging={isDragging}
-                shouldShake={shouldShake}
-                hintedTiles={hintedTiles}
-                onStart={onStart}
-                onEnter={onEnter}
-                onEnd={onEnd}
-              />
+              {/* MOBILE BOTTOM TOOLBAR */}
+              <div className="lg:hidden border-t border-border p-3 flex-shrink-0">
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleHint}
+                    disabled={completedAt || hintButtonText === 'All Revealed' || hintButtonText.includes('Hint Limit')}
+                    className="flex-1 py-2.5 px-3 rounded-xl border-2 border-amber-400 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/20 dark:to-amber-900/30 text-amber-900 dark:text-amber-100 font-bold text-xs hover:shadow-md active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                  >
+                    💡 {hintButtonText}
+                  </button>
+                  <button
+                    onClick={handleReset}
+                    className="py-2.5 px-3 rounded-xl border border-border bg-surface text-xs font-semibold hover:bg-surface-hover transition-colors"
+                  >
+                    Restart
+                  </button>
+                  <button
+                    onClick={handleNewPuzzle}
+                    className="py-2.5 px-3 rounded-xl border border-border bg-surface text-xs font-semibold hover:bg-surface-hover transition-colors"
+                  >
+                    New
+                  </button>
+                </div>
+              </div>
+            </main>
+          </>
+        ) : (
+          <div className="flex-1 flex items-center justify-center text-text-muted">
+            <div className="text-center">
+              <div className="text-6xl mb-4">🧩</div>
+              <div className="text-xl">No puzzle available.</div>
             </div>
           </div>
-        ) : (
-          <div className="text-center text-text-muted">No puzzle available.</div>
         )}
       </div>
 
+      {/* MOBILE: FOUND WORDS BOTTOM SHEET */}
+      {showFoundWords && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/50 z-50 flex items-end animate-fade-in"
+          onClick={() => setShowFoundWords(false)}
+        >
+          <div 
+            className="w-full bg-card rounded-t-2xl p-4 max-h-[70vh] overflow-y-auto animate-slide-up"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-bold text-lg">Found Words ({wordsFoundCount}/{totalWords})</h3>
+              <button 
+                onClick={() => setShowFoundWords(false)}
+                className="w-8 h-8 rounded-full bg-surface hover:bg-surface-hover flex items-center justify-center"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Progress bar */}
+            <div className="h-2.5 bg-surface rounded-full overflow-hidden mb-4">
+              <div 
+                className="h-full bg-gradient-to-r from-wordle-correct to-connections-green transition-all duration-500"
+                style={{ width: `${(wordsFoundCount / totalWords) * 100}%` }}
+              />
+            </div>
+
+            {/* Words list */}
+            {foundWords.length > 0 ? (
+              <div className="space-y-2">
+                {foundWords.map((found) => (
+                  <div 
+                    key={found.word} 
+                    className="flex items-center gap-2 text-sm bg-surface px-3 py-2.5 rounded-lg border border-card-border"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-wordle-correct flex-shrink-0"></div>
+                    <span className="font-semibold text-foreground">{found.word}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-text-muted">
+                No words found yet. Start connecting letters!
+              </div>
+            )}
+
+            {spangramFound && (
+              <div className="mt-4 pt-4 border-t border-border-default">
+                <div className="flex items-center gap-2 text-sm bg-gradient-to-r from-wordle-present/20 to-wordle-correct/20 px-3 py-2.5 rounded-lg border border-wordle-present">
+                  <span className="text-lg">✨</span>
+                  <span className="font-bold text-wordle-present">Spangram found!</span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* WIN MODAL */}
       <Modal
         isOpen={winModal}
-        title="Theme completed!"
-        actions={(
-          <>
-            <button
-              onClick={() => setWinModal(false)}
-              className="w-full py-3 bg-[hsl(var(--button-primary))] text-[hsl(var(--button-text))] rounded-lg hover:bg-[hsl(var(--button-primary-hover))] transition-all font-bold"
-            >
-              Close
-            </button>
-            <button
-              onClick={() => {
-                setWinModal(false);
-                handleNewPuzzle();
-              }}
-              className="w-full py-3 border border-border rounded-lg hover:bg-surface-hover transition-all font-bold"
-            >
-              New Puzzle
-            </button>
-          </>
-        )}
+        title="🎉 Theme Completed!"
+        onClose={() => setWinModal(false)}
       >
-        <div className="text-center space-y-4">
-          <div className="text-text-muted">Theme: <span className="font-semibold text-foreground">{puzzle?.theme}</span></div>
-          <div className="grid grid-cols-3 gap-3 text-sm">
-            <div className="rounded-xl border border-border-default bg-card px-3 py-2">
-              <div className="text-xs uppercase tracking-wide text-text-muted">Time</div>
-              <div className="text-lg font-bold text-foreground">{Math.floor(((completedAt || 0) - (startedAt || 0)) / 1000)}s</div>
+        <div className="space-y-5">
+          <div className="text-center">
+            <div className="text-sm text-text-muted mb-1">Theme</div>
+            <div className="text-xl font-serif font-bold text-foreground">{puzzle?.theme}</div>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="grid grid-cols-3 gap-3">
+            <div className="rounded-xl border border-border bg-surface p-3 text-center">
+              <div className="text-[10px] uppercase tracking-wide text-text-muted mb-1">Time</div>
+              <div className="text-xl font-bold text-foreground">{Math.floor(((completedAt || 0) - (startedAt || 0)) / 1000)}s</div>
             </div>
-            <div className="rounded-xl border border-border-default bg-card px-3 py-2">
-              <div className="text-xs uppercase tracking-wide text-text-muted">Hints</div>
-              <div className="text-lg font-bold text-foreground">{hintsUsed}</div>
+            <div className="rounded-xl border border-border bg-surface p-3 text-center">
+              <div className="text-[10px] uppercase tracking-wide text-text-muted mb-1">Hints</div>
+              <div className="text-xl font-bold text-foreground">{hintsUsed}</div>
             </div>
-            <div className="rounded-xl border border-border-default bg-card px-3 py-2">
-              <div className="text-xs uppercase tracking-wide text-text-muted">Perfect</div>
-              <div className="text-lg font-bold text-foreground">{hintsUsed === 0 ? 'Yes' : '?'}</div>
+            <div className="rounded-xl border border-border bg-surface p-3 text-center">
+              <div className="text-[10px] uppercase tracking-wide text-text-muted mb-1">Perfect</div>
+              <div className="text-xl font-bold text-foreground">{hintsUsed === 0 ? '✓' : '—'}</div>
             </div>
           </div>
+
           <ShareResults
             gameName="strands"
             puzzleNumber={puzzle?.date}
@@ -555,9 +703,31 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
               spangram: spangramFound,
             }}
           />
+
+          <DailyReminder gameName="strands" />
+
           <BadgeEarnedRecap badges={badgeUnlocks} />
           <div className="mt-3">
             <BadgesProgressWidget variant="compact" />
+          </div>
+
+          {/* Actions */}
+          <div className="flex gap-3 pt-2">
+            <button
+              onClick={() => {
+                setWinModal(false);
+                handleNewPuzzle();
+              }}
+              className="flex-1 py-3 bg-wordle-correct text-white rounded-xl font-bold hover:opacity-90 transition-opacity"
+            >
+              New Puzzle
+            </button>
+            <button
+              onClick={() => setWinModal(false)}
+              className="flex-1 py-3 border border-border bg-surface text-foreground rounded-xl font-semibold hover:bg-surface-hover transition-colors"
+            >
+              Close
+            </button>
           </div>
         </div>
       </Modal>
@@ -594,6 +764,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
       <LearningLogModal
         isOpen={learningLogModal}
         onClose={() => setLearningLogModal(false)}
+        gameName="strands"
       />
 
       {toast && (
@@ -603,11 +774,6 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
           onExited={() => setToast(null)}
         />
       )}
-
-      <BadgeToastQueue
-        unlocks={badgeUnlocks}
-        onView={(badge) => setSelectedBadge(badge)}
-      />
     </div>
   );
 }
@@ -695,5 +861,3 @@ export default function StrandsPage() {
     />
   );
 }
-
-

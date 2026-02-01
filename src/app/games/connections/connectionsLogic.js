@@ -52,7 +52,9 @@ const shuffleArray = (array) => {
  * Get shuffled words for a puzzle
  */
 export const getShuffledWords = (puzzle) => {
-  return shuffleArray(puzzle.words);
+  // Extract all words from all groups
+  const allWords = puzzle.groups.flatMap(group => group.words);
+  return shuffleArray(allWords);
 };
 
 /**

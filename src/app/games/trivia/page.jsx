@@ -194,7 +194,7 @@ export default function TriviaGame() {
 
   if (!triviaSet) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="h-screen flex items-center justify-center">
         <div className="text-2xl text-text-muted">Loading trivia...</div>
       </div>
     );
@@ -204,7 +204,7 @@ export default function TriviaGame() {
   const progress = ((currentQuestionIndex + 1) / triviaSet.questions.length) * 100;
 
   return (
-    <div className="min-h-screen flex flex-col animate-fade-in-up">
+  <div className="h-screen flex flex-col overflow-hidden animate-fade-in-up">
       <GameHeader
         title="Trivia"
         onHowToPlay={openHowToPlay}
@@ -219,7 +219,8 @@ export default function TriviaGame() {
         onView={(badge) => setSelectedBadge(badge)}
       />
 
-      <div className="relative flex-1 flex flex-col items-center justify-center p-4 pb-32">
+    <div className="relative flex-1 overflow-y-auto scrollbar-hide">
+      <div className="flex flex-col items-center justify-center p-4 min-h-full">
         <WinConfettiOverlay
           active={showConfetti}
           durationMs={3000}
@@ -441,6 +442,7 @@ export default function TriviaGame() {
             </button>
           </div>
         </div>
+      </div>
       </div>
 
       <TutorialPanel

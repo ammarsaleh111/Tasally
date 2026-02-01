@@ -198,7 +198,7 @@ const StrandsGrid = ({
       {/* Grid tiles */}
       <div
         ref={gridRef}
-        className={`grid gap-2 relative z-10 ${shouldShake ? 'animate-shake' : ''}`}
+        className={`grid gap-4 relative z-10 ${shouldShake ? 'animate-shake' : ''}`}
         style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}
       >
         {grid.map((row, r) => (

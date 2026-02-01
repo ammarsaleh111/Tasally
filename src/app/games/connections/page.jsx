@@ -216,7 +216,11 @@ export default function ConnectionsGame() {
   }, [gameState, puzzle, selectedWords, isSubmitting, showToast]);
 
   if (!puzzle || !gameState) {
-    return null;
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <div className="text-2xl text-text-muted">Loading puzzle...</div>
+      </div>
+    );
   }
 
   // Get remaining words (not in solved groups)
@@ -227,7 +231,7 @@ export default function ConnectionsGame() {
   const gameComplete = gameState.gameStatus !== 'playing';
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen pb-10 animate-fade-in-up">
+    <div className="h-screen flex flex-col overflow-hidden animate-fade-in-up">
       <GameHeader 
         title="Connections" 
         onHowToPlay={openHowToPlay}
@@ -236,20 +240,100 @@ export default function ConnectionsGame() {
         onLearningLog={() => setShowLearningLog(true)}
         gameComplete={gameComplete}
       />
-      
-      <div className="w-full max-w-3xl mx-auto px-4">     {toast && (
-        <Toast 
-          key={toast.id}
-          message={toast.message} 
-          type={toast.type} 
-          onExited={handleToastExit} 
-        />
-      )}
 
       <BadgeToastQueue
         unlocks={badgeUnlocks}
         onView={(badge) => setSelectedBadge(badge)}
       />
+      
+      {/* SCROLLABLE CONTENT AREA */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
+        <div className="flex flex-col items-center w-full px-4 py-6 min-h-full">
+          <div className="w-full max-w-3xl mx-auto space-y-6">
+            {toast && (
+              <Toast 
+                key={toast.id}
+                message={toast.message} 
+                type={toast.type} 
+                onExited={handleToastExit} 
+              />
+            )}
+
+            {/* Header */}
+            <div className="w-full">
+              <p className="text-center text-text-muted text-sm">
+                Create four groups of four!
+              </p>
+            </div>
+
+            {/* Solved Groups */}
+            {gameState.solvedGroups.length > 0 && (
+              <div className="w-full max-w-2xl mx-auto space-y-2">
+                {gameState.solvedGroups.map((group, idx) => (
+                  <GroupBar key={idx} group={group} isAnimating={idx === gameState.solvedGroups.length - 1} />
+                ))}
+              </div>
+            )}
+
+            {/* Grid */}
+            {remainingWords.length > 0 && (
+              <div data-tutorial="connections-grid">
+                <ConnectionsGrid 
+                  words={remainingWords}
+                  selectedWords={selectedWords}
+                  onWordClick={handleWordClick}
+                  isShaking={isShaking}
+                  disabled={gameState.gameStatus !== 'playing' || isSubmitting}
+                />
+              </div>
+            )}
+
+            {/* Mistakes Indicator */}
+            <div className="flex items-center justify-center gap-2" data-tutorial="connections-mistakes">
+              <span className="text-sm text-text-muted">Mistakes remaining:</span>
+              <div className="flex gap-1">
+                {[...Array(MAX_MISTAKES)].map((_, idx) => (
+                  <div 
+                    key={idx}
+                    className={`w-3 h-3 rounded-full ${
+                      idx < mistakesRemaining ? 'bg-foreground' : 'bg-border-default'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Controls */}
+            {gameState.gameStatus === 'playing' && (
+              <div className="flex flex-wrap justify-center gap-3" data-tutorial="connections-controls">
+                <button
+                  onClick={handleShuffle}
+                  disabled={isSubmitting}
+                  className="px-6 py-3 rounded-lg border-2 border-border-default hover:bg-surface-hover font-bold transition-colors disabled:opacity-50"
+                >
+                  Shuffle
+                </button>
+                
+                <button
+                  onClick={handleDeselectAll}
+                  disabled={selectedWords.length === 0 || isSubmitting}
+                  className="px-6 py-3 rounded-lg border-2 border-border-default hover:bg-surface-hover font-bold transition-colors disabled:opacity-50"
+                >
+                  Deselect All
+                </button>
+                
+                <button
+                  onClick={handleSubmit}
+                  disabled={selectedWords.length !== WORDS_PER_GROUP || isSubmitting}
+                  className="px-8 py-3 rounded-lg bg-foreground text-background font-bold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Submit
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
 
       {/* Result Modal */}
       <Modal isOpen={showResultModal} title={gameState.gameStatus === 'won' ? 'Puzzle Complete!' : 'Next Time!'}>
@@ -340,80 +424,6 @@ export default function ConnectionsGame() {
         isOpen={!!selectedBadge}
         onClose={() => setSelectedBadge(null)}
       />
-
-      {/* Header */}
-      <div className="w-full mb-6 px-4">
-        <p className="text-center text-text-muted text-sm mb-4">
-          Create four groups of four!
-        </p>
-      </div>
-
-      {/* Solved Groups */}
-      {gameState.solvedGroups.length > 0 && (
-        <div className="w-full max-w-2xl mx-auto mb-4">
-          {gameState.solvedGroups.map((group, idx) => (
-            <GroupBar key={idx} group={group} isAnimating={idx === gameState.solvedGroups.length - 1} />
-          ))}
-        </div>
-      )}
-
-      {/* Grid */}
-      {remainingWords.length > 0 && (
-        <div data-tutorial="connections-grid">
-          <ConnectionsGrid 
-            words={remainingWords}
-            selectedWords={selectedWords}
-            onWordClick={handleWordClick}
-            isShaking={isShaking}
-            disabled={gameState.gameStatus !== 'playing' || isSubmitting}
-          />
-        </div>
-      )}
-
-      {/* Mistakes Indicator */}
-      <div className="flex items-center gap-2 mb-6" data-tutorial="connections-mistakes">
-        <span className="text-sm text-text-muted">Mistakes remaining:</span>
-        <div className="flex gap-1">
-          {[...Array(MAX_MISTAKES)].map((_, idx) => (
-            <div 
-              key={idx}
-              className={`w-3 h-3 rounded-full ${
-                idx < mistakesRemaining ? 'bg-foreground' : 'bg-border-default'
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Controls */}
-      {gameState.gameStatus === 'playing' && (
-        <div className="flex gap-3 mb-4" data-tutorial="connections-controls">
-          <button
-            onClick={handleShuffle}
-            disabled={isSubmitting}
-            className="px-6 py-3 rounded-lg border-2 border-border-default hover:bg-surface-hover font-bold transition-colors disabled:opacity-50"
-          >
-            Shuffle
-          </button>
-          
-          <button
-            onClick={handleDeselectAll}
-            disabled={selectedWords.length === 0 || isSubmitting}
-            className="px-6 py-3 rounded-lg border-2 border-border-default hover:bg-surface-hover font-bold transition-colors disabled:opacity-50"
-          >
-            Deselect All
-          </button>
-          
-          <button
-            onClick={handleSubmit}
-            disabled={selectedWords.length !== WORDS_PER_GROUP || isSubmitting}
-            className="px-8 py-3 rounded-lg bg-foreground text-background font-bold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Submit
-          </button>
-        </div>
-      )}
-      </div>
     </div>
   );
 }

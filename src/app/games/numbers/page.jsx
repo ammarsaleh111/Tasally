@@ -241,8 +241,8 @@ export default function NumbersGame() {
   };
 
   if (!puzzle) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
+     return (
+      <div className="h-screen flex items-center justify-center">
         <div className="text-2xl text-text-muted">Loading puzzle...</div>
       </div>
     );
@@ -251,7 +251,7 @@ export default function NumbersGame() {
   const gameComplete = gameWon || gameLost;
 
   return (
-    <div className="min-h-screen flex flex-col animate-fade-in-up">
+    <div className="h-screen flex flex-col overflow-hidden animate-fade-in-up">
       <GameHeader
         title="Numbers"
         onHowToPlay={openHowToPlay}
@@ -266,7 +266,8 @@ export default function NumbersGame() {
         onView={(badge) => setSelectedBadge(badge)}
       />
 
-      <div className="relative flex-1 flex flex-col items-center justify-center p-4 pb-32">
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
+        <div className="relative flex flex-col items-center justify-center p-4 min-h-full">
         <WinConfettiOverlay
           active={showConfetti}
           durationMs={2800}
@@ -458,6 +459,7 @@ export default function NumbersGame() {
             </button>
           </div>
         </div>
+      </div>
       </div>
 
       <TutorialPanel

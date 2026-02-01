@@ -623,7 +623,7 @@ export default function CrosswordGame() {
   
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center w-full min-h-screen">
+      <div className="h-screen flex items-center justify-center">
         <div className="text-lg text-text-muted">Loading puzzle...</div>
       </div>
     );
@@ -631,7 +631,7 @@ export default function CrosswordGame() {
   
   if (initError || !puzzle || !gameState) {
     return (
-      <div className="flex flex-col items-center justify-center w-full min-h-screen gap-4">
+      <div className="h-screen flex flex-col items-center justify-center gap-4 px-4">
         <div className="text-lg text-red-500">Error loading puzzle</div>
         <div className="text-sm text-text-muted">{initError || 'Puzzle failed to initialize'}</div>
         <button 
@@ -648,7 +648,7 @@ export default function CrosswordGame() {
   const isPaused = timerState?.isPaused && !gameState.isSolved;
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen pb-10 animate-fade-in-up">
+    <div className="h-screen flex flex-col overflow-hidden animate-fade-in-up">
       <GameHeader 
         title="Mini Crossword" 
         onHowToPlay={openHowToPlay}
@@ -656,6 +656,11 @@ export default function CrosswordGame() {
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
         gameComplete={gameState.isSolved}
+      />
+
+      <BadgeToastQueue
+        unlocks={badgeUnlocks}
+        onView={(badge) => setSelectedBadge(badge)}
       />
       
       {/* Hidden input for mobile keyboard */}
@@ -670,85 +675,85 @@ export default function CrosswordGame() {
         aria-hidden="true"
       />
       
-      <div className="relative w-full max-w-5xl mx-auto px-4">
-        <WinConfettiOverlay
-          active={showWinConfetti}
-          durationMs={2800}
-          intensity={0.7}
-          origin={CONFETTI_ORIGINS.top}
-          palette={[
-            'hsl(var(--crossword-active-ring))',
-            'hsl(var(--info))',
-            'hsl(var(--warning))',
-            'hsl(var(--accent))'
-          ]}
-          onDone={() => setShowWinConfetti(false)}
-        />
-        
-        {toast && (
-          <Toast 
-            key={toast.id}
-            message={toast.message} 
-            type={toast.type} 
-            onExited={handleToastExit} 
-          />
-        )}
-
-        <BadgeToastQueue
-          unlocks={badgeUnlocks}
-          onView={(badge) => setSelectedBadge(badge)}
-        />
-
-        {gameState.isSolved && !showResultModal && (
-          <div className="mb-4 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-xs text-text-muted flex items-center justify-between">
-            <div className="font-semibold text-foreground">✅ Solved</div>
-            <div>Time: {formatTime(solveTime)}</div>
-          </div>
-        )}
-
-        {/* Timer Display */}
-        <div className="w-full mb-4 text-center" data-tutorial="crossword-timer">
-          <div className="text-lg font-mono font-bold text-foreground flex items-center justify-center gap-2">
-            {isPaused && (
-              <span className="text-sm text-yellow-500 animate-pulse" title="Timer paused">⏸</span>
+      {/* SCROLLABLE CONTENT AREA */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
+        <div className="w-full max-w-5xl mx-auto px-4 py-6 min-h-full flex flex-col">
+          <div className="relative w-full">
+            <WinConfettiOverlay
+              active={showWinConfetti}
+              durationMs={2800}
+              intensity={0.7}
+              origin={CONFETTI_ORIGINS.top}
+              palette={[
+                'hsl(var(--crossword-active-ring))',
+                'hsl(var(--info))',
+                'hsl(var(--warning))',
+                'hsl(var(--accent))'
+              ]}
+              onDone={() => setShowWinConfetti(false)}
+            />
+            
+            {toast && (
+              <Toast 
+                key={toast.id}
+                message={toast.message} 
+                type={toast.type} 
+                onExited={handleToastExit} 
+              />
             )}
-            {formatTime(solveTime)}
-          </div>
-          {puzzle.template && (
-            <div className="text-xs text-text-muted mt-1">
-              {puzzle.template.name}
-            </div>
-          )}
-        </div>
 
-        {/* Grid and Clues Side by Side */}
-        <div className="flex flex-col lg:flex-row gap-6 w-full items-start justify-center">
-          {/* Clues on Left */}
-          <div className="w-full lg:flex-1 lg:min-w-0 lg:max-w-80 order-2 lg:order-1" data-tutorial="crossword-clues">
-            <CluePanel 
-              puzzle={puzzle}
-              activeClue={activeClue}
-              direction={gameState.direction}
-              onClueClick={handleClueClick}
-              solvedWords={solvedWords}
-            />
-          </div>
-          
-          {/* Grid on Right */}
-          <div 
-            className="w-full lg:w-auto lg:flex-shrink-0 order-1 lg:order-2"
-            data-tutorial="crossword-grid"
-            onClick={() => inputRef.current?.focus()}
-          >
-            <CrosswordGrid 
-              puzzle={puzzle}
-              userGrid={gameState.userGrid}
-              activeCell={gameState.activeCell}
-              direction={gameState.direction}
-              onCellClick={handleCellClick}
-              highlightCells={highlightCells}
-              isSolved={gameState.isSolved}
-            />
+            {gameState.isSolved && !showResultModal && (
+              <div className="mb-4 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-xs text-text-muted flex items-center justify-between">
+                <div className="font-semibold text-foreground">✅ Solved</div>
+                <div>Time: {formatTime(solveTime)}</div>
+              </div>
+            )}
+
+            {/* Timer Display */}
+            <div className="w-full mb-4 text-center" data-tutorial="crossword-timer">
+              <div className="text-lg font-mono font-bold text-foreground flex items-center justify-center gap-2">
+                {isPaused && (
+                  <span className="text-sm text-yellow-500 animate-pulse" title="Timer paused">⏸</span>
+                )}
+                {formatTime(solveTime)}
+              </div>
+              {puzzle.template && (
+                <div className="text-xs text-text-muted mt-1">
+                  {puzzle.template.name}
+                </div>
+              )}
+            </div>
+
+            {/* Grid and Clues Side by Side */}
+            <div className="flex flex-col lg:flex-row gap-6 w-full items-start justify-center">
+              {/* Clues on Left */}
+              <div className="w-full lg:flex-1 lg:min-w-0 lg:max-w-80 order-2 lg:order-1" data-tutorial="crossword-clues">
+                <CluePanel 
+                  puzzle={puzzle}
+                  activeClue={activeClue}
+                  direction={gameState.direction}
+                  onClueClick={handleClueClick}
+                  solvedWords={solvedWords}
+                />
+              </div>
+              
+              {/* Grid on Right */}
+              <div 
+                className="w-full lg:w-auto lg:flex-shrink-0 order-1 lg:order-2"
+                data-tutorial="crossword-grid"
+                onClick={() => inputRef.current?.focus()}
+              >
+                <CrosswordGrid 
+                  puzzle={puzzle}
+                  userGrid={gameState.userGrid}
+                  activeCell={gameState.activeCell}
+                  direction={gameState.direction}
+                  onCellClick={handleCellClick}
+                  highlightCells={highlightCells}
+                  isSolved={gameState.isSolved}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

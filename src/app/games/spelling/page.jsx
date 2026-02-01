@@ -400,7 +400,7 @@ export default function SpellingBeePage() {
 
   if (!puzzle) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-[100dvh] bg-background flex items-center justify-center overflow-x-hidden">
         <div className="text-xl text-text-muted">Loading puzzle...</div>
       </div>
     );
@@ -410,7 +410,7 @@ export default function SpellingBeePage() {
   const currentGameStats = calculateStats(foundWords, puzzle.validWords, allLetters, score, maxScore);
 
   return (
-    <div className="min-h-screen bg-background pb-20">
+    <div className="min-h-[100dvh] bg-background pb-20 overflow-x-hidden">
       <GameHeader 
         title="Spelling Bee"
         onHowToPlay={openHowToPlay}
