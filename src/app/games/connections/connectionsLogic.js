@@ -23,6 +23,7 @@ export const GROUP_COLORS = {
  */
 export const getTodaysPuzzle = () => {
   const today = new Date();
+  // Use UTC date for consistent global puzzle rotation
   const dateString = today.toISOString().split('T')[0];
   
   // Find puzzle for today

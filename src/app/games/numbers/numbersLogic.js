@@ -13,7 +13,8 @@ export const OPERATORS = ['+', '-', '×', '÷'];
  */
 export const getDailyPuzzle = () => {
   const today = new Date();
-  const dayIndex = today.getDate() - 1;
+  // Use UTC date for consistent global puzzle rotation
+  const dayIndex = today.getUTCDate() - 1;
   const safeIndex = dayIndex % NUMBERS_PUZZLES.length;
   return NUMBERS_PUZZLES[safeIndex];
 };

@@ -239,10 +239,11 @@ function generateUserId() {
   return `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 }
 
-// Get today's date string (timezone-safe)
+// Get today's date string (UTC-based for consistent global resets at midnight UTC)
 export function getTodayString() {
   const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  // Use UTC date to ensure all users worldwide see the same puzzle on the same day
+  return `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, '0')}-${String(now.getUTCDate()).padStart(2, '0')}`;
 }
 
 // Record a game result
@@ -502,12 +503,18 @@ export function hasPlayedToday(gameName) {
   return gameStats.lastPlayedDate === today;
 }
 
-// Get time until next puzzle
+// Get time until next puzzle (resets at midnight UTC)
 export function getTimeUntilNextPuzzle() {
   const now = new Date();
-  const tomorrow = new Date(now);
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  tomorrow.setHours(0, 0, 0, 0);
+  // Calculate next midnight UTC
+  const tomorrow = new Date(
+    Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate() + 1,
+      0, 0, 0, 0
+    )
+  );
   
   const diff = tomorrow - now;
   const hours = Math.floor(diff / (1000 * 60 * 60));

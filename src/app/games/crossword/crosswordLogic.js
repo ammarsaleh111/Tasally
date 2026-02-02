@@ -289,6 +289,7 @@ export const generatePuzzleForDate = (dateString) => {
  */
 export const getTodaysPuzzle = () => {
   const today = new Date();
+  // Use UTC date for consistent global puzzle rotation
   const dateString = today.toISOString().split('T')[0];
   
   try {

@@ -24,6 +24,7 @@ export const MIN_WORD_LENGTH = 3;
  */
 export const getTodaysPuzzle = () => {
   const today = new Date();
+  // Use UTC date for consistent global puzzle rotation
   const dateString = today.toISOString().split('T')[0];
   
   // Check for themed puzzle first

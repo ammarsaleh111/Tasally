@@ -47,7 +47,8 @@ export const LETTER_STATUS = {
  * Uses themed words if a theme is active.
  */
 const getDayOffset = (date = new Date()) => {
-  const todayUtc = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+  // Use UTC date for consistent global puzzle rotation
+  const todayUtc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
   const diffDays = Math.floor((todayUtc - DAILY_WORD_START) / (1000 * 60 * 60 * 24));
   return Math.max(0, diffDays);
 };

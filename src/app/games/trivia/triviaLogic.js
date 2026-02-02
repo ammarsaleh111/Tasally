@@ -29,6 +29,7 @@ export const getDailyTrivia = () => {
   
   // Default behavior - find by date
   const today = new Date();
+  // Use UTC date for consistent global puzzle rotation
   const dateStr = today.toISOString().split('T')[0];
   
   // Try to find exact date match first
@@ -37,8 +38,8 @@ export const getDailyTrivia = () => {
     return dateMatch;
   }
   
-  // Fallback to cycling through available sets
-  const dayIndex = today.getDate() - 1;
+  // Fallback to cycling through available sets (use UTC date)
+  const dayIndex = today.getUTCDate() - 1;
   return TRIVIA_SETS[dayIndex % TRIVIA_SETS.length];
 };
 

@@ -86,7 +86,7 @@ const ModeSelection = ({ onSelectMode }) => {
                 <div className="flex flex-col items-center gap-2 mb-2">
                     <span className="text-xl font-bold text-foreground">Daily Puzzle</span>
                     <span className="text-xs font-bold px-2 py-1 rounded bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">
-                        JAN {new Date().getDate()}
+                        {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }).toUpperCase()}
                     </span>
                 </div>
                 <p className="text-sm text-text-muted group-hover:text-foreground transition-colors">
