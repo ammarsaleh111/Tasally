@@ -1,9 +1,43 @@
 {
   "sessions": [
     {
+      "userId": "3da259b0-6147-4a62-a613-a6b3b1217547",
+      "name": "Anonymous",
+      "lastSeen": "2026-02-02T01:11:56.368Z",
+      "currentPage": ":this-page-does-not-exist",
+      "currentGame": null,
+      "activities": [
+        {
+          "page": ":this-page-does-not-exist",
+          "game": null,
+          "timestamp": "2026-02-02T01:10:26.363Z"
+        },
+        {
+          "page": "&#x2F;this-page-does-not-exist",
+          "game": null,
+          "timestamp": "2026-02-02T01:10:26.366Z"
+        },
+        {
+          "page": ":this-page-does-not-exist",
+          "game": null,
+          "timestamp": "2026-02-02T01:10:56.367Z"
+        },
+        {
+          "page": ":this-page-does-not-exist",
+          "game": null,
+          "timestamp": "2026-02-02T01:11:26.368Z"
+        },
+        {
+          "page": ":this-page-does-not-exist",
+          "game": null,
+          "timestamp": "2026-02-02T01:11:56.368Z"
+        }
+      ]
+    },
+    {
       "userId": "07ff662f-ed21-4864-911a-eff2369fdaee",
       "name": "x",
-      "lastSeen": "2026-02-01T23:26:05.853Z",
+      "lastSeen": "2026-02-01T23:27:32.851Z",
       "currentPage": "games",
       "currentGame": null,
       "activities": [
@@ -331,6 +365,11 @@
           "page": "games",
           "game": null,
           "timestamp": "2026-02-01T23:26:05.853Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-02-01T23:27:32.851Z"
         }
       ]
     },

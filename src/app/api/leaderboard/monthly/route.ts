@@ -2,6 +2,8 @@ import { db, gameResults, users } from "@/db";
 import { and, desc, eq, isNotNull, sql } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import { getCached, setCache, leaderboardCacheKey, CACHE_DURATIONS } from "@/lib/cache";
+import { createRequestTimer, logRequestMetrics, trackDbQuery } from "@/lib/observability";
 
 const VALID_GAMES = [
   "wordle",
@@ -15,7 +17,16 @@ const VALID_GAMES = [
   "combinations",
 ];
 
+interface MonthlyLeaderboardEntry {
+  rank: number;
+  playerName: string;
+  totalScore: number;
+  gamesPlayed: number;
+}
+
 export async function GET(request: NextRequest) {
+  const timer = createRequestTimer();
+  
   try {
     const session = await auth();
     if (!session?.user) {
@@ -35,6 +46,25 @@ export async function GET(request: NextRequest) {
 
     if (!/^\d{4}-\d{2}$/.test(monthKey)) {
       return NextResponse.json({ error: "Invalid month format (YYYY-MM)" }, { status: 400 });
+    }
+
+    // Check cache first (60 second TTL for monthly)
+    const cacheKey = leaderboardCacheKey('monthly', game, monthKey);
+    const cached = getCached<MonthlyLeaderboardEntry[]>(cacheKey);
+    
+    if (cached !== null) {
+      logRequestMetrics({
+        route: '/api/leaderboard/monthly',
+        method: 'GET',
+        statusCode: 200,
+        durationMs: timer.elapsed(),
+        dbQueryCount: 0, // Cache hit
+        timestamp: new Date().toISOString(),
+      });
+      
+      const response = NextResponse.json({ month: monthKey, game, leaderboard: cached, cached: true });
+      response.headers.set("Cache-Control", "public, max-age=60, s-maxage=60, stale-while-revalidate=60");
+      return response;
     }
 
     const rows = await db
@@ -59,16 +89,29 @@ export async function GET(request: NextRequest) {
       .groupBy(gameResults.userId, users.displayName, users.name)
       .orderBy(desc(sql`SUM(${gameResults.score})`))
       .limit(50);
+    trackDbQuery();
 
-    const leaderboard = rows.map((r) => ({
+    const leaderboard: MonthlyLeaderboardEntry[] = rows.map((r) => ({
       rank: Number(r.rank),
       playerName: r.userDisplayName ?? r.userName ?? "Player",
       totalScore: Number(r.totalScore),
       gamesPlayed: Number(r.gamesPlayed),
     }));
+    
+    // Cache the result
+    setCache(cacheKey, leaderboard, CACHE_DURATIONS.LEADERBOARD_MONTHLY);
+
+    logRequestMetrics({
+      route: '/api/leaderboard/monthly',
+      method: 'GET',
+      statusCode: 200,
+      durationMs: timer.elapsed(),
+      dbQueryCount: 1,
+      timestamp: new Date().toISOString(),
+    });
 
     const response = NextResponse.json({ month: monthKey, game, leaderboard });
-    response.headers.set("Cache-Control", "public, max-age=300, s-maxage=300, stale-while-revalidate=60");
+    response.headers.set("Cache-Control", "public, max-age=60, s-maxage=60, stale-while-revalidate=60");
     return response;
   } catch (error) {
     console.error("[leaderboard/monthly]", error);

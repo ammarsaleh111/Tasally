@@ -1,11 +1,25 @@
 /**
  * Real-Time Telemetry API Route
  * Receives game telemetry data from clients
+ * 
+ * Performance optimizations:
+ * - Rate limiting (30/min per session)
+ * - Sampling: only persist 1 in 5 non-critical events
+ * - START events always persisted for analytics
  */
 
 import { updateGameState } from '../stream/route';
 import { db, gameEvents } from '@/db';
+import { checkRateLimit, rateLimitResponse, buildRateLimitKey, RATE_LIMITS } from '@/lib/rateLimit';
+import { createRequestTimer, logRequestMetrics, trackDbQuery } from '@/lib/observability';
+
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+// Sampling rate for non-critical events (1 in N)
+const EVENT_SAMPLING_RATE = 5;
+
+// Events that always get persisted (no sampling)
+const CRITICAL_EVENTS = new Set(['start', 'end', 'win', 'lose']);
 
 function coerceUuid(value) {
   if (typeof value !== 'string') return null;
@@ -18,6 +32,8 @@ const recentEvents = [];
 const MAX_EVENTS = 500;
 
 export async function POST(request) {
+  const timer = createRequestTimer();
+  
   try {
     const data = await request.json();
     
@@ -35,8 +51,29 @@ export async function POST(request) {
     if (!game || !eventType) {
       return Response.json({ error: 'Missing game or eventType' }, { status: 400 });
     }
+
+    // Rate limiting: 30/min per session
+    const identifier = sessionId || 'anonymous';
+    const rateLimitKey = buildRateLimitKey('telemetry', identifier);
+    const rateResult = await checkRateLimit(
+      rateLimitKey,
+      RATE_LIMITS.TELEMETRY.max,
+      RATE_LIMITS.TELEMETRY.windowSeconds
+    );
     
-    // Update game state for live monitoring
+    if (!rateResult.allowed) {
+      logRequestMetrics({
+        route: '/api/realtime/telemetry',
+        method: 'POST',
+        statusCode: 429,
+        durationMs: timer.elapsed(),
+        rateLimited: true,
+        timestamp: new Date().toISOString(),
+      });
+      return rateLimitResponse(rateResult, '/api/realtime/telemetry', identifier);
+    }
+    
+    // Update game state for live monitoring (always do this - no DB write)
     if (sessionId && game) {
       updateGameState(sessionId, game, {
         playerName,
@@ -49,7 +86,7 @@ export async function POST(request) {
       });
     }
     
-    // Store event for analytics
+    // Store event for analytics (in-memory only)
     recentEvents.unshift({
       sessionId: sessionId?.substring(0, 8) || 'unknown',
       playerName,
@@ -59,8 +96,17 @@ export async function POST(request) {
       timestamp: timestamp || Date.now(),
     });
 
-    // Persist START events for analytics
-    if (eventType === 'start') {
+    // Keep only recent events
+    if (recentEvents.length > MAX_EVENTS) {
+      recentEvents.length = MAX_EVENTS;
+    }
+
+    // Sampling: only persist critical events OR 1 in N non-critical events
+    const isCritical = CRITICAL_EVENTS.has(eventType.toLowerCase());
+    const shouldPersist = isCritical || Math.random() < (1 / EVENT_SAMPLING_RATE);
+
+    // Persist START events for analytics (and sampled others)
+    if (shouldPersist && (eventType === 'start' || isCritical)) {
       const safeRole = typeof role === 'string' ? role.toUpperCase() : null;
       const normalizedRole = safeRole === 'ADMIN' || safeRole === 'USER' || safeRole === 'GUEST' ? safeRole : null;
       const safeUserId = coerceUuid(userId);
@@ -72,20 +118,24 @@ export async function POST(request) {
           userId: resolvedUserId ?? null,
           guestId: resolvedGuestId ?? null,
           gameKey: game,
-          type: 'START',
+          type: eventType.toUpperCase(),
           createdAt: new Date(timestamp || Date.now()),
         });
+        trackDbQuery();
       } catch (error) {
         if (process.env.NODE_ENV !== 'production') {
-          console.warn('[Telemetry] Failed to append START event', error);
+          console.warn('[Telemetry] Failed to append event', error);
         }
       }
     }
-    
-    // Keep only recent events
-    if (recentEvents.length > MAX_EVENTS) {
-      recentEvents.length = MAX_EVENTS;
-    }
+
+    logRequestMetrics({
+      route: '/api/realtime/telemetry',
+      method: 'POST',
+      statusCode: 200,
+      durationMs: timer.elapsed(),
+      timestamp: new Date().toISOString(),
+    });
     
     return Response.json({ 
       success: true,

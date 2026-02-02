@@ -124,11 +124,13 @@ export const gameResults = pgTable(
     dayKey: date("day_key").notNull(),
     monthKey: text("month_key").notNull(),
     metadata: jsonb("metadata").notNull().default(sql`'{}'::jsonb`),
+    idempotencyKey: text("idempotency_key"), // For replay protection
   },
   (table) => ({
     dailyIdx: index("game_results_daily_idx").on(table.gameKey, table.dayKey, table.score),
     monthlyIdx: index("game_results_monthly_idx").on(table.gameKey, table.monthKey, table.score),
     userPlayedIdx: index("game_results_user_played_idx").on(table.userId, table.playedAt),
+    idempotencyIdx: uniqueIndex("game_results_idempotency_idx").on(table.idempotencyKey),
   })
 );
 

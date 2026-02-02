@@ -2,6 +2,8 @@ import { db, gameResults, users } from "@/db";
 import { and, desc, eq, isNotNull, sql } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import { getCached, setCache, leaderboardCacheKey, CACHE_DURATIONS } from "@/lib/cache";
+import { createRequestTimer, logRequestMetrics, trackDbQuery } from "@/lib/observability";
 
 const VALID_GAMES = [
   "wordle",
@@ -15,7 +17,18 @@ const VALID_GAMES = [
   "combinations",
 ];
 
+interface LeaderboardEntry {
+  rank: number;
+  playerName: string;
+  score: number | null;
+  success: boolean;
+  attempts: number | null;
+  durationMs: number | null;
+}
+
 export async function GET(request: NextRequest) {
+  const timer = createRequestTimer();
+  
   try {
     const session = await auth();
     if (!session?.user) {
@@ -37,6 +50,25 @@ export async function GET(request: NextRequest) {
     }
 
     const dayKey = parsedDate.toISOString().slice(0, 10);
+    
+    // Check cache first (30 second TTL)
+    const cacheKey = leaderboardCacheKey('daily', game, dayKey);
+    const cached = getCached<LeaderboardEntry[]>(cacheKey);
+    
+    if (cached !== null) {
+      logRequestMetrics({
+        route: '/api/leaderboard/daily',
+        method: 'GET',
+        statusCode: 200,
+        durationMs: timer.elapsed(),
+        dbQueryCount: 0, // Cache hit
+        timestamp: new Date().toISOString(),
+      });
+      
+      const response = NextResponse.json({ date: dayKey, game, leaderboard: cached, cached: true });
+      response.headers.set("Cache-Control", "public, max-age=30, s-maxage=30, stale-while-revalidate=30");
+      return response;
+    }
 
     // Only authenticated users appear on the leaderboard
     const rows = await db
@@ -63,8 +95,9 @@ export async function GET(request: NextRequest) {
       )
       .orderBy(desc(gameResults.score))
       .limit(50);
+    trackDbQuery();
 
-    const leaderboard = rows.map((r) => ({
+    const leaderboard: LeaderboardEntry[] = rows.map((r) => ({
       rank: Number(r.rank),
       playerName: r.userDisplayName ?? r.userName ?? "Player",
       score: r.score,
@@ -72,9 +105,21 @@ export async function GET(request: NextRequest) {
       attempts: r.attempts,
       durationMs: r.durationMs,
     }));
+    
+    // Cache the result
+    setCache(cacheKey, leaderboard, CACHE_DURATIONS.LEADERBOARD_DAILY);
+
+    logRequestMetrics({
+      route: '/api/leaderboard/daily',
+      method: 'GET',
+      statusCode: 200,
+      durationMs: timer.elapsed(),
+      dbQueryCount: 1,
+      timestamp: new Date().toISOString(),
+    });
 
     const response = NextResponse.json({ date: dayKey, game, leaderboard });
-    response.headers.set("Cache-Control", "public, max-age=60, s-maxage=60, stale-while-revalidate=30");
+    response.headers.set("Cache-Control", "public, max-age=30, s-maxage=30, stale-while-revalidate=30");
     return response;
   } catch (error) {
     console.error("[leaderboard/daily]", error);

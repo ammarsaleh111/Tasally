@@ -13,8 +13,12 @@ import {
 } from "@/db";
 import { db } from "@/db";
 import { getActivityStore, getAllPlayers, saveActivityStore, savePlayers } from "@/lib/serverData";
+import { checkRateLimit, rateLimitResponse, buildRateLimitKey, RATE_LIMITS } from "@/lib/rateLimit";
+import { createRequestTimer, logRequestMetrics } from "@/lib/observability";
 
-export async function DELETE() {
+export async function DELETE(request: Request) {
+  const timer = createRequestTimer();
+  
   try {
     const session = await auth();
     const userId = session?.user?.id;
@@ -22,6 +26,26 @@ export async function DELETE() {
 
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Rate limiting: 1/hour per user
+    const rateLimitKey = buildRateLimitKey('account-delete', userId);
+    const rateResult = await checkRateLimit(
+      rateLimitKey,
+      RATE_LIMITS.ACCOUNT_DELETE.max,
+      RATE_LIMITS.ACCOUNT_DELETE.windowSeconds
+    );
+
+    if (!rateResult.allowed) {
+      logRequestMetrics({
+        route: '/api/account/delete',
+        method: 'DELETE',
+        statusCode: 429,
+        durationMs: timer.elapsed(),
+        rateLimited: true,
+        timestamp: new Date().toISOString(),
+      });
+      return rateLimitResponse(rateResult, '/api/account/delete', userId);
     }
 
     // Best-effort cleanup for file-backed stores (admin dashboards)

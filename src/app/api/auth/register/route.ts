@@ -4,6 +4,8 @@ import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { MAX_INPUT_LENGTHS, sanitizeName } from "@/utils/inputSanitizer";
+import { checkRateLimit, rateLimitResponse, getClientIP, buildRateLimitKey, RATE_LIMITS } from "@/lib/rateLimit";
+import { createRequestTimer, logRequestMetrics, trackDbQuery } from "@/lib/observability";
 
 const RegisterSchema = z.object({
   email: z.string().email(),
@@ -12,7 +14,30 @@ const RegisterSchema = z.object({
 });
 
 export async function POST(request: Request) {
+  const timer = createRequestTimer();
+  
   try {
+    // Rate limiting: 5/min per IP
+    const clientIP = getClientIP(request);
+    const rateLimitKey = buildRateLimitKey('register', clientIP);
+    const rateResult = await checkRateLimit(
+      rateLimitKey,
+      RATE_LIMITS.REGISTER.max,
+      RATE_LIMITS.REGISTER.windowSeconds
+    );
+
+    if (!rateResult.allowed) {
+      logRequestMetrics({
+        route: '/api/auth/register',
+        method: 'POST',
+        statusCode: 429,
+        durationMs: timer.elapsed(),
+        rateLimited: true,
+        timestamp: new Date().toISOString(),
+      });
+      return rateLimitResponse(rateResult, '/api/auth/register', clientIP);
+    }
+
     const payload = await request.json();
     const parsed = RegisterSchema.safeParse(payload);
 
@@ -34,6 +59,7 @@ export async function POST(request: Request) {
     const existing = await db.query.users.findFirst({
       where: eq(users.email, email),
     });
+    trackDbQuery();
 
     if (existing) {
       return NextResponse.json({ error: "Email already registered" }, { status: 409 });
@@ -53,6 +79,15 @@ export async function POST(request: Request) {
         updatedAt: now,
       })
       .returning({ id: users.id });
+    trackDbQuery();
+
+    logRequestMetrics({
+      route: '/api/auth/register',
+      method: 'POST',
+      statusCode: 201,
+      durationMs: timer.elapsed(),
+      timestamp: new Date().toISOString(),
+    });
 
     return NextResponse.json({ id: created.id }, { status: 201 });
   } catch (error) {

@@ -27,9 +27,11 @@ import { sendHeartbeat, sendGameTelemetry } from '@/utils/realtimeManager';
 import { ensureSession, getSession as getAppSession } from '@/utils/sessionManager';
 import { getUserStorageKey } from '@/utils/storageKeys';
 
-// Heartbeat interval (every 20 seconds)
+// Heartbeat interval: 30 seconds for guests, 20 seconds for authenticated users
+// This reduces DB writes significantly while maintaining presence accuracy
 let heartbeatInterval = null;
-const HEARTBEAT_INTERVAL = 20000;
+const HEARTBEAT_INTERVAL_GUEST = 30000;  // 30 seconds for guests
+const HEARTBEAT_INTERVAL_AUTH = 20000;   // 20 seconds for authenticated users
 const DEFAULT_STATE = 'IDLE';
 
 const SESSION_KEY = 'session-tracker';
@@ -129,6 +131,12 @@ export function startHeartbeat() {
   if (typeof window === 'undefined') return;
   if (heartbeatInterval) return; // Already running
   
+  // Use longer interval for guests to reduce DB writes
+  const appSession = getAppSession();
+  const interval = appSession?.role === 'GUEST' 
+    ? HEARTBEAT_INTERVAL_GUEST 
+    : HEARTBEAT_INTERVAL_AUTH;
+  
   heartbeatInterval = setInterval(() => {
     const session = getSession();
     if (session) {
@@ -142,7 +150,7 @@ export function startHeartbeat() {
         state: session.state,
       });
     }
-  }, HEARTBEAT_INTERVAL);
+  }, interval);
   
   // Send initial heartbeat
   const session = getSession();
