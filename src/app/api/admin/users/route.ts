@@ -43,7 +43,7 @@ export async function GET(request: Request) {
     .groupBy(gameResults.userId)
     .as("wins_by_user");
 
-  let builder = db
+  const baseBuilder = db
     .select({
       id: users.id,
       displayName: users.displayName,
@@ -57,9 +57,10 @@ export async function GET(request: Request) {
 
   const roleCondition = usersRole ? eq(users.role, "USER") : null;
 
+  let builder;
   if (query) {
     const likeQuery = `%${query}%`;
-    builder = builder.where(
+    builder = baseBuilder.where(
       and(
         roleCondition ?? sql`true`,
         or(
@@ -70,9 +71,7 @@ export async function GET(request: Request) {
       )
     );
   } else {
-    if (roleCondition) {
-      builder = builder.where(roleCondition);
-    }
+    builder = roleCondition ? baseBuilder.where(roleCondition) : baseBuilder;
   }
 
   const rows = await builder.orderBy(desc(users.createdAt));
@@ -100,8 +99,8 @@ export async function DELETE(request: Request) {
   }
 
   const { searchParams } = new URL(request.url);
-  const userId = sanitizeString(searchParams.get("userId"), 100);
-  const guestId = sanitizeString(searchParams.get("guestId"), 100);
+  const userId = sanitizeString(searchParams.get("userId") ?? "", 100);
+  const guestId = sanitizeString(searchParams.get("guestId") ?? "", 100);
 
   if (!userId && !guestId) {
     return NextResponse.json({ error: "Missing userId or guestId" }, { status: 400 });

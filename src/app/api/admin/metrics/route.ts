@@ -117,12 +117,12 @@ export async function GET() {
       gameDistribution[session.currentGame] = (gameDistribution[session.currentGame] || 0) + 1;
     });
 
-    let totalUsersQuery = db
+    const totalUsersBase = db
       .select({ count: sql<number>`count(*)` })
       .from(users);
-    if (roleCondition) {
-      totalUsersQuery = totalUsersQuery.where(roleCondition);
-    }
+    const totalUsersQuery = roleCondition
+      ? totalUsersBase.where(roleCondition)
+      : totalUsersBase;
     const [{ count: totalUsers = 0 }] = await totalUsersQuery;
 
     const [{ count: totalGuests = 0 }] = await db
@@ -219,7 +219,7 @@ export async function GET() {
         ])
     );
 
-    let userRowsQuery = db
+    const userRowsBase = db
       .select({
         id: users.id,
         displayName: users.displayName,
@@ -227,9 +227,9 @@ export async function GET() {
         createdAt: users.createdAt,
       })
       .from(users);
-    if (roleCondition) {
-      userRowsQuery = userRowsQuery.where(roleCondition);
-    }
+    const userRowsQuery = roleCondition
+      ? userRowsBase.where(roleCondition)
+      : userRowsBase;
     const userRows = await userRowsQuery.orderBy(desc(users.createdAt));
 
     const guestRows = await db
@@ -258,12 +258,13 @@ export async function GET() {
       ...userRows.map((user) => {
         const stats = userStatsMap.get(user.id);
         const activeSession = activeSessionByUser.get(user.id);
-        const lastSeenAt = getLatestDate(activeSession?.lastHeartbeatAt, stats?.lastPlayedAt, user.createdAt);
+        const createdAt = user.createdAt ? new Date(user.createdAt) : null;
+        const lastSeenAt: Date | null = getLatestDate(activeSession?.lastHeartbeatAt, stats?.lastPlayedAt, createdAt);
         return {
           id: user.id,
           displayName: normalizeDisplayName(user.displayName || user.name),
-          type: "USER",
-          lastSeenAt: lastSeenAt?.toISOString() ?? null,
+          type: "USER" as const,
+          lastSeenAt: (lastSeenAt as Date | null)?.toISOString() ?? null,
           totalPlays: stats?.played ?? 0,
           totalWins: stats?.wins ?? 0,
         };
@@ -271,17 +272,19 @@ export async function GET() {
       ...guestRows.map((guest) => {
         const stats = guestStatsMap.get(guest.id);
         const activeSession = activeSessionByGuest.get(guest.id);
-        const lastSeenAt = getLatestDate(
+        const guestCreatedAt = guest.createdAt ? new Date(guest.createdAt) : null;
+        const guestLastSeenAt = guest.lastSeenAt ? new Date(guest.lastSeenAt) : null;
+        const lastSeenAt: Date | null = getLatestDate(
           activeSession?.lastHeartbeatAt,
-          guest.lastSeenAt ?? null,
+          guestLastSeenAt,
           stats?.lastPlayedAt,
-          guest.createdAt
+          guestCreatedAt
         );
         return {
           id: guest.id,
           displayName: normalizeDisplayName(guest.displayName ?? "Guest"),
-          type: "GUEST",
-          lastSeenAt: lastSeenAt?.toISOString() ?? null,
+          type: "GUEST" as const,
+          lastSeenAt: (lastSeenAt as Date | null)?.toISOString() ?? null,
           totalPlays: stats?.played ?? 0,
           totalWins: stats?.wins ?? 0,
         };
