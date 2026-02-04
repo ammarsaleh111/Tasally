@@ -17,14 +17,20 @@ export const RATE_LIMITS = {
   REGISTER: { max: 5, windowSeconds: 60 },
   // POST /api/results: 10/min per user/guest
   RESULTS: { max: 10, windowSeconds: 60 },
-  // POST /api/realtime/heartbeat: 60/min per session (allows ~1 per second burst)
+  // POST /api/realtime/heartbeat: 60/min per session (legacy, allows ~1 per second burst)
   HEARTBEAT: { max: 60, windowSeconds: 60 },
+  // POST /api/presence/heartbeat: 2/min per user (client calls every 60-120s)
+  PRESENCE_HEARTBEAT: { max: 2, windowSeconds: 60 },
   // POST /api/realtime/telemetry: 30/min per session
   TELEMETRY: { max: 30, windowSeconds: 60 },
   // POST /api/link-guest: 5/day per user
   LINK_GUEST: { max: 5, windowSeconds: 86400 },
   // DELETE /api/account: 1/hour per user
   ACCOUNT_DELETE: { max: 1, windowSeconds: 3600 },
+  // GET /api/leaderboard/*: 30/min per user (prevent abuse)
+  LEADERBOARD: { max: 30, windowSeconds: 60 },
+  // POST /api/auth/login: 10/min per IP (prevent brute force)
+  LOGIN: { max: 10, windowSeconds: 60 },
   // Default for other write routes: 20/min
   DEFAULT_WRITE: { max: 20, windowSeconds: 60 },
 } as const;

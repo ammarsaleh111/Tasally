@@ -1,6 +1,365 @@
 {
   "sessions": [
     {
+      "userId": "d79d3a14-5517-47fe-ade0-3aa4b8a11aad",
+      "name": "saf",
+      "lastSeen": "2026-02-02T02:55:09.853Z",
+      "currentPage": "profile",
+      "currentGame": null,
+      "activities": [
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-02-02T02:17:53.951Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-02-02T02:17:53.953Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:04.033Z"
+        },
+        {
+          "page": ":game",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:07.256Z"
+        },
+        {
+          "page": "&#x2F;game",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:07.257Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:09.547Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:09.548Z"
+        },
+        {
+          "page": "&#x2F;leaderboard",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:12.489Z"
+        },
+        {
+          "page": "&#x2F;login",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:14.191Z"
+        },
+        {
+          "page": "&#x2F;leaderboard",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:19.865Z"
+        },
+        {
+          "page": "&#x2F;login",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:19.968Z"
+        },
+        {
+          "page": "&#x2F;leaderboard",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:22.413Z"
+        },
+        {
+          "page": "&#x2F;login",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:22.499Z"
+        },
+        {
+          "page": "&#x2F;themes",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:27.108Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:38.398Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:39.549Z"
+        },
+        {
+          "page": "&#x2F;profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:50.345Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-02-02T02:18:59.467Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-02-02T02:19:09.549Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-02-02T02:19:39.852Z"
+        },
+        {
+          "page": "&#x2F;profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:20:07.976Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:20:09.549Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:20:39.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:21:09.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:22:32.850Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:23:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:24:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:25:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:25:57.392Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:26:09.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:26:39.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:27:09.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:27:39.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:28:32.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:28:39.850Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:29:09.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:30:30.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:31:31.850Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:31:52.282Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:32:09.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:32:39.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:33:32.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:34:32.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:35:28.692Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:35:39.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:36:09.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:37:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:38:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:39:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:40:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:41:32.850Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:42:32.684Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:42:39.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:43:09.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:43:43.762Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:44:09.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:44:39.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:45:32.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:46:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:47:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:48:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:49:22.287Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:49:39.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:50:09.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:51:32.852Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:52:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:53:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:54:32.851Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:54:40.343Z"
+        },
+        {
+          "page": "profile",
+          "game": null,
+          "timestamp": "2026-02-02T02:55:09.853Z"
+        }
+      ]
+    },
+    {
       "userId": "2f9ffa8c-31b9-48c1-8c36-40bc5e2dd9ce",
       "name": "Anonymous",
       "lastSeen": "2026-02-02T01:31:51.505Z",

@@ -1,257 +1,254 @@
-// Connections puzzles for February 2026
-// Each puzzle has exactly 16 words in 4 groups of 4
-
 export const CONNECTIONS_PUZZLES_FEB_2026 = [
   {
     date: "2026-02-01",
     groups: [
-      { category: "Types of Bread", words: ["BAGUETTE", "SOURDOUGH", "RYE", "CIABATTA"], difficulty: 1 },
-      { category: "Coffee Drinks", words: ["ESPRESSO", "LATTE", "MOCHA", "CAPPUCCINO"], difficulty: 2 },
-      { category: "Things That Rise", words: ["SUN", "DOUGH", "TIDE", "PHOENIX"], difficulty: 3 },
-      { category: "Words Starting with 'CRO'", words: ["CROW", "CROP", "CROSS", "CROWN"], difficulty: 4 }
+      { category: "Winter Activities", words: ["SKI", "SLED", "SKATE", "SNOWBALL"], difficulty: 1 },
+      { category: "Things That Melt", words: ["ICE", "SNOW", "CANDLE", "BUTTER"], difficulty: 2 },
+      { category: "Words Associated with \"Chill\"", words: ["RELAX", "COLD", "ATTITUDE", "FRIDGE"], difficulty: 3 },
+      { category: "Brief or Short-Lived", words: ["TEMPORARY", "CONCISE", "FLEETING", "BRISK"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-02",
     groups: [
-      { category: "Weather Conditions", words: ["RAIN", "SNOW", "SLEET", "HAIL"], difficulty: 1 },
-      { category: "Card Suits", words: ["HEARTS", "DIAMONDS", "CLUBS", "SPADES"], difficulty: 2 },
-      { category: "Types of Pasta", words: ["PENNE", "RIGATONI", "FUSILLI", "FARFALLE"], difficulty: 3 },
-      { category: "__ HOUSE", words: ["OPERA", "TREE", "LIGHT", "BOAT"], difficulty: 4 }
+      { category: "Terms of Endearment", words: ["HONEY", "SWEETHEART", "DARLING", "BABY"], difficulty: 1 },
+      { category: "Things That Are Frozen", words: ["PEAS", "ASSET", "YOGURT", "WASTE"], difficulty: 2 },
+      { category: "Words Associated with \"Heart\"", words: ["CORE", "COURAGE", "CENTER", "LOVE"], difficulty: 3 },
+      { category: "Expressions of Time Passing", words: ["FLEET", "FLIT", "WHILE", "MOMENT"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-03",
     groups: [
-      { category: "Ocean Creatures", words: ["WHALE", "DOLPHIN", "SHARK", "OCTOPUS"], difficulty: 1 },
-      { category: "Chess Pieces", words: ["KING", "QUEEN", "KNIGHT", "BISHOP"], difficulty: 2 },
-      { category: "Types of Cheese", words: ["CHEDDAR", "BRIE", "GOUDA", "SWISS"], difficulty: 3 },
-      { category: "__ BALL", words: ["BASKET", "FOOT", "BASE", "VOLLEY"], difficulty: 4 }
+      { category: "Valentine's Day Gifts", words: ["FLOWERS", "CHOCOLATES", "CARD", "JEWELRY"], difficulty: 1 },
+      { category: "Words Related to \"Cold\"", words: ["CHILLY", "FRIGID", "NIPPY", "ARCTIC"], difficulty: 2 },
+      { category: "Emotional States", words: ["JOY", "SORROW", "ANGER", "FEAR"], difficulty: 3 },
+      { category: "Words that Precede \"Break\"", words: ["HEART", "DAY", "COFFEE", "NEWS"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-04",
     groups: [
-      { category: "Citrus Fruits", words: ["ORANGE", "LEMON", "LIME", "GRAPEFRUIT"], difficulty: 1 },
-      { category: "Olympic Metals", words: ["GOLD", "SILVER", "BRONZE", "COPPER"], difficulty: 2 },
-      { category: "Programming Languages", words: ["PYTHON", "JAVA", "RUBY", "SWIFT"], difficulty: 3 },
-      { category: "Things with Rings", words: ["SATURN", "TREE", "ONION", "PHONE"], difficulty: 4 }
+      { category: "Winter Clothing", words: ["COAT", "SCARF", "GLOVES", "HAT"], difficulty: 1 },
+      { category: "Types of Kisses", words: ["PECK", "SMOOCH", "FRENCH", "BUTTERFLY"], difficulty: 2 },
+      { category: "Words Associated with \"Affection\"", words: ["WARMTH", "TENDERNESS", "DEVOTION", "FONDNESS"], difficulty: 3 },
+      { category: "Things That Are \"Short\"", words: ["TEMPER", "STORY", "CIRCUIT", "ORDER"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-05",
     groups: [
-      { category: "Kitchen Appliances", words: ["OVEN", "STOVE", "MICROWAVE", "TOASTER"], difficulty: 1 },
-      { category: "Geometric Shapes", words: ["CIRCLE", "SQUARE", "TRIANGLE", "HEXAGON"], difficulty: 2 },
-      { category: "Detective Tools", words: ["MAGNIFIER", "FINGERPRINT", "CLUE", "EVIDENCE"], difficulty: 3 },
-      { category: "Words After 'FIRE'", words: ["FIGHTER", "PLACE", "WORK", "FLY"], difficulty: 4 }
+      { category: "Romantic Gestures", words: ["HUG", "KISS", "CUDDLE", "EMBRACE"], difficulty: 1 },
+      { category: "Words Related to \"Ice\"", words: ["FROST", "GLACIER", "HAIL", "SLEET"], difficulty: 2 },
+      { category: "Feelings of Love", words: ["ADORATION", "PASSION", "INFATUATION", "DEVOTION"], difficulty: 3 },
+      { category: "Words That Can Be \"Hard\"", words: ["ROCK", "DIAMOND", "QUESTION", "TIMES"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-06",
     groups: [
-      { category: "Musical Instruments", words: ["PIANO", "GUITAR", "VIOLIN", "DRUMS"], difficulty: 1 },
-      { category: "Planets", words: ["MARS", "VENUS", "JUPITER", "MERCURY"], difficulty: 2 },
-      { category: "Types of Dance", words: ["SALSA", "TANGO", "WALTZ", "BALLET"], difficulty: 3 },
-      { category: "Things That Can Be 'BROKEN'", words: ["HEART", "RECORD", "PROMISE", "BONE"], difficulty: 4 }
+      { category: "Winter Sports Equipment", words: ["SKIS", "SNOWBOARD", "SLED", "ICE SKATES"], difficulty: 1 },
+      { category: "Terms for Couples", words: ["PAIR", "DUO", "TWOSOME", "COUPLE"], difficulty: 2 },
+      { category: "Words Associated with \"Time\"", words: ["ERA", "EPOCH", "SPAN", "DURATION"], difficulty: 3 },
+      { category: "Things That \"Melt\"", words: ["HEART", "SNOWMAN", "ICE CREAM", "TENSION"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-07",
     groups: [
-      { category: "Winter Sports", words: ["SKIING", "SNOWBOARDING", "HOCKEY", "CURLING"], difficulty: 1 },
-      { category: "Precious Gems", words: ["DIAMOND", "RUBY", "EMERALD", "SAPPHIRE"], difficulty: 2 },
-      { category: "Parts of a Book", words: ["CHAPTER", "PAGE", "COVER", "SPINE"], difficulty: 3 },
-      { category: "__ DOG", words: ["HOT", "UNDER", "CORN", "LAP"], difficulty: 4 }
+      { category: "Winter Holidays", words: ["CHRISTMAS", "NEW YEAR", "HANUKKAH", "KWANZAA"], difficulty: 1 },
+      { category: "Words Related to \"Warmth\"", words: ["COZY", "SNUG", "TOASTY", "BALMY"], difficulty: 2 },
+      { category: "Stages of a Relationship", words: ["COURTSHIP", "ENGAGEMENT", "MARRIAGE", "HONEYMOON"], difficulty: 3 },
+      { category: "Words That Can Be \"Brief\"", words: ["SUMMARY", "VISIT", "LUNCH", "ENCOUNTER"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-08",
     groups: [
-      { category: "Web Browsers", words: ["CHROME", "FIREFOX", "SAFARI", "EDGE"], difficulty: 1 },
-      { category: "Types of Trees", words: ["OAK", "PINE", "MAPLE", "BIRCH"], difficulty: 2 },
-      { category: "Breakfast Foods", words: ["CEREAL", "TOAST", "PANCAKE", "WAFFLE"], difficulty: 3 },
-      { category: "Words Before 'BERRY'", words: ["STRAW", "BLUE", "RASP", "CRAN"], difficulty: 4 }
+      { category: "Cold Weather Drinks", words: ["COCOA", "TEA", "CIDER", "COFFEE"], difficulty: 1 },
+      { category: "Expressions of Love", words: ["CARE", "CHERISH", "ADORE", "WORSHIP"], difficulty: 2 },
+      { category: "Words Associated with \"Season\"", words: ["SPICE", "PERIOD", "TIME", "FALL"], difficulty: 3 },
+      { category: "Things That Are \"Sweet\"", words: ["CANDY", "KISS", "REVENGE", "DREAM"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-09",
     groups: [
-      { category: "Social Media Platforms", words: ["FACEBOOK", "TWITTER", "INSTAGRAM", "TIKTOK"], difficulty: 1 },
-      { category: "Farm Animals", words: ["COW", "PIG", "CHICKEN", "SHEEP"], difficulty: 2 },
-      { category: "Movie Genres", words: ["COMEDY", "HORROR", "DRAMA", "THRILLER"], difficulty: 3 },
-      { category: "Things That Are 'COLD'", words: ["ICE", "SHOULDER", "WAR", "TURKEY"], difficulty: 4 }
+      { category: "Winter Animals", words: ["PENGUIN", "POLAR BEAR", "SEAL", "WALRUS"], difficulty: 1 },
+      { category: "Romantic Literature", words: ["POETRY", "NOVEL", "SONNET", "BALLAD"], difficulty: 2 },
+      { category: "Words Related to \"Connection\"", words: ["BOND", "LINK", "TIE", "RAPPORT"], difficulty: 3 },
+      { category: "Things That Are \"Short\"", words: ["FUSE", "CHANGE", "NOTICE", "CUT"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-10",
     groups: [
-      { category: "Body Parts", words: ["ARM", "LEG", "HAND", "FOOT"], difficulty: 1 },
-      { category: "US States", words: ["TEXAS", "FLORIDA", "CALIFORNIA", "NEVADA"], difficulty: 2 },
-      { category: "Magic Tricks", words: ["LEVITATE", "VANISH", "TELEPORT", "TRANSFORM"], difficulty: 3 },
-      { category: "__ ROOM", words: ["LIVING", "BED", "BATH", "CLASS"], difficulty: 4 }
+      { category: "Winter Olympic Sports", words: ["BOBSLED", "LUGE", "SKELETON", "CURLING"], difficulty: 1 },
+      { category: "Words for \"Love\" in Other Languages", words: ["AMOR", "AMOUR", "LIEBE", "KAMA"], difficulty: 2 },
+      { category: "Words Associated with \"Heartbeat\"", words: ["PULSE", "THROB", "RHYTHM", "BEAT"], difficulty: 3 },
+      { category: "Things That Are \"Cold\"", words: ["SHOULDER", "FISH", "FEET", "CASE"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-11",
     groups: [
-      { category: "Emotions", words: ["JOY", "ANGER", "FEAR", "SADNESS"], difficulty: 1 },
-      { category: "Famous Painters", words: ["PICASSO", "MONET", "VANGOGH", "DALI"], difficulty: 2 },
-      { category: "Types of Meat", words: ["BEEF", "PORK", "CHICKEN", "LAMB"], difficulty: 3 },
-      { category: "Words After 'BOOK'", words: ["CASE", "MARK", "WORM", "KEEPER"], difficulty: 4 }
+      { category: "Valentine's Day Symbols", words: ["HEART", "CUPID", "ARROW", "DOVE"], difficulty: 1 },
+      { category: "Words Related to \"Emotions\"", words: ["FEELING", "SENTIMENT", "MOOD", "PASSION"], difficulty: 2 },
+      { category: "Words Associated with \"Winter\"", words: ["CHILL", "FROST", "BLIZZARD", "HIBERNATE"], difficulty: 3 },
+      { category: "Things That Are \"Brief\"", words: ["MOMENT", "SUMMARY", "TRIP", "GLANCE"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-12",
     groups: [
-      { category: "Board Games", words: ["CHESS", "CHECKERS", "MONOPOLY", "SCRABBLE"], difficulty: 1 },
-      { category: "Time Periods", words: ["SECOND", "MINUTE", "HOUR", "DAY"], difficulty: 2 },
-      { category: "Superheroes", words: ["BATMAN", "SUPERMAN", "SPIDERMAN", "IRONMAN"], difficulty: 3 },
-      { category: "Things That 'RING'", words: ["BELL", "PHONE", "ALARM", "DOORBELL"], difficulty: 4 }
+      { category: "Winter Activities for Kids", words: ["SNOWMAN", "SLEDDING", "ICE SKATING", "FORT"], difficulty: 1 },
+      { category: "Words for \"Couple\"", words: ["DUO", "PAIR", "TWOSOME", "PARTNERS"], difficulty: 2 },
+      { category: "Words Associated with \"Time\"", words: ["CLOCK", "WATCH", "HOURGLASS", "SUNDIAL"], difficulty: 3 },
+      { category: "Things That Can Be \"Broken\"", words: ["HEART", "PROMISE", "RECORD", "ICE"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-13",
     groups: [
-      { category: "Vegetables", words: ["CARROT", "BROCCOLI", "CELERY", "LETTUCE"], difficulty: 1 },
-      { category: "Metals", words: ["IRON", "STEEL", "ALUMINUM", "TIN"], difficulty: 2 },
-      { category: "Shakespeare Plays", words: ["HAMLET", "MACBETH", "OTHELLO", "ROMEO"], difficulty: 3 },
-      { category: "__ LINE", words: ["FINISH", "DEAD", "TAG", "PICK"], difficulty: 4 }
+      { category: "Romantic Movies", words: ["TITANIC", "NOTEBOOK", "CASABLANCA", "GHOST"], difficulty: 1 },
+      { category: "Words Related to \"Snow\"", words: ["FLAKE", "DRIFT", "BLANKET", "POWDER"], difficulty: 2 },
+      { category: "Words Associated with \"Affection\"", words: ["EMOTION", "DEVOTION", "FONDNESS", "TENDERNESS"], difficulty: 3 },
+      { category: "Things That Are \"Short\"", words: ["STAFF", "ORDER", "CIRCUIT", "BREAD"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-14",
     groups: [
-      { category: "Symbols of Love", words: ["HEART", "ROSE", "CUPID", "RING"], difficulty: 1 },
-      { category: "Shades of Red", words: ["CRIMSON", "SCARLET", "RUBY", "CHERRY"], difficulty: 2 },
-      { category: "Romantic Movies", words: ["TITANIC", "NOTEBOOK", "CASABLANCA", "GHOST"], difficulty: 3 },
-      { category: "Words with 'SWEET'", words: ["TOOTH", "HEART", "POTATO", "PEA"], difficulty: 4 }
+      { category: "Valentine's Day Treats", words: ["CANDY", "CHOCOLATE", "COOKIE", "CAKE"], difficulty: 1 },
+      { category: "Words Related to \"Love\"", words: ["ADORATION", "PASSION", "AFFECTION", "DEVOTION"], difficulty: 2 },
+      { category: "Words Associated with \"Cold\"", words: ["INDIFFERENT", "UNFRIENDLY", "ALOOF", "DISTANT"], difficulty: 3 },
+      { category: "Things That Are \"Sweet\"", words: ["TOOTH", "HEART", "POTATO", "PEA"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-15",
     groups: [
-      { category: "Computer Parts", words: ["KEYBOARD", "MOUSE", "MONITOR", "PRINTER"], difficulty: 1 },
-      { category: "Famous Rivers", words: ["NILE", "AMAZON", "MISSISSIPPI", "YANGTZE"], difficulty: 2 },
-      { category: "Types of Bears", words: ["POLAR", "GRIZZLY", "PANDA", "BLACK"], difficulty: 3 },
-      { category: "__ WATER", words: ["TAP", "FRESH", "SALT", "RAIN"], difficulty: 4 }
+      { category: "Winter Gear", words: ["BOOTS", "PARKA", "MITTENS", "EARMUFFS"], difficulty: 1 },
+      { category: "Words for \"Friend\"", words: ["PAL", "MATE", "BUDDY", "CHUM"], difficulty: 2 },
+      { category: "Words Associated with \"Heart\"", words: ["COURAGE", "CORE", "CENTER", "ESSENCE"], difficulty: 3 },
+      { category: "Things That Are \"Brief\"", words: ["SUMMARY", "SPEECH", "VISIT", "GLIMPSE"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-16",
     groups: [
-      { category: "Sports Equipment", words: ["BALL", "BAT", "RACKET", "GLOVE"], difficulty: 1 },
-      { category: "Types of Fish", words: ["SALMON", "TUNA", "TROUT", "COD"], difficulty: 2 },
-      { category: "Famous Scientists", words: ["EINSTEIN", "NEWTON", "CURIE", "DARWIN"], difficulty: 3 },
-      { category: "Words Before 'BOARD'", words: ["KEY", "SKATE", "SURF", "CLIP"], difficulty: 4 }
+      { category: "Romantic Flowers", words: ["ROSE", "TULIP", "LILY", "ORCHID"], difficulty: 1 },
+      { category: "Words Related to \"Embrace\"", words: ["HUG", "CUDDLE", "CLASP", "ENFOLD"], difficulty: 2 },
+      { category: "Words Associated with \"Short\"", words: ["CONCISE", "TERSE", "BRUSQUE", "ABRUPT"], difficulty: 3 },
+      { category: "Things That Can Be \"Broken\"", words: ["SILENCE", "LAW", "WAVE", "SPIRIT"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-17",
     groups: [
-      { category: "Beverages", words: ["WATER", "JUICE", "SODA", "TEA"], difficulty: 1 },
-      { category: "Natural Disasters", words: ["EARTHQUAKE", "TORNADO", "HURRICANE", "TSUNAMI"], difficulty: 2 },
-      { category: "Greek Gods", words: ["ZEUS", "ATHENA", "APOLLO", "POSEIDON"], difficulty: 3 },
-      { category: "Things That Can 'FLY'", words: ["BIRD", "PLANE", "FLAG", "TIME"], difficulty: 4 }
+      { category: "Winter Scenery", words: ["SNOWFLAKE", "ICICLE", "FROST", "BLIZZARD"], difficulty: 1 },
+      { category: "Words for \"Admiration\"", words: ["RESPECT", "ESTEEM", "REVERENCE", "VENERATION"], difficulty: 2 },
+      { category: "Words Associated with \"Time\"", words: ["PAST", "PRESENT", "FUTURE", "ETERNITY"], difficulty: 3 },
+      { category: "Things That Are \"Cold\"", words: ["TURKEY", "SHOULDER", "WAR", "FEET"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-18",
     groups: [
-      { category: "Furniture", words: ["CHAIR", "TABLE", "SOFA", "DESK"], difficulty: 1 },
-      { category: "Colors of the Rainbow", words: ["RED", "ORANGE", "YELLOW", "GREEN"], difficulty: 2 },
-      { category: "Famous Composers", words: ["MOZART", "BEETHOVEN", "BACH", "CHOPIN"], difficulty: 3 },
-      { category: "__ LIGHT", words: ["SPOT", "MOON", "FLASH", "SUN"], difficulty: 4 }
+      { category: "Romantic Destinations", words: ["PARIS", "VENICE", "ROME", "SANTORINI"], difficulty: 1 },
+      { category: "Words Related to \"Feelings\"", words: ["EMOTION", "SENTIMENT", "MOOD", "TEMPERAMENT"], difficulty: 2 },
+      { category: "Words Associated with \"Love\"", words: ["AFFECTION", "DEVOTION", "PASSION", "FONDNESS"], difficulty: 3 },
+      { category: "Things That Are \"Short\"", words: ["TEMPER", "FUSE", "STORY", "CUT"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-19",
     groups: [
-      { category: "School Subjects", words: ["MATH", "SCIENCE", "HISTORY", "ENGLISH"], difficulty: 1 },
-      { category: "Continents", words: ["AFRICA", "ASIA", "EUROPE", "ANTARCTICA"], difficulty: 2 },
-      { category: "Types of Cookies", words: ["CHOCOLATE", "SUGAR", "OATMEAL", "GINGER"], difficulty: 3 },
-      { category: "Words After 'SNOW'", words: ["BALL", "FLAKE", "MAN", "STORM"], difficulty: 4 }
+      { category: "Winter Activities Indoors", words: ["READING", "BOARD GAMES", "BAKING", "MOVIE NIGHT"], difficulty: 1 },
+      { category: "Words for \"Relationship\"", words: ["BOND", "CONNECTION", "TIE", "RAPPORT"], difficulty: 2 },
+      { category: "Words Associated with \"Heart\"", words: ["ORGAN", "COURAGE", "CORE", "CENTER"], difficulty: 3 },
+      { category: "Things That Are \"Brief\"", words: ["SUMMARY", "VISIT", "SPEECH", "GLIMPSE"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-20",
     groups: [
-      { category: "Primary Colors", words: ["RED", "BLUE", "YELLOW", "GREEN"], difficulty: 1 },
-      { category: "Famous Landmarks", words: ["EIFFEL", "COLOSSEUM", "PYRAMID", "STATUE"], difficulty: 2 },
-      { category: "Types of Clouds", words: ["CIRRUS", "CUMULUS", "STRATUS", "NIMBUS"], difficulty: 3 },
-      { category: "Things That 'TICK'", words: ["CLOCK", "BOMB", "WATCH", "METRONOME"], difficulty: 4 }
+      { category: "Romantic Music Genres", words: ["BALLAD", "JAZZ", "SOUL", "R&B"], difficulty: 1 },
+      { category: "Words Related to \"Cold Weather\"", words: ["FROSTY", "ICY", "BITING", "RAW"], difficulty: 2 },
+      { category: "Words Associated with \"Time\"", words: ["MOMENT", "INSTANT", "FLASH", "TWINKLE"], difficulty: 3 },
+      { category: "Things That Can Be \"Broken\"", words: ["CODE", "SPELL", "NEWS", "ICE"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-21",
     groups: [
-      { category: "Clothing Items", words: ["SHIRT", "PANTS", "DRESS", "JACKET"], difficulty: 1 },
-      { category: "Music Genres", words: ["JAZZ", "ROCK", "CLASSICAL", "HIP HOP"], difficulty: 2 },
-      { category: "Famous Authors", words: ["DICKENS", "AUSTEN", "TWAIN", "ORWELL"], difficulty: 3 },
-      { category: "__ CAKE", words: ["CUP", "PAN", "CHEESE", "SHORT"], difficulty: 4 }
+      { category: "Winter Olympic Events", words: ["DOWNHILL", "SLALOM", "FIGURE SKATING", "HOCKEY"], difficulty: 1 },
+      { category: "Words for \"Adoration\"", words: ["WORSHIP", "REVERENCE", "VENERATION", "IDOLIZATION"], difficulty: 2 },
+      { category: "Words Associated with \"Short\"", words: ["TEMPER", "FUSE", "CIRCUIT", "ORDER"], difficulty: 3 },
+      { category: "Things That Are \"Sweet\"", words: ["DREAM", "KISS", "TALK", "NOTHING"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-22",
     groups: [
-      { category: "Office Supplies", words: ["PEN", "PENCIL", "PAPER", "STAPLER"], difficulty: 1 },
-      { category: "Planets with Rings", words: ["SATURN", "JUPITER", "URANUS", "NEPTUNE"], difficulty: 2 },
-      { category: "Famous Battles", words: ["WATERLOO", "GETTYSBURG", "MARATHON", "HASTINGS"], difficulty: 3 },
-      { category: "Words Before 'SHIP'", words: ["FRIEND", "RELATION", "CHAMPION", "LEADER"], difficulty: 4 }
+      { category: "Romantic Symbols", words: ["RING", "ROSE", "CUPID", "HEART"], difficulty: 1 },
+      { category: "Words Related to \"Emotions\"", words: ["JOY", "SADNESS", "ANGER", "FEAR"], difficulty: 2 },
+      { category: "Words Associated with \"Winter\"", words: ["FROZEN", "CHILLY", "NIPPY", "BRISK"], difficulty: 3 },
+      { category: "Things That Are \"Brief\"", words: ["ENCOUNTER", "VISIT", "SUMMARY", "SPEECH"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-23",
     groups: [
-      { category: "Seasons", words: ["SPRING", "SUMMER", "FALL", "WINTER"], difficulty: 1 },
-      { category: "Famous Mountains", words: ["EVEREST", "KILIMANJARO", "FUJI", "DENALI"], difficulty: 2 },
-      { category: "Types of Snakes", words: ["COBRA", "PYTHON", "VIPER", "RATTLESNAKE"], difficulty: 3 },
-      { category: "Things That 'SHINE'", words: ["STAR", "DIAMOND", "SUN", "ARMOR"], difficulty: 4 }
+      { category: "Winter Sports Gear", words: ["GOGGLES", "HELMET", "POLES", "BINDINGS"], difficulty: 1 },
+      { category: "Words for \"Affection\"", words: ["FONDNESS", "TENDERNESS", "WARMTH", "CARE"], difficulty: 2 },
+      { category: "Words Associated with \"Time\"", words: ["MINUTE", "HOUR", "DAY", "WEEK"], difficulty: 3 },
+      { category: "Things That Can Be \"Broken\"", words: ["HEART", "PROMISE", "RECORD", "ICE"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-24",
     groups: [
-      { category: "Fruits with Seeds", words: ["APPLE", "WATERMELON", "GRAPE", "CHERRY"], difficulty: 1 },
-      { category: "Famous Inventors", words: ["EDISON", "TESLA", "FRANKLIN", "BELL"], difficulty: 2 },
-      { category: "Card Game Names", words: ["POKER", "BRIDGE", "RUMMY", "SOLITAIRE"], difficulty: 3 },
-      { category: "__ GARDEN", words: ["ZOO", "ROSE", "ROCK", "ROOF"], difficulty: 4 }
+      { category: "Romantic Dinners", words: ["CANDLELIGHT", "WINE", "DESSERT", "MUSIC"], difficulty: 1 },
+      { category: "Words Related to \"Snowfall\"", words: ["FLURRY", "DRIFT", "BLANKET", "DUSTING"], difficulty: 2 },
+      { category: "Words Associated with \"Love\"", words: ["DEVOTION", "PASSION", "INFATUATION", "ADORATION"], difficulty: 3 },
+      { category: "Things That Are \"Short\"", words: ["BREAD", "CHANGE", "FUSE", "ORDER"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-25",
     groups: [
-      { category: "Tools", words: ["HAMMER", "WRENCH", "SCREWDRIVER", "DRILL"], difficulty: 1 },
-      { category: "Famous Explorers", words: ["COLUMBUS", "MAGELLAN", "POLO", "VESPUCCI"], difficulty: 2 },
-      { category: "Types of Hats", words: ["FEDORA", "BERET", "SOMBRERO", "BOWLER"], difficulty: 3 },
-      { category: "Words After 'HAND'", words: ["SHAKE", "BAG", "CUFF", "STAND"], difficulty: 4 }
+      { category: "Winter Attire", words: ["SWEATER", "JACKET", "BOOTS", "SOCKS"], difficulty: 1 },
+      { category: "Words for \"Connection\"", words: ["BOND", "LINK", "TIE", "RAPPORT"], difficulty: 2 },
+      { category: "Words Associated with \"Heartbeat\"", words: ["PULSE", "THROB", "RHYTHM", "BEAT"], difficulty: 3 },
+      { category: "Things That Are \"Brief\"", words: ["MOMENT", "FLASH", "INSTANT", "TWINKLE"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-26",
     groups: [
-      { category: "Sports", words: ["SOCCER", "TENNIS", "GOLF", "BASEBALL"], difficulty: 1 },
-      { category: "Famous Artists", words: ["REMBRANDT", "MICHELANGELO", "RAPHAEL", "BOTTICELLI"], difficulty: 2 },
-      { category: "Types of Bread", words: ["WHITE", "WHEAT", "PUMPERNICKEL", "CHALLAH"], difficulty: 3 },
-      { category: "Things That 'ROLL'", words: ["DICE", "THUNDER", "EYES", "CREDITS"], difficulty: 4 }
+      { category: "Romantic Gestures", words: ["KISS", "HUG", "CUDDLE", "EMBRACE"], difficulty: 1 },
+      { category: "Words Related to \"Cold\"", words: ["FRIGID", "ICY", "NIPPY", "BITING"], difficulty: 2 },
+      { category: "Words Associated with \"Time\"", words: ["DURATION", "SPAN", "PERIOD", "ERA"], difficulty: 3 },
+      { category: "Things That Can Be \"Broken\"", words: ["SILENCE", "LAW", "WAVE", "SPIRIT"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-27",
     groups: [
-      { category: "Spices", words: ["PEPPER", "CINNAMON", "GINGER", "NUTMEG"], difficulty: 1 },
-      { category: "Famous Philosophers", words: ["SOCRATES", "PLATO", "ARISTOTLE", "DESCARTES"], difficulty: 2 },
-      { category: "Types of Wine", words: ["MERLOT", "CHARDONNAY", "CABERNET", "RIESLING"], difficulty: 3 },
-      { category: "__ TOWER", words: ["CLOCK", "WATER", "CELL", "IVORY"], difficulty: 4 }
+      { category: "Winter Activities for Adults", words: ["SKATING", "SNOWSHOEING", "HOCKEY", "CURLING"], difficulty: 1 },
+      { category: "Words for \"Admiration\"", words: ["RESPECT", "ESTEEM", "REVERENCE", "VENERATION"], difficulty: 2 },
+      { category: "Words Associated with \"Short\"", words: ["CONCISE", "TERSE", "BRUSQUE", "ABRUPT"], difficulty: 3 },
+      { category: "Things That Are \"Sweet\"", words: ["DREAM", "KISS", "TALK", "NOTHING"], difficulty: 4 }
     ]
   },
   {
     date: "2026-02-28",
     groups: [
-      { category: "Ocean Animals", words: ["CRAB", "LOBSTER", "JELLYFISH", "STARFISH"], difficulty: 1 },
-      { category: "Famous Buildings", words: ["PANTHEON", "PARTHENON", "PALACE", "CATHEDRAL"], difficulty: 2 },
-      { category: "Types of Vegetables", words: ["SPINACH", "KALE", "CHARD", "ARUGULA"], difficulty: 3 },
-      { category: "Words Before 'FISH'", words: ["STAR", "SWORD", "SHELL", "JELLY"], difficulty: 4 }
+      { category: "Valentine's Day Decorations", words: ["HEARTS", "CUPIDS", "RIBBONS", "ROSES"], difficulty: 1 },
+      { category: "Words Related to \"Emotions\"", words: ["FEELING", "SENTIMENT", "MOOD", "TEMPERAMENT"], difficulty: 2 },
+      { category: "Words Associated with \"Winter\"", words: ["CHILL", "FROST", "BLIZZARD", "HIBERNATE"], difficulty: 3 },
+      { category: "Things That Are \"Brief\"", words: ["MOMENT", "SUMMARY", "TRIP", "GLANCE"], difficulty: 4 }
     ]
   }
 ];

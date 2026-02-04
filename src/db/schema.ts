@@ -186,3 +186,27 @@ export const themeSettings = pgTable("theme_settings", {
   updatedAt: timestamp("updated_at", { withTimezone: false }).defaultNow().notNull(),
   updatedByUserId: uuid("updated_by_user_id").references(() => users.id, { onDelete: "set null" }),
 });
+
+/**
+ * Leaderboard Cache Table
+ * Stores pre-computed leaderboard data to avoid expensive aggregation queries
+ * Key format: {type}:{game}:{date} e.g. "daily:wordle:2026-02-04"
+ */
+export const leaderboardCache = pgTable("leaderboard_cache", {
+  key: text("key").primaryKey(),
+  payload: jsonb("payload").notNull(),
+  computedAt: timestamp("computed_at", { withTimezone: true }).defaultNow().notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
+  computeTimeMs: integer("compute_time_ms"),
+});
+
+/**
+ * Rate Limits Table (for reference - created via migration)
+ * Stores rate limit counters with automatic expiry
+ */
+export const rateLimits = pgTable("rate_limits", {
+  key: text("key").primaryKey(),
+  windowStart: timestamp("window_start", { withTimezone: false }).notNull(),
+  count: integer("count").notNull().default(1),
+  expiresAt: timestamp("expires_at", { withTimezone: false }).notNull(),
+});

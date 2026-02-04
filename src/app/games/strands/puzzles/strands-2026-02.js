@@ -1,430 +1,426 @@
-// Strands puzzles for February 2026
-// Each puzzle has a theme, 6×8 grid, 6 theme words, and 1 spangram
-
 export const STRANDS_PUZZLES_FEB_2026 = [
   {
     date: "2026-02-01",
-    theme: "Types of Bread",
+    theme: "WINTER WEATHER",
     grid: [
-      ["B", "A", "G", "U", "E", "T", "T", "E"],
-      ["R", "O", "L", "L", "S", "O", "F", "O"],
-      ["Y", "E", "S", "D", "N", "U", "R", "C"],
-      ["E", "T", "A", "B", "A", "T", "T", "A"],
-      ["B", "R", "I", "O", "C", "H", "E", "I"],
-      ["P", "I", "T", "A", "L", "L", "A", "H"]
+      ["F", "R", "O", "S", "T", "C", "O", "L"],
+      ["S", "N", "O", "W", "I", "C", "E", "D"],
+      ["L", "E", "E", "T", "H", "A", "I", "L"],
+      ["B", "L", "I", "Z", "Z", "A", "R", "D"],
+      ["C", "H", "I", "L", "L", "W", "I", "N"],
+      ["D", "F", "L", "U", "R", "R", "Y", "S"]
     ],
-    words: ["BAGUETTE", "BRIOCHE", "CIABATTA", "CHALLAH", "ROLLS", "PITA"],
-    spangram: "BREADTYPES",
-    spangramPath: [[0,0],[0,1],[0,2],[1,3],[2,3],[3,3],[4,3],[5,3],[4,4],[3,4]]
+    words: ["FROST", "SNOW", "SLEET", "BLIZZARD", "CHILL", "FLURRY"],
+    spangram: "COLDWEATHER",
+    spangramPath: [[0,5],[0,6],[0,7],[1,7],[2,7],[3,7],[4,7],[5,7],[5,6],[5,5],[5,4]]
   },
   {
     date: "2026-02-02",
-    theme: "Weather Words",
+    theme: "TERMS OF ENDEARMENT",
     grid: [
-      ["C", "L", "O", "U", "D", "Y", "S", "T"],
-      ["H", "A", "I", "L", "W", "I", "N", "D"],
-      ["R", "A", "I", "N", "S", "N", "O", "W"],
-      ["F", "O", "G", "M", "I", "S", "T", "E"],
-      ["S", "T", "O", "R", "M", "S", "U", "N"],
-      ["T", "H", "U", "N", "D", "E", "R", "P"]
+      ["H", "O", "N", "E", "Y", "B", "A", "B"],
+      ["Y", "S", "W", "E", "E", "T", "H", "E"],
+      ["A", "R", "T", "D", "A", "R", "L", "I"],
+      ["N", "G", "P", "U", "M", "P", "K", "I"],
+      ["N", "S", "U", "G", "A", "R", "P", "I"],
+      ["E", "C", "H", "E", "R", "R", "Y", "O"]
     ],
-    words: ["RAIN", "SNOW", "HAIL", "WIND", "THUNDER", "STORM"],
-    spangram: "WEATHERCAST",
-    spangramPath: [[0,0],[0,1],[1,1],[2,1],[3,1],[4,1],[4,2],[4,3],[4,4],[4,5],[5,5]]
+    words: ["HONEY", "BABY", "SWEETHEART", "DARLING", "PUMPKIN", "SUGAR"],
+    spangram: "LOVINGNAMES",
+    spangramPath: [[0,5],[1,5],[2,5],[3,5],[4,5],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0]]
   },
   {
     date: "2026-02-03",
-    theme: "Ocean Life",
+    theme: "VALENTINE'S DAY",
     grid: [
-      ["W", "H", "A", "L", "E", "S", "H", "A"],
-      ["S", "H", "A", "R", "K", "C", "R", "A"],
-      ["D", "O", "L", "P", "H", "I", "N", "B"],
-      ["O", "C", "T", "O", "P", "U", "S", "S"],
-      ["J", "E", "L", "L", "Y", "F", "I", "S"],
-      ["M", "A", "N", "T", "A", "R", "A", "Y"]
+      ["H", "E", "A", "R", "T", "S", "R", "O"],
+      ["S", "E", "S", "C", "U", "P", "I", "D"],
+      ["R", "I", "N", "G", "G", "I", "F", "T"],
+      ["S", "C", "A", "R", "D", "S", "L", "O"],
+      ["V", "E", "C", "H", "O", "C", "O", "L"],
+      ["A", "T", "E", "S", "W", "E", "E", "T"]
     ],
-    words: ["WHALE", "SHARK", "DOLPHIN", "OCTOPUS", "MANTA", "CRAB"],
-    spangram: "SEALIFE",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[3,1],[3,2],[3,3]]
-  },
-  {
-    date: "2026-02-04",
-    theme: "Programming Languages",
-    grid: [
-      ["P", "Y", "T", "H", "O", "N", "J", "A"],
-      ["V", "A", "C", "R", "U", "B", "Y", "V"],
-      ["S", "W", "I", "F", "T", "G", "O", "A"],
-      ["K", "O", "T", "L", "I", "N", "P", "H"],
-      ["R", "U", "S", "T", "C", "S", "H", "P"],
-      ["S", "C", "A", "L", "A", "P", "E", "R"]
-    ],
-    words: ["PYTHON", "JAVA", "RUBY", "SWIFT", "RUST", "SCALA"],
-    spangram: "CODELANGUAGES",
-    spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3],[4,4],[5,4],[5,5],[5,6],[5,7]]
-  },
-  {
-    date: "2026-02-05",
-    theme: "Kitchen Tools",
-    grid: [
-      ["S", "P", "O", "O", "N", "K", "N", "I"],
-      ["F", "O", "R", "K", "W", "H", "I", "S"],
-      ["K", "N", "I", "F", "E", "L", "A", "K"],
-      ["S", "P", "A", "T", "U", "L", "A", "E"],
-      ["P", "E", "E", "L", "E", "R", "G", "R"],
-      ["T", "O", "N", "G", "S", "S", "I", "V"]
-    ],
-    words: ["SPOON", "FORK", "KNIFE", "WHISK", "TONGS", "PEELER"],
-    spangram: "SILVERWARE",
-    spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[3,3],[3,4],[3,5],[4,5]]
-  },
-  {
-    date: "2026-02-06",
-    theme: "Musical Instruments",
-    grid: [
-      ["P", "I", "A", "N", "O", "V", "I", "O"],
-      ["L", "I", "N", "G", "U", "I", "T", "A"],
-      ["R", "D", "R", "U", "M", "S", "F", "L"],
-      ["U", "T", "E", "H", "A", "R", "P", "U"],
-      ["C", "E", "L", "L", "O", "B", "A", "T"],
-      ["E", "T", "R", "U", "M", "P", "E", "T"]
-    ],
-    words: ["PIANO", "GUITAR", "DRUMS", "FLUTE", "HARP", "CELLO"],
-    spangram: "ORCHESTRA",
-    spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3],[4,4]]
-  },
-  {
-    date: "2026-02-07",
-    theme: "Winter Sports",
-    grid: [
-      ["S", "K", "I", "I", "N", "G", "C", "U"],
-      ["H", "O", "C", "K", "E", "Y", "S", "K"],
-      ["A", "T", "I", "N", "G", "B", "O", "B"],
-      ["S", "L", "E", "D", "L", "U", "G", "E"],
-      ["C", "U", "R", "L", "I", "N", "G", "S"],
-      ["N", "O", "W", "B", "O", "A", "R", "D"]
-    ],
-    words: ["SKIING", "HOCKEY", "SKATING", "LUGE", "BOBSLED", "CURLING"],
-    spangram: "WINTERSPORTS",
+    words: ["HEARTS", "ROSES", "CUPID", "RING", "GIFTS", "CARDS"],
+    spangram: "ROMANTICLOVE",
     spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
-    date: "2026-02-08",
-    theme: "Web Browsers",
+    date: "2026-02-04",
+    theme: "COLD EMOTIONS",
     grid: [
-      ["C", "H", "R", "O", "M", "E", "F", "I"],
-      ["R", "E", "F", "O", "X", "S", "A", "F"],
-      ["A", "R", "I", "E", "D", "G", "E", "A"],
-      ["O", "P", "E", "R", "A", "B", "R", "V"],
-      ["E", "R", "Y", "T", "O", "R", "N", "E"],
-      ["T", "U", "R", "B", "I", "N", "E", "T"]
+      ["A", "L", "O", "O", "F", "D", "I", "S"],
+      ["T", "A", "N", "T", "I", "N", "D", "I"],
+      ["F", "F", "E", "R", "E", "N", "T", "U"],
+      ["N", "F", "R", "I", "E", "N", "D", "L"],
+      ["Y", "R", "E", "S", "E", "R", "V", "E"],
+      ["D", "C", "O", "L", "D", "H", "A", "R"]
     ],
-    words: ["CHROME", "FIREFOX", "SAFARI", "EDGE", "OPERA", "BRAVE"],
-    spangram: "WEBBROWSERS",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[3,1],[3,2],[4,2],[4,3],[4,4],[5,4],[5,5]]
+    words: ["ALOOF", "DISTANT", "INDIFFERENT", "UNFRIENDLY", "RESERVED", "COLD"],
+    spangram: "FROZENFEELINGS",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7]]
+  },
+  {
+    date: "2026-02-05",
+    theme: "SHORT WORDS",
+    grid: [
+      ["B", "R", "I", "E", "F", "S", "N", "A"],
+      ["P", "S", "H", "O", "R", "T", "L", "Y"],
+      ["M", "I", "N", "I", "M", "A", "L", "L"],
+      ["I", "T", "T", "L", "E", "C", "O", "N"],
+      ["C", "I", "S", "E", "P", "U", "N", "Y"],
+      ["T", "E", "R", "S", "E", "B", "R", "I"]
+    ],
+    words: ["BRIEF", "SNAP", "SHORTLY", "MINIMAL", "LITTLE", "CONCISE"],
+    spangram: "FEBRUARYSHORT",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
+  },
+  {
+    date: "2026-02-06",
+    theme: "WINTER SPORTS",
+    grid: [
+      ["S", "K", "I", "I", "N", "G", "H", "O"],
+      ["C", "K", "E", "Y", "S", "L", "E", "D"],
+      ["D", "I", "N", "G", "C", "U", "R", "L"],
+      ["I", "N", "G", "B", "O", "B", "S", "L"],
+      ["E", "D", "S", "K", "A", "T", "I", "N"],
+      ["G", "S", "N", "O", "W", "B", "O", "A"]
+    ],
+    words: ["SKIING", "HOCKEY", "SLEDDING", "CURLING", "BOBSLED", "SKATING"],
+    spangram: "COLDPLAYGAMES",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
+  },
+  {
+    date: "2026-02-07",
+    theme: "LOVE LANGUAGES",
+    grid: [
+      ["W", "O", "R", "D", "S", "O", "F", "A"],
+      ["F", "F", "I", "R", "M", "A", "T", "I"],
+      ["O", "N", "Q", "U", "A", "L", "I", "T"],
+      ["Y", "T", "I", "M", "E", "G", "I", "F"],
+      ["T", "S", "S", "E", "R", "V", "I", "C"],
+      ["E", "T", "O", "U", "C", "H", "A", "C"]
+    ],
+    words: ["WORDS", "AFFIRMATION", "QUALITYTIME", "GIFTS", "SERVICE", "TOUCH"],
+    spangram: "EXPRESSIONS",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5]]
+  },
+  {
+    date: "2026-02-08",
+    theme: "FEBRUARY FLOWERS",
+    grid: [
+      ["V", "I", "O", "L", "E", "T", "S", "I"],
+      ["R", "I", "S", "E", "S", "P", "R", "I"],
+      ["M", "R", "O", "S", "E", "S", "N", "O"],
+      ["W", "D", "R", "O", "P", "S", "T", "U"],
+      ["L", "I", "P", "S", "S", "A", "F", "F"],
+      ["R", "O", "N", "C", "R", "O", "C", "U"]
+    ],
+    words: ["VIOLET", "IRISES", "PRIMROSE", "SNOWDROPS", "TULIPS", "SAFFRON"],
+    spangram: "BLOOMINGMONTH",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
     date: "2026-02-09",
-    theme: "Social Media",
+    theme: "ROMANTIC WORDS",
     grid: [
-      ["F", "A", "C", "E", "B", "O", "O", "K"],
-      ["T", "W", "I", "T", "T", "E", "R", "I"],
-      ["N", "S", "T", "A", "G", "R", "A", "M"],
-      ["T", "I", "K", "T", "O", "K", "L", "I"],
-      ["N", "K", "E", "D", "I", "N", "S", "N"],
-      ["P", "I", "N", "T", "E", "R", "E", "S"]
+      ["A", "D", "O", "R", "E", "C", "H", "E"],
+      ["R", "I", "S", "H", "L", "O", "V", "E"],
+      ["P", "A", "S", "S", "I", "O", "N", "F"],
+      ["L", "I", "R", "T", "A", "F", "F", "E"],
+      ["C", "T", "I", "O", "N", "W", "A", "R"],
+      ["M", "T", "H", "S", "W", "E", "E", "T"]
     ],
-    words: ["FACEBOOK", "TWITTER", "INSTAGRAM", "TIKTOK", "LINKEDIN", "PINTEREST"],
-    spangram: "SOCIALMEDIA",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[5,5]]
+    words: ["ADORE", "CHERISH", "LOVE", "PASSION", "FLIRT", "AFFECTION"],
+    spangram: "HEARTFELT",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5]]
   },
   {
     date: "2026-02-10",
-    theme: "Body Parts",
+    theme: "WINTER CLOTHING",
     grid: [
-      ["H", "E", "A", "R", "T", "L", "U", "N"],
-      ["G", "B", "R", "A", "I", "N", "L", "I"],
-      ["V", "E", "R", "K", "I", "D", "N", "E"],
-      ["Y", "S", "T", "O", "M", "A", "C", "H"],
-      ["L", "I", "V", "E", "R", "L", "U", "N"],
-      ["G", "S", "P", "L", "E", "E", "N", "S"]
+      ["C", "O", "A", "T", "S", "C", "A", "R"],
+      ["F", "G", "L", "O", "V", "E", "S", "M"],
+      ["I", "T", "T", "E", "N", "S", "H", "A"],
+      ["T", "B", "O", "O", "T", "S", "J", "A"],
+      ["C", "K", "E", "T", "P", "A", "R", "K"],
+      ["A", "G", "L", "O", "V", "E", "S", "S"]
     ],
-    words: ["HEART", "BRAIN", "LIVER", "KIDNEY", "STOMACH", "SPLEEN"],
-    spangram: "VITALORGANS",
-    spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3],[4,4],[5,4],[5,5]]
+    words: ["COAT", "SCARF", "GLOVES", "MITTENS", "HAT", "BOOTS"],
+    spangram: "WARMGEAR",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5]]
   },
   {
     date: "2026-02-11",
-    theme: "Emotions",
+    theme: "EMOTIONAL STATES",
     grid: [
       ["H", "A", "P", "P", "Y", "S", "A", "D"],
       ["A", "N", "G", "R", "Y", "J", "O", "Y"],
-      ["F", "E", "A", "R", "L", "O", "V", "E"],
-      ["G", "R", "I", "E", "F", "H", "O", "P"],
-      ["E", "P", "R", "I", "D", "E", "N", "V"],
-      ["Y", "S", "H", "A", "M", "E", "G", "R"]
+      ["F", "E", "A", "R", "S", "O", "R", "R"],
+      ["O", "W", "C", "A", "L", "M", "P", "E"],
+      ["A", "C", "E", "F", "U", "R", "Y", "G"],
+      ["R", "I", "E", "F", "H", "O", "P", "E"]
     ],
-    words: ["HAPPY", "SAD", "ANGRY", "FEAR", "LOVE", "GRIEF"],
+    words: ["HAPPY", "SAD", "ANGRY", "FEAR", "JOY", "SORROW"],
     spangram: "FEELINGS",
-    spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3]]
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4]]
   },
   {
     date: "2026-02-12",
-    theme: "Board Games",
+    theme: "TIME CONCEPTS",
     grid: [
-      ["C", "H", "E", "S", "S", "C", "H", "E"],
-      ["C", "K", "E", "R", "S", "M", "O", "N"],
-      ["O", "P", "O", "L", "Y", "S", "C", "R"],
-      ["A", "B", "B", "L", "E", "C", "L", "U"],
-      ["E", "R", "I", "S", "K", "C", "A", "N"],
-      ["D", "Y", "L", "I", "F", "E", "D", "Y"]
+      ["M", "I", "N", "U", "T", "E", "H", "O"],
+      ["U", "R", "D", "A", "Y", "W", "E", "E"],
+      ["K", "M", "O", "N", "T", "H", "Y", "E"],
+      ["A", "R", "S", "E", "C", "O", "N", "D"],
+      ["D", "E", "C", "A", "D", "E", "C", "E"],
+      ["N", "T", "U", "R", "Y", "E", "R", "A"]
     ],
-    words: ["CHESS", "CHECKERS", "MONOPOLY", "SCRABBLE", "RISK", "CLUE"],
-    spangram: "TABLEGAMES",
-    spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3],[4,4],[5,4]]
+    words: ["MINUTE", "HOUR", "DAY", "WEEK", "MONTH", "YEAR"],
+    spangram: "DURATION",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4]]
   },
   {
     date: "2026-02-13",
-    theme: "Vegetables",
+    theme: "ROMANTIC GESTURES",
     grid: [
-      ["C", "A", "R", "R", "O", "T", "B", "R"],
-      ["O", "C", "C", "O", "L", "I", "C", "E"],
-      ["L", "E", "R", "Y", "L", "E", "T", "T"],
-      ["U", "C", "E", "T", "O", "M", "A", "T"],
-      ["O", "S", "P", "I", "N", "A", "C", "H"],
-      ["K", "A", "L", "E", "C", "U", "C", "U"]
+      ["K", "I", "S", "S", "H", "U", "G", "C"],
+      ["U", "D", "D", "L", "E", "E", "M", "B"],
+      ["R", "A", "C", "E", "D", "A", "T", "E"],
+      ["S", "F", "L", "O", "W", "E", "R", "S"],
+      ["C", "A", "N", "D", "L", "E", "S", "C"],
+      ["H", "O", "C", "O", "L", "A", "T", "E"]
     ],
-    words: ["CARROT", "BROCCOLI", "CELERY", "LETTUCE", "TOMATO", "SPINACH"],
-    spangram: "VEGETABLES",
-    spangramPath: [[0,0],[1,0],[2,0],[2,1],[2,2],[3,2],[4,2],[4,3],[4,4],[5,4]]
+    words: ["KISS", "HUG", "CUDDLE", "EMBRACE", "DATES", "FLOWERS"],
+    spangram: "AFFECTIONATE",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
     date: "2026-02-14",
-    theme: "Valentine's Day",
+    theme: "VALENTINE'S TREATS",
     grid: [
-      ["R", "O", "S", "E", "C", "U", "P", "I"],
-      ["D", "H", "E", "A", "R", "T", "L", "O"],
-      ["V", "E", "R", "I", "N", "G", "C", "A"],
-      ["R", "D", "K", "I", "S", "S", "C", "H"],
-      ["O", "C", "O", "L", "A", "T", "E", "O"],
-      ["F", "L", "O", "W", "E", "R", "S", "V"]
+      ["C", "A", "N", "D", "Y", "C", "H", "O"],
+      ["C", "O", "L", "A", "T", "E", "C", "O"],
+      ["O", "K", "I", "E", "C", "A", "K", "E"],
+      ["P", "I", "E", "T", "R", "U", "F", "F"],
+      ["L", "E", "S", "S", "W", "E", "E", "T"],
+      ["H", "E", "A", "R", "T", "S", "B", "A"]
     ],
-    words: ["ROSE", "HEART", "CUPID", "RING", "KISS", "CHOCOLATE"],
-    spangram: "VALENTINES",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4]]
+    words: ["CANDY", "CHOCOLATE", "COOKIE", "CAKE", "PIE", "TRUFFLES"],
+    spangram: "SWEETHEARTS",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
     date: "2026-02-15",
-    theme: "Computer Hardware",
+    theme: "WINTER ANIMALS",
     grid: [
-      ["K", "E", "Y", "B", "O", "A", "R", "D"],
-      ["M", "O", "U", "S", "E", "M", "O", "N"],
-      ["I", "T", "O", "R", "P", "R", "I", "N"],
-      ["T", "E", "R", "C", "P", "U", "R", "A"],
-      ["M", "H", "A", "R", "D", "D", "R", "I"],
-      ["V", "E", "S", "P", "E", "A", "K", "E"]
+      ["P", "O", "L", "A", "R", "B", "E", "A"],
+      ["R", "S", "E", "A", "L", "W", "A", "L"],
+      ["R", "U", "S", "P", "E", "N", "G", "U"],
+      ["I", "N", "F", "O", "X", "H", "A", "R"],
+      ["E", "O", "W", "L", "S", "N", "O", "W"],
+      ["L", "E", "O", "P", "A", "R", "D", "S"]
     ],
-    words: ["KEYBOARD", "MOUSE", "MONITOR", "PRINTER", "CPU", "HARDDRIVE"],
-    spangram: "COMPUTERHARDWARE",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4]]
+    words: ["POLARBEAR", "SEAL", "WALRUS", "PENGUIN", "FOX", "HARE"],
+    spangram: "ARCTICLIFE",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
     date: "2026-02-16",
-    theme: "Types of Fish",
+    theme: "LOVE SYMBOLS",
     grid: [
-      ["S", "A", "L", "M", "O", "N", "T", "U"],
-      ["N", "A", "T", "R", "O", "U", "T", "C"],
-      ["O", "D", "B", "A", "S", "S", "H", "A"],
-      ["L", "I", "B", "U", "T", "S", "W", "O"],
-      ["R", "D", "F", "I", "S", "H", "P", "I"],
-      ["K", "E", "M", "A", "C", "K", "E", "R"]
+      ["H", "E", "A", "R", "T", "C", "U", "P"],
+      ["I", "D", "R", "O", "S", "E", "S", "R"],
+      ["I", "N", "G", "D", "O", "V", "E", "S"],
+      ["A", "R", "R", "O", "W", "S", "B", "O"],
+      ["W", "S", "T", "R", "I", "N", "G", "S"],
+      ["C", "H", "O", "C", "O", "L", "A", "T"]
     ],
-    words: ["SALMON", "TUNA", "TROUT", "COD", "BASS", "HALIBUT"],
-    spangram: "FISHSPECIES",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5]]
+    words: ["HEART", "CUPID", "ROSES", "RING", "DOVES", "ARROWS"],
+    spangram: "AFFECTIONATE",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
     date: "2026-02-17",
-    theme: "Natural Disasters",
+    theme: "COLD DRINKS",
     grid: [
-      ["E", "A", "R", "T", "H", "Q", "U", "A"],
-      ["K", "E", "T", "O", "R", "N", "A", "D"],
-      ["O", "H", "U", "R", "R", "I", "C", "A"],
-      ["N", "E", "T", "S", "U", "N", "A", "M"],
-      ["I", "F", "L", "O", "O", "D", "V", "O"],
-      ["L", "C", "A", "N", "O", "W", "I", "L"]
+      ["I", "C", "E", "D", "T", "E", "A", "S"],
+      ["O", "D", "A", "J", "U", "I", "C", "E"],
+      ["W", "A", "T", "E", "R", "S", "H", "A"],
+      ["K", "E", "M", "I", "L", "K", "S", "H"],
+      ["A", "K", "E", "S", "M", "O", "O", "T"],
+      ["H", "I", "E", "C", "O", "L", "A", "S"]
     ],
-    words: ["EARTHQUAKE", "TORNADO", "HURRICANE", "TSUNAMI", "FLOOD", "VOLCANO"],
-    spangram: "NATURALDISASTERS",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5],[5,6],[5,7],[4,7],[3,7],[2,7]]
+    words: ["ICEDTEA", "SODA", "JUICE", "WATER", "SHAKE", "MILKSHAKE"],
+    spangram: "REFRESHING",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
     date: "2026-02-18",
-    theme: "Greek Gods",
+    theme: "SHORT MONTH",
     grid: [
-      ["Z", "E", "U", "S", "A", "T", "H", "E"],
-      ["N", "A", "A", "P", "O", "L", "L", "O"],
-      ["P", "O", "S", "E", "I", "D", "O", "N"],
-      ["H", "E", "R", "A", "A", "R", "E", "S"],
-      ["A", "P", "H", "R", "O", "D", "I", "T"],
-      ["E", "H", "E", "R", "M", "E", "S", "E"]
+      ["F", "E", "B", "R", "U", "A", "R", "Y"],
+      ["T", "W", "E", "N", "T", "Y", "E", "I"],
+      ["G", "H", "T", "D", "A", "Y", "S", "L"],
+      ["E", "A", "P", "Y", "E", "A", "R", "S"],
+      ["H", "O", "R", "T", "B", "R", "I", "E"],
+      ["F", "M", "O", "N", "T", "H", "L", "Y"]
     ],
-    words: ["ZEUS", "ATHENA", "APOLLO", "POSEIDON", "HERA", "ARES"],
-    spangram: "OLYMPIANS",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]]
+    words: ["FEBRUARY", "TWENTYEIGHT", "DAYS", "LEAPYEAR", "SHORT", "BRIEF"],
+    spangram: "CALENDAR",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4]]
   },
   {
     date: "2026-02-19",
-    theme: "School Subjects",
+    theme: "WINTER ACTIVITIES",
     grid: [
-      ["M", "A", "T", "H", "S", "C", "I", "E"],
-      ["N", "C", "E", "H", "I", "S", "T", "O"],
-      ["R", "Y", "E", "N", "G", "L", "I", "S"],
-      ["H", "A", "R", "T", "M", "U", "S", "I"],
-      ["C", "G", "E", "O", "G", "R", "A", "P"],
-      ["H", "Y", "B", "I", "O", "L", "O", "G"]
+      ["S", "K", "I", "I", "N", "G", "S", "N"],
+      ["O", "W", "B", "O", "A", "R", "D", "I"],
+      ["N", "G", "I", "C", "E", "S", "K", "A"],
+      ["T", "I", "N", "G", "S", "L", "E", "D"],
+      ["D", "I", "N", "G", "H", "O", "C", "K"],
+      ["E", "Y", "C", "U", "R", "L", "I", "N"]
     ],
-    words: ["MATH", "SCIENCE", "HISTORY", "ENGLISH", "ART", "MUSIC"],
-    spangram: "CURRICULUM",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4]]
+    words: ["SKIING", "SNOWBOARDING", "ICESKATING", "SLEDDING", "HOCKEY", "CURLING"],
+    spangram: "OUTDOORFUN",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4]]
   },
   {
     date: "2026-02-20",
-    theme: "Famous Landmarks",
+    theme: "LOVE SONGS",
     grid: [
-      ["E", "I", "F", "F", "E", "L", "C", "O"],
-      ["L", "O", "S", "E", "U", "M", "P", "Y"],
-      ["R", "A", "M", "I", "D", "S", "T", "A"],
-      ["T", "U", "E", "L", "I", "B", "E", "R"],
-      ["T", "Y", "T", "A", "J", "M", "A", "H"],
-      ["A", "L", "G", "R", "E", "A", "T", "W"]
+      ["B", "A", "L", "L", "A", "D", "R", "O"],
+      ["M", "A", "N", "C", "E", "S", "E", "R"],
+      ["E", "N", "A", "D", "E", "D", "U", "E"],
+      ["T", "S", "O", "N", "G", "H", "I", "T"],
+      ["M", "U", "S", "I", "C", "A", "L", "S"],
+      ["T", "O", "R", "Y", "M", "E", "L", "O"]
     ],
-    words: ["EIFFEL", "COLOSSEUM", "PYRAMIDS", "STATUE", "TAJMAHAL", "GREATWALL"],
-    spangram: "WORLDWONDERS",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5],[5,6]]
+    words: ["BALLAD", "ROMANCE", "SERENADE", "DUET", "SONG", "HIT"],
+    spangram: "MELODIES",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4]]
   },
   {
     date: "2026-02-21",
-    theme: "Music Genres",
+    theme: "WINTER HOLIDAYS",
     grid: [
-      ["J", "A", "Z", "Z", "R", "O", "C", "K"],
-      ["P", "O", "P", "B", "L", "U", "E", "S"],
-      ["C", "O", "U", "N", "T", "R", "Y", "R"],
-      ["A", "P", "H", "I", "P", "H", "O", "P"],
-      ["R", "E", "G", "G", "A", "E", "M", "E"],
-      ["T", "A", "L", "C", "L", "A", "S", "S"]
+      ["C", "H", "R", "I", "S", "T", "M", "A"],
+      ["S", "N", "E", "W", "Y", "E", "A", "R"],
+      ["H", "A", "N", "U", "K", "K", "A", "H"],
+      ["K", "W", "A", "N", "Z", "A", "A", "H"],
+      ["O", "L", "I", "D", "A", "Y", "F", "E"],
+      ["S", "T", "I", "V", "E", "C", "E", "L"]
     ],
-    words: ["JAZZ", "ROCK", "POP", "BLUES", "COUNTRY", "HIPHOP"],
-    spangram: "MUSICSTYLES",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5]]
+    words: ["CHRISTMAS", "NEWYEAR", "HANUKKAH", "KWANZAA", "HOLIDAY", "FESTIVE"],
+    spangram: "CELEBRATIONS",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
     date: "2026-02-22",
-    theme: "Office Supplies",
+    theme: "EMOTIONS OF LOVE",
     grid: [
-      ["P", "E", "N", "P", "A", "P", "E", "R"],
-      ["S", "T", "A", "P", "L", "E", "R", "T"],
-      ["A", "P", "E", "C", "L", "I", "P", "S"],
-      ["F", "O", "L", "D", "E", "R", "T", "A"],
-      ["P", "E", "B", "I", "N", "D", "E", "R"],
-      ["H", "I", "G", "H", "L", "I", "G", "H"]
+      ["A", "D", "O", "R", "A", "T", "I", "O"],
+      ["N", "P", "A", "S", "S", "I", "O", "N"],
+      ["F", "O", "N", "D", "N", "E", "S", "S"],
+      ["D", "E", "V", "O", "T", "I", "O", "N"],
+      ["A", "F", "F", "E", "C", "T", "I", "O"],
+      ["N", "W", "A", "R", "M", "T", "H", "S"]
     ],
-    words: ["PEN", "PAPER", "STAPLER", "CLIPS", "FOLDER", "BINDER"],
-    spangram: "OFFICESUPPLIES",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5],[5,6],[5,7],[4,7],[3,7]]
+    words: ["ADORATION", "PASSION", "FONDNESS", "DEVOTION", "AFFECTION", "WARMTH"],
+    spangram: "HEARTFELT",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4]]
   },
   {
     date: "2026-02-23",
-    theme: "Four Seasons",
+    theme: "COLD WEATHER GEAR",
     grid: [
-      ["S", "P", "R", "I", "N", "G", "S", "U"],
-      ["M", "M", "E", "R", "F", "A", "L", "L"],
-      ["W", "I", "N", "T", "E", "R", "A", "U"],
-      ["T", "U", "M", "N", "V", "E", "R", "N"],
-      ["A", "L", "S", "U", "M", "M", "E", "R"],
-      ["S", "E", "A", "S", "O", "N", "S", "P"]
+      ["J", "A", "C", "K", "E", "T", "S", "C"],
+      ["A", "R", "F", "G", "L", "O", "V", "E"],
+      ["S", "M", "I", "T", "T", "E", "N", "S"],
+      ["H", "A", "T", "B", "O", "O", "T", "S"],
+      ["P", "A", "R", "K", "A", "G", "L", "O"],
+      ["V", "E", "S", "W", "I", "N", "T", "E"]
     ],
-    words: ["SPRING", "SUMMER", "FALL", "WINTER", "AUTUMN", "VERNAL"],
-    spangram: "FOURSEASONS",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5]]
+    words: ["JACKET", "SCARF", "GLOVES", "MITTENS", "HAT", "BOOTS"],
+    spangram: "WINTERWEAR",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4]]
   },
   {
     date: "2026-02-24",
-    theme: "Card Games",
+    theme: "TIME EXPRESSIONS",
     grid: [
-      ["P", "O", "K", "E", "R", "B", "R", "I"],
-      ["D", "G", "E", "R", "U", "M", "M", "Y"],
-      ["S", "O", "L", "I", "T", "A", "I", "R"],
-      ["E", "H", "E", "A", "R", "T", "S", "W"],
-      ["H", "I", "S", "T", "B", "L", "A", "C"],
-      ["K", "J", "A", "C", "K", "G", "I", "N"]
+      ["M", "O", "M", "E", "N", "T", "I", "N"],
+      ["S", "T", "A", "N", "T", "F", "L", "A"],
+      ["S", "H", "S", "E", "C", "O", "N", "D"],
+      ["H", "O", "U", "R", "D", "A", "Y", "W"],
+      ["E", "E", "K", "M", "O", "N", "T", "H"],
+      ["Y", "E", "A", "R", "S", "P", "A", "N"]
     ],
-    words: ["POKER", "BRIDGE", "RUMMY", "SOLITAIRE", "HEARTS", "BLACKJACK"],
-    spangram: "CARDGAMES",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]]
+    words: ["MOMENT", "INSTANT", "FLASH", "SECOND", "HOUR", "DAY"],
+    spangram: "PASSINGTIME",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
     date: "2026-02-25",
-    theme: "Hand Tools",
+    theme: "VALENTINE'S COLORS",
     grid: [
-      ["H", "A", "M", "M", "E", "R", "W", "R"],
-      ["E", "N", "C", "H", "S", "C", "R", "E"],
-      ["W", "D", "R", "I", "V", "E", "R", "P"],
-      ["L", "I", "E", "R", "S", "A", "W", "L"],
-      ["E", "V", "E", "L", "C", "H", "I", "S"],
-      ["E", "L", "F", "I", "L", "E", "D", "R"]
+      ["R", "E", "D", "P", "I", "N", "K", "W"],
+      ["H", "I", "T", "E", "G", "O", "L", "D"],
+      ["S", "I", "L", "V", "E", "R", "B", "L"],
+      ["A", "C", "K", "P", "U", "R", "P", "L"],
+      ["E", "G", "R", "E", "E", "N", "B", "L"],
+      ["U", "E", "P", "I", "N", "K", "S", "S"]
     ],
-    words: ["HAMMER", "WRENCH", "SCREWDRIVER", "PLIERS", "SAW", "LEVEL"],
-    spangram: "HANDTOOLS",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]]
+    words: ["RED", "PINK", "WHITE", "GOLD", "SILVER", "BLACK"],
+    spangram: "COLORPALETTE",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
     date: "2026-02-26",
-    theme: "Sports",
+    theme: "WINTER FOODS",
     grid: [
-      ["S", "O", "C", "C", "E", "R", "T", "E"],
-      ["N", "N", "I", "S", "G", "O", "L", "F"],
-      ["B", "A", "S", "E", "B", "A", "L", "L"],
-      ["F", "O", "O", "T", "B", "A", "L", "L"],
-      ["H", "O", "C", "K", "E", "Y", "B", "O"],
-      ["X", "I", "N", "G", "S", "W", "I", "M"]
+      ["S", "T", "E", "W", "S", "O", "U", "P"],
+      ["R", "O", "A", "S", "T", "C", "A", "S"],
+      ["S", "E", "R", "O", "L", "E", "B", "R"],
+      ["E", "A", "D", "C", "H", "I", "L", "I"],
+      ["C", "H", "O", "C", "O", "L", "A", "T"],
+      ["E", "H", "O", "T", "C", "O", "C", "O"]
     ],
-    words: ["SOCCER", "TENNIS", "GOLF", "BASEBALL", "FOOTBALL", "HOCKEY"],
-    spangram: "TEAMSPORTS",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4]]
+    words: ["STEW", "SOUP", "ROAST", "CASSEROLE", "BREAD", "CHILI"],
+    spangram: "COMFORTFOOD",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   },
   {
     date: "2026-02-27",
-    theme: "Types of Wine",
+    theme: "LOVE MOVIES",
     grid: [
-      ["M", "E", "R", "L", "O", "T", "C", "H"],
-      ["A", "R", "D", "O", "N", "N", "A", "Y"],
-      ["C", "A", "B", "E", "R", "N", "E", "T"],
-      ["R", "I", "E", "S", "L", "I", "N", "G"],
-      ["P", "I", "N", "O", "T", "S", "H", "I"],
-      ["R", "A", "Z", "S", "Y", "R", "A", "H"]
+      ["R", "O", "M", "A", "N", "C", "E", "D"],
+      ["R", "A", "M", "A", "C", "O", "M", "E"],
+      ["D", "Y", "F", "A", "N", "T", "A", "S"],
+      ["Y", "M", "U", "S", "I", "C", "A", "L"],
+      ["S", "T", "O", "R", "Y", "C", "L", "A"],
+      ["S", "S", "I", "C", "S", "W", "E", "E"]
     ],
-    words: ["MERLOT", "CHARDONNAY", "CABERNET", "RIESLING", "PINOT", "SHIRAZ"],
-    spangram: "WINEVARIETAL",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4],[5,5],[5,6]]
+    words: ["ROMANCE", "DRAMA", "COMEDY", "FANTASY", "MUSICAL", "STORY"],
+    spangram: "CINEMALOVE",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4]]
   },
   {
     date: "2026-02-28",
-    theme: "Ocean Animals",
+    theme: "SHORT WORDS",
     grid: [
-      ["C", "R", "A", "B", "L", "O", "B", "S"],
-      ["T", "E", "R", "J", "E", "L", "L", "Y"],
-      ["F", "I", "S", "H", "S", "T", "A", "R"],
-      ["F", "I", "S", "H", "S", "E", "A", "L"],
-      ["S", "E", "A", "H", "O", "R", "S", "E"],
-      ["O", "T", "T", "E", "R", "M", "A", "N"]
+      ["B", "R", "I", "E", "F", "S", "N", "A"],
+      ["P", "S", "H", "O", "R", "T", "L", "Y"],
+      ["M", "I", "N", "I", "M", "A", "L", "L"],
+      ["I", "T", "T", "L", "E", "C", "O", "N"],
+      ["C", "I", "S", "E", "P", "U", "N", "Y"],
+      ["T", "E", "R", "S", "E", "B", "R", "I"]
     ],
-    words: ["CRAB", "LOBSTER", "JELLYFISH", "STARFISH", "SEAL", "SEAHORSE"],
-    spangram: "MARINELIFE",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4],[5,4]]
+    words: ["BRIEF", "SNAP", "SHORTLY", "MINIMAL", "LITTLE", "CONCISE"],
+    spangram: "FEBRUARYSHORT",
+    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
   }
 ];
 
 export const getStrandsForDate = (dateString) => {
   return STRANDS_PUZZLES_FEB_2026.find(puzzle => puzzle.date === dateString) || null;
 };
-

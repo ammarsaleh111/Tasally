@@ -22,6 +22,27 @@
       "when": 1769715261622,
       "tag": "0002_add_user_last_seen_role",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1769715300000,
+      "tag": "0003_add_rate_limits_table",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1769715400000,
+      "tag": "0004_add_daily_unique_constraint",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1770000000000,
+      "tag": "0005_scalability_indexes_and_cache",
+      "breakpoints": true
     }
   ]
 }

@@ -10,6 +10,7 @@ import AuthProvider from "@/components/AuthProvider";
 import SessionBridge from "@/components/SessionBridge";
 import { TutorialProvider } from "@/components/tutorial/TutorialProvider";
 import GlobalTutorial from "@/components/tutorial/GlobalTutorial";
+import PresenceProvider from "@/components/PresenceProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,23 +41,25 @@ export default function RootLayout({ children }) {
       >
         <AuthProvider>
           <SessionBridge />
-          <SessionInitializer>
-            <IdentityProvider>
-              <ThemeProvider>
-                <NotificationInitializer>
-                  <TutorialProvider>
-                    <SeasonIdentityProvider showBackground={true} showCorners={true} showParticles={false}>
-                      <DominantThemeBanner />
-                      <GlobalTutorial />
-                      <div className="relative z-10">
-                        {children}
-                      </div>
-                    </SeasonIdentityProvider>
-                  </TutorialProvider>
-                </NotificationInitializer>
-              </ThemeProvider>
-            </IdentityProvider>
-          </SessionInitializer>
+          <PresenceProvider intervalMs={90000}>
+            <SessionInitializer>
+              <IdentityProvider>
+                <ThemeProvider>
+                  <NotificationInitializer>
+                    <TutorialProvider>
+                      <SeasonIdentityProvider showBackground={true} showCorners={true} showParticles={false}>
+                        <DominantThemeBanner />
+                        <GlobalTutorial />
+                        <div className="relative z-10">
+                          {children}
+                        </div>
+                      </SeasonIdentityProvider>
+                    </TutorialProvider>
+                  </NotificationInitializer>
+                </ThemeProvider>
+              </IdentityProvider>
+            </SessionInitializer>
+          </PresenceProvider>
         </AuthProvider>
       </body>
     </html>
