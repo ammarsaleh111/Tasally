@@ -37,12 +37,14 @@ export async function GET(request: NextRequest) {
   
   try {
     const session = await auth();
-    if (!session?.user) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const userId = session.user.id;
+
     // Rate limiting for leaderboard endpoint
-    const rateLimitKey = buildRateLimitKey("leaderboard:daily", session.user.id);
+    const rateLimitKey = buildRateLimitKey("leaderboard:daily", userId);
     const rateResult = await checkRateLimit(
       rateLimitKey,
       RATE_LIMITS.LEADERBOARD.max,
@@ -58,7 +60,7 @@ export async function GET(request: NextRequest) {
         rateLimited: true,
         timestamp: new Date().toISOString(),
       });
-      return rateLimitResponse(rateResult, "/api/leaderboard/daily", session.user.id);
+      return rateLimitResponse(rateResult, "/api/leaderboard/daily", userId);
     }
 
     const { searchParams } = request.nextUrl;

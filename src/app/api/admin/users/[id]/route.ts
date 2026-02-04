@@ -16,7 +16,10 @@ import { eq } from "drizzle-orm";
 import { sanitizeString } from "@/utils/inputSanitizer";
 import { getActivityStore, getAllPlayers, saveActivityStore, savePlayers } from "@/lib/serverData";
 
-export async function DELETE(_request: Request, { params }: { params: { id?: string } }) {
+export async function DELETE(
+  _request: Request,
+  context: { params: Promise<{ id?: string }> }
+) {
   const cookieStore = await cookies();
   const token = cookieStore.get("admin_session")?.value;
   const authenticated = await validateAdminSession(token);
@@ -25,6 +28,7 @@ export async function DELETE(_request: Request, { params }: { params: { id?: str
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const params = await context.params;
   const userId = sanitizeString(params?.id ?? "", 100);
 
   if (!userId) {

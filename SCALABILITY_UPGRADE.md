@@ -6,6 +6,7 @@
 ## Summary
 
 This upgrade implements a comprehensive scalability plan for the Ammar Times platform, focusing on:
+
 - Lightweight presence tracking (online users count + last_seen)
 - DB connection pooling optimized for serverless
 - DB-level leaderboard caching to eliminate expensive queries
@@ -18,37 +19,37 @@ This upgrade implements a comprehensive scalability plan for the Ammar Times pla
 
 ### Database Layer
 
-| File | Purpose |
-|------|---------|
-| [src/db/index.ts](src/db/index.ts) | **Updated** - Singleton DB client using `DATABASE_URL_POOLED`, `max: 1` connection, `prepare: false` for Neon transaction pooling |
-| [src/db/schema.ts](src/db/schema.ts) | **Updated** - Added `leaderboardCache` and `rateLimits` table schemas |
-| [drizzle/0005_scalability_indexes_and_cache.sql](drizzle/0005_scalability_indexes_and_cache.sql) | **New** - Migration with indexes and leaderboard_cache table |
+| File                                                                                             | Purpose                                                                                                                           |
+| ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| [src/db/index.ts](src/db/index.ts)                                                               | **Updated** - Singleton DB client using `DATABASE_URL_POOLED`, `max: 1` connection, `prepare: false` for Neon transaction pooling |
+| [src/db/schema.ts](src/db/schema.ts)                                                             | **Updated** - Added `leaderboardCache` and `rateLimits` table schemas                                                             |
+| [drizzle/0005_scalability_indexes_and_cache.sql](drizzle/0005_scalability_indexes_and_cache.sql) | **New** - Migration with indexes and leaderboard_cache table                                                                      |
 
 ### Presence Tracking
 
-| File | Purpose |
-|------|---------|
-| [src/app/api/presence/heartbeat/route.ts](src/app/api/presence/heartbeat/route.ts) | **New** - POST endpoint for presence heartbeat (auth required, 30s server throttle) |
-| [src/app/api/presence/online-count/route.ts](src/app/api/presence/online-count/route.ts) | **New** - GET endpoint for online user count (cached, public) |
-| [src/app/api/admin/online-users/route.ts](src/app/api/admin/online-users/route.ts) | **New** - GET endpoint for admin to see online users list |
-| [src/hooks/usePresenceHeartbeat.ts](src/hooks/usePresenceHeartbeat.ts) | **New** - React hook for client-side heartbeat (90s interval, visibility API) |
-| [src/components/PresenceProvider.tsx](src/components/PresenceProvider.tsx) | **New** - Provider component to integrate presence into app |
-| [src/app/layout.js](src/app/layout.js) | **Updated** - Integrated PresenceProvider |
+| File                                                                                     | Purpose                                                                             |
+| ---------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [src/app/api/presence/heartbeat/route.ts](src/app/api/presence/heartbeat/route.ts)       | **New** - POST endpoint for presence heartbeat (auth required, 30s server throttle) |
+| [src/app/api/presence/online-count/route.ts](src/app/api/presence/online-count/route.ts) | **New** - GET endpoint for online user count (cached, public)                       |
+| [src/app/api/admin/online-users/route.ts](src/app/api/admin/online-users/route.ts)       | **New** - GET endpoint for admin to see online users list                           |
+| [src/hooks/usePresenceHeartbeat.ts](src/hooks/usePresenceHeartbeat.ts)                   | **New** - React hook for client-side heartbeat (90s interval, visibility API)       |
+| [src/components/PresenceProvider.tsx](src/components/PresenceProvider.tsx)               | **New** - Provider component to integrate presence into app                         |
+| [src/app/layout.js](src/app/layout.js)                                                   | **Updated** - Integrated PresenceProvider                                           |
 
 ### Caching & Performance
 
-| File | Purpose |
-|------|---------|
-| [src/lib/leaderboardCache.ts](src/lib/leaderboardCache.ts) | **New** - DB-level caching for leaderboards with TTL |
-| [src/app/api/leaderboard/daily/route.ts](src/app/api/leaderboard/daily/route.ts) | **Updated** - Uses DB cache, rate limiting, improved edge caching |
+| File                                                                                 | Purpose                                                           |
+| ------------------------------------------------------------------------------------ | ----------------------------------------------------------------- |
+| [src/lib/leaderboardCache.ts](src/lib/leaderboardCache.ts)                           | **New** - DB-level caching for leaderboards with TTL              |
+| [src/app/api/leaderboard/daily/route.ts](src/app/api/leaderboard/daily/route.ts)     | **Updated** - Uses DB cache, rate limiting, improved edge caching |
 | [src/app/api/leaderboard/monthly/route.ts](src/app/api/leaderboard/monthly/route.ts) | **Updated** - Uses DB cache, rate limiting, improved edge caching |
 
 ### Rate Limiting & Health
 
-| File | Purpose |
-|------|---------|
-| [src/lib/rateLimit.ts](src/lib/rateLimit.ts) | **Updated** - Added `PRESENCE_HEARTBEAT`, `LEADERBOARD`, `LOGIN` rate limit configs |
-| [src/app/api/health/route.ts](src/app/api/health/route.ts) | **New** - Health check endpoint for monitoring |
+| File                                                       | Purpose                                                                             |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [src/lib/rateLimit.ts](src/lib/rateLimit.ts)               | **Updated** - Added `PRESENCE_HEARTBEAT`, `LEADERBOARD`, `LOGIN` rate limit configs |
+| [src/app/api/health/route.ts](src/app/api/health/route.ts) | **New** - Health check endpoint for monitoring                                      |
 
 ---
 
@@ -57,6 +58,7 @@ This upgrade implements a comprehensive scalability plan for the Ammar Times pla
 ### New Tables
 
 #### `leaderboard_cache`
+
 ```sql
 CREATE TABLE leaderboard_cache (
   key TEXT PRIMARY KEY,
@@ -69,14 +71,14 @@ CREATE TABLE leaderboard_cache (
 
 ### New Indexes
 
-| Index | Table | Purpose |
-|-------|-------|---------|
-| `users_last_seen_at_idx` | users | Fast online count queries |
-| `users_id_last_seen_idx` | users | Fast heartbeat updates |
-| `leaderboard_cache_expires_idx` | leaderboard_cache | Cache expiry checks |
-| `game_results_daily_leaderboard_idx` | game_results | Daily leaderboard queries |
-| `game_results_monthly_leaderboard_idx` | game_results | Monthly aggregation queries |
-| `presence_sessions_active_idx` | presence_sessions | Admin dashboard queries |
+| Index                                  | Table             | Purpose                     |
+| -------------------------------------- | ----------------- | --------------------------- |
+| `users_last_seen_at_idx`               | users             | Fast online count queries   |
+| `users_id_last_seen_idx`               | users             | Fast heartbeat updates      |
+| `leaderboard_cache_expires_idx`        | leaderboard_cache | Cache expiry checks         |
+| `game_results_daily_leaderboard_idx`   | game_results      | Daily leaderboard queries   |
+| `game_results_monthly_leaderboard_idx` | game_results      | Monthly aggregation queries |
+| `presence_sessions_active_idx`         | presence_sessions | Admin dashboard queries     |
 
 ---
 
@@ -96,6 +98,7 @@ DATABASE_URL=postgresql://user:pass@your-host.neon.tech/dbname?sslmode=require
 ### Priority Order
 
 The DB client checks for connection strings in this order:
+
 1. `DATABASE_URL_POOLED` (recommended)
 2. `DATABASE_POOL_URL` (legacy)
 3. `DATABASE_URL` (fallback)
@@ -106,17 +109,17 @@ The DB client checks for connection strings in this order:
 
 ### Presence
 
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| POST | `/api/presence/heartbeat` | Required | Update user's last_seen_at |
-| GET | `/api/presence/online-count` | Optional | Get count of online users |
-| GET | `/api/admin/online-users` | Admin | List online users (limit param) |
+| Method | Endpoint                     | Auth     | Description                     |
+| ------ | ---------------------------- | -------- | ------------------------------- |
+| POST   | `/api/presence/heartbeat`    | Required | Update user's last_seen_at      |
+| GET    | `/api/presence/online-count` | Optional | Get count of online users       |
+| GET    | `/api/admin/online-users`    | Admin    | List online users (limit param) |
 
 ### Health
 
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| GET | `/api/health` | None | System health check |
+| Method | Endpoint      | Auth | Description         |
+| ------ | ------------- | ---- | ------------------- |
+| GET    | `/api/health` | None | System health check |
 
 ---
 
@@ -124,28 +127,28 @@ The DB client checks for connection strings in this order:
 
 ### Heartbeat Intervals
 
-| Component | Interval | Purpose |
-|-----------|----------|---------|
-| Client hook | 90 seconds | Between heartbeat requests |
-| Server throttle | 30 seconds | Skip DB write if recent |
-| Online window | 2-3 minutes | Consider user "online" |
+| Component       | Interval    | Purpose                    |
+| --------------- | ----------- | -------------------------- |
+| Client hook     | 90 seconds  | Between heartbeat requests |
+| Server throttle | 30 seconds  | Skip DB write if recent    |
+| Online window   | 2-3 minutes | Consider user "online"     |
 
 ### Cache TTLs
 
-| Cache | TTL | Purpose |
-|-------|-----|---------|
-| Daily leaderboard | 30 seconds | Near-real-time with low DB load |
-| Monthly leaderboard | 120 seconds | Less dynamic, longer cache |
-| Online count (memory) | 5 seconds | Fast local cache |
-| Online count (CDN) | 10 seconds | Edge cache for scale |
+| Cache                 | TTL         | Purpose                         |
+| --------------------- | ----------- | ------------------------------- |
+| Daily leaderboard     | 30 seconds  | Near-real-time with low DB load |
+| Monthly leaderboard   | 120 seconds | Less dynamic, longer cache      |
+| Online count (memory) | 5 seconds   | Fast local cache                |
+| Online count (CDN)    | 10 seconds  | Edge cache for scale            |
 
 ### Rate Limits
 
-| Endpoint | Limit | Window |
-|----------|-------|--------|
-| Presence heartbeat | 2/min | Per user |
-| Leaderboard | 30/min | Per user |
-| Login | 10/min | Per IP |
+| Endpoint           | Limit  | Window   |
+| ------------------ | ------ | -------- |
+| Presence heartbeat | 2/min  | Per user |
+| Leaderboard        | 30/min | Per user |
+| Login              | 10/min | Per IP   |
 
 ---
 
@@ -154,17 +157,20 @@ The DB client checks for connection strings in this order:
 ### Local Development
 
 1. **Database Migration**
+
    ```bash
    npm run db:migrate
    ```
 
 2. **Verify Health Endpoint**
+
    ```bash
    curl http://localhost:3000/api/health
    # Expected: {"status":"healthy","checks":{"database":{"status":"ok",...}}}
    ```
 
 3. **Test Heartbeat (authenticated)**
+
    ```bash
    # Login first, then:
    curl -X POST http://localhost:3000/api/presence/heartbeat \
@@ -173,17 +179,19 @@ The DB client checks for connection strings in this order:
    ```
 
 4. **Test Online Count**
+
    ```bash
    curl http://localhost:3000/api/presence/online-count
    # Expected: {"onlineCount":1,"windowSeconds":120,"computedAt":"..."}
    ```
 
 5. **Test Leaderboard Caching**
+
    ```bash
    # First request - should compute
    curl "http://localhost:3000/api/leaderboard/daily?game=wordle"
    # Look for: "cached":false, "computeTimeMs":...
-   
+
    # Second request within 30s - should cache hit
    curl "http://localhost:3000/api/leaderboard/daily?game=wordle"
    # Look for: "cached":true
@@ -197,6 +205,7 @@ The DB client checks for connection strings in this order:
    - Max connections should stay low even under load
 
 2. **Verify Online Count Under Load**
+
    ```bash
    # Run multiple times concurrently
    for i in {1..10}; do
@@ -205,6 +214,7 @@ The DB client checks for connection strings in this order:
    ```
 
 3. **Verify Cache Headers**
+
    ```bash
    curl -I "https://your-site.netlify.app/api/presence/online-count"
    # Look for: Cache-Control: public, max-age=5, s-maxage=10, stale-while-revalidate=30
@@ -232,6 +242,7 @@ node scripts/load-test.js --concurrent=100 --duration=60
 ```
 
 Monitor:
+
 - Response times (should be <100ms for cached endpoints)
 - DB connection count (should stay under Neon limit)
 - Error rate (should be <1%)
@@ -242,11 +253,11 @@ Monitor:
 
 ### Current Limits
 
-| Resource | Limit | Notes |
-|----------|-------|-------|
-| Neon connections | 100 (free) / 1000 (pro) | Pooler handles this |
-| Netlify function duration | 10s default | Increase if needed |
-| CDN cache | Unlimited | Netlify edge |
+| Resource                  | Limit                   | Notes               |
+| ------------------------- | ----------------------- | ------------------- |
+| Neon connections          | 100 (free) / 1000 (pro) | Pooler handles this |
+| Netlify function duration | 10s default             | Increase if needed  |
+| CDN cache                 | Unlimited               | Netlify edge        |
 
 ### If You Need More Scale
 
@@ -260,16 +271,19 @@ Monitor:
 ## Migration Steps (Production)
 
 1. **Set Environment Variable**
+
    ```
    DATABASE_URL_POOLED=<your-neon-pooler-connection-string>
    ```
 
 2. **Run Migration**
+
    ```bash
    npm run db:migrate
    ```
 
 3. **Deploy**
+
    ```bash
    git push origin main
    # Netlify auto-deploys
@@ -326,4 +340,4 @@ Monitor:
 
 ---
 
-*Last updated: February 4, 2026*
+_Last updated: February 4, 2026_
