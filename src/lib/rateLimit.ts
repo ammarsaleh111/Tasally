@@ -10,6 +10,7 @@
 import { db } from "@/db";
 import { sql } from "drizzle-orm";
 import { logRateLimitHit } from "./observability";
+import { fail } from "@/server/http";
 
 // Rate limit configuration per route
 export const RATE_LIMITS = {
@@ -110,22 +111,19 @@ export function rateLimitResponse(
   identifier: string
 ): Response {
   logRateLimitHit(route, identifier);
-  
-  return new Response(
-    JSON.stringify({ 
-      error: "Too many requests",
-      retryAfter: result.retryAfterSeconds,
-    }),
-    {
-      status: 429,
-      headers: {
-        "Content-Type": "application/json",
-        "Retry-After": String(result.retryAfterSeconds ?? 60),
-        "X-RateLimit-Remaining": "0",
-        "X-RateLimit-Reset": result.resetAt.toISOString(),
-      },
-    }
+
+  const response = fail(
+    429,
+    "RATE_LIMITED",
+    "Too many requests",
+    { retryAfter: result.retryAfterSeconds }
   );
+
+  response.headers.set("Retry-After", String(result.retryAfterSeconds ?? 60));
+  response.headers.set("X-RateLimit-Remaining", "0");
+  response.headers.set("X-RateLimit-Reset", result.resetAt.toISOString());
+
+  return response;
 }
 
 /**
