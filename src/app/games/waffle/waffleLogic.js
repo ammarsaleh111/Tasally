@@ -4,13 +4,10 @@
  * in rows and columns of a 5x5 grid
  */
 
-import { WAFFLE_PUZZLES_JAN_2026 } from './puzzles/waffle-2026-01';
-import { WAFFLE_PUZZLES_FEB_2026 } from './puzzles/waffle-2026-02';
-import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
+import { getGameTheme } from '@/utils/themeEngine';
 import { getUserStorageKey } from '@/utils/storageKeys';
-
-// Merge all puzzles
-const ALL_WAFFLE_PUZZLES = [...WAFFLE_PUZZLES_JAN_2026, ...WAFFLE_PUZZLES_FEB_2026];
+import { getDailyGameDataWithMeta, getMonthGameData } from '@/data/all-data';
+import { getCairoDateKey, monthKeyFromDate } from '@/data/all-data/utils/date';
 
 // Game constants
 export const GRID_SIZE = 5;
@@ -47,9 +44,7 @@ export const getWafflePattern = () => {
  * Get today's puzzle
  */
 export const getTodaysPuzzle = () => {
-  const today = new Date();
-  // Use UTC date for consistent global puzzle rotation
-  const dateString = today.toISOString().split('T')[0];
+  const dateString = getCairoDateKey();
   
   // Check for themed puzzle first
   const theme = getGameTheme('waffle');
@@ -58,30 +53,35 @@ export const getTodaysPuzzle = () => {
     if (themedPuzzle) return themedPuzzle;
   }
   
-  // Find puzzle for today
-  const puzzle = ALL_WAFFLE_PUZZLES.find(p => p.date === dateString);
-  
-  if (puzzle) {
-    return puzzle;
-  }
-  
-  // Fallback to first puzzle if today's not found
-  return WAFFLE_PUZZLES_JAN_2026[0];
+  const daily = getDailyGameDataWithMeta('waffle', dateString);
+  return {
+    date: daily.servedDate,
+    ...daily.data
+  };
 };
 
 /**
  * Get puzzle by date (for unlimited mode)
  */
 export const getPuzzleByDate = (dateString) => {
-  return ALL_WAFFLE_PUZZLES.find(p => p.date === dateString) || null;
+  try {
+    const monthData = getMonthGameData('waffle', monthKeyFromDate(dateString));
+    const entry = monthData[dateString];
+    if (!entry) return null;
+    return { date: dateString, ...entry };
+  } catch {
+    return null;
+  }
 };
 
 /**
  * Get a random puzzle for unlimited mode
  */
 export const getRandomPuzzle = () => {
-  const randomIndex = Math.floor(Math.random() * ALL_WAFFLE_PUZZLES.length);
-  return ALL_WAFFLE_PUZZLES[randomIndex];
+  const monthData = getMonthGameData('waffle', monthKeyFromDate(getCairoDateKey()));
+  const entries = Object.entries(monthData);
+  const [date, puzzle] = entries[Math.floor(Math.random() * entries.length)];
+  return { date, ...puzzle };
 };
 
 /**

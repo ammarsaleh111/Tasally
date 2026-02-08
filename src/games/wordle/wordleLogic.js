@@ -1,8 +1,3 @@
-import { DAILY_WORDS as DAILY_WORDS_JAN } from './wordLists/daily-2026-01';
-import { DAILY_WORDS_FEB_2026 } from './wordLists/daily-2026-02';
-
-// Merge January and February words into a single sequential list
-const DAILY_WORDS = [...DAILY_WORDS_JAN, ...DAILY_WORDS_FEB_2026].map(word => word.toUpperCase());
 const DAILY_WORD_START = Date.UTC(2026, 0, 1); // Jan 1, 2026 UTC midnight
 import { ALLOWED_WORDS } from './wordLists/allowedWords';
 import { WORDS_4 as RAW_WORDS_4 } from './wordLists/words4';
@@ -10,6 +5,8 @@ import { WORDS_6 as RAW_WORDS_6 } from './wordLists/words6';
 import { getThemedWordList } from './wordLists/themed';
 import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
 import { getUserStorageKey } from '@/utils/storageKeys';
+import { getDailyGameData } from '@/data/all-data';
+import { getCairoDateKey } from '@/data/all-data/utils/date';
 
 // Constants
 export const DEFAULT_WORD_LENGTH = 5;
@@ -47,13 +44,15 @@ export const LETTER_STATUS = {
  * Uses themed words if a theme is active.
  */
 const getDayOffset = (date = new Date()) => {
-  // Use UTC date for consistent global puzzle rotation
-  const todayUtc = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+  const [year, month, day] = getCairoDateKey(date).split('-').map(Number);
+  const todayUtc = Date.UTC(year, month - 1, day);
   const diffDays = Math.floor((todayUtc - DAILY_WORD_START) / (1000 * 60 * 60 * 24));
   return Math.max(0, diffDays);
 };
 
 export const getDailyWord = (date = new Date()) => {
+  const dateKey = getCairoDateKey(date);
+
   // Check for active theme
   const activeTheme = getActiveTheme();
   const gameTheme = getGameTheme('wordle');
@@ -66,10 +65,9 @@ export const getDailyWord = (date = new Date()) => {
       return themedList[safeIndex].toUpperCase();
     }
   }
-  
-  const dayIndex = getDayOffset(date);
-  const safeIndex = dayIndex % DAILY_WORDS.length;
-  return DAILY_WORDS[safeIndex];
+
+  const entry = getDailyGameData('wordle', dateKey);
+  return entry.answer.toUpperCase();
 };
 
 /**
@@ -171,7 +169,7 @@ export const loadGameState = (mode = 'daily', length = 5) => {
     
     // For daily mode, check date
     if (mode === 'daily') {
-        const today = new Date().toDateString();
+        const today = getCairoDateKey();
         if (parsed.date !== today) {
             return null; // Reset for new day
         }
@@ -191,7 +189,7 @@ export const saveGameState = (guesses, status, solution, mode = 'daily', length 
   if (typeof window === 'undefined') return;
   
   const state = {
-    date: new Date().toDateString(),
+    date: getCairoDateKey(),
     guesses,
     status, // 'playing', 'won', 'lost'
     solution: mode === 'unlimited' ? solution : undefined // Persist solution for unlimited

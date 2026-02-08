@@ -4,9 +4,20 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import GameHeader from "@/components/GameHeader";
 import Button from "@/components/ui/Button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/Tabs";
+import StatisticsModal from "@/components/StatisticsModal";
+import BadgeToastQueue from "@/components/BadgeToastQueue";
+import BadgeDetailsSheet from "@/components/BadgeDetailsSheet";
+import BadgeEarnedRecap from "@/components/BadgeEarnedRecap";
+import BadgesProgressWidget from "@/components/BadgesProgressWidget";
+import BadgesDrawer from "@/components/BadgesDrawer";
+import DailyReminder from "@/components/DailyReminder";
+import TutorialPanel from "@/components/tutorial/TutorialPanel";
+import { GAME_TUTORIALS } from "@/data/tutorials";
 import { useGameContext } from "@/hooks/useGameContext";
+import { useTutorial } from "@/hooks/useTutorial";
 import { submitResult } from "@/utils/resultsClient";
 import { getSession } from "@/utils/sessionManager";
+import { getGameStats } from "@/utils/profileManager";
 import {
   DIRECTIONS,
   MAX_REVEALS_PER_PUZZLE,
@@ -188,6 +199,23 @@ export default function CrosswordPage() {
   const [isComplete, setIsComplete] = useState(false);
   const [submitState, setSubmitState] = useState("idle");
 
+  // Modal and drawer state
+  const [showStats, setShowStats] = useState(false);
+  const [stats, setStats] = useState(null);
+  const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
+  const [selectedBadge, setSelectedBadge] = useState(null);
+  const [badgeUnlocks, setBadgeUnlocks] = useState([]);
+  const [badgeEarnedRecap, setBadgeEarnedRecap] = useState(null);
+  const [showBadgeRecap, setShowBadgeRecap] = useState(false);
+
+  // Tutorial
+  const tutorial = GAME_TUTORIALS.crossword;
+  const {
+    isOpen: isTutorialOpen,
+    openManual: openHowToPlay,
+    close: closeTutorial,
+  } = useTutorial(tutorial?.id);
+
   const [startedAt, setStartedAt] = useState(null);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
@@ -197,6 +225,12 @@ export default function CrosswordPage() {
   const autosaveTimeoutRef = useRef(null);
   const completionSubmitRef = useRef(false);
   const previousSolvedRef = useRef(new Set());
+
+  // Load stats on mount
+  useEffect(() => {
+    const gameStats = getGameStats('crossword');
+    setStats(gameStats);
+  }, []);
 
   const activeResolution = useMemo(() => {
     if (!model) return { segment: null, direction };
@@ -691,7 +725,15 @@ export default function CrosswordPage() {
   if (isLoading) {
     return (
       <div className="min-h-[100dvh] bg-background pb-20 overflow-x-hidden">
-        <GameHeader title="Mini Crossword" returnUrl={returnUrl} returnLabel={returnLabel} />
+        <GameHeader 
+          title="Mini Crossword" 
+          onHowToPlay={openHowToPlay}
+          onStats={() => setShowStats(true)}
+          onBadges={() => setShowBadgesDrawer(true)}
+          gameComplete={false}
+          returnUrl={returnUrl} 
+          returnLabel={returnLabel} 
+        />
         <main className="mx-auto flex w-full max-w-6xl items-center justify-center px-4 pt-6">
           <div className="flex items-center gap-3 rounded-xl border border-border-default bg-card px-4 py-3 shadow-sm">
             <div className="h-5 w-5 animate-spin rounded-full border-2 border-border-default border-t-foreground" />
@@ -705,7 +747,15 @@ export default function CrosswordPage() {
   if (loadError || !puzzle || !model) {
     return (
       <div className="min-h-[100dvh] bg-background pb-20 overflow-x-hidden">
-        <GameHeader title="Mini Crossword" returnUrl={returnUrl} returnLabel={returnLabel} />
+        <GameHeader 
+          title="Mini Crossword" 
+          onHowToPlay={openHowToPlay}
+          onStats={() => setShowStats(true)}
+          onBadges={() => setShowBadgesDrawer(true)}
+          gameComplete={false}
+          returnUrl={returnUrl} 
+          returnLabel={returnLabel} 
+        />
         <main className="mx-auto flex w-full max-w-6xl items-center justify-center px-4 pt-6">
           <div className="max-w-md rounded-2xl border border-destructive/35 bg-card p-6 shadow-sm">
             <h1 className="text-lg font-bold text-destructive">Crossword unavailable</h1>
@@ -729,7 +779,15 @@ export default function CrosswordPage() {
 
   return (
     <div className="min-h-[100dvh] bg-background pb-28 text-foreground overflow-x-hidden lg:pb-8">
-      <GameHeader title="Mini Crossword" returnUrl={returnUrl} returnLabel={returnLabel} />
+      <GameHeader 
+        title="Mini Crossword" 
+        onHowToPlay={openHowToPlay}
+        onStats={() => setShowStats(true)}
+        onBadges={() => setShowBadgesDrawer(true)}
+        gameComplete={isComplete}
+        returnUrl={returnUrl} 
+        returnLabel={returnLabel} 
+      />
 
       <main className="mx-auto w-full max-w-6xl px-4 pt-4">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border-default bg-card px-4 py-3 shadow-sm">
@@ -766,7 +824,7 @@ export default function CrosswordPage() {
         ) : null}
 
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
-          <div>
+          <div >
             <div className="mb-4 flex flex-wrap gap-2 rounded-2xl border border-border-default bg-card p-3 shadow-sm">
               <Button type="button" variant="outline" size="sm" onClick={handleCheckWord}>
                 Check Word
@@ -791,69 +849,114 @@ export default function CrosswordPage() {
               </Button>
             </div>
 
-            <div className="overflow-hidden rounded-2xl border-2 border-border-default bg-card p-2 shadow-sm">
-              <div className="grid" style={{ gridTemplateColumns: `repeat(${puzzle.size.cols}, minmax(0, 1fr))` }}>
-                {Array.from({ length: puzzle.size.rows }).map((_, r) =>
-                  Array.from({ length: puzzle.size.cols }).map((__, c) => {
-                    const cell = puzzle.grid[r][c];
-                    const key = makeCellKey(r, c);
-                    const playable = isPlayableAt(puzzle, r, c);
+           <div className="w-full max-w-2xl mx-auto overflow-hidden rounded-xl border border-border-default bg-card shadow-lg">
+  {/* Grid wrapper with proper containment */}
+  <div className="w-full p-3 sm:p-4">
+    <div 
+      className="grid gap-0 bg-border-default/40 p-[1.5px] rounded-md shadow-inner w-full mx-auto" 
+      style={{ 
+        gridTemplateColumns: `repeat(${puzzle.size.cols}, minmax(0, 1fr))`,
+        aspectRatio: `${puzzle.size.cols} / ${puzzle.size.rows}`
+      }}
+    >
+      {Array.from({ length: puzzle.size.rows }).map((_, r) =>
+        Array.from({ length: puzzle.size.cols }).map((__, c) => {
+          const cell = puzzle.grid[r][c];
+          const key = makeCellKey(r, c);
+          const playable = isPlayableAt(puzzle, r, c);
 
-                    const acrossId = model.cellToAcross.get(key);
-                    const downId = model.cellToDown.get(key);
+          const acrossId = model.cellToAcross.get(key);
+          const downId = model.cellToDown.get(key);
 
-                    const inActiveWord = activeWordCellKeys.has(key);
-                    const isActive = activeCell.r === r && activeCell.c === c;
-                    const isLocked = lockedCells.has(key);
-                    const isSolvedCell = (acrossId && solvedSegmentIds.has(acrossId)) || (downId && solvedSegmentIds.has(downId));
-                    const isJustSolved = (acrossId && justSolvedIds.has(acrossId)) || (downId && justSolvedIds.has(downId));
-                    const isIncorrectChecked = (acrossId && checkedIncorrectIds.has(acrossId)) || (downId && checkedIncorrectIds.has(downId));
-                    const isHintFocus = hintFocusCells.has(key);
-                    const isHintWrong = hintIncorrectCells.has(key);
+          const inActiveWord = activeWordCellKeys.has(key);
+          const isActive = activeCell.r === r && activeCell.c === c;
+          const isLocked = lockedCells.has(key);
+          const isSolvedCell = (acrossId && solvedSegmentIds.has(acrossId)) || (downId && solvedSegmentIds.has(downId));
+          const isJustSolved = (acrossId && justSolvedIds.has(acrossId)) || (downId && justSolvedIds.has(downId));
+          const isIncorrectChecked = (acrossId && checkedIncorrectIds.has(acrossId)) || (downId && checkedIncorrectIds.has(downId));
+          const isHintFocus = hintFocusCells.has(key);
+          const isHintWrong = hintIncorrectCells.has(key);
 
-                    const obstacleType = cell?.obstacle?.type || "none";
-                    const clueNumber = getActiveCellNumber(model, r, c);
+          const obstacleType = cell?.obstacle?.type || "none";
+          const clueNumber = getActiveCellNumber(model, r, c);
 
-                    const wallRight = obstacleType === "wallRight" ? "border-r-4 border-r-border-active" : "";
-                    const wallDown = obstacleType === "wallDown" ? "border-b-4 border-b-border-active" : "";
+          const wallRight = obstacleType === "wallRight" ? "border-r-[3px] border-r-info" : "";
+          const wallDown = obstacleType === "wallDown" ? "border-b-[3px] border-b-info" : "";
 
-                    if (!playable) {
-                      if (obstacleType === "block") {
-                        return <div key={key} className={`aspect-square border border-border-default bg-foreground/85 ${wallRight} ${wallDown}`} aria-hidden="true" />;
-                      }
+          if (!playable) {
+            if (obstacleType === "block") {
+              return (
+                <div 
+                  key={key} 
+                  className={`aspect-square bg-slate-500 ${wallRight} ${wallDown}`} 
+                  aria-hidden="true" 
+                />
+              );
+            }
 
-                      return (
-                        <div key={key} className={`flex aspect-square items-center justify-center border border-border-default bg-muted ${wallRight} ${wallDown}`} aria-hidden="true">
-                          <ObstacleGlyph type={obstacleType} />
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <button
-                        key={key}
-                        type="button"
-                        onClick={() => handleCellClick(r, c)}
-                        className={`relative flex aspect-square select-none items-center justify-center border border-border-default text-2xl font-black uppercase transition-all ${
-                          isActive ? "state-active-cell" : inActiveWord ? "state-active-word" : "bg-card hover:bg-surface-hover"
-                        } ${isSolvedCell ? "state-correct" : ""} ${isLocked ? "state-locked" : ""} ${isHintFocus ? "state-hint-focus" : ""} ${
-                          isHintWrong ? "state-wrong-underline" : ""
-                        } ${isIncorrectChecked ? "state-wrong state-wrong-shake" : ""} ${isJustSolved ? "state-correct-animate" : ""} ${wallRight} ${wallDown}`}
-                        aria-label={`Row ${r + 1} column ${c + 1}`}
-                      >
-                        {clueNumber ? <span className="absolute left-1 top-0.5 text-[10px] font-bold text-text-muted">{clueNumber}</span> : null}
-                        <span>{(letters[r]?.[c] || "").toUpperCase()}</span>
-                        {isLocked ? (
-                          <span className="absolute bottom-0.5 right-0.5 text-success">
-                            <LockIcon />
-                          </span>
-                        ) : null}
-                      </button>
-                    );
-                  })
-                )}
+            return (
+              <div 
+                key={key} 
+                className={`flex aspect-square items-center justify-center bg-secondary/80 border border-border-default/20 ${wallRight} ${wallDown}`} 
+                aria-hidden="true"
+              >
+                <ObstacleGlyph type={obstacleType} />
               </div>
-            </div>
+            );
+          }
+
+          return (
+            <button
+              key={key}
+              type="button"
+              onClick={() => handleCellClick(r, c)}
+              className={`
+                relative flex aspect-square select-none items-center justify-center 
+                text-base sm:text-lg md:text-xl font-bold uppercase 
+                transition-all duration-200 ease-out
+                focus:outline-none focus:z-20
+                ${
+                  isActive 
+                    ? "state-active-cell" 
+                    : inActiveWord 
+                    ? "state-active-word" 
+                    : "bg-background hover:bg-surface-hover hover:shadow-sm active:bg-surface-hover/80"
+                }
+                ${isSolvedCell ? "state-correct" : ""}
+                ${isLocked ? "state-locked" : ""}
+                ${isHintFocus ? "state-hint-focus" : ""}
+                ${isHintWrong ? "state-wrong-underline" : ""}
+                ${isIncorrectChecked ? "state-wrong state-wrong-shake" : ""}
+                ${isJustSolved ? "state-correct-animate" : ""}
+                ${wallRight} ${wallDown}
+              `}
+              aria-label={`Row ${r + 1} column ${c + 1}`}
+            >
+              {/* Clue number */}
+              {clueNumber ? (
+                <span className="absolute left-[3px] top-[2px] text-[8px] sm:text-[9px] font-semibold text-text-muted leading-none">
+                  {clueNumber}
+                </span>
+              ) : null}
+              
+              {/* Letter */}
+              <span className="tracking-tight leading-none">
+                {(letters[r]?.[c] || "").toUpperCase()}
+              </span>
+              
+              {/* Lock icon */}
+              {isLocked ? (
+                <span className="absolute bottom-[2px] right-[2px] text-success opacity-90">
+                  <LockIcon />
+                </span>
+              ) : null}
+            </button>
+          );
+        })
+      )}
+    </div>
+  </div>
+</div>
           </div>
 
           <aside className="hidden rounded-2xl border border-border-default bg-card p-3 shadow-sm lg:block">
@@ -875,6 +978,48 @@ export default function CrosswordPage() {
           <ClueList clues={activeClues} model={model} activeSegmentId={activeSegment?.id || null} solvedSegmentIds={solvedSegmentIds} onSelect={selectSegment} />
         </div>
       </div>
+
+      {/* Modals and Drawers */}
+      <BadgeToastQueue
+        unlocks={badgeUnlocks}
+        onView={(badge) => setSelectedBadge(badge)}
+      />
+
+      {stats && (
+        <StatisticsModal 
+          isOpen={showStats} 
+          onClose={() => setShowStats(false)}
+          gameName="crossword"
+          stats={stats}
+        />
+      )}
+
+      <BadgeDetailsSheet 
+        badge={selectedBadge} 
+        onClose={() => setSelectedBadge(null)} 
+      />
+
+      <BadgeEarnedRecap 
+        badge={badgeEarnedRecap}
+        isOpen={showBadgeRecap}
+        onClose={() => setShowBadgeRecap(false)}
+      />
+
+      <BadgesProgressWidget />
+
+      <BadgesDrawer 
+        isOpen={showBadgesDrawer}
+        onClose={() => setShowBadgesDrawer(false)}
+      />
+
+      <DailyReminder gameType="crossword" />
+
+      {tutorial && (
+        <TutorialPanel 
+          isOpen={isTutorialOpen}
+          onClose={closeTutorial}
+        />
+      )}
     </div>
   );
 }

@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  getDailyCrosswordPayload,
-  getLatestAvailableCrosswordDate,
-} from "@/app/games/crossword/puzzles/puzzleCatalog";
+import { getDailyGameDataWithMeta, getMonthGameData } from "@/data/all-data";
+import { monthKeyFromDate } from "@/data/all-data/utils/date";
 
 /**
  * GET /api/crossword/daily?date=YYYY-MM-DD
@@ -24,26 +22,22 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const payload = getDailyCrosswordPayload(dateParam);
-    if (!payload) {
-      return NextResponse.json(
-        {
-          error: "No crossword puzzles are available.",
-          latestAvailableDate: getLatestAvailableCrosswordDate(),
-        },
-        { status: 404 }
-      );
-    }
+    const payload = getDailyGameDataWithMeta<Record<string, unknown>>(
+      "crossword",
+      dateParam
+    );
+    const monthData = getMonthGameData("crossword", monthKeyFromDate(payload.requestedDate));
+    const latestAvailableDate = Object.keys(monthData).sort().at(-1) ?? null;
 
     const response = NextResponse.json({
       requestedDate: payload.requestedDate,
       servedDate: payload.servedDate,
       usingFallback: payload.usingFallback,
-      latestAvailableDate: payload.latestAvailableDate,
+      latestAvailableDate,
       fallbackNotice: payload.usingFallback
         ? `Using puzzle for ${payload.servedDate}`
         : null,
-      ...payload.puzzle,
+      ...(payload.data ?? {}),
     });
 
     response.headers.set(

@@ -1,11 +1,8 @@
-import { TRIVIA_SETS as TRIVIA_SETS_JAN } from './questions/trivia-2026-01';
-import { TRIVIA_SETS as TRIVIA_SETS_FEB } from './questions/trivia-2026-02';
 import { getThemedTrivia } from './questions/themed';
 import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
 import { getUserStorageKey } from '@/utils/storageKeys';
-
-// Merge January and February trivia sets
-const TRIVIA_SETS = [...TRIVIA_SETS_JAN, ...TRIVIA_SETS_FEB];
+import { getDailyGameData, getMonthGameData } from '@/data/all-data';
+import { getCairoDateKey, monthKeyFromDate } from '@/data/all-data/utils/date';
 
 /**
  * Get daily trivia set based on current date
@@ -19,28 +16,19 @@ export const getDailyTrivia = () => {
   if (activeTheme && gameTheme?.questionSet) {
     const themedQuestions = getThemedTrivia(gameTheme.questionSet);
     if (themedQuestions) {
-      const today = new Date();
       return {
-        date: today.toISOString().split('T')[0],
+        date: getCairoDateKey(),
         questions: themedQuestions
       };
     }
   }
   
-  // Default behavior - find by date
-  const today = new Date();
-  // Use UTC date for consistent global puzzle rotation
-  const dateStr = today.toISOString().split('T')[0];
-  
-  // Try to find exact date match first
-  const dateMatch = TRIVIA_SETS.find(set => set.date === dateStr);
-  if (dateMatch) {
-    return dateMatch;
-  }
-  
-  // Fallback to cycling through available sets (use UTC date)
-  const dayIndex = today.getUTCDate() - 1;
-  return TRIVIA_SETS[dayIndex % TRIVIA_SETS.length];
+  const dateKey = getCairoDateKey();
+  const questions = getDailyGameData('trivia', dateKey);
+  return {
+    date: dateKey,
+    questions
+  };
 };
 
 /**
@@ -59,13 +47,14 @@ const shuffleArray = (array) => {
  * Generate random trivia set
  */
 export const generateRandomTrivia = () => {
-  // Pick random questions from all available sets
-  const allQuestions = TRIVIA_SETS.flatMap(set => set.questions);
+  const dateKey = getCairoDateKey();
+  const monthData = getMonthGameData('trivia', monthKeyFromDate(dateKey));
+  const allQuestions = Object.values(monthData).flat();
   const shuffled = shuffleArray(allQuestions);
   const selected = shuffled.slice(0, 10);
   
   return {
-    date: new Date().toISOString().split('T')[0],
+    date: dateKey,
     questions: selected
   };
 };

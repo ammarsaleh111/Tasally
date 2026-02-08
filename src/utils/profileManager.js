@@ -479,6 +479,22 @@ export function getHistoryForDateRange(gameName, days = 7) {
   const profile = getProfile();
   const gameStats = profile.games[gameName];
   
+  // Return empty results if game stats don't exist or have no history
+  if (!gameStats || !gameStats.history) {
+    const today = new Date();
+    const results = [];
+    for (let i = days - 1; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(date.getDate() - i);
+      const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      results.push({
+        date: dateString,
+        result: null,
+      });
+    }
+    return results;
+  }
+  
   const today = new Date();
   const results = [];
   

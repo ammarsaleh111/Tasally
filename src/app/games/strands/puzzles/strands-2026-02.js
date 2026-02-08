@@ -106,18 +106,18 @@ export const STRANDS_PUZZLES_FEB_2026 = [
   },
   {
     date: "2026-02-08",
-    theme: "FEBRUARY FLOWERS",
+    theme: "BIG GAME SUNDAY",
     grid: [
-      ["V", "I", "O", "L", "E", "T", "S", "I"],
-      ["R", "I", "S", "E", "S", "P", "R", "I"],
-      ["M", "R", "O", "S", "E", "S", "N", "O"],
-      ["W", "D", "R", "O", "P", "S", "T", "U"],
-      ["L", "I", "P", "S", "S", "A", "F", "F"],
-      ["R", "O", "N", "C", "R", "O", "C", "U"]
+      ["K", "I", "C", "K", "O", "F", "F", "S"],
+      ["H", "U", "D", "D", "L", "E", "Y", "P"],
+      ["T", "A", "C", "K", "L", "E", "R", "O"],
+      ["D", "E", "F", "E", "N", "S", "E", "R"],
+      ["O", "F", "F", "E", "N", "S", "E", "T"],
+      ["S", "T", "A", "D", "I", "U", "M", "S"]
     ],
-    words: ["VIOLET", "IRISES", "PRIMROSE", "SNOWDROPS", "TULIPS", "SAFFRON"],
-    spangram: "BLOOMINGMONTH",
-    spangramPath: [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
+    words: ["KICKOFF", "HUDDLE", "TACKLE", "DEFENSE", "OFFENSE", "STADIUM"],
+    spangram: "SPORTS",
+    spangramPath: [[0,7],[1,7],[2,7],[3,7],[4,7],[5,7]]
   },
   {
     date: "2026-02-09",

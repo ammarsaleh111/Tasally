@@ -62,12 +62,18 @@ export default function Home() {
     });
   }, []);
 
-  // Countdown to next puzzle (midnight UTC) — real
+  // Countdown to next puzzle (midnight Cairo time)
   useEffect(() => {
     const updateCountdown = () => {
       const now = new Date();
-      const tomorrow = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1));
-      const diff = tomorrow.getTime() - now.getTime();
+      // Get current time in Cairo
+      const cairoTime = new Date(now.toLocaleString('en-US', { timeZone: 'Africa/Cairo' }));
+      // Set to midnight tomorrow in Cairo
+      const tomorrow = new Date(cairoTime);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0);
+      // Calculate difference
+      const diff = tomorrow.getTime() - cairoTime.getTime();
 
       const hours = Math.max(0, Math.floor(diff / (1000 * 60 * 60)));
       const minutes = Math.max(0, Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)));

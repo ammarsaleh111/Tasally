@@ -1,9 +1,6 @@
-import { NUMBERS_PUZZLES as NUMBERS_PUZZLES_JAN } from './puzzles/numbers-2026-01';
-import { NUMBERS_PUZZLES_FEB_2026 } from './puzzles/numbers-2026-02';
 import { getUserStorageKey } from '@/utils/storageKeys';
-
-// Merge January and February puzzles
-const NUMBERS_PUZZLES = [...NUMBERS_PUZZLES_JAN, ...NUMBERS_PUZZLES_FEB_2026];
+import { getDailyGameData } from '@/data/all-data';
+import { getCairoDateKey } from '@/data/all-data/utils/date';
 
 // Operators
 export const OPERATORS = ['+', '-', '×', '÷'];
@@ -12,11 +9,12 @@ export const OPERATORS = ['+', '-', '×', '÷'];
  * Get daily puzzle based on current date
  */
 export const getDailyPuzzle = () => {
-  const today = new Date();
-  // Use UTC date for consistent global puzzle rotation
-  const dayIndex = today.getUTCDate() - 1;
-  const safeIndex = dayIndex % NUMBERS_PUZZLES.length;
-  return NUMBERS_PUZZLES[safeIndex];
+  const dateKey = getCairoDateKey();
+  const entry = getDailyGameData('numbers', dateKey);
+  return {
+    date: dateKey,
+    ...entry,
+  };
 };
 
 /**

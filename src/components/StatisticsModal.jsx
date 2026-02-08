@@ -22,8 +22,11 @@ const StatisticsModal = ({ isOpen, onClose, gameName, stats, customContent }) =>
   const sevenDayHistory = getHistoryForDateRange(gameName, 7);
   const thirtyDayHistory = getHistoryForDateRange(gameName, 30);
 
+  // Handle undefined gameName
+  const displayName = gameName ? gameName.charAt(0).toUpperCase() + gameName.slice(1) : 'Game';
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={`${gameName.charAt(0).toUpperCase() + gameName.slice(1)} Statistics`}>
+    <Modal isOpen={isOpen} onClose={onClose} title={`${displayName} Statistics`}>
       <div className="space-y-6">
         {/* Stats Summary */}
         <div className="grid grid-cols-4 gap-3">

@@ -1,4 +1,4 @@
-import { getCairoDateKey } from "@/utils/cairoDate";
+import { getCairoDateKey } from "@/data/all-data/utils/date";
 import { getUserStorageKey } from "@/utils/storageKeys";
 
 export { getCairoDateKey };

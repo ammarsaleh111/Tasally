@@ -1,0 +1,498 @@
+{
+  "2026-03-01": {
+    "fragments": [
+      "re",
+      "st",
+      "art",
+      "ing",
+      "ed",
+      "un"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "restarting",
+      "started",
+      "resting"
+    ]
+  },
+  "2026-03-02": {
+    "fragments": [
+      "own",
+      "er",
+      "sh",
+      "ip",
+      "land",
+      "s"
+    ],
+    "targetScore": 90,
+    "bonusWords": [
+      "ownership",
+      "owners",
+      "lands"
+    ]
+  },
+  "2026-03-03": {
+    "fragments": [
+      "un",
+      "der",
+      "stand",
+      "ing",
+      "ly",
+      "s"
+    ],
+    "targetScore": 100,
+    "bonusWords": [
+      "understanding",
+      "understands",
+      "under"
+    ]
+  },
+  "2026-03-04": {
+    "fragments": [
+      "play",
+      "er",
+      "s",
+      "ground",
+      "ing",
+      "ed"
+    ],
+    "targetScore": 85,
+    "bonusWords": [
+      "playground",
+      "players",
+      "playing"
+    ]
+  },
+  "2026-03-05": {
+    "fragments": [
+      "com",
+      "put",
+      "er",
+      "ing",
+      "ed",
+      "s"
+    ],
+    "targetScore": 95,
+    "bonusWords": [
+      "computers",
+      "computed",
+      "computing"
+    ]
+  },
+  "2026-03-06": {
+    "fragments": [
+      "sun",
+      "light",
+      "ing",
+      "s",
+      "er",
+      "ed"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "sunlight",
+      "lighting",
+      "lighters"
+    ]
+  },
+  "2026-03-07": {
+    "fragments": [
+      "book",
+      "mark",
+      "er",
+      "s",
+      "ing",
+      "ed"
+    ],
+    "targetScore": 90,
+    "bonusWords": [
+      "bookmarks",
+      "bookmarked",
+      "markers"
+    ]
+  },
+  "2026-03-08": {
+    "fragments": [
+      "fire",
+      "work",
+      "s",
+      "er",
+      "ing",
+      "ed"
+    ],
+    "targetScore": 85,
+    "bonusWords": [
+      "fireworks",
+      "workers",
+      "working"
+    ]
+  },
+  "2026-03-09": {
+    "fragments": [
+      "air",
+      "port",
+      "s",
+      "er",
+      "ing",
+      "ed"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "airports",
+      "ported",
+      "airing"
+    ]
+  },
+  "2026-03-10": {
+    "fragments": [
+      "sea",
+      "food",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 75,
+    "bonusWords": [
+      "seafood",
+      "foods",
+      "seeding"
+    ]
+  },
+  "2026-03-11": {
+    "fragments": [
+      "out",
+      "side",
+      "r",
+      "s",
+      "ing",
+      "ed"
+    ],
+    "targetScore": 85,
+    "bonusWords": [
+      "outsider",
+      "outsiders",
+      "siding"
+    ]
+  },
+  "2026-03-12": {
+    "fragments": [
+      "news",
+      "paper",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 90,
+    "bonusWords": [
+      "newspapers",
+      "papered",
+      "newer"
+    ]
+  },
+  "2026-03-13": {
+    "fragments": [
+      "bed",
+      "room",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "bedrooms",
+      "roomed",
+      "bedding"
+    ]
+  },
+  "2026-03-14": {
+    "fragments": [
+      "rain",
+      "bow",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 75,
+    "bonusWords": [
+      "rainbows",
+      "bowing",
+      "raining"
+    ]
+  },
+  "2026-03-15": {
+    "fragments": [
+      "high",
+      "way",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "highways",
+      "higher",
+      "waying"
+    ]
+  },
+  "2026-03-16": {
+    "fragments": [
+      "foot",
+      "ball",
+      "s",
+      "er",
+      "ing",
+      "ed"
+    ],
+    "targetScore": 85,
+    "bonusWords": [
+      "footballs",
+      "footballer",
+      "balling"
+    ]
+  },
+  "2026-03-17": {
+    "fragments": [
+      "cup",
+      "cake",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "cupcakes",
+      "caked",
+      "cupping"
+    ]
+  },
+  "2026-03-18": {
+    "fragments": [
+      "star",
+      "fish",
+      "es",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 85,
+    "bonusWords": [
+      "starfish",
+      "fished",
+      "starring"
+    ]
+  },
+  "2026-03-19": {
+    "fragments": [
+      "blue",
+      "bird",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "bluebirds",
+      "birding",
+      "blued"
+    ]
+  },
+  "2026-03-20": {
+    "fragments": [
+      "door",
+      "way",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 75,
+    "bonusWords": [
+      "doorways",
+      "doors",
+      "wayed"
+    ]
+  },
+  "2026-03-21": {
+    "fragments": [
+      "sun",
+      "set",
+      "s",
+      "ting",
+      "er",
+      "ed"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "sunsets",
+      "setting",
+      "setter"
+    ]
+  },
+  "2026-03-22": {
+    "fragments": [
+      "home",
+      "work",
+      "s",
+      "er",
+      "ing",
+      "ed"
+    ],
+    "targetScore": 85,
+    "bonusWords": [
+      "homework",
+      "homeworker",
+      "working"
+    ]
+  },
+  "2026-03-23": {
+    "fragments": [
+      "class",
+      "room",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "classrooms",
+      "classing",
+      "roomed"
+    ]
+  },
+  "2026-03-24": {
+    "fragments": [
+      "back",
+      "ground",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 90,
+    "bonusWords": [
+      "backgrounds",
+      "grounding",
+      "backer"
+    ]
+  },
+  "2026-03-25": {
+    "fragments": [
+      "water",
+      "fall",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 85,
+    "bonusWords": [
+      "waterfalls",
+      "falling",
+      "watered"
+    ]
+  },
+  "2026-03-26": {
+    "fragments": [
+      "snow",
+      "flake",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "snowflakes",
+      "flaked",
+      "snowing"
+    ]
+  },
+  "2026-03-27": {
+    "fragments": [
+      "butter",
+      "fly",
+      "s",
+      "ing",
+      "er",
+      "ies"
+    ],
+    "targetScore": 90,
+    "bonusWords": [
+      "butterflies",
+      "flying",
+      "buttered"
+    ]
+  },
+  "2026-03-28": {
+    "fragments": [
+      "key",
+      "board",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 85,
+    "bonusWords": [
+      "keyboards",
+      "boarding",
+      "keyed"
+    ]
+  },
+  "2026-03-29": {
+    "fragments": [
+      "tooth",
+      "brush",
+      "es",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "toothbrushes",
+      "brushing",
+      "brushed"
+    ]
+  },
+  "2026-03-30": {
+    "fragments": [
+      "eye",
+      "ball",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 75,
+    "bonusWords": [
+      "eyeballs",
+      "balling",
+      "eyed"
+    ]
+  },
+  "2026-03-31": {
+    "fragments": [
+      "earth",
+      "quake",
+      "s",
+      "ing",
+      "er",
+      "ed"
+    ],
+    "targetScore": 90,
+    "bonusWords": [
+      "earthquakes",
+      "quaking",
+      "earthed"
+    ]
+  }
+}

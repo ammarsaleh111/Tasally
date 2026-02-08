@@ -357,11 +357,11 @@
     "userId": "07ff662f-ed21-4864-911a-eff2369fdaee",
     "name": "x",
     "createdAt": "2026-02-01T23:06:46.372Z",
-    "updatedAt": "2026-02-08T14:42:42.841Z",
+    "updatedAt": "2026-02-08T17:18:54.937Z",
     "games": {
       "wordle": {
         "gamesPlayed": 1,
-        "gamesWon": 1,
+        "gamesWon": 3,
         "currentStreak": 1,
         "longestStreak": 1,
         "lastPlayedDate": "2026-02-08",
@@ -370,16 +370,36 @@
             "date": "2026-02-08",
             "win": true,
             "attempts": 6,
-            "puzzleId": "unlimited-1770527932390",
+            "puzzleId": "unlimited-1770571134936",
             "guesses": [
               {
                 "word": "FLUTE",
                 "evaluation": [
                   "absent",
+                  "present",
                   "absent",
-                  "correct",
                   "absent",
-                  "correct"
+                  "present"
+                ]
+              },
+              {
+                "word": "CHAMP",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "absent",
+                  "present",
+                  "absent"
+                ]
+              },
+              {
+                "word": "WHERE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "present",
+                  "absent",
+                  "absent"
                 ]
               },
               {
@@ -389,7 +409,7 @@
                   "absent",
                   "absent",
                   "absent",
-                  "present"
+                  "absent"
                 ]
               },
               {
@@ -398,32 +418,12 @@
                   "absent",
                   "correct",
                   "absent",
-                  "absent",
-                  "absent"
-                ]
-              },
-              {
-                "word": "CHAMP",
-                "evaluation": [
-                  "absent",
                   "present",
-                  "absent",
-                  "absent",
                   "absent"
                 ]
               },
               {
-                "word": "SOULS",
-                "evaluation": [
-                  "present",
-                  "correct",
-                  "correct",
-                  "absent",
-                  "absent"
-                ]
-              },
-              {
-                "word": "HOUSE",
+                "word": "MODEL",
                 "evaluation": [
                   "correct",
                   "correct",
@@ -436,8 +436,8 @@
           }
         ],
         "bestTime": null,
-        "averageAttempts": 6,
-        "totalAttempts": 6,
+        "averageAttempts": 13,
+        "totalAttempts": 13,
         "perfectGames": 0
       },
       "connections": {

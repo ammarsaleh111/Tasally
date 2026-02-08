@@ -3,7 +3,7 @@ import { and, eq } from "drizzle-orm";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { crosswordProgress, db } from "@/db";
-import { getCairoDateKey } from "@/utils/cairoDate";
+import { getCairoDateKey } from "@/data/all-data/utils/date";
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 

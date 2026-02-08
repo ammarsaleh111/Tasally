@@ -29,14 +29,11 @@ import {
   generateShareText,
   RANK_TIERS
 } from './spellingLogic';
-import { SPELLING_PUZZLES_JAN_2026 } from './puzzles/spelling-2026-01';
-import { SPELLING_PUZZLES_FEB_2026 } from './puzzles/spelling-2026-02';
+import { getDailyGameDataWithMeta } from '@/data/all-data';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { getNextSpellingBeeHint, getSpellingBeeHintButtonText } from '@/utils/spellingBeeHints';
 import { getUserStorageKey } from '@/utils/storageKeys';
 
-// Merge January and February puzzles
-const ALL_SPELLING_PUZZLES = [...SPELLING_PUZZLES_JAN_2026, ...SPELLING_PUZZLES_FEB_2026];
 import { saveGameToProfile, getGameStats, checkAchievementsForGame } from '@/utils/profileManager';
 import { submitResult } from '@/utils/resultsClient';
 
@@ -45,9 +42,11 @@ export default function SpellingBeePage() {
 
   // Initialize puzzle on first render
   const [puzzle] = useState(() => {
-    const today = new Date().toISOString().split('T')[0];
-    const todayPuzzle = ALL_SPELLING_PUZZLES.find(p => p.date === today);
-    return todayPuzzle || ALL_SPELLING_PUZZLES[0];
+    const daily = getDailyGameDataWithMeta('spelling');
+    return {
+      date: daily.servedDate,
+      ...daily.data
+    };
   });
 
   // Initialize outer letters (shuffled)
