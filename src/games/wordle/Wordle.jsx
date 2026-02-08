@@ -36,9 +36,13 @@ import { getUserStorageKey } from '@/utils/storageKeys';
 import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
+import { useGameContext } from '@/hooks/useGameContext';
 
 
 export default function WordleGame() {
+  // --- Game Context (for group/global routing) ---
+  const { returnUrl, returnLabel, isGroupGame, groupName } = useGameContext();
+
   // --- Game State ---
   const [view, setView] = useState('MENU'); // 'MENU' | 'GAME'
   const [mode, setMode] = useState('daily'); // 'daily' | 'unlimited'
@@ -457,7 +461,13 @@ export default function WordleGame() {
   // --- Render ---
 
   if (view === 'MENU') {
-      return <ModeSelection onSelectMode={startGame} />;
+      return (
+        <ModeSelection 
+          onSelectMode={startGame} 
+          isGroupGame={isGroupGame}
+          groupName={groupName}
+        />
+      );
   }
 
   return (
@@ -581,6 +591,8 @@ export default function WordleGame() {
         onLearningLog={() => setShowLearningLog(true)}
         gameComplete={gameStatus !== 'playing'}
         mode={mode}
+        returnUrl={returnUrl}
+        returnLabel={returnLabel}
       />
 
       {/* Main Game Content */}

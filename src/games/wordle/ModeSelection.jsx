@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ModeSelection = ({ onSelectMode }) => {
-  const [selectedMode, setSelectedMode] = useState(null); // 'daily' | 'unlimited'
+/**
+ * ModeSelection Component
+ * 
+ * @param {function} onSelectMode - Callback when mode is selected (mode, length)
+ * @param {boolean} isGroupGame - If true, skip daily option and go straight to word length
+ * @param {string} groupName - Optional group name to display
+ */
+const ModeSelection = ({ onSelectMode, isGroupGame = false, groupName }) => {
+  const [selectedMode, setSelectedMode] = useState(null); // null | 'daily' | 'unlimited'
   const [length, setLength] = useState(5);
+
+  // If playing from a group, go directly to word length selection
+  useEffect(() => {
+    if (isGroupGame) {
+      setSelectedMode('unlimited');
+    }
+  }, [isGroupGame]);
 
   const handleModeClick = (mode) => {
     setSelectedMode(mode);
@@ -27,6 +41,11 @@ const ModeSelection = ({ onSelectMode }) => {
   if (selectedMode === 'unlimited') {
       return (
         <div className="absolute inset-0 z-40 bg-background flex flex-col items-center justify-center p-4 animate-fade-in-up">
+            {isGroupGame && groupName && (
+              <div className="mb-4 px-3 py-1.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30 text-sm font-medium">
+                👥 {groupName}
+              </div>
+            )}
             <h2 className="text-3xl font-serif font-bold mb-8 text-foreground animate-pop">
                 How many letters?
             </h2>
@@ -45,12 +64,15 @@ const ModeSelection = ({ onSelectMode }) => {
                     </button>
                 ))}
             </div>
-            <button 
-                onClick={() => setSelectedMode(null)}
-                className="mt-8 text-text-muted hover:text-foreground text-sm underline"
-            >
-                Back
-            </button>
+            {/* Only show back button if not from a group (can choose daily mode) */}
+            {!isGroupGame && (
+              <button 
+                  onClick={() => setSelectedMode(null)}
+                  className="mt-8 text-text-muted hover:text-foreground text-sm underline"
+              >
+                  Back
+              </button>
+            )}
         </div>
       );
   }

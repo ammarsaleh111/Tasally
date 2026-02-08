@@ -106,3 +106,4 @@ export async function checkDbConnection(): Promise<{ ok: boolean; latencyMs: num
 }
 
 export * from "./schema";
+export * from "./groupsSchema";

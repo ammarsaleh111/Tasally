@@ -35,8 +35,10 @@ import { submitResult } from '@/utils/resultsClient';
 import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
+import { useGameContext } from '@/hooks/useGameContext';
 
 export default function CombinationsPage() {
+  const { returnUrl, returnLabel, isGroupGame, groupName } = useGameContext();
   const [mode, setMode] = useState('daily'); // 'daily' | 'unlimited'
   const [puzzle, setPuzzle] = useState(() => getTodaysPuzzle());
   const [gameState, setGameState] = useState(() => {
@@ -210,6 +212,8 @@ export default function CombinationsPage() {
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
         gameComplete={gameComplete}
+        returnUrl={returnUrl}
+        returnLabel={returnLabel}
       />
 
 <main className="flex-1 overflow-y-auto scrollbar-hide">

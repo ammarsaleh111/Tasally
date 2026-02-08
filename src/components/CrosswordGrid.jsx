@@ -9,6 +9,8 @@ import React from 'react';
  * - Block cells (non-clickable black squares)
  * - Active cell highlighting
  * - Word highlighting
+ * - Per-word correctness feedback (green/red outlines)
+ * - Hint letter-level feedback (correct/incorrect per letter)
  */
 const CrosswordGrid = React.memo(({ 
   puzzle, 
@@ -17,7 +19,13 @@ const CrosswordGrid = React.memo(({
   direction,
   onCellClick,
   highlightCells = [],
-  isSolved = false
+  isSolved = false,
+  /** Map<segmentId, { complete, correct? }> — per-word validation results */
+  segmentResults = null,
+  /** Array of all word segments from computeWordSegments() */
+  segments = [],
+  /** Level-2 hint feedback: [{ row, col, correct: bool|null }] */
+  hintLetterFeedback = null,
 }) => {
   // Get grid dimensions (support both old and new format)
   const gridHeight = puzzle.height || puzzle.grid?.length || 5;
@@ -29,6 +37,33 @@ const CrosswordGrid = React.memo(({
   
   const isHighlighted = (row, col) => {
     return highlightCells.some(cell => cell.row === row && cell.col === col);
+  };
+
+  /**
+   * Get per-word correctness state for a cell.
+   * Returns 'correct' | 'incorrect' | null depending on segment results.
+   */
+  const getCellWordState = (row, col) => {
+    if (!segmentResults || segments.length === 0) return null;
+    for (const seg of segments) {
+      if (!seg.cells.some(c => c.row === row && c.col === col)) continue;
+      const result = segmentResults.get?.(seg.id);
+      if (result?.complete) {
+        return result.correct ? 'correct' : 'incorrect';
+      }
+    }
+    return null;
+  };
+
+  /**
+   * Get per-letter hint feedback for a cell.
+   * Returns true (correct), false (wrong), or null (no feedback).
+   */
+  const getLetterHintState = (row, col) => {
+    if (!hintLetterFeedback) return null;
+    const item = hintLetterFeedback.find(f => f.row === row && f.col === col);
+    if (!item || !item.filled) return null;
+    return item.correct;
   };
   
   /**
@@ -100,6 +135,24 @@ const CrosswordGrid = React.memo(({
             const active = isActive(row, col);
             const highlighted = isHighlighted(row, col);
             const hasLetter = userGrid?.[row]?.[col];
+            const wordState = getCellWordState(row, col);
+            const letterHint = getLetterHintState(row, col);
+            
+            // Word-level ring classes
+            const wordRingClass =
+              wordState === 'correct'
+                ? 'ring-2 ring-green-500/70 ring-inset'
+                : wordState === 'incorrect'
+                  ? 'ring-2 ring-red-400/60 ring-inset animate-shake'
+                  : '';
+
+            // Letter-level underline/border for hint level 2
+            const letterHintClass =
+              letterHint === false
+                ? 'border-b-2 border-red-400'
+                : letterHint === true
+                  ? 'border-b-2 border-green-500'
+                  : '';
             
             // Render block (black square)
             if (cellIsBlock) {
@@ -130,8 +183,12 @@ const CrosswordGrid = React.memo(({
                     ? 'bg-[hsl(var(--crossword-active))] ring-2 ring-[hsl(var(--crossword-active-ring))] ring-inset scale-105 z-10 shadow-lg' 
                     : highlighted 
                       ? 'bg-[hsl(var(--crossword-highlight))] scale-[1.02]' 
-                      : 'bg-background hover:bg-surface-hover'
+                      : wordState === 'correct'
+                        ? 'bg-green-50/50'
+                        : 'bg-background hover:bg-surface-hover'
                   }
+                  ${!active ? wordRingClass : ''}
+                  ${letterHintClass}
                   ${!active && !highlighted ? 'hover:scale-[1.02]' : ''}
                   ${hasLetter && !active && !highlighted ? 'shadow-sm' : ''}
                 `}

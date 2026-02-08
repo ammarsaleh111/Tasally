@@ -1,842 +1,880 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import GameHeader from "@/components/GameHeader";
+import Button from "@/components/ui/Button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/Tabs";
+import { useGameContext } from "@/hooks/useGameContext";
+import { submitResult } from "@/utils/resultsClient";
+import { getSession } from "@/utils/sessionManager";
 import {
-  getTodaysPuzzle,
-  loadGameState,
-  saveGameState,
-  initializeGame,
-  getWordCells,
-  getNextCell,
-  getPreviousCell,
-  checkPuzzle,
-  isGridComplete,
-  getClueNumber,
-  GRID_SIZE,
-  formatTime,
-  loadPuzzleTimer,
-  savePuzzleTimer,
-  pausePuzzleTimer,
-  resumePuzzleTimer,
-  calculateElapsedTime,
-  initializeTimer,
-} from './crosswordLogic';
-import CrosswordGrid from '@/components/CrosswordGrid';
-import CluePanel from '@/components/CluePanel';
-import Modal from '@/components/Modal';
-import Toast from '@/components/Toast';
-import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
-import GameHeader from '@/components/GameHeader';
-import StatisticsModal from '@/components/StatisticsModal';
-import LearningLogModal from '@/components/LearningLogModal';
-import ShareResults from '@/components/ShareResults';
-import BadgeToastQueue from '@/components/BadgeToastQueue';
-import BadgeDetailsSheet from '@/components/BadgeDetailsSheet';
-import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
-import BadgesProgressWidget from '@/components/BadgesProgressWidget';
-import BadgesDrawer from '@/components/BadgesDrawer';
-import DailyReminder from '@/components/DailyReminder';
-import Link from 'next/link';
-import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
-import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
-import { addWordsToLog } from '@/utils/learningLogEngine';
-import { submitResult } from '@/utils/resultsClient';
-import { getUserStorageKey } from '@/utils/storageKeys';
-import TutorialPanel from '@/components/tutorial/TutorialPanel';
-import { GAME_TUTORIALS } from '@/data/tutorials';
-import { useTutorial } from '@/hooks/useTutorial';
+  DIRECTIONS,
+  MAX_REVEALS_PER_PUZZLE,
+  buildCrosswordModel,
+  buildProgressPayload,
+  cloneLetters,
+  createEmptyLetters,
+  findFirstPlayableCell,
+  findNextArrowCell,
+  findNextEditableCellInSegment,
+  findPrevEditableCellInSegment,
+  getActiveCellNumber,
+  getHintLevel1,
+  getHintLevel2,
+  getHintLevel3,
+  getIncorrectSegments,
+  getNewlySolvedSegments,
+  getSegmentForCell,
+  getTabNavigationTarget,
+  getCairoDateKey,
+  isPlayableAt,
+  isPuzzleSolved,
+  loadGuestProgress,
+  makeCellKey,
+  normalizePuzzlePayload,
+  normalizeRestoredProgress,
+  recomputeSolvedAndLocked,
+  resolveActiveSegment,
+  saveGuestProgress,
+} from "./crosswordLogic";
 
-export default function CrosswordGame() {
-  // =========================================================================
-  // STATE INITIALIZATION
-  // =========================================================================
-  
-  const [puzzle, setPuzzle] = useState(null);
-  const [gameState, setGameState] = useState(null);
-  const [timerState, setTimerState] = useState(null);
-  const [displayTime, setDisplayTime] = useState(0);
-  
-  const [highlightCells, setHighlightCells] = useState([]);
-  const [activeClue, setActiveClue] = useState(1);
-  const [toast, setToast] = useState(null);
-  const [showResultModal, setShowResultModal] = useState(false);
-  const [solvedWords, setSolvedWords] = useState(new Set());
-  const [showStats, setShowStats] = useState(false);
-  const [showLearningLog, setShowLearningLog] = useState(false);
-  const [stats, setStats] = useState(null);
-  const [badgeUnlocks, setBadgeUnlocks] = useState([]);
-  const [selectedBadge, setSelectedBadge] = useState(null);
-  const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [initError, setInitError] = useState(null);
-  const [showWinConfetti, setShowWinConfetti] = useState(false);
-  const [hasCelebratedWin, setHasCelebratedWin] = useState(false);
-  
-  const timerRef = useRef(null);
-  const inputRef = useRef(null);
-  const prevWinRef = useRef(false);
-  const initialWinHandledRef = useRef(false);
-  const winStorageKey = puzzle ? getUserStorageKey(`crossword-win-celebrated-${puzzle.date}`) : null;
+const SOLVE_FLASH_MS = 720;
+const INCORRECT_FLASH_MS = 700;
+const HINT_FLASH_MS = 2000;
+const MESSAGE_MS = 2600;
 
-  const tutorial = GAME_TUTORIALS.crossword;
-  const {
-    isOpen: isTutorialOpen,
-    openManual: openHowToPlay,
-    close: closeTutorial,
-    skip: skipTutorial,
-    complete: completeTutorial,
-    updateStep: updateTutorialStep,
-    startMode,
-    lastStep,
-  } = useTutorial(tutorial.id);
-  
-  // =========================================================================
-  // INITIALIZATION
-  // =========================================================================
-  
-  useEffect(() => {
-    try {
-      // Generate or load puzzle
-      const currentPuzzle = getTodaysPuzzle();
-      setPuzzle(currentPuzzle);
-      
-      // Load saved state or initialize new game
-      const savedState = loadGameState();
-      if (savedState && savedState.date === currentPuzzle.date) {
-        setGameState(savedState);
-        
-        // Load timer state
-        const savedTimer = loadPuzzleTimer(currentPuzzle.date);
-        if (savedTimer) {
-          // Resume timer if game not solved
-          if (!savedState.isSolved) {
-            const resumed = resumePuzzleTimer(savedTimer, currentPuzzle.date);
-            setTimerState(resumed);
-          } else {
-            setTimerState(savedTimer);
-          }
-        } else {
-          setTimerState(initializeTimer());
-        }
-      } else {
-        const newState = initializeGame(currentPuzzle);
-        setGameState(newState);
-        setTimerState(newState.timerState);
-      }
-    } catch (error) {
-      console.error('[CROSSWORD] Initialization error:', error);
-      setInitError(error.message || 'Failed to load puzzle');
-      setIsLoading(false);
-    }
-    
-    // Load stats
-    const gameStats = getGameStats('crossword');
-    setStats(gameStats);
-    trackGameStart('crossword');
-    
-    setIsLoading(false);
-  }, []);
+const EMPTY_HINTS = { level1Count: 0, level2Count: 0, level3Count: 0, revealsUsed: 0 };
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (!winStorageKey) {
-      setHasCelebratedWin(false);
-      return;
-    }
-    setHasCelebratedWin(localStorage.getItem(winStorageKey) === '1');
-  }, [winStorageKey]);
+function formatDuration(seconds) {
+  const mins = Math.floor(seconds / 60).toString().padStart(2, "0");
+  const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+  return `${mins}:${secs}`;
+}
 
-  // =========================================================================
-  // TIMER LOGIC - Proper visibility-aware timer
-  // =========================================================================
-  
-  // Handle visibility changes
-  useEffect(() => {
-    if (!puzzle || !timerState || gameState?.isSolved) return;
-    
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        // Page is hidden - pause timer
-        const paused = pausePuzzleTimer(timerState, puzzle.date);
-        setTimerState(paused);
-      } else {
-        // Page is visible - resume timer
-        const resumed = resumePuzzleTimer(timerState, puzzle.date);
-        setTimerState(resumed);
-      }
-    };
-    
-    const handleBeforeUnload = () => {
-      // Save timer state before page unloads
-      if (timerState && puzzle) {
-        const paused = pausePuzzleTimer(timerState, puzzle.date);
-        savePuzzleTimer(puzzle.date, paused);
-      }
-    };
-    
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [puzzle, timerState, gameState?.isSolved]);
+function suffix(direction) {
+  return direction === DIRECTIONS.ACROSS ? "A" : "D";
+}
 
-  useEffect(() => {
-    if (!puzzle || !timerState || gameState?.isSolved) return;
+function LockIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className="h-3.5 w-3.5 stroke-current">
+      <rect x="5" y="10" width="14" height="10" rx="2" strokeWidth="2" />
+      <path d="M8 10V7a4 4 0 0 1 8 0v3" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
 
-    if (isTutorialOpen && !timerState.isPaused) {
-      const paused = pausePuzzleTimer(timerState, puzzle.date);
-      setTimerState(paused);
-      return;
-    }
-
-    if (!isTutorialOpen && timerState.isPaused && !document.hidden) {
-      const resumed = resumePuzzleTimer(timerState, puzzle.date);
-      setTimerState(resumed);
-    }
-  }, [isTutorialOpen, puzzle, timerState, gameState?.isSolved]);
-  
-  // Update display time every second
-  useEffect(() => {
-    if (!timerState || gameState?.isSolved) return;
-    
-    const updateDisplay = () => {
-      const elapsed = calculateElapsedTime(timerState);
-      setDisplayTime(elapsed);
-    };
-    
-    updateDisplay();
-    timerRef.current = setInterval(updateDisplay, 1000);
-    
-    return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-    };
-  }, [timerState, gameState?.isSolved]);
-
-  // Save state whenever it changes
-  useEffect(() => {
-    if (gameState) {
-      saveGameState(gameState);
-    }
-  }, [gameState]);
-
-  // =========================================================================
-  // CELL & WORD HIGHLIGHTING
-  // =========================================================================
-  
-  useEffect(() => {
-    if (!puzzle || !gameState) return;
-    
-    const cells = getWordCells(puzzle, gameState.activeCell.row, gameState.activeCell.col, gameState.direction);
-    setHighlightCells(cells);
-    
-    // Update active clue number
-    const clueNum = getClueNumber(puzzle, gameState.activeCell.row, gameState.activeCell.col);
-    if (clueNum) {
-      setActiveClue(clueNum);
-    }
-  }, [puzzle, gameState?.activeCell, gameState?.direction]);
-
-  // =========================================================================
-  // AUTO-CHECK ON COMPLETION
-  // =========================================================================
-  
-  useEffect(() => {
-    if (!puzzle || !gameState || gameState.isSolved) return;
-    
-    if (isGridComplete(puzzle, gameState.userGrid)) {
-      const isCorrect = checkPuzzle(puzzle, gameState.userGrid);
-      if (isCorrect) {
-        // Puzzle solved!
-        const finalTime = calculateElapsedTime(timerState);
-        
-        // Pause and finalize timer
-        const finalTimer = pausePuzzleTimer(timerState, puzzle.date);
-        setTimerState(finalTimer);
-        setDisplayTime(finalTime);
-        
-        const newState = {
-          ...gameState,
-          isSolved: true,
-          endTime: Date.now(),
-          finalTime: finalTime,
-        };
-        setGameState(newState);
-        
-        // Record result
-        const result = {
-          date: getTodayString(),
-          win: true,
-          time: finalTime,
-          puzzleId: `crossword-${puzzle.date}`,
-        };
-        
-        const achievements = recordGameResult('crossword', result);
-        trackGameEnd('crossword', result);
-        
-        // Submit to leaderboard API
-        submitResult({
-          gameKey: 'crossword',
-          mode: 'daily',
-          success: true,
-          durationMs: finalTime * 1000,
-          metadata: { puzzleDate: puzzle.date },
-        }).catch(err => console.warn('[Crossword] Failed to submit to leaderboard:', err));
-        
-        const updatedStats = getGameStats('crossword');
-        setStats(updatedStats);
-        
-        // Add words to learning log
-        const crosswordWords = [
-          ...Object.values(puzzle.solution?.across || {}),
-          ...Object.values(puzzle.solution?.down || {})
-        ].filter(Boolean);
-        addWordsToLog(crosswordWords, 'crossword');
-        
-        setBadgeUnlocks(achievements || []);
-        
-        setTimeout(() => setShowResultModal(true), 500);
-      }
-    }
-  }, [puzzle, gameState, gameState?.userGrid, timerState]);
-
-  useEffect(() => {
-    const wonNow = Boolean(gameState?.isSolved);
-    if (!initialWinHandledRef.current) {
-      prevWinRef.current = wonNow;
-      initialWinHandledRef.current = true;
-      return;
-    }
-    if (wonNow && !prevWinRef.current && !hasCelebratedWin) {
-      setShowWinConfetti(true);
-      setHasCelebratedWin(true);
-      if (typeof window !== 'undefined' && winStorageKey) {
-        localStorage.setItem(winStorageKey, '1');
-      }
-    }
-    prevWinRef.current = wonNow;
-  }, [gameState?.isSolved, hasCelebratedWin, winStorageKey]);
-
-  // =========================================================================
-  // EVENT HANDLERS
-  // =========================================================================
-  
-  const showToast = useCallback((message, type = 'default') => {
-    setToast({ message, type, id: Date.now() });
-  }, []);
-
-  const handleToastExit = useCallback(() => {
-    setToast(null);
-  }, []);
-
-  const handleCellClick = useCallback((row, col) => {
-    if (isTutorialOpen) return;
-    if (!puzzle || !gameState || gameState.isSolved) return;
-    
-    // Check if cell is a block
-    const isBlock = puzzle.template 
-      ? puzzle.template.blocks[row][col]
-      : puzzle.grid[row][col] === '';
-    
-    if (isBlock) return; // Can't click on blocks
-    
-    // If clicking same cell, toggle direction
-    if (gameState.activeCell.row === row && gameState.activeCell.col === col) {
-      setGameState(prev => ({
-        ...prev,
-        direction: prev.direction === 'across' ? 'down' : 'across'
-      }));
-    } else {
-      setGameState(prev => ({
-        ...prev,
-        activeCell: { row, col }
-      }));
-    }
-    
-    // Focus input for mobile
-    inputRef.current?.focus();
-  }, [isTutorialOpen, puzzle, gameState]);
-
-  const handleClueClick = useCallback((clueNum, dir) => {
-    if (isTutorialOpen) return;
-    if (!puzzle) return;
-    
-    const height = puzzle.height || GRID_SIZE;
-    const width = puzzle.width || GRID_SIZE;
-    
-    // Find the cell that starts this clue
-    for (let r = 0; r < height; r++) {
-      for (let c = 0; c < width; c++) {
-        if (puzzle.clueNumbers?.[r]?.[c] === clueNum) {
-          setGameState(prev => ({
-            ...prev,
-            activeCell: { row: r, col: c },
-            direction: dir
-          }));
-          inputRef.current?.focus();
-          return;
-        }
-      }
-    }
-  }, [isTutorialOpen, puzzle]);
-
-  // Check if a word is complete and correct
-  const checkWordSolved = useCallback((row, col, direction, userGrid) => {
-    if (!puzzle) return false;
-    
-    const cells = getWordCells(puzzle, row, col, direction);
-    const userWord = cells.map(c => userGrid[c.row][c.col]).join('');
-    const correctWord = cells.map(c => puzzle.grid[c.row][c.col]).join('');
-    
-    if (userWord === correctWord && userWord.length > 0 && !userWord.includes('')) {
-      const clueNum = getClueNumber(puzzle, cells[0].row, cells[0].col);
-      if (clueNum) {
-        return { complete: true, wordKey: `${direction}-${clueNum}` };
-      }
-    }
-    return { complete: false };
-  }, [puzzle]);
-  
-  // Find next unsolved clue
-  const getNextUnsolvedClue = useCallback((currentDirection, currentSolvedWords = solvedWords) => {
-    if (!puzzle) return null;
-    
-    const height = puzzle.height || GRID_SIZE;
-    const width = puzzle.width || GRID_SIZE;
-    
-    // Get clues for current direction
-    const clues = currentDirection === 'across' ? puzzle.acrossClues : puzzle.downClues;
-    
-    if (!clues) return null;
-    
-    for (const clue of clues) {
-      const wordKey = `${currentDirection}-${clue.number}`;
-      if (!currentSolvedWords.has(wordKey)) {
-        // Find first cell of this clue
-        for (let r = 0; r < height; r++) {
-          for (let c = 0; c < width; c++) {
-            if (puzzle.clueNumbers?.[r]?.[c] === clue.number) {
-              return { row: r, col: c, direction: currentDirection };
-            }
-          }
-        }
-      }
-    }
-    
-    // Try other direction
-    const otherDirection = currentDirection === 'across' ? 'down' : 'across';
-    const otherClues = otherDirection === 'across' ? puzzle.acrossClues : puzzle.downClues;
-    
-    if (!otherClues) return null;
-    
-    for (const clue of otherClues) {
-      const wordKey = `${otherDirection}-${clue.number}`;
-      if (!currentSolvedWords.has(wordKey)) {
-        for (let r = 0; r < height; r++) {
-          for (let c = 0; c < width; c++) {
-            if (puzzle.clueNumbers?.[r]?.[c] === clue.number) {
-              return { row: r, col: c, direction: otherDirection };
-            }
-          }
-        }
-      }
-    }
-    
-    return null;
-  }, [puzzle, solvedWords]);
-
-  const handleKeyDown = useCallback((e) => {
-    if (isTutorialOpen) return;
-    if (!puzzle || !gameState || gameState.isSolved) return;
-    
-    const { row, col } = gameState.activeCell;
-    
-    // Check if current cell is a block (shouldn't happen but be safe)
-    const isBlock = puzzle.template 
-      ? puzzle.template.blocks[row][col]
-      : puzzle.grid[row][col] === '';
-    
-    if (isBlock) return;
-    
-    // Enter key - jump to next unsolved clue
-    if (e.key === 'Enter') {
-      const nextClue = getNextUnsolvedClue(gameState.direction);
-      if (nextClue) {
-        setGameState(prev => ({
-          ...prev,
-          activeCell: { row: nextClue.row, col: nextClue.col },
-          direction: nextClue.direction
-        }));
-      }
-      e.preventDefault();
-      return;
-    }
-    
-    // Letter input
-    if (/^[A-Za-z]$/.test(e.key)) {
-      const newGrid = gameState.userGrid.map(r => [...r]);
-      newGrid[row][col] = e.key.toUpperCase();
-      
-      // Check if word is complete with the NEW grid
-      const wordCheck = checkWordSolved(row, col, gameState.direction, newGrid);
-      
-      if (wordCheck.complete) {
-        // Mark word as solved
-        const newSolvedWords = new Set([...solvedWords, wordCheck.wordKey]);
-        setSolvedWords(newSolvedWords);
-        
-        // Update grid and advance to next unsolved clue
-        const nextClue = getNextUnsolvedClue(gameState.direction, newSolvedWords);
-        if (nextClue) {
-          setGameState(prev => ({
-            ...prev,
-            userGrid: newGrid,
-            activeCell: { row: nextClue.row, col: nextClue.col },
-            direction: nextClue.direction
-          }));
-        } else {
-          setGameState(prev => ({
-            ...prev,
-            userGrid: newGrid
-          }));
-        }
-      } else {
-        // Just advance to next cell in current word
-        const next = getNextCell(puzzle, row, col, gameState.direction);
-        setGameState(prev => ({
-          ...prev,
-          userGrid: newGrid,
-          activeCell: { row: next.row, col: next.col },
-          direction: next.direction
-        }));
-      }
-      
-      e.preventDefault();
-      return;
-    }
-    
-    // Backspace
-    if (e.key === 'Backspace') {
-      const newGrid = gameState.userGrid.map(r => [...r]);
-      
-      if (newGrid[row][col]) {
-        // Clear current cell
-        newGrid[row][col] = '';
-        setGameState(prev => ({ ...prev, userGrid: newGrid }));
-      } else {
-        // Move back and clear
-        const prevCell = getPreviousCell(puzzle, row, col, gameState.direction);
-        if (prevCell.row !== row || prevCell.col !== col) {
-          newGrid[prevCell.row][prevCell.col] = '';
-          setGameState(prev => ({
-            ...prev,
-            userGrid: newGrid,
-            activeCell: prevCell
-          }));
-        }
-      }
-      
-      e.preventDefault();
-      return;
-    }
-    
-    // Arrow keys - navigate grid (respecting blocks)
-    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft' || 
-        e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-      
-      const height = puzzle.height || GRID_SIZE;
-      const width = puzzle.width || GRID_SIZE;
-      
-      const isBlockAt = (r, c) => {
-        if (r < 0 || r >= height || c < 0 || c >= width) return true;
-        return puzzle.template 
-          ? puzzle.template.blocks[r][c]
-          : puzzle.grid[r][c] === '';
-      };
-      
-      let newRow = row;
-      let newCol = col;
-      
-      if (e.key === 'ArrowRight') {
-        newCol = col + 1;
-        while (newCol < width && isBlockAt(row, newCol)) newCol++;
-        if (newCol >= width || isBlockAt(row, newCol)) newCol = col;
-      } else if (e.key === 'ArrowLeft') {
-        newCol = col - 1;
-        while (newCol >= 0 && isBlockAt(row, newCol)) newCol--;
-        if (newCol < 0 || isBlockAt(row, newCol)) newCol = col;
-      } else if (e.key === 'ArrowDown') {
-        newRow = row + 1;
-        while (newRow < height && isBlockAt(newRow, col)) newRow++;
-        if (newRow >= height || isBlockAt(newRow, col)) newRow = row;
-      } else if (e.key === 'ArrowUp') {
-        newRow = row - 1;
-        while (newRow >= 0 && isBlockAt(newRow, col)) newRow--;
-        if (newRow < 0 || isBlockAt(newRow, col)) newRow = row;
-      }
-      
-      if (newRow !== row || newCol !== col) {
-        setGameState(prev => ({
-          ...prev,
-          activeCell: { row: newRow, col: newCol }
-        }));
-      }
-      
-      e.preventDefault();
-      return;
-    }
-    
-    // Tab to switch direction
-    if (e.key === 'Tab') {
-      setGameState(prev => ({
-        ...prev,
-        direction: prev.direction === 'across' ? 'down' : 'across'
-      }));
-      e.preventDefault();
-    }
-  }, [isTutorialOpen, puzzle, gameState, solvedWords, checkWordSolved, getNextUnsolvedClue]);
-
-  // Keyboard listener
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyDown]);
-  
-  // Hidden input for mobile keyboard
-  const handleInputChange = useCallback((e) => {
-    const value = e.target.value;
-    if (value && /^[A-Za-z]$/.test(value)) {
-      // Simulate key press
-      handleKeyDown({ key: value, preventDefault: () => {} });
-    }
-    // Clear input for next character
-    e.target.value = '';
-  }, [handleKeyDown]);
-
-  // =========================================================================
-  // RENDER
-  // =========================================================================
-  
-  if (isLoading) {
+function ObstacleGlyph({ type }) {
+  if (type === "circle") {
     return (
-      <div className="h-screen flex items-center justify-center">
-        <div className="text-lg text-text-muted">Loading puzzle...</div>
-      </div>
+      <svg viewBox="0 0 24 24" className="h-6 w-6 text-foreground/70" aria-hidden="true">
+        <circle cx="12" cy="12" r="8" fill="currentColor" />
+      </svg>
     );
   }
-  
-  if (initError || !puzzle || !gameState) {
+  if (type === "triangle") {
     return (
-      <div className="h-screen flex flex-col items-center justify-center gap-4 px-4">
-        <div className="text-lg text-red-500">Error loading puzzle</div>
-        <div className="text-sm text-text-muted">{initError || 'Puzzle failed to initialize'}</div>
-        <button 
-          onClick={() => window.location.reload()}
-          className="px-4 py-2 bg-button-primary text-button-text rounded-lg hover:bg-button-primary-hover"
-        >
-          Reload Page
-        </button>
-      </div>
+      <svg viewBox="0 0 24 24" className="h-6 w-6 text-foreground/70" aria-hidden="true">
+        <polygon points="12,5 20,19 4,19" fill="currentColor" />
+      </svg>
     );
   }
+  if (type === "diamond") {
+    return (
+      <svg viewBox="0 0 24 24" className="h-6 w-6 text-foreground/70" aria-hidden="true">
+        <polygon points="12,3 21,12 12,21 3,12" fill="currentColor" />
+      </svg>
+    );
+  }
+  return null;
+}
 
-  const solveTime = gameState.finalTime || displayTime;
-  const isPaused = timerState?.isPaused && !gameState.isSolved;
+function ClueTabs({ active, onChange }) {
+  return (
+    <Tabs value={active} onValueChange={onChange} variant="segmented">
+      <TabsList className="rounded-xl border border-border-default bg-card p-1 shadow-sm">
+        <TabsTrigger value={DIRECTIONS.ACROSS} className="min-w-[88px]">
+          Across
+        </TabsTrigger>
+        <TabsTrigger value={DIRECTIONS.DOWN} className="min-w-[88px]">
+          Down
+        </TabsTrigger>
+      </TabsList>
+    </Tabs>
+  );
+}
+
+function ClueList({ clues, model, activeSegmentId, solvedSegmentIds, onSelect }) {
+  if (!clues.length) {
+    return <div className="px-2 py-4 text-sm text-text-muted">No clues available.</div>;
+  }
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden animate-fade-in-up">
-      <GameHeader 
-        title="Mini Crossword" 
-        onHowToPlay={openHowToPlay}
-        onStats={() => setShowStats(true)}
-        onBadges={() => setShowBadgesDrawer(true)}
-        onLearningLog={() => setShowLearningLog(true)}
-        gameComplete={gameState.isSolved}
-      />
+    <div className="max-h-[38vh] overflow-y-auto pr-1 lg:max-h-[65vh]">
+      {clues.map((clue) => {
+        const segment = model.segmentById.get(clue.id);
+        const isActive = activeSegmentId === clue.id;
+        const isSolved = solvedSegmentIds.has(clue.id);
 
-      <BadgeToastQueue
-        unlocks={badgeUnlocks}
-        onView={(badge) => setSelectedBadge(badge)}
-      />
-      
-      {/* Hidden input for mobile keyboard */}
-      <input
-        ref={inputRef}
-        type="text"
-        className="absolute opacity-0 pointer-events-none"
-        autoCapitalize="characters"
-        autoComplete="off"
-        autoCorrect="off"
-        onChange={handleInputChange}
-        aria-hidden="true"
-      />
-      
-      {/* SCROLLABLE CONTENT AREA */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide">
-        <div className="w-full max-w-5xl mx-auto px-4 py-6 min-h-full flex flex-col">
-          <div className="relative w-full">
-            <WinConfettiOverlay
-              active={showWinConfetti}
-              durationMs={2800}
-              intensity={0.7}
-              origin={CONFETTI_ORIGINS.top}
-              palette={[
-                'hsl(var(--crossword-active-ring))',
-                'hsl(var(--info))',
-                'hsl(var(--warning))',
-                'hsl(var(--accent))'
-              ]}
-              onDone={() => setShowWinConfetti(false)}
-            />
-            
-            {toast && (
-              <Toast 
-                key={toast.id}
-                message={toast.message} 
-                type={toast.type} 
-                onExited={handleToastExit} 
-              />
-            )}
+        return (
+          <Button
+            key={clue.id}
+            type="button"
+            onClick={() => segment && onSelect(segment)}
+            variant="ghost"
+            size="sm"
+            className={`mb-1.5 h-auto w-full justify-start rounded-xl border px-3 py-2 text-left transition ${
+              isActive
+                ? "border-info/50 bg-info/10"
+                : "border-border-default bg-card hover:border-border-active hover:bg-surface-hover"
+            } ${isSolved ? "state-correct" : ""}`}
+          >
+            <span className="flex w-full items-start justify-between gap-2">
+              <span className="min-w-0">
+                <span className="block text-xs font-bold uppercase tracking-wide text-text-muted">
+                  {clue.number}
+                  {segment ? suffix(segment.direction) : ""}
+                </span>
+                <span className="block truncate text-sm text-foreground">{clue.text}</span>
+              </span>
+              {isSolved ? (
+                <span className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success/15 text-success">
+                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none">
+                    <path d="M5 12.5 9.2 16.5 19 7.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              ) : null}
+            </span>
+          </Button>
+        );
+      })}
+    </div>
+  );
+}
 
-            {gameState.isSolved && !showResultModal && (
-              <div className="mb-4 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-xs text-text-muted flex items-center justify-between">
-                <div className="font-semibold text-foreground">✅ Solved</div>
-                <div>Time: {formatTime(solveTime)}</div>
-              </div>
-            )}
+export default function CrosswordPage() {
+  const { returnUrl, returnLabel } = useGameContext();
 
-            {/* Timer Display */}
-            <div className="w-full mb-4 text-center" data-tutorial="crossword-timer">
-              <div className="text-lg font-mono font-bold text-foreground flex items-center justify-center gap-2">
-                {isPaused && (
-                  <span className="text-sm text-yellow-500 animate-pulse" title="Timer paused">⏸</span>
-                )}
-                {formatTime(solveTime)}
-              </div>
-              {puzzle.template && (
-                <div className="text-xs text-text-muted mt-1">
-                  {puzzle.template.name}
-                </div>
-              )}
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+
+  const [puzzle, setPuzzle] = useState(null);
+  const [model, setModel] = useState(null);
+
+  const [requestedDate, setRequestedDate] = useState("");
+  const [servedDate, setServedDate] = useState("");
+  const [usingFallback, setUsingFallback] = useState(false);
+
+  const [storageMode, setStorageMode] = useState("local");
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  const [letters, setLetters] = useState([]);
+  const [activeCell, setActiveCell] = useState({ r: 0, c: 0 });
+  const [direction, setDirection] = useState(DIRECTIONS.ACROSS);
+  const [activeTab, setActiveTab] = useState(DIRECTIONS.ACROSS);
+
+  const [solvedSegmentIds, setSolvedSegmentIds] = useState(new Set());
+  const [lockedCells, setLockedCells] = useState(new Set());
+  const [segmentResults, setSegmentResults] = useState(new Map());
+
+  const [justSolvedIds, setJustSolvedIds] = useState(new Set());
+  const [checkedIncorrectIds, setCheckedIncorrectIds] = useState(new Set());
+  const [hintFocusCells, setHintFocusCells] = useState(new Set());
+  const [hintIncorrectCells, setHintIncorrectCells] = useState(new Set());
+  const [hintCycle, setHintCycle] = useState({ segmentId: null, level: 0 });
+  const [hintsUsed, setHintsUsed] = useState(EMPTY_HINTS);
+
+  const [statusMessage, setStatusMessage] = useState(null);
+  const [isComplete, setIsComplete] = useState(false);
+  const [submitState, setSubmitState] = useState("idle");
+
+  const [startedAt, setStartedAt] = useState(null);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+
+  const flashTimeoutRef = useRef(null);
+  const incorrectTimeoutRef = useRef(null);
+  const hintTimeoutRef = useRef(null);
+  const autosaveTimeoutRef = useRef(null);
+  const completionSubmitRef = useRef(false);
+  const previousSolvedRef = useRef(new Set());
+
+  const activeResolution = useMemo(() => {
+    if (!model) return { segment: null, direction };
+    return resolveActiveSegment(model, activeCell.r, activeCell.c, direction);
+  }, [model, activeCell.r, activeCell.c, direction]);
+
+  const activeSegment = activeResolution.segment;
+  const effectiveDirection = activeResolution.direction;
+
+  const activeWordCellKeys = useMemo(() => {
+    if (!activeSegment) return new Set();
+    return new Set(activeSegment.cells.map((cell) => makeCellKey(cell.r, cell.c)));
+  }, [activeSegment]);
+
+  useEffect(() => {
+    if (effectiveDirection !== direction) {
+      setDirection(effectiveDirection);
+      setActiveTab(effectiveDirection);
+    }
+  }, [effectiveDirection, direction]);
+
+  useEffect(() => {
+    if (!statusMessage) return;
+    const timer = setTimeout(() => setStatusMessage(null), MESSAGE_MS);
+    return () => clearTimeout(timer);
+  }, [statusMessage]);
+
+  useEffect(() => {
+    if (!startedAt || isComplete) return;
+    const timer = setInterval(() => {
+      setElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [startedAt, isComplete]);
+
+  const showIncorrectSegments = useCallback((segmentIds) => {
+    if (incorrectTimeoutRef.current) clearTimeout(incorrectTimeoutRef.current);
+    const next = new Set(segmentIds);
+    setCheckedIncorrectIds(next);
+    if (next.size) {
+      incorrectTimeoutRef.current = setTimeout(() => {
+        setCheckedIncorrectIds(new Set());
+      }, INCORRECT_FLASH_MS);
+    }
+  }, []);
+
+  const showHintFocus = useCallback((cellKeys) => {
+    if (hintTimeoutRef.current) clearTimeout(hintTimeoutRef.current);
+    setHintFocusCells(new Set(cellKeys));
+    if (cellKeys.length) {
+      hintTimeoutRef.current = setTimeout(() => {
+        setHintFocusCells(new Set());
+      }, HINT_FLASH_MS);
+    }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
+      if (incorrectTimeoutRef.current) clearTimeout(incorrectTimeoutRef.current);
+      if (hintTimeoutRef.current) clearTimeout(hintTimeoutRef.current);
+      if (autosaveTimeoutRef.current) clearTimeout(autosaveTimeoutRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadPuzzle() {
+      try {
+        setIsLoading(true);
+        setLoadError("");
+
+        const cairoDate = getCairoDateKey();
+        const session = getSession();
+        const loggedIn = session?.role === "USER";
+
+        const response = await fetch(`/api/crossword/daily?date=${encodeURIComponent(cairoDate)}`, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Puzzle request failed (${response.status})`);
+
+        const payload = await response.json();
+        const normalizedPuzzle = normalizePuzzlePayload(payload);
+        const nextModel = buildCrosswordModel(normalizedPuzzle);
+
+        let mode = loggedIn ? "db" : "local";
+        let restored = null;
+
+        if (loggedIn) {
+          try {
+            const progressRes = await fetch(`/api/crossword/progress?date=${encodeURIComponent(cairoDate)}`, { cache: "no-store" });
+            if (progressRes.ok) {
+              const progressJson = await progressRes.json();
+              restored = normalizeRestoredProgress(progressJson.progress, normalizedPuzzle);
+            } else if (progressRes.status === 401) {
+              mode = "local";
+            }
+          } catch {
+            mode = "local";
+          }
+        }
+
+        if (!restored && mode === "local") {
+          restored = loadGuestProgress(cairoDate, normalizedPuzzle);
+        }
+
+        const initialLetters = restored?.letters || createEmptyLetters(normalizedPuzzle);
+        const initialActiveCell = restored?.activeCell || findFirstPlayableCell(normalizedPuzzle);
+        const initialDirection = restored?.direction || DIRECTIONS.ACROSS;
+        const initialHints = restored?.hintsUsed || EMPTY_HINTS;
+
+        if (cancelled) return;
+
+        setPuzzle(normalizedPuzzle);
+        setModel(nextModel);
+        setRequestedDate(cairoDate);
+        setServedDate(String(payload.servedDate || normalizedPuzzle.date || cairoDate));
+        setUsingFallback(Boolean(payload.usingFallback));
+        setStorageMode(mode);
+
+        setLetters(initialLetters);
+        setActiveCell(initialActiveCell);
+        setDirection(initialDirection);
+        setActiveTab(initialDirection);
+        setHintsUsed(initialHints);
+
+        setStartedAt(Date.now());
+        setElapsedSeconds(0);
+        setIsHydrated(true);
+      } catch (error) {
+        if (cancelled) return;
+        console.error("[crossword] init failed", error);
+        setLoadError(error?.message || "Failed to load crossword");
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    }
+
+    loadPuzzle();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!puzzle || !model || !letters.length) return;
+
+    const computed = recomputeSolvedAndLocked(puzzle, model, letters);
+    const newlySolved = getNewlySolvedSegments(previousSolvedRef.current, computed.solvedSegmentIds);
+
+    setSegmentResults(computed.segmentResults);
+    setSolvedSegmentIds(computed.solvedSegmentIds);
+    setLockedCells(computed.lockedCells);
+
+    const nowSolved = isPuzzleSolved(model, computed.solvedSegmentIds);
+    setIsComplete(nowSolved);
+
+    if (nowSolved && !completionSubmitRef.current) {
+      setStatusMessage({ type: "success", text: "Puzzle solved. Great work." });
+    }
+
+    if (newlySolved.length) {
+      setJustSolvedIds((prev) => new Set([...prev, ...newlySolved]));
+      if (flashTimeoutRef.current) clearTimeout(flashTimeoutRef.current);
+      flashTimeoutRef.current = setTimeout(() => {
+        setJustSolvedIds(new Set());
+      }, SOLVE_FLASH_MS);
+    }
+
+    previousSolvedRef.current = computed.solvedSegmentIds;
+  }, [puzzle, model, letters]);
+
+  useEffect(() => {
+    if (!isComplete || completionSubmitRef.current || !requestedDate) return;
+
+    completionSubmitRef.current = true;
+    setSubmitState("submitting");
+
+    submitResult({
+      gameKey: "crossword",
+      mode: "daily",
+      success: true,
+      durationMs: elapsedSeconds * 1000,
+      metadata: { requestedDate, servedDate },
+    })
+      .then(() => setSubmitState("submitted"))
+      .catch(() => setSubmitState("error"));
+  }, [isComplete, requestedDate, servedDate, elapsedSeconds]);
+
+  useEffect(() => {
+    if (!isHydrated || !puzzle || !requestedDate) return;
+
+    const payload = buildProgressPayload({ letters, solvedSegmentIds, hintsUsed, activeCell, direction });
+
+    if (storageMode === "db") {
+      if (autosaveTimeoutRef.current) clearTimeout(autosaveTimeoutRef.current);
+      autosaveTimeoutRef.current = setTimeout(() => {
+        fetch("/api/crossword/progress", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ date: requestedDate, progress: payload }),
+        }).catch((error) => console.warn("[crossword] db autosave failed", error));
+      }, 420);
+      return;
+    }
+
+    saveGuestProgress(requestedDate, payload);
+  }, [isHydrated, storageMode, requestedDate, puzzle, letters, solvedSegmentIds, hintsUsed, activeCell, direction]);
+
+  const selectSegment = useCallback((segment) => {
+    if (!segment?.cells?.length) return;
+    setDirection(segment.direction);
+    setActiveTab(segment.direction);
+    setActiveCell({ ...segment.cells[0] });
+    setHintIncorrectCells(new Set());
+    setHintFocusCells(new Set());
+    setHintCycle({ segmentId: null, level: 0 });
+  }, []);
+
+  const handleCellClick = useCallback((r, c) => {
+    if (!puzzle || !model || !isPlayableAt(puzzle, r, c)) return;
+
+    if (activeCell.r === r && activeCell.c === c) {
+      const toggled = direction === DIRECTIONS.ACROSS ? DIRECTIONS.DOWN : DIRECTIONS.ACROSS;
+      setDirection(toggled);
+      setActiveTab(toggled);
+    } else {
+      setActiveCell({ r, c });
+    }
+
+    setHintIncorrectCells(new Set());
+    setHintFocusCells(new Set());
+    setHintCycle({ segmentId: null, level: 0 });
+  }, [puzzle, model, activeCell.r, activeCell.c, direction]);
+
+  const handleCheckWord = useCallback(() => {
+    if (!activeSegment) {
+      setStatusMessage({ type: "info", text: "Select a clue first." });
+      return;
+    }
+
+    const result = segmentResults.get(activeSegment.id);
+    if (!result?.filled) {
+      setStatusMessage({ type: "info", text: `${activeSegment.number}${suffix(activeSegment.direction)} is not fully filled yet.` });
+      return;
+    }
+
+    if (result.correct) {
+      setStatusMessage({ type: "success", text: `${activeSegment.number}${suffix(activeSegment.direction)} is correct.` });
+      return;
+    }
+
+    showIncorrectSegments([activeSegment.id]);
+    setStatusMessage({ type: "warning", text: `${activeSegment.number}${suffix(activeSegment.direction)} has errors.` });
+  }, [activeSegment, segmentResults, showIncorrectSegments]);
+
+  const handleCheckPuzzle = useCallback(() => {
+    if (!model) return;
+
+    const incorrect = getIncorrectSegments(model, segmentResults);
+    if (!incorrect.length) {
+      setStatusMessage({ type: isComplete ? "success" : "info", text: isComplete ? "Puzzle is fully correct." : "No completed words are wrong right now." });
+      return;
+    }
+
+    showIncorrectSegments(incorrect);
+    setStatusMessage({ type: "warning", text: `${incorrect.length} completed word${incorrect.length > 1 ? "s are" : " is"} incorrect.` });
+  }, [model, segmentResults, isComplete, showIncorrectSegments]);
+
+  const handleClearWord = useCallback(() => {
+    if (!activeSegment || !letters.length) return;
+
+    const next = cloneLetters(letters);
+    let cleared = 0;
+
+    for (const cell of activeSegment.cells) {
+      const key = makeCellKey(cell.r, cell.c);
+      if (lockedCells.has(key)) continue;
+      if (next[cell.r][cell.c]) {
+        next[cell.r][cell.c] = "";
+        cleared += 1;
+      }
+    }
+
+    if (!cleared) {
+      setStatusMessage({ type: "info", text: "No editable letters to clear in this word." });
+      return;
+    }
+
+    setLetters(next);
+    setHintIncorrectCells(new Set());
+    setHintFocusCells(new Set());
+    setHintCycle({ segmentId: null, level: 0 });
+    setStatusMessage({ type: "info", text: "Current word cleared." });
+  }, [activeSegment, letters, lockedCells]);
+
+  const handleHint = useCallback(() => {
+    if (!model || !puzzle || !activeSegment) {
+      setStatusMessage({ type: "info", text: "Select a clue first." });
+      return;
+    }
+
+    const level2 = hintCycle.segmentId === activeSegment.id && hintCycle.level === 1;
+
+    if (!level2) {
+      const hint = getHintLevel1({ model, letters, activeSegment, activeDirection: effectiveDirection, segmentResults });
+      setHintsUsed((prev) => ({ ...prev, level1Count: prev.level1Count + 1 }));
+      setHintCycle({ segmentId: activeSegment.id, level: 1 });
+      setHintIncorrectCells(new Set());
+
+      if (hint?.targetCell) {
+        setActiveCell({ ...hint.targetCell });
+        showHintFocus([makeCellKey(hint.targetCell.r, hint.targetCell.c)]);
+      } else if (hint?.targetCells?.length) {
+        showHintFocus(hint.targetCells.map((cell) => makeCellKey(cell.r, cell.c)));
+      } else {
+        showHintFocus([]);
+      }
+
+      setStatusMessage({ type: "info", text: hint.message });
+      return;
+    }
+
+    const hint = getHintLevel2({ activeSegment, letters, puzzle });
+    setHintsUsed((prev) => ({ ...prev, level2Count: prev.level2Count + 1 }));
+    setHintCycle({ segmentId: activeSegment.id, level: 2 });
+
+    const wrong = new Set((hint?.incorrectCells || []).map((cell) => makeCellKey(cell.r, cell.c)));
+    setHintIncorrectCells(wrong);
+    setHintFocusCells(new Set());
+    setStatusMessage({ type: wrong.size ? "warning" : "success", text: hint?.message || "No incorrect letters found." });
+  }, [model, puzzle, activeSegment, hintCycle.segmentId, hintCycle.level, letters, effectiveDirection, segmentResults, showHintFocus]);
+
+  const handleReveal = useCallback(() => {
+    if (!activeSegment || !puzzle || !letters.length) {
+      setStatusMessage({ type: "info", text: "Select a clue first." });
+      return;
+    }
+
+    if (hintsUsed.revealsUsed >= MAX_REVEALS_PER_PUZZLE) {
+      setStatusMessage({ type: "warning", text: "No reveals left for this puzzle." });
+      return;
+    }
+
+    const allowed = window.confirm(
+      `Reveal one letter in ${activeSegment.number}${suffix(activeSegment.direction)}? (${MAX_REVEALS_PER_PUZZLE - hintsUsed.revealsUsed} left)`
+    );
+    if (!allowed) return;
+
+    const reveal = getHintLevel3({ activeSegment, letters, puzzle, lockedCells });
+    if (!reveal?.reveal) {
+      setStatusMessage({ type: "info", text: "No revealable letters in this word." });
+      return;
+    }
+
+    const next = cloneLetters(letters);
+    next[reveal.reveal.r][reveal.reveal.c] = reveal.reveal.letter;
+    setLetters(next);
+    setActiveCell({ r: reveal.reveal.r, c: reveal.reveal.c });
+
+    setHintsUsed((prev) => ({
+      ...prev,
+      level3Count: prev.level3Count + 1,
+      revealsUsed: prev.revealsUsed + 1,
+    }));
+
+    setHintCycle({ segmentId: null, level: 0 });
+    setHintIncorrectCells(new Set());
+    showHintFocus([makeCellKey(reveal.reveal.r, reveal.reveal.c)]);
+    setStatusMessage({ type: "info", text: `${reveal.message} (${MAX_REVEALS_PER_PUZZLE - (hintsUsed.revealsUsed + 1)} left)` });
+  }, [activeSegment, puzzle, letters, hintsUsed.revealsUsed, lockedCells, showHintFocus]);
+
+  useEffect(() => {
+    if (!puzzle || !model || !letters.length) return;
+
+    function handleKeyDown(event) {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      const tag = event.target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+
+      const key = event.key;
+      if (isComplete) {
+        if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Tab"].includes(key)) {
+          event.preventDefault();
+        }
+        return;
+      }
+
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(key)) {
+        event.preventDefault();
+        const next = findNextArrowCell(puzzle, activeCell.r, activeCell.c, key);
+        setActiveCell(next);
+        if (key === "ArrowLeft" || key === "ArrowRight") {
+          setDirection(DIRECTIONS.ACROSS);
+          setActiveTab(DIRECTIONS.ACROSS);
+        } else {
+          setDirection(DIRECTIONS.DOWN);
+          setActiveTab(DIRECTIONS.DOWN);
+        }
+        setHintIncorrectCells(new Set());
+        setHintFocusCells(new Set());
+        setHintCycle({ segmentId: null, level: 0 });
+        return;
+      }
+
+      if (key === "Tab") {
+        event.preventDefault();
+        if (!activeSegment) return;
+        const target = getTabNavigationTarget(model, activeSegment.id, effectiveDirection, event.shiftKey);
+        if (!target?.cells?.length) return;
+
+        setDirection(target.direction);
+        setActiveTab(target.direction);
+        setActiveCell({ ...target.cells[0] });
+        setHintIncorrectCells(new Set());
+        setHintFocusCells(new Set());
+        setHintCycle({ segmentId: null, level: 0 });
+        return;
+      }
+
+      if (key === "Backspace") {
+        event.preventDefault();
+        if (!activeSegment) return;
+
+        const next = cloneLetters(letters);
+        const currentKey = makeCellKey(activeCell.r, activeCell.c);
+        const currentLocked = lockedCells.has(currentKey);
+        const currentValue = next[activeCell.r]?.[activeCell.c] || "";
+
+        if (!currentLocked && currentValue) {
+          next[activeCell.r][activeCell.c] = "";
+          setLetters(next);
+          setCheckedIncorrectIds(new Set());
+          setHintIncorrectCells(new Set());
+          setHintFocusCells(new Set());
+          setHintCycle({ segmentId: null, level: 0 });
+          return;
+        }
+
+        const prev = findPrevEditableCellInSegment(activeSegment, activeCell.r, activeCell.c, lockedCells);
+        if (prev.r === activeCell.r && prev.c === activeCell.c) return;
+
+        next[prev.r][prev.c] = "";
+        setLetters(next);
+        setActiveCell(prev);
+        setCheckedIncorrectIds(new Set());
+        setHintIncorrectCells(new Set());
+        setHintFocusCells(new Set());
+        setHintCycle({ segmentId: null, level: 0 });
+        return;
+      }
+
+      if (/^[a-zA-Z]$/.test(key)) {
+        event.preventDefault();
+
+        const fallbackDirection = effectiveDirection === DIRECTIONS.ACROSS ? DIRECTIONS.DOWN : DIRECTIONS.ACROSS;
+        const segment =
+          activeSegment ||
+          getSegmentForCell(model, activeCell.r, activeCell.c, effectiveDirection) ||
+          getSegmentForCell(model, activeCell.r, activeCell.c, fallbackDirection);
+
+        if (!segment) return;
+
+        let target = { ...activeCell };
+        let targetKey = makeCellKey(target.r, target.c);
+
+        if (lockedCells.has(targetKey)) {
+          const nextEditable = findNextEditableCellInSegment(segment, target.r, target.c, lockedCells);
+          target = nextEditable;
+          targetKey = makeCellKey(target.r, target.c);
+        }
+
+        if (lockedCells.has(targetKey) || !isPlayableAt(puzzle, target.r, target.c)) return;
+
+        const next = cloneLetters(letters);
+        next[target.r][target.c] = key.toUpperCase();
+        setLetters(next);
+
+        const forward = findNextEditableCellInSegment(segment, target.r, target.c, lockedCells);
+        setActiveCell(forward);
+
+        setCheckedIncorrectIds(new Set());
+        setHintIncorrectCells(new Set());
+        setHintFocusCells(new Set());
+        setHintCycle({ segmentId: null, level: 0 });
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [puzzle, model, letters, activeCell, activeSegment, effectiveDirection, lockedCells, isComplete]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-[100dvh] bg-background pb-20 overflow-x-hidden">
+        <GameHeader title="Mini Crossword" returnUrl={returnUrl} returnLabel={returnLabel} />
+        <main className="mx-auto flex w-full max-w-6xl items-center justify-center px-4 pt-6">
+          <div className="flex items-center gap-3 rounded-xl border border-border-default bg-card px-4 py-3 shadow-sm">
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-border-default border-t-foreground" />
+            <div className="text-sm font-medium text-foreground">Loading daily crossword...</div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (loadError || !puzzle || !model) {
+    return (
+      <div className="min-h-[100dvh] bg-background pb-20 overflow-x-hidden">
+        <GameHeader title="Mini Crossword" returnUrl={returnUrl} returnLabel={returnLabel} />
+        <main className="mx-auto flex w-full max-w-6xl items-center justify-center px-4 pt-6">
+          <div className="max-w-md rounded-2xl border border-destructive/35 bg-card p-6 shadow-sm">
+            <h1 className="text-lg font-bold text-destructive">Crossword unavailable</h1>
+            <p className="mt-2 text-sm text-text-muted">{loadError || "Failed to initialize crossword."}</p>
+            <Button type="button" variant="primary" size="sm" onClick={() => window.location.reload()} className="mt-4">
+              Reload
+            </Button>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  const activeClues = activeTab === DIRECTIONS.ACROSS ? model.clues.across : model.clues.down;
+  const statusToneClass =
+    statusMessage?.type === "success"
+      ? "border-success/35 bg-success/10 text-success"
+      : statusMessage?.type === "warning"
+      ? "border-destructive/35 bg-destructive/10 text-destructive"
+      : "border-info/35 bg-info/10 text-info";
+
+  return (
+    <div className="min-h-[100dvh] bg-background pb-28 text-foreground overflow-x-hidden lg:pb-8">
+      <GameHeader title="Mini Crossword" returnUrl={returnUrl} returnLabel={returnLabel} />
+
+      <main className="mx-auto w-full max-w-6xl px-4 pt-4">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border-default bg-card px-4 py-3 shadow-sm">
+          <div>
+            <h1 className="text-xl font-bold tracking-tight text-foreground">Mini Crossword</h1>
+            <div className="text-xs text-text-muted">
+              Cairo key: <span className="font-semibold text-foreground">{requestedDate}</span>
+              {usingFallback ? (
+                <span className="ml-2 rounded-full border border-warning/40 bg-warning/15 px-2 py-0.5 font-semibold text-warning">
+                  Using puzzle for {servedDate}
+                </span>
+              ) : null}
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="rounded-lg border border-border-default bg-background px-3 py-1.5 text-sm font-semibold text-foreground">
+              {formatDuration(elapsedSeconds)}
+            </div>
+            <div className="rounded-lg border border-border-default bg-background px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-text-muted">
+              {storageMode === "db" ? "DB autosave" : "Local autosave"}
+            </div>
+          </div>
+        </div>
+
+        {statusMessage ? <div className={`mb-4 rounded-xl border px-4 py-2 text-sm font-medium ${statusToneClass}`}>{statusMessage.text}</div> : null}
+
+        {isComplete ? (
+          <div className="mb-4 rounded-xl border border-success/35 bg-success/10 px-4 py-3 text-sm text-success">
+            <div className="font-bold">Puzzle complete in {formatDuration(elapsedSeconds)}.</div>
+            <div className="mt-1 text-xs text-success/90">
+              Result submission: {submitState === "submitting" ? "sending..." : submitState === "submitted" ? "saved" : submitState === "error" ? "failed" : "pending"}
+            </div>
+          </div>
+        ) : null}
+
+        <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+          <div>
+            <div className="mb-4 flex flex-wrap gap-2 rounded-2xl border border-border-default bg-card p-3 shadow-sm">
+              <Button type="button" variant="outline" size="sm" onClick={handleCheckWord}>
+                Check Word
+              </Button>
+              <Button type="button" variant="outline" size="sm" onClick={handleCheckPuzzle}>
+                Check Puzzle
+              </Button>
+              <Button type="button" variant="outline" size="sm" onClick={handleClearWord}>
+                Clear Word
+              </Button>
+              <Button type="button" variant="secondary" size="sm" onClick={handleHint}>
+                Hint
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={handleReveal}
+                className="border-warning/45 bg-warning/10 text-warning hover:border-warning/60 hover:bg-warning/15"
+              >
+                Reveal ({Math.max(0, MAX_REVEALS_PER_PUZZLE - hintsUsed.revealsUsed)})
+              </Button>
             </div>
 
-            {/* Grid and Clues Side by Side */}
-            <div className="flex flex-col lg:flex-row gap-6 w-full items-start justify-center">
-              {/* Clues on Left */}
-              <div className="w-full lg:flex-1 lg:min-w-0 lg:max-w-80 order-2 lg:order-1" data-tutorial="crossword-clues">
-                <CluePanel 
-                  puzzle={puzzle}
-                  activeClue={activeClue}
-                  direction={gameState.direction}
-                  onClueClick={handleClueClick}
-                  solvedWords={solvedWords}
-                />
-              </div>
-              
-              {/* Grid on Right */}
-              <div 
-                className="w-full lg:w-auto lg:flex-shrink-0 order-1 lg:order-2"
-                data-tutorial="crossword-grid"
-                onClick={() => inputRef.current?.focus()}
-              >
-                <CrosswordGrid 
-                  puzzle={puzzle}
-                  userGrid={gameState.userGrid}
-                  activeCell={gameState.activeCell}
-                  direction={gameState.direction}
-                  onCellClick={handleCellClick}
-                  highlightCells={highlightCells}
-                  isSolved={gameState.isSolved}
-                />
+            <div className="overflow-hidden rounded-2xl border-2 border-border-default bg-card p-2 shadow-sm">
+              <div className="grid" style={{ gridTemplateColumns: `repeat(${puzzle.size.cols}, minmax(0, 1fr))` }}>
+                {Array.from({ length: puzzle.size.rows }).map((_, r) =>
+                  Array.from({ length: puzzle.size.cols }).map((__, c) => {
+                    const cell = puzzle.grid[r][c];
+                    const key = makeCellKey(r, c);
+                    const playable = isPlayableAt(puzzle, r, c);
+
+                    const acrossId = model.cellToAcross.get(key);
+                    const downId = model.cellToDown.get(key);
+
+                    const inActiveWord = activeWordCellKeys.has(key);
+                    const isActive = activeCell.r === r && activeCell.c === c;
+                    const isLocked = lockedCells.has(key);
+                    const isSolvedCell = (acrossId && solvedSegmentIds.has(acrossId)) || (downId && solvedSegmentIds.has(downId));
+                    const isJustSolved = (acrossId && justSolvedIds.has(acrossId)) || (downId && justSolvedIds.has(downId));
+                    const isIncorrectChecked = (acrossId && checkedIncorrectIds.has(acrossId)) || (downId && checkedIncorrectIds.has(downId));
+                    const isHintFocus = hintFocusCells.has(key);
+                    const isHintWrong = hintIncorrectCells.has(key);
+
+                    const obstacleType = cell?.obstacle?.type || "none";
+                    const clueNumber = getActiveCellNumber(model, r, c);
+
+                    const wallRight = obstacleType === "wallRight" ? "border-r-4 border-r-border-active" : "";
+                    const wallDown = obstacleType === "wallDown" ? "border-b-4 border-b-border-active" : "";
+
+                    if (!playable) {
+                      if (obstacleType === "block") {
+                        return <div key={key} className={`aspect-square border border-border-default bg-foreground/85 ${wallRight} ${wallDown}`} aria-hidden="true" />;
+                      }
+
+                      return (
+                        <div key={key} className={`flex aspect-square items-center justify-center border border-border-default bg-muted ${wallRight} ${wallDown}`} aria-hidden="true">
+                          <ObstacleGlyph type={obstacleType} />
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => handleCellClick(r, c)}
+                        className={`relative flex aspect-square select-none items-center justify-center border border-border-default text-2xl font-black uppercase transition-all ${
+                          isActive ? "state-active-cell" : inActiveWord ? "state-active-word" : "bg-card hover:bg-surface-hover"
+                        } ${isSolvedCell ? "state-correct" : ""} ${isLocked ? "state-locked" : ""} ${isHintFocus ? "state-hint-focus" : ""} ${
+                          isHintWrong ? "state-wrong-underline" : ""
+                        } ${isIncorrectChecked ? "state-wrong state-wrong-shake" : ""} ${isJustSolved ? "state-correct-animate" : ""} ${wallRight} ${wallDown}`}
+                        aria-label={`Row ${r + 1} column ${c + 1}`}
+                      >
+                        {clueNumber ? <span className="absolute left-1 top-0.5 text-[10px] font-bold text-text-muted">{clueNumber}</span> : null}
+                        <span>{(letters[r]?.[c] || "").toUpperCase()}</span>
+                        {isLocked ? (
+                          <span className="absolute bottom-0.5 right-0.5 text-success">
+                            <LockIcon />
+                          </span>
+                        ) : null}
+                      </button>
+                    );
+                  })
+                )}
               </div>
             </div>
           </div>
+
+          <aside className="hidden rounded-2xl border border-border-default bg-card p-3 shadow-sm lg:block">
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-sm font-bold uppercase tracking-wide text-text-muted">Clues</h2>
+              <ClueTabs active={activeTab} onChange={setActiveTab} />
+            </div>
+            <ClueList clues={activeClues} model={model} activeSegmentId={activeSegment?.id || null} solvedSegmentIds={solvedSegmentIds} onSelect={selectSegment} />
+          </aside>
+        </div>
+      </main>
+
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border-default bg-background/95 p-3 shadow-sm backdrop-blur lg:hidden">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-border-default bg-card p-3">
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="text-sm font-bold uppercase tracking-wide text-text-muted">Clues</h2>
+            <ClueTabs active={activeTab} onChange={setActiveTab} />
+          </div>
+          <ClueList clues={activeClues} model={model} activeSegmentId={activeSegment?.id || null} solvedSegmentIds={solvedSegmentIds} onSelect={selectSegment} />
         </div>
       </div>
-
-      {/* Result Modal */}
-      <Modal isOpen={showResultModal} title="Puzzle Complete!">
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-center">
-            <p className="text-4xl font-bold text-wordle-correct mb-2">
-              {formatTime(solveTime)}
-            </p>
-            <p className="text-lg text-text-muted">
-              Great job!
-            </p>
-          </div>
-
-          {/* Share Results */}
-          <ShareResults
-            gameName="crossword"
-            result={{
-              time: solveTime,
-              win: true
-            }}
-            puzzleNumber={`#${puzzle.date}`}
-          />
-
-          {/* Daily Reminder */}
-          <DailyReminder gameName="crossword" />
-
-          <BadgeEarnedRecap badges={badgeUnlocks} />
-          <div className="mt-3 w-full">
-            <BadgesProgressWidget variant="compact" />
-          </div>
-
-          <div className="w-full h-px bg-border-default my-2"></div>
-
-          <button
-            onClick={() => setShowResultModal(false)}
-            className="w-full py-3 rounded-lg bg-wordle-correct text-white font-bold hover:opacity-90 transition-opacity text-center"
-          >
-            Close
-          </button>
-        </div>
-      </Modal>
-      
-      <TutorialPanel
-        isOpen={isTutorialOpen}
-        tutorial={tutorial}
-        startAt={startMode === 'resume' ? lastStep : 0}
-        resumeStep={lastStep}
-        onStepChange={updateTutorialStep}
-        onClose={closeTutorial}
-        onSkip={skipTutorial}
-        onComplete={completeTutorial}
-      />
-      
-      {/* Learning Log Modal */}
-      <LearningLogModal
-        isOpen={showLearningLog}
-        onClose={() => setShowLearningLog(false)}
-        gameName="crossword"
-      />
-      
-      {/* Stats Modal */}
-      {stats && (
-        <StatisticsModal
-          isOpen={showStats}
-          onClose={() => setShowStats(false)}
-          gameName="crossword"
-          stats={stats}
-        />
-      )}
-
-      <BadgesDrawer
-        isOpen={showBadgesDrawer}
-        onClose={() => setShowBadgesDrawer(false)}
-      />
-
-      <BadgeDetailsSheet
-        badge={selectedBadge}
-        isOpen={!!selectedBadge}
-        onClose={() => setSelectedBadge(null)}
-      />
     </div>
   );
 }

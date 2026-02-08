@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import {
   type AppSession,
@@ -28,6 +28,8 @@ function buildUserSession(nextSession: any): AppSession {
 export default function SessionBridge() {
   const { data: nextSession, status } = useSession();
   const appSession = useAppSession();
+  /** Track which userId we've already linked, to avoid repeated API calls */
+  const linkedUserRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (status === "loading") return;
@@ -42,17 +44,32 @@ export default function SessionBridge() {
       if (needsReplace) {
         fetch("/api/admin/login", { method: "DELETE" }).catch(() => null);
         replaceSession(nextAppSession);
-        return;
       }
 
-      if (appSession.displayName !== nextAppSession.displayName) {
-        updateSession({ displayName: nextAppSession.displayName });
+      // ── Identity link & display name sync (once per user) ──
+      // Calls POST /api/identity/link which:
+      //   1. Links guest cookie identity to user (if applicable)
+      //   2. Returns the canonical identity display name
+      //   3. Sets/updates the identity_id cookie
+      // We then override the session displayName so the UI shows
+      // the identity name, NOT the Google profile name.
+      if (linkedUserRef.current !== nextSession.user.id) {
+        linkedUserRef.current = nextSession.user.id;
+        fetch("/api/identity/link", { method: "POST" })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (data?.identity?.displayName) {
+              updateSession({ displayName: data.identity.displayName });
+            }
+          })
+          .catch(() => null);
       }
 
       return;
     }
 
     if (status === "unauthenticated" && appSession?.role === "USER") {
+      linkedUserRef.current = null;
       clearSession();
     }
   }, [
@@ -62,8 +79,8 @@ export default function SessionBridge() {
     nextSession?.user?.email,
     appSession?.role,
     appSession?.userId,
-    appSession?.displayName,
   ]);
 
   return null;
 }
+

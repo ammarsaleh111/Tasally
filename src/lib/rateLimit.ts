@@ -34,6 +34,20 @@ export const RATE_LIMITS = {
   LOGIN: { max: 10, windowSeconds: 60 },
   // Default for other write routes: 20/min
   DEFAULT_WRITE: { max: 20, windowSeconds: 60 },
+  // Groups: identity find — 20/min per IP (prevent enumeration)
+  IDENTITY_FIND: { max: 20, windowSeconds: 60 },
+  // Groups: identity claim — 10/min per IP
+  IDENTITY_CLAIM: { max: 10, windowSeconds: 60 },
+  // Groups: identity rename — 5/min per IP
+  IDENTITY_RENAME: { max: 5, windowSeconds: 60 },
+  // Groups: create group — 5/min per identity
+  GROUP_CREATE: { max: 5, windowSeconds: 60 },
+  // Groups: invite — 30/hour per identity
+  GROUP_INVITE: { max: 30, windowSeconds: 3600 },
+  // Groups: submit result — 10/min per identity per group
+  GROUP_RESULTS: { max: 10, windowSeconds: 60 },
+  // Groups: leaderboard — 30/min per IP
+  GROUP_LEADERBOARD: { max: 30, windowSeconds: 60 },
 } as const;
 
 export interface RateLimitResult {

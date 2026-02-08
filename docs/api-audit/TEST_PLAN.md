@@ -3,6 +3,7 @@
 Last updated: 2026-02-06
 
 ## Overview
+
 This document outlines the test plan for validating error handling across all API endpoints in Ammar Times.
 
 ---
@@ -12,9 +13,11 @@ This document outlines the test plan for validating error handling across all AP
 ### 1. Authentication & Authorization Errors
 
 #### 401 UNAUTHORIZED Tests
+
 Routes: All authenticated routes
 
 **Test Cases**:
+
 - [ ] Missing session cookie
 - [ ] Expired session
 - [ ] Invalid session token
@@ -22,6 +25,7 @@ Routes: All authenticated routes
 - [ ] Guest trying to access admin route
 
 **Expected Response**:
+
 ```json
 {
   "ok": false,
@@ -33,14 +37,17 @@ Routes: All authenticated routes
 ```
 
 #### 403 FORBIDDEN Tests
+
 Routes: All admin routes
 
 **Test Cases**:
+
 - [ ] Regular user trying to access admin route
 - [ ] Trying to delete admin account
 - [ ] Invalid admin session
 
 **Expected Response**:
+
 ```json
 {
   "ok": false,
@@ -56,9 +63,11 @@ Routes: All admin routes
 ### 2. Validation Errors
 
 #### 400 BAD REQUEST Tests
+
 Routes: All POST/PUT routes with request bodies
 
 **Test Cases**:
+
 - [ ] Missing required fields
 - [ ] Invalid JSON body
 - [ ] Invalid field types (string instead of number)
@@ -66,12 +75,14 @@ Routes: All POST/PUT routes with request bodies
 - [ ] Invalid enum values
 
 **Example Routes to Test**:
+
 - POST /api/results
 - POST /api/auth/register
 - PUT /api/admin/theme
 - POST /api/admin/theme
 
 **Expected Response**:
+
 ```json
 {
   "ok": false,
@@ -84,9 +95,11 @@ Routes: All POST/PUT routes with request bodies
 ```
 
 #### 422 UNPROCESSABLE ENTITY Tests
+
 Routes: Routes with complex validation
 
 **Test Cases**:
+
 - [ ] Invalid email format
 - [ ] Password too short
 - [ ] Display name with invalid characters
@@ -95,6 +108,7 @@ Routes: Routes with complex validation
 - [ ] Invalid mode value
 
 **Expected Response**:
+
 ```json
 {
   "ok": false,
@@ -111,14 +125,17 @@ Routes: Routes with complex validation
 ### 3. Resource Errors
 
 #### 404 NOT FOUND Tests
+
 Routes: Resource-specific endpoints
 
 **Test Cases**:
+
 - [ ] GET /api/admin/users/[id] with non-existent ID
 - [ ] POST /api/link-guest with non-existent guest ID
 - [ ] DELETE /api/admin/users with non-existent user
 
 **Expected Response**:
+
 ```json
 {
   "ok": false,
@@ -134,14 +151,17 @@ Routes: Resource-specific endpoints
 ### 4. Conflict Errors
 
 #### 409 CONFLICT Tests
+
 Routes: POST /api/results, POST /api/auth/register
 
 **Test Cases**:
+
 - [ ] Submit daily result twice (same day)
 - [ ] Register with existing email
 - [ ] Duplicate idempotency key
 
 **Expected Response**:
+
 ```json
 {
   "ok": false,
@@ -157,22 +177,26 @@ Routes: POST /api/results, POST /api/auth/register
 ### 5. Rate Limiting
 
 #### 429 TOO MANY REQUESTS Tests
+
 Routes: All routes with rate limiting
 
 **Rate Limits**:
+
 - POST /api/auth/register: 5/min per IP
 - POST /api/results: 10/min per user/guest
 - POST /api/presence/heartbeat: 2/min per user
 - POST /api/link-guest: 5/day per user
 - DELETE /api/account/delete: 1/hour per user
-- GET /api/leaderboard/*: 30/min per user
+- GET /api/leaderboard/\*: 30/min per user
 
 **Test Cases**:
+
 - [ ] Exceed rate limit for each endpoint
 - [ ] Verify Retry-After header
-- [ ] Verify X-RateLimit-* headers
+- [ ] Verify X-RateLimit-\* headers
 
 **Expected Response**:
+
 ```json
 {
   "ok": false,
@@ -185,6 +209,7 @@ Routes: All routes with rate limiting
 ```
 
 **Expected Headers**:
+
 ```
 Retry-After: 60
 X-RateLimit-Remaining: 0
@@ -196,14 +221,17 @@ X-RateLimit-Reset: 2026-02-06T12:34:56.789Z
 ### 6. Server Errors
 
 #### 500 INTERNAL SERVER ERROR Tests
+
 Routes: All routes
 
 **Test Cases** (requires mocking):
+
 - [ ] Database connection failure
 - [ ] Transaction rollback
 - [ ] Unhandled exception
 
 **Expected Response**:
+
 ```json
 {
   "ok": false,
@@ -215,13 +243,16 @@ Routes: All routes
 ```
 
 #### 503 SERVICE UNAVAILABLE Tests
+
 Routes: GET /api/health
 
 **Test Cases**:
+
 - [ ] Database unreachable
 - [ ] External service down
 
 **Expected Response**:
+
 ```json
 {
   "status": "unhealthy",
@@ -236,18 +267,21 @@ Routes: GET /api/health
 ## Test Execution Plan
 
 ### Phase 1: Manual Testing
+
 - [ ] Create test accounts (user, admin, guest)
 - [ ] Test each error case manually via Postman/Thunder Client
 - [ ] Document actual responses vs expected
 - [ ] Flag inconsistencies
 
 ### Phase 2: Automated Testing
+
 - [ ] Write API smoke tests for happy paths
 - [ ] Write error tests for each category
 - [ ] Add integration tests for complex flows
 - [ ] Set up CI/CD pipeline
 
 ### Phase 3: Load Testing
+
 - [ ] Test rate limiting under load
 - [ ] Verify concurrent request handling
 - [ ] Check database connection pooling
@@ -256,32 +290,35 @@ Routes: GET /api/health
 
 ## Test Coverage Goals
 
-| Category | Target Coverage |
-|----------|----------------|
-| Happy Path | 100% |
-| Auth Errors (401, 403) | 100% |
-| Validation Errors (400, 422) | 90% |
-| Not Found (404) | 100% |
-| Conflicts (409) | 100% |
-| Rate Limits (429) | 100% |
-| Server Errors (500) | 80% (mocked) |
+| Category                     | Target Coverage |
+| ---------------------------- | --------------- |
+| Happy Path                   | 100%            |
+| Auth Errors (401, 403)       | 100%            |
+| Validation Errors (400, 422) | 90%             |
+| Not Found (404)              | 100%            |
+| Conflicts (409)              | 100%            |
+| Rate Limits (429)            | 100%            |
+| Server Errors (500)          | 80% (mocked)    |
 
 ---
 
 ## Test Data Requirements
 
 ### Test Users
+
 - Regular user: test@example.com
 - Admin user: admin credentials from env
 - Guest: Generate UUID
 
 ### Test Game Results
+
 - Valid wordle result (win)
 - Valid wordle result (loss)
 - Invalid game key
 - Out-of-range attempts
 
 ### Test Dates
+
 - Today (should succeed for daily)
 - Yesterday (should conflict for daily)
 - Invalid format (should fail validation)

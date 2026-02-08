@@ -61,6 +61,8 @@ export default function LeaderboardPage() {
 
   const selectedGame = VALID_GAMES.find(g => g.key === game);
   const isAuthenticated = session?.role === "USER";
+  const isAdmin = session?.role === "ADMIN";
+  const isAllowed = isAuthenticated || isAdmin;
   const isLoadingSession = !session;
 
   useEffect(() => {
@@ -69,13 +71,13 @@ export default function LeaderboardPage() {
       return;
     }
 
-    if (isAuthenticated) {
+    if (isAllowed) {
       setHadAuthenticated(true);
       setAuthNotice("");
       return;
     }
 
-    if (!isAuthenticated) {
+    if (!isAllowed) {
       setDailyData([]);
       setMonthlyData([]);
       setLoading(false);
@@ -87,7 +89,7 @@ export default function LeaderboardPage() {
         setShowAuthModal(true);
       }
     }
-  }, [isAuthenticated, isLoadingSession, hadAuthenticated]);
+  }, [isAllowed, isLoadingSession, hadAuthenticated]);
 
   useEffect(() => {
     if (isLoadingSession) {
@@ -95,7 +97,7 @@ export default function LeaderboardPage() {
       return;
     }
 
-    if (!isAuthenticated) {
+    if (!isAllowed) {
       setDailyData([]);
       setMonthlyData([]);
       setLoading(false);
@@ -142,7 +144,32 @@ export default function LeaderboardPage() {
     };
 
     fetchLeaderboard();
-  }, [isAuthenticated, isLoadingSession, period, game, session?.role]);
+
+    // 10-second auto-polling for leaderboard refresh
+    const interval = setInterval(() => {
+      // Refetch without setting loading to avoid flicker
+      (async () => {
+        try {
+          const url =
+            period === "daily"
+              ? `/api/leaderboard/daily?game=${game}`
+              : `/api/leaderboard/monthly?game=${game}`;
+          const res = await fetch(url);
+          if (!res.ok) return;
+          const data = await res.json();
+          if (period === "daily") {
+            setDailyData(data.leaderboard);
+          } else {
+            setMonthlyData(data.leaderboard);
+          }
+        } catch {
+          // ignore polling errors
+        }
+      })();
+    }, 10_000);
+
+    return () => clearInterval(interval);
+  }, [isAllowed, isLoadingSession, period, game, session?.role]);
 
 
   const getRankDisplay = (rank: number) => {
@@ -258,7 +285,7 @@ export default function LeaderboardPage() {
               </div>
             </div>
           </SeasonTexturedCard>
-        ) : !isAuthenticated ? (
+        ) : !isAllowed ? (
           <SeasonTexturedCard className="overflow-hidden">
             <div className="flex flex-col items-center justify-center py-16 px-6 text-center gap-4">
               <div className="w-14 h-14 rounded-2xl bg-[hsl(var(--accent))]/10 flex items-center justify-center text-2xl">

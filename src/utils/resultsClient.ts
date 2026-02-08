@@ -1,11 +1,17 @@
 /**
  * Results Submission Client
  * Submits game results to the server for scoring and leaderboard tracking
+ *
+ * Routing:
+ *   - Daily mode → /api/results (daily leaderboards)
+ *   - Unlimited mode + global context → /api/games/global/results
+ *   - Unlimited mode + group context → /api/groups/[groupId]/results
  */
 
 import { ensureGuestId } from "./guestManager";
 import { getSession } from "./sessionManager";
 import { getProfile } from "./profileManager";
+import { type GameContext, loadGameContext, submitGameResult } from "@/lib/gameContext";
 
 export interface SubmitResultInput {
   gameKey: string;
@@ -36,11 +42,14 @@ function getPlayerNameFromStorage(): string | null {
   return null;
 }
 
-export async function submitResult(input: SubmitResultInput): Promise<SubmitResultResponse | null> {
+/**
+ * Submit result for DAILY mode games.
+ * Goes to /api/results for the standard daily leaderboard.
+ */
+async function submitDailyResult(input: SubmitResultInput): Promise<SubmitResultResponse | null> {
   try {
     const session = getSession();
     const guestId = session?.role === "GUEST" ? ensureGuestId() : null;
-    // Get player name from local profile if not provided
     const displayName =
       input.displayName ?? session?.displayName ?? getPlayerNameFromStorage();
 
@@ -64,4 +73,53 @@ export async function submitResult(input: SubmitResultInput): Promise<SubmitResu
     console.error("[submitResult] Error:", error);
     return null;
   }
+}
+
+/**
+ * Submit result for UNLIMITED mode games.
+ * Routes to global or group endpoint based on current context.
+ */
+async function submitUnlimitedResult(input: SubmitResultInput): Promise<SubmitResultResponse | null> {
+  // Get context from sessionStorage (set by group navigation or URL params)
+  const context: GameContext = loadGameContext() || { type: "global" };
+
+  try {
+    const result = await submitGameResult(context, {
+      gameKey: input.gameKey,
+      won: input.success,
+      moves: input.attempts ?? null,
+      timeMs: input.durationMs ?? 0,
+    });
+
+    if (!result.ok) {
+      console.warn("[submitUnlimitedResult] Failed:", result.error);
+      return null;
+    }
+
+    // Handle response format from global/group endpoints
+    // Global: { ok: true, data: { pointsAwarded, totals } }
+    // Group: { ok: true, data: { result: { id, pointsAwarded }, totals } }
+    const data = result.data;
+    return {
+      id: data?.result?.id || data?.id || "unknown",
+      score: data?.pointsAwarded || data?.result?.pointsAwarded || data?.result?.points_awarded || 0,
+    };
+  } catch (error) {
+    console.error("[submitUnlimitedResult] Error:", error);
+    return null;
+  }
+}
+
+/**
+ * Main submit function.
+ * Automatically routes to the correct endpoint based on game mode.
+ */
+export async function submitResult(input: SubmitResultInput): Promise<SubmitResultResponse | null> {
+  // Daily mode always goes to the standard daily leaderboard
+  if (input.mode === "daily") {
+    return submitDailyResult(input);
+  }
+
+  // Unlimited mode routes based on context (global or group)
+  return submitUnlimitedResult(input);
 }

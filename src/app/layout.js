@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/ThemeProviderNew";
 import DominantThemeBanner from "@/components/DominantThemeBanner";
 import { SeasonIdentityProvider } from "@/components/SeasonIdentity";
 import NotificationInitializer from "@/components/NotificationInitializer";
-import IdentityProvider from "@/components/IdentityProvider";
+import IdentityGate from "@/components/IdentityGate";
 import SessionInitializer from "@/components/SessionInitializer";
 import AuthProvider from "@/components/AuthProvider";
 import SessionBridge from "@/components/SessionBridge";
@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
           <SessionBridge />
           <PresenceProvider intervalMs={90000}>
             <SessionInitializer>
-              <IdentityProvider>
+              <IdentityGate>
                 <ThemeProvider>
                   <NotificationInitializer>
                     <TutorialProvider>
@@ -57,7 +57,7 @@ export default function RootLayout({ children }) {
                     </TutorialProvider>
                   </NotificationInitializer>
                 </ThemeProvider>
-              </IdentityProvider>
+              </IdentityGate>
             </SessionInitializer>
           </PresenceProvider>
         </AuthProvider>

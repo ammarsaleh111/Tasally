@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import GameHeader from '@/components/GameHeader';
@@ -23,6 +23,7 @@ import { getUserStorageKey } from '@/utils/storageKeys';
 import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
+import { useGameContext } from '@/hooks/useGameContext';
 import { STRANDS_2026_01 } from './puzzles/strands-2026-01';
 import { STRANDS_PUZZLES_FEB_2026 } from './puzzles/strands-2026-02';
 import {
@@ -91,6 +92,7 @@ const getInitialState = (puzzle) => {
 };
 
 function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuzzle }) {
+  const { returnUrl, returnLabel, isGroupGame, groupName } = useGameContext();
   const initialState = useMemo(() => getInitialState(puzzle), [puzzle]);
 
   const [path, setPath] = useState([]);
@@ -383,6 +385,8 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setLearningLogModal(true)}
         gameComplete={!!completedAt}
+        returnUrl={returnUrl}
+        returnLabel={returnLabel}
       />
 
       <BadgeToastQueue

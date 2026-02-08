@@ -38,8 +38,14 @@ export function getProfile() {
       updated = true;
     }
 
+    // Identity system (via SessionBridge → /api/identity/link) is the
+    // single source of truth for display name. Always sync profile.name
+    // FROM session.displayName, never the other direction.
     const sessionName = session.displayName ? sanitizeName(session.displayName) : null;
-    if (!profile.name && sessionName) {
+    if (sessionName && profile.name !== sessionName) {
+      profile.name = sessionName;
+      updated = true;
+    } else if (!profile.name && sessionName) {
       profile.name = sessionName;
       updated = true;
     }
@@ -48,9 +54,6 @@ export function getProfile() {
     const badgeUpdated = ensureBadgeSeenField(profile);
     if (updated || gameUpdated || badgeUpdated) {
       saveProfile(profile);
-    }
-    if (profile.name && session.displayName !== profile.name) {
-      updateSession({ displayName: profile.name });
     }
     return profile;
   }

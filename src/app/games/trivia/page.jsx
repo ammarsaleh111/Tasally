@@ -16,6 +16,7 @@ import Toast from '@/components/Toast';
 import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
+import { useGameContext } from '@/hooks/useGameContext';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import {
   getDailyTrivia,
@@ -28,6 +29,8 @@ import {
 } from './triviaLogic';
 
 export default function TriviaGame() {
+  const { returnUrl, returnLabel, isGroupGame, groupName } = useGameContext();
+
   // Game state
   const [triviaSet, setTriviaSet] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -212,6 +215,8 @@ export default function TriviaGame() {
         onBadges={() => setShowBadgesDrawer(true)}
         // Learning Log removed - Trivia is not a word-based game
         gameComplete={gameComplete}
+        returnUrl={returnUrl}
+        returnLabel={returnLabel}
       />
 
       <BadgeToastQueue

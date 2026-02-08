@@ -36,6 +36,7 @@ const HeaderButton = ({ onClick, disabled, icon, label, locked, dataTutorial }) 
  * - Learning Log button only visible after game ends
  * - Responsive design with mobile-first approach
  * - Theme-aware styling
+ * - Context-aware back navigation (returns to group page if playing from group)
  * 
  * @param {string} title - Game title
  * @param {function} onHowToPlay - Handler for How to Play modal
@@ -46,6 +47,8 @@ const HeaderButton = ({ onClick, disabled, icon, label, locked, dataTutorial }) 
  * @param {boolean} showLearningLog - Override to show Learning Log button
  * @param {string} mode - Game mode (daily/practice/unlimited) for badge display
  * @param {React.ReactNode} themeBadge - Optional theme badge component
+ * @param {string} returnUrl - Optional custom return URL (for group context)
+ * @param {string} returnLabel - Optional custom return label (e.g., "Group")
  */
 const GameHeader = ({ 
   title, 
@@ -57,6 +60,8 @@ const GameHeader = ({
   showLearningLog = false,
   mode,
   themeBadge,
+  returnUrl = '/games',
+  returnLabel,
 }) => {
   const canShowLearningLog = gameComplete || showLearningLog;
 
@@ -74,7 +79,7 @@ const GameHeader = ({
           {/* Left Side - Navigation and How to Play */}
           <div className="flex items-center gap-1 sm:gap-2 flex-1">
             <Link 
-              href="/games" 
+              href={returnUrl} 
               className="
                 flex items-center gap-1 px-2 sm:px-3 py-2 rounded-xl
                 text-sm font-medium
@@ -88,7 +93,7 @@ const GameHeader = ({
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
               </svg>
-              <span className="hidden sm:inline">Games</span>
+              <span className="hidden sm:inline">{returnLabel || (returnUrl === '/games' ? 'Games' : 'Back')}</span>
             </Link>
             
             {onHowToPlay && (

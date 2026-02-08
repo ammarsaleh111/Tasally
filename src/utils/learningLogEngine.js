@@ -414,6 +414,51 @@ export function updateWordDefinition(word, definition, partOfSpeech, example = n
 }
 
 /**
+ * Update a word's POS-specific definition in the log.
+ * Called by the lazy POS fetch in the UI.
+ *
+ * @param {string} word     - The word
+ * @param {'noun'|'verb'|'adjective'} pos - Part of speech
+ * @param {string|null} definition       - Definition text (null = not available)
+ * @param {boolean}     loaded           - Whether the fetch was attempted
+ */
+export function updateWordPOSDefinition(word, pos, definition, loaded = true) {
+  const normalizedWord = word.toUpperCase().trim();
+  const log = getLearningLog();
+
+  const defKey = `${pos}Definition`;
+  const loadedKey = `${pos}Loaded`;
+
+  // Helper: apply to an entry
+  const apply = (entry) => {
+    entry[defKey] = definition ?? null;
+    entry[loadedKey] = loaded;
+
+    // Also update the legacy "definition" field with noun or first available
+    if (pos === 'noun' && definition) {
+      entry.definition = definition;
+      entry.partOfSpeech = 'noun';
+    } else if (!entry.definition && definition) {
+      entry.definition = definition;
+      entry.partOfSpeech = pos;
+    }
+  };
+
+  const todayEntry = log.today.find(w => w.word === normalizedWord);
+  if (todayEntry) {
+    apply(todayEntry);
+    saveLearningLog(log);
+    return;
+  }
+
+  const savedEntry = log.saved.find(w => w.word === normalizedWord);
+  if (savedEntry) {
+    apply(savedEntry);
+    saveLearningLog(log);
+  }
+}
+
+/**
  * Batch fetch definitions for words without them
  * @param {number} limit - Maximum number to fetch
  * @param {boolean} savedOnly - Only fetch for saved words

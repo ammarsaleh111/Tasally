@@ -1,23 +1,23 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { validateAdminSession } from "@/lib/adminAuth";
-import {
-  accounts,
-  gameEvents,
-  gameResults,
-  guestProfiles,
-  presenceSessions,
-  sessions,
-  themeSettings,
-  users,
-  verificationTokens,
-  db,
-} from "@/db";
-import { and, desc, eq, ilike, isNotNull, or, sql } from "drizzle-orm";
-import { getActivityStore, getAllPlayers, saveActivityStore, savePlayers } from "@/lib/serverData";
-import { sanitizeString } from "@/utils/inputSanitizer";
-import { getUsersColumnFlags } from "@/server/dbIntrospection";
+import { db } from "@/db";
+import { identities } from "@/db/groupsSchema";
+import { sql, desc, ilike } from "drizzle-orm";
 
+/**
+ * GET /api/admin/users
+ *
+ * Lists ALL identities (guests + registered) with pagination and search.
+ *
+ * Query params:
+ *   query  — partial match against display_name_norm (case-insensitive)
+ *   page   — 1-based page number (default 1)
+ *   limit  — items per page (default 25, max 100)
+ *
+ * Each row includes:
+ *   id, displayName, userType ("guest" | "registered"), createdAt
+ */
 export async function GET(request: Request) {
   const cookieStore = await cookies();
   const token = cookieStore.get("admin_session")?.value;
@@ -28,158 +28,54 @@ export async function GET(request: Request) {
   }
 
   const { searchParams } = new URL(request.url);
-  const rawQuery = searchParams.get("query") ?? "";
-  const query = rawQuery.trim().slice(0, 100);
+  const rawQuery = (searchParams.get("query") ?? "").trim().slice(0, 100);
+  const page = Math.max(1, parseInt(searchParams.get("page") ?? "1", 10) || 1);
+  const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") ?? "25", 10) || 25));
+  const offset = (page - 1) * limit;
 
-  const { usersRole, usersLastSeen } = await getUsersColumnFlags();
+  // Normalize search the same way display_name_norm is stored
+  const searchNorm = rawQuery.toLowerCase().replace(/\s+/g, " ").trim();
 
-  const winsByUser = db
+  const whereCondition = searchNorm
+    ? ilike(identities.displayNameNorm, `%${searchNorm}%`)
+    : undefined;
+
+  // Count total matching rows (for pagination)
+  const [countRow] = await db
+    .select({ total: sql<number>`count(*)::int` })
+    .from(identities)
+    .where(whereCondition);
+
+  const total = countRow.total;
+
+  // Fetch page
+  const rows = await db
     .select({
-      userId: gameResults.userId,
-      totalWins: sql<number>`count(*) filter (where ${gameResults.success} = true)`.as("totalWins"),
+      id: identities.id,
+      displayName: identities.displayName,
+      userId: identities.userId,
+      createdAt: identities.createdAt,
     })
-    .from(gameResults)
-    .where(isNotNull(gameResults.userId))
-    .groupBy(gameResults.userId)
-    .as("wins_by_user");
+    .from(identities)
+    .where(whereCondition)
+    .orderBy(desc(identities.createdAt))
+    .limit(limit)
+    .offset(offset);
 
-  const baseBuilder = db
-    .select({
-      id: users.id,
-      displayName: users.displayName,
-      name: users.name,
-      createdAt: users.createdAt,
-      lastSeenAt: usersLastSeen ? users.lastSeenAt : sql<Date | null>`null`.as("lastSeenAt"),
-      totalWins: sql<number>`coalesce(${winsByUser.totalWins}, 0)`,
-    })
-    .from(users)
-    .leftJoin(winsByUser, eq(users.id, winsByUser.userId));
-
-  const roleCondition = usersRole ? eq(users.role, "USER") : null;
-
-  let builder;
-  if (query) {
-    const likeQuery = `%${query}%`;
-    builder = baseBuilder.where(
-      and(
-        roleCondition ?? sql`true`,
-        or(
-          ilike(users.displayName, likeQuery),
-          ilike(users.name, likeQuery),
-          sql`${users.id}::text ilike ${likeQuery}`
-        )
-      )
-    );
-  } else {
-    builder = roleCondition ? baseBuilder.where(roleCondition) : baseBuilder;
-  }
-
-  const rows = await builder.orderBy(desc(users.createdAt));
-
-  const payload = rows.map((row) => ({
+  const users = rows.map((row) => ({
     id: row.id,
-    displayName: row.displayName ?? row.name ?? "Player",
+    displayName: row.displayName || "Anonymous",
+    userType: row.userId ? ("registered" as const) : ("guest" as const),
+    status: "Active",
     createdAt: row.createdAt ? row.createdAt.toISOString() : null,
-    lastSeenAt: row.lastSeenAt ? row.lastSeenAt.toISOString() : null,
-    totalWins: Number(row.totalWins ?? 0),
   }));
 
-  const response = NextResponse.json({ users: payload });
+  const totalPages = Math.ceil(total / limit);
+
+  const response = NextResponse.json({
+    users,
+    pagination: { page, limit, total, totalPages },
+  });
   response.headers.set("Cache-Control", "no-store, max-age=0");
   return response;
-}
-
-export async function DELETE(request: Request) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("admin_session")?.value;
-  const authenticated = await validateAdminSession(token);
-
-  if (!authenticated) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const { searchParams } = new URL(request.url);
-  const userId = sanitizeString(searchParams.get("userId") ?? "", 100);
-  const guestId = sanitizeString(searchParams.get("guestId") ?? "", 100);
-
-  if (!userId && !guestId) {
-    return NextResponse.json({ error: "Missing userId or guestId" }, { status: 400 });
-  }
-
-  try {
-    if (userId) {
-      let playersBackup = null;
-      let activityBackup = null;
-      try {
-        playersBackup = await getAllPlayers();
-        activityBackup = await getActivityStore();
-
-        const nextPlayers = (playersBackup || []).filter((p: any) => p.userId !== userId);
-        const nextSessions = (activityBackup?.sessions || []).filter((s: any) => s.userId !== userId);
-
-        await savePlayers(nextPlayers);
-        await saveActivityStore({ ...(activityBackup || {}), sessions: nextSessions });
-      } catch (error) {
-        console.error("[admin/users] failed to update server data", error);
-        return NextResponse.json({ error: "Failed to delete user" }, { status: 500 });
-      }
-
-      const [userRow] = await db
-        .select({ email: users.email, role: users.role })
-        .from(users)
-        .where(eq(users.id, userId))
-        .limit(1);
-
-      if (userRow?.role && userRow.role !== "USER") {
-        return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-      }
-
-      try {
-        await db.transaction(async (tx) => {
-          await tx.delete(gameResults).where(eq(gameResults.userId, userId));
-          await tx.delete(gameEvents).where(eq(gameEvents.userId, userId));
-          await tx.delete(presenceSessions).where(eq(presenceSessions.userId, userId));
-          await tx.delete(sessions).where(eq(sessions.userId, userId));
-          await tx.delete(accounts).where(eq(accounts.userId, userId));
-          if (userRow?.email) {
-            await tx.delete(verificationTokens).where(eq(verificationTokens.identifier, userRow.email));
-          }
-          await tx
-            .update(themeSettings)
-            .set({ updatedByUserId: null })
-            .where(eq(themeSettings.updatedByUserId, userId));
-          await tx.delete(users).where(eq(users.id, userId));
-        });
-      } catch (error) {
-        // Attempt to restore file-backed data if DB deletion fails
-        try {
-          if (playersBackup) {
-            await savePlayers(playersBackup);
-          }
-          if (activityBackup) {
-            await saveActivityStore(activityBackup);
-          }
-        } catch (restoreError) {
-          console.error("[admin/users] failed to restore server data", restoreError);
-        }
-
-        console.error("[admin/users] failed to delete user", error);
-        return NextResponse.json({ error: "Failed to delete user" }, { status: 500 });
-      }
-    }
-
-    if (guestId) {
-      await db.transaction(async (tx) => {
-        await tx.delete(gameResults).where(eq(gameResults.guestId, guestId));
-        await tx.delete(gameEvents).where(eq(gameEvents.guestId, guestId));
-        await tx.delete(presenceSessions).where(eq(presenceSessions.guestId, guestId));
-        await tx.delete(guestProfiles).where(eq(guestProfiles.id, guestId));
-      });
-    }
-
-    return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error("[admin/users] failed to delete user", error);
-    return NextResponse.json({ error: "Failed to delete user" }, { status: 500 });
-  }
 }

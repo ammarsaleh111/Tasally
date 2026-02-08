@@ -1,0 +1,5 @@
+[  617836ms] [ERROR] Failed to load resource: net::ERR_NETWORK_CHANGED @ http://localhost:3000/api/realtime/heartbeat:0
+[  617837ms] [WARNING] [Realtime] Heartbeat failed: TypeError: Failed to fetch
+    at sendHeartbeat (http://localhost:3000/_next/static/chunks/src_fea56fd7._.js:5538:32)
+    at saveSession (http://localhost:3000/_next/static/chunks/src_fea56fd7._.js:5743:157)
+    at http://localhost:3000/_next/static/chunks/src_fea56fd7._.js:6096:13 @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297

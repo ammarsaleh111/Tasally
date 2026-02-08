@@ -17,6 +17,7 @@ import LearningLogModal from '@/components/LearningLogModal';
 import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
+import { useGameContext } from '@/hooks/useGameContext';
 import {
   validateWord,
   calculateWordPoints,
@@ -40,6 +41,8 @@ import { saveGameToProfile, getGameStats, checkAchievementsForGame } from '@/uti
 import { submitResult } from '@/utils/resultsClient';
 
 export default function SpellingBeePage() {
+  const { returnUrl, returnLabel, isGroupGame, groupName } = useGameContext();
+
   // Initialize puzzle on first render
   const [puzzle] = useState(() => {
     const today = new Date().toISOString().split('T')[0];
@@ -418,6 +421,8 @@ export default function SpellingBeePage() {
         onBadges={() => setShowBadgesDrawer(true)}
         onLearningLog={() => setShowLearningLog(true)}
         gameComplete={isComplete}
+        returnUrl={returnUrl}
+        returnLabel={returnLabel}
       />
 
       <main className="relative max-w-2xl mx-auto px-4 pt-4">

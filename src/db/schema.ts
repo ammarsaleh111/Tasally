@@ -1,4 +1,4 @@
-import { boolean, date, integer, jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { bigint, boolean, date, integer, jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { index, uniqueIndex } from "drizzle-orm/pg-core/indexes";
 import { sql } from "drizzle-orm";
 
@@ -153,6 +153,29 @@ export const gameEvents = pgTable(
   })
 );
 
+export const crosswordProgress = pgTable(
+  "crossword_progress",
+  {
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    puzzleDate: date("puzzle_date").notNull(),
+    payload: jsonb("payload").notNull().default(sql`'{}'::jsonb`),
+    updatedAt: timestamp("updated_at", { withTimezone: false }).defaultNow().notNull(),
+  },
+  (table) => ({
+    userDateUniqueIdx: uniqueIndex("crossword_progress_user_date_idx").on(
+      table.userId,
+      table.puzzleDate
+    ),
+    userUpdatedIdx: index("crossword_progress_user_updated_idx").on(
+      table.userId,
+      table.updatedAt
+    ),
+  })
+);
+
 /**
  * Theme Settings Table
  * Stores admin-controlled theme configuration
@@ -210,3 +233,58 @@ export const rateLimits = pgTable("rate_limits", {
   count: integer("count").notNull().default(1),
   expiresAt: timestamp("expires_at", { withTimezone: false }).notNull(),
 });
+
+/* ------------------------------------------------------------------ */
+/*  Global Leaderboard Tables (Unlimited Mode)                         */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Global Game Results — append-only audit log for unlimited games
+ * Separate from group_game_results to keep contexts isolated
+ */
+export const globalGameResults = pgTable(
+  "global_game_results",
+  {
+    id: uuid("id").primaryKey().default(sql`gen_random_uuid()`),
+    identityId: uuid("identity_id").notNull(),
+    gameKey: text("game_key").notNull(),
+    won: boolean("won").notNull(),
+    moves: integer("moves"),
+    timeMs: integer("time_ms").notNull(),
+    pointsAwarded: integer("points_awarded").notNull(),
+    playedAt: timestamp("played_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    identityPlayedIdx: index("global_game_results_identity_played_idx").on(
+      table.identityId,
+      table.playedAt
+    ),
+    gamePlayedIdx: index("global_game_results_game_played_idx").on(
+      table.gameKey,
+      table.playedAt
+    ),
+  })
+);
+
+/**
+ * Global Player Totals — pre-aggregated for fast leaderboard queries
+ * Separate from group_member_totals to keep contexts isolated
+ */
+export const globalPlayerTotals = pgTable(
+  "global_player_totals",
+  {
+    identityId: uuid("identity_id").primaryKey(),
+    totalPoints: bigint("total_points", { mode: "number" }).notNull().default(0),
+    totalTimeMs: bigint("total_time_ms", { mode: "number" }).notNull().default(0),
+    gamesPlayed: integer("games_played").notNull().default(0),
+    wins: integer("wins").notNull().default(0),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (table) => ({
+    leaderboardIdx: index("global_player_totals_leaderboard_idx").on(
+      table.totalPoints,
+      table.totalTimeMs,
+      table.wins
+    ),
+  })
+);

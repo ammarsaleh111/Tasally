@@ -12,6 +12,7 @@ import {
   getLearningLogStats,
   WORD_GAMES,
   performDailyCleanup,
+  updateWordPOSDefinition,
 } from '@/utils/learningLogEngine';
 
 /**
@@ -20,6 +21,7 @@ import {
  * Features:
  * - Today tab: Temporary words that expire at end of day
  * - Saved tab: Permanent favorites that persist
+ * - POS toggle: Noun / Verb / Adjective with lazy API fetch
  * - Clear distinction between temporary and permanent
  * - Favoriting is explicit and intentional
  */
@@ -238,6 +240,7 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
                     isLoadingDefinition={loadingDefinitions.has(wordEntry.word)}
                     gameNames={gameNames}
                     isTemporary={true}
+                    onWordsChanged={loadWords}
                   />
                 ))}
               </>
@@ -265,6 +268,7 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
                     isLoadingDefinition={loadingDefinitions.has(wordEntry.word)}
                     gameNames={gameNames}
                     isTemporary={false}
+                    onWordsChanged={loadWords}
                   />
                 ))}
               </>
@@ -286,7 +290,11 @@ const LearningLogModal = ({ isOpen, onClose, gameName }) => {
 
 /**
  * WordCard - Individual word entry in the learning log
+ * Supports noun/verb/adjective toggle with lazy API fetch.
  */
+const POS_VALUES = ['noun', 'verb', 'adjective'];
+const POS_LABELS = { noun: 'Noun', verb: 'Verb', adjective: 'Adj' };
+
 const WordCard = ({
   wordEntry,
   isFavorited,
@@ -295,7 +303,77 @@ const WordCard = ({
   isLoadingDefinition,
   gameNames,
   isTemporary,
+  onWordsChanged,
 }) => {
+  // Determine available POS — default to noun
+  const defaultPOS = wordEntry.nounDefinition
+    ? 'noun'
+    : wordEntry.verbDefinition
+    ? 'verb'
+    : wordEntry.adjectiveDefinition
+    ? 'adjective'
+    : 'noun';
+
+  const [activePOS, setActivePOS] = useState(defaultPOS);
+  const [posFetching, setPOSFetching] = useState(null); // which POS is currently fetching
+  const [posError, setPOSError] = useState(null);
+
+  const getLoadedFlag = (pos) => {
+    if (pos === 'noun') return wordEntry.nounLoaded;
+    if (pos === 'verb') return wordEntry.verbLoaded;
+    if (pos === 'adjective') return wordEntry.adjectiveLoaded;
+    return false;
+  };
+
+  const getDefinitionForPOS = (pos) => {
+    if (pos === 'noun') return wordEntry.nounDefinition;
+    if (pos === 'verb') return wordEntry.verbDefinition;
+    if (pos === 'adjective') return wordEntry.adjectiveDefinition;
+    return null;
+  };
+
+  const currentDef = getDefinitionForPOS(activePOS);
+  const isCurrentLoaded = getLoadedFlag(activePOS);
+
+  // Fallback display: noun → verb → adjective → generic
+  const displayDef = currentDef
+    || wordEntry.definition
+    || null;
+
+  const handlePOSClick = async (pos) => {
+    setActivePOS(pos);
+    setPOSError(null);
+
+    // Already loaded? Just switch UI.
+    if (getLoadedFlag(pos)) return;
+
+    // Lazy fetch from /api/dictionary
+    setPOSFetching(pos);
+    try {
+      const res = await fetch(
+        `/api/dictionary?word=${encodeURIComponent(wordEntry.word)}&pos=${pos}`
+      );
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+
+      // Persist into learning log engine (localStorage)
+      updateWordPOSDefinition(
+        wordEntry.word,
+        pos,
+        data.found ? data.definition : null,
+        true // mark as loaded
+      );
+
+      // Trigger parent refresh
+      if (onWordsChanged) onWordsChanged();
+    } catch (err) {
+      console.error(`[LearningLog] Failed to fetch ${pos} definition for ${wordEntry.word}:`, err);
+      setPOSError(`Failed to load ${pos} definition`);
+    } finally {
+      setPOSFetching(null);
+    }
+  };
+
   return (
     <div className={`border rounded-lg p-3 transition-all ${
       isTemporary
@@ -332,10 +410,51 @@ const WordCard = ({
         </div>
       </div>
 
+      {/* POS segmented control */}
+      <div className="mt-2 flex gap-1">
+        {POS_VALUES.map((pos) => {
+          const isActive = activePOS === pos;
+          const isLoading = posFetching === pos;
+          return (
+            <button
+              key={pos}
+              onClick={() => handlePOSClick(pos)}
+              disabled={isLoading}
+              className={`
+                px-3 py-1 text-xs font-medium rounded-md transition-all
+                ${isActive
+                  ? 'bg-wordle-correct text-white shadow-sm'
+                  : 'bg-surface hover:bg-surface-hover text-text-muted'
+                }
+                ${isLoading ? 'opacity-60 cursor-wait' : ''}
+              `}
+            >
+              {isLoading ? '⏳' : ''} {POS_LABELS[pos]}
+            </button>
+          );
+        })}
+      </div>
+
       {/* Definition section */}
-      {wordEntry.definition ? (
+      {posFetching === activePOS ? (
+        <div className="mt-2 text-xs text-wordle-present animate-pulse">
+          ⏳ Loading {activePOS} definition...
+        </div>
+      ) : posError && !isCurrentLoaded ? (
+        <div className="mt-2 text-xs text-wordle-absent">
+          ⚠️ {posError}
+        </div>
+      ) : isCurrentLoaded && !currentDef ? (
+        <div className="mt-2 text-sm text-text-muted italic">
+          No {activePOS} meaning found for &ldquo;{wordEntry.word}&rdquo;.
+        </div>
+      ) : currentDef ? (
         <div className="mt-2 text-sm text-text-muted leading-relaxed">
-          {wordEntry.definition}
+          {currentDef}
+        </div>
+      ) : displayDef ? (
+        <div className="mt-2 text-sm text-text-muted leading-relaxed">
+          {displayDef}
         </div>
       ) : isLoadingDefinition ? (
         <div className="mt-2 text-xs text-wordle-present animate-pulse">

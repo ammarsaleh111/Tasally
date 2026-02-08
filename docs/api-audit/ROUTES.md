@@ -3,6 +3,7 @@
 Last updated: 2026-02-06
 
 ## Overview
+
 This document lists all API routes in the Ammar Times application with their methods, authentication requirements, request/response schemas, and expected error cases.
 
 ---
@@ -10,12 +11,13 @@ This document lists all API routes in the Ammar Times application with their met
 ## Public Routes (No Auth Required)
 
 ### Health Check
+
 - **Path**: `/api/health`
 - **Method**: `GET`
 - **Auth**: No
 - **Description**: Health check endpoint for monitoring database connectivity
 - **Request**: None
-- **Success Response**: 
+- **Success Response**:
   ```json
   {
     "ok": true,
@@ -34,6 +36,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 503: Database unavailable
 
 ### Theme Settings
+
 - **Path**: `/api/theme/settings`
 - **Method**: `GET`
 - **Auth**: No
@@ -53,6 +56,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Server error (returns defaults)
 
 ### Word Definition
+
 - **Path**: `/api/word-definition`
 - **Method**: `GET`
 - **Auth**: No
@@ -72,6 +76,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 400: Missing word parameter
 
 ### Word Validation
+
 - **Path**: `/api/word-validation`
 - **Method**: `POST`
 - **Auth**: No
@@ -89,6 +94,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 429: Rate limited (20/min per IP)
 
 ### Online Count
+
 - **Path**: `/api/presence/online-count`
 - **Method**: `GET`
 - **Auth**: No
@@ -114,6 +120,7 @@ This document lists all API routes in the Ammar Times application with their met
 ## Authentication Routes
 
 ### NextAuth Handlers
+
 - **Path**: `/api/auth/[...nextauth]`
 - **Methods**: `GET`, `POST`
 - **Auth**: Varies
@@ -123,6 +130,7 @@ This document lists all API routes in the Ammar Times application with their met
 - **Error Cases**: Varies by provider
 
 ### Register
+
 - **Path**: `/api/auth/register`
 - **Method**: `POST`
 - **Auth**: No
@@ -146,6 +154,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Database error
 
 ### Admin Login
+
 - **Path**: `/api/admin/login`
 - **Methods**: `GET`, `POST`, `DELETE`
 - **Auth**: No (creates session)
@@ -170,6 +179,7 @@ This document lists all API routes in the Ammar Times application with their met
 ## User Routes (Requires Authentication)
 
 ### Submit Game Result
+
 - **Path**: `/api/results`
 - **Method**: `POST`
 - **Auth**: Yes (user or guest)
@@ -202,6 +212,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Database error
 
 ### Link Guest Account
+
 - **Path**: `/api/link-guest`
 - **Method**: `POST`
 - **Auth**: Yes (user)
@@ -222,6 +233,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Database error
 
 ### Presence Heartbeat
+
 - **Path**: `/api/presence/heartbeat`
 - **Method**: `POST`
 - **Auth**: Yes (user)
@@ -244,6 +256,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Internal error
 
 ### Daily Leaderboard
+
 - **Path**: `/api/leaderboard/daily`
 - **Method**: `GET`
 - **Auth**: Yes (user)
@@ -279,6 +292,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Database error
 
 ### Monthly Leaderboard
+
 - **Path**: `/api/leaderboard/monthly`
 - **Method**: `GET`
 - **Auth**: Yes (user)
@@ -312,6 +326,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Database error
 
 ### Delete Account
+
 - **Path**: `/api/account/delete`
 - **Method**: `DELETE`
 - **Auth**: Yes (user)
@@ -331,6 +346,7 @@ This document lists all API routes in the Ammar Times application with their met
 ## Admin Routes (Requires Admin Auth)
 
 ### Admin Metrics
+
 - **Path**: `/api/admin/metrics`
 - **Method**: `GET`
 - **Auth**: Yes (admin)
@@ -354,6 +370,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Database error
 
 ### Admin Users List
+
 - **Path**: `/api/admin/users`
 - **Methods**: `GET`, `DELETE`
 - **Auth**: Yes (admin)
@@ -388,6 +405,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Database error
 
 ### Admin Delete User by ID
+
 - **Path**: `/api/admin/users/[id]`
 - **Method**: `DELETE`
 - **Auth**: Yes (admin)
@@ -405,6 +423,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Database error
 
 ### Admin Active Users
+
 - **Path**: `/api/admin/active-users`
 - **Method**: `GET`
 - **Auth**: Yes (admin)
@@ -435,6 +454,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Database error
 
 ### Admin Online Users
+
 - **Path**: `/api/admin/online-users`
 - **Method**: `GET`
 - **Auth**: Yes (admin)
@@ -465,6 +485,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Database error
 
 ### Admin Theme Management
+
 - **Path**: `/api/admin/theme`
 - **Methods**: `GET`, `PUT`, `POST`
 - **Auth**: Yes (admin)
@@ -501,6 +522,7 @@ This document lists all API routes in the Ammar Times application with their met
 ## Legacy/Internal Routes (File-backed, for backward compat)
 
 ### Players
+
 - **Path**: `/api/players`
 - **Methods**: `GET`, `POST`, `DELETE`
 - **Auth**: No (but rate limited)
@@ -513,6 +535,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Server error
 
 ### Activity
+
 - **Path**: `/api/activity`
 - **Methods**: `GET`, `POST`
 - **Auth**: No (but rate limited)
@@ -524,6 +547,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Server error
 
 ### Realtime Stream
+
 - **Path**: `/api/realtime/stream`
 - **Method**: `GET`
 - **Auth**: No (but rate limited)
@@ -532,6 +556,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 429: Too many connections per IP (max 3)
 
 ### Realtime Poll
+
 - **Path**: `/api/realtime/poll`
 - **Method**: `GET`
 - **Auth**: No
@@ -540,6 +565,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Server error
 
 ### Realtime Heartbeat
+
 - **Path**: `/api/realtime/heartbeat`
 - **Method**: `POST`
 - **Auth**: No (but rate limited)
@@ -551,6 +577,7 @@ This document lists all API routes in the Ammar Times application with their met
   - 500: Internal error
 
 ### Realtime Telemetry
+
 - **Path**: `/api/realtime/telemetry`
 - **Methods**: `GET`, `POST`
 - **Auth**: No (but rate limited)

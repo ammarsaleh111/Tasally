@@ -1,7 +1,7 @@
 import { db, gameResults, users } from "@/db";
 import { and, desc, eq, isNotNull, sql } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { requireAdminOrUser } from "@/server/auth";
 import { 
   buildLeaderboardCacheKey, 
   getOrComputeLeaderboard, 
@@ -9,7 +9,7 @@ import {
   cleanupExpiredLeaderboardCache 
 } from "@/lib/leaderboardCache";
 import { createRequestTimer, logRequestMetrics, trackDbQuery } from "@/lib/observability";
-import { checkRateLimit, rateLimitResponse, buildRateLimitKey, RATE_LIMITS } from "@/lib/rateLimit";
+import { checkRateLimit, rateLimitResponse, buildRateLimitKey, RATE_LIMITS, getClientIP } from "@/lib/rateLimit";
 
 const VALID_GAMES = [
   "wordle",
@@ -36,15 +36,19 @@ export async function GET(request: NextRequest) {
   const timer = createRequestTimer();
   
   try {
-    const session = await auth();
-    if (!session?.user?.id) {
+    // Allow admin OR authenticated user
+    let authResult;
+    try {
+      authResult = await requireAdminOrUser();
+    } catch {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const userId = session.user.id;
+    // Rate limiting: use userId for users, IP for admins
+    const rateLimitId = authResult.userId ?? getClientIP(request);
 
     // Rate limiting for leaderboard endpoint
-    const rateLimitKey = buildRateLimitKey("leaderboard:daily", userId);
+    const rateLimitKey = buildRateLimitKey("leaderboard:daily", rateLimitId);
     const rateResult = await checkRateLimit(
       rateLimitKey,
       RATE_LIMITS.LEADERBOARD.max,
@@ -60,7 +64,7 @@ export async function GET(request: NextRequest) {
         rateLimited: true,
         timestamp: new Date().toISOString(),
       });
-      return rateLimitResponse(rateResult, "/api/leaderboard/daily", userId);
+      return rateLimitResponse(rateResult, "/api/leaderboard/daily", rateLimitId);
     }
 
     const { searchParams } = request.nextUrl;

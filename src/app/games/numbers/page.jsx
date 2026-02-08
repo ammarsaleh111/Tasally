@@ -16,6 +16,7 @@ import Toast from '@/components/Toast';
 import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
+import { useGameContext } from '@/hooks/useGameContext';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import {
   getDailyPuzzle,
@@ -27,6 +28,8 @@ import {
 } from './numbersLogic';
 
 export default function NumbersGame() {
+  const { returnUrl, returnLabel, isGroupGame, groupName } = useGameContext();
+
   // Game state
   const [puzzle, setPuzzle] = useState(null);
   const [availableNumbers, setAvailableNumbers] = useState([]);
@@ -259,6 +262,8 @@ export default function NumbersGame() {
         onBadges={() => setShowBadgesDrawer(true)}
         // Learning Log removed - Numbers is not a word-based game
         gameComplete={gameComplete}
+        returnUrl={returnUrl}
+        returnLabel={returnLabel}
       />
 
       <BadgeToastQueue
