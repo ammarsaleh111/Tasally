@@ -409,7 +409,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
                 <div className="relative">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-strands-ribbon animate-pulse"></div>
-                    <div className="text-[10px] uppercase tracking-widest text-strands-ribbon font-bold">Today's Theme</div>
+                    <div className="text-[10px] uppercase tracking-widest text-strands-ribbon font-bold">Today&apos;s Theme</div>
                   </div>
                   <div className="text-xl font-serif font-bold text-foreground leading-tight">
                     {puzzle.theme}

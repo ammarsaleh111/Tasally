@@ -4,6 +4,13 @@ const nextConfig = {
   
   // Security Headers - Comprehensive Protection
   async headers() {
+    const isProductionContext =
+      process.env.CONTEXT ? process.env.CONTEXT === 'production' : process.env.NODE_ENV === 'production';
+
+    const robotsHeader = isProductionContext
+      ? { key: 'X-Robots-Tag', value: 'index, follow, max-image-preview:large' }
+      : { key: 'X-Robots-Tag', value: 'noindex, nofollow' };
+
     return [
       {
         source: '/:path*',
@@ -54,6 +61,7 @@ const nextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
           },
+          robotsHeader,
         ],
       },
     ];

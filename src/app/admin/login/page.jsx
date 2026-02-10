@@ -6,11 +6,13 @@ import SiteHeader from '@/components/SiteHeader';
 import { signOut } from 'next-auth/react';
 import { replaceSession } from '@/utils/sessionManager';
 
+const ADMIN_USER_ID = 'admin';
+
 export default function AdminLoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirect') || '/admin';
-  const [username, setUsername] = useState('admin');
+  const [username, setUsername] = useState(ADMIN_USER_ID);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [status, setStatus] = useState('idle');
@@ -25,8 +27,8 @@ export default function AdminLoginPage() {
         const data = await res.json();
         if (mounted && data.authenticated) {
           replaceSession({
-            userId: username,
-            displayName: username,
+            userId: ADMIN_USER_ID,
+            displayName: ADMIN_USER_ID,
             role: 'ADMIN',
             createdAt: new Date().toISOString(),
             token: null,

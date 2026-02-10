@@ -199,6 +199,9 @@ In Netlify dashboard, go to **Site settings > Environment variables** and add:
 | `NEXTAUTH_URL`         | `https://your-site-name.netlify.app`     |
 | `GOOGLE_CLIENT_ID`     | Your Google OAuth client ID              |
 | `GOOGLE_CLIENT_SECRET` | Your Google OAuth client secret          |
+| `NEXT_PUBLIC_SITE_URL` | Canonical public URL (e.g. `https://ammartimes.tech`) |
+| `NEXT_PUBLIC_CANONICAL_HOST` | Canonical host only (e.g. `ammartimes.tech`) |
+| `NEXT_PUBLIC_CANONICAL_PROTOCOL` | Usually `https` |
 
 ⚠️ **CRITICAL**: Use a **different** `NEXTAUTH_SECRET` for production than your local dev environment.
 
@@ -215,6 +218,16 @@ In Netlify dashboard, go to **Site settings > Environment variables** and add:
 After adding environment variables, trigger a redeploy:
 
 - **Deploys > Trigger deploy > Deploy site**
+
+### 6. SEO Verification (Recommended)
+
+After deploy, verify:
+
+- `https://your-domain/robots.txt`
+- `https://your-domain/sitemap.xml`
+- Non-canonical hosts redirect to your canonical host
+
+Then submit sitemap in Google Search Console.
 
 ---
 

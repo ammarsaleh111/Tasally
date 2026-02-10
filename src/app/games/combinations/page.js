@@ -505,7 +505,7 @@ export default function CombinationsPage() {
       />
 
       {/* Daily Reminder */}
-      <DailyReminder />
+      <DailyReminder gameName="combinations" />
 
       {/* Back link */}
       <div className="text-center py-4">

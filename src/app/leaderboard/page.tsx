@@ -169,7 +169,7 @@ export default function LeaderboardPage() {
     }, 10_000);
 
     return () => clearInterval(interval);
-  }, [isAllowed, isLoadingSession, period, game, session?.role]);
+  }, [isAllowed, isLoadingSession, period, game, session?.role, router]);
 
 
   const getRankDisplay = (rank: number) => {
@@ -276,7 +276,7 @@ export default function LeaderboardPage() {
         </div>
 
         {/* Content - Seasonal Card */}
-        {status === "loading" ? (
+        {isLoadingSession ? (
           <SeasonTexturedCard className="overflow-hidden">
             <div className="flex items-center justify-center py-16">
               <div className="flex flex-col items-center gap-3">

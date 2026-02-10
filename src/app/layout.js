@@ -11,6 +11,7 @@ import SessionBridge from "@/components/SessionBridge";
 import { TutorialProvider } from "@/components/tutorial/TutorialProvider";
 import GlobalTutorial from "@/components/tutorial/GlobalTutorial";
 import PresenceProvider from "@/components/PresenceProvider";
+import { isProductionDeploy, siteDescription, siteName, siteUrl } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,16 +30,94 @@ const cairo = Cairo({
 });
 
 export const metadata = {
-  title: "Ammar Times",
-  description: "Daily Games Platform",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Ammar Times | Daily Puzzle Games",
+    template: "%s | Ammar Times",
+  },
+  description: siteDescription,
+  applicationName: siteName,
+  alternates: {
+    canonical: "/",
+  },
+  keywords: [
+    "daily puzzle games",
+    "word games",
+    "daily word game",
+    "wordle alternative",
+    "connections game",
+    "mini crossword",
+    "spelling bee game",
+    "trivia game",
+    "numbers puzzle",
+  ],
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName,
+    title: "Ammar Times | Daily Puzzle Games",
+    description: siteDescription,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Ammar Times daily puzzle games",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ammar Times | Daily Puzzle Games",
+    description: siteDescription,
+    images: ["/twitter-image"],
+  },
+  robots: isProductionDeploy
+    ? {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+          "max-video-preview": -1,
+        },
+      }
+    : {
+        index: false,
+        follow: false,
+        googleBot: {
+          index: false,
+          follow: false,
+        },
+      },
 };
 
 export default function RootLayout({ children }) {
+  const webSiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    description: siteDescription,
+    url: siteUrl,
+    inLanguage: "en",
+    publisher: {
+      "@type": "Organization",
+      name: siteName,
+      url: siteUrl,
+    },
+  };
+
   return (
     <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${cairo.variable} antialiased bg-background text-foreground transition-colors duration-300`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
+        />
         <AuthProvider>
           <SessionBridge />
           <PresenceProvider intervalMs={90000}>

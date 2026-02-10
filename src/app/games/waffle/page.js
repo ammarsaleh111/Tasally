@@ -415,7 +415,7 @@ export default function WafflePage() {
       />
 
       {/* Daily Reminder */}
-      <DailyReminder />
+      <DailyReminder gameName="waffle" />
 
       {/* Back link */}
       <div className="text-center py-4">

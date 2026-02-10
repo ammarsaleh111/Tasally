@@ -17,7 +17,8 @@ import { useGameContext } from "@/hooks/useGameContext";
 import { useTutorial } from "@/hooks/useTutorial";
 import { submitResult } from "@/utils/resultsClient";
 import { getSession } from "@/utils/sessionManager";
-import { getGameStats } from "@/utils/profileManager";
+import { addWordsToLog } from "@/utils/learningLogEngine";
+import { getGameStats, getTodayString, recordGameResult } from "@/utils/profileManager";
 import {
   DIRECTIONS,
   MAX_REVEALS_PER_PUZZLE,
@@ -205,8 +206,6 @@ export default function CrosswordPage() {
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [badgeUnlocks, setBadgeUnlocks] = useState([]);
-  const [badgeEarnedRecap, setBadgeEarnedRecap] = useState(null);
-  const [showBadgeRecap, setShowBadgeRecap] = useState(false);
 
   // Tutorial
   const tutorial = GAME_TUTORIALS.crossword;
@@ -214,6 +213,11 @@ export default function CrosswordPage() {
     isOpen: isTutorialOpen,
     openManual: openHowToPlay,
     close: closeTutorial,
+    skip: skipTutorial,
+    complete: completeTutorial,
+    updateStep: updateTutorialStep,
+    startMode,
+    lastStep,
   } = useTutorial(tutorial?.id);
 
   const [startedAt, setStartedAt] = useState(null);
@@ -340,6 +344,9 @@ export default function CrosswordPage() {
         const initialActiveCell = restored?.activeCell || findFirstPlayableCell(normalizedPuzzle);
         const initialDirection = restored?.direction || DIRECTIONS.ACROSS;
         const initialHints = restored?.hintsUsed || EMPTY_HINTS;
+        const restoredElapsedSeconds = restored?.elapsedSeconds || 0;
+        const initialComputed = recomputeSolvedAndLocked(normalizedPuzzle, nextModel, initialLetters);
+        const restoredSolved = isPuzzleSolved(nextModel, initialComputed.solvedSegmentIds);
 
         if (cancelled) return;
 
@@ -356,8 +363,12 @@ export default function CrosswordPage() {
         setActiveTab(initialDirection);
         setHintsUsed(initialHints);
 
-        setStartedAt(Date.now());
-        setElapsedSeconds(0);
+        setStartedAt(Date.now() - restoredElapsedSeconds * 1000);
+        setElapsedSeconds(restoredElapsedSeconds);
+        setSubmitState(restoredSolved ? "submitted" : "idle");
+        setIsComplete(restoredSolved);
+        completionSubmitRef.current = restoredSolved;
+        previousSolvedRef.current = initialComputed.solvedSegmentIds;
         setIsHydrated(true);
       } catch (error) {
         if (cancelled) return;
@@ -406,6 +417,30 @@ export default function CrosswordPage() {
     if (!isComplete || completionSubmitRef.current || !requestedDate) return;
 
     completionSubmitRef.current = true;
+    const result = {
+      date: getTodayString(),
+      win: true,
+      time: elapsedSeconds,
+      puzzleId: `crossword-${requestedDate}`,
+      perfect: hintsUsed.revealsUsed === 0,
+    };
+    const achievements = recordGameResult("crossword", result);
+    setStats(getGameStats("crossword"));
+    setBadgeUnlocks(achievements || []);
+
+    if (model?.segments?.length) {
+      const solvedWords = Array.from(
+        new Set(
+          model.segments
+            .map((segment) => segment.solution)
+            .filter((word) => typeof word === "string" && word.length > 0)
+        )
+      );
+      if (solvedWords.length) {
+        addWordsToLog(solvedWords, "crossword");
+      }
+    }
+
     setSubmitState("submitting");
 
     submitResult({
@@ -417,12 +452,19 @@ export default function CrosswordPage() {
     })
       .then(() => setSubmitState("submitted"))
       .catch(() => setSubmitState("error"));
-  }, [isComplete, requestedDate, servedDate, elapsedSeconds]);
+  }, [isComplete, requestedDate, servedDate, elapsedSeconds, hintsUsed.revealsUsed, model]);
 
   useEffect(() => {
     if (!isHydrated || !puzzle || !requestedDate) return;
 
-    const payload = buildProgressPayload({ letters, solvedSegmentIds, hintsUsed, activeCell, direction });
+    const payload = buildProgressPayload({
+      letters,
+      solvedSegmentIds,
+      hintsUsed,
+      activeCell,
+      direction,
+      elapsedSeconds,
+    });
 
     if (storageMode === "db") {
       if (autosaveTimeoutRef.current) clearTimeout(autosaveTimeoutRef.current);
@@ -437,7 +479,7 @@ export default function CrosswordPage() {
     }
 
     saveGuestProgress(requestedDate, payload);
-  }, [isHydrated, storageMode, requestedDate, puzzle, letters, solvedSegmentIds, hintsUsed, activeCell, direction]);
+  }, [isHydrated, storageMode, requestedDate, puzzle, letters, solvedSegmentIds, hintsUsed, activeCell, direction, elapsedSeconds]);
 
   const selectSegment = useCallback((segment) => {
     if (!segment?.cells?.length) return;
@@ -996,14 +1038,11 @@ export default function CrosswordPage() {
 
       <BadgeDetailsSheet 
         badge={selectedBadge} 
+        isOpen={!!selectedBadge}
         onClose={() => setSelectedBadge(null)} 
       />
 
-      <BadgeEarnedRecap 
-        badge={badgeEarnedRecap}
-        isOpen={showBadgeRecap}
-        onClose={() => setShowBadgeRecap(false)}
-      />
+      <BadgeEarnedRecap badges={badgeUnlocks} />
 
       <BadgesProgressWidget />
 
@@ -1012,12 +1051,18 @@ export default function CrosswordPage() {
         onClose={() => setShowBadgesDrawer(false)}
       />
 
-      <DailyReminder gameType="crossword" />
+      <DailyReminder gameName="crossword" />
 
       {tutorial && (
         <TutorialPanel 
           isOpen={isTutorialOpen}
+          tutorial={tutorial}
+          startAt={startMode === "resume" ? lastStep : 0}
+          resumeStep={lastStep}
+          onStepChange={updateTutorialStep}
           onClose={closeTutorial}
+          onSkip={skipTutorial}
+          onComplete={completeTutorial}
         />
       )}
     </div>

@@ -10,36 +10,34 @@ import {
   useAppSession,
 } from "@/utils/sessionManager";
 
-function buildUserSession(nextSession: any): AppSession {
-  const displayName =
-    nextSession?.user?.name ??
-    nextSession?.user?.email?.split("@")[0] ??
-    "User";
-  return {
-    userId: nextSession?.user?.id ?? null,
-    displayName,
-    role: "USER",
-    createdAt: new Date().toISOString(),
-    token: null,
-    version: 1,
-  };
-}
-
 export default function SessionBridge() {
   const { data: nextSession, status } = useSession();
   const appSession = useAppSession();
+  const nextUserId = nextSession?.user?.id ?? null;
+  const nextUserName = nextSession?.user?.name ?? null;
+  const nextUserEmail = nextSession?.user?.email ?? null;
+  const appRole = appSession?.role ?? null;
+  const appUserId = appSession?.userId ?? null;
   /** Track which userId we've already linked, to avoid repeated API calls */
   const linkedUserRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (status === "loading") return;
 
-    if (status === "authenticated" && nextSession?.user?.id) {
-      const nextAppSession = buildUserSession(nextSession);
+    if (status === "authenticated" && nextUserId) {
+      const displayName = nextUserName ?? nextUserEmail?.split("@")[0] ?? "User";
+      const nextAppSession: AppSession = {
+        userId: nextUserId,
+        displayName,
+        role: "USER",
+        createdAt: new Date().toISOString(),
+        token: null,
+        version: 1,
+      };
       const needsReplace =
         !appSession ||
-        appSession.role !== "USER" ||
-        appSession.userId !== nextAppSession.userId;
+        appRole !== "USER" ||
+        appUserId !== nextAppSession.userId;
 
       if (needsReplace) {
         fetch("/api/admin/login", { method: "DELETE" }).catch(() => null);
@@ -53,8 +51,8 @@ export default function SessionBridge() {
       //   3. Sets/updates the identity_id cookie
       // We then override the session displayName so the UI shows
       // the identity name, NOT the Google profile name.
-      if (linkedUserRef.current !== nextSession.user.id) {
-        linkedUserRef.current = nextSession.user.id;
+      if (linkedUserRef.current !== nextUserId) {
+        linkedUserRef.current = nextUserId;
         fetch("/api/identity/link", { method: "POST" })
           .then((res) => (res.ok ? res.json() : null))
           .then((data) => {
@@ -68,17 +66,18 @@ export default function SessionBridge() {
       return;
     }
 
-    if (status === "unauthenticated" && appSession?.role === "USER") {
+    if (status === "unauthenticated" && appRole === "USER") {
       linkedUserRef.current = null;
       clearSession();
     }
   }, [
     status,
-    nextSession?.user?.id,
-    nextSession?.user?.name,
-    nextSession?.user?.email,
-    appSession?.role,
-    appSession?.userId,
+    nextUserId,
+    nextUserName,
+    nextUserEmail,
+    appRole,
+    appUserId,
+    appSession,
   ]);
 
   return null;

@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable react-hooks/set-state-in-effect */
 
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { secureGetItem, secureSetItem } from '@/utils/secureStorage';

@@ -43,7 +43,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 declare global {
-  // eslint-disable-next-line no-var
   var __drizzleClient: ReturnType<typeof postgres> | undefined;
 }
 

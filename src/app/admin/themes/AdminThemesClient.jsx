@@ -26,6 +26,7 @@ const DOMINANT_THEMES = [
 export default function AdminThemesClient() {
   const router = useRouter();
   const session = useAppSession();
+  const sessionRole = session?.role;
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -81,11 +82,11 @@ export default function AdminThemesClient() {
   }, [fetchSettings]);
 
   useEffect(() => {
-    if (!session) return;
-    if (session.role !== 'ADMIN') {
+    if (!sessionRole) return;
+    if (sessionRole !== 'ADMIN') {
       router.replace('/login?next=/admin/themes');
     }
-  }, [session?.role, router]);
+  }, [sessionRole, router]);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));

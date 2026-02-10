@@ -636,13 +636,16 @@ function ensureHintsState(rawHints) {
   };
 }
 
-export function buildProgressPayload({ letters, solvedSegmentIds, hintsUsed, activeCell, direction }) {
+export function buildProgressPayload({ letters, solvedSegmentIds, hintsUsed, activeCell, direction, elapsedSeconds = 0 }) {
   return {
     letters,
     solvedSegmentIds: Array.from(solvedSegmentIds || []),
     hintsUsed: ensureHintsState(hintsUsed),
     activeCell,
     direction,
+    elapsedSeconds: Number.isFinite(Number(elapsedSeconds))
+      ? Math.max(0, Math.floor(Number(elapsedSeconds)))
+      : 0,
     savedAt: new Date().toISOString(),
   };
 }
@@ -680,11 +683,16 @@ export function normalizeRestoredProgress(rawProgress, puzzle) {
     ? DIRECTIONS.DOWN
     : DIRECTIONS.ACROSS;
 
+  const elapsedSeconds = Number.isFinite(Number(rawProgress.elapsedSeconds))
+    ? Math.max(0, Math.floor(Number(rawProgress.elapsedSeconds)))
+    : 0;
+
   return {
     letters,
     activeCell: safeActiveCell,
     direction,
     hintsUsed: ensureHintsState(rawProgress.hintsUsed),
+    elapsedSeconds,
   };
 }
 

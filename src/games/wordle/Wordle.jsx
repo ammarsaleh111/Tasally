@@ -136,7 +136,7 @@ export default function WordleGame() {
   }, [winStorageKey]);
 
   // Update stats when game ends using profileManager
-  const updateStats = (won, guessCount, latestGuesses) => {
+  const updateStats = useCallback((won, guessCount, latestGuesses) => {
     const sourceGuesses = latestGuesses || guessesRef.current;
     const confirmedGuesses = sourceGuesses.filter(guess => !guess.pending);
     const result = {
@@ -174,7 +174,7 @@ export default function WordleGame() {
     
     // Show badges
     setBadgeUnlocks(achievements || []);
-  };
+  }, [mode, wordLength, solution]);
 
   /**
    * Validates that a word matches the expected length.
@@ -409,7 +409,7 @@ export default function WordleGame() {
     } finally {
       setIsChecking(false);
     }
-  }, [gameStatus, view, isChecking, currentGuess, wordLength, isWordLocallyKnown, syncGuesses, validateWordAsync, triggerInvalidWordFeedback, evaluateGuess, solution, handleConfirmedGuess]);
+  }, [gameStatus, view, isChecking, currentGuess, wordLength, syncGuesses, triggerInvalidWordFeedback, solution, handleConfirmedGuess]);
 
   const onKey = useCallback((key) => {
     if (isTutorialOpen) return;

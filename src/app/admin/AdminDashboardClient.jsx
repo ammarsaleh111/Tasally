@@ -14,6 +14,7 @@ const PAGE_SIZE = 25;
 export default function AdminDashboardClient() {
   const router = useRouter();
   const session = useAppSession();
+  const sessionRole = session?.role;
 
   // Stats
   const [stats, setStats] = useState(null);
@@ -104,11 +105,11 @@ export default function AdminDashboardClient() {
   }, [loadUsers, debouncedQuery, currentPage]);
 
   useEffect(() => {
-    if (!session) return;
-    if (session.role !== 'ADMIN') {
+    if (!sessionRole) return;
+    if (sessionRole !== 'ADMIN') {
       router.replace('/login?next=/admin');
     }
-  }, [session?.role, router]);
+  }, [sessionRole, router]);
 
   // ─── Page navigation ───
   const goToPage = (page) => {
