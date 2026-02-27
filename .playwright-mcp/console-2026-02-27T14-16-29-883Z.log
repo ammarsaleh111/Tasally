@@ -1,0 +1,15 @@
+[      73ms] [WARNING] [Realtime] Heartbeat failed: TypeError: Failed to fetch
+    at sendHeartbeat (http://localhost:3000/_next/static/chunks/src_eef3354f._.js:5553:32)
+    at saveSession (http://localhost:3000/_next/static/chunks/src_eef3354f._.js:5758:157)
+    at createNewSession (http://localhost:3000/_next/static/chunks/src_eef3354f._.js:5748:5)
+    at getSession (http://localhost:3000/_next/static/chunks/src_eef3354f._.js:5720:12)
+    at http://localhost:3000/_next/static/chunks/src_eef3354f._.js:6108:25 @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[      73ms] [WARNING] [Realtime] Heartbeat failed: TypeError: Failed to fetch
+    at sendHeartbeat (http://localhost:3000/_next/static/chunks/src_eef3354f._.js:5553:32)
+    at http://localhost:3000/_next/static/chunks/src_eef3354f._.js:5778:165 @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[      73ms] [WARNING] [Realtime] Heartbeat failed: TypeError: Failed to fetch
+    at sendHeartbeat (http://localhost:3000/_next/static/chunks/src_eef3354f._.js:5553:32)
+    at saveSession (http://localhost:3000/_next/static/chunks/src_eef3354f._.js:5758:157)
+    at http://localhost:3000/_next/static/chunks/src_eef3354f._.js:6111:13 @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[  109015ms] [WARNING] [Tutorial] Element not found or hidden: [data-tutorial="how-to-play"] @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297
+[  126100ms] [WARNING] [Tutorial] Element not found or hidden: [data-tutorial="how-to-play"] @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:2297

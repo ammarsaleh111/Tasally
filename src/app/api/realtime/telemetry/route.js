@@ -8,7 +8,7 @@
  * - START events always persisted for analytics
  */
 
-import { updateGameState } from '../stream/route';
+import { updateGameState } from '../store';
 import { db, gameEvents } from '@/db';
 import { checkRateLimit, rateLimitResponse, buildRateLimitKey, RATE_LIMITS } from '@/lib/rateLimit';
 import { createRequestTimer, logRequestMetrics, trackDbQuery } from '@/lib/observability';

@@ -1,0 +1,482 @@
+{
+  "2026-04-01": {
+    "fragments": [
+      "note",
+      "heart",
+      "s",
+      "clean",
+      "able",
+      "check"
+    ],
+    "targetScore": 80,
+    "bonusWords": [
+      "cleansable",
+      "cleanable",
+      "checkable"
+    ]
+  },
+  "2026-04-02": {
+    "fragments": [
+      "wave",
+      "s",
+      "hand",
+      "un",
+      "track",
+      "bright"
+    ],
+    "targetScore": 77,
+    "bonusWords": [
+      "sunbright",
+      "unbright",
+      "untracks"
+    ]
+  },
+  "2026-04-03": {
+    "fragments": [
+      "line",
+      "able",
+      "s",
+      "heart",
+      "snow",
+      "ing"
+    ],
+    "targetScore": 86,
+    "bonusWords": [
+      "snowlines",
+      "lineable",
+      "hearting"
+    ]
+  },
+  "2026-04-04": {
+    "fragments": [
+      "safe",
+      "er",
+      "note",
+      "s",
+      "mind",
+      "build"
+    ],
+    "targetScore": 85,
+    "bonusWords": [
+      "builders",
+      "builder",
+      "minders"
+    ]
+  },
+  "2026-04-05": {
+    "fragments": [
+      "foot",
+      "sound",
+      "build",
+      "time",
+      "path",
+      "s"
+    ],
+    "targetScore": 81,
+    "bonusWords": [
+      "footpaths",
+      "footpath",
+      "sounds"
+    ]
+  },
+  "2026-04-06": {
+    "fragments": [
+      "work",
+      "track",
+      "able",
+      "over",
+      "under",
+      "draw"
+    ],
+    "targetScore": 78,
+    "bonusWords": [
+      "trackable",
+      "underwork",
+      "underdraw"
+    ]
+  },
+  "2026-04-07": {
+    "fragments": [
+      "slow",
+      "goal",
+      "work",
+      "re",
+      "s",
+      "bright"
+    ],
+    "targetScore": 75,
+    "bonusWords": [
+      "brightworks",
+      "brightwork",
+      "brights"
+    ]
+  },
+  "2026-04-08": {
+    "fragments": [
+      "re",
+      "er",
+      "craft",
+      "hand",
+      "pre",
+      "press"
+    ],
+    "targetScore": 92,
+    "bonusWords": [
+      "handcraft",
+      "handpress",
+      "represser"
+    ]
+  },
+  "2026-04-09": {
+    "fragments": [
+      "write",
+      "build",
+      "note",
+      "snow",
+      "re",
+      "s"
+    ],
+    "targetScore": 96,
+    "bonusWords": [
+      "rewrites",
+      "rebuilds",
+      "rewrite"
+    ]
+  },
+  "2026-04-10": {
+    "fragments": [
+      "ing",
+      "read",
+      "wind",
+      "er",
+      "dark",
+      "s"
+    ],
+    "targetScore": 102,
+    "bonusWords": [
+      "readings",
+      "windings",
+      "reading"
+    ]
+  },
+  "2026-04-11": {
+    "fragments": [
+      "mark",
+      "spin",
+      "check",
+      "skill",
+      "s",
+      "track"
+    ],
+    "targetScore": 102,
+    "bonusWords": [
+      "checkmarks",
+      "checkmark",
+      "checks"
+    ]
+  },
+  "2026-04-12": {
+    "fragments": [
+      "form",
+      "foot",
+      "goal",
+      "spin",
+      "s",
+      "ing"
+    ],
+    "targetScore": 92,
+    "bonusWords": [
+      "formings",
+      "footings",
+      "forming"
+    ]
+  },
+  "2026-04-13": {
+    "fragments": [
+      "spin",
+      "s",
+      "care",
+      "form",
+      "less",
+      "guard"
+    ],
+    "targetScore": 101,
+    "bonusWords": [
+      "guardless",
+      "spinless",
+      "careless"
+    ]
+  },
+  "2026-04-14": {
+    "fragments": [
+      "sound",
+      "hand",
+      "s",
+      "ing",
+      "press",
+      "slow"
+    ],
+    "targetScore": 97,
+    "bonusWords": [
+      "soundings",
+      "pressings",
+      "sounding"
+    ]
+  },
+  "2026-04-15": {
+    "fragments": [
+      "ing",
+      "play",
+      "s",
+      "ful",
+      "build",
+      "fresh"
+    ],
+    "targetScore": 105,
+    "bonusWords": [
+      "buildings",
+      "building",
+      "freshing"
+    ]
+  },
+  "2026-04-16": {
+    "fragments": [
+      "work",
+      "pre",
+      "anti",
+      "over",
+      "s",
+      "un"
+    ],
+    "targetScore": 114,
+    "bonusWords": [
+      "overworks",
+      "overwork",
+      "preworks"
+    ]
+  },
+  "2026-04-17": {
+    "fragments": [
+      "s",
+      "point",
+      "form",
+      "fire",
+      "care",
+      "stone"
+    ],
+    "targetScore": 113,
+    "bonusWords": [
+      "firestones",
+      "firestone",
+      "points"
+    ]
+  },
+  "2026-04-18": {
+    "fragments": [
+      "ed",
+      "time",
+      "s",
+      "rain",
+      "water",
+      "field"
+    ],
+    "targetScore": 106,
+    "bonusWords": [
+      "rainwaters",
+      "rainwater",
+      "fielded"
+    ]
+  },
+  "2026-04-19": {
+    "fragments": [
+      "ed",
+      "rain",
+      "data",
+      "wind",
+      "storm",
+      "er"
+    ],
+    "targetScore": 108,
+    "bonusWords": [
+      "rainstorm",
+      "windstorm",
+      "stormed"
+    ]
+  },
+  "2026-04-20": {
+    "fragments": [
+      "hand",
+      "re",
+      "track",
+      "ing",
+      "mind",
+      "under"
+    ],
+    "targetScore": 111,
+    "bonusWords": [
+      "underminding",
+      "retracking",
+      "underhand"
+    ]
+  },
+  "2026-04-21": {
+    "fragments": [
+      "draw",
+      "check",
+      "bright",
+      "s",
+      "ly",
+      "un"
+    ],
+    "targetScore": 117,
+    "bonusWords": [
+      "brightly",
+      "unchecks",
+      "uncheck"
+    ]
+  },
+  "2026-04-22": {
+    "fragments": [
+      "ed",
+      "er",
+      "form",
+      "ful",
+      "post",
+      "wave"
+    ],
+    "targetScore": 95,
+    "bonusWords": [
+      "postformed",
+      "postform",
+      "waveform"
+    ]
+  },
+  "2026-04-23": {
+    "fragments": [
+      "slow",
+      "s",
+      "step",
+      "craft",
+      "ing",
+      "grow"
+    ],
+    "targetScore": 96,
+    "bonusWords": [
+      "crafting",
+      "slowings",
+      "growings"
+    ]
+  },
+  "2026-04-24": {
+    "fragments": [
+      "turn",
+      "guard",
+      "er",
+      "re",
+      "mark",
+      "quick"
+    ],
+    "targetScore": 104,
+    "bonusWords": [
+      "returner",
+      "remarker",
+      "guarder"
+    ]
+  },
+  "2026-04-25": {
+    "fragments": [
+      "plan",
+      "turn",
+      "mark",
+      "re",
+      "post",
+      "foot"
+    ],
+    "targetScore": 104,
+    "bonusWords": [
+      "postmark",
+      "footmark",
+      "footpost"
+    ]
+  },
+  "2026-04-26": {
+    "fragments": [
+      "bright",
+      "draw",
+      "re",
+      "er",
+      "s",
+      "wave"
+    ],
+    "targetScore": 102,
+    "bonusWords": [
+      "redrawers",
+      "brighter",
+      "redrawer"
+    ]
+  },
+  "2026-04-27": {
+    "fragments": [
+      "er",
+      "less",
+      "care",
+      "read",
+      "foot",
+      "guard"
+    ],
+    "targetScore": 104,
+    "bonusWords": [
+      "footless",
+      "lesser",
+      "career"
+    ]
+  },
+  "2026-04-28": {
+    "fragments": [
+      "ly",
+      "rain",
+      "grow",
+      "ing",
+      "stone",
+      "water"
+    ],
+    "targetScore": 103,
+    "bonusWords": [
+      "growingly",
+      "watering",
+      "growing"
+    ]
+  },
+  "2026-04-29": {
+    "fragments": [
+      "grow",
+      "ment",
+      "able",
+      "s",
+      "pre",
+      "fire"
+    ],
+    "targetScore": 107,
+    "bonusWords": [
+      "growable",
+      "fireable",
+      "prefires"
+    ]
+  },
+  "2026-04-30": {
+    "fragments": [
+      "smart",
+      "ed",
+      "ing",
+      "draw",
+      "s",
+      "water"
+    ],
+    "targetScore": 96,
+    "bonusWords": [
+      "waterings",
+      "smarting",
+      "drawings"
+    ]
+  }
+}

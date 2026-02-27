@@ -14,7 +14,7 @@ const GlobalTutorial = () => {
     updateStep,
     startMode,
     lastStep,
-  } = useTutorial(GLOBAL_TUTORIAL.id, { auto: true });
+  } = useTutorial(GLOBAL_TUTORIAL.id, { auto: false });
 
   return (
     <TutorialPanel

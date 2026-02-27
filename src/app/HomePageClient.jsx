@@ -11,6 +11,7 @@ import { BADGES } from '@/utils/badgesEngine';
 import { getActiveTheme } from '@/utils/themeEngine';
 import { useTutorial } from '@/hooks/useTutorial';
 import { GLOBAL_TUTORIAL } from '@/data/tutorials';
+import InstallAppHeroButton from '@/components/InstallAppHeroButton';
 import {
   useSeasonIdentity,
   SeasonPageHeader,
@@ -103,7 +104,9 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[hsl(var(--background))] text-[hsl(var(--foreground))] overflow-hidden">
+    <div className="relative min-h-screen flex flex-col bg-[hsl(var(--background))] text-[hsl(var(--foreground))] overflow-hidden">
+      <InstallAppHeroButton />
+      
       {/* HERO (same direction as your old page) */}
       <section className="flex-1 flex flex-col items-center justify-center px-4 py-16 relative overflow-hidden">
         {/* Lovable-style animated background */}

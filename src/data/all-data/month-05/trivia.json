@@ -1,0 +1,3722 @@
+{
+  "2026-05-01": [
+    {
+      "question": "What is 7 + 14?",
+      "options": [
+        "20",
+        "23",
+        "21",
+        "25"
+      ],
+      "answer": "21",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 4 × 12 + 5.",
+      "options": [
+        "52",
+        "50",
+        "53",
+        "60"
+      ],
+      "answer": "53",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 6 liters?",
+      "options": [
+        "6348",
+        "5522",
+        "5984",
+        "6000"
+      ],
+      "answer": "6000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1643 belongs to which century?",
+      "options": [
+        "18",
+        "16",
+        "17",
+        "19"
+      ],
+      "answer": "17",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from T, move 10 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "C",
+        "K",
+        "D",
+        "E"
+      ],
+      "answer": "D",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 13 two-point shots and 3 three-point shots. How many points is that?",
+      "options": [
+        "39",
+        "35",
+        "29",
+        "31"
+      ],
+      "answer": "35",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 5 rows and 7 columns. How many cells are in the grid?",
+      "options": [
+        "35",
+        "30",
+        "31",
+        "38"
+      ],
+      "answer": "35",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 7 measures with 2 beats per measure. How many beats total?",
+      "options": [
+        "15",
+        "14",
+        "11",
+        "18"
+      ],
+      "answer": "14",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 11 km. How many km are represented by 6 cm?",
+      "options": [
+        "66",
+        "62",
+        "74",
+        "71"
+      ],
+      "answer": "66",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 15 divisible by 8?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-02": [
+    {
+      "question": "What is 11 + 10?",
+      "options": [
+        "19",
+        "17",
+        "25",
+        "21"
+      ],
+      "answer": "21",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 7 × 8 + 2.",
+      "options": [
+        "66",
+        "58",
+        "61",
+        "52"
+      ],
+      "answer": "58",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 18 liters?",
+      "options": [
+        "17567",
+        "15701",
+        "19482",
+        "18000"
+      ],
+      "answer": "18000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1299 belongs to which century?",
+      "options": [
+        "12",
+        "14",
+        "15",
+        "13"
+      ],
+      "answer": "13",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from D, move 12 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "O",
+        "P",
+        "W",
+        "Q"
+      ],
+      "answer": "P",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 6 two-point shots and 1 three-point shots. How many points is that?",
+      "options": [
+        "15",
+        "13",
+        "14",
+        "17"
+      ],
+      "answer": "15",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 3 rows and 3 columns. How many cells are in the grid?",
+      "options": [
+        "11",
+        "9",
+        "12",
+        "7"
+      ],
+      "answer": "9",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 7 measures with 3 beats per measure. How many beats total?",
+      "options": [
+        "21",
+        "16",
+        "15",
+        "20"
+      ],
+      "answer": "21",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 13 km. How many km are represented by 6 cm?",
+      "options": [
+        "82",
+        "78",
+        "75",
+        "84"
+      ],
+      "answer": "78",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 23 divisible by 11?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-03": [
+    {
+      "question": "What is 14 + 8?",
+      "options": [
+        "24",
+        "23",
+        "28",
+        "22"
+      ],
+      "answer": "22",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 5 × 11 + 9.",
+      "options": [
+        "65",
+        "64",
+        "72",
+        "66"
+      ],
+      "answer": "64",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 14 liters?",
+      "options": [
+        "14000",
+        "12019",
+        "13370",
+        "14158"
+      ],
+      "answer": "14000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1780 belongs to which century?",
+      "options": [
+        "19",
+        "20",
+        "18",
+        "17"
+      ],
+      "answer": "18",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from Y, move 7 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "F",
+        "G",
+        "M",
+        "E"
+      ],
+      "answer": "F",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 13 two-point shots and 2 three-point shots. How many points is that?",
+      "options": [
+        "26",
+        "35",
+        "36",
+        "32"
+      ],
+      "answer": "32",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 4 rows and 5 columns. How many cells are in the grid?",
+      "options": [
+        "20",
+        "15",
+        "22",
+        "14"
+      ],
+      "answer": "20",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 5 measures with 2 beats per measure. How many beats total?",
+      "options": [
+        "8",
+        "4",
+        "5",
+        "10"
+      ],
+      "answer": "10",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 13 km. How many km are represented by 11 cm?",
+      "options": [
+        "143",
+        "158",
+        "137",
+        "147"
+      ],
+      "answer": "143",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 19 divisible by 12?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-04": [
+    {
+      "question": "What is 17 + 5? (49)",
+      "options": [
+        "26",
+        "22",
+        "21",
+        "25"
+      ],
+      "answer": "22",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 8 × 3 + 14.",
+      "options": [
+        "38",
+        "42",
+        "43",
+        "44"
+      ],
+      "answer": "38",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 3 liters? (52)",
+      "options": [
+        "2860",
+        "2754",
+        "3020",
+        "3000"
+      ],
+      "answer": "3000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1174 belongs to which century?",
+      "options": [
+        "13",
+        "14",
+        "11",
+        "12"
+      ],
+      "answer": "12",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from A, move 3 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "K",
+        "C",
+        "E",
+        "D"
+      ],
+      "answer": "D",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 12 two-point shots and 6 three-point shots. How many points is that?",
+      "options": [
+        "45",
+        "40",
+        "42",
+        "39"
+      ],
+      "answer": "42",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 7 rows and 9 columns. How many cells are in the grid?",
+      "options": [
+        "69",
+        "63",
+        "60",
+        "56"
+      ],
+      "answer": "63",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 9 measures with 8 beats per measure. How many beats total?",
+      "options": [
+        "80",
+        "72",
+        "78",
+        "67"
+      ],
+      "answer": "72",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 17 km. How many km are represented by 3 cm?",
+      "options": [
+        "55",
+        "51",
+        "58",
+        "54"
+      ],
+      "answer": "51",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 7 divisible by 3?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-05": [
+    {
+      "question": "What is 17 + 11?",
+      "options": [
+        "30",
+        "29",
+        "28",
+        "32"
+      ],
+      "answer": "28",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 5 × 7 + 17.",
+      "options": [
+        "47",
+        "52",
+        "58",
+        "48"
+      ],
+      "answer": "52",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 17 liters?",
+      "options": [
+        "17000",
+        "14463",
+        "19298",
+        "16708"
+      ],
+      "answer": "17000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1188 belongs to which century?",
+      "options": [
+        "14",
+        "11",
+        "13",
+        "12"
+      ],
+      "answer": "12",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from I, move 7 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "O",
+        "Q",
+        "W",
+        "P"
+      ],
+      "answer": "P",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 11 two-point shots and 8 three-point shots. How many points is that?",
+      "options": [
+        "47",
+        "50",
+        "46",
+        "43"
+      ],
+      "answer": "46",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 5 rows and 8 columns. How many cells are in the grid?",
+      "options": [
+        "37",
+        "43",
+        "40",
+        "35"
+      ],
+      "answer": "40",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 5 measures with 6 beats per measure. How many beats total?",
+      "options": [
+        "33",
+        "35",
+        "25",
+        "30"
+      ],
+      "answer": "30",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 4 km. How many km are represented by 17 cm?",
+      "options": [
+        "68",
+        "62",
+        "78",
+        "75"
+      ],
+      "answer": "68",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 25 divisible by 5?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-06": [
+    {
+      "question": "What is 18 + 8?",
+      "options": [
+        "30",
+        "21",
+        "29",
+        "26"
+      ],
+      "answer": "26",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 3 × 9 + 9.",
+      "options": [
+        "33",
+        "36",
+        "37",
+        "39"
+      ],
+      "answer": "36",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 4 liters? (40)",
+      "options": [
+        "3657",
+        "3652",
+        "3901",
+        "4000"
+      ],
+      "answer": "4000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1110 belongs to which century?",
+      "options": [
+        "13",
+        "11",
+        "12",
+        "14"
+      ],
+      "answer": "12",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from O, move 5 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (61)",
+      "options": [
+        "T",
+        "S",
+        "A",
+        "U"
+      ],
+      "answer": "T",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 6 two-point shots and 5 three-point shots. How many points is that?",
+      "options": [
+        "26",
+        "30",
+        "21",
+        "27"
+      ],
+      "answer": "27",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 7 rows and 7 columns. How many cells are in the grid? (59)",
+      "options": [
+        "49",
+        "50",
+        "44",
+        "48"
+      ],
+      "answer": "49",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 9 measures with 3 beats per measure. How many beats total?",
+      "options": [
+        "26",
+        "27",
+        "24",
+        "31"
+      ],
+      "answer": "27",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 6 km. How many km are represented by 8 cm?",
+      "options": [
+        "48",
+        "41",
+        "52",
+        "42"
+      ],
+      "answer": "48",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 16 divisible by 12?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-07": [
+    {
+      "question": "What is 10 + 12?",
+      "options": [
+        "24",
+        "26",
+        "22",
+        "18"
+      ],
+      "answer": "22",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 6 × 7 + 9.",
+      "options": [
+        "51",
+        "58",
+        "46",
+        "49"
+      ],
+      "answer": "51",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 5 liters?",
+      "options": [
+        "4916",
+        "4980",
+        "5000",
+        "4572"
+      ],
+      "answer": "5000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1381 belongs to which century?",
+      "options": [
+        "13",
+        "16",
+        "15",
+        "14"
+      ],
+      "answer": "14",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from M, move 12 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "F",
+        "Y",
+        "Z",
+        "X"
+      ],
+      "answer": "Y",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 9 two-point shots and 3 three-point shots. How many points is that?",
+      "options": [
+        "26",
+        "23",
+        "27",
+        "33"
+      ],
+      "answer": "27",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 9 rows and 4 columns. How many cells are in the grid?",
+      "options": [
+        "42",
+        "30",
+        "32",
+        "36"
+      ],
+      "answer": "36",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 5 measures with 4 beats per measure. How many beats total?",
+      "options": [
+        "20",
+        "19",
+        "25",
+        "22"
+      ],
+      "answer": "20",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 6 km. How many km are represented by 11 cm?",
+      "options": [
+        "58",
+        "66",
+        "63",
+        "64"
+      ],
+      "answer": "66",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 9 divisible by 6?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-08": [
+    {
+      "question": "What is 10 + 20?",
+      "options": [
+        "25",
+        "30",
+        "26",
+        "32"
+      ],
+      "answer": "30",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 16 × 7 + 17.",
+      "options": [
+        "113",
+        "121",
+        "129",
+        "132"
+      ],
+      "answer": "129",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 42 liters?",
+      "options": [
+        "44066",
+        "46375",
+        "47813",
+        "42000"
+      ],
+      "answer": "42000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1671 belongs to which century?",
+      "options": [
+        "17",
+        "18",
+        "16",
+        "19"
+      ],
+      "answer": "17",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from O, move 5 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (81)",
+      "options": [
+        "S",
+        "A",
+        "T",
+        "U"
+      ],
+      "answer": "T",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 10 two-point shots and 8 three-point shots. How many points is that?",
+      "options": [
+        "47",
+        "43",
+        "44",
+        "49"
+      ],
+      "answer": "44",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 19 rows and 22 columns. How many cells are in the grid?",
+      "options": [
+        "418",
+        "425",
+        "466",
+        "376"
+      ],
+      "answer": "418",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 18 measures with 8 beats per measure. How many beats total? (60)",
+      "options": [
+        "127",
+        "151",
+        "144",
+        "165"
+      ],
+      "answer": "144",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 14 km. How many km are represented by 16 cm?",
+      "options": [
+        "213",
+        "199",
+        "196",
+        "224"
+      ],
+      "answer": "224",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 27 divisible by 9?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-09": [
+    {
+      "question": "What is 9 + 10?",
+      "options": [
+        "21",
+        "19",
+        "16",
+        "15"
+      ],
+      "answer": "19",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 19 × 5 + 16.",
+      "options": [
+        "104",
+        "111",
+        "100",
+        "126"
+      ],
+      "answer": "111",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 43 liters?",
+      "options": [
+        "43000",
+        "37708",
+        "42468",
+        "37918"
+      ],
+      "answer": "43000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1783 belongs to which century?",
+      "options": [
+        "17",
+        "18",
+        "20",
+        "19"
+      ],
+      "answer": "18",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from Q, move 8 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "Y",
+        "X",
+        "F",
+        "Z"
+      ],
+      "answer": "Y",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 27 two-point shots and 11 three-point shots. How many points is that? (60)",
+      "options": [
+        "87",
+        "98",
+        "82",
+        "95"
+      ],
+      "answer": "87",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 22 rows and 15 columns. How many cells are in the grid?",
+      "options": [
+        "330",
+        "374",
+        "345",
+        "331"
+      ],
+      "answer": "330",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 15 measures with 3 beats per measure. How many beats total?",
+      "options": [
+        "44",
+        "51",
+        "47",
+        "45"
+      ],
+      "answer": "45",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 17 km. How many km are represented by 29 cm?",
+      "options": [
+        "478",
+        "467",
+        "493",
+        "547"
+      ],
+      "answer": "493",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 18 divisible by 2?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-10": [
+    {
+      "question": "What is 33 + 11?",
+      "options": [
+        "45",
+        "44",
+        "47",
+        "41"
+      ],
+      "answer": "44",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 22 × 11 + 12.",
+      "options": [
+        "285",
+        "254",
+        "274",
+        "228"
+      ],
+      "answer": "254",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 20 liters?",
+      "options": [
+        "17038",
+        "19386",
+        "21410",
+        "20000"
+      ],
+      "answer": "20000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1352 belongs to which century?",
+      "options": [
+        "13",
+        "15",
+        "16",
+        "14"
+      ],
+      "answer": "14",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from O, move 1 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "Q",
+        "W",
+        "P",
+        "O"
+      ],
+      "answer": "P",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 12 two-point shots and 11 three-point shots. How many points is that?",
+      "options": [
+        "62",
+        "57",
+        "63",
+        "52"
+      ],
+      "answer": "57",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 19 rows and 21 columns. How many cells are in the grid?",
+      "options": [
+        "387",
+        "420",
+        "421",
+        "399"
+      ],
+      "answer": "399",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 19 measures with 4 beats per measure. How many beats total?",
+      "options": [
+        "82",
+        "76",
+        "69",
+        "78"
+      ],
+      "answer": "76",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 19 km. How many km are represented by 12 cm?",
+      "options": [
+        "229",
+        "228",
+        "246",
+        "242"
+      ],
+      "answer": "228",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 49 divisible by 3?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-11": [
+    {
+      "question": "What is 13 + 16?",
+      "options": [
+        "35",
+        "32",
+        "29",
+        "26"
+      ],
+      "answer": "29",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 16 × 4 + 12.",
+      "options": [
+        "83",
+        "78",
+        "76",
+        "77"
+      ],
+      "answer": "76",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 32 liters?",
+      "options": [
+        "36244",
+        "35817",
+        "30036",
+        "32000"
+      ],
+      "answer": "32000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1394 belongs to which century?",
+      "options": [
+        "15",
+        "16",
+        "14",
+        "13"
+      ],
+      "answer": "14",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from W, move 1 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "W",
+        "E",
+        "X",
+        "Y"
+      ],
+      "answer": "X",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 42 two-point shots and 6 three-point shots. How many points is that?",
+      "options": [
+        "95",
+        "102",
+        "109",
+        "113"
+      ],
+      "answer": "102",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 18 rows and 20 columns. How many cells are in the grid?",
+      "options": [
+        "379",
+        "360",
+        "359",
+        "315"
+      ],
+      "answer": "360",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 18 measures with 6 beats per measure. How many beats total?",
+      "options": [
+        "117",
+        "110",
+        "108",
+        "99"
+      ],
+      "answer": "108",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 5 km. How many km are represented by 12 cm? (78)",
+      "options": [
+        "61",
+        "62",
+        "69",
+        "60"
+      ],
+      "answer": "60",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 50 divisible by 6?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-12": [
+    {
+      "question": "What is 10 + 24?",
+      "options": [
+        "34",
+        "33",
+        "35",
+        "28"
+      ],
+      "answer": "34",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 21 × 3 + 9.",
+      "options": [
+        "68",
+        "79",
+        "80",
+        "72"
+      ],
+      "answer": "72",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 29 liters?",
+      "options": [
+        "26697",
+        "25191",
+        "28713",
+        "29000"
+      ],
+      "answer": "29000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1393 belongs to which century?",
+      "options": [
+        "16",
+        "14",
+        "15",
+        "13"
+      ],
+      "answer": "14",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from A, move 5 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "G",
+        "E",
+        "M",
+        "F"
+      ],
+      "answer": "F",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 44 two-point shots and 6 three-point shots. How many points is that?",
+      "options": [
+        "113",
+        "105",
+        "106",
+        "117"
+      ],
+      "answer": "106",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 22 rows and 8 columns. How many cells are in the grid?",
+      "options": [
+        "197",
+        "176",
+        "178",
+        "195"
+      ],
+      "answer": "176",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 17 measures with 8 beats per measure. How many beats total?",
+      "options": [
+        "122",
+        "118",
+        "136",
+        "150"
+      ],
+      "answer": "136",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 24 km. How many km are represented by 8 cm?",
+      "options": [
+        "192",
+        "193",
+        "176",
+        "177"
+      ],
+      "answer": "192",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 43 divisible by 9?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-13": [
+    {
+      "question": "What is 11 + 34?",
+      "options": [
+        "44",
+        "50",
+        "48",
+        "45"
+      ],
+      "answer": "45",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 8 × 3 + 12.",
+      "options": [
+        "35",
+        "41",
+        "37",
+        "36"
+      ],
+      "answer": "36",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 22 liters? (47)",
+      "options": [
+        "19560",
+        "23737",
+        "22753",
+        "22000"
+      ],
+      "answer": "22000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1718 belongs to which century?",
+      "options": [
+        "19",
+        "17",
+        "20",
+        "18"
+      ],
+      "answer": "18",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from S, move 2 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "V",
+        "B",
+        "T",
+        "U"
+      ],
+      "answer": "U",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 25 two-point shots and 18 three-point shots. How many points is that?",
+      "options": [
+        "104",
+        "105",
+        "110",
+        "108"
+      ],
+      "answer": "104",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 15 rows and 19 columns. How many cells are in the grid?",
+      "options": [
+        "264",
+        "285",
+        "261",
+        "303"
+      ],
+      "answer": "285",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 18 measures with 6 beats per measure. How many beats total? (86)",
+      "options": [
+        "108",
+        "121",
+        "124",
+        "116"
+      ],
+      "answer": "108",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 23 km. How many km are represented by 15 cm?",
+      "options": [
+        "358",
+        "342",
+        "345",
+        "329"
+      ],
+      "answer": "345",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 41 divisible by 9?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-14": [
+    {
+      "question": "What is 31 + 15?",
+      "options": [
+        "44",
+        "46",
+        "42",
+        "40"
+      ],
+      "answer": "46",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 21 × 11 + 1.",
+      "options": [
+        "217",
+        "223",
+        "232",
+        "199"
+      ],
+      "answer": "232",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 19 liters?",
+      "options": [
+        "20217",
+        "21382",
+        "17036",
+        "19000"
+      ],
+      "answer": "19000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1521 belongs to which century? (92)",
+      "options": [
+        "18",
+        "16",
+        "15",
+        "17"
+      ],
+      "answer": "16",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from Z, move 4 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "C",
+        "E",
+        "D",
+        "K"
+      ],
+      "answer": "D",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 11 two-point shots and 16 three-point shots. How many points is that?",
+      "options": [
+        "62",
+        "79",
+        "70",
+        "66"
+      ],
+      "answer": "70",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 20 rows and 11 columns. How many cells are in the grid?",
+      "options": [
+        "212",
+        "220",
+        "219",
+        "206"
+      ],
+      "answer": "220",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 20 measures with 8 beats per measure. How many beats total?",
+      "options": [
+        "148",
+        "142",
+        "160",
+        "181"
+      ],
+      "answer": "160",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 25 km. How many km are represented by 15 cm?",
+      "options": [
+        "325",
+        "389",
+        "375",
+        "385"
+      ],
+      "answer": "375",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 19 divisible by 12? (93)",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-15": [
+    {
+      "question": "What is 65 + 36?",
+      "options": [
+        "101",
+        "100",
+        "115",
+        "91"
+      ],
+      "answer": "101",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 39 × 2 + 16.",
+      "options": [
+        "81",
+        "85",
+        "84",
+        "94"
+      ],
+      "answer": "94",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 113 liters?",
+      "options": [
+        "113000",
+        "102519",
+        "101735",
+        "126583"
+      ],
+      "answer": "113000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1964 belongs to which century?",
+      "options": [
+        "22",
+        "21",
+        "19",
+        "20"
+      ],
+      "answer": "20",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from N, move 10 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (88)",
+      "options": [
+        "W",
+        "Y",
+        "E",
+        "X"
+      ],
+      "answer": "X",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 92 two-point shots and 7 three-point shots. How many points is that?",
+      "options": [
+        "188",
+        "235",
+        "205",
+        "209"
+      ],
+      "answer": "205",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 41 rows and 38 columns. How many cells are in the grid?",
+      "options": [
+        "1579",
+        "1559",
+        "1456",
+        "1558"
+      ],
+      "answer": "1558",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 43 measures with 5 beats per measure. How many beats total?",
+      "options": [
+        "234",
+        "215",
+        "222",
+        "240"
+      ],
+      "answer": "215",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 7 km. How many km are represented by 77 cm?",
+      "options": [
+        "489",
+        "558",
+        "538",
+        "539"
+      ],
+      "answer": "539",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 53 divisible by 7? (86)",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-16": [
+    {
+      "question": "What is 43 + 97?",
+      "options": [
+        "140",
+        "143",
+        "149",
+        "122"
+      ],
+      "answer": "140",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 19 × 2 + 5.",
+      "options": [
+        "48",
+        "37",
+        "45",
+        "43"
+      ],
+      "answer": "43",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 51 liters?",
+      "options": [
+        "45934",
+        "58548",
+        "51000",
+        "58506"
+      ],
+      "answer": "51000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1242 belongs to which century?",
+      "options": [
+        "14",
+        "12",
+        "13",
+        "15"
+      ],
+      "answer": "13",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from O, move 8 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "W",
+        "X",
+        "V",
+        "D"
+      ],
+      "answer": "W",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 62 two-point shots and 21 three-point shots. How many points is that?",
+      "options": [
+        "200",
+        "201",
+        "207",
+        "187"
+      ],
+      "answer": "187",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 43 rows and 17 columns. How many cells are in the grid?",
+      "options": [
+        "761",
+        "731",
+        "660",
+        "635"
+      ],
+      "answer": "731",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 33 measures with 4 beats per measure. How many beats total?",
+      "options": [
+        "141",
+        "144",
+        "118",
+        "132"
+      ],
+      "answer": "132",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 8 km. How many km are represented by 27 cm?",
+      "options": [
+        "216",
+        "228",
+        "207",
+        "192"
+      ],
+      "answer": "216",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 105 divisible by 7?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-17": [
+    {
+      "question": "What is 96 + 69?",
+      "options": [
+        "156",
+        "159",
+        "168",
+        "165"
+      ],
+      "answer": "165",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 46 × 8 + 12.",
+      "options": [
+        "424",
+        "401",
+        "388",
+        "380"
+      ],
+      "answer": "380",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 32 liters? (90)",
+      "options": [
+        "36736",
+        "28487",
+        "32000",
+        "29468"
+      ],
+      "answer": "32000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1263 belongs to which century?",
+      "options": [
+        "13",
+        "12",
+        "15",
+        "14"
+      ],
+      "answer": "13",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from X, move 9 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "H",
+        "G",
+        "F",
+        "N"
+      ],
+      "answer": "G",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 44 two-point shots and 20 three-point shots. How many points is that?",
+      "options": [
+        "135",
+        "136",
+        "148",
+        "160"
+      ],
+      "answer": "148",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 33 rows and 36 columns. How many cells are in the grid?",
+      "options": [
+        "1356",
+        "1151",
+        "1263",
+        "1188"
+      ],
+      "answer": "1188",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 38 measures with 7 beats per measure. How many beats total?",
+      "options": [
+        "241",
+        "268",
+        "283",
+        "266"
+      ],
+      "answer": "266",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 8 km. How many km are represented by 115 cm?",
+      "options": [
+        "980",
+        "920",
+        "934",
+        "854"
+      ],
+      "answer": "920",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 82 divisible by 2?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-18": [
+    {
+      "question": "What is 45 + 68?",
+      "options": [
+        "120",
+        "117",
+        "112",
+        "113"
+      ],
+      "answer": "113",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 52 × 12 + 8.",
+      "options": [
+        "608",
+        "563",
+        "653",
+        "632"
+      ],
+      "answer": "632",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 102 liters?",
+      "options": [
+        "102000",
+        "104076",
+        "110286",
+        "102643"
+      ],
+      "answer": "102000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1756 belongs to which century?",
+      "options": [
+        "17",
+        "19",
+        "20",
+        "18"
+      ],
+      "answer": "18",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from G, move 8 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "P",
+        "N",
+        "V",
+        "O"
+      ],
+      "answer": "O",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 27 two-point shots and 48 three-point shots. How many points is that?",
+      "options": [
+        "180",
+        "198",
+        "177",
+        "173"
+      ],
+      "answer": "198",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 20 rows and 46 columns. How many cells are in the grid?",
+      "options": [
+        "792",
+        "1055",
+        "831",
+        "920"
+      ],
+      "answer": "920",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 54 measures with 7 beats per measure. How many beats total?",
+      "options": [
+        "378",
+        "346",
+        "391",
+        "400"
+      ],
+      "answer": "378",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 20 km. How many km are represented by 75 cm?",
+      "options": [
+        "1500",
+        "1346",
+        "1637",
+        "1566"
+      ],
+      "answer": "1500",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 51 divisible by 9?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-19": [
+    {
+      "question": "What is 69 + 75?",
+      "options": [
+        "146",
+        "144",
+        "132",
+        "164"
+      ],
+      "answer": "144",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 54 × 10 + 1.",
+      "options": [
+        "541",
+        "530",
+        "539",
+        "585"
+      ],
+      "answer": "541",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 21 liters?",
+      "options": [
+        "20145",
+        "21713",
+        "21000",
+        "19826"
+      ],
+      "answer": "21000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1533 belongs to which century?",
+      "options": [
+        "17",
+        "18",
+        "16",
+        "15"
+      ],
+      "answer": "16",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from G, move 2 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "J",
+        "I",
+        "H",
+        "P"
+      ],
+      "answer": "I",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 71 two-point shots and 37 three-point shots. How many points is that?",
+      "options": [
+        "241",
+        "282",
+        "253",
+        "277"
+      ],
+      "answer": "253",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 33 rows and 33 columns. How many cells are in the grid?",
+      "options": [
+        "1089",
+        "1065",
+        "1125",
+        "953"
+      ],
+      "answer": "1089",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 50 measures with 3 beats per measure. How many beats total?",
+      "options": [
+        "172",
+        "165",
+        "150",
+        "147"
+      ],
+      "answer": "150",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 23 km. How many km are represented by 72 cm?",
+      "options": [
+        "1587",
+        "1807",
+        "1656",
+        "1545"
+      ],
+      "answer": "1656",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 93 divisible by 9?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-20": [
+    {
+      "question": "What is 80 + 106?",
+      "options": [
+        "206",
+        "159",
+        "186",
+        "165"
+      ],
+      "answer": "186",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 40 × 11 + 13.",
+      "options": [
+        "438",
+        "414",
+        "481",
+        "453"
+      ],
+      "answer": "453",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 68 liters? (98)",
+      "options": [
+        "71303",
+        "76208",
+        "64007",
+        "68000"
+      ],
+      "answer": "68000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1868 belongs to which century?",
+      "options": [
+        "19",
+        "20",
+        "21",
+        "18"
+      ],
+      "answer": "19",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from C, move 4 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "N",
+        "G",
+        "F",
+        "H"
+      ],
+      "answer": "G",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 45 two-point shots and 16 three-point shots. How many points is that?",
+      "options": [
+        "137",
+        "138",
+        "143",
+        "120"
+      ],
+      "answer": "138",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 26 rows and 42 columns. How many cells are in the grid?",
+      "options": [
+        "1138",
+        "1049",
+        "1118",
+        "1092"
+      ],
+      "answer": "1092",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 58 measures with 3 beats per measure. How many beats total?",
+      "options": [
+        "169",
+        "181",
+        "185",
+        "174"
+      ],
+      "answer": "174",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 7 km. How many km are represented by 78 cm?",
+      "options": [
+        "506",
+        "546",
+        "495",
+        "481"
+      ],
+      "answer": "546",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 32 divisible by 12?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-21": [
+    {
+      "question": "What is 19 + 55?",
+      "options": [
+        "68",
+        "82",
+        "74",
+        "78"
+      ],
+      "answer": "74",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 19 × 5 + 7.",
+      "options": [
+        "92",
+        "88",
+        "102",
+        "95"
+      ],
+      "answer": "102",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 88 liters?",
+      "options": [
+        "88000",
+        "87123",
+        "76827",
+        "95410"
+      ],
+      "answer": "88000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1890 belongs to which century?",
+      "options": [
+        "19",
+        "21",
+        "20",
+        "18"
+      ],
+      "answer": "19",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from F, move 2 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "I",
+        "O",
+        "H",
+        "G"
+      ],
+      "answer": "H",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 42 two-point shots and 41 three-point shots. How many points is that?",
+      "options": [
+        "178",
+        "207",
+        "203",
+        "206"
+      ],
+      "answer": "207",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 22 rows and 26 columns. How many cells are in the grid?",
+      "options": [
+        "572",
+        "628",
+        "637",
+        "543"
+      ],
+      "answer": "572",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 56 measures with 4 beats per measure. How many beats total?",
+      "options": [
+        "192",
+        "197",
+        "224",
+        "249"
+      ],
+      "answer": "224",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 5 km. How many km are represented by 32 cm?",
+      "options": [
+        "148",
+        "181",
+        "137",
+        "160"
+      ],
+      "answer": "160",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 42 divisible by 2?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-22": [
+    {
+      "question": "What is 52 + 76?",
+      "options": [
+        "139",
+        "142",
+        "128",
+        "127"
+      ],
+      "answer": "128",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 13 × 8 + 9.",
+      "options": [
+        "113",
+        "108",
+        "117",
+        "120"
+      ],
+      "answer": "113",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 11 liters? (98)",
+      "options": [
+        "11000",
+        "9682",
+        "11836",
+        "11727"
+      ],
+      "answer": "11000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1143 belongs to which century?",
+      "options": [
+        "13",
+        "11",
+        "12",
+        "14"
+      ],
+      "answer": "12",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from A, move 6 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "F",
+        "G",
+        "H",
+        "N"
+      ],
+      "answer": "G",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 35 two-point shots and 38 three-point shots. How many points is that?",
+      "options": [
+        "184",
+        "171",
+        "179",
+        "178"
+      ],
+      "answer": "184",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 21 rows and 37 columns. How many cells are in the grid?",
+      "options": [
+        "754",
+        "777",
+        "778",
+        "783"
+      ],
+      "answer": "777",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 16 measures with 5 beats per measure. How many beats total?",
+      "options": [
+        "91",
+        "85",
+        "80",
+        "88"
+      ],
+      "answer": "80",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 22 km. How many km are represented by 39 cm?",
+      "options": [
+        "858",
+        "823",
+        "769",
+        "783"
+      ],
+      "answer": "858",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 50 divisible by 8?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-23": [
+    {
+      "question": "What is 12 + 30?",
+      "options": [
+        "36",
+        "38",
+        "42",
+        "41"
+      ],
+      "answer": "42",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 14 × 2 + 20.",
+      "options": [
+        "46",
+        "43",
+        "48",
+        "49"
+      ],
+      "answer": "48",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 72 liters?",
+      "options": [
+        "70521",
+        "72000",
+        "72916",
+        "81865"
+      ],
+      "answer": "72000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1768 belongs to which century?",
+      "options": [
+        "20",
+        "18",
+        "17",
+        "19"
+      ],
+      "answer": "18",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from U, move 6 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "B",
+        "H",
+        "Z",
+        "A"
+      ],
+      "answer": "A",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 31 two-point shots and 39 three-point shots. How many points is that?",
+      "options": [
+        "179",
+        "155",
+        "175",
+        "188"
+      ],
+      "answer": "179",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 27 rows and 8 columns. How many cells are in the grid?",
+      "options": [
+        "194",
+        "216",
+        "200",
+        "220"
+      ],
+      "answer": "216",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 31 measures with 6 beats per measure. How many beats total? (90)",
+      "options": [
+        "181",
+        "195",
+        "202",
+        "186"
+      ],
+      "answer": "186",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 16 km. How many km are represented by 37 cm?",
+      "options": [
+        "559",
+        "592",
+        "572",
+        "600"
+      ],
+      "answer": "592",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 21 divisible by 4?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-24": [
+    {
+      "question": "What is 42 + 52?",
+      "options": [
+        "84",
+        "89",
+        "103",
+        "94"
+      ],
+      "answer": "94",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 13 × 5 + 17.",
+      "options": [
+        "85",
+        "82",
+        "91",
+        "83"
+      ],
+      "answer": "82",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 54 liters?",
+      "options": [
+        "52657",
+        "49849",
+        "54449",
+        "54000"
+      ],
+      "answer": "54000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1860 belongs to which century?",
+      "options": [
+        "18",
+        "21",
+        "19",
+        "20"
+      ],
+      "answer": "19",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from Q, move 2 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "R",
+        "Z",
+        "S",
+        "T"
+      ],
+      "answer": "S",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 18 two-point shots and 25 three-point shots. How many points is that?",
+      "options": [
+        "118",
+        "126",
+        "111",
+        "122"
+      ],
+      "answer": "111",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 9 rows and 17 columns. How many cells are in the grid?",
+      "options": [
+        "157",
+        "153",
+        "147",
+        "139"
+      ],
+      "answer": "153",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 31 measures with 7 beats per measure. How many beats total?",
+      "options": [
+        "217",
+        "195",
+        "197",
+        "241"
+      ],
+      "answer": "217",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 10 km. How many km are represented by 52 cm?",
+      "options": [
+        "520",
+        "557",
+        "510",
+        "578"
+      ],
+      "answer": "520",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 55 divisible by 3?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-25": [
+    {
+      "question": "What is 19 + 42?",
+      "options": [
+        "63",
+        "56",
+        "69",
+        "61"
+      ],
+      "answer": "61",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 31 × 12 + 8.",
+      "options": [
+        "427",
+        "390",
+        "351",
+        "380"
+      ],
+      "answer": "380",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 62 liters?",
+      "options": [
+        "66302",
+        "55067",
+        "64952",
+        "62000"
+      ],
+      "answer": "62000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1167 belongs to which century?",
+      "options": [
+        "13",
+        "14",
+        "11",
+        "12"
+      ],
+      "answer": "12",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from M, move 12 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (69)",
+      "options": [
+        "F",
+        "Z",
+        "Y",
+        "X"
+      ],
+      "answer": "Y",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 20 two-point shots and 29 three-point shots. How many points is that?",
+      "options": [
+        "124",
+        "122",
+        "127",
+        "139"
+      ],
+      "answer": "127",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 39 rows and 34 columns. How many cells are in the grid?",
+      "options": [
+        "1360",
+        "1422",
+        "1326",
+        "1199"
+      ],
+      "answer": "1326",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 7 measures with 6 beats per measure. How many beats total?",
+      "options": [
+        "45",
+        "37",
+        "48",
+        "42"
+      ],
+      "answer": "42",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 20 km. How many km are represented by 74 cm?",
+      "options": [
+        "1319",
+        "1559",
+        "1496",
+        "1480"
+      ],
+      "answer": "1480",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 26 divisible by 7?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-26": [
+    {
+      "question": "What is 77 + 36?",
+      "options": [
+        "113",
+        "110",
+        "117",
+        "101"
+      ],
+      "answer": "113",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 13 × 7 + 12.",
+      "options": [
+        "100",
+        "95",
+        "103",
+        "99"
+      ],
+      "answer": "103",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 55 liters?",
+      "options": [
+        "62319",
+        "48091",
+        "62808",
+        "55000"
+      ],
+      "answer": "55000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1962 belongs to which century?",
+      "options": [
+        "19",
+        "22",
+        "20",
+        "21"
+      ],
+      "answer": "20",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from L, move 12 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "E",
+        "X",
+        "W",
+        "Y"
+      ],
+      "answer": "X",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 71 two-point shots and 16 three-point shots. How many points is that?",
+      "options": [
+        "196",
+        "211",
+        "195",
+        "190"
+      ],
+      "answer": "190",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 40 rows and 18 columns. How many cells are in the grid?",
+      "options": [
+        "818",
+        "755",
+        "720",
+        "722"
+      ],
+      "answer": "720",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 17 measures with 6 beats per measure. How many beats total?",
+      "options": [
+        "99",
+        "102",
+        "95",
+        "93"
+      ],
+      "answer": "102",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 8 km. How many km are represented by 62 cm?",
+      "options": [
+        "488",
+        "449",
+        "431",
+        "496"
+      ],
+      "answer": "496",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 42 divisible by 5?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-27": [
+    {
+      "question": "What is 18 + 58?",
+      "options": [
+        "74",
+        "87",
+        "66",
+        "76"
+      ],
+      "answer": "76",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 33 × 4 + 7.",
+      "options": [
+        "150",
+        "134",
+        "139",
+        "141"
+      ],
+      "answer": "139",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 37 liters? (90)",
+      "options": [
+        "35124",
+        "38584",
+        "37000",
+        "39374"
+      ],
+      "answer": "37000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1262 belongs to which century?",
+      "options": [
+        "12",
+        "14",
+        "13",
+        "15"
+      ],
+      "answer": "13",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from Q, move 3 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "T",
+        "A",
+        "U",
+        "S"
+      ],
+      "answer": "T",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 55 two-point shots and 15 three-point shots. How many points is that?",
+      "options": [
+        "150",
+        "175",
+        "155",
+        "157"
+      ],
+      "answer": "155",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 21 rows and 10 columns. How many cells are in the grid? (98)",
+      "options": [
+        "216",
+        "206",
+        "190",
+        "210"
+      ],
+      "answer": "210",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 16 measures with 8 beats per measure. How many beats total?",
+      "options": [
+        "112",
+        "123",
+        "128",
+        "133"
+      ],
+      "answer": "128",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 22 km. How many km are represented by 48 cm?",
+      "options": [
+        "968",
+        "1181",
+        "1188",
+        "1056"
+      ],
+      "answer": "1056",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 80 divisible by 12?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-28": [
+    {
+      "question": "What is 24 + 61?",
+      "options": [
+        "97",
+        "89",
+        "92",
+        "85"
+      ],
+      "answer": "85",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 20 × 2 + 17.",
+      "options": [
+        "65",
+        "53",
+        "51",
+        "57"
+      ],
+      "answer": "57",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 6 liters? (85)",
+      "options": [
+        "6893",
+        "6676",
+        "6019",
+        "6000"
+      ],
+      "answer": "6000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1727 belongs to which century?",
+      "options": [
+        "19",
+        "18",
+        "20",
+        "17"
+      ],
+      "answer": "18",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from O, move 11 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (79)",
+      "options": [
+        "G",
+        "A",
+        "Z",
+        "Y"
+      ],
+      "answer": "Z",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 14 two-point shots and 37 three-point shots. How many points is that?",
+      "options": [
+        "158",
+        "157",
+        "139",
+        "141"
+      ],
+      "answer": "139",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 14 rows and 12 columns. How many cells are in the grid?",
+      "options": [
+        "168",
+        "167",
+        "145",
+        "193"
+      ],
+      "answer": "168",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 28 measures with 5 beats per measure. How many beats total?",
+      "options": [
+        "130",
+        "140",
+        "120",
+        "119"
+      ],
+      "answer": "140",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 24 km. How many km are represented by 56 cm?",
+      "options": [
+        "1183",
+        "1418",
+        "1344",
+        "1242"
+      ],
+      "answer": "1344",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 83 divisible by 11?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-29": [
+    {
+      "question": "What is 73 + 75?",
+      "options": [
+        "133",
+        "148",
+        "139",
+        "137"
+      ],
+      "answer": "148",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 22 × 8 + 15.",
+      "options": [
+        "173",
+        "176",
+        "191",
+        "189"
+      ],
+      "answer": "191",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 35 liters? (110)",
+      "options": [
+        "31100",
+        "30568",
+        "34959",
+        "35000"
+      ],
+      "answer": "35000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1254 belongs to which century?",
+      "options": [
+        "14",
+        "15",
+        "12",
+        "13"
+      ],
+      "answer": "13",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from Q, move 10 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "Z",
+        "H",
+        "A",
+        "B"
+      ],
+      "answer": "A",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 49 two-point shots and 21 three-point shots. How many points is that?",
+      "options": [
+        "161",
+        "156",
+        "171",
+        "185"
+      ],
+      "answer": "161",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 17 rows and 32 columns. How many cells are in the grid?",
+      "options": [
+        "544",
+        "622",
+        "536",
+        "475"
+      ],
+      "answer": "544",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 19 measures with 3 beats per measure. How many beats total?",
+      "options": [
+        "50",
+        "53",
+        "57",
+        "64"
+      ],
+      "answer": "57",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 21 km. How many km are represented by 69 cm?",
+      "options": [
+        "1581",
+        "1449",
+        "1344",
+        "1284"
+      ],
+      "answer": "1449",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 66 divisible by 4?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-30": [
+    {
+      "question": "What is 7 + 73?",
+      "options": [
+        "85",
+        "82",
+        "79",
+        "80"
+      ],
+      "answer": "80",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 12 × 11 + 9.",
+      "options": [
+        "141",
+        "145",
+        "134",
+        "127"
+      ],
+      "answer": "141",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 26 liters?",
+      "options": [
+        "26000",
+        "24137",
+        "27715",
+        "29013"
+      ],
+      "answer": "26000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1640 belongs to which century?",
+      "options": [
+        "18",
+        "19",
+        "17",
+        "16"
+      ],
+      "answer": "17",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from C, move 5 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "H",
+        "I",
+        "O",
+        "G"
+      ],
+      "answer": "H",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 34 two-point shots and 31 three-point shots. How many points is that?",
+      "options": [
+        "144",
+        "145",
+        "140",
+        "161"
+      ],
+      "answer": "161",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 23 rows and 36 columns. How many cells are in the grid?",
+      "options": [
+        "708",
+        "885",
+        "828",
+        "843"
+      ],
+      "answer": "828",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 28 measures with 8 beats per measure. How many beats total?",
+      "options": [
+        "210",
+        "255",
+        "238",
+        "224"
+      ],
+      "answer": "224",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 14 km. How many km are represented by 66 cm?",
+      "options": [
+        "872",
+        "924",
+        "925",
+        "1018"
+      ],
+      "answer": "924",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 38 divisible by 10?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ],
+  "2026-05-31": [
+    {
+      "question": "What is 50 + 8?",
+      "options": [
+        "50",
+        "58",
+        "53",
+        "63"
+      ],
+      "answer": "58",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "Evaluate 35 × 2 + 4.",
+      "options": [
+        "67",
+        "72",
+        "74",
+        "77"
+      ],
+      "answer": "74",
+      "category": "Math",
+      "type": "multiple"
+    },
+    {
+      "question": "How many milliliters are in 49 liters?",
+      "options": [
+        "44412",
+        "49000",
+        "45687",
+        "54810"
+      ],
+      "answer": "49000",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The year 1447 belongs to which century?",
+      "options": [
+        "14",
+        "15",
+        "16",
+        "17"
+      ],
+      "answer": "15",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Starting from S, move 8 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "options": [
+        "A",
+        "H",
+        "B",
+        "Z"
+      ],
+      "answer": "A",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "A basketball team made 31 two-point shots and 21 three-point shots. How many points is that?",
+      "options": [
+        "109",
+        "111",
+        "125",
+        "139"
+      ],
+      "answer": "125",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An art grid has 31 rows and 31 columns. How many cells are in the grid?",
+      "options": [
+        "961",
+        "1088",
+        "1000",
+        "990"
+      ],
+      "answer": "961",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "A rhythm has 27 measures with 5 beats per measure. How many beats total?",
+      "options": [
+        "154",
+        "138",
+        "137",
+        "135"
+      ],
+      "answer": "135",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "On a map, 1 cm represents 14 km. How many km are represented by 17 cm?",
+      "options": [
+        "245",
+        "238",
+        "230",
+        "252"
+      ],
+      "answer": "238",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Is 17 divisible by 5?",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    }
+  ]
+}

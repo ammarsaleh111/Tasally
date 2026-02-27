@@ -25,6 +25,7 @@ const nextConfig = {
               "img-src 'self' data: blob: https://lh3.googleusercontent.com",
               "font-src 'self' data:",
               "connect-src 'self' https://formspree.io https://api.dictionaryapi.dev https://accounts.google.com https://www.googleapis.com",
+              "worker-src 'self'", // Allow same-origin service workers (PWA)
               "frame-ancestors 'none'", // Prevent clickjacking
               "base-uri 'self'",
               "form-action 'self'",

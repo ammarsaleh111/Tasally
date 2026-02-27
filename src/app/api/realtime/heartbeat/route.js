@@ -8,7 +8,7 @@
  * - Skips DB write if heartbeat too recent
  */
 
-import { updateSession } from '../stream/route';
+import { updateSession } from '../store';
 import { db, guestProfiles, presenceSessions, users } from '@/db';
 import { sanitizeName } from '@/utils/inputSanitizer';
 import { eq, lt } from 'drizzle-orm';

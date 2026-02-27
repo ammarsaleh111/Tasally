@@ -1,0 +1,21 @@
+{
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/.playwright-mcp/**": true,
+    "**/drizzle/meta/**": true,
+    "**/data/server/**": true
+  },
+  "search.exclude": {
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/.playwright-mcp/**": true,
+    "**/data/server/**": true
+  },
+  "github.copilot.chat.workspace.enableFullWorkspace": false,
+  "github.copilot.chat.workspace.enableCodeSearch": false,
+  "github.copilot.chat.workspace.enableEmbeddingsSearch": false,
+  "github.copilot.chat.codesearch.agent.enabled": false
+}

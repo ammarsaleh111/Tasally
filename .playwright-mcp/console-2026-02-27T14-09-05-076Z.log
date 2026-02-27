@@ -1,0 +1,2 @@
+[   74524ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3000/opengraph-image:0
+[   74524ms] [WARNING] Error while trying to use the following icon from the Manifest: http://localhost:3000/opengraph-image (Download error or resource isn't a valid image) @ http://localhost:3000/:0
