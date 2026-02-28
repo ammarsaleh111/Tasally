@@ -74,6 +74,7 @@ export default function WordleGame() {
   const startTimeRef = useRef(null);
   const prevWinRef = useRef(false);
   const initialWinHandledRef = useRef(false);
+  const gameEndHandledRef = useRef(false);
   const confirmedGuesses = useMemo(() => guesses.filter(guess => !guess.pending), [guesses]);
 
   const tutorial = GAME_TUTORIALS.wordle;
@@ -137,6 +138,9 @@ export default function WordleGame() {
 
   // Update stats when game ends using profileManager
   const updateStats = useCallback((won, guessCount, latestGuesses) => {
+    if (gameEndHandledRef.current) return;
+    gameEndHandledRef.current = true;
+
     const sourceGuesses = latestGuesses || guessesRef.current;
     const confirmedGuesses = sourceGuesses.filter(guess => !guess.pending);
     const result = {
@@ -200,6 +204,7 @@ export default function WordleGame() {
     setIsChecking(false);
     setShowWinConfetti(false);
     setRevealSolution(false);
+    gameEndHandledRef.current = false;
     prevWinRef.current = false;
     
     // Track game start
@@ -293,6 +298,7 @@ export default function WordleGame() {
     setSolveTime(null);
     setShowWinConfetti(false);
     setRevealSolution(false);
+    gameEndHandledRef.current = false;
     prevWinRef.current = false;
     startTimeRef.current = Date.now();
     
@@ -471,7 +477,7 @@ export default function WordleGame() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full min-h-screen animate-fade-in-up">
+    <div className="flex flex-col items-center w-full h-screen overflow-hidden animate-fade-in-up">
       {toast && (
         <Toast 
             key={toast.id}
@@ -596,7 +602,7 @@ export default function WordleGame() {
       />
 
       {/* Main Game Content */}
-      <div className="relative flex flex-col items-center w-full max-w-lg mx-auto px-4 pb-10">
+      <div className="relative flex flex-col items-center w-full max-w-lg mx-auto px-4 pb-10 flex-1 overflow-y-auto scrollbar-hide">
         <WinConfettiOverlay
           active={showWinConfetti}
           gameName="wordle"
@@ -614,7 +620,7 @@ export default function WordleGame() {
           </div>
         )}
 
-        <div data-tutorial="wordle-board" className="w-full">
+        <div data-tutorial="wordle-board" className="w-full mt-6">
           <WordleGrid 
             guesses={guesses} 
             currentGuess={currentGuess} 

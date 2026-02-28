@@ -27,11 +27,13 @@ import { sendHeartbeat, sendGameTelemetry } from '@/utils/realtimeManager';
 import { ensureSession, getSession as getAppSession } from '@/utils/sessionManager';
 import { getUserStorageKey } from '@/utils/storageKeys';
 
-// Heartbeat interval: 30 seconds for guests, 20 seconds for authenticated users
-// This reduces DB writes significantly while maintaining presence accuracy
+// Heartbeat interval: 60 seconds for guests, 45 seconds for authenticated users
+// This reduces DB writes and avoids 429 rate-limit errors on /api/realtime/heartbeat
 let heartbeatInterval = null;
-const HEARTBEAT_INTERVAL_GUEST = 30000;  // 30 seconds for guests
-const HEARTBEAT_INTERVAL_AUTH = 20000;   // 20 seconds for authenticated users
+const HEARTBEAT_INTERVAL_GUEST = 60000;  // 60 seconds for guests
+const HEARTBEAT_INTERVAL_AUTH = 45000;   // 45 seconds for authenticated users
+
+// Note: heartbeat throttling is now handled inside sendHeartbeat() in realtimeManager.js
 const DEFAULT_STATE = 'IDLE';
 
 const SESSION_KEY = 'session-tracker';
@@ -56,14 +58,20 @@ export function getSession() {
   if (stored) {
     try {
       const parsed = JSON.parse(stored);
+      let needsSave = false;
       if (!parsed.role) {
         const appSession = getAppSession();
         parsed.role = appSession?.role || 'GUEST';
-        saveSession(parsed);
+        needsSave = true;
       }
       if (!parsed.state) {
         parsed.state = DEFAULT_STATE;
-        saveSession(parsed);
+        needsSave = true;
+      }
+      // Only write to localStorage, don't trigger heartbeat for field patches
+      if (needsSave) {
+        const sk = getStorageKey(SESSION_KEY);
+        if (sk) localStorage.setItem(sk, JSON.stringify(parsed));
       }
       return parsed;
     } catch (e) {
@@ -113,8 +121,9 @@ export function saveSession(session) {
   const storageKey = getStorageKey(SESSION_KEY);
   if (!storageKey) return;
   localStorage.setItem(storageKey, JSON.stringify(session));
-  
+
   // Send heartbeat for real-time tracking
+  // Throttling + backoff is handled inside sendHeartbeat() — safe to call freely
   sendHeartbeat({
     sessionId: session.sessionId,
     playerName: session.name,
@@ -151,20 +160,8 @@ export function startHeartbeat() {
       });
     }
   }, interval);
-  
-  // Send initial heartbeat
-  const session = getSession();
-  if (session) {
-    sendHeartbeat({
-      sessionId: session.sessionId,
-      playerName: session.name,
-      currentGame: session.currentGame,
-      currentPage: session.currentPage,
-      userId: session.userId,
-      role: session.role,
-      state: session.state,
-    });
-  }
+
+  // No initial heartbeat here — initSessionTracking() already sends one via saveSession()
 }
 
 // Stop heartbeat interval
@@ -524,24 +521,22 @@ export function initSessionTracking() {
   // Track page load
   trackPageLoad(getCurrentPage());
 
-  // Setup periodic activity tracking (every 30 seconds)
+  // Setup periodic activity tracking (every 90 seconds)
+  // Only updates localStorage and archives — heartbeat interval handles server pings
   const trackingInterval = setInterval(() => {
     const session = getSession();
     if (session) {
       session.lastActivity = new Date().toISOString();
-      saveSession(session);
+      // Save to localStorage only (don't trigger another heartbeat)
+      const sk = getStorageKey(SESSION_KEY);
+      if (sk) localStorage.setItem(sk, JSON.stringify(session));
       archiveActivity(session.userId, session.name, {
         type: 'activity_update',
         timestamp: new Date().toISOString(),
         page: getCurrentPage(),
       });
-      syncActivityEvent(session.userId, session.name, {
-        type: 'activity_update',
-        timestamp: new Date().toISOString(),
-        page: getCurrentPage(),
-      });
     }
-  }, 30000); // 30 seconds
+  }, 90000); // 90 seconds
 
   // Cleanup old sessions daily
   const cleanupInterval = setInterval(() => {

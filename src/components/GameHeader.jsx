@@ -152,9 +152,6 @@ const GameHeader = ({
               />
             )}
 
-            {/* Install App button — only shows when PWA is installable */}
-            <InstallAppHeaderButton />
-            
             <Link 
               href="/" 
               className="

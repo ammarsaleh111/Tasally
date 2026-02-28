@@ -17,7 +17,7 @@ function getClientIdentifier(request) {
 export async function GET(request) {
   const clientId = getClientIdentifier(request);
   if (isRateLimited(clientId, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ ok: true, throttled: true, sessions: [] });
   }
 
   const store = await getActivityStore();
@@ -38,7 +38,7 @@ export async function GET(request) {
 export async function POST(request) {
   const clientId = getClientIdentifier(request);
   if (isRateLimited(clientId, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ ok: true, throttled: true, dropped: true });
   }
 
   try {

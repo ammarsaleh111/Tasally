@@ -1,575 +1,833 @@
 {
   "2026-03-01": {
+    "theme": "🍳 Kitchen & Cooking",
     "grid": [
       [
-        "P",
-        "H",
+        "B",
+        "L",
+        "E",
+        "N",
+        "D"
+      ],
+      [
         "A",
+        "",
+        "V",
+        "",
+        "R"
+      ],
+      [
         "S",
+        "T",
+        "O",
+        "V",
         "E"
       ],
       [
-        "A",
-        "",
-        "L",
-        "",
-        "I"
-      ],
-      [
-        "S",
-        "W",
         "I",
-        "N",
-        "G"
-      ],
-      [
-        "T",
         "",
         "K",
         "",
-        "H"
+        "A"
       ],
       [
-        "E",
-        "L",
-        "E",
         "C",
-        "T"
+        "R",
+        "E",
+        "A",
+        "M"
       ]
     ],
     "across": {
-      "1": "Stage",
-      "4": "Move back and forth",
-      "5": "Choose by vote"
+      "1": "To mix ingredients together until perfectly smooth",
+      "4": "Appliance with burners used for cooking meals",
+      "5": "Rich white dairy product used in cooking and desserts"
     },
     "down": {
-      "1": "Sticky mixture",
-      "2": "Similar",
-      "3": "Number after seven"
+      "1": "Fundamental, forming the essential foundation",
+      "2": "To bring a feeling or memory to mind",
+      "3": "A series of images in your sleeping mind"
     },
     "solution": {
       "across": {
-        "1": "PHASE",
-        "4": "SWING",
-        "5": "ELECT"
+        "1": "BLEND",
+        "4": "STOVE",
+        "5": "CREAM"
       },
       "down": {
-        "1": "PASTE",
-        "2": "ALIKE",
-        "3": "EIGHT"
+        "1": "BASIC",
+        "2": "EVOKE",
+        "3": "DREAM"
       }
     }
   },
   "2026-03-02": {
+    "theme": "🌊 Ocean & Sea Life",
     "grid": [
       [
-        "E",
-        "N",
-        "J",
+        "C",
         "O",
-        "Y"
-      ],
-      [
-        "X",
-        "",
-        "U",
-        "",
-        "I"
-      ],
-      [
-        "A",
         "R",
-        "I",
-        "S",
-        "E"
-      ],
-      [
-        "C",
-        "",
-        "C",
-        "",
+        "A",
         "L"
       ],
       [
-        "T",
         "R",
+        "",
+        "A",
+        "",
+        "A"
+      ],
+      [
+        "O",
+        "T",
+        "T",
         "E",
-        "N",
-        "D"
+        "R"
+      ],
+      [
+        "S",
+        "",
+        "I",
+        "",
+        "G"
+      ],
+      [
+        "S",
+        "H",
+        "O",
+        "R",
+        "E"
       ]
     ],
     "across": {
-      "1": "Take pleasure in",
-      "4": "Get up",
-      "5": "Popular direction"
+      "1": "Colorful reef structure home to tropical fish",
+      "4": "A playful water mammal with sleek fur",
+      "5": "The land at the edge where waves break"
     },
     "down": {
-      "1": "Precise",
-      "2": "Fruit liquid",
-      "3": "Give way"
+      "1": "An intersection where two roads meet",
+      "2": "The proportional relationship between quantities",
+      "3": "Big in size, taking up a lot of space"
     },
     "solution": {
       "across": {
-        "1": "ENJOY",
-        "4": "ARISE",
-        "5": "TREND"
+        "1": "CORAL",
+        "4": "OTTER",
+        "5": "SHORE"
       },
       "down": {
-        "1": "EXACT",
-        "2": "JUICE",
-        "3": "YIELD"
+        "1": "CROSS",
+        "2": "RATIO",
+        "3": "LARGE"
       }
     }
   },
   "2026-03-03": {
+    "theme": "🎵 Music & Sound",
     "grid": [
       [
-        "V",
-        "A",
-        "L",
+        "M",
         "U",
+        "S",
+        "I",
+        "C"
+      ],
+      [
+        "A",
+        "",
+        "M",
+        "",
+        "H"
+      ],
+      [
+        "S",
+        "T",
+        "A",
+        "G",
         "E"
       ],
       [
-        "A",
-        "",
         "O",
         "",
-        "N"
-      ],
-      [
-        "L",
-        "I",
-        "G",
-        "H",
-        "T"
-      ],
-      [
-        "I",
+        "R",
         "",
-        "I",
-        "",
-        "R"
+        "S"
       ],
       [
-        "D",
+        "N",
+        "O",
+        "T",
         "E",
-        "C",
-        "A",
-        "Y"
+        "S"
       ]
     ],
     "across": {
-      "1": "Worth",
-      "4": "Illumination",
-      "5": "Rot"
+      "1": "An art form composed of melody and rhythm",
+      "4": "A raised platform where performers act",
+      "5": "Individual sounds of specific pitch in music"
     },
     "down": {
-      "1": "Legitimate",
-      "2": "Reasoning",
-      "3": "Way in"
+      "1": "A skilled worker who builds with stone or brick",
+      "2": "Intelligent technology that learns and adapts",
+      "3": "A strategic board game between two players"
     },
     "solution": {
       "across": {
-        "1": "VALUE",
-        "4": "LIGHT",
-        "5": "DECAY"
+        "1": "MUSIC",
+        "4": "STAGE",
+        "5": "NOTES"
       },
       "down": {
-        "1": "VALID",
-        "2": "LOGIC",
-        "3": "ENTRY"
+        "1": "MASON",
+        "2": "SMART",
+        "3": "CHESS"
       }
     }
   },
   "2026-03-04": {
+    "theme": "🌿 Garden & Nature",
     "grid": [
       [
-        "V",
-        "A",
+        "B",
         "L",
-        "U",
-        "E"
-      ],
-      [
-        "I",
-        "",
         "O",
-        "",
-        "L"
-      ],
-      [
-        "S",
-        "W",
         "O",
-        "R",
-        "E"
+        "M"
       ],
       [
-        "I",
+        "A",
         "",
-        "S",
+        "P",
         "",
-        "C"
+        "O"
       ],
       [
-        "T",
+        "G",
         "R",
         "E",
+        "E",
+        "N"
+      ],
+      [
+        "E",
+        "",
+        "R",
+        "",
+        "E"
+      ],
+      [
+        "L",
+        "E",
         "A",
-        "T"
+        "F",
+        "Y"
       ]
     ],
     "across": {
-      "1": "Worth",
-      "4": "Made a promise",
-      "5": "Special reward"
+      "1": "When a flower opens its colorful petals in spring",
+      "4": "The color of grass, leaves, and emeralds",
+      "5": "Covered with many green leaves"
     },
     "down": {
-      "1": "Go see",
-      "2": "Not tight",
-      "3": "Choose by vote"
+      "1": "Round bread roll with a hole in the center",
+      "2": "A grand musical drama with orchestral music",
+      "3": "Currency used to purchase goods and services"
     },
     "solution": {
       "across": {
-        "1": "VALUE",
-        "4": "SWORE",
-        "5": "TREAT"
+        "1": "BLOOM",
+        "4": "GREEN",
+        "5": "LEAFY"
       },
       "down": {
-        "1": "VISIT",
-        "2": "LOOSE",
-        "3": "ELECT"
+        "1": "BAGEL",
+        "2": "OPERA",
+        "3": "MONEY"
       }
     }
   },
   "2026-03-05": {
+    "theme": "📚 School & Learning",
     "grid": [
       [
+        "T",
+        "E",
+        "A",
         "C",
+        "H"
+      ],
+      [
+        "A",
+        "",
+        "P",
+        "",
+        "O"
+      ],
+      [
+        "B",
         "R",
         "A",
-        "N",
-        "E"
-      ],
-      [
-        "Y",
-        "",
-        "G",
-        "",
-        "M"
-      ],
-      [
-        "C",
-        "R",
-        "E",
-        "E",
-        "P"
+        "I",
+        "N"
       ],
       [
         "L",
         "",
-        "N",
+        "R",
         "",
-        "T"
+        "O"
       ],
       [
         "E",
         "N",
         "T",
-        "R",
-        "Y"
+        "E",
+        "R"
       ]
     ],
     "across": {
-      "1": "Tall bird",
-      "4": "Move slowly",
-      "5": "Way in"
+      "1": "To impart knowledge or skills to a student",
+      "4": "The organ inside your head responsible for thinking",
+      "5": "To go inside the school building each morning"
     },
     "down": {
-      "1": "Repeated pattern",
-      "2": "Representative",
-      "3": "Nothing inside"
+      "1": "Flat-topped furniture for dining or working",
+      "2": "Separated by distance, not together",
+      "3": "Deep respect and high esteem for someone"
     },
     "solution": {
       "across": {
-        "1": "CRANE",
-        "4": "CREEP",
-        "5": "ENTRY"
+        "1": "TEACH",
+        "4": "BRAIN",
+        "5": "ENTER"
       },
       "down": {
-        "1": "CYCLE",
-        "2": "AGENT",
-        "3": "EMPTY"
+        "1": "TABLE",
+        "2": "APART",
+        "3": "HONOR"
       }
     }
   },
   "2026-03-06": {
+    "theme": "🚀 Space & Stars",
     "grid": [
       [
-        "R",
-        "A",
-        "I",
-        "S",
-        "E"
-      ],
-      [
-        "I",
-        "",
+        "C",
+        "O",
         "M",
-        "",
-        "N"
-      ],
-      [
-        "D",
         "E",
-        "A",
-        "L",
         "T"
       ],
       [
-        "G",
+        "E",
         "",
-        "G",
+        "I",
         "",
-        "R"
+        "U"
       ],
       [
+        "L",
+        "I",
+        "G",
+        "H",
+        "T"
+      ],
+      [
+        "L",
+        "",
+        "H",
+        "",
+        "O"
+      ],
+      [
+        "O",
+        "U",
+        "T",
         "E",
-        "V",
-        "E",
-        "R",
-        "Y"
+        "R"
       ]
     ],
     "across": {
-      "1": "Lift up",
-      "4": "Distributed cards",
-      "5": "Each one"
+      "1": "Icy body with a glowing tail streaking across the sky",
+      "4": "Electromagnetic radiation that travels through space",
+      "5": "The region beyond Earth's atmosphere"
     },
     "down": {
-      "1": "Mountain top line",
-      "2": "Picture",
-      "3": "Way in"
+      "1": "A large stringed instrument played upright",
+      "2": "Great power needed to escape Earth's gravity",
+      "3": "A private teacher giving one-on-one instruction"
     },
     "solution": {
       "across": {
-        "1": "RAISE",
-        "4": "DEALT",
-        "5": "EVERY"
+        "1": "COMET",
+        "4": "LIGHT",
+        "5": "OUTER"
       },
       "down": {
-        "1": "RIDGE",
-        "2": "IMAGE",
-        "3": "ENTRY"
+        "1": "CELLO",
+        "2": "MIGHT",
+        "3": "TUTOR"
       }
     }
   },
   "2026-03-07": {
+    "theme": "🏠 Home & Family",
     "grid": [
       [
-        "H",
-        "E",
-        "R",
-        "B",
-        "S"
+        "A",
+        "T",
+        "T",
+        "I",
+        "C"
       ],
       [
+        "L",
+        "",
         "I",
         "",
-        "E",
-        "",
-        "H"
-      ],
-      [
-        "P",
-        "E",
-        "A",
-        "C",
-        "E"
-      ],
-      [
-        "P",
-        "",
-        "C",
-        "",
-        "E"
+        "A"
       ],
       [
         "O",
-        "T",
-        "H",
+        "W",
+        "N",
         "E",
         "R"
+      ],
+      [
+        "N",
+        "",
+        "G",
+        "",
+        "A"
+      ],
+      [
+        "G",
+        "U",
+        "E",
+        "S",
+        "T"
       ]
     ],
     "across": {
-      "1": "Cooking plants",
-      "4": "No war",
-      "5": "Different one"
+      "1": "Storage space beneath the roof of a house",
+      "4": "The person who legally possesses the property",
+      "5": "A visitor who is invited to stay at your home"
     },
     "down": {
-      "1": "Hint for hippo",
-      "2": "Get to",
-      "3": "Very steep"
+      "1": "Moving forward in the same direction",
+      "2": "A slight trace of color added to something",
+      "3": "The unit of weight used to measure gemstones"
     },
     "solution": {
       "across": {
-        "1": "HERBS",
-        "4": "PEACE",
-        "5": "OTHER"
+        "1": "ATTIC",
+        "4": "OWNER",
+        "5": "GUEST"
       },
       "down": {
-        "1": "HIPPO",
-        "2": "REACH",
-        "3": "SHEER"
+        "1": "ALONG",
+        "2": "TINGE",
+        "3": "CARAT"
       }
     }
   },
   "2026-03-08": {
+    "theme": "⚽ Sports & Games",
     "grid": [
       [
-        "F",
-        "O",
-        "R",
+        "M",
+        "A",
         "T",
-        "Y"
-      ],
-      [
-        "O",
-        "",
-        "U",
-        "",
-        "I"
-      ],
-      [
         "C",
-        "U",
+        "H"
+      ],
+      [
+        "E",
+        "",
         "R",
-        "V",
+        "",
+        "O"
+      ],
+      [
+        "T",
+        "R",
+        "A",
+        "I",
+        "N"
+      ],
+      [
+        "E",
+        "",
+        "I",
+        "",
         "E"
       ],
       [
-        "U",
-        "",
+        "R",
         "A",
-        "",
-        "L"
-      ],
-      [
-        "S",
-        "O",
         "L",
-        "I",
-        "D"
+        "L",
+        "Y"
       ]
     ],
     "across": {
-      "1": "Four tens",
-      "4": "Bend",
-      "5": "Firm"
+      "1": "A competitive game played between two teams",
+      "4": "To practice and prepare for athletic competition",
+      "5": "A long back-and-forth exchange in tennis or debate"
     },
     "down": {
-      "1": "Concentrate",
-      "2": "Countryside",
-      "3": "Give way"
+      "1": "A unit of about 3.3 feet in length",
+      "2": "A path winding through a wildflower garden",
+      "3": "The sweet nectar bees collect from flowers"
     },
     "solution": {
       "across": {
-        "1": "FORTY",
-        "4": "CURVE",
-        "5": "SOLID"
+        "1": "MATCH",
+        "4": "TRAIN",
+        "5": "RALLY"
       },
       "down": {
-        "1": "FOCUS",
-        "2": "RURAL",
-        "3": "YIELD"
+        "1": "METER",
+        "2": "TRAIL",
+        "3": "HONEY"
       }
     }
   },
   "2026-03-09": {
+    "theme": "🌍 Travel & Adventure",
     "grid": [
       [
-        "L",
-        "U",
-        "C",
-        "K",
-        "Y"
+        "V",
+        "I",
+        "S",
+        "I",
+        "T"
       ],
       [
         "I",
+        "",
+        "A",
+        "",
+        "H"
+      ],
+      [
+        "R",
+        "O",
+        "U",
+        "T",
+        "E"
+      ],
+      [
+        "U",
+        "",
+        "C",
+        "",
+        "M"
+      ],
+      [
+        "S",
+        "C",
+        "E",
+        "N",
+        "E"
+      ]
+    ],
+    "across": {
+      "1": "To go see someone or travel to a specific place",
+      "4": "A planned path from starting point to destination",
+      "5": "A beautiful view worth stopping to admire"
+    },
+    "down": {
+      "1": "Malicious code that infects computer systems",
+      "2": "A flavorful liquid poured over cooked dishes",
+      "3": "The central idea explored in a film's story"
+    },
+    "solution": {
+      "across": {
+        "1": "VISIT",
+        "4": "ROUTE",
+        "5": "SCENE"
+      },
+      "down": {
+        "1": "VIRUS",
+        "2": "SAUCE",
+        "3": "THEME"
+      }
+    }
+  },
+  "2026-03-10": {
+    "theme": "🐾 Animals & Wildlife",
+    "grid": [
+      [
+        "T",
+        "I",
+        "G",
+        "E",
+        "R"
+      ],
+      [
+        "U",
+        "",
+        "R",
+        "",
+        "E"
+      ],
+      [
+        "L",
+        "L",
+        "A",
+        "M",
+        "A"
+      ],
+      [
+        "I",
+        "",
+        "S",
+        "",
+        "D"
+      ],
+      [
+        "P",
+        "U",
+        "P",
+        "P",
+        "Y"
+      ]
+    ],
+    "across": {
+      "1": "A large striped wild cat native to Asia",
+      "4": "A woolly South American pack animal",
+      "5": "A playful young dog full of energy"
+    },
+    "down": {
+      "1": "Bright cup-shaped flower from the Netherlands",
+      "2": "To seize and hold something firmly",
+      "3": "Fully prepared and set to go"
+    },
+    "solution": {
+      "across": {
+        "1": "TIGER",
+        "4": "LLAMA",
+        "5": "PUPPY"
+      },
+      "down": {
+        "1": "TULIP",
+        "2": "GRASP",
+        "3": "READY"
+      }
+    }
+  },
+  "2026-03-11": {
+    "theme": "💻 Technology & Digital",
+    "grid": [
+      [
+        "R",
+        "O",
+        "B",
+        "O",
+        "T"
+      ],
+      [
+        "I",
+        "",
+        "L",
+        "",
+        "H"
+      ],
+      [
+        "D",
+        "R",
+        "O",
+        "N",
+        "E"
+      ],
+      [
+        "E",
         "",
         "O",
         "",
         "I"
       ],
       [
-        "N",
+        "R",
+        "A",
+        "D",
+        "A",
+        "R"
+      ]
+    ],
+    "across": {
+      "1": "A programmable machine performing tasks on its own",
+      "4": "An unmanned aircraft controlled by remote",
+      "5": "A system that detects objects using radio waves"
+    },
+    "down": {
+      "1": "A passenger or person traveling in a vehicle",
+      "2": "The red fluid flowing through your veins",
+      "3": "Belonging to a group of people"
+    },
+    "solution": {
+      "across": {
+        "1": "ROBOT",
+        "4": "DRONE",
+        "5": "RADAR"
+      },
+      "down": {
+        "1": "RIDER",
+        "2": "BLOOD",
+        "3": "THEIR"
+      }
+    }
+  },
+  "2026-03-12": {
+    "theme": "🎨 Art & Creativity",
+    "grid": [
+      [
+        "C",
+        "O",
+        "L",
+        "O",
+        "R"
+      ],
+      [
+        "I",
+        "",
         "E",
+        "",
+        "I"
+      ],
+      [
+        "V",
+        "I",
+        "V",
+        "I",
+        "D"
+      ],
+      [
+        "I",
+        "",
+        "E",
+        "",
+        "G"
+      ],
+      [
+        "C",
+        "U",
         "R",
         "V",
         "E"
+      ]
+    ],
+    "across": {
+      "1": "The visual property of light perceived by the eye",
+      "4": "Producing intensely bright and striking colors",
+      "5": "A smooth bending line in an elegant drawing"
+    },
+    "down": {
+      "1": "Relating to a city or its citizens",
+      "2": "A handle that controls a car's mechanism",
+      "3": "A long narrow hilltop rising above the treeline"
+    },
+    "solution": {
+      "across": {
+        "1": "COLOR",
+        "4": "VIVID",
+        "5": "CURVE"
+      },
+      "down": {
+        "1": "CIVIC",
+        "2": "LEVER",
+        "3": "RIDGE"
+      }
+    }
+  },
+  "2026-03-13": {
+    "theme": "🌦 Weather & Climate",
+    "grid": [
+      [
+        "F",
+        "R",
+        "O",
+        "S",
+        "T"
       ],
       [
-        "K",
+        "U",
+        "",
+        "C",
+        "",
+        "I"
+      ],
+      [
+        "S",
+        "L",
+        "E",
+        "E",
+        "T"
+      ],
+      [
+        "E",
         "",
         "A",
         "",
         "L"
       ],
       [
+        "D",
+        "E",
+        "N",
         "S",
-        "A",
-        "L",
-        "A",
-        "D"
+        "E"
       ]
     ],
     "across": {
-      "1": "Fortunate",
-      "4": "Body signal wire",
-      "5": "Green dish"
+      "1": "Thin layer of ice crystals on cold mornings",
+      "4": "A mix of freezing rain and snowfall",
+      "5": "Thick fog or cloud coverage blocking visibility"
     },
     "down": {
-      "1": "Connections",
-      "2": "Reef material",
-      "3": "Give way"
+      "1": "Joined together by melting or combining",
+      "2": "The vast body of saltwater covering the Earth",
+      "3": "The name of a movie or theatrical production"
     },
     "solution": {
       "across": {
-        "1": "LUCKY",
-        "4": "NERVE",
-        "5": "SALAD"
+        "1": "FROST",
+        "4": "SLEET",
+        "5": "DENSE"
       },
       "down": {
-        "1": "LINKS",
-        "2": "CORAL",
-        "3": "YIELD"
+        "1": "FUSED",
+        "2": "OCEAN",
+        "3": "TITLE"
       }
     }
   },
-  "2026-03-10": {
+  "2026-03-14": {
+    "theme": "❤️ Love & Romance",
     "grid": [
       [
-        "S",
-        "C",
-        "O",
-        "P",
-        "E"
-      ],
-      [
         "H",
-        "",
+        "E",
+        "A",
         "R",
-        "",
-        "N"
+        "T"
       ],
       [
-        "I",
+        "O",
+        "",
+        "L",
+        "",
+        "H"
+      ],
+      [
+        "U",
         "N",
-        "D",
         "I",
-        "E"
+        "T",
+        "Y"
       ],
       [
         "N",
@@ -579,661 +837,314 @@
         "M"
       ],
       [
-        "E",
+        "D",
         "A",
-        "R",
-        "L",
-        "Y"
-      ]
-    ],
-    "across": {
-      "1": "Range",
-      "4": "Hint for indie",
-      "5": "Before time"
-    },
-    "down": {
-      "1": "Give off light",
-      "2": "Arrangement",
-      "3": "Opponent"
-    },
-    "solution": {
-      "across": {
-        "1": "SCOPE",
-        "4": "INDIE",
-        "5": "EARLY"
-      },
-      "down": {
-        "1": "SHINE",
-        "2": "ORDER",
-        "3": "ENEMY"
-      }
-    }
-  },
-  "2026-03-11": {
-    "grid": [
-      [
-        "S",
+        "N",
         "C",
-        "O",
-        "P",
         "E"
-      ],
-      [
-        "H",
-        "",
-        "C",
-        "",
-        "N"
-      ],
-      [
-        "E",
-        "V",
-        "E",
-        "N",
-        "T"
-      ],
-      [
-        "L",
-        "",
-        "A",
-        "",
-        "E"
-      ],
-      [
-        "L",
-        "U",
-        "N",
-        "A",
-        "R"
       ]
     ],
     "across": {
-      "1": "Range",
-      "4": "Happening",
-      "5": "Moon-related"
+      "1": "The organ that beats faster when you are in love",
+      "4": "The state of being joined as a complete whole",
+      "5": "To move your body with your partner to music"
     },
     "down": {
-      "1": "Hard outer cover",
-      "2": "Large body of water",
-      "3": "Go in"
+      "1": "A type of dog bred for hunting game",
+      "2": "A being from another world or planet",
+      "3": "A fragrant herb for cooking"
     },
     "solution": {
       "across": {
-        "1": "SCOPE",
-        "4": "EVENT",
-        "5": "LUNAR"
+        "1": "HEART",
+        "4": "UNITY",
+        "5": "DANCE"
       },
       "down": {
-        "1": "SHELL",
-        "2": "OCEAN",
-        "3": "ENTER"
-      }
-    }
-  },
-  "2026-03-12": {
-    "grid": [
-      [
-        "L",
-        "A",
-        "Y",
-        "E",
-        "R"
-      ],
-      [
-        "O",
-        "",
-        "O",
-        "",
-        "I"
-      ],
-      [
-        "W",
-        "O",
-        "U",
-        "N",
-        "D"
-      ],
-      [
-        "E",
-        "",
-        "N",
-        "",
-        "E"
-      ],
-      [
-        "R",
-        "O",
-        "G",
-        "E",
-        "R"
-      ]
-    ],
-    "across": {
-      "1": "One thickness",
-      "4": "Injury",
-      "5": "Hint for roger"
-    },
-    "down": {
-      "1": "Reduce",
-      "2": "Not old",
-      "3": "Horse person"
-    },
-    "solution": {
-      "across": {
-        "1": "LAYER",
-        "4": "WOUND",
-        "5": "ROGER"
-      },
-      "down": {
-        "1": "LOWER",
-        "2": "YOUNG",
-        "3": "RIDER"
-      }
-    }
-  },
-  "2026-03-13": {
-    "grid": [
-      [
-        "L",
-        "A",
-        "Y",
-        "E",
-        "R"
-      ],
-      [
-        "A",
-        "",
-        "I",
-        "",
-        "A"
-      ],
-      [
-        "S",
-        "P",
-        "E",
-        "N",
-        "T"
-      ],
-      [
-        "E",
-        "",
-        "L",
-        "",
-        "I"
-      ],
-      [
-        "R",
-        "A",
-        "D",
-        "I",
-        "O"
-      ]
-    ],
-    "across": {
-      "1": "One thickness",
-      "4": "Used up",
-      "5": "Sound broadcast"
-    },
-    "down": {
-      "1": "Light beam",
-      "2": "Give way",
-      "3": "Proportion"
-    },
-    "solution": {
-      "across": {
-        "1": "LAYER",
-        "4": "SPENT",
-        "5": "RADIO"
-      },
-      "down": {
-        "1": "LASER",
-        "2": "YIELD",
-        "3": "RATIO"
-      }
-    }
-  },
-  "2026-03-14": {
-    "grid": [
-      [
-        "G",
-        "R",
-        "A",
-        "P",
-        "E"
-      ],
-      [
-        "R",
-        "",
-        "R",
-        "",
-        "X"
-      ],
-      [
-        "A",
-        "D",
-        "O",
-        "P",
-        "T"
-      ],
-      [
-        "N",
-        "",
-        "M",
-        "",
-        "R"
-      ],
-      [
-        "D",
-        "R",
-        "A",
-        "M",
-        "A"
-      ]
-    ],
-    "across": {
-      "1": "Wine fruit",
-      "4": "Take as one's own",
-      "5": "Theater art"
-    },
-    "down": {
-      "1": "Magnificent",
-      "2": "Pleasant smell",
-      "3": "Additional"
-    },
-    "solution": {
-      "across": {
-        "1": "GRAPE",
-        "4": "ADOPT",
-        "5": "DRAMA"
-      },
-      "down": {
-        "1": "GRAND",
-        "2": "AROMA",
-        "3": "EXTRA"
+        "1": "HOUND",
+        "2": "ALIEN",
+        "3": "THYME"
       }
     }
   },
   "2026-03-15": {
+    "theme": "🍽 Food & Flavors",
     "grid": [
       [
-        "W",
+        "G",
         "R",
-        "O",
-        "N",
-        "G"
+        "A",
+        "P",
+        "E"
       ],
       [
-        "O",
+        "L",
         "",
-        "U",
+        "L",
         "",
         "L"
       ],
       [
-        "R",
-        "A",
-        "T",
-        "I",
-        "O"
-      ],
-      [
-        "T",
-        "",
-        "E",
-        "",
-        "B"
-      ],
-      [
-        "H",
         "O",
-        "R",
-        "S",
+        "L",
+        "I",
+        "V",
         "E"
+      ],
+      [
+        "S",
+        "",
+        "K",
+        "",
+        "C"
+      ],
+      [
+        "S",
+        "W",
+        "E",
+        "E",
+        "T"
       ]
     ],
     "across": {
-      "1": "Incorrect",
-      "4": "Proportion",
-      "5": "Riding animal"
+      "1": "A small round fruit that grows on vines",
+      "4": "A small oval fruit used for oil and cooking",
+      "5": "Having a pleasant sugary taste"
     },
     "down": {
-      "1": "Value of",
-      "2": "External",
-      "3": "World map ball"
+      "1": "A shiny and polished surface finish",
+      "2": "Similar in appearance, nearly the same",
+      "3": "To choose someone by voting"
     },
     "solution": {
       "across": {
-        "1": "WRONG",
-        "4": "RATIO",
-        "5": "HORSE"
+        "1": "GRAPE",
+        "4": "OLIVE",
+        "5": "SWEET"
       },
       "down": {
-        "1": "WORTH",
-        "2": "OUTER",
-        "3": "GLOBE"
+        "1": "GLOSS",
+        "2": "ALIKE",
+        "3": "ELECT"
       }
     }
   },
   "2026-03-16": {
+    "theme": "💧 Water & Rivers",
     "grid": [
       [
-        "R",
-        "I",
-        "N",
         "S",
+        "U",
+        "R",
+        "G",
         "E"
       ],
       [
-        "O",
+        "C",
         "",
-        "O",
+        "I",
         "",
-        "L"
+        "R"
       ],
       [
-        "B",
         "R",
         "I",
-        "D",
-        "E"
-      ],
-      [
-        "O",
-        "",
-        "S",
-        "",
-        "C"
-      ],
-      [
-        "T",
-        "R",
+        "V",
         "E",
+        "R"
+      ],
+      [
+        "E",
+        "",
+        "E",
+        "",
+        "O"
+      ],
+      [
+        "W",
         "A",
-        "T"
+        "T",
+        "E",
+        "R"
       ]
     ],
     "across": {
-      "1": "Wash lightly",
-      "4": "Wedding woman",
-      "5": "Special reward"
+      "1": "A sudden powerful forward rush of water",
+      "4": "A natural stream flowing to the sea",
+      "5": "The essential clear liquid needed for all life"
     },
     "down": {
-      "1": "Mechanical helper",
-      "2": "Loud sound",
-      "3": "Choose by vote"
+      "1": "A metal fastener with a spiral thread",
+      "2": "A metal pin joining two plates together",
+      "3": "A mistake or inaccuracy in judgment"
     },
     "solution": {
       "across": {
-        "1": "RINSE",
-        "4": "BRIDE",
-        "5": "TREAT"
+        "1": "SURGE",
+        "4": "RIVER",
+        "5": "WATER"
       },
       "down": {
-        "1": "ROBOT",
-        "2": "NOISE",
-        "3": "ELECT"
+        "1": "SCREW",
+        "2": "RIVET",
+        "3": "ERROR"
       }
     }
   },
   "2026-03-17": {
+    "theme": "💃 Dance & Movement",
     "grid": [
       [
-        "T",
-        "H",
-        "O",
-        "R",
-        "N"
-      ],
-      [
-        "W",
-        "",
-        "W",
-        "",
-        "E"
-      ],
-      [
-        "I",
-        "N",
-        "N",
+        "B",
         "E",
-        "R"
+        "A",
+        "T",
+        "S"
+      ],
+      [
+        "A",
+        "",
+        "L",
+        "",
+        "O"
       ],
       [
         "S",
+        "W",
+        "I",
+        "R",
+        "L"
+      ],
+      [
+        "I",
         "",
-        "E",
+        "B",
         "",
         "V"
       ],
       [
-        "T",
-        "H",
-        "R",
-        "E",
+        "S",
+        "L",
+        "I",
+        "D",
         "E"
       ]
     ],
     "across": {
-      "1": "Sharp plant point",
-      "4": "Inside",
-      "5": "Number after two"
+      "1": "The rhythmic units of time in dance music",
+      "4": "To spin in a twisting circular pattern",
+      "5": "To move smoothly sideways during a dance step"
     },
     "down": {
-      "1": "Turn",
-      "2": "Possessor",
-      "3": "Body signal wire"
+      "1": "The underlying foundation for something",
+      "2": "Proof that a suspect was elsewhere at the time",
+      "3": "To find the answer or resolution to a puzzle"
     },
     "solution": {
       "across": {
-        "1": "THORN",
-        "4": "INNER",
-        "5": "THREE"
+        "1": "BEATS",
+        "4": "SWIRL",
+        "5": "SLIDE"
       },
       "down": {
-        "1": "TWIST",
-        "2": "OWNER",
-        "3": "NERVE"
+        "1": "BASIS",
+        "2": "ALIBI",
+        "3": "SOLVE"
       }
     }
   },
   "2026-03-18": {
+    "theme": "🌲 Forest & Trees",
     "grid": [
       [
-        "M",
-        "O",
-        "N",
-        "T",
-        "H"
-      ],
-      [
-        "O",
-        "",
-        "O",
-        "",
-        "E"
-      ],
-      [
-        "R",
-        "A",
-        "T",
-        "E",
-        "D"
-      ],
-      [
-        "A",
-        "",
-        "E",
-        "",
-        "G"
-      ],
-      [
+        "F",
         "L",
         "O",
+        "R",
+        "A"
+      ],
+      [
+        "O",
+        "",
+        "P",
+        "",
+        "N"
+      ],
+      [
+        "C",
+        "R",
+        "E",
+        "E",
+        "K"
+      ],
+      [
+        "U",
+        "",
+        "R",
+        "",
+        "L"
+      ],
+      [
+        "S",
+        "H",
+        "A",
         "D",
-        "G",
         "E"
       ]
     ],
     "across": {
-      "1": "Calendar unit",
-      "4": "Given a score",
-      "5": "Country house"
+      "1": "All the plant life in the forest region",
+      "4": "A small stream flowing through the forest",
+      "5": "A darker area sheltered by branches overhead"
     },
     "down": {
-      "1": "Ethical",
-      "2": "Well-known",
-      "3": "Garden border"
+      "1": "To concentrate your attention on one thing",
+      "2": "A grand musical drama with orchestral music",
+      "3": "The joint connecting your foot to your leg"
     },
     "solution": {
       "across": {
-        "1": "MONTH",
-        "4": "RATED",
-        "5": "LODGE"
+        "1": "FLORA",
+        "4": "CREEK",
+        "5": "SHADE"
       },
       "down": {
-        "1": "MORAL",
-        "2": "NOTED",
-        "3": "HEDGE"
+        "1": "FOCUS",
+        "2": "OPERA",
+        "3": "ANKLE"
       }
     }
   },
   "2026-03-19": {
-    "grid": [
-      [
-        "M",
-        "O",
-        "N",
-        "T",
-        "H"
-      ],
-      [
-        "E",
-        "",
-        "O",
-        "",
-        "I"
-      ],
-      [
-        "R",
-        "E",
-        "B",
-        "E",
-        "L"
-      ],
-      [
-        "G",
-        "",
-        "L",
-        "",
-        "L"
-      ],
-      [
-        "E",
-        "V",
-        "E",
-        "R",
-        "Y"
-      ]
-    ],
-    "across": {
-      "1": "Calendar unit",
-      "4": "Fight authority",
-      "5": "Each one"
-    },
-    "down": {
-      "1": "Combine",
-      "2": "Dignified",
-      "3": "Has many hills"
-    },
-    "solution": {
-      "across": {
-        "1": "MONTH",
-        "4": "REBEL",
-        "5": "EVERY"
-      },
-      "down": {
-        "1": "MERGE",
-        "2": "NOBLE",
-        "3": "HILLY"
-      }
-    }
-  },
-  "2026-03-20": {
+    "theme": "🏥 Health & Body",
     "grid": [
       [
         "S",
-        "H",
+        "W",
         "E",
-        "E",
+        "A",
         "T"
       ],
       [
-        "T",
+        "E",
         "",
-        "L",
+        "A",
         "",
+        "H"
+      ],
+      [
+        "V",
+        "I",
+        "G",
+        "O",
         "R"
       ],
       [
-        "U",
-        "N",
-        "I",
-        "T",
-        "E"
-      ],
-      [
-        "C",
-        "",
-        "T",
-        "",
-        "A"
-      ],
-      [
-        "K",
-        "N",
         "E",
-        "L",
-        "T"
-      ]
-    ],
-    "across": {
-      "1": "Bed cover",
-      "4": "Join together",
-      "5": "Hint for knelt"
-    },
-    "down": {
-      "1": "Unable to move",
-      "2": "Top tier",
-      "3": "Special reward"
-    },
-    "solution": {
-      "across": {
-        "1": "SHEET",
-        "4": "UNITE",
-        "5": "KNELT"
-      },
-      "down": {
-        "1": "STUCK",
-        "2": "ELITE",
-        "3": "TREAT"
-      }
-    }
-  },
-  "2026-03-21": {
-    "grid": [
-      [
-        "F",
-        "I",
-        "F",
-        "T",
-        "Y"
-      ],
-      [
-        "I",
         "",
-        "O",
+        "E",
         "",
-        "I"
+        "E"
       ],
       [
         "N",
@@ -1241,652 +1152,772 @@
         "R",
         "V",
         "E"
-      ],
-      [
-        "D",
-        "",
-        "G",
-        "",
-        "L"
-      ],
-      [
-        "S",
-        "P",
-        "E",
-        "N",
-        "D"
       ]
     ],
     "across": {
-      "1": "Half of 100",
-      "4": "Body signal wire",
-      "5": "Use money"
+      "1": "Salty moisture produced during exercise",
+      "4": "Physical strength, energy, and enthusiasm",
+      "5": "A fiber carrying signals between brain and body"
     },
     "down": {
-      "1": "Discovers",
-      "2": "Shape metal",
-      "3": "Give way"
+      "1": "The number that follows six",
+      "2": "Keenly enthusiastic and ready to begin",
+      "3": "The number that comes after two"
     },
     "solution": {
       "across": {
-        "1": "FIFTY",
-        "4": "NERVE",
-        "5": "SPEND"
+        "1": "SWEAT",
+        "4": "VIGOR",
+        "5": "NERVE"
       },
       "down": {
-        "1": "FINDS",
-        "2": "FORGE",
-        "3": "YIELD"
-      }
-    }
-  },
-  "2026-03-22": {
-    "grid": [
-      [
-        "R",
-        "A",
-        "N",
-        "C",
-        "H"
-      ],
-      [
-        "O",
-        "",
-        "O",
-        "",
-        "O"
-      ],
-      [
-        "G",
-        "I",
-        "V",
-        "E",
-        "N"
-      ],
-      [
-        "E",
-        "",
-        "E",
-        "",
-        "E"
-      ],
-      [
-        "R",
-        "A",
-        "L",
-        "L",
-        "Y"
-      ]
-    ],
-    "across": {
-      "1": "Farm estate",
-      "4": "Provided",
-      "5": "Coming together"
-    },
-    "down": {
-      "1": "Hint for roger",
-      "2": "Story book",
-      "3": "Sweet substance"
-    },
-    "solution": {
-      "across": {
-        "1": "RANCH",
-        "4": "GIVEN",
-        "5": "RALLY"
-      },
-      "down": {
-        "1": "ROGER",
-        "2": "NOVEL",
-        "3": "HONEY"
-      }
-    }
-  },
-  "2026-03-23": {
-    "grid": [
-      [
-        "B",
-        "A",
-        "K",
-        "E",
-        "R"
-      ],
-      [
-        "A",
-        "",
-        "H",
-        "",
-        "A"
-      ],
-      [
-        "S",
-        "T",
-        "A",
-        "R",
-        "T"
-      ],
-      [
-        "I",
-        "",
-        "K",
-        "",
-        "E"
-      ],
-      [
-        "C",
-        "H",
-        "I",
-        "L",
-        "D"
-      ]
-    ],
-    "across": {
-      "1": "Bread maker",
-      "4": "Begin",
-      "5": "Young person"
-    },
-    "down": {
-      "1": "Fundamental",
-      "2": "Tan color",
-      "3": "Given a score"
-    },
-    "solution": {
-      "across": {
-        "1": "BAKER",
-        "4": "START",
-        "5": "CHILD"
-      },
-      "down": {
-        "1": "BASIC",
-        "2": "KHAKI",
-        "3": "RATED"
-      }
-    }
-  },
-  "2026-03-24": {
-    "grid": [
-      [
-        "S",
-        "H",
-        "O",
-        "U",
-        "T"
-      ],
-      [
-        "P",
-        "",
-        "R",
-        "",
-        "H"
-      ],
-      [
-        "L",
-        "A",
-        "B",
-        "O",
-        "R"
-      ],
-      [
-        "I",
-        "",
-        "I",
-        "",
-        "E"
-      ],
-      [
-        "T",
-        "I",
-        "T",
-        "L",
-        "E"
-      ]
-    ],
-    "across": {
-      "1": "Yell",
-      "4": "Hard work",
-      "5": "Name of work"
-    },
-    "down": {
-      "1": "Divide",
-      "2": "Go around",
-      "3": "Number after two"
-    },
-    "solution": {
-      "across": {
-        "1": "SHOUT",
-        "4": "LABOR",
-        "5": "TITLE"
-      },
-      "down": {
-        "1": "SPLIT",
-        "2": "ORBIT",
+        "1": "SEVEN",
+        "2": "EAGER",
         "3": "THREE"
       }
     }
   },
-  "2026-03-25": {
+  "2026-03-20": {
+    "theme": "🔨 Building & Tools",
     "grid": [
       [
         "S",
-        "H",
+        "T",
         "O",
-        "U",
-        "T"
+        "N",
+        "E"
+      ],
+      [
+        "T",
+        "",
+        "R",
+        "",
+        "A"
+      ],
+      [
+        "R",
+        "E",
+        "B",
+        "A",
+        "R"
       ],
       [
         "I",
         "",
-        "L",
+        "I",
         "",
-        "I"
+        "T"
+      ],
+      [
+        "P",
+        "A",
+        "T",
+        "C",
+        "H"
+      ]
+    ],
+    "across": {
+      "1": "A hard natural material used for building walls",
+      "4": "Steel rods embedded in concrete for strength",
+      "5": "A small repair applied to fix damage"
+    },
+    "down": {
+      "1": "A long narrow piece of something",
+      "2": "The curved path a planet travels around a star",
+      "3": "The rich soil where flowers take root and grow"
+    },
+    "solution": {
+      "across": {
+        "1": "STONE",
+        "4": "REBAR",
+        "5": "PATCH"
+      },
+      "down": {
+        "1": "STRIP",
+        "2": "ORBIT",
+        "3": "EARTH"
+      }
+    }
+  },
+  "2026-03-21": {
+    "theme": "🌙 Night & Dreams",
+    "grid": [
+      [
+        "S",
+        "T",
+        "A",
+        "R",
+        "S"
+      ],
+      [
+        "A",
+        "",
+        "M",
+        "",
+        "H"
+      ],
+      [
+        "A",
+        "W",
+        "A",
+        "K",
+        "E"
       ],
       [
         "G",
-        "U",
-        "I",
+        "",
+        "Z",
+        "",
+        "E"
+      ],
+      [
+        "S",
         "L",
-        "T"
+        "E",
+        "E",
+        "P"
+      ]
+    ],
+    "across": {
+      "1": "Bright points of light in the night sky",
+      "4": "Not sleeping, fully conscious and alert",
+      "5": "The restful state your body enters each night"
+    },
+    "down": {
+      "1": "Leafy green vegetables in South Asian cuisine",
+      "2": "To fill someone with surprise and wonder",
+      "3": "A woolly farm animal raised for its fleece"
+    },
+    "solution": {
+      "across": {
+        "1": "STARS",
+        "4": "AWAKE",
+        "5": "SLEEP"
+      },
+      "down": {
+        "1": "SAAGS",
+        "2": "AMAZE",
+        "3": "SHEEP"
+      }
+    }
+  },
+  "2026-03-22": {
+    "theme": "💰 Money & Business",
+    "grid": [
+      [
+        "T",
+        "R",
+        "A",
+        "D",
+        "E"
+      ],
+      [
+        "I",
+        "",
+        "B",
+        "",
+        "A"
+      ],
+      [
+        "G",
+        "R",
+        "O",
+        "S",
+        "S"
       ],
       [
         "H",
         "",
-        "V",
+        "U",
+        "",
+        "E"
+      ],
+      [
+        "T",
+        "O",
+        "T",
+        "A",
+        "L"
+      ]
+    ],
+    "across": {
+      "1": "The buying and selling of goods and services",
+      "4": "The total amount before deductions are made",
+      "5": "The complete sum of everything added together"
+    },
+    "down": {
+      "1": "Fitting closely, not loose or slack",
+      "2": "Approximately, or on the subject of something",
+      "3": "A stand that holds a canvas while you paint"
+    },
+    "solution": {
+      "across": {
+        "1": "TRADE",
+        "4": "GROSS",
+        "5": "TOTAL"
+      },
+      "down": {
+        "1": "TIGHT",
+        "2": "ABOUT",
+        "3": "EASEL"
+      }
+    }
+  },
+  "2026-03-23": {
+    "theme": "❄️ Winter & Cold",
+    "grid": [
+      [
+        "B",
+        "L",
+        "A",
+        "Z",
+        "E"
+      ],
+      [
+        "A",
+        "",
+        "M",
         "",
         "L"
       ],
       [
+        "S",
+        "K",
+        "A",
         "T",
-        "H",
-        "E",
-        "M",
         "E"
+      ],
+      [
+        "I",
+        "",
+        "Z",
+        "",
+        "C"
+      ],
+      [
+        "S",
+        "W",
+        "E",
+        "P",
+        "T"
       ]
     ],
     "across": {
-      "1": "Yell",
-      "4": "Feeling of wrong",
-      "5": "Central idea"
+      "1": "A warm fire to combat the winter cold",
+      "4": "To glide on ice wearing bladed boots",
+      "5": "Carried away by a powerful winter wind"
     },
     "down": {
-      "1": "Vision",
-      "2": "Green fruit",
-      "3": "Name of work"
+      "1": "The underlying foundation for something",
+      "2": "To fill someone with surprise and wonder",
+      "3": "To choose someone by voting"
     },
     "solution": {
       "across": {
-        "1": "SHOUT",
-        "4": "GUILT",
-        "5": "THEME"
+        "1": "BLAZE",
+        "4": "SKATE",
+        "5": "SWEPT"
       },
       "down": {
-        "1": "SIGHT",
-        "2": "OLIVE",
-        "3": "TITLE"
+        "1": "BASIS",
+        "2": "AMAZE",
+        "3": "ELECT"
+      }
+    }
+  },
+  "2026-03-24": {
+    "theme": "✍️ Words & Writing",
+    "grid": [
+      [
+        "P",
+        "A",
+        "P",
+        "E",
+        "R"
+      ],
+      [
+        "R",
+        "",
+        "A",
+        "",
+        "O"
+      ],
+      [
+        "E",
+        "S",
+        "S",
+        "A",
+        "Y"
+      ],
+      [
+        "S",
+        "",
+        "T",
+        "",
+        "A"
+      ],
+      [
+        "S",
+        "P",
+        "E",
+        "L",
+        "L"
+      ]
+    ],
+    "across": {
+      "1": "A thin material for writing notes on",
+      "4": "A short piece of writing on a particular subject",
+      "5": "To write or name the letters forming a word"
+    },
+    "down": {
+      "1": "To push firmly with steady force",
+      "2": "A thick sticky substance for gluing",
+      "3": "Relating to kings and queens who wear jewels"
+    },
+    "solution": {
+      "across": {
+        "1": "PAPER",
+        "4": "ESSAY",
+        "5": "SPELL"
+      },
+      "down": {
+        "1": "PRESS",
+        "2": "PASTE",
+        "3": "ROYAL"
+      }
+    }
+  },
+  "2026-03-25": {
+    "theme": "🚗 Cars & Roads",
+    "grid": [
+      [
+        "B",
+        "R",
+        "A",
+        "K",
+        "E"
+      ],
+      [
+        "A",
+        "",
+        "R",
+        "",
+        "A"
+      ],
+      [
+        "S",
+        "T",
+        "E",
+        "E",
+        "R"
+      ],
+      [
+        "I",
+        "",
+        "N",
+        "",
+        "T"
+      ],
+      [
+        "C",
+        "R",
+        "A",
+        "S",
+        "H"
+      ]
+    ],
+    "across": {
+      "1": "The pedal you press to slow down and stop",
+      "4": "To guide a vehicle in the right direction",
+      "5": "A violent collision between vehicles"
+    },
+    "down": {
+      "1": "Fundamental, forming the essential foundation",
+      "2": "A large venue where sports events are held",
+      "3": "The rich soil where flowers take root and grow"
+    },
+    "solution": {
+      "across": {
+        "1": "BRAKE",
+        "4": "STEER",
+        "5": "CRASH"
+      },
+      "down": {
+        "1": "BASIC",
+        "2": "ARENA",
+        "3": "EARTH"
       }
     }
   },
   "2026-03-26": {
+    "theme": "💎 Gems & Jewelry",
     "grid": [
       [
-        "B",
-        "L",
+        "F",
         "A",
-        "D",
-        "E"
-      ],
-      [
-        "A",
-        "",
-        "L",
-        "",
-        "L"
-      ],
-      [
-        "S",
-        "P",
-        "A",
-        "R",
-        "E"
-      ],
-      [
-        "I",
-        "",
-        "R",
-        "",
-        "C"
-      ],
-      [
         "C",
-        "O",
-        "M",
         "E",
         "T"
+      ],
+      [
+        "O",
+        "",
+        "O",
+        "",
+        "I"
+      ],
+      [
+        "R",
+        "O",
+        "U",
+        "N",
+        "D"
+      ],
+      [
+        "U",
+        "",
+        "N",
+        "",
+        "A"
+      ],
+      [
+        "M",
+        "E",
+        "T",
+        "A",
+        "L"
       ]
     ],
     "across": {
-      "1": "Sword edge",
-      "4": "Extra",
-      "5": "Space traveler with tail"
+      "1": "One flat polished surface on a cut gemstone",
+      "4": "The classic circular shape of a cut diamond",
+      "5": "Gold, silver, or platinum used in jewelry"
     },
     "down": {
-      "1": "Fundamental",
-      "2": "Warning device",
-      "3": "Choose by vote"
+      "1": "A place for open discussion",
+      "2": "To add up numbers one by one in sequence",
+      "3": "Relating to the rise and fall of sea water"
     },
     "solution": {
       "across": {
-        "1": "BLADE",
-        "4": "SPARE",
-        "5": "COMET"
+        "1": "FACET",
+        "4": "ROUND",
+        "5": "METAL"
       },
       "down": {
-        "1": "BASIC",
-        "2": "ALARM",
-        "3": "ELECT"
+        "1": "FORUM",
+        "2": "COUNT",
+        "3": "TIDAL"
       }
     }
   },
   "2026-03-27": {
+    "theme": "🎬 Theater & Film",
     "grid": [
       [
-        "B",
-        "L",
         "A",
+        "C",
+        "T",
+        "O",
+        "R"
+      ],
+      [
+        "U",
+        "",
+        "I",
+        "",
+        "E"
+      ],
+      [
         "D",
-        "E"
-      ],
-      [
-        "A",
-        "",
-        "W",
-        "",
-        "L"
-      ],
-      [
-        "S",
-        "P",
-        "A",
         "R",
-        "E"
+        "A",
+        "M",
+        "A"
       ],
       [
         "I",
         "",
-        "K",
+        "R",
         "",
         "C"
       ],
       [
-        "C",
-        "H",
-        "E",
+        "T",
+        "O",
+        "A",
         "S",
         "T"
       ]
     ],
     "across": {
-      "1": "Sword edge",
-      "4": "Extra",
-      "5": "Body front"
+      "1": "A person who plays a character in movies or plays",
+      "4": "A serious story performed on stage or screen",
+      "5": "A celebratory speech at a film premiere party"
     },
     "down": {
-      "1": "Fundamental",
-      "2": "Not sleeping",
-      "3": "Choose by vote"
+      "1": "An official examination of financial accounts",
+      "2": "A jeweled semicircular headband for royalty",
+      "3": "To respond to something that happened"
     },
     "solution": {
       "across": {
-        "1": "BLADE",
-        "4": "SPARE",
-        "5": "CHEST"
+        "1": "ACTOR",
+        "4": "DRAMA",
+        "5": "TOAST"
       },
       "down": {
-        "1": "BASIC",
-        "2": "AWAKE",
-        "3": "ELECT"
+        "1": "AUDIT",
+        "2": "TIARA",
+        "3": "REACT"
       }
     }
   },
   "2026-03-28": {
+    "theme": "🌸 Flowers & Spring",
     "grid": [
       [
+        "B",
+        "I",
         "R",
-        "O",
-        "M",
+        "C",
+        "H"
+      ],
+      [
+        "I",
+        "",
         "A",
+        "",
+        "E"
+      ],
+      [
+        "R",
+        "I",
+        "P",
+        "E",
         "N"
       ],
       [
-        "I",
-        "",
-        "I",
-        "",
-        "O"
-      ],
-      [
-        "V",
-        "I",
-        "G",
-        "O",
-        "R"
-      ],
-      [
-        "A",
-        "",
-        "H",
-        "",
-        "T"
-      ],
-      [
-        "L",
-        "A",
         "T",
-        "C",
-        "H"
+        "",
+        "I",
+        "",
+        "C"
+      ],
+      [
+        "H",
+        "E",
+        "D",
+        "G",
+        "E"
       ]
     ],
     "across": {
-      "1": "Ancient Italian",
-      "4": "Energy",
-      "5": "Door lock"
+      "1": "A spring-blooming tree with catkin flowers",
+      "4": "To become mature and ready to scatter seeds",
+      "5": "A row of flowering bushes forming a border"
     },
     "down": {
-      "1": "Competitor",
-      "2": "Strength",
-      "3": "Compass direction"
+      "1": "The moment of coming into the world",
+      "2": "Moving at very high speed",
+      "3": "For this reason, therefore"
     },
     "solution": {
       "across": {
-        "1": "ROMAN",
-        "4": "VIGOR",
-        "5": "LATCH"
+        "1": "BIRCH",
+        "4": "RIPEN",
+        "5": "HEDGE"
       },
       "down": {
-        "1": "RIVAL",
-        "2": "MIGHT",
-        "3": "NORTH"
+        "1": "BIRTH",
+        "2": "RAPID",
+        "3": "HENCE"
       }
     }
   },
   "2026-03-29": {
+    "theme": "🔍 Mystery & Clues",
     "grid": [
       [
-        "R",
-        "O",
-        "M",
-        "A",
-        "N"
-      ],
-      [
-        "E",
-        "",
-        "E",
-        "",
-        "O"
-      ],
-      [
-        "A",
-        "F",
-        "T",
-        "E",
-        "R"
-      ],
-      [
-        "C",
-        "",
-        "E",
-        "",
-        "T"
-      ],
-      [
-        "H",
-        "A",
-        "R",
         "S",
-        "H"
-      ]
-    ],
-    "across": {
-      "1": "Ancient Italian",
-      "4": "Following",
-      "5": "Severe"
-    },
-    "down": {
-      "1": "Get to",
-      "2": "Measuring device",
-      "3": "Compass direction"
-    },
-    "solution": {
-      "across": {
-        "1": "ROMAN",
-        "4": "AFTER",
-        "5": "HARSH"
-      },
-      "down": {
-        "1": "REACH",
-        "2": "METER",
-        "3": "NORTH"
-      }
-    }
-  },
-  "2026-03-30": {
-    "grid": [
-      [
-        "D",
-        "R",
-        "A",
         "I",
+        "R",
+        "E",
         "N"
       ],
       [
-        "E",
+        "O",
         "",
-        "N",
+        "I",
         "",
         "O"
       ],
       [
-        "R",
+        "N",
         "I",
         "G",
         "H",
         "T"
       ],
       [
-        "B",
+        "I",
         "",
-        "L",
+        "I",
         "",
         "E"
-      ],
-      [
-        "Y",
-        "I",
-        "E",
-        "L",
-        "D"
-      ]
-    ],
-    "across": {
-      "1": "Remove water",
-      "4": "Correct",
-      "5": "Give way"
-    },
-    "down": {
-      "1": "Horse race",
-      "2": "Corner measure",
-      "3": "Well-known"
-    },
-    "solution": {
-      "across": {
-        "1": "DRAIN",
-        "4": "RIGHT",
-        "5": "YIELD"
-      },
-      "down": {
-        "1": "DERBY",
-        "2": "ANGLE",
-        "3": "NOTED"
-      }
-    }
-  },
-  "2026-03-31": {
-    "grid": [
-      [
-        "D",
-        "R",
-        "A",
-        "I",
-        "N"
-      ],
-      [
-        "E",
-        "",
-        "W",
-        "",
-        "O"
       ],
       [
         "C",
         "O",
-        "A",
-        "S",
-        "T"
-      ],
-      [
-        "A",
-        "",
-        "K",
-        "",
-        "E"
-      ],
-      [
-        "Y",
-        "I",
+        "D",
         "E",
-        "L",
         "D"
       ]
     ],
     "across": {
-      "1": "Remove water",
-      "4": "Shoreline",
-      "5": "Give way"
+      "1": "A loud warning device used by police vehicles",
+      "4": "The dark hours when crimes often occur",
+      "5": "Written in a secret system of symbols"
     },
     "down": {
-      "1": "Rot",
-      "2": "Not sleeping",
-      "3": "Well-known"
+      "1": "Relating to or using sound waves",
+      "2": "Completely stiff, unable to bend",
+      "3": "Well-known for being a respected writer"
     },
     "solution": {
       "across": {
-        "1": "DRAIN",
-        "4": "COAST",
-        "5": "YIELD"
+        "1": "SIREN",
+        "4": "NIGHT",
+        "5": "CODED"
       },
       "down": {
-        "1": "DECAY",
-        "2": "AWAKE",
+        "1": "SONIC",
+        "2": "RIGID",
         "3": "NOTED"
+      }
+    }
+  },
+  "2026-03-30": {
+    "theme": "🌈 Colors & Light",
+    "grid": [
+      [
+        "G",
+        "L",
+        "E",
+        "A",
+        "M"
+      ],
+      [
+        "I",
+        "",
+        "M",
+        "",
+        "A"
+      ],
+      [
+        "A",
+        "M",
+        "B",
+        "E",
+        "R"
+      ],
+      [
+        "N",
+        "",
+        "E",
+        "",
+        "C"
+      ],
+      [
+        "T",
+        "O",
+        "R",
+        "C",
+        "H"
+      ]
+    ],
+    "across": {
+      "1": "A soft gentle glow of reflected light",
+      "4": "A warm golden-orange shade like honey",
+      "5": "A portable light or burning flame"
+    },
+    "down": {
+      "1": "An enormously large being or thing",
+      "2": "A small glowing piece of coal giving off light",
+      "3": "The third month, or to walk with purpose"
+    },
+    "solution": {
+      "across": {
+        "1": "GLEAM",
+        "4": "AMBER",
+        "5": "TORCH"
+      },
+      "down": {
+        "1": "GIANT",
+        "2": "EMBER",
+        "3": "MARCH"
+      }
+    }
+  },
+  "2026-03-31": {
+    "theme": "🤝 Friends & People",
+    "grid": [
+      [
+        "T",
+        "R",
+        "U",
+        "S",
+        "T"
+      ],
+      [
+        "O",
+        "",
+        "S",
+        "",
+        "H"
+      ],
+      [
+        "P",
+        "E",
+        "A",
+        "C",
+        "E"
+      ],
+      [
+        "I",
+        "",
+        "G",
+        "",
+        "I"
+      ],
+      [
+        "C",
+        "H",
+        "E",
+        "E",
+        "R"
+      ]
+    ],
+    "across": {
+      "1": "Firm belief in someone's loyalty and honesty",
+      "4": "Freedom from conflict, calm and quiet",
+      "5": "To shout encouragement or express joy"
+    },
+    "down": {
+      "1": "The subject being written about",
+      "2": "The way something is used",
+      "3": "Belonging to a group of people"
+    },
+    "solution": {
+      "across": {
+        "1": "TRUST",
+        "4": "PEACE",
+        "5": "CHEER"
+      },
+      "down": {
+        "1": "TOPIC",
+        "2": "USAGE",
+        "3": "THEIR"
       }
     }
   }

@@ -24,12 +24,16 @@ export async function syncProfile(profile) {
 export async function syncActivityEvent(userId, name, event) {
   if (typeof window === 'undefined' || !userId || !event) return;
   try {
-    await fetch('/api/activity', {
+    const response = await fetch('/api/activity', {
       method: 'POST',
       headers: API_HEADERS,
       body: JSON.stringify({ userId, name: name || 'Anonymous', event }),
     });
-  } catch (error) {
-    console.warn('[syncActivity] Failed to sync activity', error);
+    // Silently ignore 429 rate limits
+    if (response && !response.ok && response.status !== 429) {
+      console.warn('[syncActivity] Unexpected status:', response.status);
+    }
+  } catch {
+    // Silently ignore network errors (server restart, connection refused, etc.)
   }
 }

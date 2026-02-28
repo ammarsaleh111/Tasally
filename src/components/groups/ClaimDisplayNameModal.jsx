@@ -18,6 +18,7 @@ export default function ClaimDisplayNameModal({ onClaim, error: externalError })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
     const trimmed = name.trim();
     
     if (codePointLength < 3) {

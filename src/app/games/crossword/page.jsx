@@ -148,7 +148,7 @@ function ClueList({ clues, model, activeSegmentId, solvedSegmentIds, onSelect })
                   {clue.number}
                   {segment ? suffix(segment.direction) : ""}
                 </span>
-                <span className="block truncate text-sm text-foreground">{clue.text}</span>
+                <span className="block text-sm text-foreground">{clue.text}</span>
               </span>
               {isSolved ? (
                 <span className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-success/15 text-success">
@@ -161,6 +161,55 @@ function ClueList({ clues, model, activeSegmentId, solvedSegmentIds, onSelect })
           </Button>
         );
       })}
+    </div>
+  );
+}
+
+function MobileCluesPanel({ activeTab, onTabChange, activeClues, model, activeSegment, solvedSegmentIds, onSelect }) {
+  const [expanded, setExpanded] = useState(false);
+
+  // Find active clue text
+  const activeClue = activeClues.find(c => activeSegment && c.id === activeSegment.id);
+  const previewText = activeClue
+    ? `${activeClue.number}${suffix(activeSegment)}: ${activeClue.text}`
+    : "Tap a cell to see its clue";
+
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border-default bg-background/95 shadow-lg backdrop-blur lg:hidden">
+      {/* Collapsed: just the active clue + expand button */}
+      <button
+        type="button"
+        onClick={() => setExpanded(!expanded)}
+        className="flex w-full items-center gap-2 px-4 py-2.5 text-left"
+      >
+        <span className="flex-1 truncate text-sm font-medium text-foreground">{previewText}</span>
+        <svg
+          viewBox="0 0 24 24"
+          className={`h-5 w-5 shrink-0 text-text-muted transition-transform ${expanded ? "rotate-180" : ""}`}
+          fill="none"
+        >
+          <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {/* Expanded: full clues list */}
+      {expanded && (
+        <div className="mx-auto max-w-3xl px-3 pb-3">
+          <div className="rounded-2xl border border-border-default bg-card p-3">
+            <div className="mb-2 flex items-center justify-between">
+              <h2 className="text-sm font-bold uppercase tracking-wide text-text-muted">Clues</h2>
+              <ClueTabs active={activeTab} onChange={onTabChange} />
+            </div>
+            <ClueList
+              clues={activeClues}
+              model={model}
+              activeSegmentId={activeSegment?.id || null}
+              solvedSegmentIds={solvedSegmentIds}
+              onSelect={(segment) => { onSelect(segment); setExpanded(false); }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -238,6 +287,8 @@ export default function CrosswordPage() {
   const autosaveTimeoutRef = useRef(null);
   const completionSubmitRef = useRef(false);
   const previousSolvedRef = useRef(new Set());
+  const elapsedSecondsRef = useRef(0);
+  const autosaveFailCountRef = useRef(0);
 
   // Load stats on mount
   useEffect(() => {
@@ -429,7 +480,7 @@ export default function CrosswordPage() {
     const result = {
       date: getTodayString(),
       win: true,
-      time: elapsedSeconds,
+      time: elapsedSecondsRef.current,
       puzzleId: `crossword-${requestedDate}`,
       perfect: hintsUsed.revealsUsed === 0,
     };
@@ -456,12 +507,14 @@ export default function CrosswordPage() {
       gameKey: "crossword",
       mode: "daily",
       success: true,
-      durationMs: elapsedSeconds * 1000,
+      durationMs: elapsedSecondsRef.current * 1000,
       metadata: { requestedDate, servedDate },
     })
       .then(() => setSubmitState("submitted"))
       .catch(() => setSubmitState("error"));
-  }, [isComplete, requestedDate, servedDate, elapsedSeconds, hintsUsed.revealsUsed, model]);
+  }, [isComplete, requestedDate, servedDate, hintsUsed.revealsUsed, model]);
+
+  useEffect(() => { elapsedSecondsRef.current = elapsedSeconds; }, [elapsedSeconds]);
 
   useEffect(() => {
     if (!isHydrated || !puzzle || !requestedDate) return;
@@ -476,19 +529,43 @@ export default function CrosswordPage() {
     });
 
     if (storageMode === "db") {
+      // Stop retrying after 3 consecutive failures to avoid spamming a broken endpoint
+      if (autosaveFailCountRef.current >= 3) return;
       if (autosaveTimeoutRef.current) clearTimeout(autosaveTimeoutRef.current);
       autosaveTimeoutRef.current = setTimeout(() => {
         fetch("/api/crossword/progress", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ date: requestedDate, progress: payload }),
-        }).catch((error) => console.warn("[crossword] db autosave failed", error));
+        })
+          .then((res) => {
+            if (res.ok) {
+              autosaveFailCountRef.current = 0;
+            } else {
+              autosaveFailCountRef.current += 1;
+              if (autosaveFailCountRef.current >= 3) {
+                console.warn("[crossword] db autosave disabled after 3 failures, falling back to local");
+                saveGuestProgress(requestedDate, payload);
+              }
+            }
+          })
+          .catch(() => {
+            autosaveFailCountRef.current += 1;
+            if (autosaveFailCountRef.current >= 3) {
+              console.warn("[crossword] db autosave disabled after 3 failures, falling back to local");
+              saveGuestProgress(requestedDate, payload);
+            }
+          });
       }, 420);
       return;
     }
 
-    saveGuestProgress(requestedDate, payload);
-  }, [isHydrated, storageMode, requestedDate, puzzle, letters, solvedSegmentIds, hintsUsed, activeCell, direction, elapsedSeconds]);
+    if (autosaveTimeoutRef.current) clearTimeout(autosaveTimeoutRef.current);
+    autosaveTimeoutRef.current = setTimeout(() => {
+      saveGuestProgress(requestedDate, payload);
+    }, 420);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isHydrated, storageMode, requestedDate, puzzle, letters, solvedSegmentIds, hintsUsed, activeCell, direction]);
 
   const selectSegment = useCallback((segment) => {
     if (!segment?.cells?.length) return;
@@ -829,7 +906,7 @@ export default function CrosswordPage() {
       : "border-info/35 bg-info/10 text-info";
 
   return (
-    <div className="min-h-[100dvh] bg-background pb-28 text-foreground overflow-x-hidden lg:pb-8">
+    <div className="min-h-[100dvh] bg-background pb-16 text-foreground overflow-x-hidden lg:pb-8">
       <GameHeader 
         title="Mini Crossword" 
         onHowToPlay={openHowToPlay}
@@ -862,6 +939,12 @@ export default function CrosswordPage() {
             </div>
           </div>
         </div>
+        {puzzle.theme ? (
+          <div className="mt-2 flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-1.5 text-sm font-medium text-primary">
+            <span>Today&apos;s theme:</span>
+            <span className="font-bold">{puzzle.theme}</span>
+          </div>
+        ) : null}
 
         {statusMessage ? <div className={`mb-4 rounded-xl border px-4 py-2 text-sm font-medium ${statusToneClass}`}>{statusMessage.text}</div> : null}
 
@@ -882,7 +965,7 @@ export default function CrosswordPage() {
 
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div >
-            <div className="mb-4 flex flex-wrap gap-2 rounded-2xl border border-border-default bg-card p-3 shadow-sm">
+            <div className="mb-4 grid grid-cols-3 gap-2 rounded-2xl border border-border-default bg-card p-3 shadow-sm sm:flex sm:flex-wrap">
               <Button type="button" variant="outline" size="sm" onClick={handleCheckWord}>
                 Check Word
               </Button>
@@ -906,7 +989,7 @@ export default function CrosswordPage() {
               </Button>
             </div>
 
-           <div className="w-full max-w-2xl mx-auto overflow-hidden rounded-xl border border-border-default bg-card shadow-lg">
+           <div data-tutorial="crossword-grid" className="w-full max-w-2xl mx-auto overflow-hidden rounded-xl border border-border-default bg-card shadow-lg">
   {/* Grid wrapper with proper containment */}
   <div className="w-full p-3 sm:p-4">
     <div 
@@ -945,7 +1028,7 @@ export default function CrosswordPage() {
               return (
                 <div 
                   key={key} 
-                  className={`aspect-square bg-slate-500 ${wallRight} ${wallDown}`} 
+                  className={`aspect-square bg-foreground/20 dark:bg-foreground/15 ${wallRight} ${wallDown}`} 
                   aria-hidden="true" 
                 />
               );
@@ -971,6 +1054,7 @@ export default function CrosswordPage() {
                 relative flex aspect-square select-none items-center justify-center 
                 text-base sm:text-lg md:text-xl font-bold uppercase 
                 transition-all duration-200 ease-out
+                border border-border-default/30
                 focus:outline-none focus:z-20
                 ${
                   isActive 
@@ -1026,15 +1110,15 @@ export default function CrosswordPage() {
         </div>
       </main>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-border-default bg-background/95 p-3 shadow-sm backdrop-blur lg:hidden">
-        <div className="mx-auto max-w-3xl rounded-2xl border border-border-default bg-card p-3">
-          <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-text-muted">Clues</h2>
-            <ClueTabs active={activeTab} onChange={setActiveTab} />
-          </div>
-          <ClueList clues={activeClues} model={model} activeSegmentId={activeSegment?.id || null} solvedSegmentIds={solvedSegmentIds} onSelect={selectSegment} />
-        </div>
-      </div>
+      <MobileCluesPanel
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        activeClues={activeClues}
+        model={model}
+        activeSegment={activeSegment}
+        solvedSegmentIds={solvedSegmentIds}
+        onSelect={selectSegment}
+      />
 
       {/* Modals and Drawers */}
       <BadgeToastQueue
@@ -1059,7 +1143,6 @@ export default function CrosswordPage() {
 
       <BadgeEarnedRecap badges={badgeUnlocks} />
 
-      <BadgesProgressWidget />
 
       <BadgesDrawer 
         isOpen={showBadgesDrawer}

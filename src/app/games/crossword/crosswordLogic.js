@@ -121,6 +121,7 @@ export function normalizePuzzlePayload(payload) {
 
   return {
     date: String(payload.date || payload.servedDate || "").trim(),
+    theme: payload.theme ? String(payload.theme).trim() : null,
     size: { rows, cols },
     grid,
     clues: {

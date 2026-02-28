@@ -166,23 +166,47 @@ export function disconnectRealtime() {
 }
 
 /**
- * Send a heartbeat/activity update to the server
+ * Send a heartbeat/activity update to the server.
+ * All throttling + backoff is handled HERE so callers never need to worry about rate limits.
  * @param {Object} data - Activity data
  */
+let _lastHeartbeatAt = 0;
+let _heartbeatBackoffUntil = 0;
+const _HEARTBEAT_MIN_GAP = 15_000; // 15 seconds between any two heartbeat requests
+
+let _telemetryBackoffUntil = 0;
+const _telemetryLastSentByKey = new Map();
+const _TELEMETRY_MIN_GAP = 2_000;
+
 export async function sendHeartbeat(data) {
   if (typeof window === 'undefined') return;
-  
+
+  const now = Date.now();
+
+  // Back-off: if we recently got a 429, wait before trying again
+  if (now < _heartbeatBackoffUntil) return;
+
+  // Throttle: never send faster than once per 15 s
+  if (now - _lastHeartbeatAt < _HEARTBEAT_MIN_GAP) return;
+  _lastHeartbeatAt = now;
+
   try {
     const response = await fetch('/api/realtime/heartbeat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         ...data,
-        timestamp: Date.now(),
+        timestamp: now,
         userAgent: navigator.userAgent,
       }),
     });
-    
+
+    if (response.status === 429) {
+      // Back off for 60 seconds on rate-limit
+      _heartbeatBackoffUntil = Date.now() + 60_000;
+      return;
+    }
+
     if (response.status === 410) {
       let payload = null;
       try {
@@ -192,8 +216,8 @@ export async function sendHeartbeat(data) {
       }
       await handleAccountDeleted(payload?.message);
     }
-  } catch (e) {
-    console.warn('[Realtime] Heartbeat failed:', e);
+  } catch {
+    // Silently ignore network errors (server restart, connection refused, etc.)
   }
 }
 
@@ -205,7 +229,15 @@ export async function sendHeartbeat(data) {
  */
 export async function sendGameTelemetry(game, eventType, details = {}) {
   if (typeof window === 'undefined') return;
-  
+
+  const now = Date.now();
+  if (now < _telemetryBackoffUntil) return;
+
+  const telemetryKey = `${details?.sessionId || 'anonymous'}:${game}:${eventType}`;
+  const lastTelemetryAt = _telemetryLastSentByKey.get(telemetryKey) || 0;
+  if (now - lastTelemetryAt < _TELEMETRY_MIN_GAP) return;
+  _telemetryLastSentByKey.set(telemetryKey, now);
+
   try {
     const {
       sessionId,
@@ -214,7 +246,7 @@ export async function sendGameTelemetry(game, eventType, details = {}) {
       role,
       ...restDetails
     } = details || {};
-    await fetch('/api/realtime/telemetry', {
+    const response = await fetch('/api/realtime/telemetry', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -225,11 +257,16 @@ export async function sendGameTelemetry(game, eventType, details = {}) {
         playerName,
         userId,
         role,
-        timestamp: Date.now(),
+        timestamp: now,
       }),
     });
-  } catch (e) {
-    console.warn('[Realtime] Telemetry failed:', e);
+
+    if (response.status === 429) {
+      _telemetryBackoffUntil = Date.now() + 60_000;
+      return;
+    }
+  } catch {
+    // Silently ignore network errors (server restart, connection refused, etc.)
   }
 }
 

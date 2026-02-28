@@ -29,7 +29,7 @@ const ModeSelection = ({ onSelectMode, isGroupGame = false, groupName }) => {
 
         <h2 className="mb-8 text-3xl font-serif font-bold text-foreground animate-pop">How many letters?</h2>
 
-        <div className="mt-10 flex w-full justify-center gap-4">
+        <div className="mt-100 flex w-full justify-center gap-4">
           {[4, 5, 6].map((length) => (
             <button
               key={length}
@@ -61,7 +61,7 @@ const ModeSelection = ({ onSelectMode, isGroupGame = false, groupName }) => {
           <p className="mt-2 text-text-muted">Get 6 chances to guess the word.</p>
         </div>
 
-        <div className="mt-10 grid w-full items-center justify-center gap-4">
+        <div className="mt-100 grid w-full items-center justify-center gap-4">
           <button
             onClick={() => handleModeClick("daily")}
             className="group relative rounded-xl border border-border-default bg-card p-6 text-center transition-all duration-200 hover:border-wordle-correct hover:shadow-md active:scale-[0.98]"

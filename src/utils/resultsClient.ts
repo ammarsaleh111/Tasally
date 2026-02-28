@@ -64,13 +64,11 @@ async function submitDailyResult(input: SubmitResultInput): Promise<SubmitResult
     });
 
     if (!res.ok) {
-      console.warn("[submitResult] Failed:", await res.text());
       return null;
     }
 
     return res.json();
-  } catch (error) {
-    console.error("[submitResult] Error:", error);
+  } catch {
     return null;
   }
 }
@@ -92,7 +90,6 @@ async function submitUnlimitedResult(input: SubmitResultInput): Promise<SubmitRe
     });
 
     if (!result.ok) {
-      console.warn("[submitUnlimitedResult] Failed:", result.error);
       return null;
     }
 
@@ -104,8 +101,7 @@ async function submitUnlimitedResult(input: SubmitResultInput): Promise<SubmitRe
       id: data?.result?.id || data?.id || "unknown",
       score: data?.pointsAwarded || data?.result?.pointsAwarded || data?.result?.points_awarded || 0,
     };
-  } catch (error) {
-    console.error("[submitUnlimitedResult] Error:", error);
+  } catch {
     return null;
   }
 }

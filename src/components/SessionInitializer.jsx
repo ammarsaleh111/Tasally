@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { initSessionTracking, trackPageLoad, startHeartbeat, stopHeartbeat } from '@/utils/sessionTracker';
 import { performDailyCleanup } from '@/utils/learningLogEngine';
-import { ensureSession, getSession } from '@/utils/sessionManager';
+import { ensureSession } from '@/utils/sessionManager';
 
 const SessionInitializer = ({ children }) => {
   const pathname = usePathname();
@@ -12,9 +12,6 @@ const SessionInitializer = ({ children }) => {
   useEffect(() => {
     // Ensure there is a single active session identity
     ensureSession();
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('[SESSION]', getSession());
-    }
 
     // Initialize session tracking
     const cleanup = initSessionTracking();

@@ -14,6 +14,10 @@ export type GameContext =
   | { type: "group"; groupId: string; groupName?: string };
 
 const CONTEXT_STORAGE_KEY = "ammarTimes_gameContext";
+let globalResultsBackoffUntil = 0;
+let lastGlobalSubmitKey = "";
+let lastGlobalSubmitAt = 0;
+const GLOBAL_SUBMIT_DEDUPE_MS = 2000;
 
 /**
  * Parse game context from URL search params.
@@ -135,6 +139,21 @@ export async function submitGameResult(
   }
 ): Promise<{ ok: boolean; data?: any; error?: string }> {
   const endpoint = getResultsEndpoint(context);
+  const now = Date.now();
+
+  if (context.type === "global") {
+    if (now < globalResultsBackoffUntil) {
+      return { ok: false, error: "RATE_LIMITED" };
+    }
+
+    const submissionKey = `${result.gameKey}:${result.won}:${result.moves ?? ""}:${result.timeMs}`;
+    if (submissionKey === lastGlobalSubmitKey && now - lastGlobalSubmitAt < GLOBAL_SUBMIT_DEDUPE_MS) {
+      return { ok: true, data: { deduped: true, pointsAwarded: 0 } };
+    }
+
+    lastGlobalSubmitKey = submissionKey;
+    lastGlobalSubmitAt = now;
+  }
 
   try {
     const res = await fetch(endpoint, {
@@ -142,6 +161,16 @@ export async function submitGameResult(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(result),
     });
+
+    if (res.status === 429) {
+      const retryAfterHeader = res.headers.get("Retry-After");
+      const retryAfterSeconds = Number(retryAfterHeader);
+      const retryMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
+        ? retryAfterSeconds * 1000
+        : 60_000;
+      globalResultsBackoffUntil = Date.now() + retryMs;
+      return { ok: false, error: "RATE_LIMITED" };
+    }
 
     const json = await res.json();
 

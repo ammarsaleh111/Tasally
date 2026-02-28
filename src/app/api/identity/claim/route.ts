@@ -23,12 +23,6 @@ import {
   resolveIdentity,
   buildIdentityCookieHeader,
 } from "@/lib/groups/identity";
-import {
-  checkRateLimit,
-  rateLimitResponse,
-  getClientIP,
-  buildRateLimitKey,
-} from "@/lib/rateLimit";
 
 const claimSchema = z.object({
   displayName: z.string().min(1).max(60),
@@ -36,17 +30,6 @@ const claimSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    // Rate limit: 10/min per IP
-    const ip = getClientIP(request);
-    const rl = await checkRateLimit(
-      buildRateLimitKey("identity:claim", ip),
-      10,
-      60
-    );
-    if (!rl.allowed) {
-      return rateLimitResponse(rl, "identity:claim", ip);
-    }
-
     const body = await request.json().catch(() => ({}));
     const parsed = claimSchema.safeParse(body);
     if (!parsed.success) {

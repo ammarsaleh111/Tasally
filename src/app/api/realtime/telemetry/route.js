@@ -10,7 +10,7 @@
 
 import { updateGameState } from '../store';
 import { db, gameEvents } from '@/db';
-import { checkRateLimit, rateLimitResponse, buildRateLimitKey, RATE_LIMITS } from '@/lib/rateLimit';
+import { checkRateLimit, buildRateLimitKey, RATE_LIMITS } from '@/lib/rateLimit';
 import { createRequestTimer, logRequestMetrics, trackDbQuery } from '@/lib/observability';
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -65,12 +65,18 @@ export async function POST(request) {
       logRequestMetrics({
         route: '/api/realtime/telemetry',
         method: 'POST',
-        statusCode: 429,
+        statusCode: 200,
         durationMs: timer.elapsed(),
         rateLimited: true,
         timestamp: new Date().toISOString(),
       });
-      return rateLimitResponse(rateResult, '/api/realtime/telemetry', identifier);
+      return Response.json({
+        success: true,
+        throttled: true,
+        dropped: true,
+        retryAfterSeconds: rateResult.retryAfterSeconds ?? 60,
+        timestamp: Date.now(),
+      });
     }
     
     // Update game state for live monitoring (always do this - no DB write)

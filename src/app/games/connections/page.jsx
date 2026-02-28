@@ -270,7 +270,7 @@ export default function ConnectionsGame() {
       />
       
       {/* SCROLLABLE CONTENT AREA */}
-      <div className="flex-1 overflow-y-auto scrollbar-hide">
+      <div className="flex-1 overflow-y-auto scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
         <div className="flex flex-col items-center w-full px-4 py-6 min-h-full">
           <div className="w-full max-w-3xl mx-auto space-y-6">
             {toast && (

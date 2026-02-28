@@ -18,10 +18,10 @@ export const RATE_LIMITS = {
   REGISTER: { max: 5, windowSeconds: 60 },
   // POST /api/results: 10/min per user/guest
   RESULTS: { max: 10, windowSeconds: 60 },
-  // POST /api/realtime/heartbeat: 60/min per session (legacy, allows ~1 per second burst)
-  HEARTBEAT: { max: 60, windowSeconds: 60 },
-  // POST /api/presence/heartbeat: 2/min per user (client calls every 60-120s)
-  PRESENCE_HEARTBEAT: { max: 2, windowSeconds: 60 },
+  // POST /api/realtime/heartbeat: 120/min per session (allows bursts from saveSession + interval)
+  HEARTBEAT: { max: 120, windowSeconds: 60 },
+  // POST /api/presence/heartbeat: 4/min per user (client calls every 60-120s, allow visibility resume bursts)
+  PRESENCE_HEARTBEAT: { max: 4, windowSeconds: 60 },
   // POST /api/realtime/telemetry: 30/min per session
   TELEMETRY: { max: 30, windowSeconds: 60 },
   // POST /api/link-guest: 5/day per user
@@ -36,8 +36,8 @@ export const RATE_LIMITS = {
   DEFAULT_WRITE: { max: 20, windowSeconds: 60 },
   // Groups: identity find — 20/min per IP (prevent enumeration)
   IDENTITY_FIND: { max: 20, windowSeconds: 60 },
-  // Groups: identity claim — 10/min per IP
-  IDENTITY_CLAIM: { max: 10, windowSeconds: 60 },
+  // Groups: identity claim — 20/min per IP (allow retries + multi-tab)
+  IDENTITY_CLAIM: { max: 20, windowSeconds: 60 },
   // Groups: identity rename — 5/min per IP
   IDENTITY_RENAME: { max: 5, windowSeconds: 60 },
   // Groups: create group — 5/min per identity
@@ -69,33 +69,35 @@ export async function checkRateLimit(
   const now = new Date();
   const windowStart = new Date(Math.floor(now.getTime() / (windowSeconds * 1000)) * windowSeconds * 1000);
   const expiresAt = new Date(windowStart.getTime() + windowSeconds * 1000);
+  const windowStartIso = windowStart.toISOString();
+  const expiresAtIso = expiresAt.toISOString();
 
   try {
     // Atomic upsert: increment count or reset if window expired
     const result = await db.execute(sql`
       INSERT INTO rate_limits (key, window_start, count, expires_at)
-      VALUES (${key}, ${windowStart}, 1, ${expiresAt})
+      VALUES (${key}, ${windowStartIso}::timestamptz, 1, ${expiresAtIso}::timestamptz)
       ON CONFLICT (key) DO UPDATE SET
         count = CASE 
-          WHEN rate_limits.window_start < ${windowStart} THEN 1
+          WHEN rate_limits.window_start < ${windowStartIso}::timestamptz THEN 1
           ELSE rate_limits.count + 1
         END,
         window_start = CASE
-          WHEN rate_limits.window_start < ${windowStart} THEN ${windowStart}
+          WHEN rate_limits.window_start < ${windowStartIso}::timestamptz THEN ${windowStartIso}::timestamptz
           ELSE rate_limits.window_start
         END,
         expires_at = CASE
-          WHEN rate_limits.window_start < ${windowStart} THEN ${expiresAt}
+          WHEN rate_limits.window_start < ${windowStartIso}::timestamptz THEN ${expiresAtIso}::timestamptz
           ELSE rate_limits.expires_at
         END
       RETURNING count, expires_at
     `);
 
     // The result is an array of rows from postgres.js
-    const rows = result as unknown as Array<{ count: number; expires_at: Date }>;
+    const rows = result as unknown as Array<{ count: number; expires_at: Date | string }>;
     const row = rows[0];
     const count = row?.count ?? 1;
-    const resetAt = row?.expires_at ?? expiresAt;
+    const resetAt = row?.expires_at ? new Date(row.expires_at) : expiresAt;
     const remaining = Math.max(0, maxRequests - count);
     const allowed = count <= maxRequests;
 

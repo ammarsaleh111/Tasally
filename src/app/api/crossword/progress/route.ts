@@ -25,6 +25,7 @@ const ProgressSchema = z.object({
   hintsUsed: HintsSchema.optional(),
   activeCell: ActiveCellSchema.optional(),
   direction: z.enum(["across", "down"]).optional(),
+  elapsedSeconds: z.number().int().min(0).max(86400).optional(),
   savedAt: z.string().max(80).optional(),
 });
 
@@ -65,6 +66,7 @@ function sanitizeProgress(progress: z.infer<typeof ProgressSchema>) {
     hintsUsed,
     activeCell,
     direction: progress.direction === "down" ? "down" : "across",
+    elapsedSeconds: Math.max(0, Math.min(86400, Math.floor(Number(progress.elapsedSeconds || 0)))),
     savedAt: progress.savedAt || new Date().toISOString(),
   };
 }

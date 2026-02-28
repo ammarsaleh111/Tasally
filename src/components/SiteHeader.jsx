@@ -86,8 +86,7 @@ export default function SiteHeader() {
 
             {/* Right Side Actions */}
             <div className="flex items-center gap-2">
-              {/* Install App Button */}
-              <InstallAppHeaderButton />
+         
 
               {/* Auth Button - Desktop */}
               <div className="hidden sm:block">

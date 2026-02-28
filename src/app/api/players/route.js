@@ -58,7 +58,7 @@ export async function POST(request) {
   // Rate limit check
   const clientId = getClientIdentifier(request);
   if (isRateLimited(clientId, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)) {
-    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+    return NextResponse.json({ ok: true, throttled: true, dropped: true });
   }
 
   try {

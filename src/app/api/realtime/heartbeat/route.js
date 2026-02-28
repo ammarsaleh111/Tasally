@@ -13,7 +13,7 @@ import { db, guestProfiles, presenceSessions, users } from '@/db';
 import { sanitizeName } from '@/utils/inputSanitizer';
 import { eq, lt } from 'drizzle-orm';
 import { checkHeartbeatThrottle } from '@/lib/heartbeatThrottle';
-import { checkRateLimit, rateLimitResponse, buildRateLimitKey, RATE_LIMITS } from '@/lib/rateLimit';
+import { checkRateLimit, buildRateLimitKey, RATE_LIMITS } from '@/lib/rateLimit';
 import { createRequestTimer, logRequestMetrics, trackDbQuery } from '@/lib/observability';
 
 // In-memory store shared with stream route
@@ -61,12 +61,18 @@ export async function POST(request) {
       logRequestMetrics({
         route: '/api/realtime/heartbeat',
         method: 'POST',
-        statusCode: 429,
+        statusCode: 200,
         durationMs: timer.elapsed(),
         rateLimited: true,
         timestamp: new Date().toISOString(),
       });
-      return rateLimitResponse(rateResult, '/api/realtime/heartbeat', sessionId);
+      return Response.json({
+        success: true,
+        throttled: true,
+        dropped: true,
+        retryAfterSeconds: rateResult.retryAfterSeconds ?? 60,
+        timestamp: Date.now(),
+      });
     }
     
     // Parse browser from user agent
