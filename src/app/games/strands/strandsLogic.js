@@ -237,6 +237,10 @@ export function validateSelection(grid, path, puzzle, foundWordsSet, spangramFou
     return { type: 'spangram', word, path };
   }
 
+  if (!spangramFound && word === puzzle.spangram.toUpperCase()) {
+    return { type: 'invalid' };
+  }
+
   const inTheme = puzzle.words.map(w => w.toUpperCase());
   if (inTheme.includes(word) && !foundWordsSet.has(word)) {
     return { type: 'word', word, path };

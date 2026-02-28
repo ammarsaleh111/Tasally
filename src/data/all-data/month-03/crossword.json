@@ -2,1430 +2,1342 @@
   "2026-03-01": {
     "grid": [
       [
-        "F",
-        "R",
-        "E",
+        "P",
+        "H",
+        "A",
         "S",
-        "H"
-      ],
-      [
-        "L",
-        "",
-        "A",
-        "",
-        "O"
-      ],
-      [
-        "A",
-        "G",
-        "R",
-        "E",
         "E"
       ],
       [
-        "S",
+        "A",
         "",
-        "E",
+        "L",
         "",
-        "S"
+        "I"
       ],
       [
-        "H",
+        "S",
+        "W",
+        "I",
+        "N",
+        "G"
+      ],
+      [
+        "T",
+        "",
+        "K",
+        "",
+        "H"
+      ],
+      [
         "E",
         "L",
-        "L",
-        "O"
+        "E",
+        "C",
+        "T"
       ]
     ],
     "across": {
-      "1": "Not stale",
-      "6": "Concur",
-      "7": "Greeting word"
+      "1": "Stage",
+      "4": "Move back and forth",
+      "5": "Choose by vote"
     },
     "down": {
-      "1": "Sudden light",
-      "2": "Crimson",
-      "3": "Garden tool",
-      "4": "Not his",
-      "5": "Sleeping place"
+      "1": "Sticky mixture",
+      "2": "Similar",
+      "3": "Number after seven"
     },
     "solution": {
       "across": {
-        "1": "FRESH",
-        "6": "AGREE",
-        "7": "HELLO"
+        "1": "PHASE",
+        "4": "SWING",
+        "5": "ELECT"
       },
       "down": {
-        "1": "FLASH",
-        "2": "REGES",
-        "3": "EEREL",
-        "4": "SHEL",
-        "5": "HELO"
+        "1": "PASTE",
+        "2": "ALIKE",
+        "3": "EIGHT"
       }
     }
   },
   "2026-03-02": {
     "grid": [
       [
-        "S",
-        "T",
+        "E",
+        "N",
+        "J",
+        "O",
+        "Y"
+      ],
+      [
+        "X",
+        "",
+        "U",
+        "",
+        "I"
+      ],
+      [
         "A",
         "R",
-        "T"
-      ],
-      [
-        "H",
-        "",
-        "R",
-        "",
-        "R"
-      ],
-      [
-        "E",
-        "L",
-        "D",
-        "E",
-        "R"
-      ],
-      [
-        "L",
-        "",
-        "E",
-        "",
+        "I",
+        "S",
         "E"
       ],
       [
-        "L",
-        "I",
-        "V",
+        "C",
+        "",
+        "C",
+        "",
+        "L"
+      ],
+      [
+        "T",
+        "R",
         "E",
+        "N",
         "D"
       ]
     ],
     "across": {
-      "1": "Begin",
-      "6": "Older person",
-      "7": "Resided"
+      "1": "Take pleasure in",
+      "4": "Get up",
+      "5": "Popular direction"
     },
     "down": {
-      "1": "Protective cover",
-      "2": "Ripped",
-      "3": "Long dress",
-      "4": "Not her",
-      "5": "Evergreen"
+      "1": "Precise",
+      "2": "Fruit liquid",
+      "3": "Give way"
     },
     "solution": {
       "across": {
-        "1": "START",
-        "6": "ELDER",
-        "7": "LIVED"
+        "1": "ENJOY",
+        "4": "ARISE",
+        "5": "TREND"
       },
       "down": {
-        "1": "SHELL",
-        "2": "TORED",
-        "3": "ADREL",
-        "4": "RTED",
-        "5": "TREE"
+        "1": "EXACT",
+        "2": "JUICE",
+        "3": "YIELD"
       }
     }
   },
   "2026-03-03": {
     "grid": [
       [
-        "C",
+        "V",
+        "A",
         "L",
-        "E",
-        "A",
-        "N"
-      ],
-      [
-        "H",
-        "",
-        "A",
-        "",
+        "U",
         "E"
       ],
       [
         "A",
-        "R",
-        "M",
+        "",
         "O",
+        "",
+        "N"
+      ],
+      [
+        "L",
+        "I",
+        "G",
+        "H",
+        "T"
+      ],
+      [
+        "I",
+        "",
+        "I",
+        "",
         "R"
       ],
       [
-        "I",
-        "",
-        "S",
-        "",
-        "M"
-      ],
-      [
-        "R",
-        "I",
-        "V",
+        "D",
         "E",
-        "R"
+        "C",
+        "A",
+        "Y"
       ]
     ],
     "across": {
-      "1": "Not dirty",
-      "6": "Knight's protection",
-      "7": "Flowing water"
+      "1": "Worth",
+      "4": "Illumination",
+      "5": "Rot"
     },
     "down": {
-      "1": "Seat",
-      "2": "Jump high",
-      "3": "Simplicity",
-      "4": "Aged",
-      "5": "Not ever"
+      "1": "Legitimate",
+      "2": "Reasoning",
+      "3": "Way in"
     },
     "solution": {
       "across": {
-        "1": "CLEAN",
-        "6": "ARMOR",
-        "7": "RIVER"
+        "1": "VALUE",
+        "4": "LIGHT",
+        "5": "DECAY"
       },
       "down": {
-        "1": "CHAIR",
-        "2": "LEAPS",
-        "3": "EAMOR",
-        "4": "ASOM",
-        "5": "NEVER"
+        "1": "VALID",
+        "2": "LOGIC",
+        "3": "ENTRY"
       }
     }
   },
   "2026-03-04": {
     "grid": [
       [
-        "B",
-        "R",
-        "E",
+        "V",
         "A",
-        "K"
-      ],
-      [
-        "R",
-        "",
-        "A",
-        "",
-        "N"
+        "L",
+        "U",
+        "E"
       ],
       [
         "I",
-        "D",
-        "E",
-        "A",
+        "",
+        "O",
+        "",
         "L"
       ],
       [
-        "G",
-        "",
-        "E",
-        "",
-        "F"
+        "S",
+        "W",
+        "O",
+        "R",
+        "E"
       ],
       [
-        "H",
+        "I",
+        "",
+        "S",
+        "",
+        "C"
+      ],
+      [
+        "T",
+        "R",
         "E",
         "A",
-        "R",
-        "D"
+        "T"
       ]
     ],
     "across": {
-      "1": "Fracture",
-      "6": "Perfect",
-      "7": "Listened to"
+      "1": "Worth",
+      "4": "Made a promise",
+      "5": "Special reward"
     },
     "down": {
-      "1": "Shiny",
-      "2": "Genuine",
-      "3": "Each",
-      "4": "Curved",
-      "5": "Type of bread"
+      "1": "Go see",
+      "2": "Not tight",
+      "3": "Choose by vote"
     },
     "solution": {
       "across": {
-        "1": "BREAK",
-        "6": "IDEAL",
-        "7": "HEARD"
+        "1": "VALUE",
+        "4": "SWORE",
+        "5": "TREAT"
       },
       "down": {
-        "1": "BRIGH",
-        "2": "REAEL",
-        "3": "EAEAN",
-        "4": "ALAR",
-        "5": "KALD"
+        "1": "VISIT",
+        "2": "LOOSE",
+        "3": "ELECT"
       }
     }
   },
   "2026-03-05": {
     "grid": [
       [
-        "D",
+        "C",
         "R",
-        "E",
         "A",
+        "N",
+        "E"
+      ],
+      [
+        "Y",
+        "",
+        "G",
+        "",
         "M"
       ],
       [
-        "R",
-        "",
-        "A",
-        "",
-        "Y"
-      ],
-      [
-        "I",
         "C",
-        "O",
-        "N",
-        "S"
+        "R",
+        "E",
+        "E",
+        "P"
       ],
       [
-        "V",
+        "L",
         "",
-        "I",
+        "N",
         "",
         "T"
       ],
       [
         "E",
-        "A",
-        "G",
-        "L",
-        "E"
+        "N",
+        "T",
+        "R",
+        "Y"
       ]
     ],
     "across": {
-      "1": "Sleep vision",
-      "6": "Symbols",
-      "7": "Large bird"
+      "1": "Tall bird",
+      "4": "Move slowly",
+      "5": "Way in"
     },
     "down": {
-      "1": "Operate vehicle",
-      "2": "Glowing coal",
-      "3": "Heavy weight",
-      "4": "South American animal",
-      "5": "Sailor"
+      "1": "Repeated pattern",
+      "2": "Representative",
+      "3": "Nothing inside"
     },
     "solution": {
       "across": {
-        "1": "DREAM",
-        "6": "ICONS",
-        "7": "EAGLE"
+        "1": "CRANE",
+        "4": "CREEP",
+        "5": "ENTRY"
       },
       "down": {
-        "1": "DRIVE",
-        "2": "RECONE",
-        "3": "EAANG",
-        "4": "AMSL",
-        "5": "MATE"
+        "1": "CYCLE",
+        "2": "AGENT",
+        "3": "EMPTY"
       }
     }
   },
   "2026-03-06": {
     "grid": [
       [
-        "S",
-        "P",
-        "E",
-        "L",
-        "L"
-      ],
-      [
-        "W",
-        "",
-        "A",
-        "",
-        "A"
-      ],
-      [
-        "E",
-        "A",
         "R",
-        "T",
-        "H"
-      ],
-      [
         "A",
-        "",
-        "O",
-        "",
+        "I",
+        "S",
         "E"
       ],
       [
-        "T",
-        "O",
-        "N",
         "I",
-        "C"
+        "",
+        "M",
+        "",
+        "N"
+      ],
+      [
+        "D",
+        "E",
+        "A",
+        "L",
+        "T"
+      ],
+      [
+        "G",
+        "",
+        "G",
+        "",
+        "R"
+      ],
+      [
+        "E",
+        "V",
+        "E",
+        "R",
+        "Y"
       ]
     ],
     "across": {
-      "1": "Magic word",
-      "6": "Our planet",
-      "7": "Health drink"
+      "1": "Lift up",
+      "4": "Distributed cards",
+      "5": "Each one"
     },
     "down": {
-      "1": "Perspire",
-      "2": "Fruit skin",
-      "3": "Obtain",
-      "4": "Letter",
-      "5": "Jump"
+      "1": "Mountain top line",
+      "2": "Picture",
+      "3": "Way in"
     },
     "solution": {
       "across": {
-        "1": "SPELL",
-        "6": "EARTH",
-        "7": "TONIC"
+        "1": "RAISE",
+        "4": "DEALT",
+        "5": "EVERY"
       },
       "down": {
-        "1": "SWEAT",
-        "2": "PEARO",
-        "3": "EATOH",
-        "4": "LTIC",
-        "5": "LEAPIC"
+        "1": "RIDGE",
+        "2": "IMAGE",
+        "3": "ENTRY"
       }
     }
   },
   "2026-03-07": {
     "grid": [
       [
-        "G",
-        "R",
-        "A",
-        "N",
-        "D"
-      ],
-      [
-        "R",
-        "",
-        "U",
-        "",
-        "A"
-      ],
-      [
-        "E",
-        "X",
-        "T",
-        "R",
-        "A"
-      ],
-      [
-        "E",
-        "",
-        "R",
-        "",
-        "M"
-      ],
-      [
-        "N",
-        "I",
-        "G",
         "H",
-        "T"
+        "E",
+        "R",
+        "B",
+        "S"
+      ],
+      [
+        "I",
+        "",
+        "E",
+        "",
+        "H"
+      ],
+      [
+        "P",
+        "E",
+        "A",
+        "C",
+        "E"
+      ],
+      [
+        "P",
+        "",
+        "C",
+        "",
+        "E"
+      ],
+      [
+        "O",
+        "T",
+        "H",
+        "E",
+        "R"
       ]
     ],
     "across": {
-      "1": "Magnificent",
-      "6": "Additional",
-      "7": "Evening"
+      "1": "Cooking plants",
+      "4": "No war",
+      "5": "Different one"
     },
     "down": {
-      "1": "Verdant",
-      "2": "Relax",
-      "3": "Self",
-      "4": "Dream",
-      "5": "Father"
+      "1": "Hint for hippo",
+      "2": "Get to",
+      "3": "Very steep"
     },
     "solution": {
       "across": {
-        "1": "GRAND",
-        "6": "EXTRA",
-        "7": "NIGHT"
+        "1": "HERBS",
+        "4": "PEACE",
+        "5": "OTHER"
       },
       "down": {
-        "1": "GREEN",
-        "2": "REXEN",
-        "3": "AUTRE",
-        "4": "NRAN",
-        "5": "DADMT"
+        "1": "HIPPO",
+        "2": "REACH",
+        "3": "SHEER"
       }
     }
   },
   "2026-03-08": {
     "grid": [
       [
-        "P",
+        "F",
+        "O",
         "R",
-        "I",
-        "D",
-        "E"
-      ],
-      [
-        "R",
-        "",
-        "C",
-        "",
-        "V"
+        "T",
+        "Y"
       ],
       [
         "O",
+        "",
+        "U",
+        "",
+        "I"
+      ],
+      [
+        "C",
+        "U",
+        "R",
         "V",
-        "A",
-        "L",
-        "S"
+        "E"
       ],
       [
         "U",
         "",
-        "E",
+        "A",
         "",
-        "N"
+        "L"
       ],
       [
-        "D",
-        "R",
+        "S",
+        "O",
+        "L",
         "I",
-        "N",
-        "K"
+        "D"
       ]
     ],
     "across": {
-      "1": "Self-respect",
-      "6": "Ellipses",
-      "7": "Beverage"
+      "1": "Four tens",
+      "4": "Bend",
+      "5": "Firm"
     },
     "down": {
-      "1": "Arrogant",
-      "2": "Compete",
-      "3": "Frozen water",
-      "4": "Wager",
-      "5": "Scent"
+      "1": "Concentrate",
+      "2": "Countryside",
+      "3": "Give way"
     },
     "solution": {
       "across": {
-        "1": "PRIDE",
-        "6": "OVALS",
-        "7": "DRINK"
+        "1": "FORTY",
+        "4": "CURVE",
+        "5": "SOLID"
       },
       "down": {
-        "1": "PROUD",
-        "2": "ROVAL",
-        "3": "ICEEN",
-        "4": "DESK",
-        "5": "ESMSK"
+        "1": "FOCUS",
+        "2": "RURAL",
+        "3": "YIELD"
       }
     }
   },
   "2026-03-09": {
     "grid": [
       [
-        "Q",
-        "U",
-        "I",
-        "C",
-        "K"
-      ],
-      [
-        "U",
-        "",
-        "D",
-        "",
-        "N"
-      ],
-      [
-        "I",
-        "T",
-        "E",
-        "M",
-        "S"
-      ],
-      [
         "L",
-        "",
-        "A",
-        "",
-        "W"
+        "U",
+        "C",
+        "K",
+        "Y"
       ],
       [
-        "T",
+        "I",
+        "",
+        "O",
+        "",
+        "I"
+      ],
+      [
+        "N",
+        "E",
         "R",
-        "A",
-        "D",
+        "V",
         "E"
+      ],
+      [
+        "K",
+        "",
+        "A",
+        "",
+        "L"
+      ],
+      [
+        "S",
+        "A",
+        "L",
+        "A",
+        "D"
       ]
     ],
     "across": {
-      "1": "Fast",
-      "6": "Objects",
-      "7": "Commerce"
+      "1": "Fortunate",
+      "4": "Body signal wire",
+      "5": "Green dish"
     },
     "down": {
-      "1": "Blanket",
-      "2": "Employ",
-      "3": "Thought",
-      "4": "Kitten",
-      "5": "Knowledge"
+      "1": "Connections",
+      "2": "Reef material",
+      "3": "Give way"
     },
     "solution": {
       "across": {
-        "1": "QUICK",
-        "6": "ITEMS",
-        "7": "TRADE"
+        "1": "LUCKY",
+        "4": "NERVE",
+        "5": "SALAD"
       },
       "down": {
-        "1": "QUILT",
-        "2": "UTEMT",
-        "3": "IDEAA",
-        "4": "CMSD",
-        "5": "KSRWE"
+        "1": "LINKS",
+        "2": "CORAL",
+        "3": "YIELD"
       }
     }
   },
   "2026-03-10": {
     "grid": [
       [
-        "B",
-        "A",
-        "K",
-        "E",
-        "D"
-      ],
-      [
-        "O",
-        "",
-        "N",
-        "",
-        "O"
-      ],
-      [
-        "A",
+        "S",
         "C",
         "O",
-        "R",
-        "N"
-      ],
-      [
-        "T",
-        "",
-        "T",
-        "",
+        "P",
         "E"
       ],
       [
-        "S",
-        "T",
+        "H",
+        "",
+        "R",
+        "",
+        "N"
+      ],
+      [
+        "I",
+        "N",
+        "D",
+        "I",
+        "E"
+      ],
+      [
+        "N",
+        "",
+        "E",
+        "",
+        "M"
+      ],
+      [
         "E",
         "A",
-        "K"
+        "R",
+        "L",
+        "Y"
       ]
     ],
     "across": {
-      "1": "Cooked in an oven",
-      "6": "Oak tree seed",
-      "7": "Grilled beef"
+      "1": "Range",
+      "4": "Hint for indie",
+      "5": "Before time"
     },
     "down": {
-      "1": "Water vessel",
-      "2": "Used to be",
-      "3": "Opposite of yes",
-      "4": "Cooking appliance",
-      "5": "Performed on stage"
+      "1": "Give off light",
+      "2": "Arrangement",
+      "3": "Opponent"
     },
     "solution": {
       "across": {
-        "1": "BAKED",
-        "6": "ACORN",
-        "7": "STEAK"
+        "1": "SCOPE",
+        "4": "INDIE",
+        "5": "EARLY"
       },
       "down": {
-        "1": "BOATS",
-        "2": "AKEN",
-        "3": "KNOT",
-        "4": "EROS",
-        "5": "DONE"
+        "1": "SHINE",
+        "2": "ORDER",
+        "3": "ENEMY"
       }
     }
   },
   "2026-03-11": {
     "grid": [
       [
-        "M",
-        "O",
-        "U",
         "S",
+        "C",
+        "O",
+        "P",
         "E"
       ],
       [
-        "A",
+        "H",
         "",
-        "N",
+        "C",
         "",
-        "A"
-      ],
-      [
-        "P",
-        "I",
-        "A",
-        "N",
-        "O"
-      ],
-      [
-        "L",
-        "",
-        "T",
-        "",
-        "T"
+        "N"
       ],
       [
         "E",
-        "A",
-        "G",
+        "V",
+        "E",
+        "N",
+        "T"
+      ],
+      [
         "L",
+        "",
+        "A",
+        "",
         "E"
+      ],
+      [
+        "L",
+        "U",
+        "N",
+        "A",
+        "R"
       ]
     ],
     "across": {
-      "1": "Computer rodent",
-      "6": "Musical keyboard instrument",
-      "7": "Large bird of prey"
+      "1": "Range",
+      "4": "Happening",
+      "5": "Moon-related"
     },
     "down": {
-      "1": "Tree fluid",
-      "2": "Opposite of out",
-      "3": "Single",
-      "4": "Wise old bird",
-      "5": "Consume food"
+      "1": "Hard outer cover",
+      "2": "Large body of water",
+      "3": "Go in"
     },
     "solution": {
       "across": {
-        "1": "MOUSE",
-        "6": "PIANO",
-        "7": "EAGLE"
+        "1": "SCOPE",
+        "4": "EVENT",
+        "5": "LUNAR"
       },
       "down": {
-        "1": "MAPLE",
-        "2": "OIANT",
-        "3": "UNATE",
-        "4": "SOLE",
-        "5": "EAT"
+        "1": "SHELL",
+        "2": "OCEAN",
+        "3": "ENTER"
       }
     }
   },
   "2026-03-12": {
     "grid": [
       [
-        "T",
-        "R",
-        "A",
-        "I",
-        "N"
-      ],
-      [
-        "A",
-        "",
         "L",
-        "",
-        "C"
+        "A",
+        "Y",
+        "E",
+        "R"
       ],
       [
-        "B",
-        "R",
-        "E",
-        "A",
+        "O",
+        "",
+        "O",
+        "",
+        "I"
+      ],
+      [
+        "W",
+        "O",
+        "U",
+        "N",
         "D"
       ],
       [
-        "L",
+        "E",
         "",
-        "A",
+        "N",
         "",
         "E"
       ],
       [
+        "R",
+        "O",
+        "G",
         "E",
-        "X",
-        "A",
-        "C",
-        "T"
+        "R"
       ]
     ],
     "across": {
-      "1": "Railroad vehicle",
-      "6": "Baked food",
-      "7": "Precise"
+      "1": "One thickness",
+      "4": "Injury",
+      "5": "Hint for roger"
     },
     "down": {
-      "1": "Furniture with legs",
-      "2": "Consumed",
-      "3": "Assist",
-      "4": "Not fake",
-      "5": "Finished"
+      "1": "Reduce",
+      "2": "Not old",
+      "3": "Horse person"
     },
     "solution": {
       "across": {
-        "1": "TRAIN",
-        "6": "BREAD",
-        "7": "EXACT"
+        "1": "LAYER",
+        "4": "WOUND",
+        "5": "ROGER"
       },
       "down": {
-        "1": "TABLE",
-        "2": "RATE",
-        "3": "ALAE",
-        "4": "INCA",
-        "5": "NEXT"
+        "1": "LOWER",
+        "2": "YOUNG",
+        "3": "RIDER"
       }
     }
   },
   "2026-03-13": {
     "grid": [
       [
-        "M",
-        "O",
-        "U",
-        "S",
-        "E"
+        "L",
+        "A",
+        "Y",
+        "E",
+        "R"
       ],
       [
         "A",
         "",
-        "N",
+        "I",
         "",
         "A"
       ],
       [
-        "G",
-        "R",
-        "O",
-        "U",
-        "P"
+        "S",
+        "P",
+        "E",
+        "N",
+        "T"
       ],
       [
-        "I",
+        "E",
         "",
-        "I",
-        "",
-        "H"
-      ],
-      [
-        "C",
         "L",
-        "O",
-        "U",
-        "D"
+        "",
+        "I"
+      ],
+      [
+        "R",
+        "A",
+        "D",
+        "I",
+        "O"
       ]
     ],
     "across": {
-      "1": "Computer device",
-      "6": "Collection",
-      "7": "Sky formation"
+      "1": "One thickness",
+      "4": "Used up",
+      "5": "Sound broadcast"
     },
     "down": {
-      "1": "Supernatural",
-      "2": "Tune",
-      "3": "Skin irritation",
-      "4": "Aquatic animal",
-      "5": "Noisy"
+      "1": "Light beam",
+      "2": "Give way",
+      "3": "Proportion"
     },
     "solution": {
       "across": {
-        "1": "MOUSE",
-        "6": "GROUP",
-        "7": "CLOUD"
+        "1": "LAYER",
+        "4": "SPENT",
+        "5": "RADIO"
       },
       "down": {
-        "1": "MAGIC",
-        "2": "ONION",
-        "3": "UROTH",
-        "4": "SEAFH",
-        "5": "EAPUD"
+        "1": "LASER",
+        "2": "YIELD",
+        "3": "RATIO"
       }
     }
   },
   "2026-03-14": {
     "grid": [
       [
-        "B",
+        "G",
+        "R",
         "A",
-        "S",
-        "I",
-        "C"
+        "P",
+        "E"
       ],
       [
-        "O",
+        "R",
         "",
-        "T",
+        "R",
         "",
-        "L"
+        "X"
       ],
       [
-        "U",
-        "N",
+        "A",
         "D",
-        "E",
+        "O",
+        "P",
+        "T"
+      ],
+      [
+        "N",
+        "",
+        "M",
+        "",
         "R"
       ],
       [
-        "N",
-        "",
-        "E",
-        "",
-        "A"
-      ],
-      [
         "D",
-        "E",
-        "L",
-        "T",
+        "R",
+        "A",
+        "M",
         "A"
       ]
     ],
     "across": {
-      "1": "Fundamental",
-      "6": "Below",
-      "7": "Greek letter"
+      "1": "Wine fruit",
+      "4": "Take as one's own",
+      "5": "Theater art"
     },
     "down": {
-      "1": "Limit",
-      "2": "Utilize",
-      "3": "Look at",
-      "4": "Frozen water",
-      "5": "Transparent"
+      "1": "Magnificent",
+      "2": "Pleasant smell",
+      "3": "Additional"
     },
     "solution": {
       "across": {
-        "1": "BASIC",
-        "6": "UNDER",
-        "7": "DELTA"
+        "1": "GRAPE",
+        "4": "ADOPT",
+        "5": "DRAMA"
       },
       "down": {
-        "1": "BOUND",
-        "2": "ATNED",
-        "3": "STEERA",
-        "4": "ICELA",
-        "5": "CLEAR"
+        "1": "GRAND",
+        "2": "AROMA",
+        "3": "EXTRA"
       }
     }
   },
   "2026-03-15": {
     "grid": [
       [
-        "F",
-        "L",
-        "A",
-        "M",
-        "E"
+        "W",
+        "R",
+        "O",
+        "N",
+        "G"
+      ],
+      [
+        "O",
+        "",
+        "U",
+        "",
+        "L"
       ],
       [
         "R",
-        "",
-        "O",
-        "",
-        "R"
-      ],
-      [
-        "O",
-        "C",
-        "E",
         "A",
-        "N"
-      ],
-      [
-        "S",
-        "",
-        "A",
-        "",
-        "T"
+        "T",
+        "I",
+        "O"
       ],
       [
         "T",
+        "",
         "E",
-        "M",
-        "P",
-        "O"
+        "",
+        "B"
+      ],
+      [
+        "H",
+        "O",
+        "R",
+        "S",
+        "E"
       ]
     ],
     "across": {
-      "1": "Fire",
-      "6": "Large sea",
-      "7": "Musical speed"
+      "1": "Incorrect",
+      "4": "Proportion",
+      "5": "Riding animal"
     },
     "down": {
-      "1": "Frozen",
-      "2": "Jump",
-      "3": "Region",
-      "4": "Examine",
-      "5": "At no time"
+      "1": "Value of",
+      "2": "External",
+      "3": "World map ball"
     },
     "solution": {
       "across": {
-        "1": "FLAME",
-        "6": "OCEAN",
-        "7": "TEMPO"
+        "1": "WRONG",
+        "4": "RATIO",
+        "5": "HORSE"
       },
       "down": {
-        "1": "FROST",
-        "2": "LCEAP",
-        "3": "AOEMT",
-        "4": "MAENT",
-        "5": "ERNPO"
+        "1": "WORTH",
+        "2": "OUTER",
+        "3": "GLOBE"
       }
     }
   },
   "2026-03-16": {
     "grid": [
       [
-        "W",
-        "H",
-        "A",
-        "L",
-        "E"
-      ],
-      [
-        "H",
-        "",
         "R",
-        "",
-        "N"
-      ],
-      [
-        "E",
-        "A",
-        "G",
-        "L",
+        "I",
+        "N",
+        "S",
         "E"
       ],
       [
-        "E",
+        "O",
         "",
         "O",
         "",
-        "R"
+        "L"
       ],
       [
-        "L",
-        "A",
+        "B",
+        "R",
+        "I",
+        "D",
+        "E"
+      ],
+      [
+        "O",
+        "",
+        "S",
+        "",
+        "C"
+      ],
+      [
         "T",
+        "R",
         "E",
-        "R"
+        "A",
+        "T"
       ]
     ],
     "across": {
-      "1": "Ocean mammal",
-      "6": "Large bird",
-      "7": "Afterwards"
+      "1": "Wash lightly",
+      "4": "Wedding woman",
+      "5": "Special reward"
     },
     "down": {
-      "1": "Circular",
-      "2": "Dislike",
-      "3": "Aged",
-      "4": "Transparent",
-      "5": "Consume"
+      "1": "Mechanical helper",
+      "2": "Loud sound",
+      "3": "Choose by vote"
     },
     "solution": {
       "across": {
-        "1": "WHALE",
-        "6": "EAGLE",
-        "7": "LATER"
+        "1": "RINSE",
+        "4": "BRIDE",
+        "5": "TREAT"
       },
       "down": {
-        "1": "WHEEL",
-        "2": "HAAGLE",
-        "3": "ARLER",
-        "4": "LEER",
-        "5": "ENTER"
+        "1": "ROBOT",
+        "2": "NOISE",
+        "3": "ELECT"
       }
     }
   },
   "2026-03-17": {
     "grid": [
       [
-        "S",
         "T",
-        "E",
-        "A",
-        "M"
+        "H",
+        "O",
+        "R",
+        "N"
       ],
       [
-        "M",
+        "W",
         "",
-        "E",
+        "W",
         "",
         "E"
       ],
       [
         "I",
-        "R",
-        "O",
         "N",
-        "S"
-      ],
-      [
-        "L",
-        "",
-        "U",
-        "",
-        "S"
-      ],
-      [
-        "E",
         "N",
-        "T",
         "E",
         "R"
+      ],
+      [
+        "S",
+        "",
+        "E",
+        "",
+        "V"
+      ],
+      [
+        "T",
+        "H",
+        "R",
+        "E",
+        "E"
       ]
     ],
     "across": {
-      "1": "Water vapor",
-      "6": "Flat devices",
-      "7": "Go inside"
+      "1": "Sharp plant point",
+      "4": "Inside",
+      "5": "Number after two"
     },
     "down": {
-      "1": "Grin",
-      "2": "Group",
-      "3": "Musical sound",
-      "4": "Affection",
-      "5": "Confused"
+      "1": "Turn",
+      "2": "Possessor",
+      "3": "Body signal wire"
     },
     "solution": {
       "across": {
-        "1": "STEAM",
-        "6": "IRONS",
-        "7": "ENTER"
+        "1": "THORN",
+        "4": "INNER",
+        "5": "THREE"
       },
       "down": {
-        "1": "SMILE",
-        "2": "TREON",
-        "3": "EONUS",
-        "4": "AMSER",
-        "5": "MESSR"
+        "1": "TWIST",
+        "2": "OWNER",
+        "3": "NERVE"
       }
     }
   },
   "2026-03-18": {
     "grid": [
       [
-        "T",
+        "M",
         "O",
-        "W",
-        "E",
-        "R"
-      ],
-      [
-        "R",
-        "",
-        "A",
-        "",
-        "A"
-      ],
-      [
-        "U",
-        "S",
-        "H",
-        "E",
-        "R"
-      ],
-      [
+        "N",
         "T",
+        "H"
+      ],
+      [
+        "O",
         "",
         "O",
         "",
-        "M"
+        "E"
       ],
       [
-        "H",
-        "E",
-        "A",
         "R",
-        "T"
+        "A",
+        "T",
+        "E",
+        "D"
+      ],
+      [
+        "A",
+        "",
+        "E",
+        "",
+        "G"
+      ],
+      [
+        "L",
+        "O",
+        "D",
+        "G",
+        "E"
       ]
     ],
     "across": {
-      "1": "Tall building",
-      "6": "Guide",
-      "7": "Organ of love"
+      "1": "Calendar unit",
+      "4": "Given a score",
+      "5": "Country house"
     },
     "down": {
-      "1": "Fact",
-      "2": "Past",
-      "3": "War",
-      "4": "Middle",
-      "5": "Beam"
+      "1": "Ethical",
+      "2": "Well-known",
+      "3": "Garden border"
     },
     "solution": {
       "across": {
-        "1": "TOWER",
-        "6": "USHER",
-        "7": "HEART"
+        "1": "MONTH",
+        "4": "RATED",
+        "5": "LODGE"
       },
       "down": {
-        "1": "TRUTH",
-        "2": "OSHOR",
-        "3": "WAHET",
-        "4": "EERAM",
-        "5": "RERMT"
+        "1": "MORAL",
+        "2": "NOTED",
+        "3": "HEDGE"
       }
     }
   },
   "2026-03-19": {
     "grid": [
       [
-        "P",
+        "M",
         "O",
-        "W",
+        "N",
+        "T",
+        "H"
+      ],
+      [
         "E",
-        "R"
+        "",
+        "O",
+        "",
+        "I"
       ],
       [
-        "L",
-        "",
-        "A",
-        "",
-        "O"
-      ],
-      [
-        "A",
         "R",
         "E",
-        "N",
-        "A"
+        "B",
+        "E",
+        "L"
       ],
       [
-        "C",
+        "G",
         "",
-        "E",
-        "",
-        "S"
-      ],
-      [
-        "E",
         "L",
-        "D",
+        "",
+        "L"
+      ],
+      [
         "E",
-        "R"
+        "V",
+        "E",
+        "R",
+        "Y"
       ]
     ],
     "across": {
-      "1": "Energy",
-      "6": "Stadium",
-      "7": "Senior person"
+      "1": "Calendar unit",
+      "4": "Fight authority",
+      "5": "Each one"
     },
     "down": {
-      "1": "Location",
-      "2": "Above",
-      "3": "Tired",
-      "4": "Obtain",
-      "5": "Crimson"
+      "1": "Combine",
+      "2": "Dignified",
+      "3": "Has many hills"
     },
     "solution": {
       "across": {
-        "1": "POWER",
-        "6": "ARENA",
-        "7": "ELDER"
+        "1": "MONTH",
+        "4": "REBEL",
+        "5": "EVERY"
       },
       "down": {
-        "1": "PLACE",
-        "2": "OWENS",
-        "3": "WEERA",
-        "4": "EANSR",
-        "5": "RONAR"
+        "1": "MERGE",
+        "2": "NOBLE",
+        "3": "HILLY"
       }
     }
   },
   "2026-03-20": {
     "grid": [
       [
-        "C",
-        "R",
-        "O",
         "S",
-        "S"
-      ],
-      [
-        "R",
-        "",
+        "H",
         "E",
-        "",
-        "H"
-      ],
-      [
-        "A",
-        "N",
-        "G",
         "E",
-        "L"
-      ],
-      [
-        "F",
-        "",
-        "L",
-        "",
-        "E"
+        "T"
       ],
       [
         "T",
-        "I",
-        "M",
-        "E",
+        "",
+        "L",
+        "",
         "R"
+      ],
+      [
+        "U",
+        "N",
+        "I",
+        "T",
+        "E"
+      ],
+      [
+        "C",
+        "",
+        "T",
+        "",
+        "A"
+      ],
+      [
+        "K",
+        "N",
+        "E",
+        "L",
+        "T"
       ]
     ],
     "across": {
-      "1": "Intersect",
-      "6": "Heavenly being",
-      "7": "Clock device"
+      "1": "Bed cover",
+      "4": "Join together",
+      "5": "Hint for knelt"
     },
     "down": {
-      "1": "Skilled work",
-      "2": "Running",
-      "3": "Smell",
-      "4": "Vessel",
-      "5": "Assist"
+      "1": "Unable to move",
+      "2": "Top tier",
+      "3": "Special reward"
     },
     "solution": {
       "across": {
-        "1": "CROSS",
-        "6": "ANGEL",
-        "7": "TIMER"
+        "1": "SHEET",
+        "4": "UNITE",
+        "5": "KNELT"
       },
       "down": {
-        "1": "CRAFT",
-        "2": "RANFE",
-        "3": "OGELT",
-        "4": "SEELR",
-        "5": "SELLER"
+        "1": "STUCK",
+        "2": "ELITE",
+        "3": "TREAT"
       }
     }
   },
   "2026-03-21": {
     "grid": [
       [
-        "G",
-        "R",
-        "E",
-        "E",
-        "T"
+        "F",
+        "I",
+        "F",
+        "T",
+        "Y"
       ],
       [
-        "L",
+        "I",
         "",
-        "A",
-        "",
-        "N"
-      ],
-      [
         "O",
+        "",
+        "I"
+      ],
+      [
+        "N",
+        "E",
+        "R",
         "V",
-        "A",
-        "L",
-        "S"
-      ],
-      [
-        "B",
-        "",
-        "E",
-        "",
         "E"
       ],
       [
-        "E",
-        "A",
+        "D",
+        "",
         "G",
-        "L",
-        "E"
+        "",
+        "L"
+      ],
+      [
+        "S",
+        "P",
+        "E",
+        "N",
+        "D"
       ]
     ],
     "across": {
-      "1": "Welcome",
-      "6": "Ellipses",
-      "7": "Bird of prey"
+      "1": "Half of 100",
+      "4": "Body signal wire",
+      "5": "Use money"
     },
     "down": {
-      "1": "Sphere",
-      "2": "Rent",
-      "3": "Each",
-      "4": "Genuine",
-      "5": "Adjust"
+      "1": "Discovers",
+      "2": "Shape metal",
+      "3": "Give way"
     },
     "solution": {
       "across": {
-        "1": "GREET",
-        "6": "OVALS",
-        "7": "EAGLE"
+        "1": "FIFTY",
+        "4": "NERVE",
+        "5": "SPEND"
       },
       "down": {
-        "1": "GLOBE",
-        "2": "REAVE",
-        "3": "EAAEE",
-        "4": "ETLSE",
-        "5": "TSNLE"
+        "1": "FINDS",
+        "2": "FORGE",
+        "3": "YIELD"
       }
     }
   },
   "2026-03-22": {
     "grid": [
       [
-        "V",
-        "O",
-        "I",
-        "C",
-        "E"
-      ],
-      [
+        "R",
         "A",
-        "",
-        "D",
-        "",
-        "R"
-      ],
-      [
-        "L",
-        "I",
-        "G",
-        "H",
-        "T"
-      ],
-      [
-        "I",
-        "",
-        "E",
-        "",
+        "N",
+        "C",
         "H"
       ],
       [
-        "D",
-        "R",
+        "O",
+        "",
+        "O",
+        "",
+        "O"
+      ],
+      [
+        "G",
+        "I",
+        "V",
         "E",
+        "N"
+      ],
+      [
+        "E",
+        "",
+        "E",
+        "",
+        "E"
+      ],
+      [
+        "R",
         "A",
-        "M"
+        "L",
+        "L",
+        "Y"
       ]
     ],
     "across": {
-      "1": "Sound",
-      "6": "Illumination",
-      "7": "Sleep vision"
+      "1": "Farm estate",
+      "4": "Provided",
+      "5": "Coming together"
     },
     "down": {
-      "1": "Correct",
-      "2": "Consume",
-      "3": "Frozen water",
-      "4": "Chair",
-      "5": "Energy"
+      "1": "Hint for roger",
+      "2": "Story book",
+      "3": "Sweet substance"
     },
     "solution": {
       "across": {
-        "1": "VOICE",
-        "6": "LIGHT",
-        "7": "DREAM"
+        "1": "RANCH",
+        "4": "GIVEN",
+        "5": "RALLY"
       },
       "down": {
-        "1": "VALID",
-        "2": "OIGET",
-        "3": "IDEHAM",
-        "4": "CHART",
-        "5": "ETHIM"
+        "1": "ROGER",
+        "2": "NOVEL",
+        "3": "HONEY"
       }
     }
   },
@@ -1433,64 +1345,60 @@
     "grid": [
       [
         "B",
-        "L",
         "A",
-        "D",
-        "E"
-      ],
-      [
-        "R",
-        "",
-        "O",
-        "",
-        "L"
-      ],
-      [
-        "E",
-        "A",
-        "G",
-        "L",
-        "E"
-      ],
-      [
-        "A",
-        "",
-        "E",
-        "",
-        "E"
-      ],
-      [
         "K",
-        "N",
+        "E",
+        "R"
+      ],
+      [
+        "A",
+        "",
+        "H",
+        "",
+        "A"
+      ],
+      [
+        "S",
+        "T",
+        "A",
+        "R",
+        "T"
+      ],
+      [
         "I",
-        "F",
+        "",
+        "K",
+        "",
         "E"
+      ],
+      [
+        "C",
+        "H",
+        "I",
+        "L",
+        "D"
       ]
     ],
     "across": {
-      "1": "Sharp edge",
-      "6": "Large bird",
-      "7": "Cutting tool"
+      "1": "Bread maker",
+      "4": "Begin",
+      "5": "Young person"
     },
     "down": {
-      "1": "Fracture",
-      "2": "Jump",
-      "3": "Aged",
-      "4": "Wager",
-      "5": "Consume"
+      "1": "Fundamental",
+      "2": "Tan color",
+      "3": "Given a score"
     },
     "solution": {
       "across": {
-        "1": "BLADE",
-        "6": "EAGLE",
-        "7": "KNIFE"
+        "1": "BAKER",
+        "4": "START",
+        "5": "CHILD"
       },
       "down": {
-        "1": "BREAK",
-        "2": "LEAGE",
-        "3": "AOELE",
-        "4": "DALEF",
-        "5": "ELEEE"
+        "1": "BASIC",
+        "2": "KHAKI",
+        "3": "RATED"
       }
     }
   },
@@ -1499,518 +1407,486 @@
       [
         "S",
         "H",
-        "A",
+        "O",
+        "U",
+        "T"
+      ],
+      [
+        "P",
+        "",
         "R",
+        "",
+        "H"
+      ],
+      [
+        "L",
+        "A",
+        "B",
+        "O",
+        "R"
+      ],
+      [
+        "I",
+        "",
+        "I",
+        "",
         "E"
       ],
       [
         "T",
-        "",
-        "N",
-        "",
-        "S"
-      ],
-      [
-        "O",
-        "P",
-        "E",
-        "R",
-        "A"
-      ],
-      [
-        "R",
-        "",
-        "M",
-        "",
-        "Y"
-      ],
-      [
-        "M",
-        "E",
-        "A",
-        "N",
-        "S"
+        "I",
+        "T",
+        "L",
+        "E"
       ]
     ],
     "across": {
-      "1": "Divide",
-      "6": "Musical performance",
-      "7": "Methods"
+      "1": "Yell",
+      "4": "Hard work",
+      "5": "Name of work"
     },
     "down": {
-      "1": "Tempest",
-      "2": "Dislike",
-      "3": "Creature",
-      "4": "Compete",
-      "5": "Simplicity"
+      "1": "Divide",
+      "2": "Go around",
+      "3": "Number after two"
     },
     "solution": {
       "across": {
-        "1": "SHARE",
-        "6": "OPERA",
-        "7": "MEANS"
+        "1": "SHOUT",
+        "4": "LABOR",
+        "5": "TITLE"
       },
       "down": {
-        "1": "STORM",
-        "2": "HPOME",
-        "3": "ANERA",
-        "4": "REAMS",
-        "5": "EASYS"
+        "1": "SPLIT",
+        "2": "ORBIT",
+        "3": "THREE"
       }
     }
   },
   "2026-03-25": {
     "grid": [
       [
-        "T",
+        "S",
         "H",
-        "I",
-        "N",
-        "K"
-      ],
-      [
-        "R",
-        "",
-        "C",
-        "",
-        "N"
-      ],
-      [
-        "A",
-        "C",
-        "I",
-        "D",
-        "S"
-      ],
-      [
-        "I",
-        "",
-        "E",
-        "",
+        "O",
+        "U",
         "T"
       ],
       [
+        "I",
+        "",
         "L",
-        "E",
-        "A",
+        "",
+        "I"
+      ],
+      [
+        "G",
+        "U",
+        "I",
+        "L",
+        "T"
+      ],
+      [
+        "H",
+        "",
         "V",
+        "",
+        "L"
+      ],
+      [
+        "T",
+        "H",
+        "E",
+        "M",
         "E"
       ]
     ],
     "across": {
-      "1": "Ponder",
-      "6": "Chemicals",
-      "7": "Depart"
+      "1": "Yell",
+      "4": "Feeling of wrong",
+      "5": "Central idea"
     },
     "down": {
-      "1": "Path",
-      "2": "Hire",
-      "3": "Frozen",
-      "4": "Meadow",
-      "5": "Edge"
+      "1": "Vision",
+      "2": "Green fruit",
+      "3": "Name of work"
     },
     "solution": {
       "across": {
-        "1": "THINK",
-        "6": "ACIDS",
-        "7": "LEAVE"
+        "1": "SHOUT",
+        "4": "GUILT",
+        "5": "THEME"
       },
       "down": {
-        "1": "TRAIL",
-        "2": "HICLE",
-        "3": "ICEST",
-        "4": "NEDVE",
-        "5": "KNIVE"
+        "1": "SIGHT",
+        "2": "OLIVE",
+        "3": "TITLE"
       }
     }
   },
   "2026-03-26": {
     "grid": [
       [
-        "D",
+        "B",
+        "L",
         "A",
-        "N",
-        "C",
+        "D",
         "E"
       ],
       [
-        "R",
+        "A",
         "",
-        "O",
+        "L",
         "",
-        "V"
+        "L"
       ],
       [
-        "E",
+        "S",
+        "P",
         "A",
         "R",
-        "T",
-        "H"
+        "E"
       ],
       [
-        "A",
-        "",
         "I",
         "",
-        "N"
-      ],
-      [
-        "M",
-        "A",
-        "G",
-        "I",
+        "R",
+        "",
         "C"
+      ],
+      [
+        "C",
+        "O",
+        "M",
+        "E",
+        "T"
       ]
     ],
     "across": {
-      "1": "Move to music",
-      "6": "Our planet",
-      "7": "Supernatural power"
+      "1": "Sword edge",
+      "4": "Extra",
+      "5": "Space traveler with tail"
     },
     "down": {
-      "1": "Fantasy",
-      "2": "Self",
-      "3": "Thought",
-      "4": "Chair",
-      "5": "Occasion"
+      "1": "Fundamental",
+      "2": "Warning device",
+      "3": "Choose by vote"
     },
     "solution": {
       "across": {
-        "1": "DANCE",
-        "6": "EARTH",
-        "7": "MAGIC"
+        "1": "BLADE",
+        "4": "SPARE",
+        "5": "COMET"
       },
       "down": {
-        "1": "DREAM",
-        "2": "AARON",
-        "3": "NOTIH",
-        "4": "CRTHN",
-        "5": "EVHTC"
+        "1": "BASIC",
+        "2": "ALARM",
+        "3": "ELECT"
       }
     }
   },
   "2026-03-27": {
     "grid": [
       [
-        "F",
-        "I",
-        "E",
+        "B",
         "L",
-        "D"
+        "A",
+        "D",
+        "E"
       ],
       [
-        "R",
-        "",
         "A",
         "",
-        "A"
-      ],
-      [
-        "O",
-        "C",
-        "E",
-        "A",
-        "N"
+        "W",
+        "",
+        "L"
       ],
       [
         "S",
-        "",
+        "P",
         "A",
+        "R",
+        "E"
+      ],
+      [
+        "I",
+        "",
+        "K",
         "",
         "C"
       ],
       [
-        "T",
-        "O",
-        "W",
+        "C",
+        "H",
         "E",
-        "R"
+        "S",
+        "T"
       ]
     ],
     "across": {
-      "1": "Meadow",
-      "6": "Large sea",
-      "7": "Tall structure"
+      "1": "Sword edge",
+      "4": "Extra",
+      "5": "Body front"
     },
     "down": {
-      "1": "Frozen",
-      "2": "Concept",
-      "3": "Every",
-      "4": "Transparent",
-      "5": "Consume"
+      "1": "Fundamental",
+      "2": "Not sleeping",
+      "3": "Choose by vote"
     },
     "solution": {
       "across": {
-        "1": "FIELD",
-        "6": "OCEAN",
-        "7": "TOWER"
+        "1": "BLADE",
+        "4": "SPARE",
+        "5": "CHEST"
       },
       "down": {
-        "1": "FROST",
-        "2": "ICEAW",
-        "3": "EAEER",
-        "4": "LAANT",
-        "5": "DANER"
+        "1": "BASIC",
+        "2": "AWAKE",
+        "3": "ELECT"
       }
     }
   },
   "2026-03-28": {
     "grid": [
       [
-        "P",
         "R",
-        "I",
-        "C",
-        "E"
+        "O",
+        "M",
+        "A",
+        "N"
       ],
       [
-        "L",
+        "I",
         "",
-        "D",
+        "I",
         "",
         "O"
       ],
       [
-        "A",
-        "N",
+        "V",
+        "I",
         "G",
-        "E",
-        "L"
+        "O",
+        "R"
       ],
       [
-        "N",
-        "",
-        "E",
-        "",
-        "D"
-      ],
-      [
-        "T",
-        "R",
         "A",
-        "D",
-        "E"
+        "",
+        "H",
+        "",
+        "T"
+      ],
+      [
+        "L",
+        "A",
+        "T",
+        "C",
+        "H"
       ]
     ],
     "across": {
-      "1": "Cost",
-      "6": "Heavenly being",
-      "7": "Commerce"
+      "1": "Ancient Italian",
+      "4": "Energy",
+      "5": "Door lock"
     },
     "down": {
-      "1": "Vegetation",
-      "2": "Compete",
-      "3": "Frozen water",
-      "4": "Chair",
-      "5": "Consume"
+      "1": "Competitor",
+      "2": "Strength",
+      "3": "Compass direction"
     },
     "solution": {
       "across": {
-        "1": "PRICE",
-        "6": "ANGEL",
-        "7": "TRADE"
+        "1": "ROMAN",
+        "4": "VIGOR",
+        "5": "LATCH"
       },
       "down": {
-        "1": "PLANT",
-        "2": "RINGEN",
-        "3": "IDEEL",
-        "4": "CEELD",
-        "5": "EORDE"
+        "1": "RIVAL",
+        "2": "MIGHT",
+        "3": "NORTH"
       }
     }
   },
   "2026-03-29": {
     "grid": [
       [
-        "S",
-        "P",
-        "A",
-        "C",
-        "E"
-      ],
-      [
-        "W",
-        "",
-        "C",
-        "",
-        "L"
-      ],
-      [
-        "O",
         "R",
-        "D",
+        "O",
+        "M",
+        "A",
+        "N"
+      ],
+      [
+        "E",
+        "",
+        "E",
+        "",
+        "O"
+      ],
+      [
+        "A",
+        "F",
+        "T",
         "E",
         "R"
       ],
       [
-        "R",
+        "C",
         "",
         "E",
         "",
-        "A"
+        "T"
       ],
       [
-        "D",
-        "R",
+        "H",
         "A",
-        "M",
-        "A"
+        "R",
+        "S",
+        "H"
       ]
     ],
     "across": {
-      "1": "Outer area",
-      "6": "Sequence",
-      "7": "Theater art"
+      "1": "Ancient Italian",
+      "4": "Following",
+      "5": "Severe"
     },
     "down": {
-      "1": "Weapon",
-      "2": "Fruit skin",
-      "3": "Aged",
-      "4": "Transparent",
-      "5": "Middle"
+      "1": "Get to",
+      "2": "Measuring device",
+      "3": "Compass direction"
     },
     "solution": {
       "across": {
-        "1": "SPACE",
-        "6": "ORDER",
-        "7": "DRAMA"
+        "1": "ROMAN",
+        "4": "AFTER",
+        "5": "HARSH"
       },
       "down": {
-        "1": "SWORD",
-        "2": "PRCDA",
-        "3": "ACEER",
-        "4": "CEEMA",
-        "5": "EDRRA"
+        "1": "REACH",
+        "2": "METER",
+        "3": "NORTH"
       }
     }
   },
   "2026-03-30": {
     "grid": [
       [
-        "L",
+        "D",
+        "R",
+        "A",
+        "I",
+        "N"
+      ],
+      [
+        "E",
+        "",
+        "N",
+        "",
+        "O"
+      ],
+      [
+        "R",
         "I",
         "G",
         "H",
         "T"
       ],
       [
-        "O",
+        "B",
         "",
-        "R",
+        "L",
         "",
-        "R"
+        "E"
       ],
       [
-        "V",
-        "O",
+        "Y",
         "I",
-        "C",
-        "E"
-      ],
-      [
         "E",
-        "",
-        "D",
-        "",
-        "S"
-      ],
-      [
-        "R",
-        "A",
-        "N",
-        "G",
-        "E"
+        "L",
+        "D"
       ]
     ],
     "across": {
-      "1": "Illumination",
-      "6": "Sound",
-      "7": "Scope"
+      "1": "Remove water",
+      "4": "Correct",
+      "5": "Give way"
     },
     "down": {
-      "1": "Affection",
-      "2": "Frozen water",
-      "3": "Sphere",
-      "4": "Dislike",
-      "5": "Evergreen"
+      "1": "Horse race",
+      "2": "Corner measure",
+      "3": "Well-known"
     },
     "solution": {
       "across": {
-        "1": "LIGHT",
-        "6": "VOICE",
-        "7": "RANGE"
+        "1": "DRAIN",
+        "4": "RIGHT",
+        "5": "YIELD"
       },
       "down": {
-        "1": "LOVER",
-        "2": "IOGRE",
-        "3": "GRIDE",
-        "4": "HATES",
-        "5": "TREEE"
+        "1": "DERBY",
+        "2": "ANGLE",
+        "3": "NOTED"
       }
     }
   },
   "2026-03-31": {
     "grid": [
       [
-        "B",
+        "D",
         "R",
-        "E",
         "A",
-        "K"
-      ],
-      [
-        "L",
-        "",
-        "A",
-        "",
+        "I",
         "N"
       ],
       [
-        "O",
-        "W",
-        "N",
         "E",
-        "R"
+        "",
+        "W",
+        "",
+        "O"
       ],
       [
         "C",
-        "",
-        "E",
-        "",
-        "G"
+        "O",
+        "A",
+        "S",
+        "T"
       ],
       [
+        "A",
+        "",
         "K",
-        "N",
-        "I",
-        "F",
+        "",
         "E"
+      ],
+      [
+        "Y",
+        "I",
+        "E",
+        "L",
+        "D"
       ]
     ],
     "across": {
-      "1": "Fracture",
-      "6": "Possessor",
-      "7": "Cutting tool"
+      "1": "Remove water",
+      "4": "Shoreline",
+      "5": "Give way"
     },
     "down": {
-      "1": "Barrier",
-      "2": "Genuine",
-      "3": "Each",
-      "4": "Wager",
-      "5": "Ring sound"
+      "1": "Rot",
+      "2": "Not sleeping",
+      "3": "Well-known"
     },
     "solution": {
       "across": {
-        "1": "BREAK",
-        "6": "OWNER",
-        "7": "KNIFE"
+        "1": "DRAIN",
+        "4": "COAST",
+        "5": "YIELD"
       },
       "down": {
-        "1": "BLOCK",
-        "2": "ROWNK",
-        "3": "EANEE",
-        "4": "ANERG",
-        "5": "KREEF"
+        "1": "DECAY",
+        "2": "AWAKE",
+        "3": "NOTED"
       }
     }
   }

@@ -211,6 +211,7 @@ function initWaffleStats() {
   return {
     gamesPlayed: 0,
     gamesWon: 0,
+    perfectGames: 0,
     currentStreak: 0,
     longestStreak: 0,
     lastPlayedDate: null,
@@ -226,6 +227,7 @@ function initCombinationsStats() {
   return {
     gamesPlayed: 0,
     gamesWon: 0,
+    perfectGames: 0,
     currentStreak: 0,
     longestStreak: 0,
     lastPlayedDate: null,
@@ -270,7 +272,10 @@ export function recordGameResult(gameName, result) {
   
   // Update stats
   if (result.win) {
-    gameStats.gamesWon++;
+    // Only increment gamesWon for new games (not same-day replays)
+    if (gameStats.lastPlayedDate !== today) {
+      gameStats.gamesWon++;
+    }
     
     // Update streak
     if (gameStats.lastPlayedDate === getYesterdayString()) {
@@ -304,9 +309,9 @@ export function recordGameResult(gameName, result) {
     }
   }
   
-  // Track perfect games
-  if (result.perfect) {
-    gameStats.perfectGames++;
+  // Track perfect games (only for new games, not same-day replays)
+  if (result.perfect && gameStats.lastPlayedDate !== today) {
+    gameStats.perfectGames = (gameStats.perfectGames || 0) + 1;
   }
   
   saveProfile(profile);
@@ -315,11 +320,11 @@ export function recordGameResult(gameName, result) {
   return checkAchievements(profile, gameName, result);
 }
 
-// Get yesterday's date string
+// Get yesterday's date string (UTC-based, consistent with getTodayString)
 function getYesterdayString() {
   const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  return `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+  yesterday.setUTCDate(yesterday.getUTCDate() - 1);
+  return `${yesterday.getUTCFullYear()}-${String(yesterday.getUTCMonth() + 1).padStart(2, '0')}-${String(yesterday.getUTCDate()).padStart(2, '0')}`;
 }
 
 // Check if user missed a day (resets streak)
@@ -500,8 +505,8 @@ export function getHistoryForDateRange(gameName, days = 7) {
   
   for (let i = days - 1; i >= 0; i--) {
     const date = new Date(today);
-    date.setDate(date.getDate() - i);
-    const dateString = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    date.setUTCDate(date.getUTCDate() - i);
+    const dateString = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}`;
     
     const result = gameStats.history.find(h => h.date === dateString);
     results.push({

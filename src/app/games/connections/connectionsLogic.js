@@ -1,6 +1,7 @@
 import { CONNECTIONS_PUZZLES_JAN_2026 } from './puzzles/connections-2026-01';
 import { CONNECTIONS_PUZZLES_FEB_2026 } from './puzzles/connections-2026-02';
 import { getUserStorageKey } from '@/utils/storageKeys';
+import { getCairoDateKey } from '@/data/all-data/utils/date';
 
 // Merge January and February puzzles
 const ALL_CONNECTIONS_PUZZLES = [...CONNECTIONS_PUZZLES_JAN_2026, ...CONNECTIONS_PUZZLES_FEB_2026];
@@ -22,9 +23,7 @@ export const GROUP_COLORS = {
  * Get today's puzzle
  */
 export const getTodaysPuzzle = () => {
-  const today = new Date();
-  // Use UTC date for consistent global puzzle rotation
-  const dateString = today.toISOString().split('T')[0];
+  const dateString = getCairoDateKey();
   
   // Find puzzle for today
   const puzzle = ALL_CONNECTIONS_PUZZLES.find(p => p.date === dateString);
@@ -120,7 +119,7 @@ export const loadGameState = () => {
     const state = JSON.parse(saved);
     
     // Check if it's today's puzzle
-    const today = new Date().toISOString().split('T')[0];
+    const today = getCairoDateKey();
     if (state.date !== today) {
       return null; // Old puzzle, start fresh
     }
@@ -207,8 +206,12 @@ export const saveStats = (stats) => {
  * Update stats after a game
  */
 export const updateStats = (currentStats, won, mistakes) => {
-  const today = new Date().toISOString().split('T')[0];
+  const today = getCairoDateKey();
   const lastPlayed = currentStats.lastPlayed;
+  const [year, month, day] = today.split('-').map(Number);
+  const yesterdayDate = new Date(Date.UTC(year, month - 1, day));
+  yesterdayDate.setUTCDate(yesterdayDate.getUTCDate() - 1);
+  const yesterday = yesterdayDate.toISOString().split('T')[0];
   
   const newStats = {
     played: currentStats.played + 1,
@@ -222,8 +225,10 @@ export const updateStats = (currentStats, won, mistakes) => {
     if (lastPlayed === today) {
       // Same day, don't increment
       newStats.currentStreak = currentStats.currentStreak;
-    } else {
+    } else if (lastPlayed === yesterday) {
       newStats.currentStreak = currentStats.currentStreak + 1;
+    } else {
+      newStats.currentStreak = 1;
     }
   } else {
     newStats.currentStreak = 0;

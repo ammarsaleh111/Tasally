@@ -2,12 +2,14 @@
   "name": "ammar_times",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "security-test": "node security-tests.js",
     "validate-env": "node -e \"require('./src/utils/envValidation.js').logEnvironmentStatus()\"",
     "db:generate": "drizzle-kit generate:pg",
     "db:migrate": "drizzle-kit migrate",

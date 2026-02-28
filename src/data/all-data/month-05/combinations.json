@@ -1,498 +1,529 @@
 {
   "2026-05-01": {
     "fragments": [
-      "hand",
-      "clear",
+      "mark",
+      "slide",
       "ed",
-      "path",
-      "ing",
-      "guard"
+      "lord",
+      "land",
+      "s"
     ],
-    "targetScore": 85,
+    "targetScore": 80,
     "bonusWords": [
-      "clearing",
-      "guarding",
-      "handing"
+      "landmark",
+      "landlord",
+      "landslide",
+      "marked"
     ]
   },
   "2026-05-02": {
     "fragments": [
-      "wind",
-      "over",
-      "mind",
+      "grand",
+      "mother",
+      "child",
       "ed",
-      "bright",
-      "ing"
+      "s",
+      "father"
     ],
-    "targetScore": 86,
+    "targetScore": 80,
     "bonusWords": [
-      "overwinding",
-      "overbright",
-      "overwind"
+      "grandmother",
+      "grandfather",
+      "grandchild",
+      "mothers"
     ]
   },
   "2026-05-03": {
     "fragments": [
-      "over",
-      "ing",
+      "road",
       "ed",
-      "field",
-      "work",
-      "un"
+      "walk",
+      "s",
+      "cross",
+      "word"
     ],
-    "targetScore": 75,
+    "targetScore": 80,
     "bonusWords": [
-      "overworking",
-      "overworked",
-      "fieldwork"
+      "crossroad",
+      "crossword",
+      "crosswalk",
+      "crossed"
     ]
   },
   "2026-05-04": {
     "fragments": [
-      "fire",
-      "work",
-      "storm",
-      "pre",
-      "rain",
+      "board",
+      "note",
+      "key",
+      "chain",
+      "s",
       "ed"
     ],
-    "targetScore": 75,
+    "targetScore": 80,
     "bonusWords": [
-      "firestorm",
-      "preworked",
-      "firework"
+      "keyboard",
+      "keynote",
+      "keychain",
+      "boards"
     ]
   },
   "2026-05-05": {
     "fragments": [
-      "ly",
-      "line",
-      "light",
+      "ed",
+      "tooth",
+      "paste",
+      "brush",
       "s",
-      "er",
-      "able"
+      "ache"
     ],
-    "targetScore": 83,
+    "targetScore": 80,
     "bonusWords": [
-      "slightly",
-      "slighter",
-      "lightly"
+      "toothbrush",
+      "toothpaste",
+      "toothache",
+      "brushed"
     ]
   },
   "2026-05-06": {
     "fragments": [
-      "hand",
-      "line",
-      "un",
-      "ing",
-      "able",
-      "play"
+      "storm",
+      "ed",
+      "castle",
+      "sand",
+      "s",
+      "stone"
     ],
-    "targetScore": 77,
+    "targetScore": 80,
     "bonusWords": [
-      "unplayable",
-      "unhanding",
-      "handplay"
+      "sandstorm",
+      "sandcastle",
+      "sandstone",
+      "storms"
     ]
   },
   "2026-05-07": {
     "fragments": [
-      "slow",
-      "over",
-      "mark",
-      "path",
-      "ing",
-      "press"
+      "arm",
+      "s",
+      "band",
+      "ed",
+      "pit",
+      "chair"
     ],
-    "targetScore": 77,
+    "targetScore": 80,
     "bonusWords": [
-      "overpressing",
-      "overpress",
-      "pressmark"
+      "armchair",
+      "armband",
+      "armpit",
+      "chairs"
     ]
   },
   "2026-05-08": {
     "fragments": [
+      "berry",
+      "black",
+      "board",
+      "bird",
       "ed",
-      "mark",
-      "clean",
-      "work",
-      "pre",
-      "note"
+      "s"
     ],
-    "targetScore": 95,
+    "targetScore": 80,
     "bonusWords": [
-      "precleaned",
-      "preclean",
-      "cleaned"
+      "blackboard",
+      "blackberry",
+      "blackbird",
+      "boards"
     ]
   },
   "2026-05-09": {
     "fragments": [
+      "high",
+      "light",
+      "s",
+      "way",
       "ed",
-      "press",
-      "draw",
-      "hand",
-      "post",
-      "ing"
+      "land"
     ],
-    "targetScore": 92,
+    "targetScore": 80,
     "bonusWords": [
-      "pressing",
-      "pressed",
-      "drawing"
+      "highlight",
+      "highway",
+      "highland",
+      "lighted"
     ]
   },
   "2026-05-10": {
     "fragments": [
-      "field",
-      "guard",
-      "form",
-      "check",
-      "play",
+      "er",
+      "wood",
+      "work",
+      "land",
+      "peck",
       "s"
     ],
-    "targetScore": 99,
+    "targetScore": 80,
     "bonusWords": [
-      "playfields",
-      "playfield",
-      "fields"
+      "woodland",
+      "woodwork",
+      "woodpecker",
+      "worker"
     ]
   },
   "2026-05-11": {
     "fragments": [
-      "check",
-      "sound",
-      "smart",
-      "grow",
-      "er",
-      "ing"
+      "side",
+      "s",
+      "trip",
+      "ed",
+      "block",
+      "road"
     ],
-    "targetScore": 93,
+    "targetScore": 80,
     "bonusWords": [
-      "checkering",
-      "checking",
-      "checker"
+      "roadside",
+      "roadtrip",
+      "roadblock",
+      "blocked"
     ]
   },
   "2026-05-12": {
     "fragments": [
+      "ed",
+      "blue",
+      "print",
       "s",
-      "skill",
-      "build",
-      "form",
-      "able",
-      "track"
+      "berry",
+      "bird"
     ],
-    "targetScore": 93,
+    "targetScore": 80,
     "bonusWords": [
-      "buildable",
-      "formable",
-      "strack"
+      "blueprint",
+      "blueberry",
+      "bluebird",
+      "printed"
     ]
   },
   "2026-05-13": {
     "fragments": [
-      "play",
-      "clean",
-      "water",
-      "ing",
-      "wind",
-      "re"
+      "ly",
+      "taker",
+      "free",
+      "care",
+      "ful",
+      "s"
     ],
-    "targetScore": 99,
+    "targetScore": 80,
     "bonusWords": [
-      "recleaning",
-      "rewatering",
-      "replaying"
+      "careful",
+      "carefree",
+      "caretaker",
+      "carefully"
     ]
   },
   "2026-05-14": {
     "fragments": [
-      "path",
+      "site",
+      "camp",
       "s",
-      "care",
-      "draw",
-      "under",
-      "storm"
+      "ed",
+      "fire",
+      "ground"
     ],
-    "targetScore": 95,
+    "targetScore": 80,
     "bonusWords": [
-      "underdraws",
-      "sunder",
-      "storms"
+      "campfire",
+      "campground",
+      "campsite",
+      "camped"
     ]
   },
   "2026-05-15": {
     "fragments": [
       "ing",
-      "sound",
-      "point",
-      "field",
-      "form",
-      "re"
+      "boat",
+      "sail",
+      "s",
+      "ed",
+      "or"
     ],
-    "targetScore": 112,
+    "targetScore": 80,
     "bonusWords": [
-      "resounding",
-      "repointing",
-      "reforming"
+      "sailboat",
+      "sailor",
+      "sailing",
+      "sailed"
     ]
   },
   "2026-05-16": {
     "fragments": [
-      "ed",
-      "ing",
-      "er",
-      "spin",
-      "goal",
-      "post"
+      "long",
+      "s",
+      "time",
+      "ly",
+      "life",
+      "guard"
     ],
-    "targetScore": 110,
+    "targetScore": 80,
     "bonusWords": [
-      "postering",
-      "goalpost",
-      "postered"
+      "lifetime",
+      "lifeguard",
+      "lifelong",
+      "times"
     ]
   },
   "2026-05-17": {
     "fragments": [
-      "anti",
-      "build",
-      "turn",
+      "ed",
       "s",
-      "er",
-      "safe"
+      "place",
+      "day",
+      "mark",
+      "birth"
     ],
-    "targetScore": 113,
+    "targetScore": 80,
     "bonusWords": [
-      "turners",
-      "builds",
-      "turner"
+      "birthday",
+      "birthplace",
+      "birthmark",
+      "days"
     ]
   },
   "2026-05-18": {
     "fragments": [
-      "wave",
       "s",
-      "build",
-      "water",
-      "line",
+      "out",
+      "shop",
+      "place",
+      "ed",
       "work"
     ],
-    "targetScore": 106,
+    "targetScore": 80,
     "bonusWords": [
-      "waterlines",
-      "waterworks",
-      "waterline"
+      "workshop",
+      "workplace",
+      "workout",
+      "worked"
     ]
   },
   "2026-05-19": {
     "fragments": [
-      "less",
-      "un",
-      "ment",
-      "build",
-      "hand",
-      "ing"
+      "s",
+      "ear",
+      "phone",
+      "drum",
+      "ring",
+      "ed"
     ],
-    "targetScore": 111,
+    "targetScore": 80,
     "bonusWords": [
-      "unbuilding",
-      "handless",
-      "unbuild"
+      "earring",
+      "earphone",
+      "eardrum",
+      "rings"
     ]
   },
   "2026-05-20": {
     "fragments": [
-      "logic",
       "ed",
-      "hand",
-      "time",
-      "un",
-      "over"
+      "er",
+      "brush",
+      "paint",
+      "ball",
+      "s"
     ],
-    "targetScore": 109,
+    "targetScore": 80,
     "bonusWords": [
-      "overhanded",
-      "handover",
-      "overhand"
+      "paintbrush",
+      "paintball",
+      "painter",
+      "painted"
     ]
   },
   "2026-05-21": {
     "fragments": [
-      "over",
-      "water",
-      "press",
-      "mark",
-      "hand",
-      "anti"
+      "back",
+      "green",
+      "land",
+      "house",
+      "ed",
+      "s"
     ],
-    "targetScore": 114,
+    "targetScore": 80,
     "bonusWords": [
-      "overwater",
-      "watermark",
-      "antipress"
+      "greenhouse",
+      "greenland",
+      "greenback",
+      "housed"
     ]
   },
   "2026-05-22": {
     "fragments": [
-      "ness",
-      "work",
-      "ly",
-      "mind",
+      "age",
+      "s",
+      "pass",
+      "port",
       "ed",
-      "s"
+      "word"
     ],
-    "targetScore": 106,
+    "targetScore": 80,
     "bonusWords": [
-      "mindedness",
-      "slyness",
-      "worked"
+      "password",
+      "passport",
+      "passage",
+      "passed"
     ]
   },
   "2026-05-23": {
     "fragments": [
-      "craft",
-      "rain",
-      "ing",
+      "cloud",
+      "s",
+      "proof",
       "ed",
-      "build",
-      "note"
+      "storm",
+      "y"
     ],
-    "targetScore": 97,
+    "targetScore": 80,
     "bonusWords": [
-      "ingrained",
-      "crafted",
-      "ingrain"
+      "stormy",
+      "storms",
+      "stormcloud",
+      "stormed"
     ]
   },
   "2026-05-24": {
     "fragments": [
-      "safe",
-      "light",
-      "anti",
-      "ful",
+      "bowl",
+      "man",
+      "fish",
       "s",
-      "wind"
+      "ing",
+      "er"
     ],
-    "targetScore": 97,
+    "targetScore": 80,
     "bonusWords": [
-      "safelights",
-      "safelight",
-      "lightful"
+      "fisher",
+      "fishbowl",
+      "fishing",
+      "fisherman"
     ]
   },
   "2026-05-25": {
     "fragments": [
-      "mind",
-      "craft",
-      "sound",
-      "un",
-      "clear",
-      "ed"
+      "break",
+      "ed",
+      "beat",
+      "heart",
+      "felt",
+      "s"
     ],
-    "targetScore": 102,
+    "targetScore": 80,
     "bonusWords": [
-      "unsounded",
-      "uncleared",
-      "unminded"
+      "heartbeat",
+      "heartbreak",
+      "heartfelt",
+      "hearts"
     ]
   },
   "2026-05-26": {
     "fragments": [
+      "night",
+      "life",
+      "ly",
+      "fall",
       "s",
-      "under",
-      "fire",
-      "able",
-      "check",
-      "post"
+      "mare"
     ],
-    "targetScore": 107,
+    "targetScore": 80,
     "bonusWords": [
-      "sunderable",
-      "underfires",
-      "underfire"
+      "nightfall",
+      "nightmare",
+      "nightlife",
+      "nightly"
     ]
   },
   "2026-05-27": {
     "fragments": [
-      "over",
-      "un",
-      "anti",
+      "power",
+      "back",
       "ed",
-      "work",
-      "er"
+      "shoe",
+      "s",
+      "horse"
     ],
-    "targetScore": 106,
+    "targetScore": 80,
     "bonusWords": [
-      "unworked",
-      "overed",
-      "unwork"
+      "horseback",
+      "horsepower",
+      "horseshoe",
+      "horses"
     ]
   },
   "2026-05-28": {
     "fragments": [
-      "quick",
+      "top",
       "s",
-      "care",
-      "rain",
-      "check",
-      "code"
+      "table",
+      "land",
+      "ed",
+      "cloth"
     ],
-    "targetScore": 106,
+    "targetScore": 80,
     "bonusWords": [
-      "rainchecks",
-      "raincheck",
-      "quicks"
+      "tablecloth",
+      "tabletop",
+      "tableland",
+      "tables"
     ]
   },
   "2026-05-29": {
     "fragments": [
+      "mine",
       "s",
-      "plan",
-      "ed",
-      "mark",
-      "write",
-      "move"
+      "en",
+      "gold",
+      "fish",
+      "ed"
     ],
-    "targetScore": 100,
+    "targetScore": 80,
     "bonusWords": [
-      "planed",
-      "marked",
-      "writes"
+      "goldfish",
+      "goldmine",
+      "golden",
+      "golded"
     ]
   },
   "2026-05-30": {
     "fragments": [
-      "track",
-      "clean",
-      "clear",
-      "ing",
-      "pre",
-      "skill"
+      "coat",
+      "fall",
+      "rain",
+      "drop",
+      "s",
+      "ed"
     ],
-    "targetScore": 101,
+    "targetScore": 80,
     "bonusWords": [
-      "precleaning",
-      "preclearing",
-      "tracking"
+      "raindrop",
+      "rainfall",
+      "raincoat",
+      "rained"
     ]
   },
   "2026-05-31": {
     "fragments": [
-      "skill",
-      "goal",
-      "craft",
-      "point",
-      "er",
-      "s"
+      "note",
+      "worthy",
+      "s",
+      "pad",
+      "ed",
+      "book"
     ],
-    "targetScore": 98,
+    "targetScore": 80,
     "bonusWords": [
-      "crafters",
-      "pointers",
-      "crafter"
+      "notebook",
+      "notepad",
+      "noteworthy",
+      "noted"
     ]
   }
 }

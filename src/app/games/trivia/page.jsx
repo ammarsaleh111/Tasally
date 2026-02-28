@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import GameHeader from '@/components/GameHeader';
 // NOTE: Learning Log removed - Trivia is not a word-based game
 import StatisticsModal from '@/components/StatisticsModal';
@@ -11,13 +11,14 @@ import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
 import BadgesProgressWidget from '@/components/BadgesProgressWidget';
 import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
-import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
+import WinConfettiOverlay from '@/components/WinConfettiOverlay';
 import Toast from '@/components/Toast';
 import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
 import { useGameContext } from '@/hooks/useGameContext';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
+import { submitResult } from '@/utils/resultsClient';
 import {
   getDailyTrivia,
   generateRandomTrivia,
@@ -60,6 +61,7 @@ export default function TriviaGame() {
   const [badgeUnlocks, setBadgeUnlocks] = useState([]);
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
+  const advanceTimeoutRef = useRef(null);
 
   const tutorial = GAME_TUTORIALS.trivia;
   const {
@@ -79,6 +81,11 @@ export default function TriviaGame() {
   };
 
   const loadGame = () => {
+    if (advanceTimeoutRef.current) {
+      clearTimeout(advanceTimeoutRef.current);
+      advanceTimeoutRef.current = null;
+    }
+
     const newSet = mode === 'daily' ? getDailyTrivia() : generateRandomTrivia();
     setTriviaSet(newSet);
     setCurrentQuestionIndex(0);
@@ -111,6 +118,14 @@ export default function TriviaGame() {
   }, [timerActive, gameComplete]);
 
   useEffect(() => {
+    return () => {
+      if (advanceTimeoutRef.current) {
+        clearTimeout(advanceTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     if (!triviaSet || gameComplete) return;
     if (isTutorialOpen) {
       if (timerActive) setTimerActive(false);
@@ -139,40 +154,44 @@ export default function TriviaGame() {
       showToast(`✗ Wrong! Answer: ${currentQuestion.answer}`, 'error');
     }
     
-    setAnswers([...answers, {
+    const answerEntry = {
       question: currentQuestion.question,
       userAnswer: answer,
       correctAnswer: currentQuestion.answer,
       isCorrect
-    }]);
+    };
+    const nextAnswers = [...answers, answerEntry];
+    const nextCorrectCount = correctCount + (isCorrect ? 1 : 0);
+
+    setAnswers(nextAnswers);
     
     // Auto-advance after 1.5 seconds
-    setTimeout(() => {
-      handleNext();
+    advanceTimeoutRef.current = setTimeout(() => {
+      handleNext(nextAnswers, nextCorrectCount);
     }, 1500);
   };
 
-  const handleNext = () => {
+  const handleNext = (nextAnswers = answers, nextCorrectCount = correctCount) => {
     if (currentQuestionIndex < triviaSet.questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
       setSelectedAnswer(null);
     } else {
-      handleGameComplete();
+      handleGameComplete(nextAnswers, nextCorrectCount);
     }
   };
 
-  const handleGameComplete = () => {
+  const handleGameComplete = (finalAnswers = answers, finalCorrectCount = correctCount) => {
     setGameComplete(true);
     setTimerActive(false);
-    
-    const score = calculateScore(correctCount, triviaSet.questions.length);
-    const percentage = (correctCount / triviaSet.questions.length) * 100;
+
+    const score = calculateScore(finalCorrectCount, triviaSet.questions.length, timeElapsed);
+    const percentage = (finalCorrectCount / triviaSet.questions.length) * 100;
     
     // Update stats using profileManager
     const result = {
       date: getTodayString(),
       win: percentage >= 70,
-      score: correctCount,
+      score,
       time: timeElapsed,
       puzzleId: mode === 'daily' ? `trivia-${getTodayString()}` : `practice-${Date.now()}`,
       totalQuestions: triviaSet.questions.length,
@@ -181,6 +200,21 @@ export default function TriviaGame() {
     const achievements = recordGameResult('trivia', result);
     const updatedStats = getGameStats('trivia');
     setStats(updatedStats);
+    setAnswers(finalAnswers);
+    setCorrectCount(finalCorrectCount);
+
+    submitResult({
+      gameKey: 'trivia',
+      mode,
+      success: percentage >= 70,
+      attempts: triviaSet.questions.length,
+      durationMs: timeElapsed * 1000,
+      metadata: {
+        correct: finalCorrectCount,
+        total: triviaSet.questions.length,
+        puzzleDate: triviaSet.date,
+      },
+    }).catch(err => console.warn('[Trivia] Failed to submit to leaderboard:', err));
     
     setBadgeUnlocks(achievements || []);
     
@@ -188,7 +222,7 @@ export default function TriviaGame() {
       setShowConfetti(true);
     }
     
-    showToast(getPerformanceMessage(correctCount, triviaSet.questions.length), 'success');
+    showToast(getPerformanceMessage(finalCorrectCount, triviaSet.questions.length), 'success');
   };
 
   const handleRestart = () => {
@@ -228,14 +262,7 @@ export default function TriviaGame() {
       <div className="flex flex-col items-center justify-center p-4 min-h-full">
         <WinConfettiOverlay
           active={showConfetti}
-          durationMs={3000}
-          intensity={0.9}
-          origin={CONFETTI_ORIGINS.top}
-          palette={[
-            'hsl(var(--info))',
-            'hsl(var(--success))',
-            'hsl(var(--warning))'
-          ]}
+          gameName="trivia"
           onDone={() => setShowConfetti(false)}
         />
         <div className="max-w-2xl w-full space-y-6">
@@ -381,7 +408,7 @@ export default function TriviaGame() {
                   <div className="text-center">
                     <div className="text-sm text-text-muted">Score</div>
                     <div className="text-xl font-bold text-foreground">
-                      {calculateScore(correctCount, triviaSet.questions.length)}
+                      {calculateScore(correctCount, triviaSet.questions.length, timeElapsed)}
                     </div>
                   </div>
                 </div>
@@ -391,7 +418,7 @@ export default function TriviaGame() {
               <ShareResults
                 gameName="trivia"
                 result={{
-                  score: correctCount,
+                  score: calculateScore(correctCount, triviaSet.questions.length, timeElapsed),
                   win: (correctCount / triviaSet.questions.length) * 100 >= 70
                 }}
                 puzzleNumber={mode === 'daily' ? `#${getTodayString()}` : ''}

@@ -1,15 +1,23 @@
 import { NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import {
   accounts,
   gameEvents,
   gameResults,
+  globalGameResults,
+  globalPlayerTotals,
   presenceSessions,
   sessions,
   themeSettings,
   users,
   verificationTokens,
+  identities,
+  groupMembers,
+  groupGameResults,
+  groupMemberTotals,
+  groupInvites,
+  groups,
 } from "@/db";
 import { db } from "@/db";
 import { getActivityStore, getAllPlayers, saveActivityStore, savePlayers } from "@/lib/serverData";
@@ -67,6 +75,29 @@ export async function DELETE(request: Request) {
 
     try {
       await db.transaction(async (tx) => {
+        // Look up user's identity for cascade deletion (BUG-014)
+        const userIdentity = await tx.select({ id: identities.id })
+          .from(identities)
+          .where(eq(identities.userId, userId))
+          .limit(1);
+        const identityId = userIdentity[0]?.id;
+
+        // Clean up identity-based tables if identity exists
+        if (identityId) {
+          await tx.delete(groupMemberTotals).where(eq(groupMemberTotals.identityId, identityId));
+          await tx.delete(groupGameResults).where(eq(groupGameResults.identityId, identityId));
+          await tx.delete(groupMembers).where(eq(groupMembers.identityId, identityId));
+          await tx.delete(groupInvites).where(
+            or(
+              eq(groupInvites.inviterIdentityId, identityId),
+              eq(groupInvites.inviteeIdentityId, identityId)
+            )
+          );
+          await tx.delete(groups).where(eq(groups.ownerIdentityId, identityId));
+          await tx.delete(globalGameResults).where(eq(globalGameResults.identityId, identityId));
+          await tx.delete(globalPlayerTotals).where(eq(globalPlayerTotals.identityId, identityId));
+        }
+
         await tx.delete(gameResults).where(eq(gameResults.userId, userId));
         await tx.delete(gameEvents).where(eq(gameEvents.userId, userId));
         await tx.delete(presenceSessions).where(eq(presenceSessions.userId, userId));
@@ -80,6 +111,11 @@ export async function DELETE(request: Request) {
           .set({ updatedByUserId: null })
           .where(eq(themeSettings.updatedByUserId, userId));
         await tx.delete(users).where(eq(users.id, userId));
+
+        // Delete identity row last
+        if (identityId) {
+          await tx.delete(identities).where(eq(identities.id, identityId));
+        }
       });
     } catch (error) {
       // Attempt to restore file-backed data if DB deletion fails

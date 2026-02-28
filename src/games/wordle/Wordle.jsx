@@ -27,7 +27,7 @@ import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
 import BadgesProgressWidget from '@/components/BadgesProgressWidget';
 import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
-import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
+import WinConfettiOverlay from '@/components/WinConfettiOverlay';
 import { recordGameResult, getGameStats, getTodayString } from '@/utils/profileManager';
 import { trackGameStart, trackGameEnd } from '@/utils/sessionTracker';
 import { addWordToLog } from '@/utils/learningLogEngine';
@@ -599,15 +599,7 @@ export default function WordleGame() {
       <div className="relative flex flex-col items-center w-full max-w-lg mx-auto px-4 pb-10">
         <WinConfettiOverlay
           active={showWinConfetti}
-          durationMs={3200}
-          intensity={1}
-          origin={CONFETTI_ORIGINS.corners}
-          palette={[
-            'hsl(var(--wordle-correct))',
-            'hsl(var(--wordle-present))',
-            'hsl(var(--info))',
-            'hsl(var(--success))'
-          ]}
+          gameName="wordle"
           onDone={() => setShowWinConfetti(false)}
         />
 

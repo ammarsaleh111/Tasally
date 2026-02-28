@@ -1,5 +1,12 @@
 'use client';
 
+/**
+ * @deprecated Use WinConfettiOverlay instead.
+ * This component uses DOM-based rendering (30 CSS circles) with no physics.
+ * Kept for reference only — will be removed in a future release.
+ * @see {@link ../WinConfettiOverlay.jsx}
+ */
+
 import { useState } from 'react';
 
 function generateParticles() {

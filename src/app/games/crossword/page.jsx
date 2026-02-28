@@ -11,6 +11,7 @@ import BadgeEarnedRecap from "@/components/BadgeEarnedRecap";
 import BadgesProgressWidget from "@/components/BadgesProgressWidget";
 import BadgesDrawer from "@/components/BadgesDrawer";
 import DailyReminder from "@/components/DailyReminder";
+import WinConfettiOverlay from "@/components/WinConfettiOverlay";
 import TutorialPanel from "@/components/tutorial/TutorialPanel";
 import { GAME_TUTORIALS } from "@/data/tutorials";
 import { useGameContext } from "@/hooks/useGameContext";
@@ -199,6 +200,14 @@ export default function CrosswordPage() {
   const [statusMessage, setStatusMessage] = useState(null);
   const [isComplete, setIsComplete] = useState(false);
   const [submitState, setSubmitState] = useState("idle");
+  const [showWinConfetti, setShowWinConfetti] = useState(false);
+
+  // Trigger confetti on completion
+  useEffect(() => {
+    if (isComplete) {
+      setShowWinConfetti(true);
+    }
+  }, [isComplete]);
 
   // Modal and drawer state
   const [showStats, setShowStats] = useState(false);
@@ -855,6 +864,12 @@ export default function CrosswordPage() {
         </div>
 
         {statusMessage ? <div className={`mb-4 rounded-xl border px-4 py-2 text-sm font-medium ${statusToneClass}`}>{statusMessage.text}</div> : null}
+
+        <WinConfettiOverlay
+          active={showWinConfetti}
+          gameName="crossword"
+          onDone={() => setShowWinConfetti(false)}
+        />
 
         {isComplete ? (
           <div className="mb-4 rounded-xl border border-success/35 bg-success/10 px-4 py-3 text-sm text-success">

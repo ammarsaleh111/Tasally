@@ -9,9 +9,9 @@ export function scoreTrivia(input: ScoreInput): ScoreResult {
   const accuracy = total > 0 ? correct / total : 0;
   const base = 1200 * accuracy;
   const timePenalty = Math.floor(durationMs / 1000 / 3);
-  const streakBonus = Math.round(Math.max(0, correct - 5) * 20);
+  const thresholdBonus = Math.round(Math.max(0, correct - 5) * 20);
 
-  const score = clampScore(base + streakBonus - timePenalty);
+  const score = clampScore(base + thresholdBonus - timePenalty);
 
   return {
     score,

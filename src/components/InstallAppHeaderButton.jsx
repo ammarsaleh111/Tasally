@@ -8,15 +8,20 @@ export default function InstallAppHeaderButton() {
   const { isInstalled, isIOS, canInstall, triggerInstall } = useInstallPrompt();
   const [showIOSModal, setShowIOSModal] = useState(false);
   const [hint, setHint] = useState('');
+  // Avoid SSR hydration mismatch
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { queueMicrotask(() => setMounted(true)); }, []);
 
   useEffect(() => {
     if (!hint) return;
-    const timeout = window.setTimeout(() => setHint(''), 2200);
+    const timeout = window.setTimeout(() => setHint(''), 3000);
     return () => window.clearTimeout(timeout);
   }, [hint]);
 
-  // Hide if already installed
-  if (isInstalled) return null;
+  // Don't render until hydrated, or if already installed, or nothing to install
+  if (!mounted || isInstalled) return null;
+  if (!canInstall && !isIOS) return null;
 
   const handleClick = async () => {
     if (isIOS) {
@@ -25,11 +30,12 @@ export default function InstallAppHeaderButton() {
     }
 
     if (canInstall) {
-      await triggerInstall();
+      const outcome = await triggerInstall();
+      if (outcome === 'dismissed') {
+        setHint('You can install anytime from your browser menu.');
+      }
       return;
     }
-
-    setHint('Install becomes available after a short period of use.');
   };
 
   return (

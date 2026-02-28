@@ -36,13 +36,19 @@ const readInitialState = () => {
 };
 
 export function useOnboardingState() {
-  const initial = readInitialState();
+  // Initialize with safe defaults to prevent hydration mismatch (BUG-044)
+  // localStorage values are loaded in the useEffect below after hydration
   const [hydrated, setHydrated] = useState(false);
-  const [name, setNameState] = useState(initial.name);
-  const [tutorialComplete, setTutorialCompleteState] = useState(initial.tutorialComplete);
-  const [installShown, setInstallShownState] = useState(initial.installShown);
+  const [name, setNameState] = useState('');
+  const [tutorialComplete, setTutorialCompleteState] = useState(false);
+  const [installShown, setInstallShownState] = useState(false);
 
   useEffect(() => {
+    // Read from localStorage after mount to avoid SSR hydration mismatch
+    const initial = readInitialState();
+    setNameState(initial.name);
+    setTutorialCompleteState(initial.tutorialComplete);
+    setInstallShownState(initial.installShown);
     setHydrated(true);
   }, []);
 

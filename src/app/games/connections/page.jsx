@@ -38,6 +38,7 @@ import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
 import { useGameContext } from '@/hooks/useGameContext';
+import WinConfettiOverlay from '@/components/WinConfettiOverlay';
 
 export default function ConnectionsGame() {
   const { returnUrl, returnLabel, isGroupGame, groupName } = useGameContext();
@@ -61,6 +62,16 @@ export default function ConnectionsGame() {
   const [badgeUnlocks, setBadgeUnlocks] = useState([]);
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
+  const [showWinConfetti, setShowWinConfetti] = useState(false);
+
+  // Trigger confetti on win
+  useEffect(() => {
+    if (gameState.gameStatus === 'won') {
+      setShowWinConfetti(true);
+    } else {
+      setShowWinConfetti(false);
+    }
+  }, [gameState.gameStatus]);
 
   const tutorial = GAME_TUTORIALS.connections;
   const {
@@ -89,8 +100,16 @@ export default function ConnectionsGame() {
   }, [gameState]);
 
   // Show result modal when game ends
+  const hasSubmittedRef = React.useRef(false);
   useEffect(() => {
     if (gameState.gameStatus !== 'playing') {
+      // Prevent re-submission on component remount (BUG-020)
+      if (hasSubmittedRef.current) {
+        setTimeout(() => setShowResultModal(true), 1000);
+        return;
+      }
+      hasSubmittedRef.current = true;
+
       // Update stats using profileManager
       const won = gameState.gameStatus === 'won';
       const result = {
@@ -338,6 +357,13 @@ export default function ConnectionsGame() {
           </div>
         </div>
       </div>
+
+      <WinConfettiOverlay
+        active={showWinConfetti}
+        gameName="connections"
+        isPerfect={gameState.mistakes === 0}
+        onDone={() => setShowWinConfetti(false)}
+      />
 
       {/* Result Modal */}
       <Modal isOpen={showResultModal} title={gameState.gameStatus === 'won' ? 'Puzzle Complete!' : 'Next Time!'}>

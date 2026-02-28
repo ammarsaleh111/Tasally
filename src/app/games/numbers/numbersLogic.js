@@ -24,25 +24,86 @@ export const getDailyPuzzle = () => {
  */
 export const evaluateExpression = (expression) => {
   try {
-    // Replace × and ÷ with * and /
     const normalized = expression
       .replace(/×/g, '*')
       .replace(/÷/g, '/')
       .replace(/\s/g, '');
-    
-    // Security check: only allow numbers, operators, and parentheses
-    if (!/^[0-9+\-*/().\s]+$/.test(normalized)) {
+
+    if (!/^[0-9+\-*/().]+$/.test(normalized)) {
       return null;
     }
-    
-    // Use Function constructor for safe evaluation
-    const result = Function('"use strict"; return (' + normalized + ')')();
-    
-    // Check if result is a valid number
-    if (typeof result === 'number' && !isNaN(result) && isFinite(result)) {
-      return Math.round(result * 100) / 100; // Round to 2 decimal places
-    }
-    
+
+    let index = 0;
+
+    const parseNumber = () => {
+      const start = index;
+      while (index < normalized.length && /[0-9]/.test(normalized[index])) {
+        index++;
+      }
+      if (start === index) return null;
+      return Number(normalized.slice(start, index));
+    };
+
+    const parseFactor = () => {
+      if (normalized[index] === '(') {
+        index++;
+        const value = parseExpressionInternal();
+        if (value === null || normalized[index] !== ')') return null;
+        index++;
+        return value;
+      }
+
+      if (normalized[index] === '-') {
+        index++;
+        const value = parseFactor();
+        return value === null ? null : -value;
+      }
+
+      return parseNumber();
+    };
+
+    const parseTerm = () => {
+      let value = parseFactor();
+      if (value === null) return null;
+
+      while (index < normalized.length) {
+        const operator = normalized[index];
+        if (operator !== '*' && operator !== '/') break;
+        index++;
+        const rhs = parseFactor();
+        if (rhs === null) return null;
+
+        if (operator === '*') {
+          value *= rhs;
+        } else {
+          if (rhs === 0) return null;
+          if (value % rhs !== 0) return null;
+          value /= rhs;
+        }
+      }
+
+      return value;
+    };
+
+    const parseExpressionInternal = () => {
+      let value = parseTerm();
+      if (value === null) return null;
+
+      while (index < normalized.length) {
+        const operator = normalized[index];
+        if (operator !== '+' && operator !== '-') break;
+        index++;
+        const rhs = parseTerm();
+        if (rhs === null) return null;
+        value = operator === '+' ? value + rhs : value - rhs;
+      }
+
+      return value;
+    };
+
+    const result = parseExpressionInternal();
+    if (result === null || index !== normalized.length) return null;
+    if (typeof result === 'number' && !isNaN(result) && isFinite(result)) return result;
     return null;
   } catch (error) {
     return null;
@@ -134,6 +195,7 @@ export const calculate = (a, b, operator) => {
       return a * b;
     case '÷':
       if (b === 0) return null;
+      if (a % b !== 0) return null;
       return a / b;
     default:
       return null;
@@ -180,7 +242,7 @@ export const generateRandomPuzzle = () => {
   const target = Math.floor(Math.random() * 900) + 100; // 100-999
   
   return {
-    date: new Date().toISOString().split('T')[0],
+    date: getCairoDateKey(),
     target,
     numbers,
     solution: null // Random puzzles don't have pre-made solutions
@@ -236,8 +298,12 @@ export const saveStats = (stats) => {
  * Update stats after a game
  */
 export const updateStats = (currentStats, won, steps) => {
-  const today = new Date().toISOString().split('T')[0];
+  const today = getCairoDateKey();
   const lastPlayed = currentStats.lastPlayed;
+  const [year, month, day] = today.split('-').map(Number);
+  const yesterdayDate = new Date(Date.UTC(year, month - 1, day));
+  yesterdayDate.setUTCDate(yesterdayDate.getUTCDate() - 1);
+  const yesterday = yesterdayDate.toISOString().split('T')[0];
   
   const newStats = {
     played: currentStats.played + 1,
@@ -251,8 +317,10 @@ export const updateStats = (currentStats, won, steps) => {
     if (lastPlayed === today) {
       // Same day, don't increment
       newStats.currentStreak = currentStats.currentStreak;
-    } else {
+    } else if (lastPlayed === yesterday) {
       newStats.currentStreak = currentStats.currentStreak + 1;
+    } else {
+      newStats.currentStreak = 1;
     }
   } else {
     newStats.currentStreak = 0;
@@ -261,8 +329,8 @@ export const updateStats = (currentStats, won, steps) => {
   newStats.maxStreak = Math.max(currentStats.maxStreak, newStats.currentStreak);
   
   // Calculate average steps
-  const totalSteps = (currentStats.averageSteps * currentStats.played) + (won ? steps : 0);
-  newStats.averageSteps = currentStats.played > 0 ? Math.round(totalSteps / newStats.played) : 0;
+  const totalWinningSteps = (currentStats.averageSteps * currentStats.won) + (won ? steps : 0);
+  newStats.averageSteps = newStats.won > 0 ? Math.round(totalWinningSteps / newStats.won) : 0;
   
   return newStats;
 };

@@ -111,10 +111,11 @@ export const getRandomWord = (length = 5) => {
  * Validates a word exists in our dictionary
  */
 export const isValidWord = (word) => {
-  // Simple check against basic lists first? 
-  // Validation is mostly done via the Async tool now, 
-  // but this is kept for sync checks if needed.
-  return true; 
+  if (!word || typeof word !== 'string') return false;
+  const normalized = word.trim().toUpperCase();
+  const pool = WORDS_BY_LENGTH[normalized.length];
+  if (!pool) return false;
+  return pool.includes(normalized);
 };
 
 /**

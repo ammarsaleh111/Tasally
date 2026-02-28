@@ -245,8 +245,9 @@ export const THEMES = {
  * @returns {object|null} Active theme or null
  */
 export const getActiveTheme = () => {
+  // Use UTC date to match theme date boundaries consistently across timezones
   const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
+  const todayStr = `${today.getUTCFullYear()}-${String(today.getUTCMonth() + 1).padStart(2, '0')}-${String(today.getUTCDate()).padStart(2, '0')}`;
   
   for (const theme of Object.values(THEMES)) {
     if (todayStr >= theme.startDate && todayStr <= theme.endDate) {

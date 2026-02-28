@@ -1,13 +1,19 @@
 import crypto from 'crypto';
 
-// Environment-based credentials - MUST be set in production
-const DEFAULT_ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
-const DEFAULT_ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'SecureAdmin#2026';
-const ADMIN_SECRET = process.env.ADMIN_SECRET || 'ammar-times-admin-secret-key-change-in-prod';
+// Environment-based credentials - MUST be set in production (no fallback defaults)
+const DEFAULT_ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const DEFAULT_ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const ADMIN_SECRET = process.env.ADMIN_SECRET;
+
+if (!DEFAULT_ADMIN_USERNAME || !DEFAULT_ADMIN_PASSWORD || !ADMIN_SECRET) {
+  console.warn('[AdminAuth] WARNING: ADMIN_USERNAME, ADMIN_PASSWORD, and ADMIN_SECRET environment variables must be set. Admin login is disabled until they are configured.');
+}
 const SESSION_DURATION_MS = 1000 * 60 * 60 * 6; // 6 hours
 
 // Brute force protection
 const loginAttempts = new Map(); // IP -> { count, firstAttempt, blockedUntil }
+// Server-side token blocklist for session revocation (BUG-011)
+const revokedTokens = new Set();
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOCKOUT_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 const ATTEMPT_WINDOW_MS = 5 * 60 * 1000; // 5 minutes
@@ -100,20 +106,18 @@ function sign(data) {
     .digest('hex');
 }
 
-// Timing-safe string comparison
-function timingSafeEqual(a, b) {
+// Constant-time string comparison using HMAC to prevent length leaking
+// Both inputs are hashed to fixed-length outputs before comparison
+function hmacEqual(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string') {
-    return false;
-  }
-  
-  if (a.length !== b.length) {
     return false;
   }
 
   try {
-    const bufA = Buffer.from(a);
-    const bufB = Buffer.from(b);
-    return crypto.timingSafeEqual(bufA, bufB);
+    const key = ADMIN_SECRET || 'comparison-key';
+    const hmacA = crypto.createHmac('sha256', key).update(a).digest();
+    const hmacB = crypto.createHmac('sha256', key).update(b).digest();
+    return crypto.timingSafeEqual(hmacA, hmacB);
   } catch (e) {
     return false;
   }
@@ -134,6 +138,11 @@ export async function ensureAdminAccount() {
  * Uses timing-safe comparison to prevent timing attacks
  */
 export async function verifyAdminCredentials(username, password) {
+  // Reject if env vars not configured
+  if (!DEFAULT_ADMIN_USERNAME || !DEFAULT_ADMIN_PASSWORD) {
+    return false;
+  }
+
   // Input validation
   if (typeof username !== 'string' || typeof password !== 'string') {
     return false;
@@ -143,13 +152,14 @@ export async function verifyAdminCredentials(username, password) {
     return false;
   }
 
-  // Strip any potential XSS/injection attempts
+  // Only trim whitespace — never sanitize/escape passwords before comparison
   const cleanUsername = username.trim();
   const cleanPassword = password.trim();
 
-  // Timing-safe comparison
-  const usernameMatch = timingSafeEqual(cleanUsername, DEFAULT_ADMIN_USERNAME);
-  const passwordMatch = timingSafeEqual(cleanPassword, DEFAULT_ADMIN_PASSWORD);
+  // Use HMAC-based constant-time comparison to prevent timing attacks
+  // This avoids leaking credential length via the early length check
+  const usernameMatch = hmacEqual(cleanUsername, DEFAULT_ADMIN_USERNAME);
+  const passwordMatch = hmacEqual(cleanPassword, DEFAULT_ADMIN_PASSWORD);
 
   return usernameMatch && passwordMatch;
 }
@@ -158,6 +168,10 @@ export async function verifyAdminCredentials(username, password) {
  * Creates a stateless signed session token
  */
 export async function createAdminSession() {
+  if (!ADMIN_SECRET) {
+    throw new Error('ADMIN_SECRET not configured');
+  }
+
   const payload = JSON.stringify({
     user: DEFAULT_ADMIN_USERNAME,
     exp: Date.now() + SESSION_DURATION_MS,
@@ -175,6 +189,10 @@ export async function createAdminSession() {
  */
 export async function validateAdminSession(token) {
   if (!token || typeof token !== 'string') return false;
+  if (!ADMIN_SECRET) return false;
+  
+  // Check if token has been revoked (BUG-011)
+  if (revokedTokens.has(token)) return false;
   
   const parts = token.split('.');
   if (parts.length !== 2) return false;
@@ -183,7 +201,7 @@ export async function validateAdminSession(token) {
   
   // Verify signature using timing-safe comparison
   const expectedSignature = sign(payloadB64);
-  if (!timingSafeEqual(signature, expectedSignature)) return false;
+  if (!hmacEqual(signature, expectedSignature)) return false;
   
   // Verify expiration
   try {
@@ -207,10 +225,13 @@ export async function validateAdminSession(token) {
 }
 
 /**
- * Invalidates session - client side just deletes cookie.
- * No server-side state to clear.
+ * Invalidates session by adding token to server-side blocklist.
+ * Token remains blocked until the cleanup interval removes expired entries.
  */
 export async function invalidateAdminSession(token) {
+  if (token && typeof token === 'string') {
+    revokedTokens.add(token);
+  }
   return true;
 }
 
@@ -229,7 +250,7 @@ export function getDefaultAdminCredentials() {
   };
 }
 
-// Cleanup old login attempts every 10 minutes
+// Cleanup old login attempts and revoked tokens every 10 minutes
 setInterval(() => {
   const now = Date.now();
   for (const [ip, record] of loginAttempts.entries()) {
@@ -240,6 +261,21 @@ setInterval(() => {
     // Remove if attempt window expired
     else if (now - record.firstAttempt > ATTEMPT_WINDOW_MS * 2) {
       loginAttempts.delete(ip);
+    }
+  }
+  
+  // Cleanup expired revoked tokens (older than session duration)
+  for (const token of revokedTokens) {
+    try {
+      const parts = token.split('.');
+      if (parts.length === 2) {
+        const payload = JSON.parse(Buffer.from(parts[0], 'base64').toString());
+        if (payload.exp && now > payload.exp) {
+          revokedTokens.delete(token);
+        }
+      }
+    } catch {
+      revokedTokens.delete(token); // Remove unparseable tokens
     }
   }
 }, 10 * 60 * 1000);

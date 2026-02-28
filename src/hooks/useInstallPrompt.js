@@ -49,6 +49,11 @@ export function useInstallPrompt() {
     if (!bus) return;
     const handler = () => setTick((n) => n + 1);
     bus.addEventListener('change', handler);
+    // If beforeinstallprompt already fired before this component mounted,
+    // force a re-render so canInstall reflects the current state.
+    if (_deferredPrompt !== null) {
+      queueMicrotask(() => setTick((n) => n + 1));
+    }
     return () => bus.removeEventListener('change', handler);
   }, []);
 

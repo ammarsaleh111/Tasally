@@ -68,14 +68,32 @@ export function useGlobalLeaderboard(limit: number = 50) {
     mountedRef.current = true;
     fetchLeaderboard(true);
 
-    // 10-second polling interval
-    const interval = setInterval(() => {
+    // 10-second polling interval, paused when tab is hidden (BUG-048)
+    let interval: ReturnType<typeof setInterval> | null = setInterval(() => {
       fetchLeaderboard(false);
     }, POLLING_INTERVAL_MS);
 
+    const handleVisibility = () => {
+      if (document.hidden) {
+        if (interval) {
+          clearInterval(interval);
+          interval = null;
+        }
+      } else {
+        // Fetch immediately on return, then resume polling
+        fetchLeaderboard(false);
+        interval = setInterval(() => {
+          fetchLeaderboard(false);
+        }, POLLING_INTERVAL_MS);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibility);
+
     return () => {
       mountedRef.current = false;
-      clearInterval(interval);
+      if (interval) clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibility);
     };
   }, [fetchLeaderboard]);
 

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Confetti from './Confetti';
+import React, { useState, useEffect, useCallback } from 'react';
+import WinConfettiOverlay, { CONFETTI_PROFILES } from './WinConfettiOverlay';
 
 /**
  * GameResultModal - Unified Win/Lose Experience
@@ -17,7 +17,8 @@ import Confetti from './Confetti';
  * @param {React.ReactNode} actions - Action buttons
  * @param {function} onClose - Close handler
  * @param {object} stats - Game statistics for display
- * @param {string} gameName - Game identifier for styling
+ * @param {string} gameName - Game identifier for confetti profile + styling
+ * @param {boolean} isPerfect - Whether this was a perfect score (triggers mega burst)
  */
 const GameResultModal = ({ 
   isOpen, 
@@ -27,23 +28,40 @@ const GameResultModal = ({
   actions, 
   onClose,
   stats = {},
-  gameName = 'game'
+  gameName = 'game',
+  isPerfect = false,
 }) => {
   const [showConfetti, setShowConfetti] = useState(false);
+  const [iconAnimated, setIconAnimated] = useState(false);
+  const [shimmerActive, setShimmerActive] = useState(false);
+
+  const handleConfettiDone = useCallback(() => {
+    setShowConfetti(false);
+  }, []);
 
   useEffect(() => {
     if (isOpen && isWin) {
       // Delay confetti slightly for better effect
       const confettiTimer = setTimeout(() => setShowConfetti(true), 200);
-      
-      // Stop confetti after 3 seconds
-      const stopTimer = setTimeout(() => setShowConfetti(false), 3200);
+      // Icon pop animation
+      const iconTimer = setTimeout(() => setIconAnimated(true), 100);
+      // Shimmer sweep
+      const shimmerTimer = setTimeout(() => setShimmerActive(true), 400);
       
       return () => {
         clearTimeout(confettiTimer);
-        clearTimeout(stopTimer);
+        clearTimeout(iconTimer);
+        clearTimeout(shimmerTimer);
         setShowConfetti(false);
+        setIconAnimated(false);
+        setShimmerActive(false);
       };
+    } else {
+      queueMicrotask(() => {
+        setShowConfetti(false);
+        setIconAnimated(false);
+        setShimmerActive(false);
+      });
     }
   }, [isOpen, isWin]);
 
@@ -54,6 +72,9 @@ const GameResultModal = ({
       onClose();
     }
   };
+
+  // Resolve confetti profile for this game
+  const profile = CONFETTI_PROFILES[gameName] || {};
 
   // WIN STATE STYLING
   const winStyles = {
@@ -81,8 +102,20 @@ const GameResultModal = ({
 
   return (
     <>
-      {/* Confetti for WIN */}
-      {showConfetti && <Confetti />}
+      {/* Confetti for WIN — unified canvas engine */}
+      {showConfetti && (
+        <WinConfettiOverlay
+          active={showConfetti}
+          gameName={gameName}
+          isPerfect={isPerfect}
+          origin={profile.origin || 'corners'}
+          intensity={profile.intensity || 1}
+          durationMs={profile.durationMs || 3000}
+          palette={profile.palette}
+          shapes={profile.shapes}
+          onDone={handleConfettiDone}
+        />
+      )}
 
       {/* Backdrop */}
       <div 
@@ -90,11 +123,14 @@ const GameResultModal = ({
         onClick={handleBackdropClick}
       >
         {/* Modal Container */}
-        <div className={`relative w-full max-w-md ${styles.container} rounded-2xl p-8 ${styles.pulse} max-h-[90vh] overflow-y-auto transform transition-all`}>
+        <div className={`relative w-full max-w-md ${styles.container} rounded-2xl p-8 ${styles.pulse} max-h-[90vh] overflow-y-auto transform transition-all ${isWin && shimmerActive ? 'modal-shimmer' : ''}`}>
           
+          {/* Sparkle pseudo-elements for win */}
+          {isWin && <div className="modal-sparkles" aria-hidden="true" />}
+
           {/* Icon Badge */}
           <div className="flex justify-center mb-6">
-            <div className={`w-20 h-20 rounded-full ${styles.iconBg} flex items-center justify-center text-5xl ${isWin ? 'animate-bounce-gentle' : ''}`}>
+            <div className={`w-20 h-20 rounded-full ${styles.iconBg} flex items-center justify-center text-5xl ${isWin ? 'animate-bounce-gentle' : ''} ${iconAnimated ? 'modal-icon-pop' : 'scale-0'} transition-transform`}>
               {styles.icon}
             </div>
           </div>

@@ -7,18 +7,22 @@ export function scoreStrands(input: ScoreInput): ScoreResult {
 
   const metadata = input.metadata ?? {};
   const hintsUsed = Math.max(0, Number(metadata.hintsUsed ?? 0));
+  const perfect = Boolean(metadata.perfect);
   const durationMs = Math.max(0, input.durationMs ?? 0);
+  const attempts = Math.max(0, Number(input.attempts ?? 0));
   const base = 1300;
   const hintPenalty = hintsUsed * 120;
   const timePenalty = Math.floor(durationMs / 1000 / 2);
+  const perfectBonus = perfect ? 80 : 0;
+  const efficiencyBonus = attempts > 0 ? Math.max(0, 60 - Math.max(0, attempts - 7) * 5) : 0;
 
-  const score = clampScore(base - hintPenalty - timePenalty);
+  const score = clampScore(base - hintPenalty - timePenalty + perfectBonus + efficiencyBonus);
 
   return {
     score,
     success: true,
     attempts: input.attempts ?? null,
     durationMs,
-    metadata: { ...metadata, hintsUsed },
+    metadata: { ...metadata, hintsUsed, perfect, attempts },
   };
 }

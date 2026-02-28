@@ -19,14 +19,16 @@ const MAX_LENGTHS = {
 };
 
 // Dangerous patterns to detect
+// NOTE: Do NOT use the 'g' flag on patterns used with .test() — 
+// global regexes maintain lastIndex state, causing alternating true/false results (BUG-006)
 const DANGEROUS_PATTERNS = {
-  SCRIPT_TAG: /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+  SCRIPT_TAG: /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/i,
   HTML_TAG: /<[^>]*>/g,
-  EVENT_HANDLER: /on\w+\s*=\s*["'][^"']*["']/gi,
-  JAVASCRIPT_PROTOCOL: /javascript:/gi,
-  DATA_PROTOCOL: /data:text\/html/gi,
-  VBSCRIPT_PROTOCOL: /vbscript:/gi,
-  SQL_INJECTION: /(union|select|insert|update|delete|drop|create|alter|exec|script|javascript|expression)\s*[\(\;]/gi,
+  EVENT_HANDLER: /on\w+\s*=\s*["'][^"']*["']/i,
+  JAVASCRIPT_PROTOCOL: /javascript:/i,
+  DATA_PROTOCOL: /data:text\/html/i,
+  VBSCRIPT_PROTOCOL: /vbscript:/i,
+  SQL_INJECTION: /(union|select|insert|update|delete|drop|create|alter|exec|script|javascript|expression)\s*[\(\;]/i,
   PATH_TRAVERSAL: /\.\.[\/\\]/g,
   NULL_BYTE: /\x00/g,
 };

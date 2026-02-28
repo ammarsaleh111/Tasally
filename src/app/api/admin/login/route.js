@@ -67,9 +67,9 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Missing credentials' }, { status: 400 });
   }
 
-  // Sanitize inputs
+  // Sanitize username only — never sanitize passwords (BUG-005: escapeHtml mutates special chars)
   const cleanUsername = sanitizeString(username, 100);
-  const cleanPassword = sanitizeString(password, 100);
+  const cleanPassword = password; // passwords compared raw against stored value
 
   if (!cleanUsername || !cleanPassword) {
     recordFailedAttempt(clientIp);

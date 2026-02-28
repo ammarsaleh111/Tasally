@@ -144,7 +144,6 @@ export async function fetchServerThemeSettings(): Promise<ServerThemeSettings | 
   try {
     const res = await fetch('/api/theme/settings', {
       cache: 'no-store',
-      next: { revalidate: 300 },
     });
     
     if (!res.ok) {

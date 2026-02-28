@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import React from 'react';
+import InstallAppHeaderButton from '@/components/InstallAppHeaderButton';
 
 const HeaderButton = ({ onClick, disabled, icon, label, locked, dataTutorial }) => (
   <button
@@ -129,7 +130,7 @@ const GameHeader = ({
             )}
           </div>
 
-          {/* Right Side - Stats and Learning Log */}
+          {/* Right Side - Stats, Learning Log, Install */}
           <div className="flex items-center gap-1 sm:gap-2 flex-1 justify-end">
             {onStats && (
               <HeaderButton
@@ -150,6 +151,9 @@ const GameHeader = ({
                 dataTutorial="learning-log-button"
               />
             )}
+
+            {/* Install App button — only shows when PWA is installable */}
+            <InstallAppHeaderButton />
             
             <Link 
               href="/" 

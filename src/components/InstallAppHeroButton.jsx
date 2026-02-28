@@ -8,15 +8,22 @@ export default function InstallAppHeroButton() {
   const { isInstalled, isIOS, canInstall, triggerInstall } = useInstallPrompt();
   const [showIOSModal, setShowIOSModal] = useState(false);
   const [hint, setHint] = useState('');
+  // Avoid SSR hydration mismatch — only show after client hydration
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { queueMicrotask(() => setMounted(true)); }, []);
 
   useEffect(() => {
     if (!hint) return;
-    const timeout = window.setTimeout(() => setHint(''), 2200);
+    const timeout = window.setTimeout(() => setHint(''), 3000);
     return () => window.clearTimeout(timeout);
   }, [hint]);
 
-  // Hide if already installed
-  if (isInstalled) return null;
+  // Don't render until hydrated, or if already installed
+  if (!mounted || isInstalled) return null;
+
+  // Don't show button at all if there's no install mechanism available
+  if (!canInstall && !isIOS) return null;
 
   const handleClick = async () => {
     if (isIOS) {
@@ -25,15 +32,17 @@ export default function InstallAppHeroButton() {
     }
 
     if (canInstall) {
-      await triggerInstall();
+      const outcome = await triggerInstall();
+      if (outcome === 'dismissed') {
+        setHint('You can install the app anytime from your browser menu.');
+      }
       return;
     }
-
-    setHint('Install becomes available after a short period of use.');
   };
 
   return (
-    <div className="absolute top-4 right-4 z-50 flex flex-col items-end gap-2">
+    // Use fixed positioning so the button is never clipped by overflow-hidden parents
+    <div className="fixed top-4 right-4 z-50 flex flex-col items-end gap-2">
       <button
         type="button"
         onClick={handleClick}
@@ -44,8 +53,8 @@ export default function InstallAppHeroButton() {
           text-[hsl(var(--foreground))]
           rounded-full font-medium text-sm
           shadow-lg shadow-black/5
-          hover:bg-[hsl(var(--accent))] hover:text-[hsl(var(--accent-foreground))]
-          hover:border-[hsl(var(--accent))]
+          hover:bg-[hsl(var(--primary))] hover:text-[hsl(var(--primary-foreground))]
+          hover:border-[hsl(var(--primary))]
           hover:-translate-y-0.5 hover:shadow-xl
           active:scale-95
           transition-all duration-300
@@ -56,12 +65,14 @@ export default function InstallAppHeroButton() {
           <polyline points="7 10 12 15 17 10" />
           <line x1="12" y1="15" x2="12" y2="3" />
         </svg>
-        <span className="hidden sm:inline">Install App</span>
+        <span className="hidden sm:inline">
+          {isIOS ? 'Add to Home Screen' : 'Install App'}
+        </span>
       </button>
 
       {hint && (
         <div className="
-          px-3 py-2 rounded-lg max-w-[200px] text-right
+          px-3 py-2 rounded-lg max-w-[220px] text-right
           bg-[hsl(var(--card))] border border-[hsl(var(--border))]
           text-xs text-[hsl(var(--muted-foreground))]
           shadow-lg animate-in fade-in slide-in-from-top-2

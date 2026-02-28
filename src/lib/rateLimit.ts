@@ -106,12 +106,13 @@ export async function checkRateLimit(
       retryAfterSeconds: allowed ? undefined : Math.ceil((resetAt.getTime() - now.getTime()) / 1000),
     };
   } catch (error) {
-    // If rate_limits table doesn't exist, fail open (allow request)
-    console.warn('[RateLimit] Database error, failing open:', error);
+    // Fail closed on database errors to prevent rate limit bypass (BUG-009)
+    console.error('[RateLimit] Database error, failing closed:', error);
     return {
-      allowed: true,
-      remaining: maxRequests,
+      allowed: false,
+      remaining: 0,
       resetAt: expiresAt,
+      retryAfterSeconds: 60,
     };
   }
 }

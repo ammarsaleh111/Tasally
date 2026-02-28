@@ -1,92 +1,32 @@
 {
-  "2026-04-01": {
-    "answer": "ABHOR"
-  },
-  "2026-04-02": {
-    "answer": "ABIDE"
-  },
-  "2026-04-03": {
-    "answer": "ABLED"
-  },
-  "2026-04-04": {
-    "answer": "ABODE"
-  },
-  "2026-04-05": {
-    "answer": "ABORT"
-  },
-  "2026-04-06": {
-    "answer": "ABOUT"
-  },
-  "2026-04-07": {
-    "answer": "ABUSE"
-  },
-  "2026-04-08": {
-    "answer": "ACORN"
-  },
-  "2026-04-09": {
-    "answer": "ACRID"
-  },
-  "2026-04-10": {
-    "answer": "ACTOR"
-  },
-  "2026-04-11": {
-    "answer": "ACUTE"
-  },
-  "2026-04-12": {
-    "answer": "ADEPT"
-  },
-  "2026-04-13": {
-    "answer": "ADMIN"
-  },
-  "2026-04-14": {
-    "answer": "ADMIT"
-  },
-  "2026-04-15": {
-    "answer": "ABOVE"
-  },
-  "2026-04-16": {
-    "answer": "ABYSS"
-  },
-  "2026-04-17": {
-    "answer": "ALIKE"
-  },
-  "2026-04-18": {
-    "answer": "ALIVE"
-  },
-  "2026-04-19": {
-    "answer": "ANKLE"
-  },
-  "2026-04-20": {
-    "answer": "ANVIL"
-  },
-  "2026-04-21": {
-    "answer": "APPLY"
-  },
-  "2026-04-22": {
-    "answer": "ADOBE"
-  },
-  "2026-04-23": {
-    "answer": "ASKEW"
-  },
-  "2026-04-24": {
-    "answer": "AVERT"
-  },
-  "2026-04-25": {
-    "answer": "ADOPT"
-  },
-  "2026-04-26": {
-    "answer": "ADORE"
-  },
-  "2026-04-27": {
-    "answer": "AVOID"
-  },
-  "2026-04-28": {
-    "answer": "AWOKE"
-  },
-  "2026-04-29": {
-    "answer": "AXIOM"
-  },
-  "2026-04-30": {
-    "answer": "ADORN"
-  }
+  "2026-04-01": { "answer": "HOUSE" },
+  "2026-04-02": { "answer": "BEACH" },
+  "2026-04-03": { "answer": "GREEN" },
+  "2026-04-04": { "answer": "SMILE" },
+  "2026-04-05": { "answer": "STONE" },
+  "2026-04-06": { "answer": "ABOUT" },
+  "2026-04-07": { "answer": "WORLD" },
+  "2026-04-08": { "answer": "WATER" },
+  "2026-04-09": { "answer": "EARTH" },
+  "2026-04-10": { "answer": "OCEAN" },
+  "2026-04-11": { "answer": "TIGER" },
+  "2026-04-12": { "answer": "NIGHT" },
+  "2026-04-13": { "answer": "DRIVE" },
+  "2026-04-14": { "answer": "TABLE" },
+  "2026-04-15": { "answer": "ABOVE" },
+  "2026-04-16": { "answer": "CHAIR" },
+  "2026-04-17": { "answer": "MONEY" },
+  "2026-04-18": { "answer": "ALIVE" },
+  "2026-04-19": { "answer": "HEART" },
+  "2026-04-20": { "answer": "RIVER" },
+  "2026-04-21": { "answer": "APPLE" },
+  "2026-04-22": { "answer": "BREAD" },
+  "2026-04-23": { "answer": "CROWN" },
+  "2026-04-24": { "answer": "DREAM" },
+  "2026-04-25": { "answer": "EARLY" },
+  "2026-04-26": { "answer": "FLAME" },
+  "2026-04-27": { "answer": "GRACE" },
+  "2026-04-28": { "answer": "JOLLY" },
+  "2026-04-29": { "answer": "KNOCK" },
+  "2026-04-30": { "answer": "LEMON" }
 }

@@ -1,1075 +1,947 @@
 {
   "2026-06-01": [
     {
-      "question": "What is 10 + 7?",
+      "question": "How many strings does a violin have?",
       "options": [
-        "13",
-        "22",
-        "12",
-        "17"
+        "3",
+        "4",
+        "5",
+        "6"
       ],
-      "answer": "17",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 9 × 3 + 10.",
-      "options": [
-        "43",
-        "37",
-        "34",
-        "41"
-      ],
-      "answer": "37",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 6 liters? (70)",
-      "options": [
-        "6000",
-        "6235",
-        "5857",
-        "6813"
-      ],
-      "answer": "6000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1469 belongs to which century?",
-      "options": [
-        "16",
-        "17",
-        "15",
-        "14"
-      ],
-      "answer": "15",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from F, move 12 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "S",
-        "Q",
-        "Y",
-        "R"
-      ],
-      "answer": "R",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 8 two-point shots and 2 three-point shots. How many points is that?",
-      "options": [
-        "20",
-        "26",
-        "23",
-        "22"
-      ],
-      "answer": "22",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 7 rows and 6 columns. How many cells are in the grid?",
-      "options": [
-        "46",
-        "42",
-        "43",
-        "37"
-      ],
-      "answer": "42",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 9 measures with 3 beats per measure. How many beats total? (96)",
-      "options": [
-        "22",
-        "31",
-        "21",
-        "27"
-      ],
-      "answer": "27",
+      "answer": "4",
       "category": "Music",
       "type": "multiple"
     },
     {
-      "question": "On a map, 1 cm represents 22 km. How many km are represented by 16 cm?",
+      "question": "Which country is both a country and a continent?",
       "options": [
-        "398",
-        "328",
-        "373",
-        "352"
+        "New Zealand",
+        "Australia",
+        "Greenland",
+        "Iceland"
       ],
-      "answer": "352",
+      "answer": "Australia",
       "category": "Geography",
       "type": "multiple"
     },
     {
-      "question": "Is 6 divisible by 12?",
+      "question": "Sound travels faster than light.",
       "options": [
         "True",
         "False"
       ],
       "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-02": [
-    {
-      "question": "What is 11 + 17?",
-      "options": [
-        "26",
-        "29",
-        "28",
-        "34"
-      ],
-      "answer": "28",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 4 × 10 + 9.",
-      "options": [
-        "55",
-        "47",
-        "49",
-        "56"
-      ],
-      "answer": "49",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 5 liters? (94)",
-      "options": [
-        "4964",
-        "4962",
-        "5000",
-        "5603"
-      ],
-      "answer": "5000",
       "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "How many hearts does an octopus have?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "3",
+      "category": "Nature",
       "type": "multiple"
     },
     {
-      "question": "The year 1684 belongs to which century?",
+      "question": "The Eiffel Tower is in London.",
       "options": [
-        "16",
-        "17",
-        "19",
-        "18"
+        "True",
+        "False"
       ],
-      "answer": "17",
-      "category": "History",
-      "type": "multiple"
+      "answer": "False",
+      "category": "Geography",
+      "type": "boolean"
     },
     {
-      "question": "Starting from S, move 9 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
+      "question": "In which sport would you perform a slam dunk?",
       "options": [
-        "A",
-        "I",
-        "C",
-        "B"
+        "Volleyball",
+        "Basketball",
+        "Tennis",
+        "Baseball"
       ],
-      "answer": "B",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 10 two-point shots and 6 three-point shots. How many points is that?",
-      "options": [
-        "43",
-        "38",
-        "32",
-        "42"
-      ],
-      "answer": "38",
+      "answer": "Basketball",
       "category": "Sports",
       "type": "multiple"
     },
     {
-      "question": "An art grid has 4 rows and 6 columns. How many cells are in the grid?",
+      "question": "What is the main ingredient in hummus?",
       "options": [
-        "23",
-        "25",
-        "24",
-        "29"
+        "Lentils",
+        "Chickpeas",
+        "Kidney Beans",
+        "Black Beans"
       ],
-      "answer": "24",
-      "category": "Art",
+      "answer": "Chickpeas",
+      "category": "Food",
       "type": "multiple"
     },
     {
-      "question": "A rhythm has 7 measures with 4 beats per measure. How many beats total? (91)",
-      "options": [
-        "27",
-        "28",
-        "31",
-        "23"
-      ],
-      "answer": "28",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 21 km. How many km are represented by 16 cm?",
-      "options": [
-        "384",
-        "382",
-        "352",
-        "336"
-      ],
-      "answer": "336",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 8 divisible by 8?",
+      "question": "Australia is both a country and a continent.",
       "options": [
         "True",
         "False"
       ],
       "answer": "True",
-      "category": "General Knowledge",
+      "category": "Geography",
       "type": "boolean"
+    },
+    {
+      "question": "Who painted 'Starry Night'?",
+      "options": [
+        "Claude Monet",
+        "Pablo Picasso",
+        "Vincent van Gogh",
+        "Salvador Dalí"
+      ],
+      "answer": "Vincent van Gogh",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "In which book does the character Gandalf appear?",
+      "options": [
+        "Narnia",
+        "Harry Potter",
+        "The Lord of the Rings",
+        "Game of Thrones"
+      ],
+      "answer": "The Lord of the Rings",
+      "category": "Literature",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-02": [
+    {
+      "question": "Who created Sherlock Holmes?",
+      "options": [
+        "Agatha Christie",
+        "Arthur Conan Doyle",
+        "Edgar Allan Poe",
+        "Jules Verne"
+      ],
+      "answer": "Arthur Conan Doyle",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "Who was the first person to walk on the Moon?",
+      "options": [
+        "Buzz Aldrin",
+        "Neil Armstrong",
+        "John Glenn",
+        "Yuri Gagarin"
+      ],
+      "answer": "Neil Armstrong",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "What animal is Aslan in 'The Chronicles of Narnia'?",
+      "options": [
+        "Bear",
+        "Wolf",
+        "Lion",
+        "Eagle"
+      ],
+      "answer": "Lion",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "The Dead Sea is actually a lake.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "What color do you get when you mix red and white?",
+      "options": [
+        "Orange",
+        "Pink",
+        "Peach",
+        "Salmon"
+      ],
+      "answer": "Pink",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "What instrument does a drummer play?",
+      "options": [
+        "Cymbal",
+        "Percussion",
+        "Drums",
+        "Timpani"
+      ],
+      "answer": "Drums",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "Mount Everest is in Africa.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the longest word in English without a vowel?",
+      "options": [
+        "Rhythm",
+        "Glyph",
+        "Lymph",
+        "Myth"
+      ],
+      "answer": "Rhythm",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "The human nose can detect over a trillion scents.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "Who plays Iron Man in the Marvel movies?",
+      "options": [
+        "Chris Evans",
+        "Chris Hemsworth",
+        "Robert Downey Jr.",
+        "Mark Ruffalo"
+      ],
+      "answer": "Robert Downey Jr.",
+      "category": "Film",
+      "type": "multiple"
     }
   ],
   "2026-06-03": [
     {
-      "question": "What is 13 + 9?",
+      "question": "Which lake is the largest by surface area?",
       "options": [
-        "24",
-        "22",
-        "21",
-        "26"
+        "Lake Victoria",
+        "Lake Superior",
+        "Caspian Sea",
+        "Lake Huron"
       ],
-      "answer": "22",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 5 × 8 + 14.",
-      "options": [
-        "49",
-        "59",
-        "54",
-        "47"
-      ],
-      "answer": "54",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 18 liters? (69)",
-      "options": [
-        "16276",
-        "17964",
-        "19018",
-        "18000"
-      ],
-      "answer": "18000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1717 belongs to which century?",
-      "options": [
-        "20",
-        "19",
-        "17",
-        "18"
-      ],
-      "answer": "18",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from S, move 10 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "B",
-        "D",
-        "C",
-        "J"
-      ],
-      "answer": "C",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 18 two-point shots and 3 three-point shots. How many points is that?",
-      "options": [
-        "46",
-        "45",
-        "43",
-        "48"
-      ],
-      "answer": "45",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 6 rows and 5 columns. How many cells are in the grid?",
-      "options": [
-        "32",
-        "25",
-        "33",
-        "30"
-      ],
-      "answer": "30",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 7 measures with 4 beats per measure. How many beats total? (90)",
-      "options": [
-        "23",
-        "34",
-        "27",
-        "28"
-      ],
-      "answer": "28",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 9 km. How many km are represented by 10 cm?",
-      "options": [
-        "90",
-        "96",
-        "94",
-        "84"
-      ],
-      "answer": "90",
+      "answer": "Caspian Sea",
       "category": "Geography",
       "type": "multiple"
     },
     {
-      "question": "Is 28 divisible by 9?",
+      "question": "Bananas grow on trees.",
       "options": [
         "True",
         "False"
       ],
       "answer": "False",
-      "category": "General Knowledge",
+      "category": "Nature",
       "type": "boolean"
+    },
+    {
+      "question": "In 'Finding Nemo', what type of fish is Nemo?",
+      "options": [
+        "Goldfish",
+        "Angelfish",
+        "Clownfish",
+        "Pufferfish"
+      ],
+      "answer": "Clownfish",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "Honey never spoils.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Food",
+      "type": "boolean"
+    },
+    {
+      "question": "Who wrote 'The Great Gatsby'?",
+      "options": [
+        "Ernest Hemingway",
+        "F. Scott Fitzgerald",
+        "John Steinbeck",
+        "Jack London"
+      ],
+      "answer": "F. Scott Fitzgerald",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "The human body has 206 bones.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "How many stars are on the American flag?",
+      "options": [
+        "48",
+        "50",
+        "51",
+        "52"
+      ],
+      "answer": "50",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the name of the whale in 'Moby Dick'?",
+      "options": [
+        "Willy",
+        "Shamu",
+        "Moby Dick",
+        "Captain"
+      ],
+      "answer": "Moby Dick",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "Which continent has the most countries?",
+      "options": [
+        "Asia",
+        "Europe",
+        "Africa",
+        "South America"
+      ],
+      "answer": "Africa",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "In which year did the Berlin Wall fall?",
+      "options": [
+        "1987",
+        "1988",
+        "1989",
+        "1990"
+      ],
+      "answer": "1989",
+      "category": "History",
+      "type": "multiple"
     }
   ],
   "2026-06-04": [
     {
-      "question": "What is 7 + 17?",
+      "question": "What is the diameter of a basketball hoop in inches?",
       "options": [
-        "26",
+        "16",
+        "18",
         "20",
-        "24",
-        "18"
+        "22"
       ],
-      "answer": "24",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 3 × 2 + 13.",
-      "options": [
-        "19",
-        "25",
-        "16",
-        "18"
-      ],
-      "answer": "19",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 13 liters?",
-      "options": [
-        "14795",
-        "13000",
-        "12674",
-        "13814"
-      ],
-      "answer": "13000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1671 belongs to which century? (94)",
-      "options": [
-        "16",
-        "19",
-        "17",
-        "18"
-      ],
-      "answer": "17",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from B, move 3 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "D",
-        "F",
-        "L",
-        "E"
-      ],
-      "answer": "E",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 13 two-point shots and 6 three-point shots. How many points is that?",
-      "options": [
-        "44",
-        "43",
-        "39",
-        "40"
-      ],
-      "answer": "44",
+      "answer": "18",
       "category": "Sports",
       "type": "multiple"
     },
     {
-      "question": "An art grid has 8 rows and 5 columns. How many cells are in the grid?",
+      "question": "Venus is the hottest planet in our solar system.",
       "options": [
-        "44",
-        "38",
-        "46",
-        "40"
+        "True",
+        "False"
       ],
-      "answer": "40",
-      "category": "Art",
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the speed of light approximately?",
+      "options": [
+        "300,000 km/s",
+        "150,000 km/s",
+        "500,000 km/s",
+        "100,000 km/s"
+      ],
+      "answer": "300,000 km/s",
+      "category": "Science",
       "type": "multiple"
     },
     {
-      "question": "A rhythm has 7 measures with 2 beats per measure. How many beats total? (99)",
+      "question": "What force keeps us on the ground?",
       "options": [
-        "16",
-        "14",
-        "17",
-        "8"
+        "Magnetism",
+        "Gravity",
+        "Friction",
+        "Inertia"
       ],
-      "answer": "14",
-      "category": "Music",
+      "answer": "Gravity",
+      "category": "Science",
       "type": "multiple"
     },
     {
-      "question": "On a map, 1 cm represents 14 km. How many km are represented by 9 cm?",
+      "question": "What is the main ingredient in guacamole?",
       "options": [
-        "133",
-        "137",
-        "126",
-        "112"
+        "Tomato",
+        "Avocado",
+        "Lime",
+        "Onion"
       ],
-      "answer": "126",
+      "answer": "Avocado",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "How many decades are in a century?",
+      "options": [
+        "5",
+        "10",
+        "20",
+        "50"
+      ],
+      "answer": "10",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "Which mountain is the tallest in the world?",
+      "options": [
+        "K2",
+        "Kangchenjunga",
+        "Mount Everest",
+        "Lhotse"
+      ],
+      "answer": "Mount Everest",
       "category": "Geography",
       "type": "multiple"
     },
     {
-      "question": "Is 13 divisible by 12?",
+      "question": "Neptune is the farthest planet from the Sun.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "Which movie has the quote 'I'll be back'?",
+      "options": [
+        "RoboCop",
+        "Die Hard",
+        "The Terminator",
+        "Predator"
+      ],
+      "answer": "The Terminator",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "Lightning never strikes the same place twice.",
       "options": [
         "True",
         "False"
       ],
       "answer": "False",
-      "category": "General Knowledge",
+      "category": "Science",
       "type": "boolean"
     }
   ],
   "2026-06-05": [
     {
-      "question": "What is 10 + 8?",
-      "options": [
-        "21",
-        "18",
-        "13",
-        "23"
-      ],
-      "answer": "18",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 5 × 9 + 7.",
-      "options": [
-        "45",
-        "59",
-        "54",
-        "52"
-      ],
-      "answer": "52",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 3 liters? (75)",
-      "options": [
-        "2734",
-        "2968",
-        "3000",
-        "3282"
-      ],
-      "answer": "3000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1215 belongs to which century?",
-      "options": [
-        "14",
-        "13",
-        "12",
-        "15"
-      ],
-      "answer": "13",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from K, move 7 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (86)",
-      "options": [
-        "R",
-        "Y",
-        "S",
-        "Q"
-      ],
-      "answer": "R",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 10 two-point shots and 3 three-point shots. How many points is that? (115)",
-      "options": [
-        "34",
-        "29",
-        "25",
-        "24"
-      ],
-      "answer": "29",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 8 rows and 8 columns. How many cells are in the grid?",
-      "options": [
-        "57",
-        "62",
-        "64",
-        "70"
-      ],
-      "answer": "64",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 9 measures with 6 beats per measure. How many beats total?",
-      "options": [
-        "47",
-        "54",
-        "59",
-        "62"
-      ],
-      "answer": "54",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 2 km. How many km are represented by 14 cm?",
-      "options": [
-        "30",
-        "26",
-        "24",
-        "28"
-      ],
-      "answer": "28",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 7 divisible by 6?",
+      "question": "Dolphins sleep with one eye open.",
       "options": [
         "True",
         "False"
       ],
-      "answer": "False",
-      "category": "General Knowledge",
+      "answer": "True",
+      "category": "Nature",
       "type": "boolean"
+    },
+    {
+      "question": "A group of crows is called a murder.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the Roman numeral for 100?",
+      "options": [
+        "L",
+        "C",
+        "D",
+        "M"
+      ],
+      "answer": "C",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "Who painted 'The Persistence of Memory' with melting clocks?",
+      "options": [
+        "Picasso",
+        "Dalí",
+        "Monet",
+        "Warhol"
+      ],
+      "answer": "Dalí",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "What color is the center of an archery target?",
+      "options": [
+        "Red",
+        "Blue",
+        "Yellow",
+        "White"
+      ],
+      "answer": "Yellow",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "How many letters are in the English alphabet?",
+      "options": [
+        "24",
+        "25",
+        "26",
+        "27"
+      ],
+      "answer": "26",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "An adult human has 32 teeth.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "How many colors are in a rainbow?",
+      "options": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": "7",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the most spoken language in the world?",
+      "options": [
+        "Mandarin",
+        "English",
+        "Spanish",
+        "Hindi"
+      ],
+      "answer": "English",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "Which animal produces honey?",
+      "options": [
+        "Wasp",
+        "Bee",
+        "Ant",
+        "Butterfly"
+      ],
+      "answer": "Bee",
+      "category": "Nature",
+      "type": "multiple"
     }
   ],
   "2026-06-06": [
     {
-      "question": "What is 11 + 15?",
+      "question": "What is the most popular sport in the world?",
       "options": [
-        "27",
-        "32",
-        "26",
-        "22"
+        "Cricket",
+        "Basketball",
+        "Soccer",
+        "Tennis"
       ],
-      "answer": "26",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 4 × 4 + 7.",
-      "options": [
-        "25",
-        "29",
-        "21",
-        "23"
-      ],
-      "answer": "23",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 17 liters? (84)",
-      "options": [
-        "15784",
-        "14750",
-        "17000",
-        "15851"
-      ],
-      "answer": "17000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1554 belongs to which century?",
-      "options": [
-        "15",
-        "17",
-        "18",
-        "16"
-      ],
-      "answer": "16",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from B, move 2 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (71)",
-      "options": [
-        "C",
-        "K",
-        "E",
-        "D"
-      ],
-      "answer": "D",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 18 two-point shots and 5 three-point shots. How many points is that?",
-      "options": [
-        "51",
-        "50",
-        "47",
-        "56"
-      ],
-      "answer": "51",
+      "answer": "Soccer",
       "category": "Sports",
       "type": "multiple"
     },
     {
-      "question": "An art grid has 4 rows and 3 columns. How many cells are in the grid?",
-      "options": [
-        "7",
-        "14",
-        "6",
-        "12"
-      ],
-      "answer": "12",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 3 measures with 3 beats per measure. How many beats total?",
-      "options": [
-        "9",
-        "13",
-        "7",
-        "6"
-      ],
-      "answer": "9",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 2 km. How many km are represented by 10 cm?",
-      "options": [
-        "25",
-        "20",
-        "18",
-        "26"
-      ],
-      "answer": "20",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 11 divisible by 3?",
+      "question": "The Amazon is the longest river in the world.",
       "options": [
         "True",
         "False"
       ],
       "answer": "False",
-      "category": "General Knowledge",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "Who wrote 'A Christmas Carol'?",
+      "options": [
+        "Mark Twain",
+        "Charles Dickens",
+        "Oscar Wilde",
+        "Victor Hugo"
+      ],
+      "answer": "Charles Dickens",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "How many bones does an adult human have?",
+      "options": [
+        "186",
+        "206",
+        "226",
+        "256"
+      ],
+      "answer": "206",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "Tomatoes are a fruit, not a vegetable.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Food",
+      "type": "boolean"
+    },
+    {
+      "question": "Who wrote the Declaration of Independence?",
+      "options": [
+        "George Washington",
+        "Benjamin Franklin",
+        "Thomas Jefferson",
+        "John Adams"
+      ],
+      "answer": "Thomas Jefferson",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the tallest animal in the world?",
+      "options": [
+        "Elephant",
+        "Giraffe",
+        "Camel",
+        "Ostrich"
+      ],
+      "answer": "Giraffe",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the largest animal ever to have lived?",
+      "options": [
+        "Elephant",
+        "T-Rex",
+        "Blue Whale",
+        "Mammoth"
+      ],
+      "answer": "Blue Whale",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "In which book series would you find Katniss Everdeen?",
+      "options": [
+        "Divergent",
+        "Twilight",
+        "The Hunger Games",
+        "Maze Runner"
+      ],
+      "answer": "The Hunger Games",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "Goldfish have a 3-second memory.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
       "type": "boolean"
     }
   ],
   "2026-06-07": [
     {
-      "question": "What is 12 + 9?",
+      "question": "Which is the coldest continent?",
       "options": [
-        "16",
-        "21",
-        "17",
-        "18"
+        "Arctic",
+        "Antarctica",
+        "Europe",
+        "Asia"
       ],
-      "answer": "21",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 8 × 5 + 13.",
-      "options": [
-        "53",
-        "48",
-        "47",
-        "60"
-      ],
-      "answer": "53",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 6 liters? (86)",
-      "options": [
-        "6000",
-        "5729",
-        "5916",
-        "6131"
-      ],
-      "answer": "6000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1779 belongs to which century?",
-      "options": [
-        "17",
-        "20",
-        "19",
-        "18"
-      ],
-      "answer": "18",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from F, move 2 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (91)",
-      "options": [
-        "O",
-        "I",
-        "G",
-        "H"
-      ],
-      "answer": "H",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 11 two-point shots and 5 three-point shots. How many points is that?",
-      "options": [
-        "38",
-        "33",
-        "39",
-        "37"
-      ],
-      "answer": "37",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 3 rows and 3 columns. How many cells are in the grid? (79)",
-      "options": [
-        "4",
-        "3",
-        "9",
-        "13"
-      ],
-      "answer": "9",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 9 measures with 4 beats per measure. How many beats total?",
-      "options": [
-        "36",
-        "41",
-        "33",
-        "40"
-      ],
-      "answer": "36",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 6 km. How many km are represented by 18 cm?",
-      "options": [
-        "108",
-        "122",
-        "110",
-        "117"
-      ],
-      "answer": "108",
+      "answer": "Antarctica",
       "category": "Geography",
       "type": "multiple"
     },
     {
-      "question": "Is 11 divisible by 9?",
+      "question": "How many bases are on a baseball diamond?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": "4",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the smallest country in the world?",
+      "options": [
+        "Monaco",
+        "Vatican City",
+        "San Marino",
+        "Liechtenstein"
+      ],
+      "answer": "Vatican City",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "The currency of India is the Rupee.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "General Knowledge",
+      "type": "boolean"
+    },
+    {
+      "question": "Water is composed of hydrogen and oxygen.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "Which is the largest island in the world?",
+      "options": [
+        "Madagascar",
+        "Borneo",
+        "Greenland",
+        "New Guinea"
+      ],
+      "answer": "Greenland",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Who is Buzz Lightyear's catchphrase addressed to?",
+      "options": [
+        "Infinity and Beyond",
+        "The Stars",
+        "Space",
+        "The Galaxy"
+      ],
+      "answer": "Infinity and Beyond",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "Which superhero is known as the Man of Steel?",
+      "options": [
+        "Batman",
+        "Superman",
+        "Iron Man",
+        "Captain America"
+      ],
+      "answer": "Superman",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "Sharks are mammals.",
       "options": [
         "True",
         "False"
       ],
       "answer": "False",
-      "category": "General Knowledge",
+      "category": "Nature",
       "type": "boolean"
+    },
+    {
+      "question": "What is the name of the lion in 'The Lion King'?",
+      "options": [
+        "Mufasa",
+        "Scar",
+        "Simba",
+        "Rafiki"
+      ],
+      "answer": "Simba",
+      "category": "Film",
+      "type": "multiple"
     }
   ],
   "2026-06-08": [
     {
-      "question": "What is 32 + 25?",
+      "question": "What is the largest organ in the human body?",
       "options": [
-        "55",
-        "58",
-        "57",
-        "50"
+        "Liver",
+        "Heart",
+        "Skin",
+        "Lungs"
       ],
-      "answer": "57",
-      "category": "Math",
+      "answer": "Skin",
+      "category": "General Knowledge",
       "type": "multiple"
     },
     {
-      "question": "Evaluate 10 × 2 + 18.",
+      "question": "What is origami?",
       "options": [
-        "38",
-        "32",
-        "37",
-        "35"
+        "Paper folding",
+        "Wood carving",
+        "Glass blowing",
+        "Metal working"
       ],
-      "answer": "38",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 39 liters?",
-      "options": [
-        "37208",
-        "39000",
-        "40495",
-        "37363"
-      ],
-      "answer": "39000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1158 belongs to which century?",
-      "options": [
-        "13",
-        "12",
-        "14",
-        "11"
-      ],
-      "answer": "12",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from J, move 1 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "R",
-        "L",
-        "J",
-        "K"
-      ],
-      "answer": "K",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 19 two-point shots and 16 three-point shots. How many points is that?",
-      "options": [
-        "75",
-        "94",
-        "84",
-        "86"
-      ],
-      "answer": "86",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 19 rows and 22 columns. How many cells are in the grid? (93)",
-      "options": [
-        "413",
-        "418",
-        "379",
-        "393"
-      ],
-      "answer": "418",
+      "answer": "Paper folding",
       "category": "Art",
       "type": "multiple"
     },
     {
-      "question": "A rhythm has 21 measures with 7 beats per measure. How many beats total?",
-      "options": [
-        "156",
-        "133",
-        "147",
-        "146"
-      ],
-      "answer": "147",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 20 km. How many km are represented by 44 cm?",
-      "options": [
-        "1002",
-        "880",
-        "850",
-        "751"
-      ],
-      "answer": "880",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 26 divisible by 4?",
+      "question": "Penguins can fly short distances.",
       "options": [
         "True",
         "False"
       ],
       "answer": "False",
-      "category": "General Knowledge",
+      "category": "Nature",
       "type": "boolean"
+    },
+    {
+      "question": "What is the currency of Japan?",
+      "options": [
+        "Won",
+        "Yuan",
+        "Yen",
+        "Ringgit"
+      ],
+      "answer": "Yen",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the capital of Brazil?",
+      "options": [
+        "Rio de Janeiro",
+        "São Paulo",
+        "Brasília",
+        "Salvador"
+      ],
+      "answer": "Brasília",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "What country is the origin of croissants?",
+      "options": [
+        "France",
+        "Austria",
+        "Italy",
+        "Belgium"
+      ],
+      "answer": "Austria",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "Bats are blind.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the square root of 144?",
+      "options": [
+        "10",
+        "11",
+        "12",
+        "13"
+      ],
+      "answer": "12",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "Tigers have striped skin, not just fur.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "Which river flows through London?",
+      "options": [
+        "Seine",
+        "Rhine",
+        "Danube",
+        "Thames"
+      ],
+      "answer": "Thames",
+      "category": "Geography",
+      "type": "multiple"
     }
   ],
   "2026-06-09": [
     {
-      "question": "What is 37 + 15?",
+      "question": "What language is 'Bonjour' from?",
       "options": [
-        "52",
-        "57",
-        "47",
-        "58"
+        "Spanish",
+        "French",
+        "Italian",
+        "Portuguese"
       ],
-      "answer": "52",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 17 × 5 + 12.",
-      "options": [
-        "97",
-        "96",
-        "98",
-        "92"
-      ],
-      "answer": "97",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 27 liters? (121)",
-      "options": [
-        "27115",
-        "27000",
-        "29868",
-        "27384"
-      ],
-      "answer": "27000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1785 belongs to which century?",
-      "options": [
-        "18",
-        "19",
-        "17",
-        "20"
-      ],
-      "answer": "18",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from F, move 1 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "N",
-        "H",
-        "F",
-        "G"
-      ],
-      "answer": "G",
+      "answer": "French",
       "category": "Language",
       "type": "multiple"
     },
     {
-      "question": "A basketball team made 29 two-point shots and 12 three-point shots. How many points is that?",
-      "options": [
-        "99",
-        "98",
-        "94",
-        "84"
-      ],
-      "answer": "94",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 12 rows and 16 columns. How many cells are in the grid?",
-      "options": [
-        "195",
-        "192",
-        "177",
-        "181"
-      ],
-      "answer": "192",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 22 measures with 6 beats per measure. How many beats total?",
-      "options": [
-        "132",
-        "141",
-        "143",
-        "127"
-      ],
-      "answer": "132",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 11 km. How many km are represented by 9 cm?",
-      "options": [
-        "85",
-        "101",
-        "108",
-        "99"
-      ],
-      "answer": "99",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 47 divisible by 3?",
+      "question": "The Great Wall of China is visible from space.",
       "options": [
         "True",
         "False"
@@ -1077,119 +949,195 @@
       "answer": "False",
       "category": "General Knowledge",
       "type": "boolean"
+    },
+    {
+      "question": "What is the opposite of 'transparent'?",
+      "options": [
+        "Clear",
+        "Invisible",
+        "Opaque",
+        "Foggy"
+      ],
+      "answer": "Opaque",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "What century did the Renaissance begin?",
+      "options": [
+        "12th",
+        "13th",
+        "14th",
+        "15th"
+      ],
+      "answer": "14th",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "The Sahara is the largest desert in the world.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "The Olympic flag has six rings.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Sports",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the longest river in the world?",
+      "options": [
+        "Amazon",
+        "Mississippi",
+        "Nile",
+        "Yangtze"
+      ],
+      "answer": "Nile",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "How many legs does a centipede have?",
+      "options": [
+        "50",
+        "100",
+        "Between 30-354",
+        "1000"
+      ],
+      "answer": "Between 30-354",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "How many continents are there?",
+      "options": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": "7",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "How many chambers does the human heart have?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "4",
+      "category": "Science",
+      "type": "multiple"
     }
   ],
   "2026-06-10": [
     {
-      "question": "What is 44 + 16?",
+      "question": "Which country is shaped like a boot?",
       "options": [
-        "66",
-        "51",
-        "60",
-        "67"
+        "Spain",
+        "Greece",
+        "Italy",
+        "Portugal"
       ],
-      "answer": "60",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 20 × 6 + 4.",
-      "options": [
-        "130",
-        "124",
-        "131",
-        "128"
-      ],
-      "answer": "124",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 41 liters?",
-      "options": [
-        "41000",
-        "37727",
-        "42964",
-        "46326"
-      ],
-      "answer": "41000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1161 belongs to which century?",
-      "options": [
-        "14",
-        "11",
-        "13",
-        "12"
-      ],
-      "answer": "12",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from Y, move 2 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "H",
-        "Z",
-        "A",
-        "B"
-      ],
-      "answer": "A",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 20 two-point shots and 12 three-point shots. How many points is that?",
-      "options": [
-        "73",
-        "79",
-        "85",
-        "76"
-      ],
-      "answer": "76",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 10 rows and 16 columns. How many cells are in the grid?",
-      "options": [
-        "183",
-        "160",
-        "137",
-        "156"
-      ],
-      "answer": "160",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 22 measures with 6 beats per measure. How many beats total? (124)",
-      "options": [
-        "133",
-        "132",
-        "146",
-        "149"
-      ],
-      "answer": "132",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 13 km. How many km are represented by 33 cm?",
-      "options": [
-        "397",
-        "429",
-        "367",
-        "493"
-      ],
-      "answer": "429",
+      "answer": "Italy",
       "category": "Geography",
       "type": "multiple"
     },
     {
-      "question": "Is 12 divisible by 4?",
+      "question": "A year on Mercury is shorter than a day on Mercury.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "Water freezes at 0 degrees Celsius.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "What type of animal is a dolphin?",
+      "options": [
+        "Fish",
+        "Reptile",
+        "Mammal",
+        "Amphibian"
+      ],
+      "answer": "Mammal",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "Which insect can carry 50 times its body weight?",
+      "options": [
+        "Bee",
+        "Ant",
+        "Beetle",
+        "Spider"
+      ],
+      "answer": "Ant",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the hardest natural substance on Earth?",
+      "options": [
+        "Gold",
+        "Iron",
+        "Diamond",
+        "Platinum"
+      ],
+      "answer": "Diamond",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "Which vitamin is found in oranges?",
+      "options": [
+        "Vitamin A",
+        "Vitamin B",
+        "Vitamin C",
+        "Vitamin D"
+      ],
+      "answer": "Vitamin C",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "How many suits are in a standard deck of cards?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": "4",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "An octagon has eight sides.",
       "options": [
         "True",
         "False"
@@ -1197,2039 +1145,719 @@
       "answer": "True",
       "category": "General Knowledge",
       "type": "boolean"
+    },
+    {
+      "question": "What art movement did Picasso help create?",
+      "options": [
+        "Impressionism",
+        "Surrealism",
+        "Cubism",
+        "Pop Art"
+      ],
+      "answer": "Cubism",
+      "category": "Art",
+      "type": "multiple"
     }
   ],
   "2026-06-11": [
     {
-      "question": "What is 43 + 15?",
+      "question": "What is the name of Harry Potter's best friend?",
       "options": [
-        "58",
-        "62",
-        "50",
-        "54"
+        "Draco Malfoy",
+        "Neville Longbottom",
+        "Ron Weasley",
+        "Dean Thomas"
       ],
-      "answer": "58",
-      "category": "Math",
+      "answer": "Ron Weasley",
+      "category": "Literature",
       "type": "multiple"
     },
     {
-      "question": "Evaluate 17 × 12 + 19.",
+      "question": "Which country has the most people?",
       "options": [
-        "190",
-        "223",
-        "219",
-        "251"
+        "India",
+        "United States",
+        "China",
+        "Indonesia"
       ],
-      "answer": "223",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 38 liters?",
-      "options": [
-        "42322",
-        "38000",
-        "37721",
-        "38653"
-      ],
-      "answer": "38000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1286 belongs to which century?",
-      "options": [
-        "14",
-        "15",
-        "13",
-        "12"
-      ],
-      "answer": "13",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from S, move 11 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "D",
-        "C",
-        "E",
-        "K"
-      ],
-      "answer": "D",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 17 two-point shots and 15 three-point shots. How many points is that?",
-      "options": [
-        "79",
-        "75",
-        "69",
-        "82"
-      ],
-      "answer": "79",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 18 rows and 8 columns. How many cells are in the grid?",
-      "options": [
-        "162",
-        "145",
-        "164",
-        "144"
-      ],
-      "answer": "144",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 15 measures with 2 beats per measure. How many beats total?",
-      "options": [
-        "26",
-        "33",
-        "30",
-        "27"
-      ],
-      "answer": "30",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 7 km. How many km are represented by 33 cm?",
-      "options": [
-        "198",
-        "231",
-        "224",
-        "211"
-      ],
-      "answer": "231",
+      "answer": "India",
       "category": "Geography",
       "type": "multiple"
     },
     {
-      "question": "Is 44 divisible by 8?",
+      "question": "What does E.T. stand for in the movie title?",
+      "options": [
+        "Electronic Toy",
+        "Extra Terrestrial",
+        "Earth Traveler",
+        "Energy Transfer"
+      ],
+      "answer": "Extra Terrestrial",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "Sound travels faster than light.",
       "options": [
         "True",
         "False"
       ],
       "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-12": [
-    {
-      "question": "What is 41 + 18?",
-      "options": [
-        "52",
-        "51",
-        "59",
-        "64"
-      ],
-      "answer": "59",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 22 × 6 + 6.",
-      "options": [
-        "138",
-        "135",
-        "145",
-        "129"
-      ],
-      "answer": "138",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 20 liters? (88)",
-      "options": [
-        "22820",
-        "21152",
-        "20000",
-        "19555"
-      ],
-      "answer": "20000",
       "category": "Science",
-      "type": "multiple"
+      "type": "boolean"
     },
     {
-      "question": "The year 1199 belongs to which century?",
-      "options": [
-        "11",
-        "14",
-        "13",
-        "12"
-      ],
-      "answer": "12",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from M, move 9 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "C",
-        "V",
-        "W",
-        "U"
-      ],
-      "answer": "V",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 33 two-point shots and 22 three-point shots. How many points is that?",
-      "options": [
-        "132",
-        "149",
-        "140",
-        "151"
-      ],
-      "answer": "132",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 22 rows and 13 columns. How many cells are in the grid?",
-      "options": [
-        "270",
-        "300",
-        "286",
-        "299"
-      ],
-      "answer": "286",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 13 measures with 8 beats per measure. How many beats total?",
-      "options": [
-        "95",
-        "104",
-        "97",
-        "103"
-      ],
-      "answer": "104",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 16 km. How many km are represented by 25 cm?",
-      "options": [
-        "421",
-        "400",
-        "459",
-        "434"
-      ],
-      "answer": "400",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 20 divisible by 4?",
+      "question": "Australia is both a country and a continent.",
       "options": [
         "True",
         "False"
       ],
       "answer": "True",
-      "category": "General Knowledge",
+      "category": "Geography",
       "type": "boolean"
-    }
-  ],
-  "2026-06-13": [
+    },
     {
-      "question": "What is 12 + 12? (123)",
+      "question": "What does 'www' stand for?",
       "options": [
-        "24",
-        "19",
-        "20",
-        "21"
+        "World Wide Web",
+        "World Web Wire",
+        "Wire Web World",
+        "Web World Wide"
       ],
-      "answer": "24",
-      "category": "Math",
+      "answer": "World Wide Web",
+      "category": "General Knowledge",
       "type": "multiple"
     },
     {
-      "question": "Evaluate 21 × 2 + 2.",
+      "question": "Which country is home to the Great Barrier Reef?",
       "options": [
-        "45",
-        "44",
-        "39",
-        "48"
+        "Indonesia",
+        "Philippines",
+        "Australia",
+        "Thailand"
       ],
-      "answer": "44",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 39 liters? (96)",
-      "options": [
-        "42399",
-        "39000",
-        "35420",
-        "33990"
-      ],
-      "answer": "39000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1892 belongs to which century?",
-      "options": [
-        "19",
-        "20",
-        "21",
-        "18"
-      ],
-      "answer": "19",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from E, move 4 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "H",
-        "P",
-        "J",
-        "I"
-      ],
-      "answer": "I",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 41 two-point shots and 5 three-point shots. How many points is that?",
-      "options": [
-        "109",
-        "85",
-        "103",
-        "97"
-      ],
-      "answer": "97",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 10 rows and 13 columns. How many cells are in the grid?",
-      "options": [
-        "130",
-        "112",
-        "138",
-        "132"
-      ],
-      "answer": "130",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 17 measures with 8 beats per measure. How many beats total? (122)",
-      "options": [
-        "126",
-        "153",
-        "140",
-        "136"
-      ],
-      "answer": "136",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 2 km. How many km are represented by 17 cm?",
-      "options": [
-        "33",
-        "34",
-        "31",
-        "40"
-      ],
-      "answer": "34",
+      "answer": "Australia",
       "category": "Geography",
       "type": "multiple"
     },
     {
-      "question": "Is 55 divisible by 9?",
+      "question": "The Eiffel Tower is in London.",
       "options": [
         "True",
         "False"
       ],
       "answer": "False",
-      "category": "General Knowledge",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "How many letters are in the Greek alphabet?",
+      "options": [
+        "22",
+        "24",
+        "26",
+        "28"
+      ],
+      "answer": "24",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the highest-grossing animated film of all time?",
+      "options": [
+        "Toy Story 4",
+        "Frozen II",
+        "The Lion King",
+        "Incredibles 2"
+      ],
+      "answer": "Frozen II",
+      "category": "Film",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-12": [
+    {
+      "question": "What kind of animal is a frog?",
+      "options": [
+        "Reptile",
+        "Mammal",
+        "Amphibian",
+        "Fish"
+      ],
+      "answer": "Amphibian",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "The Dead Sea is actually a lake.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "The human nose can detect over a trillion scents.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the powerhouse of the cell?",
+      "options": [
+        "Nucleus",
+        "Ribosome",
+        "Mitochondria",
+        "Golgi Body"
+      ],
+      "answer": "Mitochondria",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "Mount Everest is in Africa.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the largest living reptile?",
+      "options": [
+        "Komodo Dragon",
+        "Anaconda",
+        "Saltwater Crocodile",
+        "Leatherback Turtle"
+      ],
+      "answer": "Saltwater Crocodile",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the largest species of bear?",
+      "options": [
+        "Grizzly",
+        "Black Bear",
+        "Polar Bear",
+        "Brown Bear"
+      ],
+      "answer": "Polar Bear",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the slowest animal in the world?",
+      "options": [
+        "Turtle",
+        "Snail",
+        "Sloth",
+        "Koala"
+      ],
+      "answer": "Sloth",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "What animal is known as the King of the Jungle?",
+      "options": [
+        "Tiger",
+        "Lion",
+        "Elephant",
+        "Gorilla"
+      ],
+      "answer": "Lion",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "What year did the French Revolution begin?",
+      "options": [
+        "1776",
+        "1789",
+        "1799",
+        "1804"
+      ],
+      "answer": "1789",
+      "category": "History",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-13": [
+    {
+      "question": "What is the capital of Australia?",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Brisbane"
+      ],
+      "answer": "Canberra",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Who invented the light bulb?",
+      "options": [
+        "Benjamin Franklin",
+        "Nikola Tesla",
+        "Thomas Edison",
+        "Alexander Bell"
+      ],
+      "answer": "Thomas Edison",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "How long is a marathon in miles?",
+      "options": [
+        "20.2",
+        "24.2",
+        "26.2",
+        "28.2"
+      ],
+      "answer": "26.2",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "Bananas grow on trees.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "What musical term means 'gradually getting louder'?",
+      "options": [
+        "Diminuendo",
+        "Crescendo",
+        "Staccato",
+        "Legato"
+      ],
+      "answer": "Crescendo",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "Which movie features a character named Darth Vader?",
+      "options": [
+        "Star Trek",
+        "Star Wars",
+        "Alien",
+        "Blade Runner"
+      ],
+      "answer": "Star Wars",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "What do caterpillars turn into?",
+      "options": [
+        "Beetles",
+        "Moths",
+        "Butterflies",
+        "Dragonflies"
+      ],
+      "answer": "Butterflies",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "Which bird is known for its colorful tail feathers?",
+      "options": [
+        "Eagle",
+        "Peacock",
+        "Parrot",
+        "Flamingo"
+      ],
+      "answer": "Peacock",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "Honey never spoils.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Food",
+      "type": "boolean"
+    },
+    {
+      "question": "The human body has 206 bones.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
       "type": "boolean"
     }
   ],
   "2026-06-14": [
     {
-      "question": "What is 22 + 38?",
+      "question": "Who is famous for painting Campbell's Soup Cans?",
       "options": [
-        "53",
-        "60",
-        "67",
-        "57"
+        "Roy Lichtenstein",
+        "Andy Warhol",
+        "Keith Haring",
+        "Jeff Koons"
       ],
-      "answer": "60",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 15 × 12 + 12.",
-      "options": [
-        "209",
-        "202",
-        "216",
-        "192"
-      ],
-      "answer": "192",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 27 liters? (114)",
-      "options": [
-        "29996",
-        "29184",
-        "25647",
-        "27000"
-      ],
-      "answer": "27000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1255 belongs to which century?",
-      "options": [
-        "14",
-        "12",
-        "15",
-        "13"
-      ],
-      "answer": "13",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from L, move 3 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "O",
-        "V",
-        "P",
-        "N"
-      ],
-      "answer": "O",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 26 two-point shots and 11 three-point shots. How many points is that?",
-      "options": [
-        "87",
-        "75",
-        "82",
-        "85"
-      ],
-      "answer": "85",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 11 rows and 13 columns. How many cells are in the grid?",
-      "options": [
-        "143",
-        "149",
-        "158",
-        "129"
-      ],
-      "answer": "143",
+      "answer": "Andy Warhol",
       "category": "Art",
       "type": "multiple"
     },
     {
-      "question": "A rhythm has 9 measures with 8 beats per measure. How many beats total? (112)",
+      "question": "How many sides does a hexagon have?",
       "options": [
-        "72",
-        "74",
-        "65",
-        "75"
+        "5",
+        "6",
+        "7",
+        "8"
       ],
-      "answer": "72",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 23 km. How many km are represented by 25 cm?",
-      "options": [
-        "589",
-        "548",
-        "575",
-        "526"
-      ],
-      "answer": "575",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 20 divisible by 6? (88)",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
+      "answer": "6",
       "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-15": [
-    {
-      "question": "What is 38 + 78?",
-      "options": [
-        "116",
-        "128",
-        "114",
-        "112"
-      ],
-      "answer": "116",
-      "category": "Math",
       "type": "multiple"
     },
     {
-      "question": "Evaluate 33 × 4 + 3.",
-      "options": [
-        "137",
-        "121",
-        "135",
-        "125"
-      ],
-      "answer": "135",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 74 liters?",
-      "options": [
-        "66717",
-        "72066",
-        "74000",
-        "78676"
-      ],
-      "answer": "74000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1623 belongs to which century?",
-      "options": [
-        "17",
-        "18",
-        "16",
-        "19"
-      ],
-      "answer": "17",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from Q, move 7 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "W",
-        "X",
-        "Y",
-        "E"
-      ],
-      "answer": "X",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 104 two-point shots and 32 three-point shots. How many points is that?",
-      "options": [
-        "304",
-        "293",
-        "292",
-        "282"
-      ],
-      "answer": "304",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 50 rows and 60 columns. How many cells are in the grid?",
-      "options": [
-        "2939",
-        "3000",
-        "2968",
-        "2946"
-      ],
-      "answer": "3000",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 53 measures with 5 beats per measure. How many beats total?",
-      "options": [
-        "298",
-        "265",
-        "276",
-        "263"
-      ],
-      "answer": "265",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 21 km. How many km are represented by 58 cm?",
-      "options": [
-        "1196",
-        "1112",
-        "1218",
-        "1068"
-      ],
-      "answer": "1218",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 122 divisible by 2?",
+      "question": "Neptune is the farthest planet from the Sun.",
       "options": [
         "True",
         "False"
       ],
       "answer": "True",
-      "category": "General Knowledge",
+      "category": "Science",
       "type": "boolean"
-    }
-  ],
-  "2026-06-16": [
-    {
-      "question": "What is 105 + 22?",
-      "options": [
-        "144",
-        "127",
-        "131",
-        "126"
-      ],
-      "answer": "127",
-      "category": "Math",
-      "type": "multiple"
     },
     {
-      "question": "Evaluate 17 × 12 + 16.",
+      "question": "What is the smallest unit of life?",
       "options": [
-        "213",
-        "220",
-        "245",
-        "214"
+        "Atom",
+        "Molecule",
+        "Cell",
+        "Tissue"
       ],
-      "answer": "220",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 58 liters?",
-      "options": [
-        "54353",
-        "56321",
-        "49935",
-        "58000"
-      ],
-      "answer": "58000",
+      "answer": "Cell",
       "category": "Science",
       "type": "multiple"
     },
     {
-      "question": "The year 1709 belongs to which century?",
-      "options": [
-        "20",
-        "18",
-        "17",
-        "19"
-      ],
-      "answer": "18",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from S, move 8 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (111)",
-      "options": [
-        "B",
-        "A",
-        "Z",
-        "H"
-      ],
-      "answer": "A",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 25 two-point shots and 45 three-point shots. How many points is that?",
-      "options": [
-        "169",
-        "166",
-        "185",
-        "178"
-      ],
-      "answer": "185",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 57 rows and 51 columns. How many cells are in the grid?",
-      "options": [
-        "2905",
-        "2907",
-        "3146",
-        "3253"
-      ],
-      "answer": "2907",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 58 measures with 5 beats per measure. How many beats total?",
-      "options": [
-        "304",
-        "286",
-        "290",
-        "303"
-      ],
-      "answer": "290",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 17 km. How many km are represented by 97 cm?",
-      "options": [
-        "1874",
-        "1472",
-        "1509",
-        "1649"
-      ],
-      "answer": "1649",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 106 divisible by 5?",
+      "question": "Lightning never strikes the same place twice.",
       "options": [
         "True",
         "False"
       ],
       "answer": "False",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "Which sea creature has eight arms?",
+      "options": [
+        "Squid",
+        "Jellyfish",
+        "Octopus",
+        "Starfish"
+      ],
+      "answer": "Octopus",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "How many months have 31 days?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "7",
       "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "Which country is the largest producer of coffee?",
+      "options": [
+        "Colombia",
+        "Vietnam",
+        "Ethiopia",
+        "Brazil"
+      ],
+      "answer": "Brazil",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "Venus is the hottest planet in our solar system.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the capital of South Korea?",
+      "options": [
+        "Busan",
+        "Incheon",
+        "Seoul",
+        "Daegu"
+      ],
+      "answer": "Seoul",
+      "category": "Geography",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-15": [
+    {
+      "question": "What is the real name of Mark Twain?",
+      "options": [
+        "Samuel Clemens",
+        "John Smith",
+        "William Henry",
+        "James Brown"
+      ],
+      "answer": "Samuel Clemens",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "In which year did man first land on the Moon?",
+      "options": [
+        "1965",
+        "1967",
+        "1969",
+        "1971"
+      ],
+      "answer": "1969",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the length of an Olympic swimming pool in meters?",
+      "options": [
+        "25",
+        "50",
+        "75",
+        "100"
+      ],
+      "answer": "50",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "An adult human has 32 teeth.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "What does DNA stand for?",
+      "options": [
+        "Deoxyribonucleic Acid",
+        "Dynamic Neural Array",
+        "Digital Nucleic Atom",
+        "Direct Natural Acid"
+      ],
+      "answer": "Deoxyribonucleic Acid",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "Which fruit has seeds on the outside?",
+      "options": [
+        "Raspberry",
+        "Blueberry",
+        "Strawberry",
+        "Blackberry"
+      ],
+      "answer": "Strawberry",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "A group of crows is called a murder.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "Dolphins sleep with one eye open.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "Which sport is known as 'the beautiful game'?",
+      "options": [
+        "Cricket",
+        "Tennis",
+        "Soccer",
+        "Rugby"
+      ],
+      "answer": "Soccer",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "What does 'forte' mean in music?",
+      "options": [
+        "Slow",
+        "Fast",
+        "Loud",
+        "Soft"
+      ],
+      "answer": "Loud",
+      "category": "Music",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-16": [
+    {
+      "question": "Who is the author of 'Charlie and the Chocolate Factory'?",
+      "options": [
+        "Roald Dahl",
+        "J.K. Rowling",
+        "Lewis Carroll",
+        "C.S. Lewis"
+      ],
+      "answer": "Roald Dahl",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "Which planet is closest to the Sun?",
+      "options": [
+        "Venus",
+        "Mercury",
+        "Earth",
+        "Mars"
+      ],
+      "answer": "Mercury",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the primary color that is not red or blue?",
+      "options": [
+        "Green",
+        "Orange",
+        "Yellow",
+        "Purple"
+      ],
+      "answer": "Yellow",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "Which animal has the largest brain?",
+      "options": [
+        "Elephant",
+        "Human",
+        "Sperm Whale",
+        "Dolphin"
+      ],
+      "answer": "Sperm Whale",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "Who painted the ceiling of the Sistine Chapel?",
+      "options": [
+        "Leonardo da Vinci",
+        "Raphael",
+        "Michelangelo",
+        "Donatello"
+      ],
+      "answer": "Michelangelo",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Goldfish have a 3-second memory.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "Who directed 'Jurassic Park'?",
+      "options": [
+        "James Cameron",
+        "Steven Spielberg",
+        "George Lucas",
+        "Ridley Scott"
+      ],
+      "answer": "Steven Spielberg",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "In 'The Wizard of Oz', what does Dorothy want to find?",
+      "options": [
+        "Gold",
+        "Her dog",
+        "Her way home",
+        "A rainbow"
+      ],
+      "answer": "Her way home",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "Tomatoes are a fruit, not a vegetable.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Food",
+      "type": "boolean"
+    },
+    {
+      "question": "The Amazon is the longest river in the world.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Geography",
       "type": "boolean"
     }
   ],
   "2026-06-17": [
     {
-      "question": "What is 32 + 95?",
-      "options": [
-        "108",
-        "141",
-        "127",
-        "131"
-      ],
-      "answer": "127",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 58 × 5 + 11.",
-      "options": [
-        "301",
-        "281",
-        "304",
-        "292"
-      ],
-      "answer": "301",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 48 liters? (117)",
-      "options": [
-        "48000",
-        "48276",
-        "54489",
-        "49754"
-      ],
-      "answer": "48000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1738 belongs to which century?",
-      "options": [
-        "20",
-        "18",
-        "17",
-        "19"
-      ],
-      "answer": "18",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from P, move 2 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "R",
-        "Q",
-        "Y",
-        "S"
-      ],
-      "answer": "R",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 20 two-point shots and 12 three-point shots. How many points is that? (130)",
-      "options": [
-        "67",
-        "73",
-        "76",
-        "69"
-      ],
-      "answer": "76",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 35 rows and 54 columns. How many cells are in the grid?",
-      "options": [
-        "1890",
-        "1884",
-        "1667",
-        "1852"
-      ],
-      "answer": "1890",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 26 measures with 8 beats per measure. How many beats total?",
-      "options": [
-        "200",
-        "208",
-        "213",
-        "198"
-      ],
-      "answer": "208",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 2 km. How many km are represented by 35 cm?",
-      "options": [
-        "61",
-        "70",
-        "68",
-        "72"
-      ],
-      "answer": "70",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 117 divisible by 11?",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-18": [
-    {
-      "question": "What is 114 + 63?",
-      "options": [
-        "203",
-        "182",
-        "159",
-        "177"
-      ],
-      "answer": "177",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 58 × 8 + 18.",
-      "options": [
-        "473",
-        "482",
-        "514",
-        "456"
-      ],
-      "answer": "482",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 103 liters?",
-      "options": [
-        "115428",
-        "103000",
-        "114085",
-        "101214"
-      ],
-      "answer": "103000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1852 belongs to which century?",
-      "options": [
-        "20",
-        "21",
-        "18",
-        "19"
-      ],
-      "answer": "19",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from M, move 6 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "Z",
-        "S",
-        "R",
-        "T"
-      ],
-      "answer": "S",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 91 two-point shots and 45 three-point shots. How many points is that?",
-      "options": [
-        "359",
-        "319",
-        "321",
-        "317"
-      ],
-      "answer": "317",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 28 rows and 55 columns. How many cells are in the grid?",
-      "options": [
-        "1643",
-        "1766",
-        "1448",
-        "1540"
-      ],
-      "answer": "1540",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 30 measures with 3 beats per measure. How many beats total?",
-      "options": [
-        "96",
-        "95",
-        "85",
-        "90"
-      ],
-      "answer": "90",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 13 km. How many km are represented by 72 cm?",
-      "options": [
-        "936",
-        "1056",
-        "966",
-        "957"
-      ],
-      "answer": "936",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 41 divisible by 2?",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-19": [
-    {
-      "question": "What is 28 + 46?",
-      "options": [
-        "78",
-        "64",
-        "74",
-        "77"
-      ],
-      "answer": "74",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 25 × 2 + 13.",
-      "options": [
-        "63",
-        "57",
-        "62",
-        "55"
-      ],
-      "answer": "63",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 39 liters? (104)",
-      "options": [
-        "43282",
-        "39000",
-        "35996",
-        "33230"
-      ],
-      "answer": "39000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1685 belongs to which century?",
-      "options": [
-        "16",
-        "17",
-        "18",
-        "19"
-      ],
-      "answer": "17",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from U, move 10 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "F",
-        "L",
-        "E",
-        "D"
-      ],
-      "answer": "E",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 91 two-point shots and 39 three-point shots. How many points is that?",
-      "options": [
-        "299",
-        "280",
-        "296",
-        "273"
-      ],
-      "answer": "299",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 50 rows and 54 columns. How many cells are in the grid?",
-      "options": [
-        "2944",
-        "2700",
-        "2875",
-        "2688"
-      ],
-      "answer": "2700",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 36 measures with 2 beats per measure. How many beats total?",
-      "options": [
-        "71",
-        "72",
-        "66",
-        "63"
-      ],
-      "answer": "72",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 25 km. How many km are represented by 28 cm?",
-      "options": [
-        "731",
-        "663",
-        "700",
-        "781"
-      ],
-      "answer": "700",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 21 divisible by 6?",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-20": [
-    {
-      "question": "What is 68 + 23?",
-      "options": [
-        "91",
-        "81",
-        "85",
-        "90"
-      ],
-      "answer": "91",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 47 × 7 + 8.",
-      "options": [
-        "326",
-        "336",
-        "294",
-        "337"
-      ],
-      "answer": "337",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 104 liters?",
-      "options": [
-        "105675",
-        "116268",
-        "96799",
-        "104000"
-      ],
-      "answer": "104000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 2008 belongs to which century?",
-      "options": [
-        "22",
-        "20",
-        "21",
-        "23"
-      ],
-      "answer": "21",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from R, move 8 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (88)",
-      "options": [
-        "Z",
-        "G",
-        "A",
-        "Y"
-      ],
-      "answer": "Z",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 94 two-point shots and 17 three-point shots. How many points is that?",
-      "options": [
-        "229",
-        "239",
-        "269",
-        "258"
-      ],
-      "answer": "239",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 39 rows and 47 columns. How many cells are in the grid?",
-      "options": [
-        "2004",
-        "1721",
-        "1972",
-        "1833"
-      ],
-      "answer": "1833",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 39 measures with 8 beats per measure. How many beats total?",
-      "options": [
-        "290",
-        "283",
-        "291",
-        "312"
-      ],
-      "answer": "312",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 3 km. How many km are represented by 34 cm?",
-      "options": [
-        "92",
-        "106",
-        "102",
-        "104"
-      ],
-      "answer": "102",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 55 divisible by 10?",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-21": [
-    {
-      "question": "What is 67 + 49?",
-      "options": [
-        "100",
-        "121",
-        "104",
-        "116"
-      ],
-      "answer": "116",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 44 × 8 + 1.",
-      "options": [
-        "353",
-        "329",
-        "321",
-        "324"
-      ],
-      "answer": "353",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 17 liters? (91)",
-      "options": [
-        "17000",
-        "16420",
-        "17584",
-        "17339"
-      ],
-      "answer": "17000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1884 belongs to which century?",
-      "options": [
-        "19",
-        "21",
-        "20",
-        "18"
-      ],
-      "answer": "19",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from E, move 3 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "H",
-        "G",
-        "O",
-        "I"
-      ],
-      "answer": "H",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 83 two-point shots and 29 three-point shots. How many points is that?",
-      "options": [
-        "289",
-        "285",
-        "237",
-        "253"
-      ],
-      "answer": "253",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 56 rows and 26 columns. How many cells are in the grid?",
-      "options": [
-        "1456",
-        "1499",
-        "1528",
-        "1620"
-      ],
-      "answer": "1456",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 23 measures with 2 beats per measure. How many beats total?",
-      "options": [
-        "42",
-        "50",
-        "49",
-        "46"
-      ],
-      "answer": "46",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 5 km. How many km are represented by 86 cm?",
-      "options": [
-        "468",
-        "383",
-        "430",
-        "374"
-      ],
-      "answer": "430",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 49 divisible by 5?",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-22": [
-    {
-      "question": "What is 33 + 21?",
-      "options": [
-        "54",
-        "46",
-        "53",
-        "49"
-      ],
-      "answer": "54",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 34 × 3 + 17.",
-      "options": [
-        "119",
-        "127",
-        "109",
-        "136"
-      ],
-      "answer": "119",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 61 liters?",
-      "options": [
-        "58007",
-        "58270",
-        "61000",
-        "67903"
-      ],
-      "answer": "61000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1694 belongs to which century?",
-      "options": [
-        "18",
-        "17",
-        "16",
-        "19"
-      ],
-      "answer": "17",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from W, move 9 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "E",
-        "G",
-        "F",
-        "M"
-      ],
-      "answer": "F",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 33 two-point shots and 29 three-point shots. How many points is that?",
-      "options": [
-        "171",
-        "153",
-        "139",
-        "159"
-      ],
-      "answer": "153",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 29 rows and 24 columns. How many cells are in the grid?",
-      "options": [
-        "610",
-        "788",
-        "696",
-        "753"
-      ],
-      "answer": "696",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 24 measures with 7 beats per measure. How many beats total?",
-      "options": [
-        "168",
-        "167",
-        "145",
-        "148"
-      ],
-      "answer": "168",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 14 km. How many km are represented by 16 cm? (115)",
-      "options": [
-        "219",
-        "224",
-        "255",
-        "226"
-      ],
-      "answer": "224",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 24 divisible by 7?",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-23": [
-    {
-      "question": "What is 55 + 9?",
-      "options": [
-        "57",
-        "64",
-        "65",
-        "59"
-      ],
-      "answer": "64",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 20 × 10 + 19.",
-      "options": [
-        "215",
-        "219",
-        "204",
-        "196"
-      ],
-      "answer": "219",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 44 liters?",
-      "options": [
-        "44000",
-        "39461",
-        "40997",
-        "37604"
-      ],
-      "answer": "44000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1474 belongs to which century?",
-      "options": [
-        "15",
-        "17",
-        "16",
-        "14"
-      ],
-      "answer": "15",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from O, move 4 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "Z",
-        "S",
-        "T",
-        "R"
-      ],
-      "answer": "S",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 44 two-point shots and 6 three-point shots. How many points is that? (110)",
-      "options": [
-        "106",
-        "115",
-        "99",
-        "95"
-      ],
-      "answer": "106",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 33 rows and 28 columns. How many cells are in the grid?",
-      "options": [
-        "828",
-        "924",
-        "926",
-        "860"
-      ],
-      "answer": "924",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 19 measures with 7 beats per measure. How many beats total?",
-      "options": [
-        "123",
-        "134",
-        "152",
-        "133"
-      ],
-      "answer": "133",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 5 km. How many km are represented by 30 cm?",
-      "options": [
-        "150",
-        "168",
-        "134",
-        "145"
-      ],
-      "answer": "150",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 17 divisible by 12? (118)",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-24": [
-    {
-      "question": "What is 9 + 27?",
-      "options": [
-        "38",
-        "36",
-        "35",
-        "32"
-      ],
-      "answer": "36",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 27 × 12 + 9.",
-      "options": [
-        "285",
-        "382",
-        "332",
-        "333"
-      ],
-      "answer": "333",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 12 liters? (129)",
-      "options": [
-        "10836",
-        "12595",
-        "12000",
-        "12922"
-      ],
-      "answer": "12000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1487 belongs to which century?",
-      "options": [
-        "17",
-        "16",
-        "15",
-        "14"
-      ],
-      "answer": "15",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from Q, move 4 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (94)",
-      "options": [
-        "T",
-        "U",
-        "B",
-        "V"
-      ],
-      "answer": "U",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 64 two-point shots and 5 three-point shots. How many points is that?",
-      "options": [
-        "143",
-        "158",
-        "134",
-        "154"
-      ],
-      "answer": "143",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 21 rows and 27 columns. How many cells are in the grid?",
-      "options": [
-        "567",
-        "644",
-        "625",
-        "557"
-      ],
-      "answer": "567",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 25 measures with 4 beats per measure. How many beats total?",
-      "options": [
-        "106",
-        "100",
-        "111",
-        "110"
-      ],
-      "answer": "100",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 24 km. How many km are represented by 26 cm?",
-      "options": [
-        "548",
-        "531",
-        "624",
-        "657"
-      ],
-      "answer": "624",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 44 divisible by 5?",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-25": [
-    {
-      "question": "What is 50 + 14?",
-      "options": [
-        "72",
-        "58",
-        "61",
-        "64"
-      ],
-      "answer": "64",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 20 × 5 + 5.",
-      "options": [
-        "111",
-        "99",
-        "102",
-        "105"
-      ],
-      "answer": "105",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 76 liters?",
-      "options": [
-        "86105",
-        "76653",
-        "76000",
-        "66829"
-      ],
-      "answer": "76000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1313 belongs to which century?",
-      "options": [
-        "15",
-        "13",
-        "16",
-        "14"
-      ],
-      "answer": "14",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from U, move 4 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "X",
-        "Y",
-        "F",
-        "Z"
-      ],
-      "answer": "Y",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 79 two-point shots and 34 three-point shots. How many points is that?",
-      "options": [
-        "241",
-        "260",
-        "243",
-        "297"
-      ],
-      "answer": "260",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 36 rows and 11 columns. How many cells are in the grid?",
-      "options": [
-        "396",
-        "412",
-        "363",
-        "421"
-      ],
-      "answer": "396",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 38 measures with 4 beats per measure. How many beats total?",
-      "options": [
-        "154",
-        "162",
-        "148",
-        "152"
-      ],
-      "answer": "152",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 5 km. How many km are represented by 71 cm?",
-      "options": [
-        "313",
-        "355",
-        "321",
-        "326"
-      ],
-      "answer": "355",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 10 divisible by 6?",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-26": [
-    {
-      "question": "What is 36 + 24?",
-      "options": [
-        "52",
-        "61",
-        "60",
-        "59"
-      ],
-      "answer": "60",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 34 × 6 + 15.",
-      "options": [
-        "208",
-        "210",
-        "223",
-        "219"
-      ],
-      "answer": "219",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 21 liters? (96)",
-      "options": [
-        "21000",
-        "18571",
-        "21391",
-        "20570"
-      ],
-      "answer": "21000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1823 belongs to which century?",
-      "options": [
-        "21",
-        "20",
-        "18",
-        "19"
-      ],
-      "answer": "19",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from E, move 10 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "O",
-        "P",
-        "V",
-        "N"
-      ],
-      "answer": "O",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 58 two-point shots and 21 three-point shots. How many points is that?",
-      "options": [
-        "159",
-        "179",
-        "176",
-        "172"
-      ],
-      "answer": "179",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 32 rows and 36 columns. How many cells are in the grid?",
-      "options": [
-        "1251",
-        "1096",
-        "1207",
-        "1152"
-      ],
-      "answer": "1152",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 20 measures with 7 beats per measure. How many beats total?",
-      "options": [
-        "140",
-        "148",
-        "137",
-        "160"
-      ],
-      "answer": "140",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 4 km. How many km are represented by 39 cm?",
-      "options": [
-        "148",
-        "156",
-        "145",
-        "155"
-      ],
-      "answer": "156",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 67 divisible by 3?",
-      "options": [
-        "True",
-        "False"
-      ],
-      "answer": "False",
-      "category": "General Knowledge",
-      "type": "boolean"
-    }
-  ],
-  "2026-06-27": [
-    {
-      "question": "What is 49 + 22?",
-      "options": [
-        "71",
-        "70",
-        "76",
-        "61"
-      ],
-      "answer": "71",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 24 × 4 + 13.",
-      "options": [
-        "97",
-        "109",
-        "122",
-        "119"
-      ],
-      "answer": "109",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 74 liters? (92)",
-      "options": [
-        "76415",
-        "77832",
-        "74000",
-        "79311"
-      ],
-      "answer": "74000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1793 belongs to which century?",
-      "options": [
-        "19",
-        "17",
-        "20",
-        "18"
-      ],
-      "answer": "18",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from T, move 2 letters forward in the English alphabet (wrapping after Z). Which letter do you reach? (101)",
-      "options": [
-        "C",
-        "U",
-        "V",
-        "W"
-      ],
-      "answer": "V",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 43 two-point shots and 10 three-point shots. How many points is that?",
-      "options": [
-        "116",
-        "113",
-        "100",
-        "133"
-      ],
-      "answer": "116",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 31 rows and 15 columns. How many cells are in the grid?",
-      "options": [
-        "484",
-        "465",
-        "482",
-        "479"
-      ],
-      "answer": "465",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 14 measures with 5 beats per measure. How many beats total? (119)",
-      "options": [
-        "61",
-        "70",
-        "71",
-        "74"
-      ],
-      "answer": "70",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 8 km. How many km are represented by 7 cm?",
-      "options": [
-        "56",
-        "49",
-        "50",
-        "57"
-      ],
-      "answer": "56",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 51 divisible by 3?",
+      "question": "The currency of India is the Rupee.",
       "options": [
         "True",
         "False"
@@ -3237,239 +1865,1471 @@
       "answer": "True",
       "category": "General Knowledge",
       "type": "boolean"
+    },
+    {
+      "question": "Water is composed of hydrogen and oxygen.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "What year did the first 'Toy Story' come out?",
+      "options": [
+        "1993",
+        "1995",
+        "1997",
+        "1999"
+      ],
+      "answer": "1995",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "Sharks are mammals.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "Which ancient civilization built the pyramids?",
+      "options": [
+        "Romans",
+        "Greeks",
+        "Egyptians",
+        "Persians"
+      ],
+      "answer": "Egyptians",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "What are the three primary colors?",
+      "options": [
+        "Red, Blue, Yellow",
+        "Red, Green, Blue",
+        "Red, Orange, Yellow",
+        "Blue, Green, Yellow"
+      ],
+      "answer": "Red, Blue, Yellow",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "What gives bread its spongy texture?",
+      "options": [
+        "Sugar",
+        "Salt",
+        "Yeast",
+        "Butter"
+      ],
+      "answer": "Yeast",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "How many rings are on the Olympic flag?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": "5",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "How many weeks are in a year?",
+      "options": [
+        "48",
+        "50",
+        "52",
+        "54"
+      ],
+      "answer": "52",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "What country does Parmesan cheese come from?",
+      "options": [
+        "France",
+        "Spain",
+        "Italy",
+        "Switzerland"
+      ],
+      "answer": "Italy",
+      "category": "Food",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-18": [
+    {
+      "question": "Bats are blind.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "What grain is sushi rice made from?",
+      "options": [
+        "Wheat",
+        "Barley",
+        "Short-grain rice",
+        "Corn"
+      ],
+      "answer": "Short-grain rice",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the world's most consumed beverage after water?",
+      "options": [
+        "Coffee",
+        "Tea",
+        "Milk",
+        "Juice"
+      ],
+      "answer": "Tea",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "In which sport do players use a puck?",
+      "options": [
+        "Field Hockey",
+        "Ice Hockey",
+        "Lacrosse",
+        "Curling"
+      ],
+      "answer": "Ice Hockey",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "What sport is played at Wimbledon?",
+      "options": [
+        "Golf",
+        "Cricket",
+        "Tennis",
+        "Rugby"
+      ],
+      "answer": "Tennis",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "Which nut is used to make marzipan?",
+      "options": [
+        "Cashew",
+        "Walnut",
+        "Almond",
+        "Peanut"
+      ],
+      "answer": "Almond",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "How many legs does a butterfly have?",
+      "options": [
+        "4",
+        "6",
+        "8",
+        "10"
+      ],
+      "answer": "6",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "Tigers have striped skin, not just fur.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "Penguins can fly short distances.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "Who wrote 'Pride and Prejudice'?",
+      "options": [
+        "Charlotte Brontë",
+        "Emily Brontë",
+        "Jane Austen",
+        "Virginia Woolf"
+      ],
+      "answer": "Jane Austen",
+      "category": "Literature",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-19": [
+    {
+      "question": "How many teeth does a typical adult have?",
+      "options": [
+        "28",
+        "30",
+        "32",
+        "34"
+      ],
+      "answer": "32",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The Sahara is the largest desert in the world.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the hottest chili pepper in the world?",
+      "options": [
+        "Habanero",
+        "Ghost Pepper",
+        "Carolina Reaper",
+        "Scotch Bonnet"
+      ],
+      "answer": "Carolina Reaper",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "What type of paint dries quickly and is water-based?",
+      "options": [
+        "Oil",
+        "Acrylic",
+        "Watercolor",
+        "Tempera"
+      ],
+      "answer": "Acrylic",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "How many sets are played in a men's Grand Slam tennis match?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": "5",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "The Great Wall of China is visible from space.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "General Knowledge",
+      "type": "boolean"
+    },
+    {
+      "question": "Which ocean is the largest?",
+      "options": [
+        "Atlantic",
+        "Indian",
+        "Pacific",
+        "Arctic"
+      ],
+      "answer": "Pacific",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "The Olympic flag has six rings.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Sports",
+      "type": "boolean"
+    },
+    {
+      "question": "How many Great Lakes are there?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": "5",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "Which fruit is known as a drupe?",
+      "options": [
+        "Apple",
+        "Banana",
+        "Peach",
+        "Grape"
+      ],
+      "answer": "Peach",
+      "category": "Food",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-20": [
+    {
+      "question": "Which actor played Captain Jack Sparrow?",
+      "options": [
+        "Orlando Bloom",
+        "Johnny Depp",
+        "Brad Pitt",
+        "Leonardo DiCaprio"
+      ],
+      "answer": "Johnny Depp",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "Water freezes at 0 degrees Celsius.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "Which instrument has six strings?",
+      "options": [
+        "Violin",
+        "Bass",
+        "Guitar",
+        "Ukulele"
+      ],
+      "answer": "Guitar",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "An octagon has eight sides.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "General Knowledge",
+      "type": "boolean"
+    },
+    {
+      "question": "What language is 'Grazie' from?",
+      "options": [
+        "Spanish",
+        "French",
+        "Italian",
+        "German"
+      ],
+      "answer": "Italian",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the closest star to Earth?",
+      "options": [
+        "Sirius",
+        "Alpha Centauri",
+        "The Sun",
+        "Betelgeuse"
+      ],
+      "answer": "The Sun",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "Which language reads right to left?",
+      "options": [
+        "Chinese",
+        "Japanese",
+        "Arabic",
+        "Hindi"
+      ],
+      "answer": "Arabic",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "What was the longest-lasting empire in history?",
+      "options": [
+        "British",
+        "Roman",
+        "Ottoman",
+        "Byzantine"
+      ],
+      "answer": "Roman",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "A year on Mercury is shorter than a day on Mercury.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "Which blood type is the universal donor?",
+      "options": [
+        "A",
+        "B",
+        "AB",
+        "O"
+      ],
+      "answer": "O",
+      "category": "Science",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-21": [
+    {
+      "question": "What is the capital of India?",
+      "options": [
+        "Mumbai",
+        "Kolkata",
+        "New Delhi",
+        "Chennai"
+      ],
+      "answer": "New Delhi",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "What does 'Hola' mean in English?",
+      "options": [
+        "Goodbye",
+        "Hello",
+        "Please",
+        "Thanks"
+      ],
+      "answer": "Hello",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "Australia is both a country and a continent.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "What does 'allegro' mean in music?",
+      "options": [
+        "Slow",
+        "Moderate",
+        "Fast",
+        "Very Fast"
+      ],
+      "answer": "Fast",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the name of the kingdom in 'Tangled'?",
+      "options": [
+        "Arendelle",
+        "Corona",
+        "Agrabah",
+        "DunBroch"
+      ],
+      "answer": "Corona",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "Who was the British monarch during World War II?",
+      "options": [
+        "Edward VIII",
+        "George V",
+        "George VI",
+        "Elizabeth II"
+      ],
+      "answer": "George VI",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the capital of Spain?",
+      "options": [
+        "Barcelona",
+        "Madrid",
+        "Seville",
+        "Valencia"
+      ],
+      "answer": "Madrid",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Sound travels faster than light.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "Which country gifted the Statue of Liberty to the USA?",
+      "options": [
+        "England",
+        "Spain",
+        "Germany",
+        "France"
+      ],
+      "answer": "France",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "The Eiffel Tower is in London.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Geography",
+      "type": "boolean"
+    }
+  ],
+  "2026-06-22": [
+    {
+      "question": "What is the symbol for the Euro currency?",
+      "options": [
+        "$",
+        "£",
+        "€",
+        "¥"
+      ],
+      "answer": "€",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "What fictional country is Wakanda from?",
+      "options": [
+        "DC Comics",
+        "Lord of the Rings",
+        "Marvel Comics",
+        "Star Wars"
+      ],
+      "answer": "Marvel Comics",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "What element does the symbol 'O' represent?",
+      "options": [
+        "Gold",
+        "Osmium",
+        "Oxygen",
+        "Oganesson"
+      ],
+      "answer": "Oxygen",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "What color is an emerald?",
+      "options": [
+        "Red",
+        "Blue",
+        "Green",
+        "Yellow"
+      ],
+      "answer": "Green",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "The Dead Sea is actually a lake.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "The human nose can detect over a trillion scents.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "What art tool is made from graphite?",
+      "options": [
+        "Paintbrush",
+        "Pencil",
+        "Marker",
+        "Crayon"
+      ],
+      "answer": "Pencil",
+      "category": "Art",
+      "type": "multiple"
+    },
+    {
+      "question": "How many days are in a leap year?",
+      "options": [
+        "364",
+        "365",
+        "366",
+        "367"
+      ],
+      "answer": "366",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "Mount Everest is in Africa.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Geography",
+      "type": "boolean"
+    },
+    {
+      "question": "How many sides does a pentagon have?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "5",
+      "category": "General Knowledge",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-23": [
+    {
+      "question": "Honey never spoils.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Food",
+      "type": "boolean"
+    },
+    {
+      "question": "Bananas grow on trees.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "What ancient wonder was located in Alexandria?",
+      "options": [
+        "Hanging Gardens",
+        "Lighthouse",
+        "Colossus",
+        "Temple of Artemis"
+      ],
+      "answer": "Lighthouse",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "How many zeros are in a million?",
+      "options": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": "6",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "Who was known as the Iron Lady?",
+      "options": [
+        "Angela Merkel",
+        "Indira Gandhi",
+        "Margaret Thatcher",
+        "Golda Meir"
+      ],
+      "answer": "Margaret Thatcher",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "How many lines are in a musical staff?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "5",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "What is a group of musicians playing together called?",
+      "options": [
+        "Choir",
+        "Ensemble",
+        "Solo",
+        "Duet"
+      ],
+      "answer": "Ensemble",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the most popular pizza topping?",
+      "options": [
+        "Mushrooms",
+        "Pepperoni",
+        "Sausage",
+        "Olives"
+      ],
+      "answer": "Pepperoni",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the boiling point of water in Celsius?",
+      "options": [
+        "90°C",
+        "100°C",
+        "110°C",
+        "120°C"
+      ],
+      "answer": "100°C",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "The human body has 206 bones.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    }
+  ],
+  "2026-06-24": [
+    {
+      "question": "What is the largest species of penguin?",
+      "options": [
+        "King Penguin",
+        "Rockhopper",
+        "Emperor Penguin",
+        "Adelie"
+      ],
+      "answer": "Emperor Penguin",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "Venus is the hottest planet in our solar system.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "Neptune is the farthest planet from the Sun.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "In which sport do you use a shuttlecock?",
+      "options": [
+        "Tennis",
+        "Badminton",
+        "Squash",
+        "Table Tennis"
+      ],
+      "answer": "Badminton",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "What color do you get when you mix red and blue?",
+      "options": [
+        "Green",
+        "Purple",
+        "Orange",
+        "Brown"
+      ],
+      "answer": "Purple",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "How many vowels are in the English alphabet?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": "5",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "Which animal has the longest neck?",
+      "options": [
+        "Camel",
+        "Swan",
+        "Giraffe",
+        "Ostrich"
+      ],
+      "answer": "Giraffe",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "What does 'piano' mean in Italian?",
+      "options": [
+        "Loud",
+        "Fast",
+        "Soft",
+        "Slow"
+      ],
+      "answer": "Soft",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "Lightning never strikes the same place twice.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "What fruit is known as the king of fruits?",
+      "options": [
+        "Mango",
+        "Durian",
+        "Pineapple",
+        "Jackfruit"
+      ],
+      "answer": "Durian",
+      "category": "Food",
+      "type": "multiple"
+    }
+  ],
+  "2026-06-25": [
+    {
+      "question": "An adult human has 32 teeth.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "In which year did World War II end?",
+      "options": [
+        "1943",
+        "1944",
+        "1945",
+        "1946"
+      ],
+      "answer": "1945",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "What type of pasta is shaped like little ears?",
+      "options": [
+        "Penne",
+        "Orecchiette",
+        "Fusilli",
+        "Farfalle"
+      ],
+      "answer": "Orecchiette",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "What note comes after G in the musical scale?",
+      "options": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answer": "A",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "Which instrument has black and white keys?",
+      "options": [
+        "Accordion",
+        "Xylophone",
+        "Piano",
+        "Organ"
+      ],
+      "answer": "Piano",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "How many holes are in a standard golf course?",
+      "options": [
+        "9",
+        "12",
+        "15",
+        "18"
+      ],
+      "answer": "18",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "A group of crows is called a murder.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "Which music genre originated in Jamaica?",
+      "options": [
+        "Blues",
+        "Jazz",
+        "Reggae",
+        "Salsa"
+      ],
+      "answer": "Reggae",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "What is tofu made from?",
+      "options": [
+        "Rice",
+        "Wheat",
+        "Soybeans",
+        "Corn"
+      ],
+      "answer": "Soybeans",
+      "category": "Food",
+      "type": "multiple"
+    },
+    {
+      "question": "Dolphins sleep with one eye open.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Nature",
+      "type": "boolean"
+    }
+  ],
+  "2026-06-26": [
+    {
+      "question": "Goldfish have a 3-second memory.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "Which animal has black and white stripes?",
+      "options": [
+        "Tiger",
+        "Zebra",
+        "Panda",
+        "Skunk"
+      ],
+      "answer": "Zebra",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "What civilization built Machu Picchu?",
+      "options": [
+        "Aztec",
+        "Maya",
+        "Inca",
+        "Olmec"
+      ],
+      "answer": "Inca",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Tomatoes are a fruit, not a vegetable.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Food",
+      "type": "boolean"
+    },
+    {
+      "question": "Who wrote 'To Kill a Mockingbird'?",
+      "options": [
+        "Harper Lee",
+        "Toni Morrison",
+        "Maya Angelou",
+        "Sylvia Plath"
+      ],
+      "answer": "Harper Lee",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "Which era of music came first?",
+      "options": [
+        "Romantic",
+        "Classical",
+        "Baroque",
+        "Modern"
+      ],
+      "answer": "Baroque",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "In 'Frozen', what is Elsa's power?",
+      "options": [
+        "Fire",
+        "Wind",
+        "Ice",
+        "Thunder"
+      ],
+      "answer": "Ice",
+      "category": "Film",
+      "type": "multiple"
+    },
+    {
+      "question": "What shape is a stop sign?",
+      "options": [
+        "Circle",
+        "Square",
+        "Triangle",
+        "Octagon"
+      ],
+      "answer": "Octagon",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the first book of the Bible?",
+      "options": [
+        "Exodus",
+        "Psalms",
+        "Genesis",
+        "Revelation"
+      ],
+      "answer": "Genesis",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "The Amazon is the longest river in the world.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Geography",
+      "type": "boolean"
+    }
+  ],
+  "2026-06-27": [
+    {
+      "question": "Sharks are mammals.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "Water is composed of hydrogen and oxygen.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the only mammal that can fly?",
+      "options": [
+        "Flying Squirrel",
+        "Sugar Glider",
+        "Bat",
+        "Lemur"
+      ],
+      "answer": "Bat",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "Which country has the longest coastline?",
+      "options": [
+        "Australia",
+        "Russia",
+        "Canada",
+        "Indonesia"
+      ],
+      "answer": "Canada",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Which war was fought between the North and South in the USA?",
+      "options": [
+        "Revolutionary War",
+        "Civil War",
+        "War of 1812",
+        "Mexican War"
+      ],
+      "answer": "Civil War",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Which family of instruments does the trumpet belong to?",
+      "options": [
+        "String",
+        "Woodwind",
+        "Brass",
+        "Percussion"
+      ],
+      "answer": "Brass",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "What ancient civilization invented paper?",
+      "options": [
+        "Egyptian",
+        "Greek",
+        "Chinese",
+        "Roman"
+      ],
+      "answer": "Chinese",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "The currency of India is the Rupee.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "General Knowledge",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the chemical symbol for water?",
+      "options": [
+        "H2O",
+        "CO2",
+        "NaCl",
+        "O2"
+      ],
+      "answer": "H2O",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "Who was the famous queen of ancient Egypt?",
+      "options": [
+        "Nefertiti",
+        "Hatshepsut",
+        "Cleopatra",
+        "Isis"
+      ],
+      "answer": "Cleopatra",
+      "category": "History",
+      "type": "multiple"
     }
   ],
   "2026-06-28": [
     {
-      "question": "What is 29 + 58?",
-      "options": [
-        "87",
-        "78",
-        "88",
-        "77"
-      ],
-      "answer": "87",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 34 × 2 + 5.",
-      "options": [
-        "73",
-        "82",
-        "72",
-        "79"
-      ],
-      "answer": "73",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 78 liters?",
-      "options": [
-        "78000",
-        "73658",
-        "87589",
-        "85862"
-      ],
-      "answer": "78000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1427 belongs to which century?",
-      "options": [
-        "15",
-        "17",
-        "14",
-        "16"
-      ],
-      "answer": "15",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from W, move 8 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "D",
-        "E",
-        "L",
-        "F"
-      ],
-      "answer": "E",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 21 two-point shots and 11 three-point shots. How many points is that?",
-      "options": [
-        "75",
-        "72",
-        "81",
-        "85"
-      ],
-      "answer": "75",
-      "category": "Sports",
-      "type": "multiple"
-    },
-    {
-      "question": "An art grid has 26 rows and 15 columns. How many cells are in the grid?",
-      "options": [
-        "390",
-        "363",
-        "355",
-        "395"
-      ],
-      "answer": "390",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 18 measures with 3 beats per measure. How many beats total?",
-      "options": [
-        "46",
-        "58",
-        "54",
-        "53"
-      ],
-      "answer": "54",
-      "category": "Music",
-      "type": "multiple"
-    },
-    {
-      "question": "On a map, 1 cm represents 22 km. How many km are represented by 16 cm? (140)",
-      "options": [
-        "385",
-        "352",
-        "400",
-        "375"
-      ],
-      "answer": "352",
-      "category": "Geography",
-      "type": "multiple"
-    },
-    {
-      "question": "Is 15 divisible by 6?",
+      "question": "Bats are blind.",
       "options": [
         "True",
         "False"
       ],
       "answer": "False",
-      "category": "General Knowledge",
+      "category": "Nature",
       "type": "boolean"
+    },
+    {
+      "question": "What sport uses the term 'love' for zero?",
+      "options": [
+        "Badminton",
+        "Tennis",
+        "Squash",
+        "Cricket"
+      ],
+      "answer": "Tennis",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the capital of Turkey?",
+      "options": [
+        "Istanbul",
+        "Ankara",
+        "Izmir",
+        "Antalya"
+      ],
+      "answer": "Ankara",
+      "category": "Geography",
+      "type": "multiple"
+    },
+    {
+      "question": "Which country won the first FIFA World Cup in 1930?",
+      "options": [
+        "Brazil",
+        "Argentina",
+        "Uruguay",
+        "Italy"
+      ],
+      "answer": "Uruguay",
+      "category": "Sports",
+      "type": "multiple"
+    },
+    {
+      "question": "What was the name of the ship that brought the Pilgrims to America?",
+      "options": [
+        "Santa Maria",
+        "Mayflower",
+        "Victoria",
+        "Endeavour"
+      ],
+      "answer": "Mayflower",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "Penguins can fly short distances.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "False",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "How many notes are in a musical octave?",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "12"
+      ],
+      "answer": "8",
+      "category": "Music",
+      "type": "multiple"
+    },
+    {
+      "question": "Tigers have striped skin, not just fur.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Nature",
+      "type": "boolean"
+    },
+    {
+      "question": "What language has the most native speakers?",
+      "options": [
+        "English",
+        "Spanish",
+        "Mandarin",
+        "Hindi"
+      ],
+      "answer": "Mandarin",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "What is the fastest bird in the world?",
+      "options": [
+        "Eagle",
+        "Falcon",
+        "Hawk",
+        "Swift"
+      ],
+      "answer": "Falcon",
+      "category": "Nature",
+      "type": "multiple"
     }
   ],
   "2026-06-29": [
     {
-      "question": "What is 9 + 17?",
+      "question": "The Sahara is the largest desert in the world.",
       "options": [
-        "26",
-        "24",
-        "30",
-        "31"
+        "True",
+        "False"
       ],
-      "answer": "26",
-      "category": "Math",
-      "type": "multiple"
+      "answer": "False",
+      "category": "Geography",
+      "type": "boolean"
     },
     {
-      "question": "Evaluate 15 × 11 + 16.",
+      "question": "The Olympic flag has six rings.",
       "options": [
-        "177",
-        "169",
-        "181",
-        "154"
+        "True",
+        "False"
       ],
-      "answer": "181",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 9 liters? (95)",
-      "options": [
-        "9859",
-        "9000",
-        "9743",
-        "8185"
-      ],
-      "answer": "9000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1553 belongs to which century?",
-      "options": [
-        "16",
-        "18",
-        "17",
-        "15"
-      ],
-      "answer": "16",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from H, move 11 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "S",
-        "Z",
-        "T",
-        "R"
-      ],
-      "answer": "S",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 77 two-point shots and 5 three-point shots. How many points is that? (105)",
-      "options": [
-        "146",
-        "169",
-        "171",
-        "153"
-      ],
-      "answer": "169",
+      "answer": "False",
       "category": "Sports",
-      "type": "multiple"
+      "type": "boolean"
     },
     {
-      "question": "An art grid has 30 rows and 37 columns. How many cells are in the grid?",
+      "question": "Which country is famous for flamenco music?",
       "options": [
-        "1003",
-        "959",
-        "1110",
-        "970"
+        "Portugal",
+        "Italy",
+        "Spain",
+        "France"
       ],
-      "answer": "1110",
-      "category": "Art",
-      "type": "multiple"
-    },
-    {
-      "question": "A rhythm has 35 measures with 7 beats per measure. How many beats total?",
-      "options": [
-        "212",
-        "233",
-        "221",
-        "245"
-      ],
-      "answer": "245",
+      "answer": "Spain",
       "category": "Music",
       "type": "multiple"
     },
     {
-      "question": "On a map, 1 cm represents 2 km. How many km are represented by 47 cm?",
+      "question": "In which year did the Titanic sink?",
       "options": [
-        "94",
-        "102",
-        "104",
-        "103"
+        "1910",
+        "1912",
+        "1914",
+        "1916"
       ],
-      "answer": "94",
-      "category": "Geography",
+      "answer": "1912",
+      "category": "History",
       "type": "multiple"
     },
     {
-      "question": "Is 76 divisible by 5?",
+      "question": "How many planets are in our solar system?",
+      "options": [
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": "8",
+      "category": "Science",
+      "type": "multiple"
+    },
+    {
+      "question": "How many minutes are in an hour?",
+      "options": [
+        "30",
+        "45",
+        "60",
+        "90"
+      ],
+      "answer": "60",
+      "category": "General Knowledge",
+      "type": "multiple"
+    },
+    {
+      "question": "Which explorer completed the first circumnavigation of the globe?",
+      "options": [
+        "Columbus",
+        "Magellan",
+        "Cook",
+        "Drake"
+      ],
+      "answer": "Magellan",
+      "category": "History",
+      "type": "multiple"
+    },
+    {
+      "question": "The Great Wall of China is visible from space.",
       "options": [
         "True",
         "False"
@@ -3477,126 +3337,146 @@
       "answer": "False",
       "category": "General Knowledge",
       "type": "boolean"
+    },
+    {
+      "question": "Who wrote 'Romeo and Juliet'?",
+      "options": [
+        "Charles Dickens",
+        "Jane Austen",
+        "William Shakespeare",
+        "Mark Twain"
+      ],
+      "answer": "William Shakespeare",
+      "category": "Literature",
+      "type": "multiple"
+    },
+    {
+      "question": "Who was the first President of the United States?",
+      "options": [
+        "Thomas Jefferson",
+        "John Adams",
+        "George Washington",
+        "Abraham Lincoln"
+      ],
+      "answer": "George Washington",
+      "category": "History",
+      "type": "multiple"
     }
   ],
   "2026-06-30": [
     {
-      "question": "What is 43 + 43?",
+      "question": "In basketball, how many points is a free throw worth?",
       "options": [
-        "86",
-        "79",
-        "94",
-        "93"
+        "1",
+        "2",
+        "3",
+        "4"
       ],
-      "answer": "86",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "Evaluate 20 × 3 + 15.",
-      "options": [
-        "82",
-        "75",
-        "65",
-        "84"
-      ],
-      "answer": "75",
-      "category": "Math",
-      "type": "multiple"
-    },
-    {
-      "question": "How many milliliters are in 58 liters? (116)",
-      "options": [
-        "58000",
-        "61471",
-        "58305",
-        "61860"
-      ],
-      "answer": "58000",
-      "category": "Science",
-      "type": "multiple"
-    },
-    {
-      "question": "The year 1589 belongs to which century?",
-      "options": [
-        "15",
-        "17",
-        "16",
-        "18"
-      ],
-      "answer": "16",
-      "category": "History",
-      "type": "multiple"
-    },
-    {
-      "question": "Starting from G, move 12 letters forward in the English alphabet (wrapping after Z). Which letter do you reach?",
-      "options": [
-        "S",
-        "Z",
-        "R",
-        "T"
-      ],
-      "answer": "S",
-      "category": "Language",
-      "type": "multiple"
-    },
-    {
-      "question": "A basketball team made 29 two-point shots and 8 three-point shots. How many points is that? (139)",
-      "options": [
-        "76",
-        "86",
-        "93",
-        "82"
-      ],
-      "answer": "82",
+      "answer": "1",
       "category": "Sports",
       "type": "multiple"
     },
     {
-      "question": "An art grid has 18 rows and 10 columns. How many cells are in the grid?",
+      "question": "Which animal changes color to blend in?",
       "options": [
-        "154",
-        "180",
-        "161",
-        "203"
+        "Iguana",
+        "Chameleon",
+        "Gecko",
+        "Frog"
       ],
-      "answer": "180",
-      "category": "Art",
+      "answer": "Chameleon",
+      "category": "Nature",
       "type": "multiple"
     },
     {
-      "question": "A rhythm has 8 measures with 8 beats per measure. How many beats total?",
+      "question": "What is the largest country by area?",
       "options": [
-        "56",
-        "64",
-        "58",
-        "62"
+        "China",
+        "Canada",
+        "Russia",
+        "United States"
       ],
-      "answer": "64",
-      "category": "Music",
+      "answer": "Russia",
+      "category": "General Knowledge",
       "type": "multiple"
     },
     {
-      "question": "On a map, 1 cm represents 9 km. How many km are represented by 40 cm?",
+      "question": "What vitamin does the Sun help our body produce?",
       "options": [
-        "375",
-        "386",
-        "391",
-        "360"
+        "Vitamin A",
+        "Vitamin B",
+        "Vitamin C",
+        "Vitamin D"
       ],
-      "answer": "360",
-      "category": "Geography",
+      "answer": "Vitamin D",
+      "category": "Science",
       "type": "multiple"
     },
     {
-      "question": "Is 50 divisible by 3?",
+      "question": "An octagon has eight sides.",
       "options": [
         "True",
         "False"
       ],
-      "answer": "False",
+      "answer": "True",
       "category": "General Knowledge",
       "type": "boolean"
+    },
+    {
+      "question": "A year on Mercury is shorter than a day on Mercury.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "What is the study of languages called?",
+      "options": [
+        "Biology",
+        "Philology",
+        "Linguistics",
+        "Etymology"
+      ],
+      "answer": "Linguistics",
+      "category": "Language",
+      "type": "multiple"
+    },
+    {
+      "question": "Water freezes at 0 degrees Celsius.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "answer": "True",
+      "category": "Science",
+      "type": "boolean"
+    },
+    {
+      "question": "How many legs does a spider have?",
+      "options": [
+        "6",
+        "8",
+        "10",
+        "12"
+      ],
+      "answer": "8",
+      "category": "Nature",
+      "type": "multiple"
+    },
+    {
+      "question": "In which city does Batman live?",
+      "options": [
+        "Metropolis",
+        "Star City",
+        "Gotham",
+        "Central City"
+      ],
+      "answer": "Gotham",
+      "category": "Film",
+      "type": "multiple"
     }
   ]
 }

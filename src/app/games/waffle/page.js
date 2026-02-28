@@ -36,6 +36,7 @@ import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
 import { useGameContext } from '@/hooks/useGameContext';
+import WinConfettiOverlay from '@/components/WinConfettiOverlay';
 
 export default function WafflePage() {
   const { returnUrl, returnLabel, isGroupGame, groupName } = useGameContext();
@@ -57,6 +58,16 @@ export default function WafflePage() {
   const [badgeUnlocks, setBadgeUnlocks] = useState([]);
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
+  const [showWinConfetti, setShowWinConfetti] = useState(false);
+
+  // Trigger confetti on win
+  useEffect(() => {
+    if (gameState.gameStatus === 'won') {
+      setShowWinConfetti(true);
+    } else {
+      setShowWinConfetti(false);
+    }
+  }, [gameState.gameStatus]);
 
   const tutorial = GAME_TUTORIALS.waffle;
   const {
@@ -85,8 +96,16 @@ export default function WafflePage() {
   }, [gameState, mode]);
 
   // Show result modal when game ends
+  const hasSubmittedRef = React.useRef(false);
   useEffect(() => {
     if (gameState.gameStatus !== 'playing') {
+      // Prevent re-submission on component remount (BUG-020)
+      if (hasSubmittedRef.current) {
+        setTimeout(() => setShowResultModal(true), 500);
+        return;
+      }
+      hasSubmittedRef.current = true;
+
       const won = gameState.gameStatus === 'won';
       const perfect = isPerfectSolve(gameState, puzzle);
       
@@ -301,6 +320,13 @@ export default function WafflePage() {
           </button>
         )}
       </main>
+
+      <WinConfettiOverlay
+        active={showWinConfetti}
+        gameName="waffle"
+        isPerfect={gameState.gameStatus === 'won' && isPerfectSolve(gameState, puzzle)}
+        onDone={() => setShowWinConfetti(false)}
+      />
 
       {/* Result Modal */}
       {showResultModal && (

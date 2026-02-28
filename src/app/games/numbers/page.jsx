@@ -11,7 +11,7 @@ import BadgeEarnedRecap from '@/components/BadgeEarnedRecap';
 import BadgesProgressWidget from '@/components/BadgesProgressWidget';
 import BadgesDrawer from '@/components/BadgesDrawer';
 import DailyReminder from '@/components/DailyReminder';
-import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
+import WinConfettiOverlay from '@/components/WinConfettiOverlay';
 import Toast from '@/components/Toast';
 import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
@@ -136,7 +136,13 @@ export default function NumbersGame() {
     
     // Create new expression step
     const operation = `${first.value} ${operator} ${second.value} = ${result}`;
-    const newSteps = [...expressionSteps, { operation, result }];
+    const newSteps = [...expressionSteps, {
+      operation,
+      result,
+      num1: first.value,
+      num2: second.value,
+      operator,
+    }];
     setExpressionSteps(newSteps);
     
     // Remove used numbers and add result
@@ -151,7 +157,7 @@ export default function NumbersGame() {
     setCurrentExpression('');
     
     // Check if we hit the target
-    if (Math.round(result) === puzzle.target) {
+    if (result === puzzle.target) {
       handleWin();
     } else if (newAvailable.length === 1) {
       // Only one number left and it's not the target
@@ -211,13 +217,28 @@ export default function NumbersGame() {
       return;
     }
     
-    // Undo last operation
+    // Proper undo: remove the last step and reconstruct state
     const newSteps = expressionSteps.slice(0, -1);
     setExpressionSteps(newSteps);
     
-    // Restore the puzzle to previous state
-    // This is complex - for now, just restart
-    loadPuzzle();
+    // Reconstruct available numbers by replaying steps from the original puzzle
+    let nums = [...puzzle.numbers];
+    for (const step of newSteps) {
+      const parsed = typeof step.operation === 'string'
+        ? step.operation.match(/(-?\d+)\s*[+\-×÷]\s*(-?\d+)\s*=\s*(-?\d+(?:\.\d+)?)/)
+        : null;
+      const num1 = step.num1 ?? (parsed ? Number(parsed[1]) : undefined);
+      const num2 = step.num2 ?? (parsed ? Number(parsed[2]) : undefined);
+
+      const idx1 = nums.indexOf(num1);
+      if (idx1 !== -1) nums.splice(idx1, 1);
+      const idx2 = nums.indexOf(num2);
+      if (idx2 !== -1) nums.splice(idx2, 1);
+      nums.push(step.result);
+    }
+    setAvailableNumbers(nums);
+    setSelectedNumbers([]);
+    setCurrentExpression('');
   };
 
   const handleReset = () => {
@@ -236,7 +257,7 @@ export default function NumbersGame() {
     }
     
     const result = availableNumbers[0];
-    if (Math.round(result) === puzzle.target) {
+    if (result === puzzle.target) {
       handleWin();
     } else {
       handleLoss(result);
@@ -275,14 +296,7 @@ export default function NumbersGame() {
         <div className="relative flex flex-col items-center justify-center p-4 min-h-full">
         <WinConfettiOverlay
           active={showConfetti}
-          durationMs={2800}
-          intensity={0.8}
-          origin={CONFETTI_ORIGINS.top}
-          palette={[
-            'hsl(var(--wordle-correct))',
-            'hsl(var(--warning))',
-            'hsl(var(--info))'
-          ]}
+          gameName="numbers"
           onDone={() => setShowConfetti(false)}
         />
         <div className="max-w-2xl w-full space-y-6">

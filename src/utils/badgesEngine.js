@@ -581,8 +581,8 @@ const DEFAULT_META = {
 };
 
 export const BADGES = ACHIEVEMENTS.map((achievement) => ({
-  ...achievement,
   ...DEFAULT_META,
+  ...achievement,
   ...(BADGE_METADATA[achievement.id] || {}),
 }));
 

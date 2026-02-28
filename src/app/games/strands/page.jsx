@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import GameHeader from '@/components/GameHeader';
 import Modal from '@/components/Modal';
 import Toast from '@/components/Toast';
-import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
+import WinConfettiOverlay from '@/components/WinConfettiOverlay';
 import ShareResults from '@/components/ShareResults';
 import BadgeToastQueue from '@/components/BadgeToastQueue';
 import BadgeDetailsSheet from '@/components/BadgeDetailsSheet';
@@ -523,15 +523,7 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
                 <div className="w-full max-w-[min(92vw,520px)] lg:max-w-[550px]">
                   <WinConfettiOverlay
                     active={showWinConfetti}
-                    durationMs={3000}
-                    intensity={0.9}
-                    origin={CONFETTI_ORIGINS.corners}
-                    palette={[
-                      'hsl(var(--strands-spangram-ribbon))',
-                      'hsl(var(--strands-ribbon))',
-                      'hsl(var(--connections-yellow))',
-                      'hsl(var(--info))'
-                    ]}
+                    gameName="strands"
                     onDone={() => setShowWinConfetti(false)}
                   />
 

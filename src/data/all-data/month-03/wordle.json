@@ -1,95 +1,33 @@
 {
-  "2026-03-01": {
-    "answer": "FRESH"
-  },
-  "2026-03-02": {
-    "answer": "START"
-  },
-  "2026-03-03": {
-    "answer": "CLEAN"
-  },
-  "2026-03-04": {
-    "answer": "DAILY"
-  },
-  "2026-03-05": {
-    "answer": "GAMES"
-  },
-  "2026-03-06": {
-    "answer": "SOLVE"
-  },
-  "2026-03-07": {
-    "answer": "LOGIC"
-  },
-  "2026-03-08": {
-    "answer": "BRAIN"
-  },
-  "2026-03-09": {
-    "answer": "SMART"
-  },
-  "2026-03-10": {
-    "answer": "GUESS"
-  },
-  "2026-03-11": {
-    "answer": "CHECK"
-  },
-  "2026-03-12": {
-    "answer": "VALID"
-  },
-  "2026-03-13": {
-    "answer": "SCORE"
-  },
-  "2026-03-14": {
-    "answer": "STATS"
-  },
-  "2026-03-15": {
-    "answer": "SHARE"
-  },
-  "2026-03-16": {
-    "answer": "GREAT"
-  },
-  "2026-03-17": {
-    "answer": "SUPER"
-  },
-  "2026-03-18": {
-    "answer": "POWER"
-  },
-  "2026-03-19": {
-    "answer": "TRACK"
-  },
-  "2026-03-20": {
-    "answer": "FOUND"
-  },
-  "2026-03-21": {
-    "answer": "MUSIC"
-  },
-  "2026-03-22": {
-    "answer": "SOUND"
-  },
-  "2026-03-23": {
-    "answer": "PIXEL"
-  },
-  "2026-03-24": {
-    "answer": "VIDEO"
-  },
-  "2026-03-25": {
-    "answer": "MOVIE"
-  },
-  "2026-03-26": {
-    "answer": "WATCH"
-  },
-  "2026-03-27": {
-    "answer": "CLICK"
-  },
-  "2026-03-28": {
-    "answer": "MOUSE"
-  },
-  "2026-03-29": {
-    "answer": "BOARD"
-  },
-  "2026-03-30": {
-    "answer": "CHESS"
-  },
-  "2026-03-31": {
-    "answer": "PIECE"
-  }
+  "2026-03-01": { "answer": "FRESH" },
+  "2026-03-02": { "answer": "START" },
+  "2026-03-03": { "answer": "CLEAN" },
+  "2026-03-04": { "answer": "DAILY" },
+  "2026-03-05": { "answer": "GAMES" },
+  "2026-03-06": { "answer": "SOLVE" },
+  "2026-03-07": { "answer": "LIGHT" },
+  "2026-03-08": { "answer": "BRAIN" },
+  "2026-03-09": { "answer": "SMART" },
+  "2026-03-10": { "answer": "GUESS" },
+  "2026-03-11": { "answer": "CHECK" },
+  "2026-03-12": { "answer": "TRAIN" },
+  "2026-03-13": { "answer": "SCORE" },
+  "2026-03-14": { "answer": "PLANT" },
+  "2026-03-15": { "answer": "SHARE" },
+  "2026-03-16": { "answer": "GREAT" },
+  "2026-03-17": { "answer": "SUPER" },
+  "2026-03-18": { "answer": "POWER" },
+  "2026-03-19": { "answer": "TRACK" },
+  "2026-03-20": { "answer": "FOUND" },
+  "2026-03-21": { "answer": "MUSIC" },
+  "2026-03-22": { "answer": "SOUND" },
+  "2026-03-23": { "answer": "HAPPY" },
+  "2026-03-24": { "answer": "VIDEO" },
+  "2026-03-25": { "answer": "MOVIE" },
+  "2026-03-26": { "answer": "WATCH" },
+  "2026-03-27": { "answer": "CLOUD" },
+  "2026-03-28": { "answer": "MOUSE" },
+  "2026-03-29": { "answer": "BOARD" },
+  "2026-03-30": { "answer": "CHESS" },
+  "2026-03-31": { "answer": "PIECE" }
 }

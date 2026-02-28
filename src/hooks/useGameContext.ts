@@ -10,7 +10,7 @@
 
 'use client';
 
-import { useState, useCallback, useMemo, useRef, useLayoutEffect } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import {
   GameContext,
@@ -82,7 +82,8 @@ export function useGameContext(): UseGameContextResult {
   }, [searchParams]);
 
   // Save context to sessionStorage once on initial render
-  useLayoutEffect(() => {
+  // Use useEffect instead of useLayoutEffect to avoid SSR warning (BUG-049)
+  useEffect(() => {
     if (!initializedRef.current && context.type === 'group') {
       saveGameContext(context);
       initializedRef.current = true;

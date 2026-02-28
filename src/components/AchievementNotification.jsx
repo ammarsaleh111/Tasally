@@ -1,12 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { getAchievementById } from '@/utils/achievementsEngine';
-import Confetti from './Confetti';
+import WinConfettiOverlay from './WinConfettiOverlay';
 
 const AchievementNotification = ({ achievementId, onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(true);
   const achievement = getAchievementById(achievementId);
+
+  const handleConfettiDone = useCallback(() => {
+    setShowConfetti(false);
+  }, []);
 
   useEffect(() => {
     // Animate in
@@ -25,7 +30,13 @@ const AchievementNotification = ({ achievementId, onClose }) => {
 
   return (
     <>
-      <Confetti />
+      <WinConfettiOverlay
+        active={showConfetti}
+        durationMs={2500}
+        intensity={0.7}
+        origin="top"
+        onDone={handleConfettiDone}
+      />
       <div
         className={`fixed top-20 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'

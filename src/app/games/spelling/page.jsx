@@ -5,7 +5,7 @@ import GameHeader from '@/components/GameHeader';
 import HoneycombGridEnhanced from '@/components/HoneycombGridEnhanced';
 import Toast from '@/components/Toast';
 import Modal from '@/components/Modal';
-import WinConfettiOverlay, { CONFETTI_ORIGINS } from '@/components/WinConfettiOverlay';
+import WinConfettiOverlay from '@/components/WinConfettiOverlay';
 import ShareResults from '@/components/ShareResults';
 import BadgeToastQueue from '@/components/BadgeToastQueue';
 import BadgeDetailsSheet from '@/components/BadgeDetailsSheet';
@@ -61,39 +61,31 @@ export default function SpellingBeePage() {
     return calculateMaxScore(puzzle.validWords, allLetters);
   });
 
-  // Game state - initialize with saved progress
-  const [foundWords, setFoundWords] = useState(() => {
-    if (!puzzle) return [];
-    if (typeof window === 'undefined') return [];
-    const saved = localStorage.getItem(getUserStorageKey(`spelling-${puzzle.date}`));
-    if (saved) {
-      const data = JSON.parse(saved);
-      return data.foundWords || [];
-    }
-    return [];
-  });
+  // Game state - initialize with safe defaults, load from localStorage in useEffect (BUG-045)
+  const [foundWords, setFoundWords] = useState([]);
 
-  const [score, setScore] = useState(() => {
-    if (!puzzle) return 0;
-    if (typeof window === 'undefined') return 0;
-    const saved = localStorage.getItem(getUserStorageKey(`spelling-${puzzle.date}`));
-    if (saved) {
-      const data = JSON.parse(saved);
-      return data.score || 0;
-    }
-    return 0;
-  });
+  const [score, setScore] = useState(0);
 
-  const [hintsUsed, setHintsUsed] = useState(() => {
-    if (!puzzle) return 0;
-    if (typeof window === 'undefined') return 0;
+  const [hintsUsed, setHintsUsed] = useState(0);
+
+  // Load saved progress from localStorage after hydration
+  useEffect(() => {
+    if (!puzzle) return;
+    if (typeof window === 'undefined') return;
     const saved = localStorage.getItem(getUserStorageKey(`spelling-${puzzle.date}`));
     if (saved) {
-      const data = JSON.parse(saved);
-      return data.hintsUsed || 0;
+      try {
+        const data = JSON.parse(saved);
+        queueMicrotask(() => {
+          if (data.foundWords) setFoundWords(data.foundWords);
+          if (data.score) setScore(data.score);
+          if (data.hintsUsed) setHintsUsed(data.hintsUsed);
+        });
+      } catch (e) {
+        // ignore corrupted data
+      }
     }
-    return 0;
-  });
+  }, [puzzle]);
 
   const [rank, setRank] = useState(RANK_TIERS[0]);
   const [previousRank, setPreviousRank] = useState(null);
@@ -162,12 +154,6 @@ export default function SpellingBeePage() {
       const allLetters = [puzzle.center, ...puzzle.letters];
       const currentStats = calculateStats(foundWords, puzzle.validWords, allLetters, score, maxScore);
       saveGameToProfile('spelling', { stats: currentStats });
-      const achievements = checkAchievementsForGame('spelling', { rank: getCurrentRank(score, maxScore).name });
-      if (achievements && achievements.length > 0) {
-        queueMicrotask(() => {
-          setBadgeUnlocks(achievements);
-        });
-      }
     }
   }, [foundWords, score, puzzle, hintsUsed, maxScore]);
 
@@ -219,12 +205,21 @@ export default function SpellingBeePage() {
       }
       
       // Submit to leaderboard API
+      const pangramsFound = foundWords.filter((word) => isPangram(word, allLetters)).length;
       submitResult({
         gameKey: 'spelling',
         mode: 'daily',
         success: true,
         attempts: foundWords.length,
-        metadata: { score, maxScore, wordsFound: foundWords.length, totalWords: puzzle.validWords.length, puzzleDate: puzzle.date },
+        metadata: {
+          points: score,
+          score,
+          maxScore,
+          wordsFound: foundWords.length,
+          pangrams: pangramsFound,
+          totalWords: puzzle.validWords.length,
+          puzzleDate: puzzle.date,
+        },
       }).catch(err => console.warn('[Spelling] Failed to submit to leaderboard:', err));
     }
   }, [foundWords, puzzle, score, maxScore, isComplete]);
@@ -427,15 +422,7 @@ export default function SpellingBeePage() {
       <main className="relative max-w-2xl mx-auto px-4 pt-4">
         <WinConfettiOverlay
           active={showWinConfetti}
-          durationMs={3000}
-          intensity={0.8}
-          origin={CONFETTI_ORIGINS.top}
-          palette={[
-            'hsl(var(--wordle-present))',
-            'hsl(var(--warning))',
-            'hsl(var(--button-primary))',
-            'hsl(var(--info))'
-          ]}
+          gameName="spelling"
           onDone={() => setShowWinConfetti(false)}
         />
         {/* Rank Display */}

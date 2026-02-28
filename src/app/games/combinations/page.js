@@ -36,6 +36,7 @@ import TutorialPanel from '@/components/tutorial/TutorialPanel';
 import { GAME_TUTORIALS } from '@/data/tutorials';
 import { useTutorial } from '@/hooks/useTutorial';
 import { useGameContext } from '@/hooks/useGameContext';
+import WinConfettiOverlay from '@/components/WinConfettiOverlay';
 
 export default function CombinationsPage() {
   const { returnUrl, returnLabel, isGroupGame, groupName } = useGameContext();
@@ -58,6 +59,16 @@ export default function CombinationsPage() {
   const [selectedBadge, setSelectedBadge] = useState(null);
   const [showBadgesDrawer, setShowBadgesDrawer] = useState(false);
   const [justSubmittedWord, setJustSubmittedWord] = useState(null);
+  const [showWinConfetti, setShowWinConfetti] = useState(false);
+
+  // Trigger confetti on win
+  useEffect(() => {
+    if (gameState.gameStatus === 'won') {
+      setShowWinConfetti(true);
+    } else {
+      setShowWinConfetti(false);
+    }
+  }, [gameState.gameStatus]);
 
   const tutorial = GAME_TUTORIALS.combinations;
   const {
@@ -86,8 +97,16 @@ export default function CombinationsPage() {
   }, [gameState, mode]);
 
   // Handle game won
+  const hasSubmittedRef = React.useRef(false);
   useEffect(() => {
     if (gameState.gameStatus === 'won' && mode === 'daily') {
+      // Prevent re-submission on component remount (BUG-020)
+      if (hasSubmittedRef.current) {
+        setTimeout(() => setShowResultModal(true), 500);
+        return;
+      }
+      hasSubmittedRef.current = true;
+
       const result = {
         date: getTodayString(),
         win: true,
@@ -385,6 +404,12 @@ export default function CombinationsPage() {
         )}
       </div>
       </main>
+
+      <WinConfettiOverlay
+        active={showWinConfetti}
+        gameName="combinations"
+        onDone={() => setShowWinConfetti(false)}
+      />
 
       {/* Result Modal */}
       {showResultModal && gameState.gameStatus === 'won' && (

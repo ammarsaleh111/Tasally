@@ -353,7 +353,7 @@ export const getDefaultStats = () => ({
 });
 
 export const updateStats = (stats, won, score, maxCombo, bonusWords) => {
-  const today = new Date().toISOString().split('T')[0];
+  const today = getCairoDateKey();
   const newStats = { ...stats };
   
   newStats.gamesPlayed++;
@@ -366,8 +366,9 @@ export const updateStats = (stats, won, score, maxCombo, bonusWords) => {
     newStats.gamesWon++;
     
     // Update streak
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
+    const [year, month, day] = today.split('-').map(Number);
+    const yesterday = new Date(Date.UTC(year, month - 1, day));
+    yesterday.setUTCDate(yesterday.getUTCDate() - 1);
     const yesterdayStr = yesterday.toISOString().split('T')[0];
     
     if (newStats.lastPlayedDate === yesterdayStr) {

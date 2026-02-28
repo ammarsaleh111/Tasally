@@ -240,7 +240,11 @@ export const ACHIEVEMENTS = [
         profile.games.connections.currentStreak >= 7 &&
         profile.games.crossword.currentStreak >= 7 &&
         profile.games.numbers.currentStreak >= 7 &&
-        profile.games.trivia.currentStreak >= 7
+        profile.games.trivia.currentStreak >= 7 &&
+        profile.games.strands.currentStreak >= 7 &&
+        (profile.games.spelling?.currentStreak || 0) >= 7 &&
+        (profile.games.waffle?.currentStreak || 0) >= 7 &&
+        (profile.games.combinations?.currentStreak || 0) >= 7
       );
     },
   },
@@ -295,14 +299,19 @@ export const ACHIEVEMENTS = [
     icon: '📅',
     category: 'general',
     check: (profile) => {
-      const today = new Date().toISOString().split('T')[0];
+      // Use UTC date consistent with getTodayString() in profileManager
+      const now = new Date();
+      const today = `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, '0')}-${String(now.getUTCDate()).padStart(2, '0')}`;
       return (
         profile.games.wordle.lastPlayedDate === today &&
         profile.games.connections.lastPlayedDate === today &&
         profile.games.crossword.lastPlayedDate === today &&
         profile.games.numbers.lastPlayedDate === today &&
         profile.games.trivia.lastPlayedDate === today &&
-        profile.games.strands.lastPlayedDate === today
+        profile.games.strands.lastPlayedDate === today &&
+        (profile.games.spelling?.lastPlayedDate || '') === today &&
+        (profile.games.waffle?.lastPlayedDate || '') === today &&
+        (profile.games.combinations?.lastPlayedDate || '') === today
       );
     },
   },
@@ -537,8 +546,10 @@ export const ACHIEVEMENTS = [
         profile.games.numbers.gamesPlayed +
         profile.games.trivia.gamesPlayed +
         profile.games.strands.gamesPlayed +
-        (profile.games.spelling?.gamesPlayed || 0);
-      return totalGames === 1;
+        (profile.games.spelling?.gamesPlayed || 0) +
+        (profile.games.waffle?.gamesPlayed || 0) +
+        (profile.games.combinations?.gamesPlayed || 0);
+      return totalGames >= 1;
     },
   },
   {

@@ -70,8 +70,12 @@ export const checkAnswer = (userAnswer, correctAnswer) => {
  * Calculate score
  */
 export const calculateScore = (correctAnswers, totalQuestions, timeBonus = 0) => {
-  const baseScore = (correctAnswers / totalQuestions) * 1000;
-  return Math.round(baseScore + timeBonus);
+  const safeTotal = Math.max(1, totalQuestions);
+  const accuracy = correctAnswers / safeTotal;
+  const baseScore = 1200 * accuracy;
+  const thresholdBonus = Math.round(Math.max(0, correctAnswers - 5) * 20);
+  const timePenalty = Math.floor(Math.max(0, timeBonus) / 3);
+  return Math.max(0, Math.round(baseScore + thresholdBonus - timePenalty));
 };
 
 /**
