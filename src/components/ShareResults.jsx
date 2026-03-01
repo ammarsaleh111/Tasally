@@ -10,7 +10,7 @@ const ShareResults = ({ gameName = '', result, puzzleNumber, text }) => {
     // If text is provided directly, use it
     if (text) return text;
     
-    const lines = [`Ammar Times ${gameName.charAt(0).toUpperCase() + gameName.slice(1)} ${puzzleNumber || ''}`];
+    const lines = [`Tasally ${gameName.charAt(0).toUpperCase() + gameName.slice(1)} ${puzzleNumber || ''}`];
 
     switch (gameName) {
       case 'wordle':

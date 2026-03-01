@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Ammar Times daily puzzle games";
+export const alt = "Tasally — Free daily puzzle & brain games online";
 export const size = {
   width: 1200,
   height: 630,
@@ -36,9 +36,9 @@ export default function TwitterImage() {
             marginBottom: 26,
           }}
         >
-          Daily Puzzle Platform
+          Your Daily Brain Challenge
         </div>
-        <div style={{ fontSize: 86, fontWeight: 800, lineHeight: 1.02 }}>Ammar Times</div>
+        <div style={{ fontSize: 86, fontWeight: 800, lineHeight: 1.02 }}>Tasally</div>
         <div
           style={{
             marginTop: 18,
@@ -48,7 +48,7 @@ export default function TwitterImage() {
             lineHeight: 1.28,
           }}
         >
-          Play daily word, logic, trivia, and number puzzles in one place.
+          Play 9 free daily puzzle & word games online — no download needed.
         </div>
       </div>
     ),

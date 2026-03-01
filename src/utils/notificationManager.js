@@ -98,7 +98,7 @@ function sendDailyReminder() {
   }
 
   showNotification('🎮 New puzzles are ready!', {
-    body: 'Start your daily streak on Ammar Times',
+    body: 'Start your daily streak on Tasally',
     tag: 'daily-reminder',
     onClick: () => {
       window.location.href = '/games';

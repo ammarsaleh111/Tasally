@@ -3,7 +3,7 @@
     {
       "userId": "ff7f961e-eded-40fe-9ca7-0f0993d9b38d",
       "name": "Ammar Ahmed",
-      "lastSeen": "2026-02-28T23:01:24.839Z",
+      "lastSeen": "2026-02-28T23:56:50.690Z",
       "currentPage": "&#x2F;",
       "currentGame": null,
       "activities": [
@@ -316,6 +316,46 @@
           "page": "&#x2F;",
           "game": null,
           "timestamp": "2026-02-28T23:01:24.839Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-02-28T23:02:04.396Z"
+        },
+        {
+          "page": "&#x2F;leaderboard",
+          "game": null,
+          "timestamp": "2026-02-28T23:02:07.168Z"
+        },
+        {
+          "page": "&#x2F;profile",
+          "game": null,
+          "timestamp": "2026-02-28T23:02:09.294Z"
+        },
+        {
+          "page": "&#x2F;themes",
+          "game": null,
+          "timestamp": "2026-02-28T23:02:10.801Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-02-28T23:02:16.393Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-02-28T23:56:48.942Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-02-28T23:56:50.688Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-02-28T23:56:50.690Z"
         }
       ]
     },

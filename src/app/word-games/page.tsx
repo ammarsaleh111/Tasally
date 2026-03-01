@@ -41,17 +41,31 @@ const wordGames = [
 ];
 
 export const metadata: Metadata = {
-  title: "Daily Word Games",
+  title: "Free Daily Word Games Online — Wordle, Crossword & More",
   description:
-    "Discover daily word games on Ammar Times, from Wordle-style puzzles to crosswords and spelling challenges.",
+    "Play free daily word games online — Wordle, Connections, Mini Crossword, Strands, Spelling Bee, Waffle, and Combinations. No download needed. New puzzles every day on Tasally.",
   alternates: {
     canonical: "/word-games",
   },
+  keywords: [
+    "word games online free",
+    "daily word games",
+    "wordle alternative",
+    "free word puzzles",
+    "online crossword",
+    "spelling bee game",
+  ],
   openGraph: {
-    title: "Daily Word Games | Ammar Times",
+    title: "Free Daily Word Games Online | Tasally",
     description:
-      "Discover daily word games on Ammar Times, from Wordle-style puzzles to crosswords and spelling challenges.",
+      "Play free daily word games online — Wordle, Connections, Mini Crossword, Strands, Spelling Bee, Waffle, and Combinations.",
     url: absoluteUrl("/word-games"),
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Daily Word Games Online | Tasally",
+    description:
+      "Play free daily word games online — Wordle, Connections, Mini Crossword, Strands, Spelling Bee, Waffle, and Combinations.",
   },
 };
 
@@ -63,7 +77,7 @@ export default function WordGamesPage() {
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Ammar Times Word Games",
+    name: "Tasally Word Games",
     itemListElement: wordGames.map((game, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -85,7 +99,7 @@ export default function WordGamesPage() {
 
       <h1 className="text-4xl font-bold text-foreground">Daily Word Games</h1>
       <p className="mt-4 max-w-3xl text-muted-foreground">
-        Ammar Times includes multiple daily word game formats so players can train vocabulary,
+        Tasally includes multiple daily word game formats so players can train vocabulary,
         pattern recognition, and clue solving in different ways.
       </p>
 

@@ -1,6 +1,6 @@
 /**
  * Theme Engine - Core Logic
- * Ammar Times 3-Layer Theming System
+ * Tasally 3-Layer Theming System
  * 
  * Provides functions to:
  * - Get/set user theme preferences
@@ -36,7 +36,15 @@ export function getUserThemePrefs(): UserThemePrefs {
   }
   
   try {
-    const stored = localStorage.getItem(THEME_STORAGE_KEYS.PREFS);
+    let stored = localStorage.getItem(THEME_STORAGE_KEYS.PREFS);
+    // Migrate from legacy key
+    if (!stored) {
+      stored = localStorage.getItem('ammar-theme-prefs');
+      if (stored) {
+        localStorage.setItem(THEME_STORAGE_KEYS.PREFS, stored);
+        localStorage.removeItem('ammar-theme-prefs');
+      }
+    }
     if (stored) {
       const parsed = JSON.parse(stored);
       return {

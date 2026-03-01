@@ -3,17 +3,23 @@ import GamesPageClient from "./GamesPageClient";
 import { absoluteUrl, buildBreadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata = {
-  title: "Games Hub",
+  title: "Play 9 Free Daily Puzzle Games Online",
   description:
-    "Play nine daily puzzle games: Wordle, Connections, Mini Crossword, Numbers, Trivia, Strands, Waffle, Combinations, and Spelling Bee.",
+    "Choose from nine free daily puzzle games — Wordle, Connections, Mini Crossword, Numbers, Trivia, Strands, Waffle, Combinations, and Spelling Bee. No download required.",
   alternates: {
     canonical: "/games",
   },
   openGraph: {
-    title: "Games Hub | Ammar Times",
+    title: "Play 9 Free Daily Puzzle Games Online | Tasally",
     description:
-      "Choose from daily word games, number puzzles, trivia, and logic challenges.",
+      "Choose from daily word games, number puzzles, trivia quizzes, and logic challenges — all free, all online, new puzzles every day.",
     url: absoluteUrl("/games"),
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Play 9 Free Daily Puzzle Games Online | Tasally",
+    description:
+      "Choose from daily word games, number puzzles, trivia quizzes, and logic challenges — all free, all online, new puzzles every day.",
   },
 };
 
@@ -37,7 +43,7 @@ export default function GamesPage() {
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Ammar Times Games",
+    name: "Tasally Games",
     itemListElement: games.map((game, index) => ({
       "@type": "ListItem",
       position: index + 1,

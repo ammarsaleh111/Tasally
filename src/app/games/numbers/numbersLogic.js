@@ -271,7 +271,7 @@ export const loadStats = () => {
   if (typeof window === 'undefined') return getDefaultStats();
   
   try {
-    const saved = localStorage.getItem(getUserStorageKey('ammar-times-numbers-stats'));
+    const saved = localStorage.getItem(getUserStorageKey('tasally-numbers-stats'));
     if (saved) {
       return JSON.parse(saved);
     }
@@ -288,7 +288,7 @@ export const saveStats = (stats) => {
   if (typeof window === 'undefined') return;
   
   try {
-    localStorage.setItem(getUserStorageKey('ammar-times-numbers-stats'), JSON.stringify(stats));
+    localStorage.setItem(getUserStorageKey('tasally-numbers-stats'), JSON.stringify(stats));
   } catch (error) {
     console.error('Error saving stats:', error);
   }

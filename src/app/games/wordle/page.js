@@ -8,7 +8,7 @@ export const metadata = {
     canonical: '/games/wordle',
   },
   openGraph: {
-    title: 'Wordle | Ammar Times',
+    title: 'Wordle | Tasally',
     description: 'Play the daily Wordle puzzle and guess the hidden word in six tries.',
     url: absoluteUrl('/games/wordle'),
   },

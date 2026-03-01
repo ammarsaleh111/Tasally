@@ -535,7 +535,7 @@ export const ACHIEVEMENTS = [
   {
     id: 'first_day',
     name: 'Welcome!',
-    description: 'Complete your first puzzle on Ammar Times',
+    description: 'Complete your first puzzle on Tasally',
     icon: '👋',
     category: 'general',
     check: (profile) => {

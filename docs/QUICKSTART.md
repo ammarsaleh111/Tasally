@@ -54,7 +54,7 @@ After winning:
 **Example:**
 
 ```
-Ammar Times Wordle #217
+Tasally Wordle #217
 🟨🟩⬛⬛🟩
 ⬛🟩🟩🟩🟩
 ```

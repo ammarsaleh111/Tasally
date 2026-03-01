@@ -3,18 +3,20 @@
 const config = gameSeo.numbers;
 
 export const metadata = {
-  title: config.name + " Game",
+  title: `Play ${config.name} Free Online`,
   description: config.description,
   alternates: {
     canonical: config.path,
   },
+  keywords: config.keywords,
   openGraph: {
-    title: config.name + " | Ammar Times",
+    title: `Play ${config.name} Free Online | Tasally`,
     description: config.description,
     url: absoluteUrl(config.path),
   },
   twitter: {
-    title: config.name + " | Ammar Times",
+    card: "summary_large_image",
+    title: `Play ${config.name} Free Online | Tasally`,
     description: config.description,
   },
 };

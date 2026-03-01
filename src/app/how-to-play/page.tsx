@@ -51,17 +51,30 @@ const gameGuides = [
 ];
 
 export const metadata: Metadata = {
-  title: "How To Play",
+  title: "How To Play — Rules & Tips for All 9 Puzzle Games",
   description:
-    "Learn rules, strategies, and quick-start tips for all Ammar Times daily puzzle games.",
+    "Learn rules, strategies, and quick-start tips for all 9 free daily puzzle games on Tasally — Wordle, Connections, Mini Crossword, Numbers, Trivia, Strands, Spelling Bee, Waffle, and Combinations.",
   alternates: {
     canonical: "/how-to-play",
   },
+  keywords: [
+    "how to play wordle",
+    "connections game rules",
+    "puzzle game tips",
+    "daily puzzle help",
+    "word game strategies",
+  ],
   openGraph: {
-    title: "How To Play | Ammar Times",
+    title: "How To Play — Rules & Tips for All 9 Puzzle Games | Tasally",
     description:
-      "Learn rules, strategies, and quick-start tips for all Ammar Times daily puzzle games.",
+      "Learn rules, strategies, and quick-start tips for all 9 free daily puzzle games on Tasally.",
     url: absoluteUrl("/how-to-play"),
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "How To Play — Rules & Tips | Tasally",
+    description:
+      "Learn rules, strategies, and quick-start tips for all 9 free daily puzzle games on Tasally.",
   },
 };
 
@@ -79,7 +92,7 @@ export default function HowToPlayPage() {
         name: "Are puzzles updated every day?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Ammar Times publishes new daily puzzles across its game categories.",
+          text: "Yes. Tasally publishes new daily puzzles for all nine game categories every single day.",
         },
       },
       {
@@ -87,7 +100,7 @@ export default function HowToPlayPage() {
         name: "Can I replay games in unlimited mode?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Several games offer unlimited mode for practice in addition to daily mode.",
+          text: "Several games, including Wordle and Trivia, offer unlimited or practice mode in addition to the daily challenge.",
         },
       },
       {
@@ -95,7 +108,63 @@ export default function HowToPlayPage() {
         name: "Which games are best for vocabulary practice?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Wordle, Connections, Mini Crossword, Strands, Spelling Bee, Waffle, and Combinations are all vocabulary-focused.",
+          text: "Wordle, Connections, Mini Crossword, Strands, Spelling Bee, Waffle, and Combinations are all vocabulary-focused word games.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is Tasally free to play?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. All nine puzzle games on Tasally are completely free to play with no downloads or subscriptions required.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How does Wordle on Tasally work?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Guess the hidden 5-letter word in six tries. After each guess, tiles turn green (correct position), yellow (wrong position), or gray (not in the word).",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is the Connections game?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Connections presents sixteen words that must be sorted into four groups of four, each sharing a hidden theme. You have four mistakes before the game ends.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can I play Tasally on my phone?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. Tasally is a Progressive Web App (PWA) that works on any mobile browser. You can also install it to your home screen for an app-like experience.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How are scores tracked on Tasally?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Each game tracks your statistics, win streaks, and best scores locally. Sign in with Google to sync your progress and compete on group and global leaderboards.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What makes Tasally different from other puzzle sites?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Tasally combines nine daily puzzle games in one place — word games, math puzzles, trivia, and more — with achievements, leaderboards, groups, and seasonal themes.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Do I need to create an account?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No. You can play all games as a guest. Creating an account with Google lets you save progress across devices, join groups, and appear on leaderboards.",
         },
       },
     ],

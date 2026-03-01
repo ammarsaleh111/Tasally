@@ -5,13 +5,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const VERSION = 'v1';
 
-const KEY_NAME = `ammar:onboarding:${VERSION}:name`;
-const KEY_TUTORIAL = `ammar:onboarding:${VERSION}:tutorialComplete`;
-const KEY_INSTALL = `ammar:onboarding:${VERSION}:installShown`;
-const KEY_RETURN_TO = `ammar:onboarding:${VERSION}:returnTo`;
+const KEY_NAME = `tasally:onboarding:${VERSION}:name`;
+const KEY_TUTORIAL = `tasally:onboarding:${VERSION}:tutorialComplete`;
+const KEY_INSTALL = `tasally:onboarding:${VERSION}:installShown`;
+const KEY_RETURN_TO = `tasally:onboarding:${VERSION}:returnTo`;
 
 const LEGACY_KEY_TUTORIAL = 'ammarTimes:onboarding:v1:tutorialCompleted';
 const LEGACY_KEY_INSTALL = 'ammarTimes:onboarding:v1:installPromptShown';
+const LEGACY_KEY_NAME = 'ammar:onboarding:v1:name';
 
 const readBool = (value) => value === 'true';
 
@@ -25,7 +26,7 @@ const readInitialState = () => {
   }
 
   return {
-    name: localStorage.getItem(KEY_NAME) || '',
+    name: localStorage.getItem(KEY_NAME) || localStorage.getItem(LEGACY_KEY_NAME) || '',
     tutorialComplete:
       readBool(localStorage.getItem(KEY_TUTORIAL)) ||
       readBool(localStorage.getItem(LEGACY_KEY_TUTORIAL)),

@@ -1,8 +1,8 @@
-# Ammar Times - Copilot Instructions
+# Tasally - Copilot Instructions
 
 ## Project Overview
 
-**Ammar Times** is a premium daily puzzle games platform built with Next.js 16.1.1, featuring **9 puzzle games**, **7 seasonal themes**, **48 achievements**, full backend with auth/groups/leaderboards, and a PWA install experience.
+**Tasally (تسالي)** is a premium daily puzzle games platform built with Next.js 16.1.1, featuring **9 puzzle games**, **7 seasonal themes**, **48 achievements**, full backend with auth/groups/leaderboards, and a PWA install experience.
 
 ## Tech Stack
 
@@ -113,7 +113,7 @@
 
 Strict-sequence first-time flow: Name → Tutorial → Install Banner
 
-- Versioned localStorage keys (`ammar:onboarding:v1:*`)
+- Versioned localStorage keys (`tasally:onboarding:v1:*`)
 - Deep-link protection with session-based return routing
 - Components: `src/components/onboarding/` + `OnboardingFlow.jsx`
 

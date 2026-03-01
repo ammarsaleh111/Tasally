@@ -4,7 +4,8 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { secureGetItem, secureSetItem } from '@/utils/secureStorage';
 
-const STORAGE_KEY = 'ammar-times-tutorials-v1';
+const STORAGE_KEY = 'tasally-tutorials-v1';
+const LEGACY_STORAGE_KEY = 'ammar-times-tutorials-v1';
 const STORAGE_VERSION = 1;
 
 const defaultState = {
@@ -41,7 +42,14 @@ export const TutorialProvider = ({ children }) => {
   }, [activeId]);
 
   useEffect(() => {
-    const stored = secureGetItem(STORAGE_KEY, null);
+    let stored = secureGetItem(STORAGE_KEY, null);
+    // Migrate from legacy key
+    if (!stored) {
+      stored = secureGetItem(LEGACY_STORAGE_KEY, null);
+      if (stored) {
+        secureSetItem(STORAGE_KEY, stored);
+      }
+    }
     setState(normalizeState(stored));
     setHydrated(true);
   }, []);

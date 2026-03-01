@@ -87,7 +87,7 @@ export default function FeedbackForm({ isOpen = true, onClose = () => {}, isFloa
             <div>
               <h3 className="text-xl font-bold">Your Feedback Matters</h3>
               <p className="text-sm text-white/80 mt-1">
-                Help us make Ammar Times better
+                Help us make Tasally better
               </p>
             </div>
           </div>

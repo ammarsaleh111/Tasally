@@ -1,5 +1,5 @@
 /**
- * Ammar Times Service Worker
+ * Tasally Service Worker
  * ─────────────────────────────────────────────────────────
  * Strategy:
  *   • Navigation (HTML)  → NetworkFirst  (fresh, fallback to cache)

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 export const metadata: Metadata = {
   title: "Leaderboards",
   description:
-    "Track daily and monthly rankings across all Ammar Times puzzle games.",
+    "Track daily and monthly rankings across all Tasally puzzle games.",
   robots: {
     index: false,
     follow: false,

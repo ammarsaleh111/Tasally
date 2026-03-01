@@ -1,6 +1,6 @@
 /**
  * Theme System Type Definitions
- * Ammar Times - 3-Layer Theming Architecture
+ * Tasally - 3-Layer Theming Architecture
  */
 
 // Theme types
@@ -113,8 +113,8 @@ export interface ThemeRegistry {
 
 // localStorage keys
 export const THEME_STORAGE_KEYS = {
-  PREFS: 'ammar-theme-prefs',
-  BANNER_DISMISSED: 'ammar-theme-banner-dismissed',
+  PREFS: 'tasally-theme-prefs',
+  BANNER_DISMISSED: 'tasally-theme-banner-dismissed',
 } as const;
 
 // Default user preferences

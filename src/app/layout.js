@@ -11,7 +11,7 @@ import SessionBridge from "@/components/SessionBridge";
 import { TutorialProvider } from "@/components/tutorial/TutorialProvider";
 import GlobalTutorial from "@/components/tutorial/GlobalTutorial";
 import PresenceProvider from "@/components/PresenceProvider";
-import { isProductionDeploy, siteDescription, siteName, siteUrl } from "@/lib/seo";
+import { isProductionDeploy, siteDescription, siteName, siteUrl, buildWebSiteJsonLd, buildOrganizationJsonLd } from "@/lib/seo";
 import PWARegister from "@/components/PWARegister";
 import OnboardingFlow from "@/components/OnboardingFlow";
 
@@ -40,8 +40,8 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ammar Times | Daily Puzzle Games",
-    template: "%s | Ammar Times",
+    default: "Tasally | Daily Puzzle & Brain Games",
+    template: "%s | Tasally",
   },
   description: siteDescription,
   applicationName: siteName,
@@ -50,33 +50,46 @@ export const metadata = {
   },
   keywords: [
     "daily puzzle games",
-    "word games",
+    "free online puzzle games",
+    "brain games",
+    "word games online",
     "daily word game",
     "wordle alternative",
+    "wordle online free",
     "connections game",
     "mini crossword",
     "spelling bee game",
     "trivia game",
     "numbers puzzle",
+    "strands game",
+    "waffle word game",
+    "daily brain challenge",
+    "puzzle games no download",
+    "tasally",
+    "free word puzzles",
+    "daily quiz",
+    "online brain teasers",
   ],
+  creator: siteName,
+  publisher: siteName,
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName,
-    title: "Ammar Times | Daily Puzzle Games",
+    title: "Tasally | Daily Puzzle & Brain Games",
     description: siteDescription,
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Ammar Times daily puzzle games",
+        alt: "Tasally daily puzzle & brain games",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ammar Times | Daily Puzzle Games",
+    title: "Tasally | Daily Puzzle & Brain Games",
     description: siteDescription,
     images: ["/twitter-image"],
   },
@@ -92,7 +105,7 @@ export const metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Ammar Times',
+    title: 'Tasally',
   },
   robots: isProductionDeploy
     ? {
@@ -117,19 +130,8 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const webSiteJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: siteName,
-    description: siteDescription,
-    url: siteUrl,
-    inLanguage: "en",
-    publisher: {
-      "@type": "Organization",
-      name: siteName,
-      url: siteUrl,
-    },
-  };
+  const webSiteJsonLd = buildWebSiteJsonLd();
+  const organizationJsonLd = buildOrganizationJsonLd();
 
   return (
     <html lang="en" className="dark">
@@ -139,6 +141,10 @@ export default function RootLayout({ children }) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <PWARegister />
         <AuthProvider>

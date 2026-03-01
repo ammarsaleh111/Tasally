@@ -58,7 +58,7 @@ export default function SiteHeader() {
                 focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] rounded-lg
               "
             >
-              Ammar Times
+              Tasally
             </Link>
 
             {/* Desktop Navigation */}

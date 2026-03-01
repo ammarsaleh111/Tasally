@@ -5,18 +5,18 @@ import { absoluteUrl } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Theme Settings",
   description:
-    "Explore seasonal themes, visual styles, and event skins in Ammar Times.",
+    "Explore seasonal themes, visual styles, and event skins in Tasally.",
   alternates: {
     canonical: "/themes",
   },
   openGraph: {
-    title: "Themes | Ammar Times",
+    title: "Themes | Tasally",
     description:
       "Customize game appearance with seasonal styles and event themes.",
     url: absoluteUrl("/themes"),
   },
   twitter: {
-    title: "Themes | Ammar Times",
+    title: "Themes | Tasally",
     description:
       "Customize game appearance with seasonal styles and event themes.",
   },

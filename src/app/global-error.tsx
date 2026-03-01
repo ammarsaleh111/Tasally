@@ -131,7 +131,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
   return (
     <html lang="en">
       <head>
-        <title>Something Went Wrong — Ammar Times</title>
+        <title>Something Went Wrong — Tasally</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="noindex" />
       </head>
@@ -191,7 +191,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
           </div>
 
           <p style={styles.footer}>
-            Ammar Times — Daily Puzzles & Games
+            Tasally — Daily Puzzle & Brain Games
           </p>
         </main>
       </body>

@@ -91,7 +91,7 @@ const NamePrompt = ({ onNameSet, isOpen = true }) => {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-card border border-card-border rounded-2xl shadow-2xl max-w-md w-full p-8 transform transition-all">
-        <h2 className="text-3xl font-bold mb-2 text-foreground">Welcome to Ammar Times!</h2>
+        <h2 className="text-3xl font-bold mb-2 text-foreground">Welcome to Tasally!</h2>
         <p className="text-text-muted mb-6">
           What should we call you?
         </p>

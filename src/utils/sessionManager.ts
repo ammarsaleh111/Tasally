@@ -13,7 +13,8 @@ export interface AppSession {
 }
 
 const SESSION_VERSION = 1;
-const SESSION_STORAGE_KEY = "ammarTimes_session_v2";
+const SESSION_STORAGE_KEY = "tasally_session_v2";
+const LEGACY_SESSION_KEY = "ammarTimes_session_v2";
 
 let cachedSession: AppSession | null = null;
 const listeners = new Set<() => void>();
@@ -42,7 +43,7 @@ export function subscribe(listener: () => void) {
 function getIdentityPrefix(session: AppSession | null) {
   const role = (session?.role ?? "GUEST").toLowerCase();
   const userId = session?.userId ? encodeURIComponent(session.userId) : "anonymous";
-  return `ammarTimes:${role}:${userId}:`;
+  return `tasally:${role}:${userId}:`;
 }
 
 function clearNamespacedStorage(session: AppSession | null) {
@@ -61,6 +62,9 @@ function clearLegacyStorage() {
   if (typeof window === "undefined") return;
 
   const legacyKeys = new Set([
+    "tasally_profile",
+    "tasally_session",
+    "tasally_allSessions",
     "ammarTimes_profile",
     "ammarTimes_session",
     "ammarTimes_allSessions",
@@ -70,6 +74,10 @@ function clearLegacyStorage() {
     "ammarTimes_definitionsCache",
     "ammarTimes_lastCleanup",
     "ammarTimes_notificationPermission",
+    "tasally_learningLog_v2",
+    "tasally_definitionsCache",
+    "tasally_lastCleanup",
+    "tasally_notificationPermission",
     "lastReminderSent",
     "connections_state",
     "crossword_state",
@@ -91,6 +99,7 @@ function clearLegacyStorage() {
     "waffle",
     "combinations",
     "ammar-times-",
+    "tasally-",
     "hint_state_",
     "strands_visual_hints_",
   ];
@@ -124,6 +133,7 @@ function clearAllSessionData(previousSession: AppSession | null) {
   clearSessionStorage();
   clearGuestId();
   window.localStorage.removeItem(SESSION_STORAGE_KEY);
+  window.localStorage.removeItem(LEGACY_SESSION_KEY);
 }
 
 export function getSession(): AppSession | null {
@@ -134,7 +144,15 @@ export function getSession(): AppSession | null {
   if (cachedSession) return cachedSession;
 
   try {
-    const raw = window.localStorage.getItem(SESSION_STORAGE_KEY);
+    let raw = window.localStorage.getItem(SESSION_STORAGE_KEY);
+    // Migrate from legacy key if new key is empty
+    if (!raw) {
+      raw = window.localStorage.getItem(LEGACY_SESSION_KEY);
+      if (raw) {
+        window.localStorage.setItem(SESSION_STORAGE_KEY, raw);
+        window.localStorage.removeItem(LEGACY_SESSION_KEY);
+      }
+    }
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     cachedSession = normalizeSession(parsed);
@@ -232,7 +250,7 @@ export async function logout() {
 export async function handleAccountDeleted(message?: string) {
   if (typeof window === "undefined") return;
 
-  const noticeKey = "ammarTimes_account_deleted_notice";
+  const noticeKey = "tasally_account_deleted_notice";
   const defaultMessage = "Your account was deleted by an admin.";
 
   try {

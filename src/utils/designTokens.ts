@@ -1,5 +1,5 @@
 /**
- * Ammar Times Design System - Token Definitions
+ * Tasally Design System - Token Definitions
  * Single source of truth for all design tokens
  * 
  * Usage:

@@ -1,8 +1,8 @@
-# 🔒 AMMAR TIMES - SECURITY DOCUMENTATION
+# 🔒 TASALLY - SECURITY DOCUMENTATION
 
 ## ✅ Security Hardening Complete
 
-This document outlines all security measures implemented to protect Ammar Times against realistic attacks.
+This document outlines all security measures implemented to protect Tasally against realistic attacks.
 
 ---
 
@@ -383,13 +383,11 @@ npm run security-test
    ```
 
 2. **Rotate Secrets** (every 90 days)
-
    - Change ADMIN_PASSWORD
    - Regenerate ADMIN_SECRET
    - Update Wordnik API key
 
 3. **Review Logs** (weekly)
-
    - Check for attack patterns
    - Monitor rate limit triggers
    - Verify no data leaks
@@ -412,19 +410,16 @@ npm run security-test
 ### If Security Issue Detected
 
 1. **Immediate**:
-
    - Disable affected endpoint
    - Clear potentially compromised data
    - Rotate all secrets
 
 2. **Investigation**:
-
    - Review logs
    - Identify attack vector
    - Assess data exposure
 
 3. **Fix**:
-
    - Patch vulnerability
    - Add test coverage
    - Deploy fix

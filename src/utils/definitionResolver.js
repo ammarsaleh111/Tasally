@@ -174,7 +174,7 @@ function generateAIDefinition(word, theme) {
   const fallback = new Definition({
     word: normalized,
     partOfSpeech: 'word',
-    definition: `${capitalizedWord} is a valid English word that appears in ${theme?.name || 'Ammar Times'} puzzle games. This word is part of the standard vocabulary used in word-based challenges and puzzle solving.`,
+    definition: `${capitalizedWord} is a valid English word that appears in ${theme?.name || 'Tasally'} puzzle games. This word is part of the standard vocabulary used in word-based challenges and puzzle solving.`,
     example: `You discovered "${capitalizedWord}" while playing today's puzzle.`,
     source: 'ai-generated',
   });
@@ -260,7 +260,7 @@ export async function resolveDefinition(word, options = {}) {
   const fallback = new Definition({
     word: normalized,
     partOfSpeech: 'word',
-    definition: `${capitalizedWord} is a valid word found in ${theme?.name || 'Ammar Times'} puzzles. This term is part of the standard vocabulary used in daily word games and challenges.`,
+    definition: `${capitalizedWord} is a valid word found in ${theme?.name || 'Tasally'} puzzles. This term is part of the standard vocabulary used in daily word games and challenges.`,
     example: `The word "${capitalizedWord}" appeared in today's puzzle.`,
     source: 'fallback',
   });

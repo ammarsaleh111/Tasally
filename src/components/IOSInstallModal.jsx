@@ -28,7 +28,7 @@ export default function IOSInstallModal({ isOpen, onClose }) {
         </div>
 
         <div className="space-y-4 text-[hsl(var(--muted-foreground))]">
-          <p>To install Ammar Times on your device:</p>
+          <p>To install Tasally on your device:</p>
           <ol className="space-y-3 ml-1">
             <li className="flex items-start gap-3">
               <span className="shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] text-xs font-bold">1</span>

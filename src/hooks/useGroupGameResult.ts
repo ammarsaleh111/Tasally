@@ -25,7 +25,7 @@ export function useGroupGameResult() {
   const [groupContext] = useState<GroupContext | null>(() => {
     if (typeof window === 'undefined') return null;
     try {
-      const raw = sessionStorage.getItem('ammarTimes_groupContext');
+      const raw = sessionStorage.getItem('tasally_groupContext');
       if (!raw) return null;
       const ctx = JSON.parse(raw) as GroupContext;
       return ctx.groupId && ctx.gameKey ? ctx : null;
@@ -50,7 +50,7 @@ export function useGroupGameResult() {
         if (res.ok) {
           setSubmitted(true);
           setResult(res.data);
-          sessionStorage.removeItem('ammarTimes_groupContext');
+          sessionStorage.removeItem('tasally_groupContext');
         }
         return res;
       } catch {
@@ -61,7 +61,7 @@ export function useGroupGameResult() {
   );
 
   const clearContext = useCallback(() => {
-    sessionStorage.removeItem('ammarTimes_groupContext');
+    sessionStorage.removeItem('tasally_groupContext');
   }, []);
 
   return {

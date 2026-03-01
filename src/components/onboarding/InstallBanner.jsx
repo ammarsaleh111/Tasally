@@ -38,7 +38,7 @@ export default function InstallBanner({ isOpen, onDone }) {
     <>
       <div
         role="banner"
-        aria-label="Install Ammar Times app"
+        aria-label="Install Tasally app"
         className="fixed top-0 left-0 right-0 z-[100] px-3 pt-3 pb-1 sm:px-4 sm:pt-4 animate-in slide-in-from-top duration-300"
       >
         <div className="max-w-2xl mx-auto bg-[hsl(var(--card))] border border-[hsl(var(--border))] shadow-2xl rounded-2xl p-4 sm:p-5">
@@ -55,13 +55,13 @@ export default function InstallBanner({ isOpen, onDone }) {
 
             <div className="flex-1 min-w-0">
               <h3 className="font-bold text-[hsl(var(--foreground))] text-sm sm:text-base leading-snug">
-                Install Ammar Times
+                Install Tasally
               </h3>
               <p className="text-xs sm:text-sm text-[hsl(var(--muted-foreground))] mt-0.5 leading-relaxed">
                 {isIOS
                   ? 'Install from Safari: tap Share, then Add to Home Screen.'
                   : canInstall
-                    ? 'Install Ammar Times for faster access and an app-like experience.'
+                    ? 'Install Tasally for faster access and an app-like experience.'
                     : 'Install unlocks after a short period of use. Try again in a moment.'}
               </p>
 

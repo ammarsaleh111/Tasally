@@ -13,7 +13,7 @@ export type GameContext =
   | { type: "global" }
   | { type: "group"; groupId: string; groupName?: string };
 
-const CONTEXT_STORAGE_KEY = "ammarTimes_gameContext";
+const CONTEXT_STORAGE_KEY = "tasally_gameContext";
 let globalResultsBackoffUntil = 0;
 let lastGlobalSubmitKey = "";
 let lastGlobalSubmitAt = 0;

@@ -130,10 +130,10 @@ export default function Home() {
           initial="hidden"
           animate="visible"
         >
-          {/* Ammar Times FIRST (real header) */}
+          {/* Tasally FIRST (real header) */}
           <motion.div variants={itemVariants}>
             <SeasonPageHeader
-              title="Ammar Times"
+              title="Tasally"
               subtitle="Your daily dose of mental exercise. Challenge your mind with 9 unique puzzle games."
               showBadge={true}
             />
@@ -338,7 +338,7 @@ export default function Home() {
       <footer className="py-6 px-4 text-center border-t border-[hsl(var(--border))]">
         <p className="text-sm text-[hsl(var(--muted-foreground))] flex items-center justify-center gap-2">
           <SeasonIcon index={5} />
-          © 2026 Ammar Times. All rights reserved.
+          © 2026 Tasally. All rights reserved.
           <SeasonIcon index={6} />
         </p>
       </footer>

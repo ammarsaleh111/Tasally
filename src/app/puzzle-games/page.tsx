@@ -21,17 +21,31 @@ const puzzleCategories = [
 ];
 
 export const metadata: Metadata = {
-  title: "Online Puzzle Games",
+  title: "Free Online Puzzle Games — Word, Math & Trivia",
   description:
-    "Play online puzzle games daily with multiple categories: word puzzles, math challenges, and trivia.",
+    "Play free online puzzle games daily — word puzzles, math challenges, trivia quizzes, and more. Nine games, fresh content every day, no download required on Tasally.",
   alternates: {
     canonical: "/puzzle-games",
   },
+  keywords: [
+    "online puzzle games free",
+    "daily puzzle games",
+    "brain games online",
+    "math puzzle game",
+    "trivia quiz online",
+    "free brain teasers",
+  ],
   openGraph: {
-    title: "Online Puzzle Games | Ammar Times",
+    title: "Free Online Puzzle Games | Tasally",
     description:
-      "Play online puzzle games daily with multiple categories: word puzzles, math challenges, and trivia.",
+      "Play free online puzzle games daily — word puzzles, math challenges, trivia quizzes, and more.",
     url: absoluteUrl("/puzzle-games"),
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Online Puzzle Games | Tasally",
+    description:
+      "Play free online puzzle games daily — word puzzles, math challenges, trivia quizzes, and more.",
   },
 };
 
@@ -43,7 +57,7 @@ export default function PuzzleGamesPage() {
   const collectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Ammar Times Puzzle Categories",
+    name: "Tasally Puzzle Categories",
     description:
       "Puzzle categories including word puzzles, number puzzles, and trivia.",
     url: absoluteUrl("/puzzle-games"),

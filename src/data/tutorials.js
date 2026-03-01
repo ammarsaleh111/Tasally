@@ -3,7 +3,7 @@ export const GLOBAL_TUTORIAL = {
   title: 'Getting Started',
   steps: [
     {
-      title: 'Welcome to Ammar Times',
+      title: 'Welcome to Tasally',
       body: 'Daily brain games in one place. Short sessions, clear progress, and a calm pace.',
       illustration: 'W',
     },

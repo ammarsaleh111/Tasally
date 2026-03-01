@@ -188,11 +188,11 @@ export function generateShareText(stats, date) {
   const emoji = stats.pangramsFound > 0 ? '🐝' : '🔤';
   const rank = stats.rank === 'Queen Bee' ? '👑' : stats.rank;
   
-  return `Ammar Times Spelling Bee
+  return `Tasally Spelling Bee
 ${emoji} Score: ${stats.score}/${stats.maxScore}
 Rank: ${rank}
 Words: ${stats.wordsFound}/${stats.totalWords}
 ${stats.pangramsFound > 0 ? `Pangram${stats.pangramsFound > 1 ? 's' : ''} found! ✨` : ''}
 
-Play at ammartimes.com`;
+Play at tasally.com`;
 }

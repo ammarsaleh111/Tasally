@@ -1,5 +1,5 @@
 /**
- * Theme Engine for Ammar Times
+ * Theme Engine for Tasally
  * Manages seasonal, weekly, and event-based themes across all games
  */
 

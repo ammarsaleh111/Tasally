@@ -96,7 +96,7 @@ export default function NotFound() {
           className="mt-8 text-xs"
           style={{ color: 'hsl(var(--muted-foreground))' }}
         >
-          Ammar Times — Daily Puzzles & Games
+          Tasally — Daily Puzzle & Brain Games
         </p>
       </Card>
     </main>

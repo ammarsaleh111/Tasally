@@ -1,6 +1,6 @@
 {
-  "name": "Ammar Times",
-  "short_name": "Ammar Times",
+  "name": "Tasally",
+  "short_name": "Tasally",
   "description": "Play daily puzzle games: Wordle, Connections, Crossword, Numbers, Trivia & more.",
   "start_url": "/",
   "scope": "/",
@@ -42,7 +42,7 @@
       "sizes": "1200x630",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Ammar Times – Daily Puzzle Games"
+      "label": "Tasally – Daily Puzzle & Brain Games"
     }
   ],
   "prefer_related_applications": false

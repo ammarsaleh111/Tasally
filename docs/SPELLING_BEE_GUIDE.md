@@ -103,13 +103,13 @@ A NYT-style Spelling Bee game where players form words using 7 letters (1 center
 ### Share Feature
 
 ```
-Ammar Times Spelling Bee
+Tasally Spelling Bee
 🐝 Score: 73/100
 Rank: Amazing
 Words: 24/35
 Pangram found! ✨
 
-Play at ammartimes.com
+Play at tasally.com
 ```
 
 ## Color Scheme

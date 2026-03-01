@@ -1,6 +1,6 @@
 /**
  * Theme Registry
- * Central registry for all themes in Ammar Times.
+ * Central registry for all themes in Tasally.
  * 
  * Three-layer architecture:
  * 1. Dominant Themes - Admin-controlled special events (Ramadan, Eid)

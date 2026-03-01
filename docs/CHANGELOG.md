@@ -1,12 +1,12 @@
 # Changelog
 
-All notable changes to Ammar Times will be documented in this file.
+All notable changes to Tasally will be documented in this file.
 
 ## [2.0.0] - 2026-01-10
 
 ### 🎉 Major Update: Meta-Game System
 
-The complete meta-game system has been implemented, transforming Ammar Times into an engaging platform with persistent player progress.
+The complete meta-game system has been implemented, transforming Tasally into an engaging platform with persistent player progress.
 
 ### ✨ Added
 
@@ -38,7 +38,6 @@ The complete meta-game system has been implemented, transforming Ammar Times int
 #### Features
 
 - **31 Achievements** across 5 categories:
-
   - 5 Streak achievements (3, 7, 10, 30, 100 days)
   - 4 Wordle achievements
   - 3 Connections achievements
@@ -47,14 +46,12 @@ The complete meta-game system has been implemented, transforming Ammar Times int
   - 7 Cross-game achievements
 
 - **Visual Statistics**:
-
   - 7-day activity graphs
   - 30-day compact graphs
   - Win/loss visualization
   - Per-game metrics
 
 - **Share Functionality**:
-
   - Emoji-based result summaries
   - No-spoiler format
   - Clipboard copy
@@ -72,14 +69,12 @@ The complete meta-game system has been implemented, transforming Ammar Times int
 #### Game Integrations
 
 - **Wordle** - Integrated with profile manager
-
   - Stats recording on completion
   - Share button in result modal
   - Achievement unlock notifications
   - Daily reminder display
 
 - **Connections** - Integrated with profile manager
-
   - Stats recording with mistake tracking
   - Perfect game detection
   - Share functionality

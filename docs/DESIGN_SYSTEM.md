@@ -1,4 +1,4 @@
-# Ammar Times - Design System Documentation
+# Tasally - Design System Documentation
 
 ## 🎨 Color System Governance
 
@@ -9,7 +9,7 @@
 
 ## Overview
 
-Ammar Times uses a **single source of truth** color system with CSS variables that provide:
+Tasally uses a **single source of truth** color system with CSS variables that provide:
 
 - **Dark Blue Theme** (Primary) - Deep, premium, NYT-quality aesthetic
 - **Light Theme** (Secondary) - Clean, bright, modern appearance

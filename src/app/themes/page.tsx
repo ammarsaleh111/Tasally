@@ -34,7 +34,7 @@ export default function ThemesPage() {
         <div className="text-center">
           <SeasonPageHeader 
             title="Theme Settings"
-            subtitle="Customize your Ammar Times experience. Choose your appearance mode, add seasonal decorations, and manage special event themes."
+            subtitle="Customize your Tasally experience. Choose your appearance mode, add seasonal decorations, and manage special event themes."
             showBadge={true}
           />
         </div>

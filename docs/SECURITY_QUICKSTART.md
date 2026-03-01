@@ -2,7 +2,7 @@
 
 ## ✅ Security Hardening Complete!
 
-Ammar Times is now fully hardened against all realistic attacks including XSS, clickjacking, script injection, API abuse, data leaks, bot attacks, admin hijacking, and malicious input.
+Tasally is now fully hardened against all realistic attacks including XSS, clickjacking, script injection, API abuse, data leaks, bot attacks, admin hijacking, and malicious input.
 
 ---
 
@@ -219,7 +219,7 @@ localStorage.setItem(
   "profile",
   JSON.stringify({
     name: '<script>alert("XSS")</script>',
-  })
+  }),
 );
 
 // After: ✅ Safe
@@ -320,7 +320,7 @@ Test these scenarios:
 
 ## 🎉 Summary
 
-**Ammar Times is now PRODUCTION READY with enterprise-grade security!**
+**Tasally is now PRODUCTION READY with enterprise-grade security!**
 
 ✅ **10 security layers** implemented  
 ✅ **15+ attack vectors** blocked  

@@ -72,7 +72,7 @@ export default function PWAInstallButton() {
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="truncate font-semibold leading-snug">Ammar Times</p>
+        <p className="truncate font-semibold leading-snug">Tasally</p>
         <p className="text-xs text-muted-foreground truncate">Install for quick access</p>
       </div>
 

@@ -1,6 +1,6 @@
-# 🚀 Ammar Times - Deployment & Setup Guide
+# 🚀 Tasally - Deployment & Setup Guide
 
-This guide walks you through setting up the backend infrastructure and deploying Ammar Times to production.
+This guide walks you through setting up the backend infrastructure and deploying Tasally to production.
 
 ## 📋 Table of Contents
 
@@ -31,7 +31,7 @@ This guide walks you through setting up the backend infrastructure and deploying
 
 ```bash
 git clone <your-repo-url>
-cd ammar_times
+cd tasally
 npm install
 ```
 
@@ -53,7 +53,7 @@ cp .env.example .env.local
 
 1. Go to [neon.tech](https://neon.tech) and sign up/login
 2. Click **"New Project"**
-3. Choose a name (e.g., `ammar-times-db`)
+3. Choose a name (e.g., `tasally-db`)
 4. Select a region close to your users
 5. Click **"Create Project"**
 
@@ -192,16 +192,16 @@ Ensure your code is in a GitHub repository (private or public).
 
 In Netlify dashboard, go to **Site settings > Environment variables** and add:
 
-| Variable               | Value                                    |
-| ---------------------- | ---------------------------------------- |
-| `DATABASE_URL`         | Your Neon pooled connection string       |
-| `NEXTAUTH_SECRET`      | Generate a **NEW** secret for production |
-| `NEXTAUTH_URL`         | `https://your-site-name.netlify.app`     |
-| `GOOGLE_CLIENT_ID`     | Your Google OAuth client ID              |
-| `GOOGLE_CLIENT_SECRET` | Your Google OAuth client secret          |
-| `NEXT_PUBLIC_SITE_URL` | Canonical public URL (e.g. `https://ammartimes.tech`) |
-| `NEXT_PUBLIC_CANONICAL_HOST` | Canonical host only (e.g. `ammartimes.tech`) |
-| `NEXT_PUBLIC_CANONICAL_PROTOCOL` | Usually `https` |
+| Variable                         | Value                                             |
+| -------------------------------- | ------------------------------------------------- |
+| `DATABASE_URL`                   | Your Neon pooled connection string                |
+| `NEXTAUTH_SECRET`                | Generate a **NEW** secret for production          |
+| `NEXTAUTH_URL`                   | `https://your-site-name.netlify.app`              |
+| `GOOGLE_CLIENT_ID`               | Your Google OAuth client ID                       |
+| `GOOGLE_CLIENT_SECRET`           | Your Google OAuth client secret                   |
+| `NEXT_PUBLIC_SITE_URL`           | Canonical public URL (e.g. `https://tasally.com`) |
+| `NEXT_PUBLIC_CANONICAL_HOST`     | Canonical host only (e.g. `tasally.com`)          |
+| `NEXT_PUBLIC_CANONICAL_PROTOCOL` | Usually `https`                                   |
 
 ⚠️ **CRITICAL**: Use a **different** `NEXTAUTH_SECRET` for production than your local dev environment.
 
@@ -253,7 +253,7 @@ Then submit sitemap in Google Search Console.
 | "Invalid session" errors    | Regenerate `NEXTAUTH_SECRET` and redeploy                         |
 | Leaderboard empty           | Ensure you're playing in **daily mode** while authenticated       |
 | Results not saving          | Check Netlify function logs for API errors                        |
-| Guest link not working      | Check localStorage for `ammar_guest_id` before logging in         |
+| Guest link not working      | Check localStorage for `tasally_guest_id` before logging in       |
 
 ---
 
@@ -279,7 +279,7 @@ Then submit sitemap in Google Search Console.
 
 **"Failed to link guest"**
 
-- Ensure `ammar_guest_id` exists in localStorage before logging in
+- Ensure `tasally_guest_id` exists in localStorage before logging in
 - Check API logs for errors
 
 **Google OAuth redirect mismatch**
@@ -342,4 +342,4 @@ For issues:
 
 ---
 
-**🎉 Congratulations! Your Ammar Times platform is now live with full backend support.**
+**🎉 Congratulations! Your Tasally platform is now live with full backend support.**

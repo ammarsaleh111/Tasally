@@ -72,7 +72,7 @@ export default function PuzzleLoader() {
           }}
         >
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-wordle-correct via-connections-purple to-connections-blue bg-clip-text text-transparent">
-            Ammar Times
+            Tasally
           </h1>
         </div>
 

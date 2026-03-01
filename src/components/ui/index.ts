@@ -1,5 +1,5 @@
 /**
- * Ammar Times - Design System UI Components
+ * Tasally - Design System UI Components
  * 
  * A unified component library for consistent UI across the platform.
  * All components are theme-aware and support both light and dark modes.

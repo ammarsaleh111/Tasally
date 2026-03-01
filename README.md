@@ -1,4 +1,4 @@
-# 🎮 Ammar Times
+# 🎮 Tasally (تسالي)
 
 A premium daily puzzle games platform featuring **9 engaging games**, **7 seasonal themes**, **48 achievements**, a full **backend with auth/groups/leaderboards**, and a **PWA** install experience — inspired by the New York Times Games suite.
 
@@ -238,7 +238,7 @@ First-time users experience a strict-sequence flow:
 
 Features:
 
-- Versioned localStorage keys (`ammar:onboarding:v1:*`)
+- Versioned localStorage keys (`tasally:onboarding:v1:*`)
 - Deep-link protection (completes onboarding before returning to intended route)
 - Hydration-safe (SSR-compatible)
 - Components: `src/components/onboarding/` + `src/components/OnboardingFlow.jsx`
@@ -264,7 +264,7 @@ Features:
 ## 📁 Project Structure
 
 ```
-ammar_times/
+tasally/
 ├── README.md                  # This file
 ├── docs/                      # All documentation (37 .md files)
 │   ├── CHANGELOG.md
@@ -366,7 +366,7 @@ ammar_times/
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd ammar_times
+cd tasally
 
 # Install dependencies
 npm install

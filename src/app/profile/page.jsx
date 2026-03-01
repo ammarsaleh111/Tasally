@@ -1008,7 +1008,7 @@ const FeedbackTab = () => {
       
       <div className="bg-card border border-border rounded-xl p-6 transition-all duration-200">
         <p className="text-muted-foreground mb-6">
-          We value your feedback! Share your thoughts, report bugs, or suggest features to help us improve Ammar Times.
+          We value your feedback! Share your thoughts, report bugs, or suggest features to help us improve Tasally.
         </p>
         
         <div className="bg-secondary/30 rounded-xl p-4">
@@ -1278,7 +1278,7 @@ const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
       <div className="bg-secondary/30 rounded-xl p-5">
         <h3 className="font-semibold text-foreground mb-3">About</h3>
         <div className="space-y-1.5 text-sm text-muted-foreground">
-          <p>Platform: Ammar Times</p>
+          <p>Platform: Tasally</p>
           <p>Version: 2.1.0</p>
           <p>Storage: Local (Browser Storage)</p>
         </div>

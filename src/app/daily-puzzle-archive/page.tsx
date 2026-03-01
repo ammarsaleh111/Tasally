@@ -15,17 +15,29 @@ const archiveLinks = [
 ];
 
 export const metadata: Metadata = {
-  title: "Daily Puzzle Archive",
+  title: "Daily Puzzle Archive — All 9 Games",
   description:
-    "Browse all daily puzzle categories and continue your streak in Ammar Times.",
+    "Browse every daily puzzle category on Tasally — Wordle, Connections, Crossword, Numbers, Trivia, Strands, Spelling Bee, Waffle, and Combinations. Continue your streak today.",
   alternates: {
     canonical: "/daily-puzzle-archive",
   },
+  keywords: [
+    "daily puzzle archive",
+    "puzzle of the day",
+    "daily brain games",
+    "wordle today",
+  ],
   openGraph: {
-    title: "Daily Puzzle Archive | Ammar Times",
+    title: "Daily Puzzle Archive | Tasally",
     description:
-      "Browse all daily puzzle categories and continue your streak in Ammar Times.",
+      "Browse every daily puzzle category on Tasally and continue your streak.",
     url: absoluteUrl("/daily-puzzle-archive"),
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Daily Puzzle Archive | Tasally",
+    description:
+      "Browse every daily puzzle category on Tasally and continue your streak.",
   },
 };
 

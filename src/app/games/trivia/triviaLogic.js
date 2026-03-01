@@ -137,7 +137,7 @@ export const getStreakBonus = (streak) => {
  */
 export const saveStats = (stats) => {
   if (typeof window !== 'undefined') {
-    localStorage.setItem(getUserStorageKey('ammar-times-trivia-stats'), JSON.stringify(stats));
+    localStorage.setItem(getUserStorageKey('tasally-trivia-stats'), JSON.stringify(stats));
   }
 };
 
@@ -146,7 +146,7 @@ export const saveStats = (stats) => {
  */
 export const loadStats = () => {
   if (typeof window !== 'undefined') {
-    const saved = localStorage.getItem(getUserStorageKey('ammar-times-trivia-stats'));
+    const saved = localStorage.getItem(getUserStorageKey('tasally-trivia-stats'));
     if (saved) {
       try {
         return JSON.parse(saved);
