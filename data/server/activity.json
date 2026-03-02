@@ -3,25 +3,10 @@
     {
       "userId": "ff7f961e-eded-40fe-9ca7-0f0993d9b38d",
       "name": "Ammar Ahmed",
-      "lastSeen": "2026-03-02T04:01:15.554Z",
+      "lastSeen": "2026-03-02T04:02:04.833Z",
       "currentPage": "&#x2F;games",
       "currentGame": null,
       "activities": [
-        {
-          "page": "&#x2F;games",
-          "game": null,
-          "timestamp": "2026-03-01T23:44:57.957Z"
-        },
-        {
-          "page": "&#x2F;games",
-          "game": null,
-          "timestamp": "2026-03-01T23:44:57.965Z"
-        },
-        {
-          "page": "&#x2F;",
-          "game": null,
-          "timestamp": "2026-03-01T23:45:03.056Z"
-        },
         {
           "page": "&#x2F;profile",
           "game": null,
@@ -1006,6 +991,21 @@
           "page": "&#x2F;games",
           "game": null,
           "timestamp": "2026-03-02T04:01:15.554Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;crossword",
+          "game": null,
+          "timestamp": "2026-03-02T04:02:03.457Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-03-02T04:02:04.826Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-03-02T04:02:04.833Z"
         }
       ]
     },
