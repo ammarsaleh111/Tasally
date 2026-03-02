@@ -12,6 +12,7 @@ import { TutorialProvider } from "@/components/tutorial/TutorialProvider";
 import GlobalTutorial from "@/components/tutorial/GlobalTutorial";
 import PresenceProvider from "@/components/PresenceProvider";
 import {
+//asdjasd
   isProductionDeploy,
   siteDescription,
   siteDescriptionArabic,
@@ -91,7 +92,7 @@ export const metadata = {
     images: ["/twitter-image"],
   },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "Bj4vWtesvRNecM3vXkvZwZwBCWm96NFT5j2IZ0RooYw",
     other: {
       "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION || undefined,
       yandex: process.env.NEXT_PUBLIC_YANDEX_SITE_VERIFICATION || undefined,
