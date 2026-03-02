@@ -8,6 +8,10 @@ export const metadata = {
     "Choose from nine free daily puzzle games — Wordle, Connections, Mini Crossword, Numbers, Trivia, Strands, Waffle, Combinations, and Spelling Bee. No download required.",
   alternates: {
     canonical: "/games",
+    languages: {
+      en: "/games",
+      ar: "/العاب-تسالي",
+    },
   },
   openGraph: {
     title: "Play 9 Free Daily Puzzle Games Online | Tasally",

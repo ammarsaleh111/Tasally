@@ -104,6 +104,7 @@ export default function SpellingBeePage() {
   const [hasCelebratedWin, setHasCelebratedWin] = useState(false);
   const prevWinRef = useRef(false);
   const initialWinHandledRef = useRef(false);
+  const dragSubmitTimeoutRef = useRef(null);
   const [showRankUp, setShowRankUp] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
@@ -303,6 +304,11 @@ export default function SpellingBeePage() {
 
   // Handle drag word change (from HoneycombGridEnhanced)
   const handleDragWordChange = useCallback((word) => {
+    // Clear any pending drag submit
+    if (dragSubmitTimeoutRef.current) {
+      clearTimeout(dragSubmitTimeoutRef.current);
+    }
+
     if (!word || word.length < 4) {
       // Just update display, don't submit short words
       if (word) {
@@ -315,7 +321,8 @@ export default function SpellingBeePage() {
     setCurrentWord(word);
     
     // Submit after a brief delay to show the word
-    setTimeout(() => {
+    dragSubmitTimeoutRef.current = setTimeout(() => {
+      dragSubmitTimeoutRef.current = null;
       const allLetters = [puzzle.center, ...puzzle.letters];
       const validation = validateWord(
         word,
@@ -345,6 +352,15 @@ export default function SpellingBeePage() {
       }
     }, 200);
   }, [puzzle, foundWords, showToast]);
+
+  // Cleanup drag submit timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (dragSubmitTimeoutRef.current) {
+        clearTimeout(dragSubmitTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Handle keyboard input
   useEffect(() => {
@@ -419,166 +435,181 @@ export default function SpellingBeePage() {
         returnLabel={returnLabel}
       />
 
-      <main className="relative max-w-2xl mx-auto px-4 pt-4">
+      <main className="relative max-w-5xl mx-auto px-4 pt-4">
         <WinConfettiOverlay
           active={showWinConfetti}
           gameName="spelling"
           onDone={() => setShowWinConfetti(false)}
         />
-        {/* Rank Display */}
-        {showRankUp && previousRank && (
-          <div className="mb-4 p-4 bg-card rounded-lg shadow-lg border-2 border-yellow-400 animate-bounce">
-            <div className="text-center">
-              <div className="text-sm text-text-muted">Rank Up!</div>
-              <div className="text-2xl font-bold" style={{ color: rank.color }}>
-                {rank.name}
-              </div>
-            </div>
-          </div>
-        )}
 
-        {/* Score and Progress */}
-        <div className="mb-6 bg-card rounded-lg shadow-md p-6 border border-card-border" data-tutorial="spelling-score">
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <div className="text-sm text-text-muted">Score</div>
-              <div className="text-3xl font-bold text-foreground">{score}</div>
-            </div>
-            <div className="text-right">
-              <div className="text-sm text-text-muted">Rank</div>
-              <div className="text-xl font-bold" style={{ color: rank.color }}>
-                {rank.name}
-              </div>
-            </div>
-          </div>
+        {/* Two-column layout on desktop, single column on mobile */}
+        <div className="flex flex-col lg:flex-row-reverse lg:gap-8 lg:items-start">
 
-          {/* Progress Bar */}
-          <div className="relative h-3 bg-graph-bg rounded-full overflow-hidden">
-            <div
-              className="absolute h-full bg-wordle-present transition-all duration-500"
-              style={{ width: `${(score / maxScore) * 100}%` }}
-            />
-          </div>
-          <div className="flex justify-between text-xs text-text-muted mt-1">
-            <span>{foundWords.length} words</span>
-            <span>{Math.round((score / maxScore) * 100)}%</span>
-          </div>
-        </div>
-
-        {isComplete && (
-          <div className="mb-6 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-xs text-text-muted flex items-center justify-between">
-            <div className="font-semibold text-foreground">✅ Solved</div>
-            <div>Words: {foundWords.length}/{puzzle.validWords.length} · Pangrams: {puzzle.pangrams.filter(p => foundWords.includes(p)).length}</div>
-          </div>
-        )}
-
-        {/* Current Word Display */}
-        <div className="mb-6">
-          <div
-            id="current-word-display"
-            className="min-h-16 bg-card border border-card-border rounded-lg shadow-md p-4 flex items-center justify-center"
-          >
-            <div className="text-3xl font-bold text-foreground tracking-wider">
-              {currentWord || <span className="text-text-muted">Type or click letters</span>}
-            </div>
-          </div>
-        </div>
-
-        {/* Honeycomb Grid with Path Visualization */}
-        <div className="mb-6" data-tutorial="spelling-grid">
-          <HoneycombGridEnhanced
-            centerLetter={puzzle.center}
-            outerLetters={outerLetters}
-            onLetterClick={handleLetterClick}
-            onWordChange={handleDragWordChange}
-            currentWord={currentWord}
-            disabled={isComplete}
-          />
-        </div>
-
-        {/* Action Buttons */}
-        <div className="grid grid-cols-3 gap-3 mb-6" data-tutorial="spelling-actions">
-          <button
-            onClick={handleBackspace}
-            className="py-3 bg-key-bg text-key-text rounded-lg hover:bg-key-bg-hover font-semibold transition-colors py-3 bg-key-bg text-key-text rounded-lg hover:bg-key-bg-hover font-semibold transition-colors bg-card border border-card-border rounded-lg hover:bg-surface-hover"
-          >
-            Delete
-          </button>
-          <button
-            onClick={handleShuffle}
-            className="py-3 bg-button-primary text-button-text rounded-lg hover:bg-button-primary-hover font-semibold transition-colors"
-          >
-            🔄 Shuffle
-          </button>
-          <button
-            onClick={handleSubmit}
-            className="py-3 bg-wordle-present text-background rounded-lg hover:bg-wordle-correct font-semibold transition-colors"
-          >
-            Enter
-          </button>
-        </div>
-
-        {/* Hint Button */}
-        <div className="mb-6">
-          <button
-            onClick={handleHint}
-            className="w-full py-2 bg-card border border-card-border text-foreground rounded-lg hover:bg-surface-hover transition-colors text-sm font-medium"
-            disabled={hintButtonText === 'No Hints Left'}
-          >
-            💡 {hintButtonText} {hintsUsed > 0 && `(${hintsUsed} used)`}
-          </button>
-        </div>
-
-        {/* Found Words */}
-        <div className="bg-card border border-card-border rounded-lg shadow-md p-6">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-bold text-foreground">
-              Found Words ({foundWords.length})
-            </h3>
-            <div className="text-sm text-text-muted">
-              {puzzle.pangrams.filter(p => foundWords.includes(p)).length}/
-              {puzzle.pangrams.length} pangrams
-            </div>
-          </div>
-
-          {foundWords.length === 0 ? (
-            <div className="text-center text-text-muted py-8">
-              No words found yet
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {foundWords.map((word, index) => (
-                <div
-                  key={index}
-                  className={`
-                    p-2 rounded text-center text-sm font-medium
-                    ${puzzle.pangrams.includes(word)
-                      ? 'bg-wordle-present text-background border border-wordle-correct'
-                      : 'bg-surface-hover text-foreground'
-                    }
-                  `}
-                >
-                  {word}
-                  {puzzle.pangrams.includes(word) && ' 🐝'}
+          {/* RIGHT column (desktop) — Game Play Area */}
+          <div className="lg:w-[360px] lg:flex-shrink-0 lg:sticky lg:top-4">
+            {/* Current Word Display */}
+            <div className="mb-6">
+              <div
+                id="current-word-display"
+                className="min-h-16 bg-card border border-card-border rounded-lg shadow-md p-4 flex items-center justify-center"
+              >
+                <div className="text-3xl font-bold text-foreground tracking-wider">
+                  {currentWord || <span className="text-text-muted">Type or click letters</span>}
                 </div>
-              ))}
+              </div>
             </div>
-          )}
-        </div>
 
-        {/* Complete Message */}
-        {isComplete && (
-          <div className="mt-6 bg-wordle-correct rounded-lg shadow-lg p-6 text-center text-button-text">
-            <div className="text-3xl mb-2">🎉</div>
-            <div className="text-2xl font-bold mb-2">Congratulations!</div>
-            <div className="text-lg mb-4">You found all {foundWords.length} words!</div>
-            <ShareResults text={generateShareText(currentGameStats, puzzle.date)} />
-            <BadgeEarnedRecap badges={badgeUnlocks} />
-            <div className="mt-3">
-              <BadgesProgressWidget variant="compact" />
+            {/* Honeycomb Grid with Path Visualization */}
+            <div className="mb-6" data-tutorial="spelling-grid">
+              <HoneycombGridEnhanced
+                centerLetter={puzzle.center}
+                outerLetters={outerLetters}
+                onLetterClick={handleLetterClick}
+                onWordChange={handleDragWordChange}
+                currentWord={currentWord}
+                disabled={isComplete}
+              />
+            </div>
+
+            {/* Action Buttons */}
+            <div className="grid grid-cols-3 gap-3 mb-6" data-tutorial="spelling-actions">
+              <button
+                type="button"
+                onClick={handleBackspace}
+                className="py-3 bg-card border border-card-border text-key-text rounded-lg hover:bg-surface-hover font-semibold transition-colors"
+              >
+                Delete
+              </button>
+              <button
+                type="button"
+                onClick={handleShuffle}
+                className="py-3 bg-button-primary text-button-text rounded-lg hover:bg-button-primary-hover font-semibold transition-colors"
+              >
+                🔄 Shuffle
+              </button>
+              <button
+                type="button"
+                onClick={handleSubmit}
+                className="py-3 bg-wordle-present text-button-text rounded-lg hover:bg-wordle-correct font-semibold transition-colors"
+              >
+                Enter
+              </button>
             </div>
           </div>
-        )}
+
+          {/* LEFT column (desktop) — Info & Found Words */}
+          <div className="lg:flex-1 lg:min-w-0">
+            {/* Rank Display */}
+            {showRankUp && previousRank && (
+              <div className="mb-4 p-4 bg-card rounded-lg shadow-lg border-2 border-yellow-400 animate-bounce">
+                <div className="text-center">
+                  <div className="text-sm text-text-muted">Rank Up!</div>
+                  <div className="text-2xl font-bold" style={{ color: rank.color }}>
+                    {rank.name}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Score and Progress */}
+            <div className="mb-6 bg-card rounded-lg shadow-md p-6 border border-card-border" data-tutorial="spelling-score">
+              <div className="flex justify-between items-center mb-4">
+                <div>
+                  <div className="text-sm text-text-muted">Score</div>
+                  <div className="text-3xl font-bold text-foreground">{score}</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm text-text-muted">Rank</div>
+                  <div className="text-xl font-bold" style={{ color: rank.color }}>
+                    {rank.name}
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="relative h-3 bg-graph-bg rounded-full overflow-hidden">
+                <div
+                  className="absolute h-full bg-wordle-present transition-all duration-500"
+                  style={{ width: `${(score / maxScore) * 100}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-xs text-text-muted mt-1">
+                <span>{foundWords.length} words</span>
+                <span>{Math.round((score / maxScore) * 100)}%</span>
+              </div>
+            </div>
+
+            {isComplete && (
+              <div className="mb-6 w-full rounded-xl border border-border-default bg-card px-4 py-3 text-xs text-text-muted flex items-center justify-between">
+                <div className="font-semibold text-foreground">✅ Solved</div>
+                <div>Words: {foundWords.length}/{puzzle.validWords.length} · Pangrams: {puzzle.pangrams.filter(p => foundWords.includes(p)).length}</div>
+              </div>
+            )}
+
+            {/* Hint Button */}
+            <div className="mb-6">
+              <button
+                onClick={handleHint}
+                className="w-full py-2 bg-card border border-card-border text-foreground rounded-lg hover:bg-surface-hover transition-colors text-sm font-medium"
+                disabled={hintButtonText === 'No Hints Left'}
+              >
+                💡 {hintButtonText} {hintsUsed > 0 && `(${hintsUsed} used)`}
+              </button>
+            </div>
+
+            {/* Found Words */}
+            <div className="bg-card border border-card-border rounded-lg shadow-md p-6">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-bold text-foreground">
+                  Found Words ({foundWords.length})
+                </h3>
+                <div className="text-sm text-text-muted">
+                  {puzzle.pangrams.filter(p => foundWords.includes(p)).length}/
+                  {puzzle.pangrams.length} pangrams
+                </div>
+              </div>
+
+              {foundWords.length === 0 ? (
+                <div className="text-center text-text-muted py-8">
+                  No words found yet
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {foundWords.map((word, index) => (
+                    <div
+                      key={index}
+                      className={`
+                        p-2 rounded text-center text-sm font-medium
+                        ${puzzle.pangrams.includes(word)
+                          ? 'bg-wordle-present text-background border border-wordle-correct'
+                          : 'bg-surface-hover text-foreground'
+                        }
+                      `}
+                    >
+                      {word}
+                      {puzzle.pangrams.includes(word) && ' 🐝'}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Complete Message */}
+            {isComplete && (
+              <div className="mt-6 bg-wordle-correct rounded-lg shadow-lg p-6 text-center text-button-text">
+                <div className="text-3xl mb-2">🎉</div>
+                <div className="text-2xl font-bold mb-2">Congratulations!</div>
+                <div className="text-lg mb-4">You found all {foundWords.length} words!</div>
+                <ShareResults text={generateShareText(currentGameStats, puzzle.date)} />
+                <BadgeEarnedRecap badges={badgeUnlocks} />
+                <div className="mt-3">
+                  <BadgesProgressWidget variant="compact" />
+                </div>
+              </div>
+            )}
+          </div>
+
+        </div>
       </main>
 
       {/* Modals */}

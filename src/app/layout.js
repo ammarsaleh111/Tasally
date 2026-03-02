@@ -11,7 +11,17 @@ import SessionBridge from "@/components/SessionBridge";
 import { TutorialProvider } from "@/components/tutorial/TutorialProvider";
 import GlobalTutorial from "@/components/tutorial/GlobalTutorial";
 import PresenceProvider from "@/components/PresenceProvider";
-import { isProductionDeploy, siteDescription, siteName, siteUrl, buildWebSiteJsonLd, buildOrganizationJsonLd } from "@/lib/seo";
+import {
+  isProductionDeploy,
+  siteDescription,
+  siteDescriptionArabic,
+  siteName,
+  siteNameArabic,
+  siteUrl,
+  brandKeywords,
+  buildWebSiteJsonLd,
+  buildOrganizationJsonLd,
+} from "@/lib/seo";
 import PWARegister from "@/components/PWARegister";
 import OnboardingFlow from "@/components/OnboardingFlow";
 
@@ -40,43 +50,30 @@ export const viewport = {
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Tasally | Daily Puzzle & Brain Games",
-    template: "%s | Tasally",
+    default: "Tasally (تسالي) — Daily Brain Games Platform",
+    template: "%s | Tasally | Daily Puzzle & Brain Games",
   },
   description: siteDescription,
-  applicationName: siteName,
-  alternates: {
-    canonical: "/",
-  },
-  keywords: [
-    "daily puzzle games",
-    "free online puzzle games",
-    "brain games",
-    "word games online",
-    "daily word game",
-    "wordle alternative",
-    "wordle online free",
-    "connections game",
-    "mini crossword",
-    "spelling bee game",
-    "trivia game",
-    "numbers puzzle",
-    "strands game",
-    "waffle word game",
-    "daily brain challenge",
-    "puzzle games no download",
-    "tasally",
-    "free word puzzles",
-    "daily quiz",
-    "online brain teasers",
-  ],
+  applicationName: `${siteName} (${siteNameArabic})`,
+  authors: [{ name: siteName, url: siteUrl }],
   creator: siteName,
   publisher: siteName,
+  keywords: brandKeywords,
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/",
+      ar: "/تسالي",
+      "x-default": "/",
+    },
+  },
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName,
-    title: "Tasally | Daily Puzzle & Brain Games",
+    locale: "en_US",
+    alternateLocale: ["ar_AR"],
+    title: "Tasally (تسالي) — Daily Brain Games Platform",
     description: siteDescription,
     images: [
       {
@@ -89,9 +86,20 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tasally | Daily Puzzle & Brain Games",
+    title: "Tasally (تسالي) — Daily Brain Games Platform",
     description: siteDescription,
     images: ["/twitter-image"],
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+    other: {
+      "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION || undefined,
+      yandex: process.env.NEXT_PUBLIC_YANDEX_SITE_VERIFICATION || undefined,
+    },
+  },
+  other: {
+    "description:ar": siteDescriptionArabic,
+    "apple-mobile-web-app-title": "Tasally",
   },
   // PWA
   manifest: '/manifest.webmanifest',

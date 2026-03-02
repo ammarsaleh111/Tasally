@@ -230,15 +230,35 @@ function StrandsGame({ puzzle, invalidToday, hasValidPuzzles, canCycle, onNewPuz
 
   const onEnter = (r, c) => {
     if (!isDragging || completedAt) return;
-    const last = path[path.length - 1];
-    if (!last) return;
-    const dr = Math.abs(last[0] - r);
-    const dc = Math.abs(last[1] - c);
-    const adjacent = dr <= 1 && dc <= 1 && !(dr === 0 && dc === 0);
-    const alreadyUsed = path.some(([pr, pc]) => pr === r && pc === c);
-    if (adjacent && !alreadyUsed) {
-      setPath((current) => [...current, [r, c]]);
-    }
+
+    setPath((current) => {
+      if (!current.length) return current;
+
+      const last = current[current.length - 1];
+      if (!last) return current;
+
+      // Ignore re-entering current head
+      if (last[0] === r && last[1] === c) return current;
+
+      // Backtracking: moving to previous cell removes the latest segment
+      if (current.length > 1) {
+        const previous = current[current.length - 2];
+        if (previous[0] === r && previous[1] === c) {
+          return current.slice(0, -1);
+        }
+      }
+
+      const dr = Math.abs(last[0] - r);
+      const dc = Math.abs(last[1] - c);
+      const adjacent = dr <= 1 && dc <= 1 && !(dr === 0 && dc === 0);
+      const alreadyUsed = current.some(([pr, pc]) => pr === r && pc === c);
+
+      if (adjacent && !alreadyUsed) {
+        return [...current, [r, c]];
+      }
+
+      return current;
+    });
   };
 
   const onEnd = () => {

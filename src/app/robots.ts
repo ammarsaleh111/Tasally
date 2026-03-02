@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { isProductionDeploy, siteUrl } from "@/lib/seo";
 
+export const runtime = "edge";
+
 export default function robots(): MetadataRoute.Robots {
   if (!isProductionDeploy) {
     return {

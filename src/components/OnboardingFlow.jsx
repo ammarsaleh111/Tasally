@@ -7,19 +7,18 @@ import { useIdentity } from '@/components/IdentityGate';
 import { useInstallPrompt } from '@/hooks/useInstallPrompt';
 import { useOnboardingState } from '@/hooks/useOnboardingState';
 import NameGate from '@/components/onboarding/NameGate';
-import TutorialFlow from '@/components/onboarding/TutorialFlow';
 import InstallBanner from '@/components/onboarding/InstallBanner';
 
 /**
  * OnboardingFlow — Sequential first-visit experience.
  *
- * Phase machine: idle → tutorial → install → done
+ * Phase machine: idle → install → done
  *
  * 1. IdentityGate (external) blocks until the user claims a display name.
  * 2. This component waits for identity + tutorial hydration.
- * 3. If the global tutorial hasn't been seen → opens it once.
- * 4. After tutorial closes → shows an install-app banner once (unless already installed).
- * 5. Marks everything as complete and never auto-shows again.
+ * 3. Tutorial is never auto-opened; it is marked complete silently.
+ * 4. Shows install-app banner once (unless already installed).
+ * 5. Marks everything as complete and never auto-shows onboarding again.
  */
 export default function OnboardingFlow() {
   const [phase, setPhase] = useState('idle');
@@ -58,7 +57,7 @@ export default function OnboardingFlow() {
     }
 
     if (!tutorialComplete) {
-      setPhase('tutorial');
+      setTutorialComplete(true);
       return;
     }
 
@@ -80,6 +79,7 @@ export default function OnboardingFlow() {
     currentRoute,
     setReturnTo,
     setInstallShown,
+    setTutorialComplete,
   ]);
 
   useEffect(() => {
@@ -104,15 +104,8 @@ export default function OnboardingFlow() {
         nameStored={hasLocalName}
         onNameStored={(displayName) => {
           setName(displayName);
-          setPhase('tutorial');
-        }}
-      />
-
-      <TutorialFlow
-        active={phase === 'tutorial'}
-        onDone={() => {
           setTutorialComplete(true);
-          setPhase('install');
+          setPhase(isInstalled ? 'done' : 'install');
         }}
       />
 

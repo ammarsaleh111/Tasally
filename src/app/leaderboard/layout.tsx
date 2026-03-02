@@ -2,21 +2,19 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Leaderboards",
+  title: "Tasally Leaderboard — Daily & Monthly Puzzle Rankings",
   description:
-    "Track daily and monthly rankings across all Tasally puzzle games.",
+    "Track daily and monthly rankings across all Tasally puzzle games and compare your progress with players worldwide.",
+  alternates: {
+    canonical: "/leaderboard",
+    languages: {
+      en: "/leaderboard",
+      ar: "/العاب-تسالي",
+    },
+  },
   robots: {
     index: false,
     follow: false,
-    nocache: true,
-    googleBot: {
-      index: false,
-      follow: false,
-      noimageindex: true,
-      "max-snippet": 0,
-      "max-image-preview": "none",
-      "max-video-preview": 0,
-    },
   },
 };
 

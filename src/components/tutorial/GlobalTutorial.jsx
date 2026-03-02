@@ -23,7 +23,7 @@ const GlobalTutorial = () => {
       startAt={startMode === 'resume' ? lastStep : 0}
       resumeStep={lastStep}
       onStepChange={updateStep}
-      onClose={close}
+      onClose={complete}
       onSkip={skip}
       onComplete={complete}
     />

@@ -109,7 +109,7 @@ Rank: Amazing
 Words: 24/35
 Pangram found! ✨
 
-Play at tasally.com
+Play at tasally.tech
 ```
 
 ## Color Scheme

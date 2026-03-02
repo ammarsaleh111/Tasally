@@ -86,7 +86,8 @@ export default function HoneycombGridEnhanced({
     if (disabled) return;
     
     e.preventDefault();
-    e.target.setPointerCapture?.(e.pointerId);
+    // Capture on the container so onPointerMove fires even outside the button
+    containerRef.current?.setPointerCapture?.(e.pointerId);
     suppressClickRef.current = false;
     
     setIsDragging(true);
@@ -128,7 +129,7 @@ export default function HoneycombGridEnhanced({
   const handlePointerUp = useCallback((e) => {
     if (!isDragging) return;
     
-    e.target.releasePointerCapture?.(e.pointerId);
+    containerRef.current?.releasePointerCapture?.(e.pointerId);
     setIsDragging(false);
     setPointerPos(null);
     
@@ -209,12 +210,11 @@ export default function HoneycombGridEnhanced({
   return (
     <div 
       ref={containerRef}
-      className="relative flex items-center justify-center select-none touch-none"
+      className="relative flex items-center justify-center select-none"
       style={{ height: '280px' }}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
-      onPointerLeave={handlePointerUp}
     >
       {/* SVG Path Layer - BEHIND letters */}
       <svg 

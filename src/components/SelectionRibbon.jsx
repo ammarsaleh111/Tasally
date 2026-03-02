@@ -136,7 +136,7 @@ export default function SelectionRibbon({
 
   return (
     <svg
-      className="absolute inset-0 pointer-events-none z-0 selection-ribbon"
+      className="absolute inset-0 pointer-events-none z-20 selection-ribbon"
       width="100%"
       height="100%"
       viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}
@@ -324,7 +324,7 @@ export function LockedWordRibbon({
 
   return (
     <svg
-      className="absolute inset-0 pointer-events-none z-0"
+      className="absolute inset-0 pointer-events-none z-[5]"
       width="100%"
       height="100%"
       viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}

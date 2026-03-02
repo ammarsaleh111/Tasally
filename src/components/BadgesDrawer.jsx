@@ -18,6 +18,27 @@ const BadgesDrawer = ({ isOpen, onClose }) => {
     });
   }, [isOpen]);
 
+  /* Auto-dismiss after 4 seconds */
+  useEffect(() => {
+    if (!isOpen) return;
+    const timer = setTimeout(() => onClose(), 1000);
+    return () => clearTimeout(timer);
+  }, [isOpen, onClose]);
+
+  /* Close on Escape */
+  useEffect(() => {
+    if (!isOpen) return;
+    const handler = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [isOpen, onClose]);
+
+  /* Lock body scroll */
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
   const recentEarned = useMemo(
     () =>
       badges
@@ -27,29 +48,25 @@ const BadgesDrawer = ({ isOpen, onClose }) => {
     [badges]
   );
 
+  if (!isOpen) return null;
+
   return (
-    <div
-      className={`fixed inset-0 z-[80] transition-opacity ${
-        isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-      }`}
-      aria-hidden={!isOpen}
-    >
+    <div className="fixed inset-0 z-[80]">
       <div
-        className={`absolute inset-0 bg-black/40 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0'}`}
+        className="absolute inset-0 bg-black/40"
         onClick={onClose}
       />
 
       <div
         role="dialog"
         aria-modal="true"
-        className={`
+        className="
           absolute bottom-0 left-0 right-0
           md:top-0 md:right-0 md:left-auto md:h-full md:w-[360px]
           bg-card border border-border shadow-2xl
           rounded-t-3xl md:rounded-none md:rounded-l-3xl
-          transition-transform duration-300
-          ${isOpen ? 'translate-y-0 md:translate-x-0' : 'translate-y-full md:translate-x-full'}
-        `}
+          animate-in slide-in-from-bottom md:slide-in-from-right duration-300
+        "
       >
         <div className="h-1.5 w-12 bg-muted-foreground/30 rounded-full mx-auto mt-3 md:hidden" />
         <div className="flex items-center justify-between px-5 pt-4">

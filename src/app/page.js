@@ -1,28 +1,50 @@
-import Link from "next/link";
 import HomePageClient from "./HomePageClient";
-import { absoluteUrl, buildBreadcrumbJsonLd, buildSoftwareAppJsonLd, siteDescription } from "@/lib/seo";
+import {
+  absoluteUrl,
+  buildBreadcrumbJsonLd,
+  buildFaqJsonLd,
+  buildSoftwareAppJsonLd,
+  buildWebPageJsonLd,
+  siteDescription,
+} from "@/lib/seo";
+import { homeFaqs } from "@/content/faqs";
 
 export const metadata = {
-  title: "Free Daily Puzzle & Brain Games Online",
-  description: siteDescription,
+  title: "Tasally (تسالي) — Daily Wordle, Connections & Mini Crossword Games",
+  description:
+    "Play Tasally daily puzzle games free: Wordle-style, Connections-style, Mini Crossword, Numbers Game, and Daily Trivia. Fresh challenges every day.",
   alternates: {
     canonical: "/",
+    languages: {
+      en: "/",
+      ar: "/تسالي",
+      "x-default": "/",
+    },
   },
   openGraph: {
-    title: "Tasally — Free Daily Puzzle & Brain Games Online",
-    description: siteDescription,
+    title: "Tasally (تسالي) — Daily Wordle, Connections & Mini Crossword Games",
+    description:
+      "Play free daily puzzle games on Tasally including Wordle, Connections, Mini Crossword, Numbers, and Trivia.",
     url: absoluteUrl("/"),
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tasally — Free Daily Puzzle & Brain Games Online",
-    description: siteDescription,
+    title: "Tasally (تسالي) — Daily Wordle, Connections & Mini Crossword Games",
+    description:
+      "Play free daily puzzle games on Tasally including Wordle, Connections, Mini Crossword, Numbers, and Trivia.",
   },
 };
 
 export default function HomePage() {
   const breadcrumbJsonLd = buildBreadcrumbJsonLd([{ name: "Home", path: "/" }]);
   const softwareAppJsonLd = buildSoftwareAppJsonLd();
+  const faqJsonLd = buildFaqJsonLd(homeFaqs);
+  const webPageJsonLd = buildWebPageJsonLd({
+    name: "Tasally Home",
+    description: siteDescription,
+    path: "/",
+    inLanguage: "en",
+  });
   const homePageJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -53,6 +75,14 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }}
       />
       <HomePageClient />
     </>

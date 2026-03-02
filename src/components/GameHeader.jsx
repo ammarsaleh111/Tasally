@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
-import InstallAppHeaderButton from '@/components/InstallAppHeaderButton';
+import React, { useEffect, useMemo, useState } from 'react';
+import GameFaqDrawer from '@/components/GameFaqDrawer';
+import { gameFaqs, resolveGameFaqKey } from '@/content/faqs';
 
 const HeaderButton = ({ onClick, disabled, icon, label, locked, dataTutorial }) => (
   <button
@@ -63,113 +64,144 @@ const GameHeader = ({
   themeBadge,
   returnUrl = '/games',
   returnLabel,
+  faqKey,
 }) => {
   const canShowLearningLog = gameComplete || showLearningLog;
+  const [showFaqDrawer, setShowFaqDrawer] = useState(false);
+
+  const resolvedFaqKey = useMemo(() => {
+    return faqKey || resolveGameFaqKey(title) || undefined;
+  }, [faqKey, title]);
+
+  const faqs = resolvedFaqKey ? gameFaqs[resolvedFaqKey] || [] : [];
+  const hasFaqs = faqs.length > 0;
+
+  /* Escape key handling is now inside GameFaqDrawer itself */
 
   return (
-    <header 
-      className="
-        w-full sticky top-0 z-40
-        bg-[hsl(var(--background))]/95 backdrop-blur-md
-        border-b border-[hsl(var(--border))]
-        transition-all duration-300
-      "
-    >
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Left Side - Navigation and How to Play */}
-          <div className="flex items-center gap-1 sm:gap-2 flex-1">
-            <Link 
-              href={returnUrl} 
-              className="
-                flex items-center gap-1 px-2 sm:px-3 py-2 rounded-xl
-                text-sm font-medium
-                text-[hsl(var(--muted-foreground))]
-                hover:text-[hsl(var(--foreground))]
-                hover:bg-[hsl(var(--surface-hover))]
-                transition-all duration-200
-                focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]
-              "
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-              </svg>
-              <span className="hidden sm:inline">{returnLabel || (returnUrl === '/games' ? 'Games' : 'Back')}</span>
-            </Link>
-            
-            {onHowToPlay && (
-              <HeaderButton
-                onClick={onHowToPlay}
-                icon="❓"
-                label="How to Play"
-                dataTutorial="how-to-play"
-              />
-            )}
-          </div>
+    <>
+      <header 
+        className="
+          w-full sticky top-0 z-40
+          bg-[hsl(var(--background))]/95 backdrop-blur-md
+          border-b border-[hsl(var(--border))]
+          transition-all duration-300
+        "
+      >
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Left Side - Navigation and How to Play */}
+            <div className="flex items-center gap-1 sm:gap-2 flex-1">
+              <Link 
+                href={returnUrl} 
+                className="
+                  flex items-center gap-1 px-2 sm:px-3 py-2 rounded-xl
+                  text-sm font-medium
+                  text-[hsl(var(--muted-foreground))]
+                  hover:text-[hsl(var(--foreground))]
+                  hover:bg-[hsl(var(--surface-hover))]
+                  transition-all duration-200
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]
+                "
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                <span className="hidden sm:inline">{returnLabel || (returnUrl === '/games' ? 'Games' : 'Back')}</span>
+              </Link>
+              
+              {onHowToPlay && (
+                <HeaderButton
+                  onClick={onHowToPlay}
+                  icon="❓"
+                  label="How to Play"
+                  dataTutorial="how-to-play"
+                />
+              )}
 
-          {/* Center - Title and Mode Badge */}
-          <div className="flex flex-col items-center justify-center flex-shrink-0 px-2">
-            <h1 className="text-lg sm:text-2xl font-bold tracking-wide text-[hsl(var(--foreground))] text-center">
-              {title}
-            </h1>
-            {(mode || themeBadge) && (
-              <div className="flex items-center gap-2 mt-0.5">
-                {mode && (
-                  <span className={`
-                    text-xs font-medium px-2 py-0.5 rounded-full
-                    ${mode === 'daily' 
-                      ? 'bg-[hsl(var(--accent))]/15 text-[hsl(var(--accent))]' 
-                      : 'bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]'
-                    }
-                  `}>
-                    {mode === 'daily' ? '📅 Daily' : mode === 'unlimited' ? '♾️ Unlimited' : mode}
-                  </span>
-                )}
-                {themeBadge}
-              </div>
-            )}
-          </div>
+              {hasFaqs && (
+                <HeaderButton
+                  onClick={() => setShowFaqDrawer(true)}
+                  icon="💬"
+                  label="FAQ"
+                />
+              )}
+            </div>
 
-          {/* Right Side - Stats, Learning Log, Install */}
-          <div className="flex items-center gap-1 sm:gap-2 flex-1 justify-end">
-            {onStats && (
-              <HeaderButton
-                onClick={onStats}
-                icon="📊"
-                label="Stats"
-                dataTutorial="stats-button"
-              />
-            )}
+            {/* Center - Title and Mode Badge */}
+            <div className="flex flex-col items-center justify-center flex-shrink-0 px-2">
+              <h1 className="text-lg sm:text-2xl font-bold tracking-wide text-[hsl(var(--foreground))] text-center">
+                {title}
+              </h1>
+              {(mode || themeBadge) && (
+                <div className="flex items-center gap-2 mt-0.5">
+                  {mode && (
+                    <span className={`
+                      text-xs font-medium px-2 py-0.5 rounded-full
+                      ${mode === 'daily' 
+                        ? 'bg-[hsl(var(--accent))]/15 text-[hsl(var(--accent))]' 
+                        : 'bg-[hsl(var(--muted))] text-[hsl(var(--muted-foreground))]'
+                      }
+                    `}>
+                      {mode === 'daily' ? '📅 Daily' : mode === 'unlimited' ? '♾️ Unlimited' : mode}
+                    </span>
+                  )}
+                  {themeBadge}
+                </div>
+              )}
+            </div>
 
-            {onLearningLog && (
-              <HeaderButton
-                onClick={onLearningLog}
-                disabled={!canShowLearningLog}
-                icon="📘"
-                label="Learn"
-                locked={!canShowLearningLog}
-                dataTutorial="learning-log-button"
-              />
-            )}
+            {/* Right Side - Stats, Learning Log, Install */}
+            <div className="flex items-center gap-1 sm:gap-2 flex-1 justify-end">
+              {onStats && (
+                <HeaderButton
+                  onClick={onStats}
+                  icon="📊"
+                  label="Stats"
+                  dataTutorial="stats-button"
+                />
+              )}
 
-            <Link 
-              href="/" 
-              className="
-                hidden sm:flex items-center px-3 py-2 rounded-xl
-                text-sm font-medium
-                text-[hsl(var(--muted-foreground))]
-                hover:text-[hsl(var(--foreground))]
-                hover:bg-[hsl(var(--surface-hover))]
-                transition-all duration-200
-                focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]
-              "
-            >
-              Home
-            </Link>
+              {onLearningLog && (
+                <HeaderButton
+                  onClick={onLearningLog}
+                  disabled={!canShowLearningLog}
+                  icon="📘"
+                  label="Learn"
+                  locked={!canShowLearningLog}
+                  dataTutorial="learning-log-button"
+                />
+              )}
+
+              <Link 
+                href="/" 
+                className="
+                  hidden sm:flex items-center px-3 py-2 rounded-xl
+                  text-sm font-medium
+                  text-[hsl(var(--muted-foreground))]
+                  hover:text-[hsl(var(--foreground))]
+                  hover:bg-[hsl(var(--surface-hover))]
+                  transition-all duration-200
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]
+                "
+              >
+                Home
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {hasFaqs && (
+        <GameFaqDrawer
+          isOpen={showFaqDrawer}
+          onClose={() => setShowFaqDrawer(false)}
+          title={`${title} FAQ`}
+          faqs={faqs}
+          moreHref={resolvedFaqKey ? `/faq#${resolvedFaqKey}` : '/faq'}
+        />
+      )}
+    </>
   );
 };
 

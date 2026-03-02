@@ -1,7 +1,8 @@
 {
-  "name": "Tasally",
+  "name": "Tasally (تسالي)",
   "short_name": "Tasally",
-  "description": "Play daily puzzle games: Wordle, Connections, Crossword, Numbers, Trivia & more.",
+  "description": "Play daily puzzle games including Wordle, Crossword, Connections, Numbers & Trivia on Tasally. Your daily brain challenge.",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -9,6 +10,7 @@
   "background_color": "#0f1729",
   "theme_color": "#0f1729",
   "lang": "en",
+  "dir": "ltr",
   "categories": ["games", "entertainment", "education"],
   "icons": [
     {

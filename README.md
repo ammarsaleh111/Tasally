@@ -2,6 +2,23 @@
 
 A premium daily puzzle games platform featuring **9 engaging games**, **7 seasonal themes**, **48 achievements**, a full **backend with auth/groups/leaderboards**, and a **PWA** install experience — inspired by the New York Times Games suite.
 
+## Tasally Brand SEO
+
+Tasally (تسالي) is the official brand for this platform.
+
+- Primary brand: **Tasally**
+- Arabic brand: **تسالي**
+- Official website: https://tasally.tech
+- Core intents: Tasally games, Tasally puzzle, Tasally daily games, تسالي العاب, العاب تسالي, العاب ذكاء تسالي
+
+Play now:
+
+- https://tasally.tech/
+- https://tasally.tech/games
+- https://tasally.tech/tasally-games
+- https://tasally.tech/تسالي
+- https://tasally.tech/العاب-تسالي
+
 ![Next.js](https://img.shields.io/badge/Next.js-16.1.1-black)
 ![React](https://img.shields.io/badge/React-19.2-blue)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38bdf8)

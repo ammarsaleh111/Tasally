@@ -16,11 +16,17 @@ export default function TutorialFlow({ active, onDone }) {
   } = useTutorial(GLOBAL_TUTORIAL.id, { auto: false });
 
   useEffect(() => {
-    if (!active || !hydrated || seen) return;
+    if (!active || !hydrated) return;
+    // If already seen (e.g. opened via "How it works" previously),
+    // immediately complete the onboarding step so the flow doesn't get stuck.
+    if (seen) {
+      onDone();
+      return;
+    }
     if (opened.current) return;
     opened.current = true;
     openManual();
-  }, [active, hydrated, seen, openManual]);
+  }, [active, hydrated, seen, openManual, onDone]);
 
   useEffect(() => {
     if (!active || !opened.current || confirmed.current) return;

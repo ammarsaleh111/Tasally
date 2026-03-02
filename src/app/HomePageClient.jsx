@@ -12,6 +12,7 @@ import { getActiveTheme } from '@/utils/themeEngine';
 import { useTutorial } from '@/hooks/useTutorial';
 import { GLOBAL_TUTORIAL } from '@/data/tutorials';
 import InstallAppHeroButton from '@/components/InstallAppHeroButton';
+import HomeFaqSection from '@/components/HomeFaqSection';
 import {
   useSeasonIdentity,
   SeasonPageHeader,
@@ -35,6 +36,18 @@ const scaleVariants = {
   hidden: { opacity: 0, scale: 0.92 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: 'easeOut' } }
 };
+
+const HOME_GAME_LINKS = [
+  { href: '/games/wordle', label: 'Play Tasally Daily Word Game' },
+  { href: '/games/connections', label: 'Play Tasally Connections Puzzle' },
+  { href: '/games/crossword', label: 'Play Tasally Daily Crossword' },
+  { href: '/games/numbers', label: 'Play Tasally Numbers Puzzle' },
+  { href: '/games/trivia', label: 'Play Tasally Daily Trivia' },
+  { href: '/games/strands', label: 'Play Tasally Strands Game' },
+  { href: '/games/spelling', label: 'Play Tasally Spelling Bee' },
+  { href: '/games/waffle', label: 'Play Tasally Waffle Puzzle' },
+  { href: '/games/combinations', label: 'Play Tasally Combinations' },
+];
 
 export default function Home() {
   const isLoading = useSimplePuzzleLoader();
@@ -238,8 +251,6 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[hsl(var(--background))] to-transparent pointer-events-none" />
       </section>
 
-    
-
       {/* Quick Stats (REAL) */}
       {stats && (
         <motion.section
@@ -334,11 +345,13 @@ export default function Home() {
         </motion.section>
       )}
 
+      <HomeFaqSection />
+
       {/* Footer */}
       <footer className="py-6 px-4 text-center border-t border-[hsl(var(--border))]">
         <p className="text-sm text-[hsl(var(--muted-foreground))] flex items-center justify-center gap-2">
           <SeasonIcon index={5} />
-          © 2026 Tasally. All rights reserved.
+          © 2026 Ammar. All rights reserved.
           <SeasonIcon index={6} />
         </p>
       </footer>

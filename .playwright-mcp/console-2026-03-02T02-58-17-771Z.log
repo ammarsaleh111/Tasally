@@ -1,0 +1,11 @@
+[ 1849271ms] [ERROR] The final argument passed to %s changed size between renders. The order and size of this array must remain constant.
+
+Previous: %s
+Incoming: %s useEffect [false, true, true, ()=>{
+            openTutorial(id, 'start');
+        }] [false, true, true, ()=>{
+            openTutorial(id, 'start');
+        }, ()=>{
+                    setTutorialComplete(true);
+                    setPhase('install');
+                }] @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_f3530cac._.js:3127

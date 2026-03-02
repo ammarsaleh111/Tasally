@@ -1051,8 +1051,8 @@ export default function CrosswordPage() {
               type="button"
               onClick={() => handleCellClick(r, c)}
               className={`
-                relative flex aspect-square select-none items-center justify-center 
-                text-base sm:text-lg md:text-xl font-bold uppercase 
+                relative flex aspect-square select-none items-center justify-center overflow-hidden
+                text-[clamp(0.65rem,3.5vw,1.25rem)] font-bold uppercase 
                 transition-all duration-200 ease-out
                 border border-border-default/30
                 focus:outline-none focus:z-20
@@ -1075,13 +1075,13 @@ export default function CrosswordPage() {
             >
               {/* Clue number */}
               {clueNumber ? (
-                <span className="absolute left-[3px] top-[2px] text-[8px] sm:text-[9px] font-semibold text-text-muted leading-none">
+                <span className="absolute left-[1px] top-[1px] sm:left-[3px] sm:top-[2px] text-[6px] sm:text-[8px] md:text-[9px] font-semibold text-text-muted leading-none pointer-events-none">
                   {clueNumber}
                 </span>
               ) : null}
               
               {/* Letter */}
-              <span className="tracking-tight leading-none">
+              <span className="tracking-tighter leading-none max-w-full text-center">
                 {(letters[r]?.[c] || "").toUpperCase()}
               </span>
               

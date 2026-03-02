@@ -39,8 +39,9 @@ export const useTutorial = (id, options = {}) => {
   }, [id, openTutorial]);
 
   const close = useCallback(() => {
+    setSeen(id, true);
     closeTutorial(id);
-  }, [closeTutorial, id]);
+  }, [closeTutorial, id, setSeen]);
 
   const complete = useCallback(() => {
     setSeen(id, true);

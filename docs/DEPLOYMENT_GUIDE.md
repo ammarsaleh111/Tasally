@@ -192,16 +192,16 @@ Ensure your code is in a GitHub repository (private or public).
 
 In Netlify dashboard, go to **Site settings > Environment variables** and add:
 
-| Variable                         | Value                                             |
-| -------------------------------- | ------------------------------------------------- |
-| `DATABASE_URL`                   | Your Neon pooled connection string                |
-| `NEXTAUTH_SECRET`                | Generate a **NEW** secret for production          |
-| `NEXTAUTH_URL`                   | `https://your-site-name.netlify.app`              |
-| `GOOGLE_CLIENT_ID`               | Your Google OAuth client ID                       |
-| `GOOGLE_CLIENT_SECRET`           | Your Google OAuth client secret                   |
-| `NEXT_PUBLIC_SITE_URL`           | Canonical public URL (e.g. `https://tasally.com`) |
-| `NEXT_PUBLIC_CANONICAL_HOST`     | Canonical host only (e.g. `tasally.com`)          |
-| `NEXT_PUBLIC_CANONICAL_PROTOCOL` | Usually `https`                                   |
+| Variable                         | Value                                              |
+| -------------------------------- | -------------------------------------------------- |
+| `DATABASE_URL`                   | Your Neon pooled connection string                 |
+| `NEXTAUTH_SECRET`                | Generate a **NEW** secret for production           |
+| `NEXTAUTH_URL`                   | `https://your-site-name.netlify.app`               |
+| `GOOGLE_CLIENT_ID`               | Your Google OAuth client ID                        |
+| `GOOGLE_CLIENT_SECRET`           | Your Google OAuth client secret                    |
+| `NEXT_PUBLIC_SITE_URL`           | Canonical public URL (e.g. `https://tasally.tech`) |
+| `NEXT_PUBLIC_CANONICAL_HOST`     | Canonical host only (e.g. `tasally.tech`)          |
+| `NEXT_PUBLIC_CANONICAL_PROTOCOL` | Usually `https`                                    |
 
 ⚠️ **CRITICAL**: Use a **different** `NEXTAUTH_SECRET` for production than your local dev environment.
 

@@ -26,7 +26,8 @@ const StrandsGrid = ({
   onEnter,
   onEnd,
 }) => {
-  const mouseDownRef = useRef(false);
+  const isPointerDownRef = useRef(false);
+  const activePointerIdRef = useRef(null);
   const containerRef = useRef(null);
   const gridRef = useRef(null);
   const [dimensions, setDimensions] = useState({ tileSize: 48, gap: 4 });
@@ -63,66 +64,78 @@ const StrandsGrid = ({
     return () => resizeObserver.disconnect();
   }, [grid]);
 
-  const handleMouseDown = useCallback((r, c) => {
-    mouseDownRef.current = true;
+  const getCellFromPoint = useCallback((clientX, clientY) => {
+    const target = document.elementFromPoint(clientX, clientY);
+    if (!target) return null;
+    const cell = target.closest('[data-cell]');
+    if (!cell) return null;
+
+    const rr = Number(cell.getAttribute('data-r'));
+    const cc = Number(cell.getAttribute('data-c'));
+    if (!Number.isFinite(rr) || !Number.isFinite(cc)) return null;
+
+    return { r: rr, c: cc };
+  }, []);
+
+  const handlePointerDown = useCallback((r, c, event) => {
+    event.preventDefault();
+    isPointerDownRef.current = true;
+    activePointerIdRef.current = event.pointerId;
+    event.currentTarget.setPointerCapture?.(event.pointerId);
     onStart?.(r, c);
   }, [onStart]);
 
-  const handleMouseEnter = useCallback((r, c) => {
-    if (mouseDownRef.current) {
-      onEnter?.(r, c);
-    }
-  }, [onEnter]);
-
-  const handleMouseUp = useCallback(() => {
-    if (mouseDownRef.current) {
-      mouseDownRef.current = false;
-      onEnd?.();
-    }
-    setPointerPoint(null);
-  }, [onEnd]);
-
   const handlePointerMove = useCallback((event) => {
-    if (!mouseDownRef.current || !containerRef.current) return;
+    if (!isPointerDownRef.current || !containerRef.current) return;
+    if (activePointerIdRef.current !== null && event.pointerId !== activePointerIdRef.current) return;
+
     const rect = containerRef.current.getBoundingClientRect();
     setPointerPoint({
       x: event.clientX - rect.left,
       y: event.clientY - rect.top,
     });
-  }, []);
 
-  // Touch handlers
-  const handleTouchStart = useCallback((r, c, e) => {
-    e.preventDefault();
-    mouseDownRef.current = true;
-    onStart?.(r, c);
-  }, [onStart]);
-
-  const handleTouchMove = useCallback((r, c, e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      setPointerPoint({
-        x: touch.clientX - rect.left,
-        y: touch.clientY - rect.top,
-      });
+    const hoveredCell = getCellFromPoint(event.clientX, event.clientY);
+    if (hoveredCell) {
+      onEnter?.(hoveredCell.r, hoveredCell.c);
     }
-    const target = document.elementFromPoint(touch.clientX, touch.clientY);
-    if (!target) return;
-    const cell = target.closest('[data-cell]');
-    if (!cell) return;
-    const rr = Number(cell.getAttribute('data-r'));
-    const cc = Number(cell.getAttribute('data-c'));
-    onEnter?.(rr, cc);
-  }, [onEnter]);
+  }, [getCellFromPoint, onEnter]);
 
-  const handleTouchEnd = useCallback((e) => {
-    e.preventDefault();
-    mouseDownRef.current = false;
-    onEnd?.();
+  const endPointerSession = useCallback((event) => {
+    if (activePointerIdRef.current !== null && event.pointerId !== activePointerIdRef.current) return;
+    if (isPointerDownRef.current) {
+      isPointerDownRef.current = false;
+      activePointerIdRef.current = null;
+      event.currentTarget.releasePointerCapture?.(event.pointerId);
+      onEnd?.();
+    }
     setPointerPoint(null);
   }, [onEnd]);
+
+  const handlePointerCancel = useCallback((event) => {
+    if (activePointerIdRef.current !== null && event.pointerId !== activePointerIdRef.current) return;
+    isPointerDownRef.current = false;
+    activePointerIdRef.current = null;
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+    setPointerPoint(null);
+  }, []);
+
+  const handlePointerLeave = useCallback((event) => {
+    if (event.pointerType === 'mouse' && isPointerDownRef.current) {
+      endPointerSession(event);
+    }
+  }, [endPointerSession]);
+
+  const handlePointerUp = useCallback((event) => {
+    endPointerSession(event);
+  }, [endPointerSession]);
+
+  useEffect(() => {
+    if (isDragging) return;
+    isPointerDownRef.current = false;
+    activePointerIdRef.current = null;
+    setPointerPoint(null);
+  }, [isDragging]);
 
   const rows = grid.length;
   const cols = grid[0]?.length || 0;
@@ -147,9 +160,10 @@ const StrandsGrid = ({
     <div
       ref={containerRef}
       className="select-none relative strands-grid-container touch-none"
-      onMouseLeave={handleMouseUp}
-      onMouseUp={handleMouseUp}
-      onMouseMove={handlePointerMove}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerLeave={handlePointerLeave}
+      onPointerCancel={handlePointerCancel}
     >
       {/* Locked word ribbons layer (behind everything) */}
       {foundWords && foundWords.length > 0 && foundWords.map((fw, idx) => (
@@ -189,7 +203,7 @@ const StrandsGrid = ({
           tileSize={dimensions.tileSize}
           gap={dimensions.gap}
           color="var(--strands-ribbon, #3b82f6)"
-          opacity={0.8}
+          opacity={0.55}
           isSpangram={false}
           previewPoint={pointerPoint}
         />
@@ -215,11 +229,7 @@ const StrandsGrid = ({
                 data-cell
                 data-r={r}
                 data-c={c}
-                onMouseDown={() => handleMouseDown(r, c)}
-                onMouseEnter={() => handleMouseEnter(r, c)}
-                onTouchStart={(e) => handleTouchStart(r, c, e)}
-                onTouchMove={(e) => handleTouchMove(r, c, e)}
-                onTouchEnd={handleTouchEnd}
+                onPointerDown={(event) => handlePointerDown(r, c, event)}
                 className={[
                   // Base styles - COMPACT with smaller font
                   'aspect-square flex items-center justify-center',
@@ -232,7 +242,7 @@ const StrandsGrid = ({
                     ? 'bg-amber-200/70 dark:bg-amber-800/50 text-amber-900 dark:text-amber-100' 
                     : locked 
                       ? 'bg-emerald-200/70 dark:bg-emerald-800/50 text-emerald-900 dark:text-emerald-100'
-                      : 'bg-white dark:bg-gray-800',
+                      : 'bg-white/80 dark:bg-gray-800/80',
                   
                   // Active selection - minimal styling since ribbon handles visual
                   active && !locked 

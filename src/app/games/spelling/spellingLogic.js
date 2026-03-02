@@ -194,5 +194,5 @@ Rank: ${rank}
 Words: ${stats.wordsFound}/${stats.totalWords}
 ${stats.pangramsFound > 0 ? `Pangram${stats.pangramsFound > 1 ? 's' : ''} found! ✨` : ''}
 
-Play at tasally.com`;
+Play at tasally.tech`;
 }
