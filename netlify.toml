@@ -8,7 +8,24 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Fix CSS/JS MIME types — prevent "text/plain" for static assets
+# ── Force correct MIME types on static assets ─────────────
+# These override whatever the origin returns, fixing text/plain issues
+
+[[headers]]
+  for = "/_next/static/chunks/*"
+  [headers.values]
+    X-Content-Type-Options = ""
+
+[[headers]]
+  for = "/_next/static/css/*"
+  [headers.values]
+    X-Content-Type-Options = ""
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    X-Content-Type-Options = ""
+
 [[headers]]
   for = "/_next/static/chunks/*.css"
   [headers.values]
@@ -21,6 +38,11 @@
 
 [[headers]]
   for = "/_next/static/chunks/*.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+
+[[headers]]
+  for = "/_next/static/*.js"
   [headers.values]
     Content-Type = "application/javascript; charset=utf-8"
 

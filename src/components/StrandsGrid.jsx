@@ -132,9 +132,10 @@ const StrandsGrid = ({
 
   useEffect(() => {
     if (isDragging) return;
+    // Safety reset of refs when parent signals drag ended
+    // (setPointerPoint is already called in endPointerSession / handlePointerCancel)
     isPointerDownRef.current = false;
     activePointerIdRef.current = null;
-    setPointerPoint(null);
   }, [isDragging]);
 
   const rows = grid.length;

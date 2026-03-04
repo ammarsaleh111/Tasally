@@ -1,10 +1,25 @@
 import { CONNECTIONS_PUZZLES_JAN_2026 } from './puzzles/connections-2026-01';
 import { CONNECTIONS_PUZZLES_FEB_2026 } from './puzzles/connections-2026-02';
+import connectionsMonth03 from '@/data/all-data/month-03/connections.json';
+import connectionsMonth04 from '@/data/all-data/month-04/connections.json';
+import connectionsMonth05 from '@/data/all-data/month-05/connections.json';
+import connectionsMonth06 from '@/data/all-data/month-06/connections.json';
 import { getUserStorageKey } from '@/utils/storageKeys';
 import { getCairoDateKey } from '@/data/all-data/utils/date';
 
-// Merge January and February puzzles
-const ALL_CONNECTIONS_PUZZLES = [...CONNECTIONS_PUZZLES_JAN_2026, ...CONNECTIONS_PUZZLES_FEB_2026];
+// Convert date-keyed JSON objects to puzzle arrays
+const jsonToArray = (json) =>
+  Object.entries(json).map(([date, data]) => ({ date, ...data }));
+
+// Merge all puzzles from Jan through June
+const ALL_CONNECTIONS_PUZZLES = [
+  ...CONNECTIONS_PUZZLES_JAN_2026,
+  ...CONNECTIONS_PUZZLES_FEB_2026,
+  ...jsonToArray(connectionsMonth03),
+  ...jsonToArray(connectionsMonth04),
+  ...jsonToArray(connectionsMonth05),
+  ...jsonToArray(connectionsMonth06),
+];
 
 export const MAX_MISTAKES = 4;
 export const WORDS_PER_GROUP = 4;

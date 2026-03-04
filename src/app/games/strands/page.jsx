@@ -26,6 +26,10 @@ import { useTutorial } from '@/hooks/useTutorial';
 import { useGameContext } from '@/hooks/useGameContext';
 import { STRANDS_2026_01 } from './puzzles/strands-2026-01';
 import { STRANDS_PUZZLES_FEB_2026 } from './puzzles/strands-2026-02';
+import strandsMonth03 from '@/data/all-data/month-03/strands.json';
+import strandsMonth04 from '@/data/all-data/month-04/strands.json';
+import strandsMonth05 from '@/data/all-data/month-05/strands.json';
+import strandsMonth06 from '@/data/all-data/month-06/strands.json';
 import {
   serializePos,
   validateSelection,
@@ -36,8 +40,19 @@ import {
 } from './strandsLogic';
 import { resetStrandsHints } from '@/utils/strandsHints';
 
-// Merge January and February puzzles
-const ALL_STRANDS_PUZZLES = [...STRANDS_2026_01, ...STRANDS_PUZZLES_FEB_2026];
+// Convert date-keyed JSON objects to puzzle arrays
+const jsonToArray = (json) =>
+  Object.entries(json).map(([date, data]) => ({ date, ...data }));
+
+// Merge all puzzles from Jan through June
+const ALL_STRANDS_PUZZLES = [
+  ...STRANDS_2026_01,
+  ...STRANDS_PUZZLES_FEB_2026,
+  ...jsonToArray(strandsMonth03),
+  ...jsonToArray(strandsMonth04),
+  ...jsonToArray(strandsMonth05),
+  ...jsonToArray(strandsMonth06),
+];
 
 const SAFE_PUZZLE = {
   date: 'fallback',

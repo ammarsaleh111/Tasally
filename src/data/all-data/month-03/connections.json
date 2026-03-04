@@ -1,0 +1,250 @@
+{
+  "2026-03-01": {
+    "groups": [
+      { "category": "Spring Flowers", "words": ["TULIP", "DAISY", "CROCUS", "DAFFODIL"], "difficulty": 1 },
+      { "category": "Shades of Green", "words": ["EMERALD", "OLIVE", "JADE", "SAGE"], "difficulty": 2 },
+      { "category": "Things That Bloom", "words": ["CAREER", "ROMANCE", "TALENT", "FRIENDSHIP"], "difficulty": 3 },
+      { "category": "___ Garden", "words": ["BEER", "ROOF", "MADISON SQUARE", "OLIVE"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-02": {
+    "groups": [
+      { "category": "Musical Instruments", "words": ["GUITAR", "PIANO", "DRUMS", "VIOLIN"], "difficulty": 1 },
+      { "category": "Types of Bridges", "words": ["ARCH", "SUSPENSION", "DRAWBRIDGE", "CANTILEVER"], "difficulty": 2 },
+      { "category": "Things That Have Strings", "words": ["PUPPET", "BOW", "KITE", "APRON"], "difficulty": 3 },
+      { "category": "___ Note", "words": ["FOOT", "STICKY", "THANK YOU", "KEY"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-03": {
+    "groups": [
+      { "category": "Breakfast Foods", "words": ["PANCAKE", "WAFFLE", "CEREAL", "TOAST"], "difficulty": 1 },
+      { "category": "Words Meaning Fast", "words": ["SWIFT", "RAPID", "BRISK", "FLEET"], "difficulty": 2 },
+      { "category": "Things With Layers", "words": ["CAKE", "ONION", "LASAGNA", "EARTH"], "difficulty": 3 },
+      { "category": "___ House", "words": ["FULL", "POWER", "TREE", "WARE"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-04": {
+    "groups": [
+      { "category": "Ocean Creatures", "words": ["WHALE", "DOLPHIN", "OCTOPUS", "STARFISH"], "difficulty": 1 },
+      { "category": "Currencies", "words": ["POUND", "FRANC", "MARK", "CROWN"], "difficulty": 2 },
+      { "category": "Things That Are Deep", "words": ["SLEEP", "THOUGHT", "VOICE", "WATER"], "difficulty": 3 },
+      { "category": "___ Wave", "words": ["HEAT", "SHOCK", "BRAIN", "MICRO"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-05": {
+    "groups": [
+      { "category": "Citrus Fruits", "words": ["LEMON", "LIME", "ORANGE", "GRAPEFRUIT"], "difficulty": 1 },
+      { "category": "Card Games", "words": ["POKER", "BRIDGE", "RUMMY", "SPADES"], "difficulty": 2 },
+      { "category": "Things With Peels", "words": ["BANANA", "PAINT", "SUNBURN", "STICKER"], "difficulty": 3 },
+      { "category": "___ Juice", "words": ["APPLE", "CRAN", "LOOSE", "MOON"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-06": {
+    "groups": [
+      { "category": "Types of Dance", "words": ["WALTZ", "SALSA", "TANGO", "FOXTROT"], "difficulty": 1 },
+      { "category": "Things in a Toolbox", "words": ["HAMMER", "WRENCH", "PLIERS", "LEVEL"], "difficulty": 2 },
+      { "category": "Words Meaning Brave", "words": ["BOLD", "DARING", "GALLANT", "VALIANT"], "difficulty": 3 },
+      { "category": "___ Step", "words": ["DOOR", "QUICK", "TWO", "SIDE"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-07": {
+    "groups": [
+      { "category": "Dog Breeds", "words": ["POODLE", "BEAGLE", "COLLIE", "BOXER"], "difficulty": 1 },
+      { "category": "Precious Stones", "words": ["RUBY", "PEARL", "OPAL", "TOPAZ"], "difficulty": 2 },
+      { "category": "Things That Sparkle", "words": ["DIAMOND", "GLITTER", "STAR", "FIREWORK"], "difficulty": 3 },
+      { "category": "___ Ring", "words": ["BOXING", "ONION", "TREE", "SPRING"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-08": {
+    "groups": [
+      { "category": "Iconic Women", "words": ["CLEOPATRA", "CURIE", "EARHART", "PARKS"], "difficulty": 1 },
+      { "category": "Things That Rise", "words": ["SUN", "BREAD", "TIDE", "PHOENIX"], "difficulty": 2 },
+      { "category": "Words Meaning Strong", "words": ["MIGHTY", "ROBUST", "STURDY", "FIERCE"], "difficulty": 3 },
+      { "category": "___ Power", "words": ["FLOWER", "HORSE", "MAN", "FIRE"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-09": {
+    "groups": [
+      { "category": "Board Games", "words": ["CHESS", "MONOPOLY", "CLUE", "RISK"], "difficulty": 1 },
+      { "category": "Things at a Carnival", "words": ["COTTON CANDY", "FERRIS WHEEL", "CLOWN", "BUMPER CARS"], "difficulty": 2 },
+      { "category": "Words Meaning Trick", "words": ["RUSE", "PLOY", "FEINT", "BLUFF"], "difficulty": 3 },
+      { "category": "___ Play", "words": ["FOUL", "HORSE", "SWORD", "FAIR"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-10": {
+    "groups": [
+      { "category": "Pizza Toppings", "words": ["PEPPERONI", "MUSHROOM", "OLIVE", "SAUSAGE"], "difficulty": 1 },
+      { "category": "Ancient Civilizations", "words": ["ROMAN", "GREEK", "MAYAN", "PERSIAN"], "difficulty": 2 },
+      { "category": "Things That Spread", "words": ["BUTTER", "RUMOR", "FIRE", "DISEASE"], "difficulty": 3 },
+      { "category": "___  Pie", "words": ["HUMBLE", "MAGPIE", "CUTIE", "MUD"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-11": {
+    "groups": [
+      { "category": "Weather Phenomena", "words": ["TORNADO", "TSUNAMI", "BLIZZARD", "DROUGHT"], "difficulty": 1 },
+      { "category": "Shades of Blue", "words": ["NAVY", "COBALT", "AZURE", "TEAL"], "difficulty": 2 },
+      { "category": "Things That Howl", "words": ["WOLF", "WIND", "BABY", "SIREN"], "difficulty": 3 },
+      { "category": "___ Storm", "words": ["BRAIN", "FIRE", "SNOW", "THUNDER"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-12": {
+    "groups": [
+      { "category": "Baked Goods", "words": ["CROISSANT", "MUFFIN", "SCONE", "BAGEL"], "difficulty": 1 },
+      { "category": "Famous Explorers", "words": ["COLUMBUS", "MAGELLAN", "DRAKE", "COOK"], "difficulty": 2 },
+      { "category": "Things That Crumble", "words": ["COOKIE", "WALL", "EMPIRE", "CHALK"], "difficulty": 3 },
+      { "category": "___ Roll", "words": ["ROCK", "DRUM", "EGG", "BARREL"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-13": {
+    "groups": [
+      { "category": "Types of Pasta", "words": ["PENNE", "RIGATONI", "FUSILLI", "ORZO"], "difficulty": 1 },
+      { "category": "Things in Space", "words": ["COMET", "NEBULA", "ASTEROID", "QUASAR"], "difficulty": 2 },
+      { "category": "Things That Twist", "words": ["PRETZEL", "PLOT", "FATE", "TORNADO"], "difficulty": 3 },
+      { "category": "___ Sauce", "words": ["HOT", "APPLE", "SECRET", "AWESOME"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-14": {
+    "groups": [
+      { "category": "Pi Day Math Terms", "words": ["RADIUS", "DIAMETER", "CIRCLE", "TANGENT"], "difficulty": 1 },
+      { "category": "Types of Pie", "words": ["CHERRY", "PECAN", "PUMPKIN", "KEY LIME"], "difficulty": 2 },
+      { "category": "Things That Are Round", "words": ["GLOBE", "COIN", "PIZZA", "WHEEL"], "difficulty": 3 },
+      { "category": "___ Slice", "words": ["TIME", "PRICE", "THIN", "PIZZA"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-15": {
+    "groups": [
+      { "category": "Shakespeare Characters", "words": ["HAMLET", "JULIET", "OTHELLO", "MACBETH"], "difficulty": 1 },
+      { "category": "Roman Titles", "words": ["CAESAR", "CONSUL", "TRIBUNE", "SENATOR"], "difficulty": 2 },
+      { "category": "Things That Betray", "words": ["TRUST", "EMOTION", "SECRET", "GLANCE"], "difficulty": 3 },
+      { "category": "___ March", "words": ["IDES", "LONG", "DEAD", "PROTEST"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-16": {
+    "groups": [
+      { "category": "Types of Hat", "words": ["BERET", "FEDORA", "BEANIE", "BOWLER"], "difficulty": 1 },
+      { "category": "Mythical Creatures", "words": ["DRAGON", "GRIFFIN", "PHOENIX", "UNICORN"], "difficulty": 2 },
+      { "category": "Things That Fly", "words": ["KITE", "RUMOR", "TIME", "SPARKS"], "difficulty": 3 },
+      { "category": "___ Cap", "words": ["ICE", "KNEE", "HUB", "RED"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-17": {
+    "groups": [
+      { "category": "Irish Symbols", "words": ["SHAMROCK", "CLOVER", "HARP", "LEPRECHAUN"], "difficulty": 1 },
+      { "category": "Shades of Green", "words": ["EMERALD", "LIME", "FOREST", "MINT"], "difficulty": 2 },
+      { "category": "Things That Are Lucky", "words": ["HORSESHOE", "PENNY", "CHARM", "RAINBOW"], "difficulty": 3 },
+      { "category": "___ Gold", "words": ["POT OF", "SOLID", "MARIGOLD", "FOOL'S"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-18": {
+    "groups": [
+      { "category": "Vegetables", "words": ["CARROT", "BROCCOLI", "SPINACH", "PEPPER"], "difficulty": 1 },
+      { "category": "Famous Painters", "words": ["MONET", "PICASSO", "REMBRANDT", "VERMEER"], "difficulty": 2 },
+      { "category": "Things You Pick", "words": ["LOCK", "FIGHT", "FLOWER", "BRAIN"], "difficulty": 3 },
+      { "category": "___ Patch", "words": ["EYE", "CABBAGE", "SOUR", "PUMPKIN"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-19": {
+    "groups": [
+      { "category": "Kitchen Appliances", "words": ["BLENDER", "TOASTER", "MIXER", "OVEN"], "difficulty": 1 },
+      { "category": "Martial Arts", "words": ["KARATE", "JUDO", "AIKIDO", "KUNG FU"], "difficulty": 2 },
+      { "category": "Things That Chop", "words": ["AXE", "CHEF", "BLADE", "HELICOPTER"], "difficulty": 3 },
+      { "category": "___ Kick", "words": ["DROP", "SIDE", "FREE", "PENALTY"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-20": {
+    "groups": [
+      { "category": "First Day of Spring", "words": ["BLOOM", "BUD", "THAW", "SPROUT"], "difficulty": 1 },
+      { "category": "Equinox Related", "words": ["BALANCE", "EQUAL", "DAYLIGHT", "SOLSTICE"], "difficulty": 2 },
+      { "category": "Things That Awaken", "words": ["BEAR", "VOLCANO", "CONSCIENCE", "MEMORY"], "difficulty": 3 },
+      { "category": "___ Break", "words": ["SPRING", "DAY", "JAIL", "HEART"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-21": {
+    "groups": [
+      { "category": "Types of Cloud", "words": ["CUMULUS", "CIRRUS", "STRATUS", "NIMBUS"], "difficulty": 1 },
+      { "category": "Famous Scientists", "words": ["EINSTEIN", "NEWTON", "DARWIN", "TESLA"], "difficulty": 2 },
+      { "category": "Things That Float", "words": ["BOAT", "BALLOON", "IDEA", "FEATHER"], "difficulty": 3 },
+      { "category": "___ Light", "words": ["FLASH", "HIGH", "MOON", "SPOT"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-22": {
+    "groups": [
+      { "category": "Bodies of Water", "words": ["RIVER", "LAKE", "STREAM", "POND"], "difficulty": 1 },
+      { "category": "Woodwind Instruments", "words": ["FLUTE", "CLARINET", "OBOE", "BASSOON"], "difficulty": 2 },
+      { "category": "Things That Flow", "words": ["TRAFFIC", "LAVA", "HAIR", "CONVERSATION"], "difficulty": 3 },
+      { "category": "___ Bank", "words": ["RIVER", "BLOOD", "PIGGY", "FOOD"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-23": {
+    "groups": [
+      { "category": "Woodland Animals", "words": ["DEER", "FOX", "RABBIT", "SQUIRREL"], "difficulty": 1 },
+      { "category": "Types of Fabric", "words": ["SILK", "LINEN", "COTTON", "VELVET"], "difficulty": 2 },
+      { "category": "Things That Are Soft", "words": ["WHISPER", "PILLOW", "BREEZE", "HEART"], "difficulty": 3 },
+      { "category": "___ Trail", "words": ["NATURE", "PAPER", "STAR", "VAPOR"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-24": {
+    "groups": [
+      { "category": "Spices", "words": ["CINNAMON", "PAPRIKA", "TURMERIC", "CUMIN"], "difficulty": 1 },
+      { "category": "Ancient Wonders", "words": ["PYRAMID", "COLOSSEUM", "SPHINX", "PARTHENON"], "difficulty": 2 },
+      { "category": "Things That Are Golden", "words": ["SUNSET", "RETRIEVER", "GATE", "AGE"], "difficulty": 3 },
+      { "category": "___ Pepper", "words": ["CHILI", "BELL", "SALT AND", "DR"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-25": {
+    "groups": [
+      { "category": "Tropical Fruits", "words": ["MANGO", "PAPAYA", "GUAVA", "COCONUT"], "difficulty": 1 },
+      { "category": "Types of Whale", "words": ["BLUE", "HUMPBACK", "ORCA", "BELUGA"], "difficulty": 2 },
+      { "category": "Things That Splash", "words": ["WAVE", "PAINT", "HEADLINE", "CASH"], "difficulty": 3 },
+      { "category": "___ Pool", "words": ["SWIMMING", "CAR", "DEAD", "GENE"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-26": {
+    "groups": [
+      { "category": "Parts of a Tree", "words": ["TRUNK", "BRANCH", "ROOT", "BARK"], "difficulty": 1 },
+      { "category": "Literary Genres", "words": ["MYSTERY", "FANTASY", "THRILLER", "ROMANCE"], "difficulty": 2 },
+      { "category": "Things That Grow", "words": ["BUSINESS", "CRYSTAL", "CHILD", "PATIENCE"], "difficulty": 3 },
+      { "category": "___ Leaf", "words": ["BAY", "MAPLE", "GOLD", "LOOSE"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-27": {
+    "groups": [
+      { "category": "Nuts", "words": ["ALMOND", "CASHEW", "WALNUT", "PECAN"], "difficulty": 1 },
+      { "category": "Chess Pieces", "words": ["KNIGHT", "BISHOP", "ROOK", "PAWN"], "difficulty": 2 },
+      { "category": "Things You Crack", "words": ["CODE", "JOKE", "EGG", "SAFE"], "difficulty": 3 },
+      { "category": "___ Shell", "words": ["NUT", "SEA", "EGG", "BOMB"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-28": {
+    "groups": [
+      { "category": "Herbs", "words": ["BASIL", "THYME", "PARSLEY", "ROSEMARY"], "difficulty": 1 },
+      { "category": "Classic Arcade Games", "words": ["PACMAN", "TETRIS", "GALAGA", "FROGGER"], "difficulty": 2 },
+      { "category": "Things With Lives", "words": ["CAT", "BATTERY", "PARTY", "GAME"], "difficulty": 3 },
+      { "category": "___ Time", "words": ["BED", "PRIME", "HALF", "OVER"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-29": {
+    "groups": [
+      { "category": "Birds", "words": ["EAGLE", "HAWK", "FALCON", "OSPREY"], "difficulty": 1 },
+      { "category": "Mountain Ranges", "words": ["ALPS", "ANDES", "ROCKIES", "HIMALAYAS"], "difficulty": 2 },
+      { "category": "Things That Soar", "words": ["PRICES", "HOPES", "SPIRITS", "IMAGINATION"], "difficulty": 3 },
+      { "category": "___ Peak", "words": ["SNEAK", "PIKES", "MOUNTAIN", "WIDOW'S"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-30": {
+    "groups": [
+      { "category": "Desserts", "words": ["BROWNIE", "TIRAMISU", "CHEESECAKE", "MOUSSE"], "difficulty": 1 },
+      { "category": "Types of Architecture", "words": ["GOTHIC", "BAROQUE", "MODERN", "DECO"], "difficulty": 2 },
+      { "category": "Things That Are Rich", "words": ["CHOCOLATE", "SOIL", "HISTORY", "COLOR"], "difficulty": 3 },
+      { "category": "___ Layer", "words": ["OZONE", "BASE", "TOP", "CAKE"], "difficulty": 4 }
+    ]
+  },
+  "2026-03-31": {
+    "groups": [
+      { "category": "April Fool's Tricks", "words": ["PRANK", "HOAX", "JOKE", "GOOF"], "difficulty": 1 },
+      { "category": "Things That Fool You", "words": ["MIRAGE", "ILLUSION", "DECOY", "DISGUISE"], "difficulty": 2 },
+      { "category": "Things That Are Fake", "words": ["ALIBI", "SMILE", "NEWS", "TAN"], "difficulty": 3 },
+      { "category": "___ Day", "words": ["APRIL FOOLS", "BIRTH", "GAME", "FIELD"], "difficulty": 4 }
+    ]
+  }
+}

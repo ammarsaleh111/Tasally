@@ -7,33 +7,41 @@ import waffleMonth02 from "./month-02/waffle.json";
 import wordleMonth02 from "./month-02/wordle.json";
 
 import combinationsMonth03 from "./month-03/combinations.json";
+import connectionsMonth03 from "./month-03/connections.json";
 import crosswordMonth03 from "./month-03/crossword.json";
 import numbersMonth03 from "./month-03/numbers.json";
 import spellingMonth03 from "./month-03/spelling.json";
+import strandsMonth03 from "./month-03/strands.json";
 import triviaMonth03 from "./month-03/trivia.json";
 import waffleMonth03 from "./month-03/waffle.json";
 import wordleMonth03 from "./month-03/wordle.json";
 
 import combinationsMonth04 from "./month-04/combinations.json";
+import connectionsMonth04 from "./month-04/connections.json";
 import crosswordMonth04 from "./month-04/crossword.json";
 import numbersMonth04 from "./month-04/numbers.json";
 import spellingMonth04 from "./month-04/spelling.json";
+import strandsMonth04 from "./month-04/strands.json";
 import triviaMonth04 from "./month-04/trivia.json";
 import waffleMonth04 from "./month-04/waffle.json";
 import wordleMonth04 from "./month-04/wordle.json";
 
 import combinationsMonth05 from "./month-05/combinations.json";
+import connectionsMonth05 from "./month-05/connections.json";
 import crosswordMonth05 from "./month-05/crossword.json";
 import numbersMonth05 from "./month-05/numbers.json";
 import spellingMonth05 from "./month-05/spelling.json";
+import strandsMonth05 from "./month-05/strands.json";
 import triviaMonth05 from "./month-05/trivia.json";
 import waffleMonth05 from "./month-05/waffle.json";
 import wordleMonth05 from "./month-05/wordle.json";
 
 import combinationsMonth06 from "./month-06/combinations.json";
+import connectionsMonth06 from "./month-06/connections.json";
 import crosswordMonth06 from "./month-06/crossword.json";
 import numbersMonth06 from "./month-06/numbers.json";
 import spellingMonth06 from "./month-06/spelling.json";
+import strandsMonth06 from "./month-06/strands.json";
 import triviaMonth06 from "./month-06/trivia.json";
 import waffleMonth06 from "./month-06/waffle.json";
 import wordleMonth06 from "./month-06/wordle.json";
@@ -46,6 +54,8 @@ export const GAME_KEYS = [
   "waffle",
   "combinations",
   "spelling",
+  "connections",
+  "strands",
 ] as const;
 
 export type GameKey = (typeof GAME_KEYS)[number];
@@ -71,6 +81,8 @@ export const DATASETS: Record<MonthKey, MonthGameMap> = {
     waffle: waffleMonth02,
     combinations: combinationsMonth02,
     spelling: spellingMonth02,
+    connections: {} as RawMonthDataset,
+    strands: {} as RawMonthDataset,
   },
   "month-03": {
     wordle: wordleMonth03,
@@ -80,6 +92,8 @@ export const DATASETS: Record<MonthKey, MonthGameMap> = {
     waffle: waffleMonth03,
     combinations: combinationsMonth03,
     spelling: spellingMonth03,
+    connections: connectionsMonth03,
+    strands: strandsMonth03,
   },
   "month-04": {
     wordle: wordleMonth04,
@@ -89,6 +103,8 @@ export const DATASETS: Record<MonthKey, MonthGameMap> = {
     waffle: waffleMonth04,
     combinations: combinationsMonth04,
     spelling: spellingMonth04,
+    connections: connectionsMonth04,
+    strands: strandsMonth04,
   },
   "month-05": {
     wordle: wordleMonth05,
@@ -98,6 +114,8 @@ export const DATASETS: Record<MonthKey, MonthGameMap> = {
     waffle: waffleMonth05,
     combinations: combinationsMonth05,
     spelling: spellingMonth05,
+    connections: connectionsMonth05,
+    strands: strandsMonth05,
   },
   "month-06": {
     wordle: wordleMonth06,
@@ -107,5 +125,7 @@ export const DATASETS: Record<MonthKey, MonthGameMap> = {
     waffle: waffleMonth06,
     combinations: combinationsMonth06,
     spelling: spellingMonth06,
+    connections: connectionsMonth06,
+    strands: strandsMonth06,
   },
 };

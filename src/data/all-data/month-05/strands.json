@@ -1,0 +1,436 @@
+{
+  "2026-05-01": {
+    "theme": "MAY DAY SPRING",
+    "grid": [
+      ["M", "A", "Y", "P", "O", "L", "E", "B"],
+      ["A", "S", "K", "E", "T", "W", "R", "E"],
+      ["A", "T", "H", "R", "I", "B", "B", "O"],
+      ["N", "G", "A", "R", "L", "A", "N", "D"],
+      ["P", "A", "R", "A", "D", "E", "F", "E"],
+      ["S", "T", "I", "V", "A", "L", "J", "O"]
+    ],
+    "words": ["MAYPOLE", "BASKET", "WREATH", "RIBBON", "GARLAND", "PARADE"],
+    "spangram": "FESTIVALJOY",
+    "spangramPath": [[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0],[4,0],[3,0]]
+  },
+  "2026-05-02": {
+    "theme": "NIGHT INSECTS",
+    "grid": [
+      ["F", "I", "R", "E", "F", "L", "Y", "M"],
+      ["O", "T", "H", "C", "R", "I", "C", "K"],
+      ["E", "T", "B", "E", "E", "T", "L", "E"],
+      ["M", "A", "N", "T", "I", "S", "G", "N"],
+      ["A", "T", "L", "A", "D", "Y", "B", "U"],
+      ["G", "C", "I", "C", "A", "D", "A", "S"]
+    ],
+    "words": ["FIREFLY", "MOTH", "CRICKET", "BEETLE", "MANTIS", "GNAT"],
+    "spangram": "LADYBUGCICADAS",
+    "spangramPath": [[4,3],[4,2],[4,1],[4,0],[3,0],[4,7],[4,6],[4,5],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0]]
+  },
+  "2026-05-03": {
+    "theme": "TEA CEREMONY",
+    "grid": [
+      ["C", "H", "A", "M", "O", "M", "I", "L"],
+      ["E", "J", "A", "S", "M", "I", "N", "E"],
+      ["O", "O", "L", "O", "N", "G", "M", "A"],
+      ["T", "C", "H", "A", "P", "E", "K", "O"],
+      ["E", "E", "A", "R", "L", "G", "R", "E"],
+      ["Y", "D", "A", "R", "J", "E", "E", "L"]
+    ],
+    "words": ["CHAMOMILE", "JASMINE", "OOLONG", "MATCHA", "PEKOE", "EARL GREY"],
+    "spangram": "DARJEELING",
+    "spangramPath": [[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[4,7],[3,7],[2,7]]
+  },
+  "2026-05-04": {
+    "theme": "STAR WARS DAY",
+    "grid": [
+      ["Y", "O", "D", "A", "L", "E", "I", "A"],
+      ["L", "U", "K", "E", "V", "A", "D", "E"],
+      ["R", "H", "A", "N", "S", "O", "L", "O"],
+      ["C", "H", "E", "W", "I", "E", "F", "O"],
+      ["R", "C", "E", "J", "E", "D", "I", "S"],
+      ["A", "B", "E", "R", "D", "R", "O", "I"]
+    ],
+    "words": ["YODA", "LEIA", "LUKE", "VADER", "HANSOLO", "CHEWIE"],
+    "spangram": "FORCEJEDI",
+    "spangramPath": [[3,7],[4,7],[4,6],[4,5],[4,4],[4,3],[4,2],[4,1],[4,0]]
+  },
+  "2026-05-05": {
+    "theme": "CINCO DE MAYO",
+    "grid": [
+      ["T", "A", "C", "O", "S", "B", "U", "R"],
+      ["R", "I", "T", "O", "S", "A", "L", "S"],
+      ["A", "N", "A", "C", "H", "O", "S", "G"],
+      ["U", "A", "C", "A", "M", "O", "L", "E"],
+      ["P", "I", "N", "A", "T", "A", "F", "I"],
+      ["E", "S", "T", "A", "M", "A", "R", "A"]
+    ],
+    "words": ["TACOS", "BURRITO", "SALSA", "NACHOS", "GUACAMOLE", "PINATA"],
+    "spangram": "FIESTAMARACA",
+    "spangramPath": [[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0],[4,0],[4,1]]
+  },
+  "2026-05-06": {
+    "theme": "SEA LIFE",
+    "grid": [
+      ["S", "E", "A", "H", "O", "R", "S", "E"],
+      ["J", "E", "L", "L", "Y", "F", "I", "S"],
+      ["H", "S", "T", "I", "N", "G", "R", "A"],
+      ["Y", "L", "O", "B", "S", "T", "E", "R"],
+      ["C", "L", "A", "M", "S", "H", "R", "I"],
+      ["M", "P", "O", "C", "T", "O", "P", "U"]
+    ],
+    "words": ["SEAHORSE", "JELLYFISH", "STINGRAY", "LOBSTER", "CLAM", "SHRIMP"],
+    "spangram": "OCTOPUS",
+    "spangramPath": [[5,3],[5,2],[5,1],[5,0],[4,0],[3,0],[2,0]]
+  },
+  "2026-05-07": {
+    "theme": "GREAT COMPOSERS",
+    "grid": [
+      ["B", "A", "C", "H", "M", "O", "Z", "A"],
+      ["R", "T", "B", "E", "E", "T", "H", "O"],
+      ["V", "E", "N", "C", "H", "O", "P", "I"],
+      ["N", "V", "I", "V", "A", "L", "D", "I"],
+      ["S", "T", "R", "A", "U", "S", "S", "O"],
+      ["P", "E", "R", "A", "W", "A", "G", "N"]
+    ],
+    "words": ["BACH", "MOZART", "BEETHOVEN", "CHOPIN", "VIVALDI", "STRAUSS"],
+    "spangram": "OPERAWAGNER",
+    "spangramPath": [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[4,7],[3,7],[2,7]]
+  },
+  "2026-05-08": {
+    "theme": "BRIDGE TYPES",
+    "grid": [
+      ["A", "R", "C", "H", "B", "E", "A", "M"],
+      ["C", "A", "B", "L", "E", "T", "R", "U"],
+      ["S", "S", "S", "U", "S", "P", "E", "N"],
+      ["S", "I", "O", "N", "S", "W", "I", "N"],
+      ["G", "D", "R", "A", "W", "C", "O", "V"],
+      ["E", "R", "E", "D", "B", "R", "I", "D"]
+    ],
+    "words": ["ARCH", "BEAM", "CABLE", "TRUSS", "SUSPENSION", "SWING"],
+    "spangram": "DRAWCOVEREDBRIDGE",
+    "spangramPath": [[4,3],[4,2],[4,1],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[4,7],[4,6],[4,5],[4,4],[3,4],[3,3]]
+  },
+  "2026-05-09": {
+    "theme": "PLAYGROUND FUN",
+    "grid": [
+      ["S", "W", "I", "N", "G", "S", "L", "I"],
+      ["D", "E", "S", "E", "E", "S", "A", "W"],
+      ["S", "A", "N", "D", "B", "O", "X", "C"],
+      ["L", "I", "M", "B", "E", "R", "J", "U"],
+      ["N", "G", "L", "E", "G", "Y", "M", "P"],
+      ["L", "A", "Y", "G", "R", "O", "U", "N"]
+    ],
+    "words": ["SWINGS", "SLIDE", "SEESAW", "SANDBOX", "CLIMBER", "JUNGLEGYM"],
+    "spangram": "PLAYGROUND",
+    "spangramPath": [[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0],[4,0]]
+  },
+  "2026-05-10": {
+    "theme": "MOTHERS DAY",
+    "grid": [
+      ["F", "L", "O", "W", "E", "R", "S", "C"],
+      ["A", "R", "D", "P", "E", "R", "F", "U"],
+      ["M", "E", "J", "E", "W", "E", "L", "R"],
+      ["Y", "B", "R", "U", "N", "C", "H", "L"],
+      ["O", "V", "E", "G", "R", "A", "T", "I"],
+      ["T", "U", "D", "E", "H", "E", "A", "R"]
+    ],
+    "words": ["FLOWERS", "CARD", "PERFUME", "JEWELRY", "BRUNCH", "LOVE"],
+    "spangram": "GRATITUDEHEART",
+    "spangramPath": [[4,4],[4,3],[4,2],[4,1],[4,0],[3,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7]]
+  },
+  "2026-05-11": {
+    "theme": "MORNING DRINKS",
+    "grid": [
+      ["C", "O", "F", "F", "E", "E", "J", "U"],
+      ["I", "C", "E", "M", "I", "L", "K", "S"],
+      ["M", "O", "O", "T", "H", "I", "E", "T"],
+      ["E", "A", "C", "O", "C", "O", "A", "L"],
+      ["A", "T", "T", "E", "C", "I", "D", "E"],
+      ["R", "W", "A", "T", "E", "R", "S", "S"]
+    ],
+    "words": ["COFFEE", "JUICE", "MILK", "SMOOTHIE", "TEA", "COCOA"],
+    "spangram": "LATTECIDERWATER",
+    "spangramPath": [[3,7],[4,7],[4,6],[4,5],[4,4],[4,3],[4,2],[4,1],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
+  },
+  "2026-05-12": {
+    "theme": "TROPICAL BIRDS",
+    "grid": [
+      ["P", "A", "R", "R", "O", "T", "T", "O"],
+      ["U", "C", "A", "N", "M", "A", "C", "A"],
+      ["W", "C", "O", "C", "K", "A", "T", "O"],
+      ["O", "L", "O", "R", "I", "K", "E", "E"],
+      ["T", "F", "L", "A", "M", "I", "N", "G"],
+      ["O", "P", "E", "A", "C", "O", "C", "K"]
+    ],
+    "words": ["PARROT", "TOUCAN", "MACAW", "COCKATOO", "LORIKEET", "FLAMINGO"],
+    "spangram": "PEACOCK",
+    "spangramPath": [[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7]]
+  },
+  "2026-05-13": {
+    "theme": "SHOE STYLES",
+    "grid": [
+      ["L", "O", "A", "F", "E", "R", "B", "O"],
+      ["O", "T", "S", "A", "N", "D", "A", "L"],
+      ["S", "N", "E", "A", "K", "E", "R", "H"],
+      ["E", "E", "L", "S", "P", "U", "M", "P"],
+      ["S", "W", "E", "D", "G", "E", "F", "L"],
+      ["A", "T", "S", "M", "O", "C", "C", "A"]
+    ],
+    "words": ["LOAFER", "BOOT", "SANDAL", "SNEAKER", "HEELS", "PUMPS"],
+    "spangram": "WEDGEFLATSMOCCA",
+    "spangramPath": [[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0]]
+  },
+  "2026-05-14": {
+    "theme": "ANCIENT RUINS",
+    "grid": [
+      ["C", "O", "L", "O", "S", "S", "E", "U"],
+      ["M", "S", "T", "O", "N", "E", "H", "E"],
+      ["N", "G", "E", "P", "A", "N", "T", "H"],
+      ["E", "O", "N", "A", "C", "R", "O", "P"],
+      ["O", "L", "I", "S", "F", "O", "R", "U"],
+      ["M", "P", "O", "M", "P", "E", "I", "I"]
+    ],
+    "words": ["COLOSSEUM", "STONEHENGE", "PANTHEON", "ACROPOLIS", "FORUM", "POMPEII"],
+    "spangram": "RUINSHISTORY",
+    "spangramPath": [[4,5],[4,4],[4,3],[4,2],[4,1],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5]]
+  },
+  "2026-05-15": {
+    "theme": "DESSERT TOPPINGS",
+    "grid": [
+      ["S", "P", "R", "I", "N", "K", "L", "E"],
+      ["S", "C", "A", "R", "A", "M", "E", "L"],
+      ["C", "H", "E", "R", "R", "Y", "W", "H"],
+      ["I", "P", "P", "E", "D", "C", "R", "E"],
+      ["A", "M", "F", "U", "D", "G", "E", "N"],
+      ["U", "T", "S", "S", "A", "U", "C", "E"]
+    ],
+    "words": ["SPRINKLES", "CARAMEL", "CHERRY", "WHIPPED CREAM", "FUDGE", "NUTS"],
+    "spangram": "SAUCETOPPING",
+    "spangramPath": [[5,4],[5,3],[5,2],[5,1],[5,0],[4,0],[3,0],[2,0],[1,0],[0,0],[0,1],[0,2]]
+  },
+  "2026-05-16": {
+    "theme": "LOCK AND KEY",
+    "grid": [
+      ["P", "A", "D", "L", "O", "C", "K", "D"],
+      ["E", "A", "D", "B", "O", "L", "T", "C"],
+      ["O", "M", "B", "O", "L", "A", "T", "C"],
+      ["H", "V", "A", "U", "L", "T", "S", "A"],
+      ["F", "E", "P", "A", "S", "S", "W", "O"],
+      ["R", "D", "C", "Y", "P", "H", "E", "R"]
+    ],
+    "words": ["PADLOCK", "DEADBOLT", "COMBO", "LATCH", "VAULT", "SAFE"],
+    "spangram": "PASSWORDCYPHER",
+    "spangramPath": [[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0]]
+  },
+  "2026-05-17": {
+    "theme": "BOAT TYPES",
+    "grid": [
+      ["K", "A", "Y", "A", "K", "C", "A", "N"],
+      ["O", "E", "Y", "A", "C", "H", "T", "D"],
+      ["I", "N", "G", "H", "Y", "S", "A", "I"],
+      ["L", "B", "O", "A", "T", "F", "E", "R"],
+      ["R", "Y", "C", "A", "T", "A", "M", "A"],
+      ["R", "A", "N", "T", "R", "A", "W", "L"]
+    ],
+    "words": ["KAYAK", "CANOE", "YACHT", "DINGHY", "SAILBOAT", "FERRY"],
+    "spangram": "CATAMARANTRAWL",
+    "spangramPath": [[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0]]
+  },
+  "2026-05-18": {
+    "theme": "GARDEN PESTS",
+    "grid": [
+      ["A", "P", "H", "I", "D", "S", "L", "U"],
+      ["G", "S", "N", "A", "I", "L", "W", "E"],
+      ["E", "V", "I", "L", "C", "A", "T", "E"],
+      ["R", "P", "I", "L", "L", "A", "R", "M"],
+      ["O", "L", "E", "G", "R", "U", "B", "A"],
+      ["N", "T", "S", "L", "O", "C", "U", "S"]
+    ],
+    "words": ["APHID", "SLUG", "SNAIL", "WEEVIL", "CATERPILLAR", "MOLE"],
+    "spangram": "GRUBANTLOCUST",
+    "spangramPath": [[4,4],[4,3],[4,2],[4,1],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7]]
+  },
+  "2026-05-19": {
+    "theme": "WALL TYPES",
+    "grid": [
+      ["B", "R", "I", "C", "K", "S", "T", "O"],
+      ["N", "E", "D", "R", "Y", "W", "A", "L"],
+      ["L", "C", "O", "N", "C", "R", "E", "T"],
+      ["E", "H", "E", "D", "G", "E", "F", "E"],
+      ["N", "C", "E", "G", "A", "B", "I", "O"],
+      ["N", "P", "A", "R", "T", "I", "T", "I"]
+    ],
+    "words": ["BRICK", "STONE", "DRYWALL", "CONCRETE", "HEDGE", "FENCE"],
+    "spangram": "GABIONPARTITI",
+    "spangramPath": [[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0]]
+  },
+  "2026-05-20": {
+    "theme": "WORLD BEE DAY",
+    "grid": [
+      ["H", "I", "V", "E", "H", "O", "N", "E"],
+      ["Y", "P", "O", "L", "L", "E", "N", "N"],
+      ["E", "C", "T", "A", "R", "Q", "U", "E"],
+      ["E", "N", "B", "U", "Z", "Z", "W", "A"],
+      ["X", "W", "O", "R", "K", "E", "R", "D"],
+      ["R", "O", "N", "E", "S", "W", "A", "R"]
+    ],
+    "words": ["HIVE", "HONEY", "POLLEN", "NECTAR", "QUEEN", "BUZZ"],
+    "spangram": "WAXWORKERDRONESWARM",
+    "spangramPath": [[3,6],[4,6],[4,5],[4,4],[4,3],[4,2],[4,1],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[4,7],[3,7],[2,7]]
+  },
+  "2026-05-21": {
+    "theme": "PHOTO TERMS",
+    "grid": [
+      ["E", "X", "P", "O", "S", "U", "R", "E"],
+      ["A", "P", "E", "R", "T", "U", "R", "E"],
+      ["S", "H", "U", "T", "T", "E", "R", "F"],
+      ["O", "C", "U", "S", "L", "E", "N", "S"],
+      ["F", "L", "A", "S", "H", "Z", "O", "O"],
+      ["M", "F", "R", "A", "M", "E", "S", "S"]
+    ],
+    "words": ["EXPOSURE", "APERTURE", "SHUTTER", "FOCUS", "LENS", "FLASH"],
+    "spangram": "ZOOMFRAMES",
+    "spangramPath": [[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1]]
+  },
+  "2026-05-22": {
+    "theme": "LAMP TYPES",
+    "grid": [
+      ["L", "A", "V", "A", "D", "E", "S", "K"],
+      ["F", "L", "O", "O", "R", "T", "A", "B"],
+      ["L", "E", "S", "T", "R", "E", "E", "T"],
+      ["C", "H", "A", "N", "D", "E", "L", "I"],
+      ["E", "R", "S", "C", "O", "N", "C", "E"],
+      ["L", "A", "N", "T", "E", "R", "N", "S"]
+    ],
+    "words": ["LAVA", "DESK", "FLOOR", "TABLE", "STREET", "CHANDELIER"],
+    "spangram": "SCONCELANTERNS",
+    "spangramPath": [[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0]]
+  },
+  "2026-05-23": {
+    "theme": "RACING EVENTS",
+    "grid": [
+      ["S", "P", "R", "I", "N", "T", "M", "A"],
+      ["R", "A", "T", "H", "O", "N", "R", "E"],
+      ["L", "A", "Y", "H", "U", "R", "D", "L"],
+      ["E", "S", "D", "A", "S", "H", "L", "A"],
+      ["P", "S", "T", "E", "E", "P", "L", "E"],
+      ["C", "H", "A", "S", "E", "T", "R", "A"]
+    ],
+    "words": ["SPRINT", "MARATHON", "RELAY", "HURDLE", "DASH", "LAPS"],
+    "spangram": "STEEPLECHASETRA",
+    "spangramPath": [[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0],[4,0]]
+  },
+  "2026-05-24": {
+    "theme": "GREEK GODS",
+    "grid": [
+      ["Z", "E", "U", "S", "A", "T", "H", "E"],
+      ["N", "A", "A", "P", "O", "L", "L", "O"],
+      ["H", "E", "R", "M", "E", "S", "A", "R"],
+      ["E", "S", "P", "O", "S", "E", "I", "D"],
+      ["O", "N", "H", "A", "D", "E", "S", "A"],
+      ["R", "T", "E", "M", "I", "S", "O", "L"]
+    ],
+    "words": ["ZEUS", "ATHENA", "APOLLO", "HERMES", "ARES", "POSEIDON"],
+    "spangram": "HADESARTEMISOL",
+    "spangramPath": [[4,3],[4,2],[4,1],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[4,7],[4,6]]
+  },
+  "2026-05-25": {
+    "theme": "SEWING CRAFT",
+    "grid": [
+      ["S", "T", "I", "T", "C", "H", "S", "E"],
+      ["A", "M", "B", "O", "B", "B", "I", "N"],
+      ["N", "E", "E", "D", "L", "E", "T", "H"],
+      ["R", "E", "A", "D", "F", "A", "B", "R"],
+      ["I", "C", "P", "A", "T", "T", "E", "R"],
+      ["N", "Q", "U", "I", "L", "T", "I", "N"]
+    ],
+    "words": ["STITCH", "SEAM", "BOBBIN", "NEEDLE", "THREAD", "FABRIC"],
+    "spangram": "PATTERNQUILTIN",
+    "spangramPath": [[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0]]
+  },
+  "2026-05-26": {
+    "theme": "MEMORIAL DAY",
+    "grid": [
+      ["H", "O", "N", "O", "R", "S", "A", "L"],
+      ["U", "T", "E", "V", "A", "L", "O", "R"],
+      ["T", "R", "I", "B", "U", "T", "E", "H"],
+      ["E", "R", "O", "P", "A", "T", "R", "I"],
+      ["O", "T", "F", "L", "A", "G", "M", "A"],
+      ["R", "C", "H", "S", "E", "R", "V", "E"]
+    ],
+    "words": ["HONOR", "SALUTE", "VALOR", "TRIBUTE", "HERO", "PATRIOT"],
+    "spangram": "FLAGMARCHSERVE",
+    "spangramPath": [[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0],[4,0]]
+  },
+  "2026-05-27": {
+    "theme": "GREAT RIVERS",
+    "grid": [
+      ["A", "M", "A", "Z", "O", "N", "D", "A"],
+      ["N", "U", "B", "E", "T", "H", "A", "M"],
+      ["E", "S", "G", "A", "N", "G", "E", "S"],
+      ["S", "E", "I", "N", "E", "R", "H", "I"],
+      ["N", "E", "Y", "A", "N", "G", "T", "Z"],
+      ["E", "M", "I", "S", "S", "I", "S", "S"]
+    ],
+    "words": ["AMAZON", "DANUBE", "THAMES", "GANGES", "SEINE", "RHINE"],
+    "spangram": "YANGTZEMISSISS",
+    "spangramPath": [[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2],[5,1],[5,0],[4,0]]
+  },
+  "2026-05-28": {
+    "theme": "PERIODIC TABLE",
+    "grid": [
+      ["O", "X", "Y", "G", "E", "N", "C", "A"],
+      ["R", "B", "O", "N", "N", "I", "T", "R"],
+      ["O", "G", "E", "N", "H", "E", "L", "I"],
+      ["U", "M", "I", "R", "O", "N", "G", "O"],
+      ["L", "D", "N", "E", "O", "N", "C", "O"],
+      ["P", "P", "E", "R", "Z", "I", "N", "C"]
+    ],
+    "words": ["OXYGEN", "CARBON", "NITROGEN", "HELIUM", "IRON", "GOLD"],
+    "spangram": "NEONCOPPERZI",
+    "spangramPath": [[4,4],[4,3],[4,2],[4,1],[4,0],[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
+  },
+  "2026-05-29": {
+    "theme": "ICE CREAM SHOP",
+    "grid": [
+      ["V", "A", "N", "I", "L", "L", "A", "P"],
+      ["I", "S", "T", "A", "C", "H", "I", "O"],
+      ["M", "I", "N", "T", "M", "A", "N", "G"],
+      ["O", "C", "H", "O", "C", "O", "L", "A"],
+      ["T", "E", "S", "T", "R", "A", "W", "B"],
+      ["E", "R", "R", "Y", "S", "C", "O", "O"]
+    ],
+    "words": ["VANILLA", "PISTACHIO", "MINT", "MANGO", "CHOCOLATE", "STRAWBERRY"],
+    "spangram": "SCOOPS",
+    "spangramPath": [[5,4],[5,5],[5,6],[5,7],[4,7],[3,7]]
+  },
+  "2026-05-30": {
+    "theme": "DANCE MUSIC",
+    "grid": [
+      ["D", "I", "S", "C", "O", "T", "E", "C"],
+      ["H", "N", "O", "H", "O", "U", "S", "E"],
+      ["T", "R", "A", "N", "C", "E", "D", "U"],
+      ["B", "S", "T", "E", "P", "E", "D", "M"],
+      ["R", "E", "M", "I", "X", "G", "A", "R"],
+      ["A", "G", "E", "B", "A", "S", "S", "S"]
+    ],
+    "words": ["DISCO", "TECHNO", "HOUSE", "TRANCE", "DUBSTEP", "EDM"],
+    "spangram": "REMIXGARAEBASS",
+    "spangramPath": [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[5,7],[5,6],[5,5],[5,4],[5,3],[5,2]]
+  },
+  "2026-05-31": {
+    "theme": "SUMMER PREVIEW",
+    "grid": [
+      ["B", "E", "A", "C", "H", "P", "O", "O"],
+      ["L", "V", "A", "C", "A", "T", "I", "O"],
+      ["N", "S", "U", "N", "S", "H", "I", "N"],
+      ["E", "H", "A", "M", "M", "O", "C", "K"],
+      ["S", "U", "R", "F", "I", "N", "G", "S"],
+      ["W", "I", "M", "H", "E", "A", "T", "S"]
+    ],
+    "words": ["BEACH", "POOL", "VACATION", "SUNSHINE", "HAMMOCK", "SURFING"],
+    "spangram": "SWIMHEATS",
+    "spangramPath": [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[4,7]]
+  }
+}

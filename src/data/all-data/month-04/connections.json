@@ -1,0 +1,242 @@
+{
+  "2026-04-01": {
+    "groups": [
+      { "category": "April Fools Classics", "words": ["PRANK", "TRICK", "SPOOF", "HOAX"], "difficulty": 1 },
+      { "category": "Things That Surprise", "words": ["GIFT", "TWIST", "JACKPOT", "AMBUSH"], "difficulty": 2 },
+      { "category": "Double Meanings", "words": ["SPRING", "FOOL", "CHARGE", "PLANT"], "difficulty": 3 },
+      { "category": "___ Day", "words": ["APRIL FOOLS", "LABOR", "JUDGMENT", "MATCH"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-02": {
+    "groups": [
+      { "category": "Types of Cheese", "words": ["CHEDDAR", "BRIE", "GOUDA", "FETA"], "difficulty": 1 },
+      { "category": "Olympic Sports", "words": ["FENCING", "ARCHERY", "JAVELIN", "DISCUS"], "difficulty": 2 },
+      { "category": "Things That Melt", "words": ["ICE", "HEART", "CHOCOLATE", "SNOWMAN"], "difficulty": 3 },
+      { "category": "___ Board", "words": ["CHEESE", "SKATE", "CARD", "CHALK"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-03": {
+    "groups": [
+      { "category": "Farm Animals", "words": ["ROOSTER", "GOAT", "SHEEP", "DONKEY"], "difficulty": 1 },
+      { "category": "Famous Inventions", "words": ["COMPASS", "TELESCOPE", "PRINTING PRESS", "WHEEL"], "difficulty": 2 },
+      { "category": "Things That Kick", "words": ["MULE", "HABIT", "ENGINE", "FLAVOR"], "difficulty": 3 },
+      { "category": "___ Field", "words": ["CORN", "MINE", "TRACK", "BATTLE"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-04": {
+    "groups": [
+      { "category": "Berries", "words": ["BLUEBERRY", "RASPBERRY", "BLACKBERRY", "STRAWBERRY"], "difficulty": 1 },
+      { "category": "Constellations", "words": ["ORION", "CASSIOPEIA", "PEGASUS", "SCORPIUS"], "difficulty": 2 },
+      { "category": "Things That Cluster", "words": ["GRAPES", "STARS", "BEES", "DATA"], "difficulty": 3 },
+      { "category": "___ Berry", "words": ["HALLE", "CHUCK", "DINGLE", "GOOSE"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-05": {
+    "groups": [
+      { "category": "Art Supplies", "words": ["CANVAS", "BRUSH", "PALETTE", "EASEL"], "difficulty": 1 },
+      { "category": "Types of Ship", "words": ["FRIGATE", "GALLEON", "SCHOONER", "CLIPPER"], "difficulty": 2 },
+      { "category": "Things You Frame", "words": ["PHOTO", "QUESTION", "SUSPECT", "ARGUMENT"], "difficulty": 3 },
+      { "category": "___ Stroke", "words": ["BRUSH", "KEY", "SUN", "BACK"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-06": {
+    "groups": [
+      { "category": "Camping Gear", "words": ["TENT", "LANTERN", "COMPASS", "CANTEEN"], "difficulty": 1 },
+      { "category": "Types of Map", "words": ["ROAD", "TREASURE", "TOPOGRAPHIC", "POLITICAL"], "difficulty": 2 },
+      { "category": "Things With Poles", "words": ["EARTH", "FISHING", "FLAG", "TOTEM"], "difficulty": 3 },
+      { "category": "___ Fire", "words": ["CAMP", "CROSS", "HELL", "WILD"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-07": {
+    "groups": [
+      { "category": "Metals", "words": ["COPPER", "BRONZE", "SILVER", "PLATINUM"], "difficulty": 1 },
+      { "category": "Famous Detectives", "words": ["HOLMES", "POIROT", "MARPLE", "MORSE"], "difficulty": 2 },
+      { "category": "Things That Conduct", "words": ["ORCHESTRA", "HEAT", "YOURSELF", "SURVEY"], "difficulty": 3 },
+      { "category": "___ Age", "words": ["BRONZE", "ICE", "GOLDEN", "STONE"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-08": {
+    "groups": [
+      { "category": "Solar System", "words": ["MARS", "VENUS", "SATURN", "JUPITER"], "difficulty": 1 },
+      { "category": "Roman Gods", "words": ["MERCURY", "NEPTUNE", "PLUTO", "DIANA"], "difficulty": 2 },
+      { "category": "Things That Orbit", "words": ["SATELLITE", "MOON", "ELECTRON", "THOUGHT"], "difficulty": 3 },
+      { "category": "___ Ring", "words": ["SATURN", "BOXING", "WEDDING", "CIRCUS"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-09": {
+    "groups": [
+      { "category": "Salad Ingredients", "words": ["LETTUCE", "TOMATO", "CUCUMBER", "CROUTON"], "difficulty": 1 },
+      { "category": "Shakespeare Plays", "words": ["TEMPEST", "OTHELLO", "HAMLET", "MACBETH"], "difficulty": 2 },
+      { "category": "Things You Toss", "words": ["COIN", "SALAD", "IDEA", "PANCAKE"], "difficulty": 3 },
+      { "category": "___ Dressing", "words": ["RANCH", "WINDOW", "SALAD", "CROSS"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-10": {
+    "groups": [
+      { "category": "Coffee Drinks", "words": ["ESPRESSO", "LATTE", "MOCHA", "CAPPUCCINO"], "difficulty": 1 },
+      { "category": "Famous Architects", "words": ["WRIGHT", "GAUDI", "HADID", "GEHRY"], "difficulty": 2 },
+      { "category": "Things That Grind", "words": ["GEARS", "TEETH", "PEPPER", "ROUTINE"], "difficulty": 3 },
+      { "category": "___ Bean", "words": ["COFFEE", "JELLY", "MR", "STRING"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-11": {
+    "groups": [
+      { "category": "Types of Knot", "words": ["BOWLINE", "CLOVE", "REEF", "FIGURE EIGHT"], "difficulty": 1 },
+      { "category": "Things at Sea", "words": ["ANCHOR", "MAST", "HULL", "RUDDER"], "difficulty": 2 },
+      { "category": "Things That Tie", "words": ["SCORE", "BOND", "NECKTIE", "RECORD"], "difficulty": 3 },
+      { "category": "___ Line", "words": ["BOTTOM", "CLOTHES", "PUNCH", "FINISH"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-12": {
+    "groups": [
+      { "category": "Space Exploration", "words": ["SHUTTLE", "ROCKET", "CAPSULE", "PROBE"], "difficulty": 1 },
+      { "category": "Famous Astronauts", "words": ["GAGARIN", "ARMSTRONG", "ALDRIN", "GLENN"], "difficulty": 2 },
+      { "category": "Things That Launch", "words": ["CAREER", "PRODUCT", "ATTACK", "BOAT"], "difficulty": 3 },
+      { "category": "___ Station", "words": ["SPACE", "GAS", "TRAIN", "RADIO"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-13": {
+    "groups": [
+      { "category": "Wildflowers", "words": ["DAISY", "POPPY", "BLUEBELL", "BUTTERCUP"], "difficulty": 1 },
+      { "category": "Fairy Tale Characters", "words": ["RAPUNZEL", "CINDERELLA", "GRETEL", "GOLDILOCKS"], "difficulty": 2 },
+      { "category": "Things That Enchant", "words": ["SPELL", "MUSIC", "BEAUTY", "STORY"], "difficulty": 3 },
+      { "category": "___ Garden", "words": ["SECRET", "BEER", "ROOF", "FAIRY"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-14": {
+    "groups": [
+      { "category": "Teeth Related", "words": ["MOLAR", "CANINE", "INCISOR", "WISDOM"], "difficulty": 1 },
+      { "category": "Things That Bite", "words": ["MOSQUITO", "FROST", "BULLET", "SARCASM"], "difficulty": 2 },
+      { "category": "Things That Are Sharp", "words": ["KNIFE", "WIT", "TURN", "DRESSER"], "difficulty": 3 },
+      { "category": "___ Brush", "words": ["TOOTH", "HAIR", "PAINT", "SAGE"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-15": {
+    "groups": [
+      { "category": "Tax Terms", "words": ["DEDUCTION", "REFUND", "AUDIT", "BRACKET"], "difficulty": 1 },
+      { "category": "Things You File", "words": ["TAXES", "NAILS", "COMPLAINT", "REPORT"], "difficulty": 2 },
+      { "category": "Things That Return", "words": ["BOOMERANG", "SPRING", "HERO", "INVESTMENT"], "difficulty": 3 },
+      { "category": "___ Form", "words": ["TAX", "PLAT", "RE", "UNI"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-16": {
+    "groups": [
+      { "category": "African Animals", "words": ["ELEPHANT", "GIRAFFE", "ZEBRA", "HIPPO"], "difficulty": 1 },
+      { "category": "Things With Stripes", "words": ["TIGER", "CANDY CANE", "FLAG", "REFEREE"], "difficulty": 2 },
+      { "category": "Things That Stampede", "words": ["CROWD", "CATTLE", "BUFFALO", "SHOPPERS"], "difficulty": 3 },
+      { "category": "___ Run", "words": ["BULL", "HOME", "DRY", "LONG"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-17": {
+    "groups": [
+      { "category": "Dances", "words": ["BALLET", "SAMBA", "FLAMENCO", "POLKA"], "difficulty": 1 },
+      { "category": "Words for Rhythm", "words": ["BEAT", "TEMPO", "PULSE", "CADENCE"], "difficulty": 2 },
+      { "category": "Things That Move Gracefully", "words": ["SWAN", "GYMNAST", "RIVER", "CURTAIN"], "difficulty": 3 },
+      { "category": "___ Floor", "words": ["DANCE", "GROUND", "FIRST", "OCEAN"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-18": {
+    "groups": [
+      { "category": "Gemstones", "words": ["AMETHYST", "SAPPHIRE", "GARNET", "EMERALD"], "difficulty": 1 },
+      { "category": "Things That Shine", "words": ["SHOES", "STAR", "ARMOR", "EXAMPLE"], "difficulty": 2 },
+      { "category": "Things That Are Precious", "words": ["CHILD", "MOMENT", "METAL", "CARGO"], "difficulty": 3 },
+      { "category": "___ Cut", "words": ["DIAMOND", "PAPER", "CREW", "SHORT"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-19": {
+    "groups": [
+      { "category": "Garden Tools", "words": ["SHOVEL", "RAKE", "HOE", "TROWEL"], "difficulty": 1 },
+      { "category": "Things That Dig", "words": ["MOLE", "DETECTIVE", "ARCHAEOLOGIST", "CRITIC"], "difficulty": 2 },
+      { "category": "Things Under Ground", "words": ["TUNNEL", "ROOT", "TREASURE", "SUBWAY"], "difficulty": 3 },
+      { "category": "___ Bed", "words": ["FLOWER", "RIVER", "WATER", "HOT"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-20": {
+    "groups": [
+      { "category": "Trees", "words": ["OAK", "MAPLE", "BIRCH", "WILLOW"], "difficulty": 1 },
+      { "category": "Earth Day Concepts", "words": ["RECYCLE", "SUSTAIN", "CONSERVE", "RENEW"], "difficulty": 2 },
+      { "category": "Things That Are Green", "words": ["ENVY", "THUMB", "LIGHT", "ENERGY"], "difficulty": 3 },
+      { "category": "___ Planet", "words": ["BLUE", "MINOR", "LONE", "ROCKET"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-21": {
+    "groups": [
+      { "category": "Computer Parts", "words": ["MONITOR", "KEYBOARD", "MOUSE", "SPEAKER"], "difficulty": 1 },
+      { "category": "Things That Click", "words": ["CAMERA", "PEN", "FINGERS", "RELATIONSHIP"], "difficulty": 2 },
+      { "category": "Things With Memory", "words": ["BRAIN", "CHIP", "FOAM", "GOLDFISH"], "difficulty": 3 },
+      { "category": "___ Drive", "words": ["HARD", "TEST", "THUMB", "OVER"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-22": {
+    "groups": [
+      { "category": "Earth Day", "words": ["PLANET", "NATURE", "ECOLOGY", "CLIMATE"], "difficulty": 1 },
+      { "category": "Layers of Earth", "words": ["CRUST", "MANTLE", "CORE", "LITHOSPHERE"], "difficulty": 2 },
+      { "category": "Things That Recycle", "words": ["PAPER", "GLASS", "JOKE", "FASHION"], "difficulty": 3 },
+      { "category": "___ Green", "words": ["EVER", "SOYLENT", "BOWLING", "LIME"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-23": {
+    "groups": [
+      { "category": "Book Genres", "words": ["HORROR", "COMEDY", "DRAMA", "ACTION"], "difficulty": 1 },
+      { "category": "Shakespeare Works", "words": ["HAMLET", "OTHELLO", "TEMPEST", "LEAR"], "difficulty": 2 },
+      { "category": "Things You Read Between", "words": ["LINES", "COVERS", "CHAPTERS", "ACTS"], "difficulty": 3 },
+      { "category": "___ Page", "words": ["HOME", "FRONT", "TITLE", "WEB"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-24": {
+    "groups": [
+      { "category": "Types of Soup", "words": ["MINESTRONE", "CHOWDER", "BISQUE", "GUMBO"], "difficulty": 1 },
+      { "category": "Things That Simmer", "words": ["TENSION", "ANGER", "STEW", "ROMANCE"], "difficulty": 2 },
+      { "category": "Things That Are Thick", "words": ["FOG", "PLOT", "SKIN", "ACCENT"], "difficulty": 3 },
+      { "category": "___ Pot", "words": ["MELTING", "JACK", "HONEY", "CRACK"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-25": {
+    "groups": [
+      { "category": "Musical Genres", "words": ["JAZZ", "BLUES", "COUNTRY", "REGGAE"], "difficulty": 1 },
+      { "category": "Things That Swing", "words": ["PENDULUM", "DOOR", "MOOD", "MONKEY"], "difficulty": 2 },
+      { "category": "Things With Beats", "words": ["HEART", "DRUM", "SONG", "RECIPE"], "difficulty": 3 },
+      { "category": "___ Note", "words": ["QUARTER", "FOOT", "DEATH", "BANK"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-26": {
+    "groups": [
+      { "category": "Castle Parts", "words": ["MOAT", "TURRET", "DRAWBRIDGE", "DUNGEON"], "difficulty": 1 },
+      { "category": "Medieval Roles", "words": ["KNIGHT", "SQUIRE", "JESTER", "HERALD"], "difficulty": 2 },
+      { "category": "Things That Guard", "words": ["DOG", "SECRET", "GOALIE", "FENCE"], "difficulty": 3 },
+      { "category": "___ Gate", "words": ["WATER", "CASTLE", "GOLDEN", "TAIL"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-27": {
+    "groups": [
+      { "category": "Flowers", "words": ["ORCHID", "LILY", "PEONY", "IRIS"], "difficulty": 1 },
+      { "category": "Things That Wilt", "words": ["LETTUCE", "SPIRIT", "ENTHUSIASM", "RESOLVE"], "difficulty": 2 },
+      { "category": "People's Names That Are Also Flowers", "words": ["ROSE", "JASMINE", "VIOLET", "HEATHER"], "difficulty": 3 },
+      { "category": "___ Bed", "words": ["FLOWER", "SICK", "WATER", "DAY"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-28": {
+    "groups": [
+      { "category": "Reptiles", "words": ["GECKO", "IGUANA", "CHAMELEON", "KOMODO"], "difficulty": 1 },
+      { "category": "Things That Camouflage", "words": ["SOLDIER", "OCTOPUS", "FLOUNDER", "SPY"], "difficulty": 2 },
+      { "category": "Things That Shed", "words": ["SNAKE", "TREE", "LIGHT", "TEAR"], "difficulty": 3 },
+      { "category": "___ Tail", "words": ["PONY", "COCK", "FAIRY", "FOX"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-29": {
+    "groups": [
+      { "category": "Breakfast Items", "words": ["OMELETTE", "CREPE", "GRANOLA", "YOGURT"], "difficulty": 1 },
+      { "category": "French Words Used in English", "words": ["CUISINE", "BOUTIQUE", "BALLET", "CHAUFFEUR"], "difficulty": 2 },
+      { "category": "Things That Fold", "words": ["NAPKIN", "LAUNDRY", "HAND", "COMPANY"], "difficulty": 3 },
+      { "category": "___ Cup", "words": ["BUTTER", "WORLD", "HICCUP", "TEA"], "difficulty": 4 }
+    ]
+  },
+  "2026-04-30": {
+    "groups": [
+      { "category": "Types of Rain", "words": ["DRIZZLE", "DOWNPOUR", "SHOWER", "MONSOON"], "difficulty": 1 },
+      { "category": "Things That Pour", "words": ["WINE", "CONCRETE", "EMOTION", "ENERGY"], "difficulty": 2 },
+      { "category": "End of Month Feelings", "words": ["RELIEF", "PRIDE", "REFLECT", "PREPARE"], "difficulty": 3 },
+      { "category": "___ Drop", "words": ["RAIN", "BACK", "TEAR", "AIR"], "difficulty": 4 }
+    ]
+  }
+}

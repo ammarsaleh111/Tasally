@@ -1,0 +1,242 @@
+{
+  "2026-06-01": {
+    "groups": [
+      { "category": "Summer Starts", "words": ["SUNNY", "WARM", "BRIGHT", "CLEAR"], "difficulty": 1 },
+      { "category": "Beach Items", "words": ["TOWEL", "SUNSCREEN", "UMBRELLA", "SANDCASTLE"], "difficulty": 2 },
+      { "category": "Things That Burn", "words": ["FIRE", "CALORIES", "BRIDGE", "DESIRE"], "difficulty": 3 },
+      { "category": "___ Sun", "words": ["RISING", "SETTING", "MID", "POISON"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-02": {
+    "groups": [
+      { "category": "Coral Reef Life", "words": ["CLOWNFISH", "ANEMONE", "CORAL", "SEAHORSE"], "difficulty": 1 },
+      { "category": "Things That Are Colorful", "words": ["RAINBOW", "PARROT", "BUTTERFLY", "FIREWORK"], "difficulty": 2 },
+      { "category": "Things That Hide", "words": ["CHAMELEON", "TREASURE", "SECRET", "EMOTION"], "difficulty": 3 },
+      { "category": "___ Reef", "words": ["CORAL", "BARRIER", "KNOT", "GREAT"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-03": {
+    "groups": [
+      { "category": "Citrus Varieties", "words": ["TANGERINE", "CLEMENTINE", "KUMQUAT", "BERGAMOT"], "difficulty": 1 },
+      { "category": "Shades of Orange", "words": ["PEACH", "APRICOT", "CORAL", "AMBER"], "difficulty": 2 },
+      { "category": "Things That Zest", "words": ["LEMON", "LIFE", "ADVENTURE", "COOKING"], "difficulty": 3 },
+      { "category": "___ Peel", "words": ["BANANA", "ORANGE", "APPEAL", "THUNDER"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-04": {
+    "groups": [
+      { "category": "Famous Bridges", "words": ["BROOKLYN", "TOWER", "GOLDEN GATE", "RIALTO"], "difficulty": 1 },
+      { "category": "Card Games", "words": ["BRIDGE", "HEARTS", "POKER", "SOLITAIRE"], "difficulty": 2 },
+      { "category": "Things That Cross", "words": ["RIVER", "BORDER", "FINGERS", "MIND"], "difficulty": 3 },
+      { "category": "___ Cross", "words": ["RED", "DOUBLE", "HOLY", "CRISS"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-05": {
+    "groups": [
+      { "category": "World Environment Day", "words": ["FOREST", "OCEAN", "WILDLIFE", "WETLAND"], "difficulty": 1 },
+      { "category": "Types of Energy", "words": ["SOLAR", "WIND", "HYDRO", "THERMAL"], "difficulty": 2 },
+      { "category": "Things That Renew", "words": ["LICENSE", "SPIRIT", "VOW", "SUBSCRIPTION"], "difficulty": 3 },
+      { "category": "___ Power", "words": ["SOLAR", "BRAIN", "FLOWER", "HORSE"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-06": {
+    "groups": [
+      { "category": "Sandwiches", "words": ["CLUB", "BLT", "PANINI", "HOAGIE"], "difficulty": 1 },
+      { "category": "Things Between Two Things", "words": ["FILLING", "MIDDLE", "BRIDGE", "MEDIATOR"], "difficulty": 2 },
+      { "category": "Things That Stack", "words": ["PANCAKE", "DECK", "ODDS", "BLOCK"], "difficulty": 3 },
+      { "category": "___ Bread", "words": ["CORN", "SHORT", "QUICK", "BANANA"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-07": {
+    "groups": [
+      { "category": "Volcanoes", "words": ["VESUVIUS", "ETNA", "FUJI", "KRAKATOA"], "difficulty": 1 },
+      { "category": "Things That Erupt", "words": ["LAUGHTER", "ANGER", "CHEERING", "APPLAUSE"], "difficulty": 2 },
+      { "category": "Things That Are Hot", "words": ["TREND", "TOPIC", "PEPPER", "PURSUIT"], "difficulty": 3 },
+      { "category": "___ Mountain", "words": ["IRON", "SPLASH", "SPACE", "SUGAR"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-08": {
+    "groups": [
+      { "category": "World Oceans Day", "words": ["PACIFIC", "ATLANTIC", "INDIAN", "ARCTIC"], "difficulty": 1 },
+      { "category": "Sea Creatures", "words": ["NAUTILUS", "MANATEE", "DUGONG", "NARWHAL"], "difficulty": 2 },
+      { "category": "Things That Are Deep", "words": ["OCEAN", "THOUGHT", "SLEEP", "VOICE"], "difficulty": 3 },
+      { "category": "___ Sea", "words": ["DEAD", "RED", "BLACK", "OVER"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-09": {
+    "groups": [
+      { "category": "Grilling Foods", "words": ["BURGER", "STEAK", "RIBS", "KEBAB"], "difficulty": 1 },
+      { "category": "Things That Sizzle", "words": ["BACON", "ROMANCE", "SUMMER", "DEBATE"], "difficulty": 2 },
+      { "category": "Things With Smoke", "words": ["CHIMNEY", "SIGNAL", "SCREEN", "MIRROR"], "difficulty": 3 },
+      { "category": "___ Grill", "words": ["BAR AND", "CHARCOAL", "FLAT", "RADIATOR"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-10": {
+    "groups": [
+      { "category": "Ice Cream Types", "words": ["GELATO", "SORBET", "FROZEN YOGURT", "SHERBET"], "difficulty": 1 },
+      { "category": "Things That Are Cool", "words": ["CUCUMBER", "JAZZ", "BREEZE", "ATTITUDE"], "difficulty": 2 },
+      { "category": "Things That Freeze", "words": ["WATER", "FRAME", "ASSET", "SMILE"], "difficulty": 3 },
+      { "category": "___ Cold", "words": ["STONE", "ICE", "BLOOD", "COMMON"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-11": {
+    "groups": [
+      { "category": "Tropical Islands", "words": ["FIJI", "BALI", "TAHITI", "MAUI"], "difficulty": 1 },
+      { "category": "Things That Are Paradise", "words": ["GARDEN", "BEACH", "OASIS", "HAVEN"], "difficulty": 2 },
+      { "category": "Things That Escape", "words": ["PRISONER", "HEAT", "REALITY", "NOTICE"], "difficulty": 3 },
+      { "category": "___ Island", "words": ["TREASURE", "LONG", "RHODE", "FANTASY"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-12": {
+    "groups": [
+      { "category": "Ball Sports", "words": ["CRICKET", "TENNIS", "BASEBALL", "GOLF"], "difficulty": 1 },
+      { "category": "Things You Hit", "words": ["NAIL", "TARGET", "ROAD", "JACKPOT"], "difficulty": 2 },
+      { "category": "Things With Courts", "words": ["BASKETBALL", "LAW", "ROYAL", "FOOD"], "difficulty": 3 },
+      { "category": "___ Ball", "words": ["SNOW", "EYE", "FIRE", "CURVE"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-13": {
+    "groups": [
+      { "category": "Superstitions (Friday 13th)", "words": ["MIRROR", "LADDER", "CAT", "SALT"], "difficulty": 1 },
+      { "category": "Lucky Charms", "words": ["CLOVER", "HORSESHOE", "RABBIT", "PENNY"], "difficulty": 2 },
+      { "category": "Things That Are Unlucky", "words": ["THIRTEEN", "CRACK", "UMBRELLA", "RAVEN"], "difficulty": 3 },
+      { "category": "___ Black", "words": ["JACK", "BIRD", "BERRY", "MARKET"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-14": {
+    "groups": [
+      { "category": "Flag Day Colors", "words": ["RED", "WHITE", "BLUE", "GOLD"], "difficulty": 1 },
+      { "category": "Famous Flags", "words": ["JOLLY ROGER", "UNION JACK", "TRICOLOR", "BANNER"], "difficulty": 2 },
+      { "category": "Things That Wave", "words": ["FLAG", "OCEAN", "HAND", "HAIR"], "difficulty": 3 },
+      { "category": "___ Stripe", "words": ["PIN", "RACING", "STAR AND", "LANDING"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-15": {
+    "groups": [
+      { "category": "Father's Day Gifts", "words": ["TIE", "WATCH", "COLOGNE", "WALLET"], "difficulty": 1 },
+      { "category": "Dad Joke Words", "words": ["GROAN", "PUN", "KNEE", "SLAPPER"], "difficulty": 2 },
+      { "category": "Things Dads Say", "words": ["THERMOSTAT", "MOWING", "GRILL", "GARAGE"], "difficulty": 3 },
+      { "category": "___ Father", "words": ["GRAND", "GOD", "STEP", "FOUNDING"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-16": {
+    "groups": [
+      { "category": "Garden Vegetables", "words": ["TOMATO", "ZUCCHINI", "PEPPER", "EGGPLANT"], "difficulty": 1 },
+      { "category": "Things That Vine", "words": ["GRAPE", "IVY", "PUMPKIN", "MORNING GLORY"], "difficulty": 2 },
+      { "category": "Things That Ripen", "words": ["FRUIT", "CHEESE", "AGE", "PLAN"], "difficulty": 3 },
+      { "category": "___ Patch", "words": ["PUMPKIN", "EYE", "CABBAGE", "ROUGH"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-17": {
+    "groups": [
+      { "category": "Waterfall Types", "words": ["CASCADE", "PLUNGE", "TIERED", "HORSETAIL"], "difficulty": 1 },
+      { "category": "Things That Rush", "words": ["RIVER", "CROWD", "BLOOD", "DECISION"], "difficulty": 2 },
+      { "category": "Expressions With Water", "words": ["BRIDGE", "COOLER", "TIGHT SHIP", "FLOAT"], "difficulty": 3 },
+      { "category": "___ Fall", "words": ["WATER", "DOWN", "FREE", "NIGHT"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-18": {
+    "groups": [
+      { "category": "Pool Games", "words": ["MARCO POLO", "CHICKEN", "DIVING", "RELAY"], "difficulty": 1 },
+      { "category": "Things That Splash", "words": ["CANNONBALL", "WHALE", "RAIN", "HEADLINE"], "difficulty": 2 },
+      { "category": "Things That Are Shallow", "words": ["PUDDLE", "PERSON", "END", "GRAVE"], "difficulty": 3 },
+      { "category": "___ Dive", "words": ["NOSE", "SWAN", "DEEP", "SKY"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-19": {
+    "groups": [
+      { "category": "Juneteenth Words", "words": ["FREEDOM", "LIBERTY", "JUSTICE", "EQUALITY"], "difficulty": 1 },
+      { "category": "Things That Unite", "words": ["CAUSE", "MUSIC", "LOVE", "TREATY"], "difficulty": 2 },
+      { "category": "Things That Break Free", "words": ["CHAIN", "BUTTERFLY", "WAVE", "DAWN"], "difficulty": 3 },
+      { "category": "___ Day", "words": ["FREEDOM", "INDEPENDENCE", "ELECTION", "VETERANS"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-20": {
+    "groups": [
+      { "category": "Summer Solstice", "words": ["SOLSTICE", "EQUINOX", "ZENITH", "MERIDIAN"], "difficulty": 1 },
+      { "category": "Longest Day Words", "words": ["DAYLIGHT", "SUNSHINE", "TWILIGHT", "DAWN"], "difficulty": 2 },
+      { "category": "Things At Their Peak", "words": ["CAREER", "MOUNTAIN", "SEASON", "PERFORMANCE"], "difficulty": 3 },
+      { "category": "___ Light", "words": ["SUN", "MOON", "FLASH", "HIGH"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-21": {
+    "groups": [
+      { "category": "Yoga Poses", "words": ["WARRIOR", "COBRA", "TREE", "LOTUS"], "difficulty": 1 },
+      { "category": "Things That Balance", "words": ["SCALE", "BUDGET", "GYMNAST", "EQUATION"], "difficulty": 2 },
+      { "category": "Things That Stretch", "words": ["RUBBER", "TRUTH", "IMAGINATION", "DOLLAR"], "difficulty": 3 },
+      { "category": "___ Pose", "words": ["YOGA", "STRIKE A", "COM", "PUR"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-22": {
+    "groups": [
+      { "category": "Rainforest Animals", "words": ["JAGUAR", "SLOTH", "TOUCAN", "ANACONDA"], "difficulty": 1 },
+      { "category": "Layers of Rainforest", "words": ["CANOPY", "UNDERSTORY", "FLOOR", "EMERGENT"], "difficulty": 2 },
+      { "category": "Things That Are Dense", "words": ["FOG", "FOREST", "CROWD", "PROSE"], "difficulty": 3 },
+      { "category": "___ Rain", "words": ["ACID", "BRAIN", "REIGN", "FOREST"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-23": {
+    "groups": [
+      { "category": "Carnival Rides", "words": ["CAROUSEL", "ROLLER COASTER", "BUMPER CARS", "TILT-A-WHIRL"], "difficulty": 1 },
+      { "category": "Things That Spin", "words": ["TOP", "DRYER", "DJ", "POLITICIAN"], "difficulty": 2 },
+      { "category": "Things That Thrill", "words": ["ADVENTURE", "MYSTERY", "SPEED", "ROMANCE"], "difficulty": 3 },
+      { "category": "___ Ride", "words": ["JOY", "FREE", "HAYRIDE", "LOW"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-24": {
+    "groups": [
+      { "category": "Swimming Strokes", "words": ["BUTTERFLY", "BACKSTROKE", "BREASTSTROKE", "FREESTYLE"], "difficulty": 1 },
+      { "category": "Things In A Lane", "words": ["CAR", "BOWLING", "SWIMMER", "MEMORY"], "difficulty": 2 },
+      { "category": "Things That Lap", "words": ["WAVE", "RUNNER", "CAT", "LUXURY"], "difficulty": 3 },
+      { "category": "___ Stroke", "words": ["HEAT", "KEY", "MASTER", "SUN"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-25": {
+    "groups": [
+      { "category": "Astronomers", "words": ["GALILEO", "COPERNICUS", "KEPLER", "HUBBLE"], "difficulty": 1 },
+      { "category": "Things You Discover", "words": ["TALENT", "TRUTH", "LAND", "CURE"], "difficulty": 2 },
+      { "category": "Things That Revolve", "words": ["EARTH", "DOOR", "ARGUMENT", "PLOT"], "difficulty": 3 },
+      { "category": "___ Scope", "words": ["TELE", "MICRO", "HORO", "KALEIDO"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-26": {
+    "groups": [
+      { "category": "Board Games", "words": ["SCRABBLE", "TRIVIAL PURSUIT", "BATTLESHIP", "CATAN"], "difficulty": 1 },
+      { "category": "Things With Pieces", "words": ["PUZZLE", "CHESS", "PIE", "MIND"], "difficulty": 2 },
+      { "category": "Things You Roll", "words": ["DICE", "CARPET", "DOUGH", "EYES"], "difficulty": 3 },
+      { "category": "___ Game", "words": ["BOARD", "BALL", "END", "FAIR"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-27": {
+    "groups": [
+      { "category": "Sunglasses Styles", "words": ["AVIATOR", "WAYFARER", "ROUND", "CAT EYE"], "difficulty": 1 },
+      { "category": "Things That Shade", "words": ["TREE", "AWNING", "HAT", "REMARK"], "difficulty": 2 },
+      { "category": "Things That Reflect", "words": ["MIRROR", "LAKE", "JOURNAL", "LIGHT"], "difficulty": 3 },
+      { "category": "___ Glass", "words": ["SUN", "HOUR", "LOOKING", "WINE"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-28": {
+    "groups": [
+      { "category": "Summer Fruits", "words": ["WATERMELON", "PEACH", "CHERRY", "PLUM"], "difficulty": 1 },
+      { "category": "Things That Are Juicy", "words": ["GOSSIP", "STEAK", "STORY", "ORANGE"], "difficulty": 2 },
+      { "category": "Things You Pit", "words": ["OLIVE", "CHERRY", "RIVAL", "IDEA"], "difficulty": 3 },
+      { "category": "___ Seed", "words": ["SUN FLOWER", "SESAME", "BIRD", "GRAPE"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-29": {
+    "groups": [
+      { "category": "Camping Foods", "words": ["SMORE", "HOTDOG", "CORNBREAD", "CHILI"], "difficulty": 1 },
+      { "category": "Things Around A Campfire", "words": ["GUITAR", "STORY", "MARSHMALLOW", "LOG"], "difficulty": 2 },
+      { "category": "Things That Crackle", "words": ["FIRE", "RADIO", "KNUCKLE", "BACON"], "difficulty": 3 },
+      { "category": "___ Side", "words": ["FIRE", "BED", "LAKE", "BLIND"], "difficulty": 4 }
+    ]
+  },
+  "2026-06-30": {
+    "groups": [
+      { "category": "Half Year Review", "words": ["GOAL", "PROGRESS", "MILESTONE", "GROWTH"], "difficulty": 1 },
+      { "category": "Things That Measure", "words": ["RULER", "CLOCK", "SCALE", "COMPASS"], "difficulty": 2 },
+      { "category": "Mid-Year Reflections", "words": ["JOURNEY", "CHAPTER", "LESSON", "MEMORY"], "difficulty": 3 },
+      { "category": "___ Point", "words": ["MID", "TURNING", "FOCAL", "GUN"], "difficulty": 4 }
+    ]
+  }
+}
