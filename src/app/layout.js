@@ -25,6 +25,8 @@ import {
 } from "@/lib/seo";
 import PWARegister from "@/components/PWARegister";
 import OnboardingFlow from "@/components/OnboardingFlow";
+import { NetworkStatusProvider } from "@/hooks/useNetworkStatus";
+import SyncStatusIndicator from "@/components/SyncStatusIndicator";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -158,6 +160,7 @@ export default function RootLayout({ children }) {
         <PWARegister />
         <AuthProvider>
           <SessionBridge />
+          <NetworkStatusProvider>
           <PresenceProvider intervalMs={90000}>
             <SessionInitializer>
               <IdentityGate>
@@ -178,6 +181,8 @@ export default function RootLayout({ children }) {
               </IdentityGate>
             </SessionInitializer>
           </PresenceProvider>
+          <SyncStatusIndicator />
+          </NetworkStatusProvider>
         </AuthProvider>
       </body>
     </html>

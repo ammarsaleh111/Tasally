@@ -7,7 +7,12 @@
  * Context Types:
  *   - { type: "global" } — Results go to global_game_results
  *   - { type: "group", groupId: string } — Results go to group_game_results
+ *
+ * Offline-aware: submitGameResult now routes through fetchOrQueue
+ * so failed requests are automatically queued and retried.
  */
+
+import { fetchOrQueue } from "@/utils/fetchOrQueue";
 
 export type GameContext =
   | { type: "global" }
@@ -128,6 +133,7 @@ export function getResultsEndpoint(context: GameContext): string {
 
 /**
  * Submit game result to the correct endpoint based on context.
+ * Offline-aware: uses fetchOrQueue for automatic retry on failure.
  */
 export async function submitGameResult(
   context: GameContext,
@@ -137,7 +143,7 @@ export async function submitGameResult(
     moves?: number | null;
     timeMs: number;
   }
-): Promise<{ ok: boolean; data?: any; error?: string }> {
+): Promise<{ ok: boolean; data?: any; error?: string; queued?: boolean }> {
   const endpoint = getResultsEndpoint(context);
   const now = Date.now();
 
@@ -155,36 +161,31 @@ export async function submitGameResult(
     lastGlobalSubmitAt = now;
   }
 
-  try {
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(result),
-    });
+  const res = await fetchOrQueue<{ ok?: boolean; data?: any; error?: { message?: string } }>(
+    endpoint,
+    "POST",
+    result
+  );
 
-    if (res.status === 429) {
-      const retryAfterHeader = res.headers.get("Retry-After");
-      const retryAfterSeconds = Number(retryAfterHeader);
-      const retryMs = Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0
-        ? retryAfterSeconds * 1000
-        : 60_000;
-      globalResultsBackoffUntil = Date.now() + retryMs;
-      return { ok: false, error: "RATE_LIMITED" };
-    }
-
-    const json = await res.json();
-
-    if (!res.ok || !json.ok) {
-      return {
-        ok: false,
-        error: json.error?.message || "Failed to submit result",
-      };
-    }
-
-    return { ok: true, data: json.data };
-  } catch (error) {
-    return { ok: false, error: "Network error. Please try again." };
+  // Queued for offline sync
+  if (res.queued) {
+    return { ok: true, queued: true, data: { pointsAwarded: 0 } };
   }
+
+  // Rate-limited
+  if (res.status === 429) {
+    globalResultsBackoffUntil = Date.now() + 60_000;
+    return { ok: false, error: "RATE_LIMITED" };
+  }
+
+  if (!res.ok || (res.data && !res.data.ok)) {
+    return {
+      ok: false,
+      error: res.data?.error?.message || res.error || "Failed to submit result",
+    };
+  }
+
+  return { ok: true, data: res.data?.data ?? res.data };
 }
 
 /**

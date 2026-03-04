@@ -6,6 +6,7 @@ import { getAllStats } from '@/utils/profileManager';
 import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
 import PuzzleLoader from '@/components/PuzzleLoader';
 import { useSimplePuzzleLoader } from '@/hooks/usePuzzleLoader';
+import { useNetworkStatus } from '@/hooks/useNetworkStatus';
 import SiteHeader from '@/components/SiteHeader';
 import { 
   useSeasonIdentity, 
@@ -184,6 +185,7 @@ export default function GamesPage() {
                 hasStreak={hasStreak}
                 streak={streak}
                 index={index}
+                offlineReady={true}
               />
             );
           })}
@@ -216,8 +218,9 @@ export default function GamesPage() {
 }
 
 // Season-aware Game Card Component
-function SeasonGameCard({ game, gameTheme, activeTheme, hasStreak, streak, index }) {
+function SeasonGameCard({ game, gameTheme, activeTheme, hasStreak, streak, index, offlineReady }) {
   const { pack } = useSeasonIdentity();
+  const { isOnline } = useNetworkStatus();
   
   return (
     <Link href={game.href}>
@@ -270,6 +273,19 @@ function SeasonGameCard({ game, gameTheme, activeTheme, hasStreak, streak, index
               "
             >
               🔥 {streak} day streak
+            </span>
+          )}
+          {offlineReady && !isOnline && (
+            <span 
+              className="
+                inline-flex items-center gap-1 
+                text-xs font-medium
+                px-2 py-0.5 rounded-full
+                bg-emerald-500/15 text-emerald-600
+                dark:text-emerald-400
+              "
+            >
+              ✓ Offline ready
             </span>
           )}
         </div>

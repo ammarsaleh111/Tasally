@@ -1,6 +1,10 @@
 /**
  * Results Submission Client
- * Submits game results to the server for scoring and leaderboard tracking
+ * Submits game results to the server for scoring and leaderboard tracking.
+ *
+ * Offline-aware: if the network is down or the request fails,
+ * the result is queued locally and auto-synced when connectivity
+ * returns (via fetchOrQueue + offlineSyncQueue).
  *
  * Routing:
  *   - Daily mode → /api/results (daily leaderboards)
@@ -11,7 +15,8 @@
 import { ensureGuestId } from "./guestManager";
 import { getSession } from "./sessionManager";
 import { getProfile } from "./profileManager";
-import { type GameContext, loadGameContext, submitGameResult } from "@/lib/gameContext";
+import { fetchOrQueue } from "./fetchOrQueue";
+import { type GameContext, loadGameContext, getResultsEndpoint } from "@/lib/gameContext";
 
 export interface SubmitResultInput {
   gameKey: string;
@@ -26,6 +31,8 @@ export interface SubmitResultInput {
 export interface SubmitResultResponse {
   id: string;
   score: number;
+  /** True when the result was queued for later sync instead of submitted live */
+  queued?: boolean;
 }
 
 // Helper to get player name from localStorage (client-side only)
@@ -45,65 +52,73 @@ function getPlayerNameFromStorage(): string | null {
 /**
  * Submit result for DAILY mode games.
  * Goes to /api/results for the standard daily leaderboard.
+ * Falls back to offline queue on network failure.
  */
 async function submitDailyResult(input: SubmitResultInput): Promise<SubmitResultResponse | null> {
-  try {
-    const session = getSession();
-    const guestId = session?.role === "GUEST" ? ensureGuestId() : null;
-    const displayName =
-      input.displayName ?? session?.displayName ?? getPlayerNameFromStorage();
+  const session = getSession();
+  const guestId = session?.role === "GUEST" ? ensureGuestId() : null;
+  const displayName =
+    input.displayName ?? session?.displayName ?? getPlayerNameFromStorage();
 
-    const res = await fetch("/api/results", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...input,
-        guestId: guestId ?? undefined,
-        displayName: displayName ?? undefined,
-      }),
-    });
+  const payload = {
+    ...input,
+    guestId: guestId ?? undefined,
+    displayName: displayName ?? undefined,
+  };
 
-    if (!res.ok) {
-      return null;
-    }
+  const result = await fetchOrQueue<SubmitResultResponse>(
+    "/api/results",
+    "POST",
+    payload as unknown as Record<string, unknown>
+  );
 
-    return res.json();
-  } catch {
+  if (result.queued) {
+    return { id: "queued", score: 0, queued: true };
+  }
+
+  if (!result.ok) {
     return null;
   }
+
+  return result.data;
 }
 
 /**
  * Submit result for UNLIMITED mode games.
  * Routes to global or group endpoint based on current context.
+ * Falls back to offline queue on network failure.
  */
 async function submitUnlimitedResult(input: SubmitResultInput): Promise<SubmitResultResponse | null> {
-  // Get context from sessionStorage (set by group navigation or URL params)
   const context: GameContext = loadGameContext() || { type: "global" };
+  const endpoint = getResultsEndpoint(context);
 
-  try {
-    const result = await submitGameResult(context, {
-      gameKey: input.gameKey,
-      won: input.success,
-      moves: input.attempts ?? null,
-      timeMs: input.durationMs ?? 0,
-    });
+  const payload = {
+    gameKey: input.gameKey,
+    won: input.success,
+    moves: input.attempts ?? null,
+    timeMs: input.durationMs ?? 0,
+  };
 
-    if (!result.ok) {
-      return null;
-    }
+  const result = await fetchOrQueue<{ ok: boolean; data?: any }>(
+    endpoint,
+    "POST",
+    payload
+  );
 
-    // Handle response format from global/group endpoints
-    // Global: { ok: true, data: { pointsAwarded, totals } }
-    // Group: { ok: true, data: { result: { id, pointsAwarded }, totals } }
-    const data = result.data;
-    return {
-      id: data?.result?.id || data?.id || "unknown",
-      score: data?.pointsAwarded || data?.result?.pointsAwarded || data?.result?.points_awarded || 0,
-    };
-  } catch {
+  if (result.queued) {
+    return { id: "queued", score: 0, queued: true };
+  }
+
+  if (!result.ok) {
     return null;
   }
+
+  // Handle response format from global/group endpoints
+  const data = result.data?.data ?? result.data;
+  return {
+    id: data?.result?.id || data?.id || "unknown",
+    score: data?.pointsAwarded || data?.result?.pointsAwarded || data?.result?.points_awarded || 0,
+  };
 }
 
 /**

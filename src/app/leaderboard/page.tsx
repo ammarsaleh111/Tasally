@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import SiteHeader from "@/components/SiteHeader";
 import AuthModal from "@/components/AuthModal";
 import DisplayName from "@/components/DisplayName";
+import StaleDataBanner, { isStaleResponse } from "@/components/StaleDataBanner";
 import { useAppSession } from "@/utils/sessionManager";
 import { 
   useSeasonIdentity, 
@@ -58,6 +59,7 @@ export default function LeaderboardPage() {
   const [authView, setAuthView] = useState<"login" | "register">("login");
   const [authNotice, setAuthNotice] = useState("");
   const [hadAuthenticated, setHadAuthenticated] = useState(false);
+  const [isStale, setIsStale] = useState(false);
 
   const selectedGame = VALID_GAMES.find(g => g.key === game);
   const isAuthenticated = session?.role === "USER";
@@ -127,6 +129,7 @@ export default function LeaderboardPage() {
           setMonthlyData([]);
           return;
         }
+        setIsStale(isStaleResponse(res));
         if (!res.ok) throw new Error("Failed to load leaderboard");
         const data = await res.json();
         if (period === "daily") {
@@ -330,6 +333,7 @@ export default function LeaderboardPage() {
           </SeasonTexturedCard>
         ) : (
           <SeasonTexturedCard className="overflow-hidden">
+            <StaleDataBanner isStale={isStale} className="mx-4 mt-4" />
             {loading ? (
               <div className="flex items-center justify-center py-16">
                 <div className="flex flex-col items-center gap-3">
