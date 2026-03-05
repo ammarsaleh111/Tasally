@@ -444,11 +444,9 @@ export function isBannerDismissed(themeId: string): boolean {
     const stored = localStorage.getItem(THEME_STORAGE_KEYS.BANNER_DISMISSED);
     if (stored) {
       const data = JSON.parse(stored);
-      if (data.themeId === themeId) {
-        // Check if dismissal is still valid (same day)
-        const dismissedDate = new Date(data.dismissedAt).toDateString();
-        const today = new Date().toDateString();
-        return dismissedDate === today;
+      // Banner is dismissed permanently once closed for this theme
+      if (data.themeId === themeId && data.dismissedAt) {
+        return true;
       }
     }
   } catch (e) {
@@ -459,7 +457,7 @@ export function isBannerDismissed(themeId: string): boolean {
 }
 
 /**
- * Dismiss the theme banner for the current session/day
+ * Dismiss the theme banner permanently (won't show again for this theme)
  */
 export function dismissBanner(themeId: string): void {
   if (typeof window === 'undefined') return;

@@ -70,7 +70,7 @@ export default function DominantThemeBanner() {
           onClick={dismissBanner}
           className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-black/10 transition-colors"
           aria-label="Dismiss banner"
-          title="Hide for today"
+          title="Don't show again"
         >
           <svg
             width="16"

@@ -219,6 +219,58 @@ function validateSpelling(dateKey: string, value: unknown): void {
   );
 }
 
+function validateConnections(dateKey: string, value: unknown): void {
+  assert(
+    isObject(value),
+    `[all-data/validate] connections ${dateKey}: expected object entry.`
+  );
+  assert(
+    Array.isArray(value.groups) && value.groups.length === 4,
+    `[all-data/validate] connections ${dateKey}: groups must contain exactly 4 categories.`
+  );
+  for (const [i, group] of (value.groups as unknown[]).entries()) {
+    assert(
+      isObject(group),
+      `[all-data/validate] connections ${dateKey}: group ${i + 1} must be an object.`
+    );
+    assert(
+      typeof (group as Record<string, unknown>).category === "string" &&
+        ((group as Record<string, unknown>).category as string).trim().length > 0,
+      `[all-data/validate] connections ${dateKey}: group ${i + 1} category is required.`
+    );
+    assert(
+      Array.isArray((group as Record<string, unknown>).words) &&
+        ((group as Record<string, unknown>).words as unknown[]).length === 4,
+      `[all-data/validate] connections ${dateKey}: group ${i + 1} must have exactly 4 words.`
+    );
+  }
+}
+
+function validateStrands(dateKey: string, value: unknown): void {
+  assert(
+    isObject(value),
+    `[all-data/validate] strands ${dateKey}: expected object entry.`
+  );
+  assert(
+    typeof value.theme === "string" && value.theme.trim().length > 0,
+    `[all-data/validate] strands ${dateKey}: theme is required.`
+  );
+  assert(
+    Array.isArray(value.grid) && value.grid.length > 0,
+    `[all-data/validate] strands ${dateKey}: grid is required.`
+  );
+  for (const row of value.grid) {
+    assert(
+      Array.isArray(row),
+      `[all-data/validate] strands ${dateKey}: each grid row must be an array.`
+    );
+  }
+  assert(
+    Array.isArray(value.words) && value.words.length > 0,
+    `[all-data/validate] strands ${dateKey}: words array is required.`
+  );
+}
+
 const validators: Record<GameKey, (dateKey: string, value: unknown) => void> = {
   wordle: validateWordle,
   crossword: validateCrossword,
@@ -227,6 +279,8 @@ const validators: Record<GameKey, (dateKey: string, value: unknown) => void> = {
   waffle: validateWaffle,
   combinations: validateCombinations,
   spelling: validateSpelling,
+  connections: validateConnections,
+  strands: validateStrands,
 };
 
 export function validateMonthDataset(
