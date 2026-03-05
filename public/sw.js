@@ -229,6 +229,22 @@ self.addEventListener('message', (event) => {
     self.registration.sync.register(SYNC_TAG).catch(() => {});
   }
 
+  // Force clear all caches (called when client detects ChunkLoadError)
+  if (event.data && event.data.type === 'FORCE_CLEAR_CACHES') {
+    event.waitUntil(
+      caches.keys().then((keys) => 
+        Promise.all(keys.map((k) => caches.delete(k)))
+      ).then(() => {
+        // Notify all clients to reload
+        self.clients.matchAll().then((clients) => {
+          clients.forEach((client) => {
+            client.postMessage({ type: 'CACHES_CLEARED' });
+          });
+        });
+      })
+    );
+  }
+
   // Warm game page caches proactively (called from client after install)
   if (event.data && event.data.type === 'WARM_GAME_CACHES') {
     event.waitUntil(

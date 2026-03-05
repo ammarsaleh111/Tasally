@@ -24,11 +24,42 @@ interface GlobalErrorProps {
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   const [errorId] = useState(() => generateErrorId());
+  const [isRecovering, setIsRecovering] = useState(false);
   const isDev = process.env.NODE_ENV === 'development';
+
+  // Detect ChunkLoadError and auto-recover by clearing caches
+  const isChunkError = error?.name === 'ChunkLoadError' || 
+    error?.message?.includes('ChunkLoadError') ||
+    error?.message?.includes('Failed to load chunk');
 
   useEffect(() => {
     console.error('[Global Error]', errorId, error);
-  }, [error, errorId]);
+    
+    // Auto-recover from ChunkLoadError by clearing caches
+    if (isChunkError && !isRecovering) {
+      setIsRecovering(true);
+      
+      // Clear service worker caches
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({ type: 'FORCE_CLEAR_CACHES' });
+        
+        // Listen for confirmation
+        const handleMessage = (event: MessageEvent) => {
+          if (event.data?.type === 'CACHES_CLEARED') {
+            navigator.serviceWorker.removeEventListener('message', handleMessage);
+            window.location.reload();
+          }
+        };
+        navigator.serviceWorker.addEventListener('message', handleMessage);
+        
+        // Fallback: reload after 2 seconds even if no confirmation
+        setTimeout(() => window.location.reload(), 2000);
+      } else {
+        // No service worker, just reload
+        window.location.reload();
+      }
+    }
+  }, [error, errorId, isChunkError, isRecovering]);
 
   const handleReload = () => {
     window.location.href = '/';
@@ -137,58 +168,64 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
       </head>
       <body style={styles.container}>
         <main style={styles.card} role="main" aria-labelledby="error-heading">
-          <div style={styles.emoji} role="img" aria-label="Broken heart">
-            💔
+          <div style={styles.emoji} role="img" aria-label={isRecovering ? "Loading" : "Broken heart"}>
+            {isRecovering ? '🔄' : '💔'}
           </div>
           
           <div style={styles.title}>
-            Critical Error
+            {isRecovering ? 'Updating...' : 'Critical Error'}
           </div>
           
           <h1 id="error-heading" style={styles.subtitle}>
-            Something went very wrong
+            {isRecovering ? 'Please wait' : 'Something went very wrong'}
           </h1>
           
           <p style={styles.description}>
-            We encountered a serious problem and couldn&apos;t recover automatically.
-            Your game progress should still be saved.
+            {isRecovering 
+              ? 'We detected an outdated cache and are refreshing the app. This will only take a moment.'
+              : 'We encountered a serious problem and couldn\'t recover automatically. Your game progress should still be saved.'
+            }
           </p>
 
-          <div style={styles.errorBox}>
-            Error ID: {errorId}
-          </div>
+          {!isRecovering && (
+            <>
+              <div style={styles.errorBox}>
+                Error ID: {errorId}
+              </div>
 
-          {isDev && error?.message && (
-            <div style={styles.devError}>
-              <strong>Dev Error:</strong>
-              <pre style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
-                {error.message}
-              </pre>
-              {error.digest && (
-                <div style={{ marginTop: '0.5rem', opacity: 0.7 }}>
-                  Digest: {error.digest}
+              {isDev && error?.message && (
+                <div style={styles.devError}>
+                  <strong>Dev Error:</strong>
+                  <pre style={{ marginTop: '0.5rem', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                    {error.message}
+                  </pre>
+                  {error.digest && (
+                    <div style={{ marginTop: '0.5rem', opacity: 0.7 }}>
+                      Digest: {error.digest}
+                    </div>
+                  )}
                 </div>
               )}
-            </div>
-          )}
 
-          <div style={styles.buttonGroup}>
-            <button
-              style={{ ...styles.button, ...styles.primaryButton }}
-              onClick={reset}
-              aria-label="Try to recover"
-            >
-              🔄 Try Again
-            </button>
-            
-            <button
-              style={{ ...styles.button, ...styles.secondaryButton }}
-              onClick={handleReload}
-              aria-label="Go to home page"
-            >
-              🏠 Start Fresh
-            </button>
-          </div>
+              <div style={styles.buttonGroup}>
+                <button
+                  style={{ ...styles.button, ...styles.primaryButton }}
+                  onClick={reset}
+                  aria-label="Try to recover"
+                >
+                  🔄 Try Again
+                </button>
+                
+                <button
+                  style={{ ...styles.button, ...styles.secondaryButton }}
+                  onClick={handleReload}
+                  aria-label="Go to home page"
+                >
+                  🏠 Start Fresh
+                </button>
+              </div>
+            </>
+          )}
 
           <p style={styles.footer}>
             Tasally — Daily Puzzle & Brain Games
