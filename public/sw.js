@@ -12,7 +12,7 @@
  * ─────────────────────────────────────────────────────────
  */
 
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v4';
 const CACHE_HTML    = `at-html-${CACHE_VERSION}`;
 const CACHE_STATIC  = `at-static-${CACHE_VERSION}`;
 const CACHE_ASSETS  = `at-assets-${CACHE_VERSION}`;
