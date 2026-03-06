@@ -3,35 +3,10 @@
     {
       "userId": "ff7f961e-eded-40fe-9ca7-0f0993d9b38d",
       "name": "Ammar Ahmed",
-      "lastSeen": "2026-03-04T02:23:56.673Z",
-      "currentPage": "&#x2F;games&#x2F;strands",
-      "currentGame": null,
+      "lastSeen": "2026-03-06T23:29:53.804Z",
+      "currentPage": "game:connections",
+      "currentGame": "connections",
       "activities": [
-        {
-          "page": "&#x2F;games",
-          "game": null,
-          "timestamp": "2026-03-01T23:46:14.013Z"
-        },
-        {
-          "page": "home",
-          "game": null,
-          "timestamp": "2026-03-01T23:52:47.891Z"
-        },
-        {
-          "page": "&#x2F;",
-          "game": null,
-          "timestamp": "2026-03-01T23:52:47.892Z"
-        },
-        {
-          "page": "&#x2F;games",
-          "game": null,
-          "timestamp": "2026-03-01T23:53:06.965Z"
-        },
-        {
-          "page": "&#x2F;games&#x2F;wordle",
-          "game": null,
-          "timestamp": "2026-03-01T23:53:14.579Z"
-        },
         {
           "page": "&#x2F;games",
           "game": null,
@@ -1006,6 +981,114 @@
           "page": "&#x2F;games&#x2F;strands",
           "game": null,
           "timestamp": "2026-03-04T02:23:56.673Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-03-06T23:29:43.862Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-03-06T23:29:51.200Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;connections",
+          "game": null,
+          "timestamp": "2026-03-06T23:29:53.768Z"
+        },
+        {
+          "page": "game:connections",
+          "game": "connections",
+          "timestamp": "2026-03-06T23:29:53.803Z"
+        },
+        {
+          "page": "game:connections",
+          "game": "connections",
+          "timestamp": "2026-03-06T23:29:53.804Z"
+        }
+      ]
+    },
+    {
+      "userId": "2dabcaa4-da4d-4084-bc79-578c8c672140",
+      "name": "Anonymous",
+      "lastSeen": "2026-03-06T23:03:16.791Z",
+      "currentPage": "&#x2F;games",
+      "currentGame": null,
+      "activities": [
+        {
+          "page": "game:crossword",
+          "game": null,
+          "timestamp": "2026-02-28T22:18:06.067Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;crossword",
+          "game": null,
+          "timestamp": "2026-02-28T22:18:06.070Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": null,
+          "timestamp": "2026-03-02T00:33:51.149Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;wordle",
+          "game": null,
+          "timestamp": "2026-03-02T00:33:51.153Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-03-02T00:34:30.753Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-03-06T23:01:09.637Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-03-06T23:01:09.639Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-03-06T23:01:55.251Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-03-06T23:01:55.252Z"
+        },
+        {
+          "page": "games",
+          "game": null,
+          "timestamp": "2026-03-06T23:03:16.789Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-03-06T23:03:16.791Z"
+        }
+      ]
+    },
+    {
+      "userId": "5cfe10eb-de09-44ec-ac78-ab5258ebfa3e",
+      "name": "Anonymous",
+      "lastSeen": "2026-03-06T23:00:53.396Z",
+      "currentPage": "&#x2F;",
+      "currentGame": null,
+      "activities": [
+        {
+          "page": "&#x2F;games&#x2F;crossword",
+          "game": null,
+          "timestamp": "2026-02-28T22:17:46.223Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-03-06T23:00:53.396Z"
         }
       ]
     },
@@ -1116,40 +1199,6 @@
       ]
     },
     {
-      "userId": "2dabcaa4-da4d-4084-bc79-578c8c672140",
-      "name": "Anonymous",
-      "lastSeen": "2026-03-02T00:34:30.753Z",
-      "currentPage": "game:wordle",
-      "currentGame": "wordle",
-      "activities": [
-        {
-          "page": "game:crossword",
-          "game": null,
-          "timestamp": "2026-02-28T22:18:06.067Z"
-        },
-        {
-          "page": "&#x2F;games&#x2F;crossword",
-          "game": null,
-          "timestamp": "2026-02-28T22:18:06.070Z"
-        },
-        {
-          "page": "game:wordle",
-          "game": null,
-          "timestamp": "2026-03-02T00:33:51.149Z"
-        },
-        {
-          "page": "&#x2F;games&#x2F;wordle",
-          "game": null,
-          "timestamp": "2026-03-02T00:33:51.153Z"
-        },
-        {
-          "page": "game:wordle",
-          "game": "wordle",
-          "timestamp": "2026-03-02T00:34:30.753Z"
-        }
-      ]
-    },
-    {
       "userId": "d79d3a14-5517-47fe-ade0-3aa4b8a11aad",
       "name": "saf",
       "lastSeen": "2026-02-28T22:28:05.805Z",
@@ -1160,20 +1209,6 @@
           "page": "&#x2F;",
           "game": null,
           "timestamp": "2026-02-28T22:28:05.805Z"
-        }
-      ]
-    },
-    {
-      "userId": "5cfe10eb-de09-44ec-ac78-ab5258ebfa3e",
-      "name": "Anonymous",
-      "lastSeen": "2026-02-28T22:17:46.223Z",
-      "currentPage": "&#x2F;games&#x2F;crossword",
-      "currentGame": null,
-      "activities": [
-        {
-          "page": "&#x2F;games&#x2F;crossword",
-          "game": null,
-          "timestamp": "2026-02-28T22:17:46.223Z"
         }
       ]
     },

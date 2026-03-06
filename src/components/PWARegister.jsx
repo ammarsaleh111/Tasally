@@ -8,7 +8,38 @@
  */
 import { useEffect } from 'react';
 
-export default function PWARegister() {
+function getCanonicalSwScriptUrl(buildVersion) {
+  const version = buildVersion || 'dev';
+  return `/sw.js?v=${encodeURIComponent(version)}`;
+}
+
+async function unregisterLegacyWorkers(scopeOrigin) {
+  const registrations = await navigator.serviceWorker.getRegistrations();
+
+  await Promise.all(
+    registrations.map(async (registration) => {
+      const scriptUrl =
+        registration.active?.scriptURL ||
+        registration.waiting?.scriptURL ||
+        registration.installing?.scriptURL;
+
+      if (!scriptUrl) {
+        return;
+      }
+
+      const parsedUrl = new URL(scriptUrl);
+      if (parsedUrl.origin !== scopeOrigin) {
+        return;
+      }
+
+      if (parsedUrl.pathname !== '/sw.js') {
+        await registration.unregister();
+      }
+    })
+  );
+}
+
+export default function PWARegister({ buildVersion }) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (!('serviceWorker' in navigator)) return;
@@ -18,9 +49,14 @@ export default function PWARegister() {
 
     const register = async () => {
       try {
-        const registration = await navigator.serviceWorker.register('/sw.js', {
+        await unregisterLegacyWorkers(window.location.origin);
+
+        const registration = await navigator.serviceWorker.register(getCanonicalSwScriptUrl(buildVersion), {
           scope: '/',
+          updateViaCache: 'none',
         });
+
+        await registration.update();
 
         registration.addEventListener('updatefound', () => {
           const newWorker = registration.installing;
@@ -30,11 +66,22 @@ export default function PWARegister() {
               newWorker.state === 'installed' &&
               navigator.serviceWorker.controller
             ) {
-              // New SW installed, ready in background — will activate on next visit.
-              console.log('[PWA] New version available. Will activate on next visit.');
+              console.log('[PWA] New offline bundle installed and waiting for the next full restart.');
             }
           });
         });
+
+        const updateOnResume = () => {
+          registration.update().catch(() => {});
+        };
+
+        document.addEventListener('visibilitychange', updateOnResume, { passive: true });
+        window.addEventListener('online', updateOnResume, { passive: true });
+
+        return () => {
+          document.removeEventListener('visibilitychange', updateOnResume);
+          window.removeEventListener('online', updateOnResume);
+        };
       } catch (err) {
         // SW registration failure should never break the page
         console.warn('[PWA] Service worker registration failed:', err);
@@ -43,12 +90,26 @@ export default function PWARegister() {
 
     // Defer registration until after the page is interactive
     if (document.readyState === 'complete') {
-      register();
+      let cleanup;
+      Promise.resolve(register()).then((nextCleanup) => {
+        cleanup = nextCleanup;
+      });
+      return () => cleanup?.();
     } else {
-      window.addEventListener('load', register);
-      return () => window.removeEventListener('load', register);
+      let cleanup;
+      const onLoad = () => {
+        Promise.resolve(register()).then((nextCleanup) => {
+          cleanup = nextCleanup;
+        });
+      };
+
+      window.addEventListener('load', onLoad);
+      return () => {
+        window.removeEventListener('load', onLoad);
+        cleanup?.();
+      };
     }
-  }, []);
+  }, [buildVersion]);
 
   return null;
 }

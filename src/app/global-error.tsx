@@ -10,7 +10,48 @@
  * It cannot use theme providers since they may have failed.
  */
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+const CHUNK_RECOVERY_KEY = 'tasally:chunk-recovery-attempted';
+
+async function clearRuntimeCaches() {
+  if (typeof window === 'undefined' || !('caches' in window)) {
+    return;
+  }
+
+  const keys = await caches.keys();
+  await Promise.all(
+    keys
+      .filter((key) => key.startsWith('tasally-') || key.startsWith('at-'))
+      .map((key) => caches.delete(key))
+  );
+}
+
+async function unregisterServiceWorkers() {
+  if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
+    return;
+  }
+
+  const registrations = await navigator.serviceWorker.getRegistrations();
+  await Promise.all(registrations.map((registration) => registration.unregister()));
+}
+
+async function recoverFromChunkError() {
+  if (sessionStorage.getItem(CHUNK_RECOVERY_KEY) === '1') {
+    window.location.reload();
+    return;
+  }
+
+  sessionStorage.setItem(CHUNK_RECOVERY_KEY, '1');
+
+  const controller = navigator.serviceWorker?.controller;
+  if (controller) {
+    controller.postMessage({ type: 'FORCE_CLEAR_CACHES' });
+  }
+
+  await Promise.allSettled([clearRuntimeCaches(), unregisterServiceWorkers()]);
+  window.location.reload();
+}
 
 // Generate client-side error ID
 function generateErrorId(): string {
@@ -24,40 +65,25 @@ interface GlobalErrorProps {
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   const [errorId] = useState(() => generateErrorId());
-  const [isRecovering, setIsRecovering] = useState(false);
+  const recoveryStartedRef = useRef(false);
   const isDev = process.env.NODE_ENV === 'development';
 
   // Detect ChunkLoadError and auto-recover by clearing caches
   const isChunkError = error?.name === 'ChunkLoadError' || 
     error?.message?.includes('ChunkLoadError') ||
     error?.message?.includes('Failed to load chunk');
+  const isRecovering = isChunkError;
 
   useEffect(() => {
     console.error('[Global Error]', errorId, error);
     
     // Auto-recover from ChunkLoadError by clearing caches
-    if (isChunkError && !isRecovering) {
-      setIsRecovering(true);
-      
-      // Clear service worker caches
-      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage({ type: 'FORCE_CLEAR_CACHES' });
-        
-        // Listen for confirmation
-        const handleMessage = (event: MessageEvent) => {
-          if (event.data?.type === 'CACHES_CLEARED') {
-            navigator.serviceWorker.removeEventListener('message', handleMessage);
-            window.location.reload();
-          }
-        };
-        navigator.serviceWorker.addEventListener('message', handleMessage);
-        
-        // Fallback: reload after 2 seconds even if no confirmation
-        setTimeout(() => window.location.reload(), 2000);
-      } else {
-        // No service worker, just reload
+    if (isChunkError && !recoveryStartedRef.current) {
+      recoveryStartedRef.current = true;
+
+      recoverFromChunkError().catch(() => {
         window.location.reload();
-      }
+      });
     }
   }, [error, errorId, isChunkError, isRecovering]);
 

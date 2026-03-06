@@ -27,6 +27,7 @@ import PWARegister from "@/components/PWARegister";
 import OnboardingFlow from "@/components/OnboardingFlow";
 import { NetworkStatusProvider } from "@/hooks/useNetworkStatus";
 import SyncStatusIndicator from "@/components/SyncStatusIndicator";
+import { getBuildVersion } from "@/lib/buildVersion";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -143,6 +144,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const webSiteJsonLd = buildWebSiteJsonLd();
   const organizationJsonLd = buildOrganizationJsonLd();
+  const buildVersion = getBuildVersion();
 
   return (
     <html lang="en" className="dark">
@@ -157,7 +159,7 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <PWARegister />
+        <PWARegister buildVersion={buildVersion} />
         <AuthProvider>
           <SessionBridge />
           <NetworkStatusProvider>

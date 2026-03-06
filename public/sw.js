@@ -1,271 +1,354 @@
 /**
  * Tasally Service Worker
- * ─────────────────────────────────────────────────────────
- * Strategy:
- *   • Navigation (HTML)  → NetworkFirst  (fresh, fallback to cache)
- *   • Next.js static JS/CSS (_next/static) → CacheFirst (immutable hashed files)
- *   • Next.js RSC payloads (_next/data) → StaleWhileRevalidate
- *   • Images & fonts     → StaleWhileRevalidate
- *   • API POST routes    → Queue for Background Sync on failure
- *   • API GET  (leaderboard, results, groups) → NetworkFirst + stale fallback
- *   • API GET  (other)   → NetworkOnly
- * ─────────────────────────────────────────────────────────
+ *
+ * Safe offline model:
+ * - Navigation requests use NetworkFirst and fall back only to the exact
+ *   cached page or a static offline document.
+ * - Next.js build assets never receive HTML/text fallbacks.
+ * - Runtime caches are scoped per build so stale deployments are discarded
+ *   when the new worker activates.
+ * - The worker does not use skipWaiting() or clients.claim(), which avoids
+ *   taking over open tabs that still depend on older chunk hashes.
  */
 
-const CACHE_VERSION = 'v4';
-const CACHE_HTML    = `at-html-${CACHE_VERSION}`;
-const CACHE_STATIC  = `at-static-${CACHE_VERSION}`;
-const CACHE_ASSETS  = `at-assets-${CACHE_VERSION}`;
-const CACHE_API_RO  = `at-api-ro-${CACHE_VERSION}`; // Read-only API data (leaderboard, etc.)
-
+const WORKER_URL = new URL(self.location.href);
+const BUILD_VERSION = WORKER_URL.searchParams.get('v') || 'dev';
+const CACHE_PREFIX = 'tasally';
+const CACHE_NAVIGATION = `${CACHE_PREFIX}-pages-${BUILD_VERSION}`;
+const CACHE_RUNTIME = `${CACHE_PREFIX}-runtime-${BUILD_VERSION}`;
+const CACHE_ASSETS = `${CACHE_PREFIX}-assets-${BUILD_VERSION}`;
+const CACHE_API = `${CACHE_PREFIX}-api-${BUILD_VERSION}`;
+const OFFLINE_DOCUMENT = '/offline.html';
 const SYNC_TAG = 'tasally-offline-sync';
+const KNOWN_CACHES = new Set([
+  CACHE_NAVIGATION,
+  CACHE_RUNTIME,
+  CACHE_ASSETS,
+  CACHE_API,
+]);
 
-// App-shell pages to pre-cache on install (includes all 9 game routes)
-const APP_SHELL = [
-  '/',
-  '/games',
-  '/games/wordle',
-  '/games/connections',
-  '/games/crossword',
-  '/games/numbers',
-  '/games/trivia',
-  '/games/spelling',
-  '/games/strands',
-  '/games/waffle',
-  '/games/combinations',
+const NAVIGATION_CACHE_ALLOWLIST = [
+  /^\/$/,
+  /^\/games(?:\/[^/?#]+)?$/,
+  /^\/daily-puzzle-games$/,
+  /^\/puzzle-games$/,
+  /^\/word-games$/,
+  /^\/tasally-games$/,
+  /^\/themes$/,
+  /^\/faq$/,
+  /^\/how-to-play$/,
+  /^\/what-is-tasally$/,
+  /^\/about-tasally$/,
+  /^\/تسالي$/,
+  /^\/العاب-تسالي$/,
+  /^\/العاب-ذكاء-يومية$/,
+  /^\/الأسئلة-الشائعة$/,
 ];
 
-// ── Install ──────────────────────────────────────────────
+const CACHEABLE_API_PREFIXES = [
+  '/api/leaderboard',
+  '/api/leaderboards',
+  '/api/results',
+  '/api/groups',
+  '/api/crossword/daily',
+  '/api/presence/online-count',
+  '/api/theme',
+];
+
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches
-      .open(CACHE_HTML)
-      .then((cache) => cache.addAll(APP_SHELL))
-      .then(() => self.skipWaiting())
-  );
+  event.waitUntil(precacheCore());
 });
 
-// ── Activate ─────────────────────────────────────────────
 self.addEventListener('activate', (event) => {
-  const KNOWN = new Set([CACHE_HTML, CACHE_STATIC, CACHE_ASSETS, CACHE_API_RO]);
-  event.waitUntil(
-    caches
-      .keys()
-      .then((keys) =>
-        Promise.all(keys.filter((k) => !KNOWN.has(k)).map((k) => caches.delete(k)))
-      )
-      .then(() => self.clients.claim())
-  );
+  event.waitUntil(cleanupOldCaches());
 });
 
-// ── Helpers ───────────────────────────────────────────────
-function isSameOrigin(req) {
-  try {
-    return new URL(req.url).origin === self.location.origin;
-  } catch {
-    return false;
-  }
-}
-
-function networkFirst(request, cacheName) {
-  return fetch(request)
-    .then((response) => {
-      if (response && response.ok) {
-        const clone = response.clone();
-        caches.open(cacheName).then((c) => c.put(request, clone));
-      }
-      return response;
-    })
-    .catch(() =>
-      caches.match(request).then(
-        (cached) => cached || caches.match('/')
-      )
-    );
-}
-
-function cacheFirst(request, cacheName) {
-  return caches.open(cacheName).then((cache) =>
-    cache.match(request).then((cached) => {
-      if (cached) return cached;
-      return fetch(request).then((response) => {
-        if (response && response.ok) {
-          cache.put(request, response.clone());
-        }
-        return response;
-      });
-    })
-  );
-}
-
-function staleWhileRevalidate(request, cacheName) {
-  return caches.open(cacheName).then((cache) => {
-    return cache.match(request).then((cached) => {
-      const fetchPromise = fetch(request).then((response) => {
-        if (response && response.ok) {
-          cache.put(request, response.clone());
-        }
-        return response;
-      });
-      return cached || fetchPromise;
-    });
-  });
-}
-
-// ── Fetch ─────────────────────────────────────────────────
 self.addEventListener('fetch', (event) => {
   const { request } = event;
+
+  if (!isSameOrigin(request)) {
+    return;
+  }
+
   const url = new URL(request.url);
 
-  // Only handle same-origin requests
-  if (!isSameOrigin(request)) return;
-
-  // API routes — handle POSTs for offline sync, cache safe GETs
   if (url.pathname.startsWith('/api/')) {
     if (request.method === 'POST') {
-      event.respondWith(
-        fetch(request.clone()).catch(() => {
-          // Network failed — request Background Sync
-          return request.clone().text().then((body) => {
-            return saveFailedRequest({
-              url: request.url,
-              method: request.method,
-              headers: Object.fromEntries(request.headers.entries()),
-              body: body,
-            }).then(() => {
-              return self.registration.sync.register(SYNC_TAG).catch(() => {});
-            }).then(() => {
-              // Return a synthetic 202 so the client knows it was queued
-              return new Response(JSON.stringify({ queued: true }), {
-                status: 202,
-                headers: { 'Content-Type': 'application/json' },
-              });
-            });
-          });
-        })
-      );
+      event.respondWith(handleApiPost(request));
       return;
     }
 
-    // Cacheable read-only API GETs (leaderboard, results, profile)
-    const CACHEABLE_API = ['/api/leaderboard', '/api/results', '/api/groups'];
-    if (request.method === 'GET' && CACHEABLE_API.some((p) => url.pathname.startsWith(p))) {
-      event.respondWith(
-        fetch(request.clone())
-          .then((response) => {
-            if (response && response.ok) {
-              const clone = response.clone();
-              caches.open(CACHE_API_RO).then((c) => c.put(request, clone));
-            }
-            return response;
-          })
-          .catch(() => {
-            // Offline — serve cached version with stale header
-            return caches.match(request).then((cached) => {
-              if (cached) {
-                // Clone and add stale indicator header
-                const headers = new Headers(cached.headers);
-                headers.set('X-Tasally-Stale', '1');
-                return new Response(cached.body, {
-                  status: cached.status,
-                  statusText: cached.statusText,
-                  headers,
-                });
-              }
-              return new Response(JSON.stringify({ error: 'offline', stale: true }), {
-                status: 503,
-                headers: { 'Content-Type': 'application/json' },
-              });
-            });
-          })
-      );
-      return;
+    if (request.method === 'GET' && isCacheableApiRequest(url)) {
+      event.respondWith(networkFirstApi(request));
     }
-
-    // Other API GET requests — pass through (NetworkOnly)
     return;
   }
 
-  // Next.js RSC payloads (puzzle data carried in React Server Components)
-  // These look like /_next/data/... or carry RSC headers
-  if (url.pathname.startsWith('/_next/data/')) {
-    event.respondWith(staleWhileRevalidate(request, CACHE_STATIC));
+  if (request.method !== 'GET') {
     return;
   }
 
-  // Next.js immutable static bundles → CacheFirst
+  if (url.pathname === OFFLINE_DOCUMENT) {
+    event.respondWith(cacheFirst(request, CACHE_NAVIGATION));
+    return;
+  }
+
   if (url.pathname.startsWith('/_next/static/')) {
-    event.respondWith(cacheFirst(request, CACHE_STATIC));
+    event.respondWith(staleWhileRevalidate(request, CACHE_RUNTIME));
     return;
   }
 
-  // Image & font assets → StaleWhileRevalidate
-  if (
-    request.destination === 'image' ||
-    request.destination === 'font' ||
-    url.pathname.startsWith('/icons/') ||
-    url.pathname.startsWith('/themes/')
-  ) {
+  if (isRscRequest(request, url)) {
+    event.respondWith(networkFirstAsset(request, CACHE_RUNTIME));
+    return;
+  }
+
+  if (isCacheableStaticAsset(request, url)) {
     event.respondWith(staleWhileRevalidate(request, CACHE_ASSETS));
     return;
   }
 
-  // HTML navigation → NetworkFirst
-  if (request.mode === 'navigate' || request.destination === 'document') {
-    event.respondWith(networkFirst(request, CACHE_HTML));
-    return;
+  if (isNavigationRequest(request)) {
+    event.respondWith(networkFirstNavigation(request, url));
   }
 });
 
-// ── Background Sync ───────────────────────────────────────
 self.addEventListener('sync', (event) => {
   if (event.tag === SYNC_TAG) {
     event.waitUntil(replayFailedRequests());
   }
 });
 
-// Notify all clients when back online so they can refresh counts
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'TRIGGER_SYNC') {
-    self.registration.sync.register(SYNC_TAG).catch(() => {});
+    event.waitUntil(registerSync());
+    return;
   }
 
-  // Force clear all caches (called when client detects ChunkLoadError)
   if (event.data && event.data.type === 'FORCE_CLEAR_CACHES') {
     event.waitUntil(
-      caches.keys().then((keys) => 
-        Promise.all(keys.map((k) => caches.delete(k)))
-      ).then(() => {
-        // Notify all clients to reload
-        self.clients.matchAll().then((clients) => {
+      clearTasallyCaches().then(() =>
+        self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
           clients.forEach((client) => {
             client.postMessage({ type: 'CACHES_CLEARED' });
           });
-        });
-      })
-    );
-  }
-
-  // Warm game page caches proactively (called from client after install)
-  if (event.data && event.data.type === 'WARM_GAME_CACHES') {
-    event.waitUntil(
-      caches.open(CACHE_HTML).then((cache) => {
-        return Promise.allSettled(
-          APP_SHELL.map((url) =>
-            cache.match(url).then((existing) => {
-              if (!existing) {
-                return fetch(url).then((resp) => {
-                  if (resp && resp.ok) cache.put(url, resp);
-                });
-              }
-            })
-          )
-        );
-      })
+        })
+      )
     );
   }
 });
 
-// ── SW IndexedDB queue for failed requests ────────────────
+async function precacheCore() {
+  const cache = await caches.open(CACHE_NAVIGATION);
+  await cache.addAll([
+    OFFLINE_DOCUMENT,
+    '/manifest.webmanifest',
+    '/icons/icon-192.png',
+    '/icons/icon-512.png',
+    '/icons/maskable-192.png',
+    '/icons/maskable-512.png',
+  ]);
+}
+
+async function cleanupOldCaches() {
+  const keys = await caches.keys();
+  await Promise.all(
+    keys
+      .filter((key) => key.startsWith(`${CACHE_PREFIX}-`) && !KNOWN_CACHES.has(key))
+      .map((key) => caches.delete(key))
+  );
+}
+
+async function clearTasallyCaches() {
+  const keys = await caches.keys();
+  await Promise.all(
+    keys
+      .filter((key) => key.startsWith(`${CACHE_PREFIX}-`) || key.startsWith('at-'))
+      .map((key) => caches.delete(key))
+  );
+}
+
+function isSameOrigin(request) {
+  try {
+    return new URL(request.url).origin === self.location.origin;
+  } catch {
+    return false;
+  }
+}
+
+function isNavigationRequest(request) {
+  return request.mode === 'navigate' || request.destination === 'document';
+}
+
+function isCacheablePage(url) {
+  if (url.pathname.startsWith('/admin') || url.pathname.startsWith('/login')) {
+    return false;
+  }
+
+  if (url.pathname.startsWith('/profile') || url.pathname.startsWith('/groups')) {
+    return false;
+  }
+
+  return NAVIGATION_CACHE_ALLOWLIST.some((pattern) => pattern.test(url.pathname));
+}
+
+function isCacheableApiRequest(url) {
+  return CACHEABLE_API_PREFIXES.some((prefix) => url.pathname.startsWith(prefix));
+}
+
+function isRscRequest(request, url) {
+  const accept = request.headers.get('accept') || '';
+  return (
+    url.pathname.startsWith('/_next/data/') ||
+    url.searchParams.has('_rsc') ||
+    request.headers.has('rsc') ||
+    accept.includes('text/x-component')
+  );
+}
+
+function isCacheableStaticAsset(request, url) {
+  return (
+    request.destination === 'image' ||
+    request.destination === 'font' ||
+    request.destination === 'style' ||
+    request.destination === 'script' ||
+    request.destination === 'worker' ||
+    url.pathname.startsWith('/icons/') ||
+    url.pathname.startsWith('/themes/')
+  );
+}
+
+function isCacheableResponse(response) {
+  return Boolean(response && response.ok && !response.headers.get('set-cookie'));
+}
+
+async function putInCache(cacheName, request, response) {
+  if (!isCacheableResponse(response)) {
+    return;
+  }
+
+  const cache = await caches.open(cacheName);
+  await cache.put(request, response.clone());
+}
+
+async function cacheFirst(request, cacheName) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(request);
+  if (cached) {
+    return cached;
+  }
+
+  const response = await fetch(request);
+  await putInCache(cacheName, request, response);
+  return response;
+}
+
+async function staleWhileRevalidate(request, cacheName) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(request);
+  const fetchPromise = fetch(request)
+    .then(async (response) => {
+      await putInCache(cacheName, request, response);
+      return response;
+    })
+    .catch(() => null);
+
+  if (cached) {
+    void fetchPromise;
+    return cached;
+  }
+
+  const response = await fetchPromise;
+  return response || Response.error();
+}
+
+async function networkFirstAsset(request, cacheName) {
+  try {
+    const response = await fetch(request);
+    await putInCache(cacheName, request, response);
+    return response;
+  } catch {
+    const cached = await caches.match(request);
+    return cached || Response.error();
+  }
+}
+
+async function networkFirstNavigation(request, url) {
+  try {
+    const response = await fetch(request);
+
+    if (isCacheablePage(url) && isHtmlResponse(response)) {
+      await putInCache(CACHE_NAVIGATION, request, response);
+    }
+
+    return response;
+  } catch {
+    const cached = await caches.match(request);
+    if (cached) {
+      return cached;
+    }
+
+    const offline = await caches.match(OFFLINE_DOCUMENT);
+    return offline || new Response('Offline', { status: 503, statusText: 'Offline' });
+  }
+}
+
+function isHtmlResponse(response) {
+  return (response.headers.get('content-type') || '').includes('text/html');
+}
+
+async function networkFirstApi(request) {
+  try {
+    const response = await fetch(request);
+    await putInCache(CACHE_API, request, response);
+    return response;
+  } catch {
+    const cached = await caches.match(request);
+    if (cached) {
+      const headers = new Headers(cached.headers);
+      headers.set('X-Tasally-Stale', '1');
+      return new Response(cached.body, {
+        status: cached.status,
+        statusText: cached.statusText,
+        headers,
+      });
+    }
+
+    return new Response(JSON.stringify({ error: 'offline', stale: true }), {
+      status: 503,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}
+
+async function handleApiPost(request) {
+  try {
+    return await fetch(request.clone());
+  } catch {
+    const body = await request.clone().text();
+    await saveFailedRequest({
+      url: request.url,
+      method: request.method,
+      headers: Object.fromEntries(request.headers.entries()),
+      body,
+    });
+    await registerSync();
+
+    return new Response(JSON.stringify({ queued: true }), {
+      status: 202,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+}
+
+function registerSync() {
+  if (!self.registration.sync) {
+    return Promise.resolve();
+  }
+
+  return self.registration.sync.register(SYNC_TAG).catch(() => {});
+}
+
 const SW_DB_NAME = 'tasally-sw-sync';
 const SW_DB_VERSION = 1;
 const SW_STORE = 'failedRequests';
@@ -296,34 +379,32 @@ function saveFailedRequest(data) {
 }
 
 function replayFailedRequests() {
-  return openSWDB().then((db) => {
-    return new Promise((resolve, reject) => {
-      const tx = db.transaction(SW_STORE, 'readonly');
-      const req = tx.objectStore(SW_STORE).getAll();
-      req.onsuccess = () => resolve(req.result || []);
-      req.onerror = () => reject(req.error);
+  return openSWDB()
+    .then((db) => {
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(SW_STORE, 'readonly');
+        const req = tx.objectStore(SW_STORE).getAll();
+        req.onsuccess = () => resolve(req.result || []);
+        req.onerror = () => reject(req.error);
+      });
+    })
+    .then((entries) => {
+      return Promise.all(
+        entries.map((entry) =>
+          fetch(entry.url, {
+            method: entry.method,
+            headers: entry.headers,
+            body: entry.body,
+          })
+            .then((res) => {
+              if (res.ok || (res.status >= 400 && res.status < 500 && res.status !== 429)) {
+                return deleteFailedRequest(entry.id);
+              }
+            })
+            .catch(() => {})
+        )
+      );
     });
-  }).then((entries) => {
-    return Promise.all(
-      entries.map((entry) =>
-        fetch(entry.url, {
-          method: entry.method,
-          headers: entry.headers,
-          body: entry.body,
-        })
-          .then((res) => {
-            if (res.ok || (res.status >= 400 && res.status < 500 && res.status !== 429)) {
-              // Succeeded or permanently failed — remove from queue
-              return deleteFailedRequest(entry.id);
-            }
-            // 5xx or 429 — leave for next sync attempt
-          })
-          .catch(() => {
-            // Still offline — leave for next sync
-          })
-      )
-    );
-  });
 }
 
 function deleteFailedRequest(id) {
