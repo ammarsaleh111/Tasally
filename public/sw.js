@@ -50,6 +50,15 @@ const CACHEABLE_API_PREFIXES = [
   '/api/presence/online-count',
 ];
 
+const QUEUEABLE_API_PATTERNS = [
+  /^\/api\/results$/,
+  /^\/api\/games\/global\/results$/,
+  /^\/api\/crossword\/progress$/,
+  /^\/api\/groups\/[^/]+\/results$/,
+];
+
+const MAX_QUEUE_AGE_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+
 self.addEventListener('install', (event) => {
   event.waitUntil(precacheCore());
 });
@@ -68,7 +77,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
 
   if (url.pathname.startsWith('/api/')) {
-    if (request.method === 'POST') {
+    if (request.method === 'POST' && isQueueableApiPost(url)) {
       event.respondWith(handleApiPost(request));
       return;
     }
@@ -189,6 +198,10 @@ function isCacheablePage(url) {
 
 function isCacheableApiRequest(url) {
   return CACHEABLE_API_PREFIXES.includes(url.pathname);
+}
+
+function isQueueableApiPost(url) {
+  return QUEUEABLE_API_PATTERNS.some((pattern) => pattern.test(url.pathname));
 }
 
 function isRscRequest(request, url) {
@@ -366,40 +379,75 @@ function saveFailedRequest(data) {
   return openSWDB().then((db) => {
     return new Promise((resolve, reject) => {
       const tx = db.transaction(SW_STORE, 'readwrite');
-      tx.objectStore(SW_STORE).add({ ...data, timestamp: Date.now() });
+      const store = tx.objectStore(SW_STORE);
+      const getAllReq = store.getAll();
+      getAllReq.onsuccess = () => {
+        const existing = getAllReq.result || [];
+        const duplicate = existing.find(
+          (item) => item.url === data.url && item.method === data.method && item.body === data.body
+        );
+        if (!duplicate) {
+          store.add({ ...data, timestamp: Date.now() });
+        }
+      };
       tx.oncomplete = () => resolve();
       tx.onerror = () => reject(tx.error);
     });
   });
 }
 
-function replayFailedRequests() {
-  return openSWDB()
-    .then((db) => {
-      return new Promise((resolve, reject) => {
-        const tx = db.transaction(SW_STORE, 'readonly');
-        const req = tx.objectStore(SW_STORE).getAll();
-        req.onsuccess = () => resolve(req.result || []);
-        req.onerror = () => reject(req.error);
+async function replayFailedRequests() {
+  const db = await openSWDB();
+  const entries = await new Promise((resolve, reject) => {
+    const tx = db.transaction(SW_STORE, 'readonly');
+    const req = tx.objectStore(SW_STORE).getAll();
+    req.onsuccess = () => resolve(req.result || []);
+    req.onerror = () => reject(req.error);
+  });
+
+  if (entries.length === 0) return;
+
+  const now = Date.now();
+  let currentIdentityId = null;
+  try {
+    const meRes = await fetch('/api/identity/me', { cache: 'no-store', credentials: 'same-origin' });
+    if (meRes.ok) {
+      const meJson = await meRes.json();
+      currentIdentityId = meJson?.data?.identity?.id || null;
+    }
+  } catch {
+    // Still offline or unreachable; keep entries for next sync
+    return;
+  }
+
+  for (const entry of entries) {
+    // Drop expired entries
+    if (entry.timestamp && now - entry.timestamp > MAX_QUEUE_AGE_MS) {
+      await deleteFailedRequest(entry.id);
+      continue;
+    }
+
+    // Drop if queued for a specific identity that no longer matches
+    const queuedIdentityId = entry.headers?.['x-tasally-identity'] || entry.headers?.['X-Tasally-Identity'] || null;
+    if (queuedIdentityId && currentIdentityId && queuedIdentityId !== currentIdentityId) {
+      await deleteFailedRequest(entry.id);
+      continue;
+    }
+
+    try {
+      const res = await fetch(entry.url, {
+        method: entry.method,
+        headers: entry.headers,
+        body: entry.body,
+        credentials: 'same-origin',
       });
-    })
-    .then((entries) => {
-      return Promise.all(
-        entries.map((entry) =>
-          fetch(entry.url, {
-            method: entry.method,
-            headers: entry.headers,
-            body: entry.body,
-          })
-            .then((res) => {
-              if (res.ok || (res.status >= 400 && res.status < 500 && res.status !== 429)) {
-                return deleteFailedRequest(entry.id);
-              }
-            })
-            .catch(() => {})
-        )
-      );
-    });
+      if (res.ok || (res.status >= 400 && res.status < 500 && res.status !== 429)) {
+        await deleteFailedRequest(entry.id);
+      }
+    } catch {
+      // Network error; leave in queue for next sync
+    }
+  }
 }
 
 function deleteFailedRequest(id) {

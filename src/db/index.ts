@@ -4,54 +4,44 @@ import * as schema from "./schema";
 
 /**
  * Database Client Configuration - Scalability Optimized
- * 
+ *
  * Optimized for serverless (Netlify) with Neon Postgres:
  * - Uses DATABASE_URL_POOLED (Neon pooler endpoint) for all runtime queries
  * - Falls back to DATABASE_POOL_URL or DATABASE_URL
  * - Global singleton prevents connection exhaustion
  * - Configured for transaction pooling mode (Neon default)
- * 
- * Environment Variables:
- * - DATABASE_URL_POOLED: Neon pooled connection (use for all runtime queries)
- * - DATABASE_URL: Direct connection (use for migrations only)
- * 
- * Connection Limits (for 10k-50k concurrent users):
- * - Serverless function: max 1 connection per instance
- * - Neon pooler handles actual connection pooling
- * - prepare: false required for transaction pooling
+ * - Defers missing-URL errors until a query is actually attempted so static builds
+ *   and CI environments without DB credentials do not crash during module import.
  */
 
 // Priority: DATABASE_URL_POOLED > DATABASE_POOL_URL > DATABASE_URL
 const connectionString = (
   process.env.DATABASE_URL_POOLED?.trim() ||
-  process.env.DATABASE_POOL_URL?.trim() || 
+  process.env.DATABASE_POOL_URL?.trim() ||
   process.env.DATABASE_URL?.trim()
 );
 
-if (!connectionString) {
-  throw new Error(
-    "Database connection not configured. Set DATABASE_URL_POOLED (recommended) or DATABASE_URL."
-  );
-}
+const missingDbErrorMessage =
+  "Database connection not configured. Set DATABASE_URL_POOLED (recommended) or DATABASE_URL.";
 
 // Detect if using pooled connection (Neon pooler uses -pooler in host or port 6543)
-const isPooled = connectionString.includes('-pooler') || connectionString.includes(':6543');
+const isPooled = Boolean(
+  connectionString && (connectionString.includes('-pooler') || connectionString.includes(':6543'))
+);
 
 // Log connection type for debugging (only in development)
 if (process.env.NODE_ENV !== 'production') {
-  console.log(`[DB] Using ${isPooled ? 'pooled' : 'direct'} connection`);
+  if (connectionString) {
+    console.log(`[DB] Using ${isPooled ? 'pooled' : 'direct'} connection`);
+  } else {
+    console.warn(`[DB] ${missingDbErrorMessage}`);
+  }
 }
 
 declare global {
   var __drizzleClient: ReturnType<typeof postgres> | undefined;
 }
 
-/**
- * Connection options optimized for high-scale serverless:
- * - max: 1 for serverless (Neon pooler handles actual pooling)
- * - prepare: false for transaction pooling mode (Neon default)
- * - Short timeouts to fail fast and allow retries
- */
 const connectionOptions: postgres.Options<{}> = {
   // Single connection per serverless instance - Neon pooler scales this
   max: 1,
@@ -69,24 +59,36 @@ const connectionOptions: postgres.Options<{}> = {
   fetch_types: false,
 };
 
+function createMissingClientProxy(): ReturnType<typeof postgres> {
+  return new Proxy(
+    (() => {
+      throw new Error(missingDbErrorMessage);
+    }) as unknown as ReturnType<typeof postgres>,
+    {
+      get(_target, prop) {
+        if (prop === 'then' || prop === Symbol.toStringTag) return undefined;
+        return () => {
+          throw new Error(missingDbErrorMessage);
+        };
+      },
+      apply() {
+        throw new Error(missingDbErrorMessage);
+      },
+    }
+  );
+}
+
 // Global singleton - reused across requests in same serverless instance
-const client = global.__drizzleClient ?? postgres(connectionString, connectionOptions);
+const client = connectionString
+  ? (global.__drizzleClient ?? postgres(connectionString, connectionOptions))
+  : createMissingClientProxy();
 
 // Persist client globally to reuse across requests (both dev and prod)
-if (typeof global !== 'undefined') {
+if (connectionString && typeof global !== 'undefined') {
   global.__drizzleClient = client;
 }
 
-/**
- * Drizzle ORM instance - use this for all database operations
- * Singleton pattern ensures connection reuse within serverless instance
- */
 export const db = drizzle(client, { schema });
-
-/**
- * Raw postgres client for advanced queries (use sparingly)
- * Prefer using db (Drizzle) for type safety
- */
 export const sql_client = client;
 
 /**
@@ -94,6 +96,9 @@ export const sql_client = client;
  * Use in /api/health endpoint
  */
 export async function checkDbConnection(): Promise<{ ok: boolean; latencyMs: number }> {
+  if (!connectionString) {
+    return { ok: false, latencyMs: 0 };
+  }
   const start = performance.now();
   try {
     await client`SELECT 1`;
