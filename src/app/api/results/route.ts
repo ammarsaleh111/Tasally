@@ -29,7 +29,7 @@ const ResultSchema = z.object({
   success: z.boolean(),
   attempts: z.number().int().nonnegative().optional(),
   durationMs: z.number().int().nonnegative().optional(),
-  metadata: z.record(z.unknown()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
   guestId: z.string().uuid().optional(),
   displayName: z.string().max(MAX_INPUT_LENGTHS.NAME).optional(),
   idempotencyKey: z.string().max(64).optional(), // For replay protection

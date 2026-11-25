@@ -3,6 +3,21 @@ const nextConfig = {
   /* config options here */
   compress: true,
 
+  // Keep the canonical Arabic URLs while using ASCII prerender segment keys.
+  async rewrites() {
+    return [
+      { source: encodeURI('/تسالي'), destination: '/ar/tasally' },
+      { source: encodeURI('/العاب-تسالي'), destination: '/ar/games' },
+      { source: encodeURI('/العاب-ذكاء-يومية'), destination: '/ar/daily-brain-games' },
+    ];
+  },
+
+  async redirects() {
+    return [
+      { source: encodeURI('/الأسئلة-الشائعة'), destination: '/faq', permanent: false },
+    ];
+  },
+
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60 * 60 * 24 * 30,

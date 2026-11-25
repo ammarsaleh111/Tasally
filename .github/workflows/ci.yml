@@ -61,7 +61,7 @@ jobs:
           NODE_ENV: production
           NEXT_PUBLIC_SITE_URL: https://tasally.tech
           SITE_URL: https://tasally.tech
-        run: npm run build
+        run: npm run build && node tests/smoke-production.mjs
 
       - name: API integration tests against disposable PostgreSQL
         env:
