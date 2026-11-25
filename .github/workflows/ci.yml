@@ -72,6 +72,7 @@ jobs:
           node scripts/bootstrap-test-db.mjs |
             docker exec -i "${{ job.services.postgres.id }}" psql -X -U tasally -d tasally -v ON_ERROR_STOP=1 --single-transaction -f -
           export NEXTAUTH_SECRET="$(openssl rand -hex 32)"
+          export TASALLY_SERVER_DATA_DIR="${RUNNER_TEMP}/tasally-server-data"
           npm run dev -- --hostname 127.0.0.1 > "${RUNNER_TEMP}/tasally-dev.log" 2>&1 &
           server=$!
           trap 'status=$?; kill "$server" 2>/dev/null || true; if [ "$status" -ne 0 ]; then cat "${RUNNER_TEMP}/tasally-dev.log"; fi' EXIT

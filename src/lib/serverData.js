@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 
-const DATA_DIR = path.join(process.cwd(), 'data', 'server');
+const DATA_DIR = process.env.TASALLY_SERVER_DATA_DIR || path.join(process.cwd(), 'data', 'server');
 const PLAYERS_FILE = path.join(DATA_DIR, 'players.json');
 const ACTIVITY_FILE = path.join(DATA_DIR, 'activity.json');
 const ADMIN_FILE = path.join(DATA_DIR, 'admin.json');
