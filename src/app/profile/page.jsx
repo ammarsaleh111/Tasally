@@ -8,7 +8,6 @@ import {
   getAllStats, 
   getAchievementCount,
   updateSettings,
-  saveProfile,
   setAvatar,
   getAvatarId,
   ensureAvatarField
@@ -37,7 +36,6 @@ import FeedbackForm from '@/components/FeedbackForm';
 import Avatar3D from '@/components/Avatar3D';
 import AvatarPicker from '@/components/AvatarPicker';
 import DisplayName from '@/components/DisplayName';
-import { validateName, MAX_INPUT_LENGTHS } from '@/utils/inputSanitizer';
 import { 
   useSeasonIdentity, 
   SeasonPageHeader, 
@@ -61,6 +59,7 @@ const formatTime = (seconds) => {
 export default function ProfilePage() {
   const session = useAppSession();
   const [profile, setProfile] = useState(null);
+  const displayName = session?.displayName || profile?.name;
   const [stats, setStats] = useState(null);
   const [badgeViewModel, setBadgeViewModel] = useState([]);
   const [activeTab, setActiveTab] = useState('overview');
@@ -255,9 +254,9 @@ export default function ProfilePage() {
               <div className="text-center">
                 <h1 className="text-2xl font-bold text-foreground transition-colors flex items-center justify-center gap-2">
                   <SeasonIcon index={0} />
-                  {profile.name ? (
+                  {displayName ? (
                     <>
-                      Hi, <DisplayName name={profile.name} className="inline-flex" />!
+                      Hi, <DisplayName name={displayName} className="inline-flex" />!
                     </>
                   ) : (
                     'Welcome!'
@@ -369,7 +368,7 @@ export default function ProfilePage() {
             <BadgesTab />
           )}
           {activeTab === 'settings' && (
-            <SettingsTab settings={profile.settings} onReminderToggle={handleReminderToggle} isAuthenticated={session?.role === 'USER'} />
+            <SettingsTab displayName={displayName} settings={profile.settings} onReminderToggle={handleReminderToggle} isAuthenticated={session?.role === 'USER'} />
           )}
           {activeTab === 'feedback' && <FeedbackTab />}
         </div>
@@ -1032,32 +1031,11 @@ const FeedbackTab = () => {
 };
 
 // Settings Tab
-const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
-  const [profile, setProfile] = useState(() => getProfile());
-  const [editingName, setEditingName] = useState(false);
-  const [newName, setNewName] = useState(() => getProfile()?.name || '');
-  const [nameError, setNameError] = useState('');
+const SettingsTab = ({ displayName, settings, onReminderToggle, isAuthenticated }) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteInput, setDeleteInput] = useState('');
   const [deleteError, setDeleteError] = useState('');
   const [deleting, setDeleting] = useState(false);
-
-  const handleSaveName = () => {
-    const validation = validateName(newName);
-    if (!validation.valid) {
-      setNameError(validation.error);
-      return;
-    }
-
-    const updatedProfile = getProfile();
-    updatedProfile.name = validation.value;
-    saveProfile(updatedProfile);
-    setProfile(updatedProfile);
-    setEditingName(false);
-    setNameError('');
-    
-    window.location.reload();
-  };
 
   const handleDeleteAccount = async () => {
     setDeleteError('');
@@ -1113,72 +1091,7 @@ const SettingsTab = ({ settings, onReminderToggle, isAuthenticated }) => {
       <div className="bg-card border border-border rounded-xl p-5 transition-all duration-200">
         <h3 className="font-semibold text-foreground mb-4">Player Identity</h3>
         
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-foreground">Display Name</p>
-            {!editingName && (
-              <button
-                onClick={() => setEditingName(true)}
-                className="text-sm text-info hover:text-info/80 transition-colors duration-200"
-              >
-                ✏️ Edit
-              </button>
-            )}
-          </div>
-          
-          {editingName ? (
-            <div className="space-y-3">
-              <input
-                type="text"
-                value={newName}
-                onChange={(e) => {
-                  setNewName(e.target.value);
-                  setNameError('');
-                }}
-                placeholder="Enter your name"
-                maxLength={MAX_INPUT_LENGTHS.NAME}
-                dir="auto"
-                className="w-full px-4 py-2.5 bg-card border border-border rounded-xl text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-info/50 focus:border-info/50 transition-all duration-200 name-text"
-              />
-              <p className="text-xs text-muted-foreground">
-                {newName.length}/{MAX_INPUT_LENGTHS.NAME} characters
-              </p>
-              {nameError && (
-                <p className="text-sm text-destructive">
-                  {nameError}
-                </p>
-              )}
-              <div className="flex gap-3">
-                <button
-                  onClick={handleSaveName}
-                  className="px-4 py-2 bg-success text-success-foreground rounded-xl font-medium transition-all duration-200 hover:bg-success/90"
-                >
-                  Save
-                </button>
-                <button
-                  onClick={() => {
-                    setEditingName(false);
-                    setNewName(profile?.name || '');
-                    setNameError('');
-                  }}
-                  className="px-4 py-2 bg-secondary text-foreground border border-border rounded-xl font-medium transition-all duration-200 hover:bg-accent"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          ) : (
-            <p className="text-lg font-medium text-foreground py-2">
-              <DisplayName name={profile?.name || 'Anonymous'} />
-            </p>
-          )}
-        </div>
-        
-        <div className="mt-4 pt-4 border-t border-border">
-          <p className="text-xs text-muted-foreground">
-            👤 Your name is displayed in your profile and visible to others in the admin dashboard.
-          </p>
-        </div>
+        <DisplayName name={displayName || 'Anonymous'} />
       </div>
     
       <div className="bg-card border border-border rounded-xl p-5 transition-all duration-200">

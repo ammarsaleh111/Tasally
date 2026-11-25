@@ -14,6 +14,7 @@ import {
   check,
   integer,
   bigint,
+  pgSequence,
   pgTable,
   primaryKey,
   text,
@@ -30,6 +31,8 @@ import { guestProfiles } from "./schema";
 /* ------------------------------------------------------------------ */
 /*  1. identities                                                      */
 /* ------------------------------------------------------------------ */
+export const anonymousNameNumber = pgSequence("anonymous_name_number");
+
 export const identities = pgTable(
   "identities",
   {

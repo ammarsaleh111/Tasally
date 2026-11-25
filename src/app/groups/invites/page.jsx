@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 export default function InvitesPage() {
   const { identity } = useIdentity();
-  const { invites, loading, refetch } = useMyInvites();
+  const { invites, loading, refetch } = useMyInvites(identity?.id);
   const [responding, setResponding] = useState(null); // inviteId being responded to
 
   const handleRespond = async (inviteId, action) => {

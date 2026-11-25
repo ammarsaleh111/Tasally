@@ -36,10 +36,6 @@ export const RATE_LIMITS = {
   DEFAULT_WRITE: { max: 20, windowSeconds: 60 },
   // Groups: identity find — 20/min per IP (prevent enumeration)
   IDENTITY_FIND: { max: 20, windowSeconds: 60 },
-  // Groups: identity claim — 20/min per IP (allow retries + multi-tab)
-  IDENTITY_CLAIM: { max: 20, windowSeconds: 60 },
-  // Groups: identity rename — 5/min per IP
-  IDENTITY_RENAME: { max: 5, windowSeconds: 60 },
   // Groups: create group — 5/min per identity
   GROUP_CREATE: { max: 5, windowSeconds: 60 },
   // Groups: invite — 30/hour per identity

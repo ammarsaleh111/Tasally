@@ -3,9 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getAllStats } from '@/utils/profileManager';
-import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
-import PuzzleLoader from '@/components/PuzzleLoader';
-import { useSimplePuzzleLoader } from '@/hooks/usePuzzleLoader';
+import { getActiveTheme } from '@/utils/themeEngine';
 import { useNetworkStatus } from '@/hooks/useNetworkStatus';
 import SiteHeader from '@/components/SiteHeader';
 import { 
@@ -21,7 +19,6 @@ import {
 export default function GamesPage() {
   const [stats, setStats] = useState(null);
   const [activeTheme, setActiveTheme] = useState(null);
-  const isLoading = useSimplePuzzleLoader();
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -105,10 +102,6 @@ export default function GamesPage() {
     }
   ];
 
-  if (isLoading) {
-    return <PuzzleLoader isLoading={true} />;
-  }
-
   return (
     <div className="min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <SiteHeader />
@@ -174,7 +167,7 @@ export default function GamesPage() {
             const gameStats = stats?.[game.id];
             const streak = gameStats?.currentStreak || 0;
             const hasStreak = streak > 0;
-            const gameTheme = getGameTheme(game.id);
+            const gameTheme = activeTheme?.games?.[game.id];
             
             return (
               <SeasonGameCard
@@ -223,7 +216,7 @@ function SeasonGameCard({ game, gameTheme, activeTheme, hasStreak, streak, index
   const { isOnline } = useNetworkStatus();
   
   return (
-    <Link href={game.href}>
+    <Link href={game.href} prefetch={false}>
       <SeasonTexturedCard className="group p-5 md:p-6 h-full flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer">
         {/* Season ornament on every 3rd card */}
         {pack && index % 3 === 0 && (

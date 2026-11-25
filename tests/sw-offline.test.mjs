@@ -60,3 +60,26 @@ test('Service Worker replays only requests owned by the active identity', async 
   assert.deepEqual(sent, [activeIdentity]);
   assert.deepEqual(deleted, [3]);
 });
+
+test('a stalled navigation uses its own cached public page and keeps the refresh alive', async () => {
+  const url = new URL('https://example.test/games');
+  const cached = new Response('public games');
+  let finishFetch;
+  let background;
+  const context = vm.createContext({
+    URL, Response,
+    self: { location: { href: 'https://example.test/sw.js?v=new' }, addEventListener() {} },
+    fetch: () => new Promise(resolve => { finishFetch = resolve; }),
+    caches: { open: async name => {
+      assert.equal(name, 'tasally-pages-new');
+      return { match: async request => request === url ? cached : null };
+    } },
+    setTimeout: callback => setTimeout(callback, 0),
+    clearTimeout,
+  });
+  vm.runInContext(swSource, context);
+  const response = await context.networkFirstNavigation(url, url, { waitUntil(promise) { background = promise; } });
+  assert.equal(response, cached);
+  finishFetch(new Response(null, { status: 204 }));
+  await background;
+});

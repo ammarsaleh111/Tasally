@@ -9,8 +9,8 @@ import { useMyGroups, useMyInvites, createGroup } from '@/hooks/useGroups';
 
 export default function GroupsPage() {
   const { identity } = useIdentity();
-  const { groups, loading: groupsLoading, refetch: refetchGroups } = useMyGroups();
-  const { invites, loading: invitesLoading } = useMyInvites();
+  const { groups, loading: groupsLoading, refetch: refetchGroups } = useMyGroups(identity?.id);
+  const { invites, loading: invitesLoading } = useMyInvites(identity?.id);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const handleCreate = async (name) => {

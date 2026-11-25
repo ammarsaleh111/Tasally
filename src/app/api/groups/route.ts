@@ -102,7 +102,7 @@ export async function POST(request: NextRequest) {
       return fail(
         403,
         "IDENTITY_REQUIRED",
-        "You must claim a display name before creating a group"
+        "Your player identity is not ready yet. Please retry."
       );
     }
     return handleApiError(error);
