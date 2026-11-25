@@ -55,6 +55,7 @@ jobs:
           npx tsx --test tests/game-engines.test.ts
           node --test tests/sw-offline.test.mjs
           npx tsx --test tests/db-initialization.test.ts
+          npx tsx --test tests/result-identity.test.ts
 
       - name: Production build (no production DB secrets)
         env:

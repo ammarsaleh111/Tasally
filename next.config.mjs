@@ -2,6 +2,8 @@
 const nextConfig = {
   /* config options here */
   compress: true,
+  // Isolated development keeps generated files outside the checkout.
+  ...(process.env.TASALLY_SERVER_DATA_DIR ? { agentRules: false } : {}),
 
   // Keep the canonical Arabic URLs while using ASCII prerender segment keys.
   async rewrites() {

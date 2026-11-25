@@ -15,7 +15,7 @@ export function resultIdentityStorageKey() {
 export function storeResultIdentity(key: string, identityId: string | null) {
   try {
     if (key !== resultIdentityStorageKey()) return;
-    if (identityId) localStorage.setItem(key, identityId);
+    if (identityId) localStorage.setItem(key, JSON.stringify(identityId));
     else localStorage.removeItem(key);
   } catch {
     // Online submission still works when browser storage is unavailable.
@@ -24,7 +24,9 @@ export function storeResultIdentity(key: string, identityId: string | null) {
 
 export function getResultIdentity() {
   try {
-    return localStorage.getItem(resultIdentityStorageKey());
+    const stored = localStorage.getItem(resultIdentityStorageKey());
+    const identityId: unknown = stored === null ? null : JSON.parse(stored);
+    return typeof identityId === "string" ? identityId : null;
   } catch {
     return null;
   }
