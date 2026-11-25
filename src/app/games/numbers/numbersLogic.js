@@ -1,5 +1,5 @@
 import { getUserStorageKey } from '@/utils/storageKeys';
-import { getDailyGameData } from '@/data/all-data';
+import { loader as dailyData } from '@/data/all-data/games/numbers';
 import { getCairoDateKey } from '@/data/all-data/utils/date';
 
 // Operators
@@ -10,7 +10,7 @@ export const OPERATORS = ['+', '-', '×', '÷'];
  */
 export const getDailyPuzzle = () => {
   const dateKey = getCairoDateKey();
-  const entry = getDailyGameData('numbers', dateKey);
+  const entry = dailyData.getDailyGameData(dateKey);
   return {
     date: dateKey,
     ...entry,

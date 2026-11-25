@@ -7,7 +7,7 @@
 import { getGameTheme } from '@/utils/themeEngine';
 import { isWordInLocalDictionary } from '@/utils/localDictionary';
 import { getUserStorageKey } from '@/utils/storageKeys';
-import { getDailyGameDataWithMeta, getMonthGameData } from '@/data/all-data';
+import { loader as dailyData } from '@/data/all-data/games/combinations';
 import { getCairoDateKey, monthKeyFromDate } from '@/data/all-data/utils/date';
 
 // Scoring constants
@@ -29,7 +29,7 @@ export const getTodaysPuzzle = () => {
     if (themedPuzzle) return themedPuzzle;
   }
   
-  const daily = getDailyGameDataWithMeta('combinations', dateString);
+  const daily = dailyData.getDailyGameDataWithMeta(dateString);
   return {
     date: daily.servedDate,
     ...daily.data
@@ -41,7 +41,7 @@ export const getTodaysPuzzle = () => {
  */
 export const getPuzzleByDate = (dateString) => {
   try {
-    const monthData = getMonthGameData('combinations', monthKeyFromDate(dateString));
+    const monthData = dailyData.getMonthGameData(monthKeyFromDate(dateString));
     const entry = monthData[dateString];
     if (!entry) return null;
     return { date: dateString, ...entry };
@@ -54,7 +54,7 @@ export const getPuzzleByDate = (dateString) => {
  * Get a random puzzle for unlimited mode
  */
 export const getRandomPuzzle = () => {
-  const monthData = getMonthGameData('combinations', monthKeyFromDate(getCairoDateKey()));
+  const monthData = dailyData.getMonthGameData(monthKeyFromDate(getCairoDateKey()));
   const entries = Object.entries(monthData);
   const [date, puzzle] = entries[Math.floor(Math.random() * entries.length)];
   return { date, ...puzzle };

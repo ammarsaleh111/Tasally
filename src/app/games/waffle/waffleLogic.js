@@ -6,7 +6,7 @@
 
 import { getGameTheme } from '@/utils/themeEngine';
 import { getUserStorageKey } from '@/utils/storageKeys';
-import { getDailyGameDataWithMeta, getMonthGameData } from '@/data/all-data';
+import { loader as dailyData } from '@/data/all-data/games/waffle';
 import { getCairoDateKey, monthKeyFromDate } from '@/data/all-data/utils/date';
 
 // Game constants
@@ -53,7 +53,7 @@ export const getTodaysPuzzle = () => {
     if (themedPuzzle) return themedPuzzle;
   }
   
-  const daily = getDailyGameDataWithMeta('waffle', dateString);
+  const daily = dailyData.getDailyGameDataWithMeta(dateString);
   return {
     date: daily.servedDate,
     ...daily.data
@@ -65,7 +65,7 @@ export const getTodaysPuzzle = () => {
  */
 export const getPuzzleByDate = (dateString) => {
   try {
-    const monthData = getMonthGameData('waffle', monthKeyFromDate(dateString));
+    const monthData = dailyData.getMonthGameData(monthKeyFromDate(dateString));
     const entry = monthData[dateString];
     if (!entry) return null;
     return { date: dateString, ...entry };
@@ -78,7 +78,7 @@ export const getPuzzleByDate = (dateString) => {
  * Get a random puzzle for unlimited mode
  */
 export const getRandomPuzzle = () => {
-  const monthData = getMonthGameData('waffle', monthKeyFromDate(getCairoDateKey()));
+  const monthData = dailyData.getMonthGameData(monthKeyFromDate(getCairoDateKey()));
   const entries = Object.entries(monthData);
   const [date, puzzle] = entries[Math.floor(Math.random() * entries.length)];
   return { date, ...puzzle };

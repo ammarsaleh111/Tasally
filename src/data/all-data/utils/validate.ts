@@ -1,4 +1,4 @@
-import type { GameKey } from "../manifest";
+import type { GameKey } from "../keys";
 
 type DateRecord = Record<string, unknown>;
 

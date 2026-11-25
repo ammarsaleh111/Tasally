@@ -29,7 +29,7 @@ import {
   generateShareText,
   RANK_TIERS
 } from './spellingLogic';
-import { getDailyGameDataWithMeta } from '@/data/all-data';
+import { loader as dailyData } from '@/data/all-data/games/spelling';
 import { addWordsToLog } from '@/utils/learningLogEngine';
 import { getNextSpellingBeeHint, getSpellingBeeHintButtonText } from '@/utils/spellingBeeHints';
 import { getUserStorageKey } from '@/utils/storageKeys';
@@ -42,7 +42,7 @@ export default function SpellingBeePage() {
 
   // Initialize puzzle on first render
   const [puzzle] = useState(() => {
-    const daily = getDailyGameDataWithMeta('spelling');
+    const daily = dailyData.getDailyGameDataWithMeta();
     return {
       date: daily.servedDate,
       ...daily.data

@@ -5,7 +5,7 @@ import { WORDS_6 as RAW_WORDS_6 } from './wordLists/words6';
 import { getThemedWordList } from './wordLists/themed';
 import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
 import { getUserStorageKey } from '@/utils/storageKeys';
-import { getDailyGameData } from '@/data/all-data';
+import { loader as dailyData } from '@/data/all-data/games/wordle';
 import { getCairoDateKey } from '@/data/all-data/utils/date';
 import { isWordInLocalDictionary } from '@/utils/localDictionary';
 
@@ -67,7 +67,7 @@ export const getDailyWord = (date = new Date()) => {
     }
   }
 
-  const entry = getDailyGameData('wordle', dateKey);
+  const entry = dailyData.getDailyGameData(dateKey);
   return entry.answer.toUpperCase();
 };
 
