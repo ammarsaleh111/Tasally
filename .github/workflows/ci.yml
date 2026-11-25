@@ -1,0 +1,48 @@
+name: Tasally CI
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master, "fix/**"]
+
+jobs:
+  verify:
+    name: Typecheck, Lint, Validate Puzzles, Test & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Validate 1-year puzzle datasets
+        run: npm run validate:puzzles
+
+      - name: Run puzzle, identity, game-engine & SW unit tests
+        run: |
+          npm run test:puzzles
+          node --test tests/identity-lookup.test.mjs
+          npx tsx --test tests/game-engines.test.ts
+          node --test tests/sw-offline.test.mjs
+
+      - name: Production build (no production DB secrets)
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_SITE_URL: https://tasally.tech
+          SITE_URL: https://tasally.tech
+        run: npm run build
