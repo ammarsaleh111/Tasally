@@ -26,7 +26,7 @@ import { useTutorial } from '@/hooks/useTutorial';
 import { useGameContext } from '@/hooks/useGameContext';
 import { STRANDS_2026_01 } from './puzzles/strands-2026-01';
 import { STRANDS_PUZZLES_FEB_2026 } from './puzzles/strands-2026-02';
-import { getAllGameData } from '@/data/all-data';
+import { loader as dailyData } from '@/data/all-data/games/strands';
 import {
   serializePos,
   validateSelection,
@@ -41,7 +41,7 @@ import { resetStrandsHints } from '@/utils/strandsHints';
 const ALL_STRANDS_PUZZLES = [
   ...STRANDS_2026_01,
   ...STRANDS_PUZZLES_FEB_2026,
-  ...Object.entries(getAllGameData('strands')).map(([date, data]) => ({ date, ...data })),
+  ...Object.entries(dailyData.getAllGameData()).map(([date, data]) => ({ date, ...data })),
 ];
 
 const SAFE_PUZZLE = {

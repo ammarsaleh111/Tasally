@@ -1,10 +1,6 @@
 import { CONNECTIONS_PUZZLES_JAN_2026 } from './puzzles/connections-2026-01';
 import { CONNECTIONS_PUZZLES_FEB_2026 } from './puzzles/connections-2026-02';
-import {
-  DailyPuzzleUnavailableError,
-  getAllGameData,
-  getDailyGameDataWithMeta,
-} from '@/data/all-data';
+import { loader as dailyData } from '@/data/all-data/games/connections';
 import { getUserStorageKey } from '@/utils/storageKeys';
 import { getCairoDateKey } from '@/data/all-data/utils/date';
 
@@ -14,7 +10,7 @@ const LEGACY_CONNECTIONS_PUZZLES = [
 ];
 
 function getAllConnectionsPuzzles() {
-  const central = Object.entries(getAllGameData('connections')).map(([date, data]) => ({
+  const central = Object.entries(dailyData.getAllGameData()).map(([date, data]) => ({
     date,
     ...data,
   }));
@@ -41,7 +37,7 @@ export const getTodaysPuzzle = () => {
   const dateString = getCairoDateKey();
 
   try {
-    const daily = getDailyGameDataWithMeta('connections', dateString);
+    const daily = dailyData.getDailyGameDataWithMeta(dateString);
     return { date: daily.servedDate, ...daily.data };
   } catch (err) {
     if (err instanceof DailyPuzzleUnavailableError) {

@@ -1,7 +1,7 @@
 import { getThemedTrivia } from './questions/themed';
 import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
 import { getUserStorageKey } from '@/utils/storageKeys';
-import { getDailyGameData, getMonthGameData } from '@/data/all-data';
+import { loader as dailyData } from '@/data/all-data/games/trivia';
 import { getCairoDateKey, monthKeyFromDate } from '@/data/all-data/utils/date';
 
 /**
@@ -24,7 +24,7 @@ export const getDailyTrivia = () => {
   }
   
   const dateKey = getCairoDateKey();
-  const questions = getDailyGameData('trivia', dateKey);
+  const questions = dailyData.getDailyGameData(dateKey);
   return {
     date: dateKey,
     questions
@@ -48,7 +48,7 @@ const shuffleArray = (array) => {
  */
 export const generateRandomTrivia = () => {
   const dateKey = getCairoDateKey();
-  const monthData = getMonthGameData('trivia', monthKeyFromDate(dateKey));
+  const monthData = dailyData.getMonthGameData(monthKeyFromDate(dateKey));
   const allQuestions = Object.values(monthData).flat();
   const shuffled = shuffleArray(allQuestions);
   const selected = shuffled.slice(0, 10);

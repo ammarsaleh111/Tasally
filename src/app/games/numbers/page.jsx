@@ -102,6 +102,7 @@ export default function NumbersGame() {
 
   const handleNumberClick = (number, index) => {
     if (gameWon || gameLost) return;
+    if (selectedNumbers.some((selection) => selection.index === index)) return;
     
     if (selectedNumbers.length === 2) {
       showToast('Select an operator to combine the numbers', 'warning');

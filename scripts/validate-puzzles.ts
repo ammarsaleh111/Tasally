@@ -3,7 +3,7 @@ import commonEnglishWords from "../src/data/dictionary/common-english-words.json
 import { getDailyGameDataWithMeta, getMonthGameData } from "../src/data/all-data";
 import { GAME_KEYS, MONTH_KEYS, type GameKey } from "../src/data/all-data/manifest";
 import { evaluateExpression } from "../src/app/games/numbers/numbersLogic";
-import { canFindWord } from "../src/app/games/strands/strandsLogic";
+import { calculateWordScore } from "../src/app/games/combinations/combinationsLogic";
 
 const DICT_SET = new Set(commonEnglishWords.map((w) => w.toUpperCase()));
 
@@ -47,6 +47,67 @@ function minSwaps(a: string[], b: string[]): number {
     }
   }
   return swaps;
+}
+
+function fragmentCount(word: string, fragments: string[]): number {
+  if (!word) return 0;
+  return Math.max(-Infinity, ...fragments.map((fragment, index) => {
+    if (!word.startsWith(fragment)) return -Infinity;
+    const remaining = fragments.filter((_, otherIndex) => otherIndex !== index);
+    return 1 + fragmentCount(word.slice(fragment.length), remaining);
+  }));
+}
+
+type Cell = [number, number];
+
+function assertStrandsCover(grid: string[][], words: string[], spangram: string, path: Cell[]) {
+  const height = grid.length;
+  const width = grid[0].length;
+  const adjacent = ([r, c]: Cell, [nextR, nextC]: Cell) =>
+    Math.max(Math.abs(r - nextR), Math.abs(c - nextC)) === 1;
+  const cellBit = ([r, c]: Cell) => 1n << BigInt(r * width + c);
+  assert(path.length === spangram.length, "Spangram path length mismatch");
+  let occupied = 0n;
+  for (const [index, cell] of path.entries()) {
+    const [r, c] = cell;
+    assert(grid[r]?.[c] === spangram[index], "Spangram path does not spell the answer");
+    assert(index === 0 || adjacent(path[index - 1], cell), "Non-adjacent spangram cells");
+    const bit = cellBit(cell);
+    assert((occupied & bit) === 0n, "Spangram reuses a cell");
+    occupied |= bit;
+  }
+  const rows = path.map(([r]) => r);
+  const cols = path.map(([, c]) => c);
+  assert(
+    (rows.includes(0) && rows.includes(height - 1)) || (cols.includes(0) && cols.includes(width - 1)),
+    "Spangram must touch opposite sides",
+  );
+
+  const cells: Cell[] = grid.flatMap((row, r) => row.map((_, c): Cell => [r, c]));
+  const neighbors = cells.map((cell) => cells.filter((other) => adjacent(cell, other)));
+  const paths = words.map((word) => {
+    const masks = new Set<bigint>();
+    function walk(cell: Cell, index: number, used: bigint) {
+      const [r, c] = cell;
+      const bit = cellBit(cell);
+      if (grid[r][c] !== word[index] || (used & bit) !== 0n) return;
+      const next = used | bit;
+      if (index === word.length - 1) {
+        masks.add(next ^ occupied);
+        return;
+      }
+      for (const neighbor of neighbors[r * width + c]) walk(neighbor, index + 1, next);
+    }
+    for (const cell of cells) walk(cell, 0, occupied);
+    return [...masks];
+  }).sort((a, b) => a.length - b.length);
+
+  const fullGrid = (1n << BigInt(height * width)) - 1n;
+  function canCover(index: number, used: bigint): boolean {
+    if (index === paths.length) return used === fullGrid;
+    return paths[index].some((mask) => (used & mask) === 0n && canCover(index + 1, used | mask));
+  }
+  assert(canCover(0, occupied), "Theme words cannot cover the grid without overlapping");
 }
 
 function main() {
@@ -199,9 +260,17 @@ function main() {
     try {
       const { data } = getDailyGameDataWithMeta<{ fragments: string[]; targetScore: number; bonusWords: string[] }>("combinations", dateKey);
       assert(data.fragments.length === 6 && data.targetScore > 0, "Invalid fragments/targetScore");
-      for (const bw of data.bonusWords) {
+      const fragments = data.fragments.map((fragment) => fragment.toLowerCase());
+      assert(fragments.every((fragment) => /^[a-z]+$/.test(fragment)), "Invalid fragment");
+      const bonusWords = new Set(data.bonusWords.map((word) => word.toLowerCase()));
+      let bonusScore = 0;
+      for (const bw of bonusWords) {
         assert(DICT_SET.has(bw.toUpperCase()), `Bonus word ${bw} not in dictionary`);
+        const count = fragmentCount(bw, fragments);
+        assert(Number.isFinite(count), `Bonus word ${bw} cannot be formed from the fragments`);
+        bonusScore += calculateWordScore(count, true);
       }
+      assert(bonusScore >= data.targetScore, "Bonus words alone do not prove the target score is reachable");
       stats.combinations.valid++;
     } catch (e) {
       stats.combinations.invalid++;
@@ -257,16 +326,8 @@ function main() {
       assert(data.grid.length === 6 && data.grid.every((r) => r.length === 8), "Grid must be 6x8");
       const totalChars = data.words.reduce((s, w) => s + w.length, 0) + data.spangram.length;
       assert(totalChars === 48, `Expected 48 covered cells, got ${totalChars}`);
-      assert(canFindWord(data.grid, data.spangram), `Spangram ${data.spangram} not findable in grid`);
-      for (const w of data.words) {
-        assert(canFindWord(data.grid, w), `Word ${w} not findable in grid`);
-      }
-      if (data.spangramPath) {
-        const rows = data.spangramPath.map(([r]) => r);
-        const cols = data.spangramPath.map(([, c]) => c);
-        const opposite = (rows.includes(0) && rows.includes(5)) || (cols.includes(0) && cols.includes(7));
-        assert(opposite, "Spangram must touch opposite sides");
-      }
+      assert(data.spangramPath, "Missing spangram path");
+      assertStrandsCover(data.grid, data.words, data.spangram, data.spangramPath);
       stats.strands.valid++;
     } catch (e) {
       stats.strands.invalid++;

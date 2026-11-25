@@ -29,6 +29,7 @@ export interface ResolvedIdentity {
 /*  Constants                                                          */
 /* ------------------------------------------------------------------ */
 export const IDENTITY_COOKIE = "ammar_identity_id";
+export const RESULT_IDENTITY_HEADER = "X-Tasally-Identity";
 export const DISPLAY_NAME_MIN = 3;
 export const DISPLAY_NAME_MAX = 20;
 /** Rename cooldown: 7 days in ms */
@@ -130,7 +131,7 @@ function rowToIdentity(row: typeof identities.$inferSelect): ResolvedIdentity {
  *
  * Priority:
  *   1. Authenticated user → look up by user_id
- *   2. Identity cookie → look up by identity.id
+ *   2. Identity cookie → look up an unlinked guest identity
  *   3. null (first-time visitor — needs to claim)
  */
 export async function resolveIdentity(): Promise<ResolvedIdentity | null> {
@@ -154,7 +155,8 @@ export async function resolveIdentity(): Promise<ResolvedIdentity | null> {
       .from(identities)
       .where(eq(identities.id, cookieId))
       .limit(1);
-    if (rows[0]) return rowToIdentity(rows[0]);
+    const guestIdentity = rows[0];
+    if (guestIdentity && guestIdentity.userId === null) return rowToIdentity(guestIdentity);
   }
 
   return null;

@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
+import { createRequire } from 'node:module';
 
 const PORT = 3099;
 const BASE_URL = `http://127.0.0.1:${PORT}`;
+const nextBinary = createRequire(import.meta.url).resolve('next/dist/bin/next');
 
 async function waitForServer(timeoutMs = 30000) {
   const start = Date.now();
@@ -20,11 +22,10 @@ async function waitForServer(timeoutMs = 30000) {
 }
 
 async function main() {
-  const isWin = process.platform === 'win32';
   const server = spawn(
-    isWin ? 'npx.cmd' : 'npx',
-    ['next', 'start', '-p', String(PORT), '-H', '127.0.0.1'],
-    { stdio: 'pipe', shell: isWin }
+    process.execPath,
+    [nextBinary, 'start', '-p', String(PORT), '-H', '127.0.0.1'],
+    { stdio: 'pipe' }
   );
 
   let serverLogs = '';
@@ -56,6 +57,10 @@ async function main() {
       ['/sitemap.xml', 200],
       ['/sw.js', 200],
       ['/manifest.webmanifest', 200],
+      ['/تسالي', 200],
+      ['/العاب-تسالي', 200],
+      ['/العاب-ذكاء-يومية', 200],
+      ['/الأسئلة-الشائعة', 307],
     ];
 
     for (const [route, expectedStatus] of routes) {
@@ -91,13 +96,9 @@ async function main() {
     const healthJson = await healthRes.json();
     assert.ok(['healthy', 'unhealthy', 'degraded'].includes(healthJson.status));
 
-    console.log('✅ All production smoke checks passed (21 routes, static JS MIME, crossword API, health API).');
+    console.log(`✅ All production smoke checks passed (${routes.length} routes, static JS MIME, crossword API, health API).`);
   } finally {
-    if (process.platform === 'win32' && server.pid) {
-      spawn('taskkill', ['/pid', String(server.pid), '/T', '/F'], { stdio: 'ignore' });
-    } else {
-      server.kill('SIGTERM');
-    }
+    server.kill('SIGTERM');
   }
   process.exit(0);
 }

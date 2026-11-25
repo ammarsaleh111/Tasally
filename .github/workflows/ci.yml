@@ -10,6 +10,21 @@ jobs:
   verify:
     name: Typecheck, Lint, Validate Puzzles, Test & Build
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-bookworm@sha256:1eff563f6c868b9b433566e9f3cf6e5c79fbd3b95bf70ec7277d376cdbfc50d7
+        env:
+          POSTGRES_DB: tasally
+          POSTGRES_USER: tasally
+          # This service is isolated to the CI runner.
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 127.0.0.1:55432:5432
+        options: >-
+          --health-cmd "pg_isready -h 127.0.0.1 -U tasally -d tasally"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
 
     steps:
       - name: Checkout repository
@@ -39,10 +54,31 @@ jobs:
           node --test tests/identity-lookup.test.mjs
           npx tsx --test tests/game-engines.test.ts
           node --test tests/sw-offline.test.mjs
+          npx tsx --test tests/db-initialization.test.ts
+          npx tsx --test tests/result-identity.test.ts
 
       - name: Production build (no production DB secrets)
         env:
           NODE_ENV: production
           NEXT_PUBLIC_SITE_URL: https://tasally.tech
           SITE_URL: https://tasally.tech
-        run: npm run build
+        run: npm run build && node tests/smoke-production.mjs
+
+      - name: API integration tests against disposable PostgreSQL
+        env:
+          DATABASE_URL: postgresql://tasally@127.0.0.1:55432/tasally
+          NEXTAUTH_URL: http://localhost:3000
+        run: |
+          set -euo pipefail
+          node scripts/bootstrap-test-db.mjs |
+            docker exec -i "${{ job.services.postgres.id }}" psql -X -U tasally -d tasally -v ON_ERROR_STOP=1 --single-transaction -f -
+          export NEXTAUTH_SECRET="$(openssl rand -hex 32)"
+          export TASALLY_SERVER_DATA_DIR="${RUNNER_TEMP}/tasally-server-data"
+          npm run dev -- --hostname 127.0.0.1 > "${RUNNER_TEMP}/tasally-dev.log" 2>&1 &
+          server=$!
+          trap 'status=$?; kill "$server" 2>/dev/null || true; if [ "$status" -ne 0 ]; then cat "${RUNNER_TEMP}/tasally-dev.log"; fi' EXIT
+          for attempt in {1..60}; do
+            if curl -fsS --max-time 15 http://127.0.0.1:3000/api/health -o /dev/null; then break; fi
+            sleep 1
+          done
+          API_BASE_URL=http://127.0.0.1:3000 npm run test:api

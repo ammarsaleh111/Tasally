@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Cairo, Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProviderNew";
 import DominantThemeBanner from "@/components/DominantThemeBanner";
@@ -30,20 +30,22 @@ import { NetworkStatusProvider } from "@/hooks/useNetworkStatus";
 import SyncStatusIndicator from "@/components/SyncStatusIndicator";
 import { getBuildVersion } from "@/lib/buildVersion";
 
-const geistSans = Geist({
+const geistSans = localFont({
+  src: "./fonts/geist.woff2",
+  weight: "100 900",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
+const geistMono = localFont({
+  src: "./fonts/geistmono.woff2",
+  weight: "100 900",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
-const cairo = Cairo({
+const cairo = localFont({
+  src: "./fonts/cairo.woff2",
+  weight: "200 1000",
   variable: "--font-arabic",
-  subsets: ["arabic", "latin"],
-  weight: ["400", "600", "700"],
 });
 
 // Theme colour matches --background dark token: hsl(222 47% 11%) ≈ #0f1729

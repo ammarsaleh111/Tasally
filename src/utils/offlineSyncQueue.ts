@@ -9,6 +9,8 @@
  * ─────────────────────────────────────────────────────────
  */
 
+import { getResultIdentity, isResultEndpoint, RESULT_IDENTITY_HEADER } from "./resultIdentity";
+
 const DB_NAME = "tasally-offline";
 const DB_VERSION = 2;
 const STORE_NAME = "syncQueue";
@@ -26,6 +28,11 @@ export interface QueueEntry {
   status: "pending" | "in-flight" | "synced" | "failed";
   /** Optional idempotency key the server can use to deduplicate */
   idempotencyKey: string;
+}
+
+function canSync(entry: QueueEntry, identityId: string | null) {
+  if (!isResultEndpoint(entry.endpoint)) return true;
+  return identityId !== null && new Headers(entry.headers).get(RESULT_IDENTITY_HEADER) === identityId;
 }
 
 // ── Helpers ───────────────────────────────────────────────
@@ -160,15 +167,16 @@ export async function getPending(): Promise<QueueEntry[]> {
  * Get the count of items waiting to sync.
  */
 export async function getQueueSize(): Promise<number> {
+  const identityId = getResultIdentity();
   try {
     const db = await openDB();
     const pending = await idbGetByStatus(db, "pending");
     const inflight = await idbGetByStatus(db, "in-flight");
-    return pending.length + inflight.length;
+    return [...pending, ...inflight].filter((entry) => canSync(entry, identityId)).length;
   } catch {
     const entries = lsRead();
     return entries.filter(
-      (e) => e.status === "pending" || e.status === "in-flight"
+      (e) => (e.status === "pending" || e.status === "in-flight") && canSync(e, identityId)
     ).length;
   }
 }
@@ -225,6 +233,7 @@ export async function processQueue(): Promise<number> {
   let synced = 0;
 
   for (const entry of pending) {
+    if (!canSync(entry, getResultIdentity())) continue;
     // Mark as in-flight
     await updateEntry(entry.id, { status: "in-flight" });
 
@@ -241,6 +250,9 @@ export async function processQueue(): Promise<number> {
       if (res.ok || res.status === 409 /* duplicate */) {
         await updateEntry(entry.id, { status: "synced" });
         synced++;
+      } else if (res.status === 403 && isResultEndpoint(entry.endpoint)) {
+        // The server may already see a different identity than this tab.
+        await updateEntry(entry.id, { status: "pending" });
       } else if (res.status >= 400 && res.status < 500 && res.status !== 429) {
         // Client error (except rate-limit) — will never succeed, mark failed
         await updateEntry(entry.id, { status: "failed" });

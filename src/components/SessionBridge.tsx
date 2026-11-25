@@ -9,6 +9,7 @@ import {
   updateSession,
   useAppSession,
 } from "@/utils/sessionManager";
+import { resultIdentityStorageKey, storeResultIdentity } from "@/utils/resultIdentity";
 
 export default function SessionBridge() {
   const { data: nextSession, status } = useSession();
@@ -53,11 +54,14 @@ export default function SessionBridge() {
       // the identity name, NOT the Google profile name.
       if (linkedUserRef.current !== nextUserId) {
         linkedUserRef.current = nextUserId;
+        const identityKey = resultIdentityStorageKey();
         fetch("/api/identity/link", { method: "POST" })
           .then((res) => (res.ok ? res.json() : null))
-          .then((data) => {
-            if (data?.identity?.displayName) {
-              updateSession({ displayName: data.identity.displayName });
+          .then((body) => {
+            const identity = body?.data?.identity;
+            if (identity?.id && identityKey === resultIdentityStorageKey()) {
+              storeResultIdentity(identityKey, identity.id);
+              updateSession({ displayName: identity.displayName });
             }
           })
           .catch(() => null);

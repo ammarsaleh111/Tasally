@@ -77,7 +77,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
 
   if (url.pathname.startsWith('/api/')) {
-    if (request.method === 'POST' && isQueueableApiPost(url)) {
+    if (request.method === 'POST' && isQueueableApiPost(url) && request.headers.has('x-tasally-identity')) {
       event.respondWith(handleApiPost(request));
       return;
     }
@@ -103,7 +103,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (isRscRequest(request, url)) {
-    event.respondWith(networkFirstAsset(request, CACHE_RUNTIME));
+    if (isCacheablePage(url)) event.respondWith(networkFirstAsset(request, CACHE_RUNTIME));
     return;
   }
 
@@ -385,6 +385,7 @@ function saveFailedRequest(data) {
         const existing = getAllReq.result || [];
         const duplicate = existing.find(
           (item) => item.url === data.url && item.method === data.method && item.body === data.body
+            && item.headers?.['x-tasally-identity'] === data.headers['x-tasally-identity']
         );
         if (!duplicate) {
           store.add({ ...data, timestamp: Date.now() });
@@ -427,12 +428,10 @@ async function replayFailedRequests() {
       continue;
     }
 
-    // Drop if queued for a specific identity that no longer matches
+    // Keep requests for another identity until that identity becomes active.
+    // Entries from older workers without an owner expire without being sent.
     const queuedIdentityId = entry.headers?.['x-tasally-identity'] || entry.headers?.['X-Tasally-Identity'] || null;
-    if (queuedIdentityId && currentIdentityId && queuedIdentityId !== currentIdentityId) {
-      await deleteFailedRequest(entry.id);
-      continue;
-    }
+    if (!queuedIdentityId || queuedIdentityId !== currentIdentityId) continue;
 
     try {
       const res = await fetch(entry.url, {
@@ -441,7 +440,7 @@ async function replayFailedRequests() {
         body: entry.body,
         credentials: 'same-origin',
       });
-      if (res.ok || (res.status >= 400 && res.status < 500 && res.status !== 429)) {
+      if (res.ok || (res.status >= 400 && res.status < 500 && ![401, 403, 429].includes(res.status))) {
         await deleteFailedRequest(entry.id);
       }
     } catch {
