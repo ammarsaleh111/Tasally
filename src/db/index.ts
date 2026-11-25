@@ -59,37 +59,46 @@ const connectionOptions: postgres.Options<{}> = {
   fetch_types: false,
 };
 
-function createMissingClientProxy(): ReturnType<typeof postgres> {
-  return new Proxy(
-    (() => {
-      throw new Error(missingDbErrorMessage);
-    }) as unknown as ReturnType<typeof postgres>,
-    {
-      get(_target, prop) {
-        if (prop === 'then' || prop === Symbol.toStringTag) return undefined;
-        return () => {
-          throw new Error(missingDbErrorMessage);
-        };
-      },
-      apply() {
-        throw new Error(missingDbErrorMessage);
-      },
-    }
-  );
+// Initialize only when a database operation actually needs the client.
+// Drizzle configures postgres.js parser/serializer maps during construction;
+// a fake client cannot satisfy that contract.
+function getClient(): ReturnType<typeof postgres> {
+  if (!connectionString) throw new Error(missingDbErrorMessage);
+  return global.__drizzleClient ??= postgres(connectionString, connectionOptions);
 }
 
-// Global singleton - reused across requests in same serverless instance
-const client = connectionString
-  ? (global.__drizzleClient ?? postgres(connectionString, connectionOptions))
-  : createMissingClientProxy();
-
-// Persist client globally to reuse across requests (both dev and prod)
-if (connectionString && typeof global !== 'undefined') {
-  global.__drizzleClient = client;
+function createDb() {
+  return drizzle(getClient(), { schema });
 }
 
-export const db = drizzle(client, { schema });
-export const sql_client = client;
+let database: ReturnType<typeof createDb> | undefined;
+function getDb() {
+  return database ??= createDb();
+}
+
+export const db = new Proxy({} as ReturnType<typeof createDb>, {
+  get(_target, prop) {
+    if (prop === "then") return undefined;
+    const instance = getDb();
+    const value = Reflect.get(instance, prop, instance);
+    return typeof value === "function" ? value.bind(instance) : value;
+  },
+});
+
+export const sql_client = new Proxy(
+  (() => undefined) as unknown as ReturnType<typeof postgres>,
+  {
+    apply(_target, _thisArg, args) {
+      return Reflect.apply(getClient(), undefined, args);
+    },
+    get(_target, prop) {
+      if (prop === "then") return undefined;
+      const instance = getClient();
+      const value = Reflect.get(instance, prop, instance);
+      return typeof value === "function" ? value.bind(instance) : value;
+    },
+  }
+);
 
 /**
  * Health check - lightweight query to verify DB connectivity
@@ -101,7 +110,7 @@ export async function checkDbConnection(): Promise<{ ok: boolean; latencyMs: num
   }
   const start = performance.now();
   try {
-    await client`SELECT 1`;
+    await getClient()`SELECT 1`;
     return { ok: true, latencyMs: Math.round(performance.now() - start) };
   } catch (error) {
     console.error('[DB] Health check failed:', error);
