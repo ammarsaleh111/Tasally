@@ -10,3 +10,11 @@
 2. **Build-Time DB Crash Risk**: `src/db/index.ts` threw at module import time when `DATABASE_URL` / `DATABASE_URL_POOLED` was unset, risking `Collecting page data` failures in CI.
 3. **Drizzle Migration Journal Gap**: `drizzle/meta/_journal.json` omitted `0008_global_leaderboard_tables` and `0009_crossword_progress`.
 4. **Missing `.env.example` in Git & Missing Admin Vars**: `.gitignore` ignored `.env.example`; `ADMIN_USERNAME`, `ADMIN_PASSWORD`, `ADMIN_SECRET` were undocumented for production.
+
+## Cloud recovery findings
+
+- Reproduced the reported `1184` error by importing `src/db/index.ts` on master `c896cc3` with the three database URL variables unset. Drizzle initializes postgres.js parser and serializer maps during construction. The proxy on master supplies neither map. PR #2 defers construction until a database operation needs a real client.
+- Next's Google Fonts fetches failed under the cloud egress policy. The recovery build uses local Cairo, Geist, and Geist Mono assets from the same upstream font project.
+- Migration `0005` contains concurrent index builds and a partial-index predicate based on `now()`. An isolated PostgreSQL instance rejected that predicate. The disposable bootstrap applies the rest of the schema with ordinary index builds and the existing expiry index from `0003`.
+- The original client dataset chunk contained multiple games' datasets. The new loaders preserve Cairo dates and the 160 existing JSON sources while allowing the client to load its own game's data.
+- The offline queues previously allowed result entries with no usable ownership binding. Both replay paths now require a matching identity, and the result APIs verify that identity against the active request.
