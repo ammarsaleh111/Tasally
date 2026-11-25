@@ -1,4 +1,4 @@
-import { drizzle } from "drizzle-orm/postgres-js";
+import { drizzle, PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import * as schema from "./schema";
 
@@ -76,7 +76,10 @@ function getDb() {
   return database ??= createDb();
 }
 
-export const db = new Proxy({} as ReturnType<typeof createDb>, {
+// Keep Drizzle's database prototype visible to adapters that inspect the type.
+const lazyDatabase = Object.create(PostgresJsDatabase.prototype) as ReturnType<typeof createDb>;
+
+export const db = new Proxy(lazyDatabase, {
   get(_target, prop) {
     if (prop === "then") return undefined;
     const instance = getDb();

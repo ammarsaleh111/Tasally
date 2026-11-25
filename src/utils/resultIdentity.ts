@@ -8,7 +8,8 @@ export function isResultEndpoint(endpoint: string) {
 }
 
 export function resultIdentityStorageKey() {
-  return getUserStorageKey("resultIdentity");
+  // Retain the scoped binding when transient session changes clear game state.
+  return `tasally:offline-owner:${getUserStorageKey("resultIdentity")}`;
 }
 
 export function storeResultIdentity(key: string, identityId: string | null) {
