@@ -19,8 +19,7 @@ const nextConfig = {
 
     return [
       {
-        // Apply security headers to pages/API, NOT to _next/static assets
-        // (Netlify sometimes serves static assets with text/plain, and nosniff blocks them)
+        // Apply page/API security headers; the deployment adapter owns static asset headers.
         source: '/((?!_next/static).*)',
         headers: [
           // Strict Content Security Policy - Prevent XSS

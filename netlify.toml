@@ -3,67 +3,10 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
 
+# Retain the existing adapter dependency for this recovery change.
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# ── Force correct MIME types on static assets ─────────────
-# These override whatever the origin returns, fixing text/plain issues
-
-[[headers]]
-  for = "/_next/static/chunks/*"
-  [headers.values]
-    X-Content-Type-Options = ""
-
-[[headers]]
-  for = "/_next/static/css/*"
-  [headers.values]
-    X-Content-Type-Options = ""
-
-[[headers]]
-  for = "/_next/static/*"
-  [headers.values]
-    X-Content-Type-Options = ""
-
-[[headers]]
-  for = "/_next/static/chunks/*.css"
-  [headers.values]
-    Content-Type = "text/css; charset=utf-8"
-
-[[headers]]
-  for = "/_next/static/css/*.css"
-  [headers.values]
-    Content-Type = "text/css; charset=utf-8"
-
-[[headers]]
-  for = "/_next/static/chunks/*.js"
-  [headers.values]
-    Content-Type = "application/javascript; charset=utf-8"
-
-[[headers]]
-  for = "/_next/static/*.js"
-  [headers.values]
-    Content-Type = "application/javascript; charset=utf-8"
-
-[[headers]]
-  for = "/_next/static/media/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/icons/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/manifest.webmanifest"
-  [headers.values]
-    Cache-Control = "public, max-age=86400"
-
-[[redirects]]
-  from = "/*"
-  to = "https://tasally.tech/:splat"
-  status = 301
-  force = true
-  conditions = { Host = ["tasally.netlify.app"] }
+# No catch-all redirect or forced MIME types. Verify both domains independently.
