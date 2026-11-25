@@ -14,7 +14,7 @@
 import { NextRequest } from "next/server";
 import { z } from "zod";
 import { db, identities, users } from "@/db";
-import { eq } from "drizzle-orm";
+import { DrizzleQueryError, eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
 import { ok, fail, handleApiError } from "@/server/http";
 import {
@@ -27,6 +27,13 @@ import {
 const claimSchema = z.object({
   displayName: z.string().min(1).max(60),
 });
+
+function isDisplayNameTaken(error: unknown) {
+  const cause = error instanceof DrizzleQueryError ? error.cause : error;
+  return typeof cause === "object" && cause !== null
+    && "code" in cause && cause.code === "23505"
+    && "constraint_name" in cause && cause.constraint_name === "identities_display_name_norm_idx";
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -73,8 +80,8 @@ export async function POST(request: NextRequest) {
         }
 
         return ok({ identity: { id: existing.id, displayName: display, displayNameNorm: norm } });
-      } catch (err: any) {
-        if (err?.code === "23505") {
+      } catch (err) {
+        if (isDisplayNameTaken(err)) {
           return fail(409, "NAME_TAKEN", "This display name is already taken");
         }
         throw err;
@@ -116,8 +123,8 @@ export async function POST(request: NextRequest) {
           headers: { "Set-Cookie": buildIdentityCookieHeader(newId) }
         }
       );
-    } catch (err: any) {
-      if (err?.code === "23505") {
+    } catch (err) {
+      if (isDisplayNameTaken(err)) {
         return fail(409, "NAME_TAKEN", "This display name is already taken");
       }
       throw err;

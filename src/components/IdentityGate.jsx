@@ -73,25 +73,27 @@ export default function IdentityGate({ children }) {
 
   // Handle display name claim
   const handleClaim = async (displayName) => {
-    const key = resultIdentityStorageKey();
+    const signal = AbortSignal.timeout(10000);
     try {
+      const key = resultIdentityStorageKey();
       setError(null);
       const res = await fetch('/api/identity/claim', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ displayName }),
+        signal,
       });
       const json = await res.json();
-      if (json.ok) {
+      if (res.ok && json.ok && json.data?.identity?.id) {
         storeResultIdentity(key, json.data.identity.id);
         setIdentity(json.data.identity);
         // Auto-link if user is logged in
-        await linkIdentity();
+        void linkIdentity();
         return;
       }
       setError(json.error?.message || 'Failed to claim name');
     } catch {
-      setError('Network error. Please try again.');
+      setError(signal.aborted ? 'The name claim timed out. Please try again.' : 'Could not reach the name claim service. Please try again.');
     }
   };
 
