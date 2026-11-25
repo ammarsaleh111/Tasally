@@ -13,7 +13,7 @@ import { z } from "zod";
 import { db } from "@/db";
 import { sql } from "drizzle-orm";
 import { ok, fail, handleApiError } from "@/server/http";
-import { requireIdentity } from "@/lib/groups/identity";
+import { requireIdentity, RESULT_IDENTITY_HEADER } from "@/lib/groups/identity";
 import {
   GROUP_GAME_KEYS,
   computeGroupPoints,
@@ -38,6 +38,10 @@ export async function POST(
   try {
     const { groupId } = await params;
     const identity = await requireIdentity();
+    const expectedIdentity = request.headers.get(RESULT_IDENTITY_HEADER);
+    if (expectedIdentity !== null && expectedIdentity !== identity.id) {
+      return fail(403, "IDENTITY_MISMATCH", "Result belongs to a different identity");
+    }
 
     // Rate limit: 10/min per identity per group
     const rl = await checkRateLimit(

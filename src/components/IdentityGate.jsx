@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { lookupIdentity } from './identityLookup.mjs';
 import ClaimDisplayNameModal from '@/components/groups/ClaimDisplayNameModal';
+import { resultIdentityStorageKey, storeResultIdentity } from '@/utils/resultIdentity';
 
 /**
  * Context for global identity state.
@@ -38,8 +39,11 @@ export default function IdentityGate({ children }) {
   // Fetch current identity on mount
   const fetchIdentity = useCallback(async () => {
     setLoading(true);
+    const key = resultIdentityStorageKey();
     try {
-      setIdentity(await lookupIdentity());
+      const currentIdentity = await lookupIdentity();
+      storeResultIdentity(key, currentIdentity?.id ?? null);
+      setIdentity(currentIdentity);
       setLookupFailed(false);
     } catch {
       setLookupFailed(true);
@@ -50,10 +54,12 @@ export default function IdentityGate({ children }) {
 
   // Link identity after auth (called by SessionBridge or similar after login)
   const linkIdentity = useCallback(async () => {
+    const key = resultIdentityStorageKey();
     try {
       const res = await fetch('/api/identity/link', { method: 'POST' });
       const json = await res.json();
       if (json.ok && json.data.identity) {
+        storeResultIdentity(key, json.data.identity.id);
         setIdentity(json.data.identity);
       }
     } catch {
@@ -67,6 +73,7 @@ export default function IdentityGate({ children }) {
 
   // Handle display name claim
   const handleClaim = async (displayName) => {
+    const key = resultIdentityStorageKey();
     try {
       setError(null);
       const res = await fetch('/api/identity/claim', {
@@ -76,6 +83,7 @@ export default function IdentityGate({ children }) {
       });
       const json = await res.json();
       if (json.ok) {
+        storeResultIdentity(key, json.data.identity.id);
         setIdentity(json.data.identity);
         // Auto-link if user is logged in
         await linkIdentity();

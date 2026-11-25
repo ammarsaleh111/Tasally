@@ -17,7 +17,7 @@ import { z } from "zod";
 import { db } from "@/db";
 import { sql } from "drizzle-orm";
 import { ok, fail, handleApiError } from "@/server/http";
-import { requireIdentity } from "@/lib/groups/identity";
+import { requireIdentity, RESULT_IDENTITY_HEADER } from "@/lib/groups/identity";
 import { computeGroupPoints, GROUP_GAME_KEYS } from "@/lib/groups/constants";
 import {
   checkRateLimit,
@@ -48,6 +48,10 @@ const GLOBAL_GAME_KEYS = new Set([
 export async function POST(request: NextRequest) {
   try {
     const identity = await requireIdentity();
+    const expectedIdentity = request.headers.get(RESULT_IDENTITY_HEADER);
+    if (expectedIdentity !== null && expectedIdentity !== identity.id) {
+      return fail(403, "IDENTITY_MISMATCH", "Result belongs to a different identity");
+    }
 
     // Rate limit: 10/min per identity
     const rl = await checkRateLimit(

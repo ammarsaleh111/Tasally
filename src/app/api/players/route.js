@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getAllPlayers, savePlayers, getActivityStore, saveActivityStore } from '@/lib/serverData';
 import { sanitizeName, sanitizeString, isRateLimited, MAX_INPUT_LENGTHS } from '@/utils/inputSanitizer';
+import { isAdminSession } from '@/server/auth';
 
 // Rate limiting: 30 requests per minute per IP
 const RATE_LIMIT_MAX = 30;
@@ -159,6 +160,10 @@ export async function POST(request) {
 }
 
 export async function DELETE(request) {
+  if (!(await isAdminSession())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   // Rate limit check
   const clientId = getClientIdentifier(request);
   if (isRateLimited(clientId, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW)) {

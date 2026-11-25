@@ -11,6 +11,7 @@
  */
 
 import { enqueue } from "./offlineSyncQueue";
+import { getResultIdentity, isResultEndpoint, RESULT_IDENTITY_HEADER } from "./resultIdentity";
 
 export interface FetchOrQueueResult<T = unknown> {
   /** Whether the response came back from the server (online) */
@@ -41,6 +42,8 @@ export async function fetchOrQueue<T = unknown>(
   body: Record<string, unknown> = {},
   headers: Record<string, string> = { "Content-Type": "application/json" }
 ): Promise<FetchOrQueueResult<T>> {
+  const identityId = isResultEndpoint(endpoint) ? getResultIdentity() : null;
+  if (identityId) headers = { ...headers, [RESULT_IDENTITY_HEADER]: identityId };
   // ── Fast-path: obviously offline ──
   if (typeof navigator !== "undefined" && !navigator.onLine) {
     await enqueue(endpoint, method, body, headers);
@@ -64,6 +67,9 @@ export async function fetchOrQueue<T = unknown>(
     // Success
     if (res.ok) {
       const data = (await res.json().catch(() => null)) as T;
+      if (res.status === 202 && (data as { queued?: boolean } | null)?.queued) {
+        return { ok: false, status: res.status, data: null, queued: true };
+      }
       return { ok: true, status: res.status, data, queued: false };
     }
 

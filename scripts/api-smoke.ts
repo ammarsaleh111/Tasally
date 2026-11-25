@@ -190,6 +190,15 @@ async function testAdminMetrics_Unauthorized() {
   }
 }
 
+async function testLegacyPlayerDelete_Unauthorized() {
+  const { response } = await apiCall('DELETE', '/api/players');
+  if (response.status === 401) {
+    pass('Legacy Player Delete (Unauthorized)', 'DELETE', '/api/players', 401);
+  } else {
+    fail('Legacy Player Delete (Unauthorized)', 'DELETE', '/api/players', `Expected 401, got ${response.status}`, response.status, 401);
+  }
+}
+
 // ===========================
 // Main Test Runner
 // ===========================
@@ -211,6 +220,7 @@ async function runTests() {
     { name: 'Leaderboard (Unauthorized)', fn: testLeaderboard_Unauthorized, path: '/api/leaderboard/daily' },
     { name: 'Admin Login (Invalid)', fn: testAdminLogin_InvalidCredentials, path: '/api/admin/login' },
     { name: 'Admin Metrics (Unauthorized)', fn: testAdminMetrics_Unauthorized, path: '/api/admin/metrics' },
+    { name: 'Legacy Player Delete (Unauthorized)', fn: testLegacyPlayerDelete_Unauthorized, path: '/api/players' },
   ];
 
   for (const test of tests) {

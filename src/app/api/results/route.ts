@@ -1,5 +1,6 @@
 import { db, gameEvents, gameResults, guestProfiles } from "@/db";
 import { auth } from "@/lib/auth";
+import { resolveIdentity, RESULT_IDENTITY_HEADER } from "@/lib/groups/identity";
 import { computeScore, ScoreInput } from "@/server/scoring";
 import { and, eq, sql } from "drizzle-orm";
 import { NextResponse } from "next/server";
@@ -39,6 +40,10 @@ export async function POST(request: Request) {
   
   try {
     const session = await auth();
+    const expectedIdentity = request.headers.get(RESULT_IDENTITY_HEADER);
+    if (expectedIdentity !== null && expectedIdentity !== (await resolveIdentity())?.id) {
+      return NextResponse.json({ error: "Result belongs to a different identity" }, { status: 403 });
+    }
     const payload = await request.json();
     const parsed = ResultSchema.safeParse(payload);
 
