@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDailyGameDataWithMeta, getMonthGameData } from "@/data/all-data";
-import { monthKeyFromDate } from "@/data/all-data/utils/date";
+import { DailyPuzzleUnavailableError, getDailyGameDataWithMeta, getMonthGameData } from "@/data/all-data";
+import { isDateKey, monthKeyFromDate } from "@/data/all-data/utils/date";
 
 /**
  * GET /api/crossword/daily?date=YYYY-MM-DD
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   try {
     const dateParam = request.nextUrl.searchParams.get("date") ?? undefined;
 
-    if (dateParam && !/^\d{4}-\d{2}-\d{2}$/.test(dateParam)) {
+    if (dateParam !== undefined && !isDateKey(dateParam)) {
       return NextResponse.json(
         { error: "Invalid date format. Use YYYY-MM-DD." },
         { status: 400 }
@@ -47,6 +47,12 @@ export async function GET(request: NextRequest) {
 
     return response;
   } catch (error) {
+    if (error instanceof DailyPuzzleUnavailableError) {
+      return NextResponse.json(
+        { error: "No daily crossword is available for this date", code: "PUZZLE_UNAVAILABLE" },
+        { status: 404, headers: { "Cache-Control": "no-store" } }
+      );
+    }
     console.error("[crossword/daily]", error);
     return NextResponse.json(
       { error: "Failed to load crossword puzzle" },

@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { lookupIdentity } from './identityLookup.mjs';
 import ClaimDisplayNameModal from '@/components/groups/ClaimDisplayNameModal';
 
 /**
@@ -32,19 +33,16 @@ export default function IdentityGate({ children }) {
   const [identity, setIdentity] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [lookupFailed, setLookupFailed] = useState(false);
 
   // Fetch current identity on mount
   const fetchIdentity = useCallback(async () => {
+    setLoading(true);
     try {
-      const res = await fetch('/api/identity/me');
-      const json = await res.json();
-      if (json.ok && json.data.identity) {
-        setIdentity(json.data.identity);
-      } else {
-        setIdentity(null);
-      }
+      setIdentity(await lookupIdentity());
+      setLookupFailed(false);
     } catch {
-      // No identity yet — show claim modal
+      setLookupFailed(true);
     } finally {
       setLoading(false);
     }
@@ -109,17 +107,14 @@ export default function IdentityGate({ children }) {
     }
   };
 
-  // Loading state
-  if (loading) {
-    return null; // Or a loading spinner
-  }
-
-  const needsIdentity = !identity;
+  const needsIdentity = !loading && !lookupFailed && !identity;
 
   return (
     <IdentityGateContext.Provider
       value={{
         identity,
+        loading,
+        lookupFailed,
         displayName: identity?.displayName ?? null,
         identityId: identity?.id ?? null,
         refetch: fetchIdentity,

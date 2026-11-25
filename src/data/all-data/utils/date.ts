@@ -3,7 +3,7 @@ const DATE_KEY_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 
 function parseDateKey(dateKey: string): RegExpMatchArray {
   const match = dateKey.match(DATE_KEY_RE);
-  if (!match) {
+  if (!match || !isDateKey(dateKey)) {
     throw new Error(
       `[all-data/date] Invalid date key "${dateKey}". Expected YYYY-MM-DD.`
     );
@@ -31,5 +31,7 @@ export function getYearMonthPrefix(dateKey: string): string {
 }
 
 export function isDateKey(value: string): boolean {
-  return DATE_KEY_RE.test(value);
+  if (!DATE_KEY_RE.test(value)) return false;
+  const parsed = new Date(value + "T00:00:00.000Z");
+  return Number.isFinite(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
 }
