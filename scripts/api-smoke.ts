@@ -14,6 +14,8 @@
  *   npm run test:api -- --verbose
  */
 
+import assert from 'node:assert/strict';
+
 const BASE_URL = process.env.API_BASE_URL || 'http://localhost:3000';
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
@@ -83,6 +85,31 @@ async function testHealth() {
   } else {
     fail('Health Check', 'GET', '/api/health', `Expected 200, got ${response.status}`, response.status, 200);
   }
+}
+
+async function testAnonymousPlayers() {
+  const path = '/api/identity/me';
+  const create = () => apiCall('POST', path);
+  const visitors = await Promise.all([create(), create()]);
+  const ids = new Set<string>();
+  const names = new Set<string>();
+  for (const { response, data } of visitors) {
+    assert.equal(response.status, 200);
+    const player = data.data.identity;
+    assert.match(player.displayName, /^anonymous[1-9]\d*$/);
+    ids.add(player.id);
+    names.add(player.displayName);
+    const cookie = response.headers.get('set-cookie')?.split(';')[0];
+    assert.ok(cookie);
+    for (const method of ['POST', 'GET']) {
+      const reload = await apiCall(method, path, { headers: { Cookie: cookie } });
+      assert.equal(reload.data.data.identity.id, player.id);
+      assert.equal(reload.data.data.identity.displayName, player.displayName);
+    }
+  }
+  assert.equal(ids.size, 2);
+  assert.equal(names.size, 2);
+  pass('Concurrent anonymous visitors and returning players', 'POST', path, 200);
 }
 
 async function testThemeSettings() {
@@ -210,6 +237,7 @@ async function runTests() {
   const filterEndpoint = process.argv.find(arg => arg.startsWith('--endpoint='))?.split('=')[1];
 
   const tests = [
+    { name: 'Anonymous players', fn: testAnonymousPlayers, path: '/api/identity/me' },
     { name: 'Health', fn: testHealth, path: '/api/health' },
     { name: 'Theme Settings', fn: testThemeSettings, path: '/api/theme/settings' },
     { name: 'Word Validation', fn: testWordValidation, path: '/api/word-validation' },

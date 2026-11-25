@@ -35,7 +35,7 @@ export interface LeaderboardEntry {
   wins: number;
 }
 
-export function useMyGroups() {
+export function useMyGroups(identityId?: string) {
   const [groups, setGroups] = useState<GroupSummary[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -52,12 +52,12 @@ export function useMyGroups() {
     }
   }, []);
 
-  useEffect(() => { refetch(); }, [refetch]);
+  useEffect(() => { if (identityId) refetch(); }, [identityId, refetch]);
 
   return { groups, loading, refetch };
 }
 
-export function useMyInvites() {
+export function useMyInvites(identityId?: string) {
   const [invites, setInvites] = useState<GroupInvite[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -74,7 +74,7 @@ export function useMyInvites() {
     }
   }, []);
 
-  useEffect(() => { refetch(); }, [refetch]);
+  useEffect(() => { if (identityId) refetch(); }, [identityId, refetch]);
 
   return { invites, loading, refetch };
 }

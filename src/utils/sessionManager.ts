@@ -269,7 +269,8 @@ export async function handleAccountDeleted(message?: string) {
 export function useAppSession() {
   // Lazy import to avoid bundling React for non-React consumers
   const { useSyncExternalStore } = require("react");
-  return useSyncExternalStore(subscribe, getSession, getSession);
+  // The prerendered page has no browser storage. Read the saved session after hydration.
+  return useSyncExternalStore(subscribe, getSession, () => null);
 }
 
 if (typeof window !== "undefined") {

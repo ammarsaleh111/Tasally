@@ -14,7 +14,7 @@ import InstallBanner from '@/components/onboarding/InstallBanner';
  *
  * Phase machine: idle → install → done
  *
- * 1. IdentityGate (external) blocks until the user claims a display name.
+ * 1. IdentityGate assigns a player name in the background.
  * 2. This component waits for identity + tutorial hydration.
  * 3. Tutorial is never auto-opened; it is marked complete silently.
  * 4. Shows install-app banner once (unless already installed).

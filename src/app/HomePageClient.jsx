@@ -4,8 +4,6 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 
-import PuzzleLoader from '@/components/PuzzleLoader';
-import { useSimplePuzzleLoader } from '@/hooks/usePuzzleLoader';
 import { getAllStats, getUnlockedAchievements } from '@/utils/profileManager';
 import { BADGES } from '@/utils/badgesEngine';
 import { getActiveTheme } from '@/utils/themeEngine';
@@ -50,7 +48,6 @@ const HOME_GAME_LINKS = [
 ];
 
 export default function Home() {
-  const isLoading = useSimplePuzzleLoader();
   const { openManual: openGlobalTutorial } = useTutorial(GLOBAL_TUTORIAL.id, { auto: false });
 
   const [stats, setStats] = useState(null);
@@ -112,10 +109,6 @@ export default function Home() {
     return { totalGames, bestStreak, totalBadges, badgeProgress };
   }, [stats, badges.length]);
 
-  if (isLoading) {
-    return <PuzzleLoader isLoading={true} />;
-  }
-
   return (
     <div className="relative min-h-screen flex flex-col bg-[hsl(var(--background))] text-[hsl(var(--foreground))] overflow-hidden">
       <InstallAppHeroButton />
@@ -140,7 +133,7 @@ export default function Home() {
         <motion.div
           className="relative z-10 text-center max-w-2xl mx-auto"
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           animate="visible"
         >
           {/* Tasally FIRST (real header) */}

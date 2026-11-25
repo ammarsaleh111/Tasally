@@ -132,7 +132,7 @@ function rowToIdentity(row: typeof identities.$inferSelect): ResolvedIdentity {
  * Priority:
  *   1. Authenticated user → look up by user_id
  *   2. Identity cookie → look up an unlinked guest identity
- *   3. null (first-time visitor — needs to claim)
+ *   3. null (first-time visitor)
  */
 export async function resolveIdentity(): Promise<ResolvedIdentity | null> {
   // 1. Authenticated user

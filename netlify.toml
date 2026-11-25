@@ -10,3 +10,6 @@
   package = "@netlify/plugin-nextjs"
 
 # No catch-all redirect or forced MIME types. Verify both domains independently.
+
+[context.production]
+  command = "npm run build && node scripts/prepare-anonymous-names.mjs"

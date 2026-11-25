@@ -113,7 +113,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (isNavigationRequest(request)) {
-    event.respondWith(networkFirstNavigation(request, url));
+    event.respondWith(networkFirstNavigation(request, url, event));
   }
 });
 
@@ -281,24 +281,32 @@ async function networkFirstAsset(request, cacheName) {
   }
 }
 
-async function networkFirstNavigation(request, url) {
-  try {
-    const response = await fetch(request);
-
-    if (isCacheablePage(url) && isHtmlResponse(response)) {
+async function networkFirstNavigation(request, url, event) {
+  const cacheable = isCacheablePage(url);
+  const fresh = fetch(request).then(async response => {
+    if (cacheable && isHtmlResponse(response)) {
       await putInCache(CACHE_NAVIGATION, request, response);
     }
-
     return response;
-  } catch {
-    const cached = await caches.match(request);
-    if (cached) {
-      return cached;
-    }
+  }).catch(() => null);
 
-    const offline = await caches.match(OFFLINE_DOCUMENT);
-    return offline || new Response('Offline', { status: 503, statusText: 'Offline' });
+  // Keep refreshing in the background when a previously visited public page
+  // can open from this build's cache on a slow connection.
+  event.waitUntil(fresh.then(() => undefined));
+  const cached = cacheable ? await (await caches.open(CACHE_NAVIGATION)).match(request) : null;
+  if (cached) {
+    let timer;
+    try {
+      const deadline = new Promise(resolve => { timer = setTimeout(() => resolve(null), 3000); });
+      const response = await Promise.race([fresh, deadline]);
+      return response && response.status < 500 ? response : cached;
+    } finally {
+      clearTimeout(timer);
+    }
   }
+
+  return await fresh || await caches.match(OFFLINE_DOCUMENT)
+    || new Response('Offline', { status: 503, statusText: 'Offline' });
 }
 
 function isHtmlResponse(response) {

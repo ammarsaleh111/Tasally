@@ -70,6 +70,10 @@ async function main() {
         expectedStatus,
         `Expected ${route} to return ${expectedStatus}, got ${res.status}`
       );
+      if (route === '/' || route === '/games') {
+        const target = route === '/' ? '/games' : '/games/wordle';
+        assert.ok((await res.text()).includes(`href="${target}"`), `Missing server-rendered play link on ${route}`);
+      }
       if (expectedStatus === 200 && route.startsWith('/games/')) {
         const html = await res.text();
         assert.ok(html.includes('<!DOCTYPE html>') || html.includes('<html'), `Invalid HTML on ${route}`);

@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { signIn } from "next-auth/react";
-import { validateName, MAX_INPUT_LENGTHS } from "@/utils/inputSanitizer";
 import { clearGuestId, getGuestId } from "@/utils/guestManager";
 import { logout, useAppSession } from "@/utils/sessionManager";
 
@@ -21,7 +20,6 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView }: A
   const [view, setView] = useState<View>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -51,23 +49,11 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView }: A
     setLoading(true);
 
     try {
-      let normalizedName = name.trim();
-
-      if (view === "register" && normalizedName) {
-        const validation = validateName(normalizedName);
-        if (!validation.valid) {
-          setError(validation.error);
-          setLoading(false);
-          return;
-        }
-        normalizedName = validation.value;
-      }
-
       if (view === "register") {
         const res = await fetch("/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, name: normalizedName || undefined }),
+          body: JSON.stringify({ email, password }),
         });
 
         if (!res.ok) {
@@ -158,20 +144,6 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialView }: A
 
         {view !== "guest" && (
           <form onSubmit={handleCredentialsSubmit} className="space-y-3">
-            {view === "register" && (
-              <input
-                type="text"
-                placeholder="Display Name"
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                  setError("");
-                }}
-                maxLength={MAX_INPUT_LENGTHS.NAME}
-                dir="auto"
-                className="w-full px-3 py-2 rounded bg-[hsl(var(--background))] border border-[hsl(var(--border))] text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] name-text"
-              />
-            )}
             <input
               type="email"
               placeholder="Email"

@@ -50,9 +50,7 @@ export function useNetworkStatus() {
 }
 
 export function NetworkStatusProvider({ children }: { children: ReactNode }) {
-  const [isOnline, setIsOnline] = useState(() =>
-    typeof navigator !== "undefined" ? navigator.onLine : true
-  );
+  const [isOnline, setIsOnline] = useState(true);
   const [isSyncing, setIsSyncing] = useState(false);
   const [pendingCount, setPendingCount] = useState(0);
   const [showSyncedFlash, setShowSyncedFlash] = useState(false);
@@ -115,6 +113,7 @@ export function NetworkStatusProvider({ children }: { children: ReactNode }) {
       wasOfflineRef.current = true;
     };
 
+    if (!navigator.onLine) goOffline();
     window.addEventListener("online", goOnline);
     window.addEventListener("offline", goOffline);
 

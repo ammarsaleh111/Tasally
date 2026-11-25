@@ -137,7 +137,7 @@ export async function POST(
     });
   } catch (error: any) {
     if (error?.message === "IDENTITY_REQUIRED") {
-      return fail(403, "IDENTITY_REQUIRED", "You must claim a display name first");
+      return fail(403, "IDENTITY_REQUIRED", "Your player identity is not ready yet. Please retry.");
     }
     return handleApiError(error);
   }

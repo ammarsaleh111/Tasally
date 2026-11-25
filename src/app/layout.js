@@ -38,12 +38,14 @@ const geistSans = localFont({
 
 const geistMono = localFont({
   src: "./fonts/geistmono.woff2",
+  preload: false,
   weight: "100 900",
   variable: "--font-geist-mono",
 });
 
 const cairo = localFont({
   src: "./fonts/cairo.woff2",
+  preload: false,
   weight: "200 1000",
   variable: "--font-arabic",
 });

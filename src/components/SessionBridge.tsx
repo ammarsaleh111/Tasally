@@ -1,15 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import {
   type AppSession,
   clearSession,
   replaceSession,
-  updateSession,
   useAppSession,
 } from "@/utils/sessionManager";
-import { resultIdentityStorageKey, storeResultIdentity } from "@/utils/resultIdentity";
 
 export default function SessionBridge() {
   const { data: nextSession, status } = useSession();
@@ -19,9 +17,6 @@ export default function SessionBridge() {
   const nextUserEmail = nextSession?.user?.email ?? null;
   const appRole = appSession?.role ?? null;
   const appUserId = appSession?.userId ?? null;
-  /** Track which userId we've already linked, to avoid repeated API calls */
-  const linkedUserRef = useRef<string | null>(null);
-
   useEffect(() => {
     if (status === "loading") return;
 
@@ -45,33 +40,10 @@ export default function SessionBridge() {
         replaceSession(nextAppSession);
       }
 
-      // ── Identity link & display name sync (once per user) ──
-      // Calls POST /api/identity/link which:
-      //   1. Links guest cookie identity to user (if applicable)
-      //   2. Returns the canonical identity display name
-      //   3. Sets/updates the identity_id cookie
-      // We then override the session displayName so the UI shows
-      // the identity name, NOT the Google profile name.
-      if (linkedUserRef.current !== nextUserId) {
-        linkedUserRef.current = nextUserId;
-        const identityKey = resultIdentityStorageKey();
-        fetch("/api/identity/link", { method: "POST" })
-          .then((res) => (res.ok ? res.json() : null))
-          .then((body) => {
-            const identity = body?.data?.identity;
-            if (identity?.id && identityKey === resultIdentityStorageKey()) {
-              storeResultIdentity(identityKey, identity.id);
-              updateSession({ displayName: identity.displayName });
-            }
-          })
-          .catch(() => null);
-      }
-
       return;
     }
 
     if (status === "unauthenticated" && appRole === "USER") {
-      linkedUserRef.current = null;
       clearSession();
     }
   }, [
