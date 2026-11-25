@@ -810,5 +810,164 @@
         "perfectGames": 0
       }
     }
+  },
+  {
+    "userId": "68135fd3-fd97-4eca-a5f7-a9dde7d7e63b",
+    "name": "anonymous8",
+    "createdAt": "2026-11-25T18:45:02.992Z",
+    "updatedAt": "2026-11-25T18:59:05.364Z",
+    "games": {
+      "wordle": {
+        "gamesPlayed": 1,
+        "gamesWon": 1,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "lastPlayedDate": "2026-11-25",
+        "history": [
+          {
+            "date": "2026-11-25",
+            "win": true,
+            "attempts": 4,
+            "puzzleId": "daily-2026-11-25",
+            "guesses": [
+              {
+                "word": "TABLE",
+                "evaluation": [
+                  "absent",
+                  "absent",
+                  "absent",
+                  "absent",
+                  "present"
+                ]
+              },
+              {
+                "word": "SWORD",
+                "evaluation": [
+                  "present",
+                  "absent",
+                  "absent",
+                  "present",
+                  "absent"
+                ]
+              },
+              {
+                "word": "RESIN",
+                "evaluation": [
+                  "correct",
+                  "present",
+                  "correct",
+                  "present",
+                  "absent"
+                ]
+              },
+              {
+                "word": "RISES",
+                "evaluation": [
+                  "correct",
+                  "correct",
+                  "correct",
+                  "correct",
+                  "correct"
+                ]
+              }
+            ]
+          }
+        ],
+        "bestTime": null,
+        "averageAttempts": 4,
+        "totalAttempts": 4,
+        "perfectGames": 0
+      },
+      "connections": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "crossword": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "numbers": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "trivia": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      },
+      "spelling": {
+        "gamesPlayed": 1,
+        "gamesWon": 0,
+        "currentStreak": 1,
+        "longestStreak": 1,
+        "maxStreak": 1,
+        "lastPlayedDate": "2026-11-25",
+        "history": [
+          {
+            "date": "2026-11-25",
+            "wordsFound": 1,
+            "totalWords": 61,
+            "pangramsFound": 0,
+            "totalPangrams": 1,
+            "score": 5,
+            "maxScore": 268,
+            "percentage": 2,
+            "rank": "Beginner",
+            "isComplete": false
+          }
+        ],
+        "totalWords": 1,
+        "totalPangrams": 0,
+        "totalScore": 5,
+        "averageScore": 5,
+        "rankDistribution": {
+          "Beginner": 1
+        },
+        "queenBeeCount": 0
+      },
+      "strands": {
+        "gamesPlayed": 0,
+        "gamesWon": 0,
+        "currentStreak": 0,
+        "longestStreak": 0,
+        "lastPlayedDate": null,
+        "history": [],
+        "bestTime": null,
+        "averageAttempts": 0,
+        "totalAttempts": 0,
+        "perfectGames": 0
+      }
+    }
   }
 ]

@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProviderNew";
@@ -25,9 +24,6 @@ import {
   buildOrganizationJsonLd,
 } from "@/lib/seo";
 import PWARegister from "@/components/PWARegister";
-import OnboardingFlow from "@/components/OnboardingFlow";
-import { NetworkStatusProvider } from "@/hooks/useNetworkStatus";
-import SyncStatusIndicator from "@/components/SyncStatusIndicator";
 import { getBuildVersion } from "@/lib/buildVersion";
 
 const geistSans = localFont({
@@ -167,16 +163,12 @@ export default function RootLayout({ children }) {
         <PWARegister buildVersion={buildVersion} />
         <AuthProvider>
           <SessionBridge />
-          <NetworkStatusProvider>
           <PresenceProvider intervalMs={90000}>
             <SessionInitializer>
               <IdentityGate>
                 <ThemeProvider>
                   <NotificationInitializer>
                     <TutorialProvider>
-                      <Suspense fallback={null}>
-                        <OnboardingFlow />
-                      </Suspense>
                       <SeasonIdentityProvider showBackground={true} showCorners={true} showParticles={false}>
                         <DominantThemeBanner />
                         <GlobalTutorial />
@@ -190,8 +182,6 @@ export default function RootLayout({ children }) {
               </IdentityGate>
             </SessionInitializer>
           </PresenceProvider>
-          <SyncStatusIndicator />
-          </NetworkStatusProvider>
         </AuthProvider>
       </body>
     </html>

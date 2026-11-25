@@ -1,6 +1,175 @@
 {
   "sessions": [
     {
+      "userId": "68135fd3-fd97-4eca-a5f7-a9dde7d7e63b",
+      "name": "anonymous8",
+      "lastSeen": "2026-11-25T23:13:48.252Z",
+      "currentPage": "&#x2F;",
+      "currentGame": null,
+      "activities": [
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-11-25T18:45:03.010Z"
+        },
+        {
+          "page": "home",
+          "game": null,
+          "timestamp": "2026-11-25T18:45:03.020Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-11-25T18:45:03.020Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:45:31.554Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;wordle",
+          "game": null,
+          "timestamp": "2026-11-25T18:45:37.370Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-11-25T18:45:39.171Z"
+        },
+        {
+          "page": "game:wordle",
+          "game": "wordle",
+          "timestamp": "2026-11-25T18:51:13.181Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:51:56.845Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;connections",
+          "game": null,
+          "timestamp": "2026-11-25T18:51:59.129Z"
+        },
+        {
+          "page": "game:connections",
+          "game": "connections",
+          "timestamp": "2026-11-25T18:51:59.424Z"
+        },
+        {
+          "page": "game:connections",
+          "game": "connections",
+          "timestamp": "2026-11-25T18:51:59.427Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:52:05.222Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;crossword",
+          "game": null,
+          "timestamp": "2026-11-25T18:52:07.698Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:53:28.779Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:53:28.799Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;waffle",
+          "game": null,
+          "timestamp": "2026-11-25T18:53:31.797Z"
+        },
+        {
+          "page": "game:waffle",
+          "game": "waffle",
+          "timestamp": "2026-11-25T18:53:32.091Z"
+        },
+        {
+          "page": "game:waffle",
+          "game": "waffle",
+          "timestamp": "2026-11-25T18:53:32.094Z"
+        },
+        {
+          "page": "game:waffle",
+          "game": "waffle",
+          "timestamp": "2026-11-25T18:56:42.884Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:56:50.817Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;numbers",
+          "game": null,
+          "timestamp": "2026-11-25T18:56:53.737Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:56:57.405Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:56:57.422Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;trivia",
+          "game": null,
+          "timestamp": "2026-11-25T18:56:59.676Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:57:12.274Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;strands",
+          "game": null,
+          "timestamp": "2026-11-25T18:57:15.099Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:58:25.963Z"
+        },
+        {
+          "page": "&#x2F;games&#x2F;spelling",
+          "game": null,
+          "timestamp": "2026-11-25T18:58:28.957Z"
+        },
+        {
+          "page": "&#x2F;games",
+          "game": null,
+          "timestamp": "2026-11-25T18:59:20.370Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-11-25T18:59:24.416Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-11-25T23:13:48.187Z"
+        },
+        {
+          "page": "&#x2F;",
+          "game": null,
+          "timestamp": "2026-11-25T23:13:48.252Z"
+        }
+      ]
+    },
+    {
       "userId": "ff7f961e-eded-40fe-9ca7-0f0993d9b38d",
       "name": "Ammar Ahmed",
       "lastSeen": "2026-03-06T23:29:53.804Z",

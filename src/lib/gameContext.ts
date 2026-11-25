@@ -8,11 +8,9 @@
  *   - { type: "global" } — Results go to global_game_results
  *   - { type: "group", groupId: string } — Results go to group_game_results
  *
- * Offline-aware: submitGameResult now routes through fetchOrQueue
- * so failed requests are automatically queued and retried.
+ * Game results are submitted directly and are not queued for later sync.
  */
 
-import { fetchOrQueue } from "@/utils/fetchOrQueue";
 
 export type GameContext =
   | { type: "global" }
@@ -133,7 +131,7 @@ export function getResultsEndpoint(context: GameContext): string {
 
 /**
  * Submit game result to the correct endpoint based on context.
- * Offline-aware: uses fetchOrQueue for automatic retry on failure.
+ * Submits once and reports network failures to the caller.
  */
 export async function submitGameResult(
   context: GameContext,
@@ -143,7 +141,7 @@ export async function submitGameResult(
     moves?: number | null;
     timeMs: number;
   }
-): Promise<{ ok: boolean; data?: any; error?: string; queued?: boolean }> {
+): Promise<{ ok: boolean; data?: any; error?: string }> {
   const endpoint = getResultsEndpoint(context);
   const now = Date.now();
 
@@ -161,31 +159,32 @@ export async function submitGameResult(
     lastGlobalSubmitAt = now;
   }
 
-  const res = await fetchOrQueue<{ ok?: boolean; data?: any; error?: { message?: string } }>(
-    endpoint,
-    "POST",
-    result
-  );
-
-  // Queued for offline sync
-  if (res.queued) {
-    return { ok: true, queued: true, data: { pointsAwarded: 0 } };
+  let response: Response;
+  try {
+    response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(result),
+    });
+  } catch {
+    return { ok: false, error: "Network error. Please try again." };
   }
+  const res = await response.json().catch(() => null);
 
   // Rate-limited
-  if (res.status === 429) {
+  if (response.status === 429) {
     globalResultsBackoffUntil = Date.now() + 60_000;
     return { ok: false, error: "RATE_LIMITED" };
   }
 
-  if (!res.ok || (res.data && !res.data.ok)) {
+  if (!response.ok || (res && !res.ok)) {
     return {
       ok: false,
-      error: res.data?.error?.message || res.error || "Failed to submit result",
+      error: res?.error?.message || res?.error || "Failed to submit result",
     };
   }
 
-  return { ok: true, data: res.data?.data ?? res.data };
+  return { ok: true, data: res?.data ?? res };
 }
 
 /**

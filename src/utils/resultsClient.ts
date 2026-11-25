@@ -2,9 +2,7 @@
  * Results Submission Client
  * Submits game results to the server for scoring and leaderboard tracking.
  *
- * Offline-aware: if the network is down or the request fails,
- * the result is queued locally and auto-synced when connectivity
- * returns (via fetchOrQueue + offlineSyncQueue).
+ * Results are submitted directly and are not queued for later sync.
  *
  * Routing:
  *   - Daily mode → /api/results (daily leaderboards)
@@ -15,7 +13,6 @@
 import { ensureGuestId } from "./guestManager";
 import { getSession } from "./sessionManager";
 import { getProfile } from "./profileManager";
-import { fetchOrQueue } from "./fetchOrQueue";
 import { type GameContext, loadGameContext, getResultsEndpoint } from "@/lib/gameContext";
 
 export interface SubmitResultInput {
@@ -31,8 +28,6 @@ export interface SubmitResultInput {
 export interface SubmitResultResponse {
   id: string;
   score: number;
-  /** True when the result was queued for later sync instead of submitted live */
-  queued?: boolean;
 }
 
 // Helper to get player name from localStorage (client-side only)
@@ -66,21 +61,17 @@ async function submitDailyResult(input: SubmitResultInput): Promise<SubmitResult
     displayName: displayName ?? undefined,
   };
 
-  const result = await fetchOrQueue<SubmitResultResponse>(
-    "/api/results",
-    "POST",
-    payload as unknown as Record<string, unknown>
-  );
-
-  if (result.queued) {
-    return { id: "queued", score: 0, queued: true };
-  }
-
-  if (!result.ok) {
+  try {
+    const response = await fetch("/api/results", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) return null;
+    return await response.json();
+  } catch {
     return null;
   }
-
-  return result.data;
 }
 
 /**
@@ -99,25 +90,24 @@ async function submitUnlimitedResult(input: SubmitResultInput): Promise<SubmitRe
     timeMs: input.durationMs ?? 0,
   };
 
-  const result = await fetchOrQueue<{ ok: boolean; data?: any }>(
-    endpoint,
-    "POST",
-    payload
-  );
-
-  if (result.queued) {
-    return { id: "queued", score: 0, queued: true };
-  }
-
-  if (!result.ok) {
+  let data: { ok: boolean; data?: any };
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) return null;
+    data = await response.json();
+  } catch {
     return null;
   }
 
   // Handle response format from global/group endpoints
-  const data = result.data?.data ?? result.data;
+  const resultData = data?.data ?? data;
   return {
-    id: data?.result?.id || data?.id || "unknown",
-    score: data?.pointsAwarded || data?.result?.pointsAwarded || data?.result?.points_awarded || 0,
+    id: resultData?.result?.id || resultData?.id || "unknown",
+    score: resultData?.pointsAwarded || resultData?.result?.pointsAwarded || resultData?.result?.points_awarded || 0,
   };
 }
 
