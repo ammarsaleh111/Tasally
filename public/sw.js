@@ -46,13 +46,8 @@ const NAVIGATION_CACHE_ALLOWLIST = [
 ];
 
 const CACHEABLE_API_PREFIXES = [
-  '/api/leaderboard',
-  '/api/leaderboards',
-  '/api/results',
-  '/api/groups',
   '/api/crossword/daily',
   '/api/presence/online-count',
-  '/api/theme',
 ];
 
 self.addEventListener('install', (event) => {
@@ -193,7 +188,7 @@ function isCacheablePage(url) {
 }
 
 function isCacheableApiRequest(url) {
-  return CACHEABLE_API_PREFIXES.some((prefix) => url.pathname.startsWith(prefix));
+  return CACHEABLE_API_PREFIXES.includes(url.pathname);
 }
 
 function isRscRequest(request, url) {
@@ -219,7 +214,7 @@ function isCacheableStaticAsset(request, url) {
 }
 
 function isCacheableResponse(response) {
-  return Boolean(response && response.ok && !response.headers.get('set-cookie'));
+  return Boolean(response && response.ok && !response.headers.get('set-cookie') && !/\b(?:private|no-store)\b/i.test(response.headers.get('cache-control') || ''));
 }
 
 async function putInCache(cacheName, request, response) {

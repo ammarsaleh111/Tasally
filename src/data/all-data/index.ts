@@ -8,6 +8,13 @@ import {
 import { getCairoDateKey, getYearMonthPrefix, monthKeyFromDate } from "./utils/date";
 import { validateMonthDataset } from "./utils/validate";
 
+export class DailyPuzzleUnavailableError extends Error {
+  constructor(game: string, date: string) {
+    super(`No daily puzzle available for ${game} on ${date}`);
+    this.name = "DailyPuzzleUnavailableError";
+  }
+}
+
 type DateRecord = Record<string, unknown>;
 
 const validatedCache = new Map<string, DateRecord>();
@@ -77,6 +84,9 @@ export function getDailyGameDataWithMeta<T>(
 } {
   ensureGame(game);
   const derivedMonthKey = monthKeyFromDate(dateKey);
+  if (!MONTH_KEYS.includes(derivedMonthKey as MonthKey)) {
+    throw new DailyPuzzleUnavailableError(game, dateKey);
+  }
   ensureMonth(derivedMonthKey);
 
   const monthData = getValidatedMonthRecord(game, derivedMonthKey);
@@ -102,9 +112,7 @@ export function getDailyGameDataWithMeta<T>(
     };
   }
 
-  throw new Error(
-    `[all-data] No data for game="${game}" date="${dateKey}" in month="${derivedMonthKey}", and no earlier fallback date in that month.`
-  );
+  throw new DailyPuzzleUnavailableError(game, dateKey);
 }
 
 export function getDailyGameData<T>(game: GameKey, dateKey?: string): T {
