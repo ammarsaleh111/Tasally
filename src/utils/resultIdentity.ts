@@ -1,4 +1,4 @@
-import { getUserStorageKey } from "./storageKeys";
+import { getUserStoragePrefix } from "./storageKeys";
 
 export const RESULT_IDENTITY_HEADER = "X-Tasally-Identity";
 
@@ -9,7 +9,7 @@ export function isResultEndpoint(endpoint: string) {
 
 export function resultIdentityStorageKey() {
   // Retain the scoped binding when transient session changes clear game state.
-  return `tasally:offline-owner:${getUserStorageKey("resultIdentity")}`;
+  return `tasally:offline-owner:${getUserStoragePrefix()}resultIdentity`;
 }
 
 export function storeResultIdentity(key: string, identityId: string | null) {
