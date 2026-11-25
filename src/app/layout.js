@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Cairo, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProviderNew";
@@ -169,7 +170,9 @@ export default function RootLayout({ children }) {
                 <ThemeProvider>
                   <NotificationInitializer>
                     <TutorialProvider>
-                      <OnboardingFlow />
+                      <Suspense fallback={null}>
+                        <OnboardingFlow />
+                      </Suspense>
                       <SeasonIdentityProvider showBackground={true} showCorners={true} showParticles={false}>
                         <DominantThemeBanner />
                         <GlobalTutorial />
