@@ -1,0 +1,410 @@
+{
+  "2027-11-01": {
+    "fragments": [
+      "ize",
+      "ells",
+      "alys",
+      "fr",
+      "sums",
+      "res"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "alyssums",
+      "resells",
+      "resize",
+      "frize"
+    ]
+  },
+  "2027-11-02": {
+    "fragments": [
+      "embol",
+      "ells",
+      "ize",
+      "ising",
+      "res",
+      "fr"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "embolising",
+      "embolize",
+      "resells",
+      "resize"
+    ]
+  },
+  "2027-11-03": {
+    "fragments": [
+      "elled",
+      "ting",
+      "ves",
+      "met",
+      "unsp",
+      "hel"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "unspelled",
+      "vesting",
+      "helmet",
+      "helves"
+    ]
+  },
+  "2027-11-04": {
+    "fragments": [
+      "esca",
+      "hel",
+      "ting",
+      "lier",
+      "met",
+      "ves"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "tinglier",
+      "escalier",
+      "hellier",
+      "vesting"
+    ]
+  },
+  "2027-11-05": {
+    "fragments": [
+      "esca",
+      "polyp",
+      "lier",
+      "hydro",
+      "ting",
+      "ves"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "hydropolyp",
+      "tinglier",
+      "escalier",
+      "vesting"
+    ]
+  },
+  "2027-11-06": {
+    "fragments": [
+      "ness",
+      "pon",
+      "wea",
+      "drab",
+      "free",
+      "bets"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "drabbets",
+      "drabness",
+      "freeness",
+      "weapon"
+    ]
+  },
+  "2027-11-07": {
+    "fragments": [
+      "sing",
+      "adoms",
+      "dge",
+      "popp",
+      "noo",
+      "laip"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "poppadoms",
+      "laipsing",
+      "noosing",
+      "noodge"
+    ]
+  },
+  "2027-11-08": {
+    "fragments": [
+      "sw",
+      "lites",
+      "aille",
+      "gris",
+      "ing",
+      "wavel"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "wavellites",
+      "grisaille",
+      "grising",
+      "swing"
+    ]
+  },
+  "2027-11-09": {
+    "fragments": [
+      "sw",
+      "mente",
+      "gris",
+      "lenta",
+      "ing",
+      "aille"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "lentamente",
+      "grisaille",
+      "grising",
+      "swing"
+    ]
+  },
+  "2027-11-10": {
+    "fragments": [
+      "list",
+      "ing",
+      "lega",
+      "mente",
+      "sw",
+      "lenta"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "lentamente",
+      "legalist",
+      "listing",
+      "swing"
+    ]
+  },
+  "2027-11-11": {
+    "fragments": [
+      "her",
+      "ha",
+      "eof",
+      "ou",
+      "phs",
+      "nce"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "hereof",
+      "ouphs",
+      "ounce",
+      "hance"
+    ]
+  },
+  "2027-11-12": {
+    "fragments": [
+      "ali",
+      "ha",
+      "nes",
+      "ou",
+      "nce",
+      "phs"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "alines",
+      "ouphs",
+      "ounce",
+      "hance"
+    ]
+  },
+  "2027-11-13": {
+    "fragments": [
+      "piec",
+      "nes",
+      "ener",
+      "nce",
+      "ha",
+      "ali"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "piecener",
+      "aliener",
+      "alines",
+      "hance"
+    ]
+  },
+  "2027-11-14": {
+    "fragments": [
+      "piec",
+      "bl",
+      "ener",
+      "ues",
+      "nes",
+      "ali"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "piecener",
+      "aliener",
+      "alines",
+      "blues"
+    ]
+  },
+  "2027-11-15": {
+    "fragments": [
+      "tical",
+      "tric",
+      "fee",
+      "ellip",
+      "ing",
+      "kles"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "elliptical",
+      "trickles",
+      "tricing",
+      "feeing"
+    ]
+  },
+  "2027-11-16": {
+    "fragments": [
+      "ling",
+      "pour",
+      "rudd",
+      "sues",
+      "just",
+      "iest"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "ruddiest",
+      "ruddling",
+      "poursues",
+      "justling"
+    ]
+  },
+  "2027-11-17": {
+    "fragments": [
+      "trip",
+      "cabo",
+      "plers",
+      "mal",
+      "oses",
+      "sto"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "tripplers",
+      "cabooses",
+      "triposes",
+      "stomal"
+    ]
+  },
+  "2027-11-18": {
+    "fragments": [
+      "plers",
+      "trip",
+      "chier",
+      "cabo",
+      "oses",
+      "grou"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "tripplers",
+      "grouchier",
+      "cabooses",
+      "triposes"
+    ]
+  },
+  "2027-11-19": {
+    "fragments": [
+      "plers",
+      "grou",
+      "chier",
+      "ses",
+      "trip",
+      "uti"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "tripplers",
+      "grouchier",
+      "tripses",
+      "grouses"
+    ]
+  },
+  "2027-11-20": {
+    "fragments": [
+      "plat",
+      "itude",
+      "ses",
+      "grou",
+      "uti",
+      "chier"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "grouchier",
+      "platitude",
+      "grouses",
+      "utises"
+    ]
+  },
+  "2027-11-21": {
+    "fragments": [
+      "suc",
+      "cahs",
+      "ching",
+      "urae",
+      "quel",
+      "syn"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "quelching",
+      "synching",
+      "succahs",
+      "synurae"
+    ]
+  },
+  "2027-11-22": {
+    "fragments": [
+      "urae",
+      "led",
+      "quel",
+      "bal",
+      "syn",
+      "ching"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "quelching",
+      "synching",
+      "quelled",
+      "synurae"
+    ]
+  },
+  "2027-11-23": {
+    "fragments": [
+      "led",
+      "ffer",
+      "urae",
+      "syn",
+      "bal",
+      "sti"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "synurae",
+      "stiffer",
+      "balled",
+      "stiled"
+    ]
+  },
+  "2027-11-24": {
+    "fragments": [
+      "led",
+      "ffer",
+      "clerk",
+      "bal",
+      "check",
+      "sti"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "checkclerk",
+      "stiffer",
+      "balled",
+      "stiled"
+    ]
+  }
+}

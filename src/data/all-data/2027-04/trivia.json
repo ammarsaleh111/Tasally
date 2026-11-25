@@ -1,0 +1,4562 @@
+{
+  "2027-04-01": [
+    {
+      "question": "What is 25 × 23?",
+      "options": [
+        "552",
+        "575",
+        "585",
+        "600"
+      ],
+      "answer": "575",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the binary number 11100111?",
+      "options": [
+        "231",
+        "235",
+        "233",
+        "230"
+      ],
+      "answer": "231",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is 49 × 44?",
+      "options": [
+        "2205",
+        "2166",
+        "2156",
+        "2112"
+      ],
+      "answer": "2156",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "Which chemical element has the symbol \"Cd\"?",
+      "options": [
+        "Radon",
+        "Promethium",
+        "Germanium",
+        "Cadmium"
+      ],
+      "answer": "Cadmium",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "Who wrote 'The Odyssey'?",
+      "options": [
+        "Sophocles",
+        "Homer",
+        "Virgil",
+        "Euripides"
+      ],
+      "answer": "Homer",
+      "correctIndex": 1,
+      "category": "Arts & Literature",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Encyclopedia Britannica"
+    },
+    {
+      "question": "What is 51 × 29?",
+      "options": [
+        "1450",
+        "1489",
+        "1479",
+        "1530"
+      ],
+      "answer": "1479",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 15 × 20?",
+      "options": [
+        "300",
+        "310",
+        "280",
+        "315"
+      ],
+      "answer": "300",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 48 × 27?",
+      "options": [
+        "1306",
+        "1269",
+        "1296",
+        "1344"
+      ],
+      "answer": "1296",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x5F?",
+      "options": [
+        "111",
+        "89",
+        "95",
+        "105"
+      ],
+      "answer": "95",
+      "correctIndex": 2,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is the decimal value of the binary number 1001001?",
+      "options": [
+        "75",
+        "77",
+        "73",
+        "72"
+      ],
+      "answer": "73",
+      "correctIndex": 2,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    }
+  ],
+  "2027-04-02": [
+    {
+      "question": "What is 36 × 41?",
+      "options": [
+        "1435",
+        "1476",
+        "1512",
+        "1486"
+      ],
+      "answer": "1476",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"DCIV\" represent?",
+      "options": [
+        "609",
+        "600",
+        "604",
+        "614"
+      ],
+      "answer": "604",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the chemical symbol for Protactinium?",
+      "options": [
+        "Pd",
+        "Pa",
+        "Ba",
+        "La"
+      ],
+      "answer": "Pa",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is the chemical symbol for Helium?",
+      "options": [
+        "He",
+        "Cs",
+        "Fl",
+        "K"
+      ],
+      "answer": "He",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is the decimal value of the binary number 1001101?",
+      "options": [
+        "76",
+        "77",
+        "81",
+        "79"
+      ],
+      "answer": "77",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is the chemical symbol for Thulium?",
+      "options": [
+        "Ts",
+        "La",
+        "Tm",
+        "Sm"
+      ],
+      "answer": "Tm",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"DXV\" represent?",
+      "options": [
+        "520",
+        "511",
+        "515",
+        "525"
+      ],
+      "answer": "515",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x13?",
+      "options": [
+        "19",
+        "13",
+        "29",
+        "35"
+      ],
+      "answer": "19",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is the atomic number of Tantalum?",
+      "options": [
+        "73",
+        "74",
+        "72",
+        "76"
+      ],
+      "answer": "73",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCCLXI\" represent?",
+      "options": [
+        "357",
+        "361",
+        "366",
+        "371"
+      ],
+      "answer": "361",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    }
+  ],
+  "2027-04-03": [
+    {
+      "question": "What is 32 × 28?",
+      "options": [
+        "896",
+        "928",
+        "906",
+        "868"
+      ],
+      "answer": "896",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 45 × 34?",
+      "options": [
+        "1530",
+        "1575",
+        "1540",
+        "1496"
+      ],
+      "answer": "1530",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "How many minutes are in 70 hours?",
+      "options": [
+        "7000",
+        "4200",
+        "4260",
+        "2100"
+      ],
+      "answer": "4200",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "What is 43 × 32?",
+      "options": [
+        "1419",
+        "1386",
+        "1376",
+        "1344"
+      ],
+      "answer": "1376",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0xF2?",
+      "options": [
+        "242",
+        "258",
+        "252",
+        "236"
+      ],
+      "answer": "242",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is 6 cubed (6³)?",
+      "options": [
+        "252",
+        "216",
+        "210",
+        "222"
+      ],
+      "answer": "216",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 47 × 28?",
+      "options": [
+        "1363",
+        "1288",
+        "1316",
+        "1326"
+      ],
+      "answer": "1316",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 46 × 12?",
+      "options": [
+        "540",
+        "562",
+        "552",
+        "598"
+      ],
+      "answer": "552",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "Who wrote 'Pride and Prejudice'?",
+      "options": [
+        "Mary Shelley",
+        "Charlotte Bronte",
+        "Emily Bronte",
+        "Jane Austen"
+      ],
+      "answer": "Jane Austen",
+      "correctIndex": 3,
+      "category": "Arts & Literature",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "British Library"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0xA1?",
+      "options": [
+        "161",
+        "171",
+        "155",
+        "177"
+      ],
+      "answer": "161",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    }
+  ],
+  "2027-04-04": [
+    {
+      "question": "What is the capital city of Armenia?",
+      "options": [
+        "Yerevan",
+        "Berlin",
+        "Astana",
+        "Luxembourg"
+      ],
+      "answer": "Yerevan",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "UN Member States / CIA World Factbook"
+    },
+    {
+      "question": "What is 34 × 34?",
+      "options": [
+        "1156",
+        "1122",
+        "1166",
+        "1190"
+      ],
+      "answer": "1156",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the sum of the interior angles of a 5-sided polygon (in degrees)?",
+      "options": [
+        "720°",
+        "360°",
+        "900°",
+        "540°"
+      ],
+      "answer": "540°",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Euclidean Geometry"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"DCXXXIV\" represent?",
+      "options": [
+        "644",
+        "634",
+        "639",
+        "630"
+      ],
+      "answer": "634",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "How many minutes are in 80 hours?",
+      "options": [
+        "2400",
+        "8000",
+        "4800",
+        "4860"
+      ],
+      "answer": "4800",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "How many meters are in 147 kilometers?",
+      "options": [
+        "147000",
+        "14700",
+        "1470000",
+        "73500"
+      ],
+      "answer": "147000",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 29 × 35?",
+      "options": [
+        "1044",
+        "1025",
+        "1015",
+        "980"
+      ],
+      "answer": "1015",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 13 × 26?",
+      "options": [
+        "348",
+        "351",
+        "312",
+        "338"
+      ],
+      "answer": "338",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 52 × 12?",
+      "options": [
+        "612",
+        "676",
+        "624",
+        "634"
+      ],
+      "answer": "624",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "Which chemical element has the symbol \"Er\"?",
+      "options": [
+        "Titanium",
+        "Erbium",
+        "Gold",
+        "Terbium"
+      ],
+      "answer": "Erbium",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    }
+  ],
+  "2027-04-05": [
+    {
+      "question": "How many meters are in 202 kilometers?",
+      "options": [
+        "101000",
+        "2020000",
+        "20200",
+        "202000"
+      ],
+      "answer": "202000",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 31 × 27?",
+      "options": [
+        "847",
+        "810",
+        "837",
+        "868"
+      ],
+      "answer": "837",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the chemical symbol for Iron?",
+      "options": [
+        "Ac",
+        "Fl",
+        "Fe",
+        "Rh"
+      ],
+      "answer": "Fe",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is 32 × 34?",
+      "options": [
+        "1054",
+        "1120",
+        "1098",
+        "1088"
+      ],
+      "answer": "1088",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x23?",
+      "options": [
+        "45",
+        "29",
+        "35",
+        "51"
+      ],
+      "answer": "35",
+      "correctIndex": 2,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is 53 × 24?",
+      "options": [
+        "1248",
+        "1282",
+        "1272",
+        "1325"
+      ],
+      "answer": "1272",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x76?",
+      "options": [
+        "118",
+        "112",
+        "134",
+        "128"
+      ],
+      "answer": "118",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is 56 × 14?",
+      "options": [
+        "784",
+        "794",
+        "770",
+        "840"
+      ],
+      "answer": "784",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the atomic number of Radium?",
+      "options": [
+        "91",
+        "88",
+        "87",
+        "89"
+      ],
+      "answer": "88",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "Which default TCP port is used by SSH?",
+      "options": [
+        "22",
+        "3306",
+        "80",
+        "23"
+      ],
+      "answer": "22",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IANA Port Registry"
+    }
+  ],
+  "2027-04-06": [
+    {
+      "question": "What is the two-letter US postal abbreviation for Vermont?",
+      "options": [
+        "KS",
+        "VA",
+        "VT",
+        "PA"
+      ],
+      "answer": "VT",
+      "correctIndex": 2,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "USPS State Abbreviations"
+    },
+    {
+      "question": "What is 46 × 44?",
+      "options": [
+        "1980",
+        "2034",
+        "2024",
+        "2070"
+      ],
+      "answer": "2024",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "How many meters are in 24 kilometers?",
+      "options": [
+        "12000",
+        "24000",
+        "240000",
+        "2400"
+      ],
+      "answer": "24000",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 47 × 39?",
+      "options": [
+        "1843",
+        "1833",
+        "1880",
+        "1794"
+      ],
+      "answer": "1833",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 39 × 37?",
+      "options": [
+        "1443",
+        "1406",
+        "1453",
+        "1482"
+      ],
+      "answer": "1443",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 2 to the power of 12 (2^12)?",
+      "options": [
+        "4160",
+        "4096",
+        "8192",
+        "2048"
+      ],
+      "answer": "4096",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Binary Arithmetic"
+    },
+    {
+      "question": "In chess, which piece can only move diagonally?",
+      "options": [
+        "Bishop",
+        "Queen",
+        "Rook",
+        "Knight"
+      ],
+      "answer": "Bishop",
+      "correctIndex": 0,
+      "category": "General Knowledge",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "FIDE Laws of Chess"
+    },
+    {
+      "question": "How many meters are in 198 kilometers?",
+      "options": [
+        "1980000",
+        "198000",
+        "19800",
+        "99000"
+      ],
+      "answer": "198000",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 45 × 45?",
+      "options": [
+        "2070",
+        "2025",
+        "1980",
+        "2035"
+      ],
+      "answer": "2025",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"DCXLII\" represent?",
+      "options": [
+        "642",
+        "638",
+        "647",
+        "652"
+      ],
+      "answer": "642",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    }
+  ],
+  "2027-04-07": [
+    {
+      "question": "What is 23 × 45?",
+      "options": [
+        "1035",
+        "990",
+        "1058",
+        "1045"
+      ],
+      "answer": "1035",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "How many minutes are in 5 hours?",
+      "options": [
+        "300",
+        "500",
+        "150",
+        "360"
+      ],
+      "answer": "300",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "What is the chemical symbol for Thallium?",
+      "options": [
+        "Al",
+        "Mt",
+        "Os",
+        "Tl"
+      ],
+      "answer": "Tl",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is 14 × 44?",
+      "options": [
+        "630",
+        "626",
+        "616",
+        "572"
+      ],
+      "answer": "616",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the state capital of Kentucky?",
+      "options": [
+        "Madison",
+        "Des Moines",
+        "Frankfort",
+        "Montgomery"
+      ],
+      "answer": "Frankfort",
+      "correctIndex": 2,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "US Census Bureau"
+    },
+    {
+      "question": "What is the decimal value of the binary number 11101011?",
+      "options": [
+        "234",
+        "239",
+        "237",
+        "235"
+      ],
+      "answer": "235",
+      "correctIndex": 3,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is the atomic number of Lawrencium?",
+      "options": [
+        "103",
+        "104",
+        "102",
+        "106"
+      ],
+      "answer": "103",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "In which country is Machu Picchu located?",
+      "options": [
+        "Chile",
+        "Peru",
+        "Bolivia",
+        "Colombia"
+      ],
+      "answer": "Peru",
+      "correctIndex": 1,
+      "category": "History",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UNESCO World Heritage"
+    },
+    {
+      "question": "What is 16 × 18?",
+      "options": [
+        "270",
+        "298",
+        "288",
+        "304"
+      ],
+      "answer": "288",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 38 × 39?",
+      "options": [
+        "1520",
+        "1443",
+        "1482",
+        "1492"
+      ],
+      "answer": "1482",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    }
+  ],
+  "2027-04-08": [
+    {
+      "question": "What is 39 × 23?",
+      "options": [
+        "907",
+        "936",
+        "897",
+        "874"
+      ],
+      "answer": "897",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "How many meters are in 221 kilometers?",
+      "options": [
+        "2210000",
+        "22100",
+        "221000",
+        "110500"
+      ],
+      "answer": "221000",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is the state capital of California?",
+      "options": [
+        "Atlanta",
+        "Raleigh",
+        "Charleston",
+        "Sacramento"
+      ],
+      "answer": "Sacramento",
+      "correctIndex": 3,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "US Census Bureau"
+    },
+    {
+      "question": "In which continent is Senegal primarily located?",
+      "options": [
+        "Africa",
+        "North America",
+        "South America",
+        "Europe"
+      ],
+      "answer": "Africa",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UN Geoscheme"
+    },
+    {
+      "question": "What is the atomic number of Astatine?",
+      "options": [
+        "84",
+        "86",
+        "88",
+        "85"
+      ],
+      "answer": "85",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is the state capital of Wyoming?",
+      "options": [
+        "Cheyenne",
+        "Phoenix",
+        "Austin",
+        "Jefferson City"
+      ],
+      "answer": "Cheyenne",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "US Census Bureau"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x81?",
+      "options": [
+        "123",
+        "129",
+        "139",
+        "145"
+      ],
+      "answer": "129",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x8C?",
+      "options": [
+        "140",
+        "150",
+        "134",
+        "156"
+      ],
+      "answer": "140",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x3A?",
+      "options": [
+        "74",
+        "58",
+        "52",
+        "68"
+      ],
+      "answer": "58",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is 34 × 39?",
+      "options": [
+        "1360",
+        "1336",
+        "1287",
+        "1326"
+      ],
+      "answer": "1326",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    }
+  ],
+  "2027-04-09": [
+    {
+      "question": "What is the capital city of Bulgaria?",
+      "options": [
+        "Sofia",
+        "Beirut",
+        "Sanaa",
+        "Helsinki"
+      ],
+      "answer": "Sofia",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "UN Member States / CIA World Factbook"
+    },
+    {
+      "question": "What is 29 × 16?",
+      "options": [
+        "464",
+        "448",
+        "474",
+        "493"
+      ],
+      "answer": "464",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the binary number 1001000?",
+      "options": [
+        "72",
+        "74",
+        "71",
+        "76"
+      ],
+      "answer": "72",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is 16 × 43?",
+      "options": [
+        "704",
+        "645",
+        "688",
+        "698"
+      ],
+      "answer": "688",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "In which continent is Finland primarily located?",
+      "options": [
+        "Europe",
+        "Asia",
+        "Africa",
+        "South America"
+      ],
+      "answer": "Europe",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UN Geoscheme"
+    },
+    {
+      "question": "What is the capital city of Laos?",
+      "options": [
+        "Vientiane",
+        "Khartoum",
+        "Mexico City",
+        "Havana"
+      ],
+      "answer": "Vientiane",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "UN Member States / CIA World Factbook"
+    },
+    {
+      "question": "What is 15 × 45?",
+      "options": [
+        "675",
+        "690",
+        "685",
+        "630"
+      ],
+      "answer": "675",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 22 × 34?",
+      "options": [
+        "748",
+        "758",
+        "770",
+        "714"
+      ],
+      "answer": "748",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 42 × 31?",
+      "options": [
+        "1312",
+        "1271",
+        "1302",
+        "1344"
+      ],
+      "answer": "1302",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CDX\" represent?",
+      "options": [
+        "410",
+        "406",
+        "420",
+        "415"
+      ],
+      "answer": "410",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    }
+  ],
+  "2027-04-10": [
+    {
+      "question": "How many minutes are in 111 hours?",
+      "options": [
+        "6720",
+        "3330",
+        "6660",
+        "11100"
+      ],
+      "answer": "6660",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "What is the decimal value of the binary number 10111101?",
+      "options": [
+        "193",
+        "188",
+        "191",
+        "189"
+      ],
+      "answer": "189",
+      "correctIndex": 3,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is 24 × 15?",
+      "options": [
+        "384",
+        "345",
+        "370",
+        "360"
+      ],
+      "answer": "360",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the binary number 10001100?",
+      "options": [
+        "142",
+        "144",
+        "140",
+        "139"
+      ],
+      "answer": "140",
+      "correctIndex": 2,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is the atomic number of Zirconium?",
+      "options": [
+        "43",
+        "39",
+        "40",
+        "41"
+      ],
+      "answer": "40",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x99?",
+      "options": [
+        "169",
+        "153",
+        "163",
+        "147"
+      ],
+      "answer": "153",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "Which chemical element has the symbol \"Th\"?",
+      "options": [
+        "Mendelevium",
+        "Thorium",
+        "Zirconium",
+        "Selenium"
+      ],
+      "answer": "Thorium",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is 27 × 21?",
+      "options": [
+        "594",
+        "567",
+        "546",
+        "577"
+      ],
+      "answer": "567",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"XVI\" represent?",
+      "options": [
+        "16",
+        "26",
+        "21",
+        "12"
+      ],
+      "answer": "16",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the capital city of Australia?",
+      "options": [
+        "Canberra",
+        "Baghdad",
+        "Nouakchott",
+        "Washington, D.C."
+      ],
+      "answer": "Canberra",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "UN Member States / CIA World Factbook"
+    }
+  ],
+  "2027-04-11": [
+    {
+      "question": "What is 180°C in degrees Fahrenheit?",
+      "options": [
+        "356°F",
+        "346°F",
+        "374°F",
+        "366°F"
+      ],
+      "answer": "356°F",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Thermometric Scale Definition"
+    },
+    {
+      "question": "What is 16 × 15?",
+      "options": [
+        "240",
+        "256",
+        "250",
+        "225"
+      ],
+      "answer": "240",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0xB0?",
+      "options": [
+        "192",
+        "176",
+        "170",
+        "186"
+      ],
+      "answer": "176",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCLXXIX\" represent?",
+      "options": [
+        "284",
+        "279",
+        "289",
+        "275"
+      ],
+      "answer": "279",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCCLIV\" represent?",
+      "options": [
+        "364",
+        "359",
+        "350",
+        "354"
+      ],
+      "answer": "354",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the chemical symbol for Nickel?",
+      "options": [
+        "Tc",
+        "Rn",
+        "Ni",
+        "Fr"
+      ],
+      "answer": "Ni",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is the capital city of Vietnam?",
+      "options": [
+        "Moscow",
+        "Hanoi",
+        "Wellington",
+        "Phnom Penh"
+      ],
+      "answer": "Hanoi",
+      "correctIndex": 1,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "UN Member States / CIA World Factbook"
+    },
+    {
+      "question": "What is the atomic number of Einsteinium?",
+      "options": [
+        "100",
+        "99",
+        "102",
+        "98"
+      ],
+      "answer": "99",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is 12 × 35?",
+      "options": [
+        "420",
+        "430",
+        "432",
+        "385"
+      ],
+      "answer": "420",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 15 × 13?",
+      "options": [
+        "205",
+        "195",
+        "182",
+        "210"
+      ],
+      "answer": "195",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Arithmetic"
+    }
+  ],
+  "2027-04-12": [
+    {
+      "question": "What is 37 × 25?",
+      "options": [
+        "962",
+        "900",
+        "935",
+        "925"
+      ],
+      "answer": "925",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 16 × 36?",
+      "options": [
+        "586",
+        "576",
+        "592",
+        "540"
+      ],
+      "answer": "576",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What HTTP status code indicates 'Unauthorized'?",
+      "options": [
+        "403",
+        "400",
+        "404",
+        "401"
+      ],
+      "answer": "401",
+      "correctIndex": 3,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IETF RFC 9110"
+    },
+    {
+      "question": "What is the decimal value of the binary number 11110?",
+      "options": [
+        "29",
+        "34",
+        "32",
+        "30"
+      ],
+      "answer": "30",
+      "correctIndex": 3,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is the decimal value of the binary number 110100?",
+      "options": [
+        "51",
+        "52",
+        "54",
+        "56"
+      ],
+      "answer": "52",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "How many meters are in 128 kilometers?",
+      "options": [
+        "128000",
+        "12800",
+        "64000",
+        "1280000"
+      ],
+      "answer": "128000",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 21 × 19?",
+      "options": [
+        "409",
+        "420",
+        "399",
+        "380"
+      ],
+      "answer": "399",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 18 × 18?",
+      "options": [
+        "334",
+        "306",
+        "324",
+        "342"
+      ],
+      "answer": "324",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "Which chemical element has the symbol \"La\"?",
+      "options": [
+        "Darmstadtium",
+        "Neon",
+        "Einsteinium",
+        "Lanthanum"
+      ],
+      "answer": "Lanthanum",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "How many meters are in 214 kilometers?",
+      "options": [
+        "107000",
+        "214000",
+        "21400",
+        "2140000"
+      ],
+      "answer": "214000",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    }
+  ],
+  "2027-04-13": [
+    {
+      "question": "What is 30 × 45?",
+      "options": [
+        "1350",
+        "1305",
+        "1360",
+        "1380"
+      ],
+      "answer": "1350",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CIV\" represent?",
+      "options": [
+        "100",
+        "114",
+        "104",
+        "109"
+      ],
+      "answer": "104",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "In which continent is Madagascar primarily located?",
+      "options": [
+        "Asia",
+        "Africa",
+        "Europe",
+        "North America"
+      ],
+      "answer": "Africa",
+      "correctIndex": 1,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UN Geoscheme"
+    },
+    {
+      "question": "In which continent is Luxembourg primarily located?",
+      "options": [
+        "Oceania",
+        "Europe",
+        "North America",
+        "Asia"
+      ],
+      "answer": "Europe",
+      "correctIndex": 1,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UN Geoscheme"
+    },
+    {
+      "question": "Which chemical element has the symbol \"C\"?",
+      "options": [
+        "Astatine",
+        "Carbon",
+        "Tin",
+        "Fermium"
+      ],
+      "answer": "Carbon",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCXCVIII\" represent?",
+      "options": [
+        "308",
+        "298",
+        "303",
+        "294"
+      ],
+      "answer": "298",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 51 × 23?",
+      "options": [
+        "1183",
+        "1150",
+        "1224",
+        "1173"
+      ],
+      "answer": "1173",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 14 × 31?",
+      "options": [
+        "403",
+        "434",
+        "448",
+        "444"
+      ],
+      "answer": "434",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 13 × 44?",
+      "options": [
+        "572",
+        "528",
+        "585",
+        "582"
+      ],
+      "answer": "572",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the capital city of Jamaica?",
+      "options": [
+        "Kingston",
+        "Sanaa",
+        "Dublin",
+        "Amsterdam"
+      ],
+      "answer": "Kingston",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "UN Member States / CIA World Factbook"
+    }
+  ],
+  "2027-04-14": [
+    {
+      "question": "How many minutes are in 81 hours?",
+      "options": [
+        "2430",
+        "8100",
+        "4920",
+        "4860"
+      ],
+      "answer": "4860",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "What is 18 × 37?",
+      "options": [
+        "666",
+        "684",
+        "629",
+        "676"
+      ],
+      "answer": "666",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 54 × 30?",
+      "options": [
+        "1630",
+        "1674",
+        "1620",
+        "1590"
+      ],
+      "answer": "1620",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 42 × 33?",
+      "options": [
+        "1386",
+        "1353",
+        "1428",
+        "1396"
+      ],
+      "answer": "1386",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"XCVI\" represent?",
+      "options": [
+        "101",
+        "106",
+        "92",
+        "96"
+      ],
+      "answer": "96",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCL\" represent?",
+      "options": [
+        "246",
+        "250",
+        "260",
+        "255"
+      ],
+      "answer": "250",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "How many meters are in 41 kilometers?",
+      "options": [
+        "410000",
+        "4100",
+        "41000",
+        "20500"
+      ],
+      "answer": "41000",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCXVIII\" represent?",
+      "options": [
+        "218",
+        "214",
+        "223",
+        "228"
+      ],
+      "answer": "218",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCXLIX\" represent?",
+      "options": [
+        "249",
+        "245",
+        "254",
+        "259"
+      ],
+      "answer": "249",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x1E?",
+      "options": [
+        "46",
+        "40",
+        "30",
+        "24"
+      ],
+      "answer": "30",
+      "correctIndex": 2,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    }
+  ],
+  "2027-04-15": [
+    {
+      "question": "What is the chemical symbol for Dubnium?",
+      "options": [
+        "Nh",
+        "Db",
+        "Ra",
+        "Se"
+      ],
+      "answer": "Db",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is 36 × 37?",
+      "options": [
+        "1368",
+        "1295",
+        "1332",
+        "1342"
+      ],
+      "answer": "1332",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 22 × 43?",
+      "options": [
+        "968",
+        "903",
+        "956",
+        "946"
+      ],
+      "answer": "946",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 53 × 41?",
+      "options": [
+        "2226",
+        "2132",
+        "2183",
+        "2173"
+      ],
+      "answer": "2173",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"DCXXX\" represent?",
+      "options": [
+        "630",
+        "626",
+        "635",
+        "640"
+      ],
+      "answer": "630",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 12 × 21?",
+      "options": [
+        "231",
+        "252",
+        "262",
+        "264"
+      ],
+      "answer": "252",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCCXLII\" represent?",
+      "options": [
+        "347",
+        "338",
+        "342",
+        "352"
+      ],
+      "answer": "342",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 55 × 20?",
+      "options": [
+        "1080",
+        "1110",
+        "1155",
+        "1100"
+      ],
+      "answer": "1100",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "How many meters are in 100 kilometers?",
+      "options": [
+        "100000",
+        "1000000",
+        "50000",
+        "10000"
+      ],
+      "answer": "100000",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 42 × 27?",
+      "options": [
+        "1144",
+        "1176",
+        "1134",
+        "1107"
+      ],
+      "answer": "1134",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    }
+  ],
+  "2027-04-16": [
+    {
+      "question": "What is 51 × 22?",
+      "options": [
+        "1132",
+        "1122",
+        "1100",
+        "1173"
+      ],
+      "answer": "1122",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 42 × 44?",
+      "options": [
+        "1848",
+        "1858",
+        "1890",
+        "1804"
+      ],
+      "answer": "1848",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "How many meters are in 203 kilometers?",
+      "options": [
+        "2030000",
+        "20300",
+        "203000",
+        "101500"
+      ],
+      "answer": "203000",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "How many meters are in 113 kilometers?",
+      "options": [
+        "11300",
+        "113000",
+        "56500",
+        "1130000"
+      ],
+      "answer": "113000",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCCXXXV\" represent?",
+      "options": [
+        "335",
+        "331",
+        "345",
+        "340"
+      ],
+      "answer": "335",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "Which chemical element has the symbol \"Ir\"?",
+      "options": [
+        "Plutonium",
+        "Beryllium",
+        "Francium",
+        "Iridium"
+      ],
+      "answer": "Iridium",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "In which continent is Guatemala primarily located?",
+      "options": [
+        "North America",
+        "Africa",
+        "Oceania",
+        "Europe"
+      ],
+      "answer": "North America",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UN Geoscheme"
+    },
+    {
+      "question": "What is 46 × 31?",
+      "options": [
+        "1426",
+        "1472",
+        "1395",
+        "1436"
+      ],
+      "answer": "1426",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0xAD?",
+      "options": [
+        "189",
+        "183",
+        "167",
+        "173"
+      ],
+      "answer": "173",
+      "correctIndex": 3,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "How many meters are in 11 kilometers?",
+      "options": [
+        "11000",
+        "5500",
+        "1100",
+        "110000"
+      ],
+      "answer": "11000",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    }
+  ],
+  "2027-04-17": [
+    {
+      "question": "What is 12 × 15?",
+      "options": [
+        "192",
+        "190",
+        "165",
+        "180"
+      ],
+      "answer": "180",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 47 × 42?",
+      "options": [
+        "1974",
+        "1984",
+        "1932",
+        "2021"
+      ],
+      "answer": "1974",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "Which chemical element has the symbol \"Mt\"?",
+      "options": [
+        "Copernicium",
+        "Oxygen",
+        "Lawrencium",
+        "Meitnerium"
+      ],
+      "answer": "Meitnerium",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCCXXIX\" represent?",
+      "options": [
+        "329",
+        "325",
+        "334",
+        "339"
+      ],
+      "answer": "329",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the atomic number of Technetium?",
+      "options": [
+        "46",
+        "43",
+        "42",
+        "44"
+      ],
+      "answer": "43",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CDI\" represent?",
+      "options": [
+        "411",
+        "401",
+        "397",
+        "406"
+      ],
+      "answer": "401",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 33 × 34?",
+      "options": [
+        "1088",
+        "1155",
+        "1132",
+        "1122"
+      ],
+      "answer": "1122",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the capital city of Costa Rica?",
+      "options": [
+        "Amsterdam",
+        "Addis Ababa",
+        "San Jose",
+        "Paris"
+      ],
+      "answer": "San Jose",
+      "correctIndex": 2,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "UN Member States / CIA World Factbook"
+    },
+    {
+      "question": "In which continent is Lithuania primarily located?",
+      "options": [
+        "Oceania",
+        "South America",
+        "Europe",
+        "Africa"
+      ],
+      "answer": "Europe",
+      "correctIndex": 2,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UN Geoscheme"
+    },
+    {
+      "question": "What is 33 × 33?",
+      "options": [
+        "1089",
+        "1099",
+        "1056",
+        "1122"
+      ],
+      "answer": "1089",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    }
+  ],
+  "2027-04-18": [
+    {
+      "question": "What decimal number does the Roman numeral \"CCCLVII\" represent?",
+      "options": [
+        "357",
+        "362",
+        "367",
+        "353"
+      ],
+      "answer": "357",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCCXLVI\" represent?",
+      "options": [
+        "346",
+        "356",
+        "351",
+        "342"
+      ],
+      "answer": "346",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CXCVIII\" represent?",
+      "options": [
+        "194",
+        "208",
+        "198",
+        "203"
+      ],
+      "answer": "198",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCLXXXIII\" represent?",
+      "options": [
+        "279",
+        "283",
+        "293",
+        "288"
+      ],
+      "answer": "283",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "How many meters are in 136 kilometers?",
+      "options": [
+        "68000",
+        "136000",
+        "13600",
+        "1360000"
+      ],
+      "answer": "136000",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 54 × 24?",
+      "options": [
+        "1272",
+        "1306",
+        "1296",
+        "1350"
+      ],
+      "answer": "1296",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the binary number 1001111?",
+      "options": [
+        "79",
+        "83",
+        "81",
+        "78"
+      ],
+      "answer": "79",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "In which continent is Rwanda primarily located?",
+      "options": [
+        "South America",
+        "Asia",
+        "Africa",
+        "North America"
+      ],
+      "answer": "Africa",
+      "correctIndex": 2,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UN Geoscheme"
+    },
+    {
+      "question": "What is 24 × 27?",
+      "options": [
+        "648",
+        "672",
+        "658",
+        "621"
+      ],
+      "answer": "648",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the atomic number of Scandium?",
+      "options": [
+        "22",
+        "24",
+        "21",
+        "20"
+      ],
+      "answer": "21",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "IUPAC Periodic Table"
+    }
+  ],
+  "2027-04-19": [
+    {
+      "question": "What decimal number does the Roman numeral \"CCXLVI\" represent?",
+      "options": [
+        "251",
+        "256",
+        "246",
+        "242"
+      ],
+      "answer": "246",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 27 × 12?",
+      "options": [
+        "334",
+        "351",
+        "312",
+        "324"
+      ],
+      "answer": "324",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CXXXII\" represent?",
+      "options": [
+        "137",
+        "132",
+        "128",
+        "142"
+      ],
+      "answer": "132",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"XLII\" represent?",
+      "options": [
+        "38",
+        "52",
+        "47",
+        "42"
+      ],
+      "answer": "42",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "In which continent is Czechia primarily located?",
+      "options": [
+        "Europe",
+        "Africa",
+        "South America",
+        "Oceania"
+      ],
+      "answer": "Europe",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UN Geoscheme"
+    },
+    {
+      "question": "What HTTP status code indicates 'Not Found'?",
+      "options": [
+        "403",
+        "301",
+        "404",
+        "500"
+      ],
+      "answer": "404",
+      "correctIndex": 2,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IETF RFC 9110"
+    },
+    {
+      "question": "What is the chemical symbol for Hafnium?",
+      "options": [
+        "Hf",
+        "Fr",
+        "Pr",
+        "Am"
+      ],
+      "answer": "Hf",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is 28 × 18?",
+      "options": [
+        "504",
+        "486",
+        "532",
+        "514"
+      ],
+      "answer": "504",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 49 × 39?",
+      "options": [
+        "1911",
+        "1960",
+        "1872",
+        "1921"
+      ],
+      "answer": "1911",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 14 × 17?",
+      "options": [
+        "221",
+        "238",
+        "252",
+        "248"
+      ],
+      "answer": "238",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Arithmetic"
+    }
+  ],
+  "2027-04-20": [
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x7E?",
+      "options": [
+        "120",
+        "142",
+        "136",
+        "126"
+      ],
+      "answer": "126",
+      "correctIndex": 3,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is 21 × 35?",
+      "options": [
+        "700",
+        "756",
+        "745",
+        "735"
+      ],
+      "answer": "735",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 48 × 15?",
+      "options": [
+        "730",
+        "705",
+        "720",
+        "768"
+      ],
+      "answer": "720",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "How many meters are in 159 kilometers?",
+      "options": [
+        "79500",
+        "15900",
+        "1590000",
+        "159000"
+      ],
+      "answer": "159000",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 29 × 26?",
+      "options": [
+        "754",
+        "783",
+        "764",
+        "728"
+      ],
+      "answer": "754",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 18 × 36?",
+      "options": [
+        "612",
+        "666",
+        "658",
+        "648"
+      ],
+      "answer": "648",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 43 × 11?",
+      "options": [
+        "516",
+        "483",
+        "462",
+        "473"
+      ],
+      "answer": "473",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the two-letter US postal abbreviation for Louisiana?",
+      "options": [
+        "OH",
+        "LA",
+        "TN",
+        "NV"
+      ],
+      "answer": "LA",
+      "correctIndex": 1,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "USPS State Abbreviations"
+    },
+    {
+      "question": "What is 37 × 14?",
+      "options": [
+        "504",
+        "528",
+        "555",
+        "518"
+      ],
+      "answer": "518",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 33 × 35?",
+      "options": [
+        "1188",
+        "1155",
+        "1165",
+        "1120"
+      ],
+      "answer": "1155",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    }
+  ],
+  "2027-04-21": [
+    {
+      "question": "What decimal number does the Roman numeral \"CDXXI\" represent?",
+      "options": [
+        "417",
+        "421",
+        "431",
+        "426"
+      ],
+      "answer": "421",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 32 × 43?",
+      "options": [
+        "1386",
+        "1376",
+        "1333",
+        "1408"
+      ],
+      "answer": "1376",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 35 × 29?",
+      "options": [
+        "1015",
+        "1025",
+        "986",
+        "1050"
+      ],
+      "answer": "1015",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the binary number 101001?",
+      "options": [
+        "41",
+        "43",
+        "40",
+        "45"
+      ],
+      "answer": "41",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is the chemical symbol for Actinium?",
+      "options": [
+        "K",
+        "Yb",
+        "Ac",
+        "Ni"
+      ],
+      "answer": "Ac",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0xDB?",
+      "options": [
+        "235",
+        "219",
+        "213",
+        "229"
+      ],
+      "answer": "219",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is 48 × 18?",
+      "options": [
+        "846",
+        "912",
+        "864",
+        "874"
+      ],
+      "answer": "864",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 22 × 38?",
+      "options": [
+        "798",
+        "836",
+        "858",
+        "846"
+      ],
+      "answer": "836",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 43 squared (43²)?",
+      "options": [
+        "1849",
+        "1935",
+        "1839",
+        "1859"
+      ],
+      "answer": "1849",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 43 × 33?",
+      "options": [
+        "1419",
+        "1386",
+        "1429",
+        "1462"
+      ],
+      "answer": "1419",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    }
+  ],
+  "2027-04-22": [
+    {
+      "question": "How many minutes are in 19 hours?",
+      "options": [
+        "1200",
+        "1900",
+        "1140",
+        "570"
+      ],
+      "answer": "1140",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "What is the atomic number of Silicon?",
+      "options": [
+        "14",
+        "13",
+        "15",
+        "17"
+      ],
+      "answer": "14",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is 18 × 12?",
+      "options": [
+        "204",
+        "234",
+        "226",
+        "216"
+      ],
+      "answer": "216",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 27 squared (27²)?",
+      "options": [
+        "719",
+        "739",
+        "783",
+        "729"
+      ],
+      "answer": "729",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 37 × 31?",
+      "options": [
+        "1147",
+        "1184",
+        "1157",
+        "1116"
+      ],
+      "answer": "1147",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 13 × 15?",
+      "options": [
+        "208",
+        "205",
+        "195",
+        "180"
+      ],
+      "answer": "195",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0xCE?",
+      "options": [
+        "216",
+        "206",
+        "200",
+        "222"
+      ],
+      "answer": "206",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"DCXXXIX\" represent?",
+      "options": [
+        "635",
+        "649",
+        "639",
+        "644"
+      ],
+      "answer": "639",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the decimal value of the binary number 1111010?",
+      "options": [
+        "122",
+        "124",
+        "121",
+        "126"
+      ],
+      "answer": "122",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0xE4?",
+      "options": [
+        "244",
+        "238",
+        "228",
+        "222"
+      ],
+      "answer": "228",
+      "correctIndex": 2,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    }
+  ],
+  "2027-04-23": [
+    {
+      "question": "What decimal number does the Roman numeral \"XCIV\" represent?",
+      "options": [
+        "99",
+        "94",
+        "90",
+        "104"
+      ],
+      "answer": "94",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCLXXVIII\" represent?",
+      "options": [
+        "283",
+        "274",
+        "278",
+        "288"
+      ],
+      "answer": "278",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0xEC?",
+      "options": [
+        "236",
+        "252",
+        "230",
+        "246"
+      ],
+      "answer": "236",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is 52 × 26?",
+      "options": [
+        "1362",
+        "1352",
+        "1404",
+        "1326"
+      ],
+      "answer": "1352",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0xE1?",
+      "options": [
+        "235",
+        "241",
+        "219",
+        "225"
+      ],
+      "answer": "225",
+      "correctIndex": 3,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is the SI unit of electrical resistance?",
+      "options": [
+        "Ampere",
+        "Volt",
+        "Watt",
+        "Ohm"
+      ],
+      "answer": "Ohm",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "BIPM SI Brochure"
+    },
+    {
+      "question": "Which chemical element has the symbol \"Sr\"?",
+      "options": [
+        "Cesium",
+        "Bismuth",
+        "Strontium",
+        "Aluminum"
+      ],
+      "answer": "Strontium",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "How many meters are in 18 kilometers?",
+      "options": [
+        "18000",
+        "1800",
+        "180000",
+        "9000"
+      ],
+      "answer": "18000",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 26 × 35?",
+      "options": [
+        "920",
+        "875",
+        "936",
+        "910"
+      ],
+      "answer": "910",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the binary number 11100001?",
+      "options": [
+        "229",
+        "225",
+        "224",
+        "227"
+      ],
+      "answer": "225",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    }
+  ],
+  "2027-04-24": [
+    {
+      "question": "What is 37 × 22?",
+      "options": [
+        "792",
+        "851",
+        "824",
+        "814"
+      ],
+      "answer": "814",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 31 squared (31²)?",
+      "options": [
+        "961",
+        "971",
+        "1023",
+        "951"
+      ],
+      "answer": "961",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CDXXV\" represent?",
+      "options": [
+        "435",
+        "430",
+        "421",
+        "425"
+      ],
+      "answer": "425",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 39 × 26?",
+      "options": [
+        "1053",
+        "1024",
+        "988",
+        "1014"
+      ],
+      "answer": "1014",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 37 × 36?",
+      "options": [
+        "1296",
+        "1342",
+        "1369",
+        "1332"
+      ],
+      "answer": "1332",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 65 squared (65²)?",
+      "options": [
+        "4235",
+        "4355",
+        "4225",
+        "4215"
+      ],
+      "answer": "4225",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 26 × 13?",
+      "options": [
+        "338",
+        "364",
+        "325",
+        "348"
+      ],
+      "answer": "338",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 21 × 20?",
+      "options": [
+        "420",
+        "430",
+        "441",
+        "400"
+      ],
+      "answer": "420",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 39 × 44?",
+      "options": [
+        "1672",
+        "1755",
+        "1726",
+        "1716"
+      ],
+      "answer": "1716",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"DCXII\" represent?",
+      "options": [
+        "612",
+        "608",
+        "622",
+        "617"
+      ],
+      "answer": "612",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    }
+  ],
+  "2027-04-25": [
+    {
+      "question": "What decimal number does the Roman numeral \"DXCIV\" represent?",
+      "options": [
+        "594",
+        "599",
+        "604",
+        "590"
+      ],
+      "answer": "594",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 53 × 35?",
+      "options": [
+        "1865",
+        "1820",
+        "1908",
+        "1855"
+      ],
+      "answer": "1855",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 50 × 35?",
+      "options": [
+        "1750",
+        "1715",
+        "1760",
+        "1800"
+      ],
+      "answer": "1750",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the capital city of Fiji?",
+      "options": [
+        "Zagreb",
+        "Suva",
+        "Algiers",
+        "Cairo"
+      ],
+      "answer": "Suva",
+      "correctIndex": 1,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "UN Member States / CIA World Factbook"
+    },
+    {
+      "question": "What is the two-letter US postal abbreviation for Nevada?",
+      "options": [
+        "NV",
+        "FL",
+        "GA",
+        "OK"
+      ],
+      "answer": "NV",
+      "correctIndex": 0,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "USPS State Abbreviations"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x2C?",
+      "options": [
+        "54",
+        "44",
+        "60",
+        "38"
+      ],
+      "answer": "44",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CXLVII\" represent?",
+      "options": [
+        "157",
+        "147",
+        "152",
+        "143"
+      ],
+      "answer": "147",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0xBE?",
+      "options": [
+        "206",
+        "190",
+        "200",
+        "184"
+      ],
+      "answer": "190",
+      "correctIndex": 1,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "What is 51 × 19?",
+      "options": [
+        "979",
+        "950",
+        "1020",
+        "969"
+      ],
+      "answer": "969",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCLXII\" represent?",
+      "options": [
+        "272",
+        "262",
+        "258",
+        "267"
+      ],
+      "answer": "262",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    }
+  ],
+  "2027-04-26": [
+    {
+      "question": "What is 12 × 39?",
+      "options": [
+        "429",
+        "478",
+        "468",
+        "480"
+      ],
+      "answer": "468",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CDXVIII\" represent?",
+      "options": [
+        "418",
+        "414",
+        "423",
+        "428"
+      ],
+      "answer": "418",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 24 × 30?",
+      "options": [
+        "720",
+        "730",
+        "744",
+        "690"
+      ],
+      "answer": "720",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 54 × 13?",
+      "options": [
+        "712",
+        "756",
+        "689",
+        "702"
+      ],
+      "answer": "702",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the two-letter US postal abbreviation for Nebraska?",
+      "options": [
+        "ID",
+        "NE",
+        "SD",
+        "KY"
+      ],
+      "answer": "NE",
+      "correctIndex": 1,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "USPS State Abbreviations"
+    },
+    {
+      "question": "How many meters are in 102 kilometers?",
+      "options": [
+        "102000",
+        "1020000",
+        "10200",
+        "51000"
+      ],
+      "answer": "102000",
+      "correctIndex": 0,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 27 × 11?",
+      "options": [
+        "286",
+        "324",
+        "307",
+        "297"
+      ],
+      "answer": "297",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 24 × 24?",
+      "options": [
+        "600",
+        "552",
+        "586",
+        "576"
+      ],
+      "answer": "576",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "In which continent is Moldova primarily located?",
+      "options": [
+        "Asia",
+        "Europe",
+        "Oceania",
+        "South America"
+      ],
+      "answer": "Europe",
+      "correctIndex": 1,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UN Geoscheme"
+    },
+    {
+      "question": "What is 48 × 29?",
+      "options": [
+        "1392",
+        "1363",
+        "1440",
+        "1402"
+      ],
+      "answer": "1392",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    }
+  ],
+  "2027-04-27": [
+    {
+      "question": "What is the decimal value of the binary number 11010110?",
+      "options": [
+        "216",
+        "218",
+        "214",
+        "213"
+      ],
+      "answer": "214",
+      "correctIndex": 2,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is 30 × 31?",
+      "options": [
+        "899",
+        "960",
+        "930",
+        "940"
+      ],
+      "answer": "930",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the decimal value of the binary number 1010101?",
+      "options": [
+        "85",
+        "89",
+        "84",
+        "87"
+      ],
+      "answer": "85",
+      "correctIndex": 0,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is 39 × 41?",
+      "options": [
+        "1558",
+        "1599",
+        "1638",
+        "1609"
+      ],
+      "answer": "1599",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "How many minutes are in 47 hours?",
+      "options": [
+        "2820",
+        "4700",
+        "2880",
+        "1410"
+      ],
+      "answer": "2820",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "What is 22 cubed (22³)?",
+      "options": [
+        "10648",
+        "10670",
+        "10626",
+        "11132"
+      ],
+      "answer": "10648",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 78 squared (78²)?",
+      "options": [
+        "6094",
+        "6084",
+        "6074",
+        "6240"
+      ],
+      "answer": "6084",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CCCXC\" represent?",
+      "options": [
+        "400",
+        "390",
+        "386",
+        "395"
+      ],
+      "answer": "390",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 24 × 38?",
+      "options": [
+        "936",
+        "922",
+        "912",
+        "874"
+      ],
+      "answer": "912",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the atomic number of Livermorium?",
+      "options": [
+        "119",
+        "115",
+        "116",
+        "117"
+      ],
+      "answer": "116",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "IUPAC Periodic Table"
+    }
+  ],
+  "2027-04-28": [
+    {
+      "question": "In which continent is India primarily located?",
+      "options": [
+        "Europe",
+        "Asia",
+        "North America",
+        "Oceania"
+      ],
+      "answer": "Asia",
+      "correctIndex": 1,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "UN Geoscheme"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"LV\" represent?",
+      "options": [
+        "51",
+        "65",
+        "60",
+        "55"
+      ],
+      "answer": "55",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is 33 × 37?",
+      "options": [
+        "1184",
+        "1254",
+        "1231",
+        "1221"
+      ],
+      "answer": "1221",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is the chemical symbol for Francium?",
+      "options": [
+        "Li",
+        "Ge",
+        "Zn",
+        "Fr"
+      ],
+      "answer": "Fr",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "Which chemical element has the symbol \"Os\"?",
+      "options": [
+        "Thorium",
+        "Osmium",
+        "Nobelium",
+        "Nitrogen"
+      ],
+      "answer": "Osmium",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is the decimal value of the binary number 10000111?",
+      "options": [
+        "139",
+        "134",
+        "137",
+        "135"
+      ],
+      "answer": "135",
+      "correctIndex": 3,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"L\" represent?",
+      "options": [
+        "60",
+        "50",
+        "55",
+        "46"
+      ],
+      "answer": "50",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "How many minutes are in 108 hours?",
+      "options": [
+        "6540",
+        "6480",
+        "10800",
+        "3240"
+      ],
+      "answer": "6480",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "How many minutes are in 8 hours?",
+      "options": [
+        "540",
+        "800",
+        "480",
+        "240"
+      ],
+      "answer": "480",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "What is the capital city of Azerbaijan?",
+      "options": [
+        "Doha",
+        "Sofia",
+        "Pyongyang",
+        "Baku"
+      ],
+      "answer": "Baku",
+      "correctIndex": 3,
+      "category": "Geography",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "UN Member States / CIA World Factbook"
+    }
+  ],
+  "2027-04-29": [
+    {
+      "question": "What decimal number does the Roman numeral \"CCLXV\" represent?",
+      "options": [
+        "261",
+        "265",
+        "270",
+        "275"
+      ],
+      "answer": "265",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the decimal value of the binary number 111011?",
+      "options": [
+        "63",
+        "61",
+        "58",
+        "59"
+      ],
+      "answer": "59",
+      "correctIndex": 3,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IEEE Binary Representation"
+    },
+    {
+      "question": "What is 23 × 24?",
+      "options": [
+        "528",
+        "552",
+        "575",
+        "562"
+      ],
+      "answer": "552",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What is 37 squared (37²)?",
+      "options": [
+        "1369",
+        "1443",
+        "1359",
+        "1379"
+      ],
+      "answer": "1369",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "Which planet is known as the Red Planet?",
+      "options": [
+        "Venus",
+        "Mars",
+        "Saturn",
+        "Jupiter"
+      ],
+      "answer": "Mars",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "NASA Solar System Exploration"
+    },
+    {
+      "question": "What is 50 × 34?",
+      "options": [
+        "1750",
+        "1666",
+        "1700",
+        "1710"
+      ],
+      "answer": "1700",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"DCXXIV\" represent?",
+      "options": [
+        "620",
+        "634",
+        "629",
+        "624"
+      ],
+      "answer": "624",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CDXLIV\" represent?",
+      "options": [
+        "444",
+        "454",
+        "449",
+        "440"
+      ],
+      "answer": "444",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"CDLXVI\" represent?",
+      "options": [
+        "471",
+        "476",
+        "462",
+        "466"
+      ],
+      "answer": "466",
+      "correctIndex": 3,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "What is the decimal value of the binary number 100010?",
+      "options": [
+        "38",
+        "36",
+        "33",
+        "34"
+      ],
+      "answer": "34",
+      "correctIndex": 3,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IEEE Binary Representation"
+    }
+  ],
+  "2027-04-30": [
+    {
+      "question": "What is the atomic number of Californium?",
+      "options": [
+        "99",
+        "98",
+        "97",
+        "101"
+      ],
+      "answer": "98",
+      "correctIndex": 1,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "hard",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What is the decimal value of the hexadecimal number 0x12?",
+      "options": [
+        "28",
+        "12",
+        "18",
+        "34"
+      ],
+      "answer": "18",
+      "correctIndex": 2,
+      "category": "Computing",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Hexadecimal Representation"
+    },
+    {
+      "question": "How many minutes are in 68 hours?",
+      "options": [
+        "4080",
+        "4140",
+        "6800",
+        "2040"
+      ],
+      "answer": "4080",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "What is 33 × 14?",
+      "options": [
+        "448",
+        "462",
+        "472",
+        "495"
+      ],
+      "answer": "462",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "Which chemical element has the symbol \"Cr\"?",
+      "options": [
+        "Thulium",
+        "Scandium",
+        "Americium",
+        "Chromium"
+      ],
+      "answer": "Chromium",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "IUPAC Periodic Table"
+    },
+    {
+      "question": "What decimal number does the Roman numeral \"XXXI\" represent?",
+      "options": [
+        "36",
+        "31",
+        "27",
+        "41"
+      ],
+      "answer": "31",
+      "correctIndex": 1,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Roman Numeral System"
+    },
+    {
+      "question": "How many meters are in 3 kilometers?",
+      "options": [
+        "300",
+        "30000",
+        "1500",
+        "3000"
+      ],
+      "answer": "3000",
+      "correctIndex": 3,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "BIPM SI Metric System"
+    },
+    {
+      "question": "What is 34 × 15?",
+      "options": [
+        "510",
+        "520",
+        "544",
+        "495"
+      ],
+      "answer": "510",
+      "correctIndex": 0,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "Arithmetic"
+    },
+    {
+      "question": "How many minutes are in 53 hours?",
+      "options": [
+        "5300",
+        "1590",
+        "3180",
+        "3240"
+      ],
+      "answer": "3180",
+      "correctIndex": 2,
+      "category": "Math & Logic",
+      "type": "multiple",
+      "difficulty": "easy",
+      "source": "Standard Timekeeping"
+    },
+    {
+      "question": "Which planet in our solar system has the hottest surface temperature?",
+      "options": [
+        "Jupiter",
+        "Mercury",
+        "Venus",
+        "Mars"
+      ],
+      "answer": "Venus",
+      "correctIndex": 2,
+      "category": "Science",
+      "type": "multiple",
+      "difficulty": "medium",
+      "source": "NASA Solar System Exploration"
+    }
+  ]
+}

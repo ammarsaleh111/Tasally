@@ -5,7 +5,7 @@ import {
   type GameKey,
   type MonthKey,
 } from "./manifest";
-import { getCairoDateKey, getYearMonthPrefix, monthKeyFromDate } from "./utils/date";
+import { getCairoDateKey, monthKeyFromDate } from "./utils/date";
 import { validateMonthDataset } from "./utils/validate";
 
 export class DailyPuzzleUnavailableError extends Error {
@@ -54,22 +54,20 @@ function getValidatedMonthRecord(game: GameKey, monthKey: MonthKey): DateRecord 
   return validated;
 }
 
-function resolveFallbackDate(
-  dataset: DateRecord,
-  requestedDate: string
-): string | null {
-  const prefix = getYearMonthPrefix(requestedDate);
-  const candidates = Object.keys(dataset)
-    .filter((dateKey) => dateKey.startsWith(`${prefix}-`) && dateKey <= requestedDate)
-    .sort((a, b) => b.localeCompare(a));
-
-  return candidates[0] ?? null;
-}
-
 export function getMonthGameData<T>(game: GameKey, monthKey: string): Record<string, T> {
   ensureGame(game);
   ensureMonth(monthKey);
   return getValidatedMonthRecord(game, monthKey) as Record<string, T>;
+}
+
+export function getAllGameData<T>(game: GameKey): Record<string, T> {
+  ensureGame(game);
+  const merged: Record<string, T> = {};
+  for (const monthKey of MONTH_KEYS) {
+    const monthRecord = getValidatedMonthRecord(game, monthKey) as Record<string, T>;
+    Object.assign(merged, monthRecord);
+  }
+  return merged;
 }
 
 export function getDailyGameDataWithMeta<T>(
@@ -101,22 +99,10 @@ export function getDailyGameDataWithMeta<T>(
     };
   }
 
-  const fallbackDate = resolveFallbackDate(monthData, dateKey);
-  if (fallbackDate) {
-    return {
-      data: monthData[fallbackDate] as T,
-      requestedDate: dateKey,
-      servedDate: fallbackDate,
-      usingFallback: true,
-      monthKey: derivedMonthKey,
-    };
-  }
-
+  // Exact daily date resolution only: never silently fall back to historical puzzles.
   throw new DailyPuzzleUnavailableError(game, dateKey);
 }
 
 export function getDailyGameData<T>(game: GameKey, dateKey?: string): T {
   return getDailyGameDataWithMeta<T>(game, dateKey).data;
 }
-
-export type { GameKey } from "./manifest";

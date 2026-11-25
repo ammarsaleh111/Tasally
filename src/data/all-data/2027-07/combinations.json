@@ -1,0 +1,529 @@
+{
+  "2027-07-01": {
+    "fragments": [
+      "fir",
+      "ities",
+      "emen",
+      "lots",
+      "pac",
+      "edac"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "edacities",
+      "firlots",
+      "firemen",
+      "pacemen"
+    ]
+  },
+  "2027-07-02": {
+    "fragments": [
+      "moi",
+      "kener",
+      "led",
+      "see",
+      "ster",
+      "blac"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "blackener",
+      "moister",
+      "seeled",
+      "moiled"
+    ]
+  },
+  "2027-07-03": {
+    "fragments": [
+      "aiter",
+      "ster",
+      "moi",
+      "see",
+      "led",
+      "landw"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "landwaiter",
+      "moister",
+      "seeled",
+      "moiled"
+    ]
+  },
+  "2027-07-04": {
+    "fragments": [
+      "tives",
+      "compu",
+      "gned",
+      "tants",
+      "desi",
+      "diges"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "computants",
+      "digestants",
+      "digestives",
+      "designed"
+    ]
+  },
+  "2027-07-05": {
+    "fragments": [
+      "dext",
+      "rorse",
+      "cers",
+      "pumi",
+      "ces",
+      "bon"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "dextrorse",
+      "pumicers",
+      "pumices",
+      "bonces"
+    ]
+  },
+  "2027-07-06": {
+    "fragments": [
+      "ress",
+      "ing",
+      "jow",
+      "carro",
+      "dist",
+      "ttops"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "distressing",
+      "carrottops",
+      "distress",
+      "ingress"
+    ]
+  },
+  "2027-07-07": {
+    "fragments": [
+      "hips",
+      "ends",
+      "ing",
+      "jow",
+      "ress",
+      "dist"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "distressing",
+      "distress",
+      "distends",
+      "endships"
+    ]
+  },
+  "2027-07-08": {
+    "fragments": [
+      "icked",
+      "lac",
+      "herl",
+      "ked",
+      "frol",
+      "ings"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "frolicked",
+      "herlings",
+      "lacings",
+      "lacked"
+    ]
+  },
+  "2027-07-09": {
+    "fragments": [
+      "lac",
+      "tant",
+      "ked",
+      "ings",
+      "dis",
+      "herl"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "herlings",
+      "lacings",
+      "distant",
+      "lacked"
+    ]
+  },
+  "2027-07-10": {
+    "fragments": [
+      "lac",
+      "ked",
+      "tant",
+      "pio",
+      "dis",
+      "nies"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "distant",
+      "pionies",
+      "lacked",
+      "disked"
+    ]
+  },
+  "2027-07-11": {
+    "fragments": [
+      "wise",
+      "lumes",
+      "air",
+      "line",
+      "bacu",
+      "filop"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "filoplumes",
+      "baculine",
+      "airline",
+      "airwise"
+    ]
+  },
+  "2027-07-12": {
+    "fragments": [
+      "mbs",
+      "ke",
+      "epit",
+      "omic",
+      "ison",
+      "aphs"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "epitaphs",
+      "epitomic",
+      "isonomic",
+      "kembs"
+    ]
+  },
+  "2027-07-13": {
+    "fragments": [
+      "hors",
+      "picr",
+      "eman",
+      "outp",
+      "ated",
+      "eeped"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "outpeeped",
+      "picrated",
+      "horseman",
+      "emanated"
+    ]
+  },
+  "2027-07-14": {
+    "fragments": [
+      "ogies",
+      "ated",
+      "hors",
+      "picr",
+      "posol",
+      "eman"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "posologies",
+      "picrated",
+      "horseman",
+      "emanated"
+    ]
+  },
+  "2027-07-15": {
+    "fragments": [
+      "ris",
+      "cko",
+      "ibe",
+      "for",
+      "thi",
+      "cer"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "thicko",
+      "forcer",
+      "cerris",
+      "iberis"
+    ]
+  },
+  "2027-07-16": {
+    "fragments": [
+      "for",
+      "ris",
+      "cer",
+      "kat",
+      "als",
+      "ibe"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "forcer",
+      "cerris",
+      "iberis",
+      "katals"
+    ]
+  },
+  "2027-07-17": {
+    "fragments": [
+      "ho",
+      "les",
+      "st",
+      "ems",
+      "feuil",
+      "letes"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "feuilletes",
+      "holes",
+      "stems",
+      "host"
+    ]
+  },
+  "2027-07-18": {
+    "fragments": [
+      "st",
+      "gety",
+      "big",
+      "ems",
+      "ho",
+      "les"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "biggety",
+      "holes",
+      "stems",
+      "host"
+    ]
+  },
+  "2027-07-19": {
+    "fragments": [
+      "re",
+      "aps",
+      "st",
+      "ems",
+      "big",
+      "gety"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "biggety",
+      "restems",
+      "stems",
+      "staps"
+    ]
+  },
+  "2027-07-20": {
+    "fragments": [
+      "dan",
+      "mar",
+      "gosa",
+      "bit",
+      "ting",
+      "ios"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "danting",
+      "margosa",
+      "marting",
+      "bitting"
+    ]
+  },
+  "2027-07-21": {
+    "fragments": [
+      "mar",
+      "ting",
+      "gosa",
+      "bit",
+      "led",
+      "pea"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "margosa",
+      "marting",
+      "bitting",
+      "tingled"
+    ]
+  },
+  "2027-07-22": {
+    "fragments": [
+      "squ",
+      "ting",
+      "led",
+      "bit",
+      "arks",
+      "pea"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "bitting",
+      "tingled",
+      "squarks",
+      "pealed"
+    ]
+  },
+  "2027-07-23": {
+    "fragments": [
+      "bas",
+      "gab",
+      "ates",
+      "rot",
+      "ative",
+      "limit"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "limitative",
+      "rotative",
+      "rotates",
+      "gabbas"
+    ]
+  },
+  "2027-07-24": {
+    "fragments": [
+      "ates",
+      "gab",
+      "res",
+      "to",
+      "bas",
+      "rot"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "rotates",
+      "gabbas",
+      "basto",
+      "torot"
+    ]
+  },
+  "2027-07-25": {
+    "fragments": [
+      "gred",
+      "res",
+      "rot",
+      "to",
+      "maul",
+      "ates"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "maulgred",
+      "rotates",
+      "torot",
+      "tores"
+    ]
+  },
+  "2027-07-26": {
+    "fragments": [
+      "maul",
+      "cal",
+      "res",
+      "to",
+      "gred",
+      "cite"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "maulgred",
+      "calcite",
+      "tores",
+      "resto"
+    ]
+  },
+  "2027-07-27": {
+    "fragments": [
+      "bibli",
+      "cite",
+      "nting",
+      "marge",
+      "cal",
+      "ology"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "margenting",
+      "bibliology",
+      "biblical",
+      "calcite"
+    ]
+  },
+  "2027-07-28": {
+    "fragments": [
+      "si",
+      "over",
+      "swore",
+      "eld",
+      "aways",
+      "take"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "overswore",
+      "takeaways",
+      "overtake",
+      "takeover"
+    ]
+  },
+  "2027-07-29": {
+    "fragments": [
+      "over",
+      "pogr",
+      "aways",
+      "swore",
+      "oming",
+      "take"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "overswore",
+      "takeaways",
+      "pogroming",
+      "overtake"
+    ]
+  },
+  "2027-07-30": {
+    "fragments": [
+      "expu",
+      "gning",
+      "me",
+      "nga",
+      "rge",
+      "ai"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "expugning",
+      "expurge",
+      "ainga",
+      "merge"
+    ]
+  },
+  "2027-07-31": {
+    "fragments": [
+      "rge",
+      "gning",
+      "decen",
+      "me",
+      "nials",
+      "expu"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "decennials",
+      "expugning",
+      "menials",
+      "expurge"
+    ]
+  }
+}

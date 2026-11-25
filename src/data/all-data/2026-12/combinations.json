@@ -1,0 +1,529 @@
+{
+  "2026-12-01": {
+    "fragments": [
+      "ings",
+      "risms",
+      "ocu",
+      "list",
+      "smok",
+      "meteo"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "meteorisms",
+      "listings",
+      "smokings",
+      "oculist"
+    ]
+  },
+  "2026-12-02": {
+    "fragments": [
+      "ocu",
+      "ges",
+      "list",
+      "smok",
+      "ings",
+      "mad"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "listings",
+      "smokings",
+      "oculist",
+      "madges"
+    ]
+  },
+  "2026-12-03": {
+    "fragments": [
+      "ely",
+      "dens",
+      "tures",
+      "tam",
+      "enrap",
+      "far"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "enraptures",
+      "fardens",
+      "densely",
+      "tamely"
+    ]
+  },
+  "2026-12-04": {
+    "fragments": [
+      "res",
+      "lea",
+      "ched",
+      "rras",
+      "gobu",
+      "ca"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "goburras",
+      "leached",
+      "leares",
+      "cached"
+    ]
+  },
+  "2026-12-05": {
+    "fragments": [
+      "ched",
+      "ores",
+      "depl",
+      "ca",
+      "res",
+      "lea"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "deplores",
+      "leached",
+      "leares",
+      "cached"
+    ]
+  },
+  "2026-12-06": {
+    "fragments": [
+      "mes",
+      "ult",
+      "cams",
+      "hafts",
+      "fa",
+      "rhe"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "camshafts",
+      "rhemes",
+      "fames",
+      "fault"
+    ]
+  },
+  "2026-12-07": {
+    "fragments": [
+      "survi",
+      "keys",
+      "ewing",
+      "lded",
+      "unge",
+      "lac"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "surviewing",
+      "ungelded",
+      "lacewing",
+      "lackeys"
+    ]
+  },
+  "2026-12-08": {
+    "fragments": [
+      "lac",
+      "ulsed",
+      "keys",
+      "survi",
+      "comp",
+      "ewing"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "surviewing",
+      "compulsed",
+      "lacewing",
+      "lackeys"
+    ]
+  },
+  "2026-12-09": {
+    "fragments": [
+      "ings",
+      "pink",
+      "lant",
+      "water",
+      "sider",
+      "petu"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "watersider",
+      "waterings",
+      "petulant",
+      "pinkings"
+    ]
+  },
+  "2026-12-10": {
+    "fragments": [
+      "ings",
+      "hely",
+      "water",
+      "sider",
+      "blit",
+      "pink"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "watersider",
+      "waterings",
+      "pinkings",
+      "blithely"
+    ]
+  },
+  "2026-12-11": {
+    "fragments": [
+      "tic",
+      "pice",
+      "opied",
+      "misc",
+      "alls",
+      "lo"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "miscopied",
+      "miscalls",
+      "allspice",
+      "lotic"
+    ]
+  },
+  "2026-12-12": {
+    "fragments": [
+      "sses",
+      "dre",
+      "unfre",
+      "ezing",
+      "iter",
+      "stra"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "unfreezing",
+      "straiter",
+      "strasses",
+      "dresses"
+    ]
+  },
+  "2026-12-13": {
+    "fragments": [
+      "bit",
+      "obile",
+      "snowm",
+      "aker",
+      "part",
+      "ser"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "snowmobile",
+      "snowmaker",
+      "partaker",
+      "bitser"
+    ]
+  },
+  "2026-12-14": {
+    "fragments": [
+      "osis",
+      "al",
+      "oin",
+      "fr",
+      "ken",
+      "ost"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "kenosis",
+      "ostosis",
+      "aloin",
+      "frost"
+    ]
+  },
+  "2026-12-15": {
+    "fragments": [
+      "oin",
+      "fr",
+      "al",
+      "line",
+      "cote",
+      "ost"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "frostline",
+      "coteline",
+      "lineal",
+      "aloin"
+    ]
+  },
+  "2026-12-16": {
+    "fragments": [
+      "wie",
+      "ost",
+      "do",
+      "fr",
+      "cote",
+      "line"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "frostline",
+      "coteline",
+      "doline",
+      "frost"
+    ]
+  },
+  "2026-12-17": {
+    "fragments": [
+      "moton",
+      "euron",
+      "wie",
+      "do",
+      "cote",
+      "line"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "motoneuron",
+      "coteline",
+      "doline",
+      "dowie"
+    ]
+  },
+  "2026-12-18": {
+    "fragments": [
+      "wie",
+      "do",
+      "ting",
+      "moton",
+      "euron",
+      "fau"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "motoneuron",
+      "fauting",
+      "doting",
+      "dowie"
+    ]
+  },
+  "2026-12-19": {
+    "fragments": [
+      "laid",
+      "way",
+      "cho",
+      "ndre",
+      "out",
+      "reds"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "outreds",
+      "outlaid",
+      "chondre",
+      "waylaid"
+    ]
+  },
+  "2026-12-20": {
+    "fragments": [
+      "ding",
+      "ising",
+      "han",
+      "ongs",
+      "bar",
+      "telev"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "televising",
+      "barongs",
+      "barding",
+      "handing"
+    ]
+  },
+  "2026-12-21": {
+    "fragments": [
+      "ongs",
+      "han",
+      "ding",
+      "bar",
+      "weed",
+      "rock"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "rockweed",
+      "barongs",
+      "barding",
+      "handing"
+    ]
+  },
+  "2026-12-22": {
+    "fragments": [
+      "tars",
+      "weed",
+      "iers",
+      "tabl",
+      "ature",
+      "rock"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "tablature",
+      "rockweed",
+      "rockiers",
+      "tabliers"
+    ]
+  },
+  "2026-12-23": {
+    "fragments": [
+      "tars",
+      "tabl",
+      "ature",
+      "frau",
+      "dster",
+      "iers"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "tablature",
+      "fraudster",
+      "tabliers",
+      "tarsiers"
+    ]
+  },
+  "2026-12-24": {
+    "fragments": [
+      "drin",
+      "misl",
+      "ering",
+      "silv",
+      "etoe",
+      "bre"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "silvering",
+      "misletoe",
+      "breering",
+      "bredrin"
+    ]
+  },
+  "2026-12-25": {
+    "fragments": [
+      "ering",
+      "drin",
+      "entr",
+      "bre",
+      "silv",
+      "ammel"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "silvering",
+      "entrammel",
+      "breering",
+      "bredrin"
+    ]
+  },
+  "2026-12-26": {
+    "fragments": [
+      "mpion",
+      "ken",
+      "doc",
+      "quan",
+      "nets",
+      "cocha"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "cochampion",
+      "quannets",
+      "kennets",
+      "docken"
+    ]
+  },
+  "2026-12-27": {
+    "fragments": [
+      "ken",
+      "doc",
+      "globa",
+      "nets",
+      "quan",
+      "lized"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "globalized",
+      "quannets",
+      "kennets",
+      "docken"
+    ]
+  },
+  "2026-12-28": {
+    "fragments": [
+      "wind",
+      "maks",
+      "iest",
+      "toka",
+      "seam",
+      "bound"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "windbound",
+      "tokamaks",
+      "windiest",
+      "seamiest"
+    ]
+  },
+  "2026-12-29": {
+    "fragments": [
+      "ang",
+      "seam",
+      "iest",
+      "kl",
+      "wind",
+      "bound"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "windbound",
+      "windiest",
+      "seamiest",
+      "klang"
+    ]
+  },
+  "2026-12-30": {
+    "fragments": [
+      "cran",
+      "arca",
+      "igs",
+      "kest",
+      "ren",
+      "dian"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "arcadian",
+      "crankest",
+      "renkest",
+      "renigs"
+    ]
+  },
+  "2026-12-31": {
+    "fragments": [
+      "hie",
+      "lubf",
+      "land",
+      "out",
+      "ishes",
+      "sit"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "lubfishes",
+      "hieland",
+      "outland",
+      "outsit"
+    ]
+  }
+}

@@ -1,0 +1,529 @@
+{
+  "2027-05-01": {
+    "fragments": [
+      "pee",
+      "grai",
+      "tam",
+      "dum",
+      "mied",
+      "niest"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "grainiest",
+      "dummied",
+      "tammied",
+      "dumpee"
+    ]
+  },
+  "2027-05-02": {
+    "fragments": [
+      "tam",
+      "poe",
+      "mied",
+      "tics",
+      "pee",
+      "dum"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "dummied",
+      "tammied",
+      "poetics",
+      "dumpee"
+    ]
+  },
+  "2027-05-03": {
+    "fragments": [
+      "ries",
+      "laund",
+      "asing",
+      "rette",
+      "decre",
+      "cana"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "decreasing",
+      "laundrette",
+      "laundries",
+      "retteries"
+    ]
+  },
+  "2027-05-04": {
+    "fragments": [
+      "allig",
+      "rette",
+      "laund",
+      "ries",
+      "ators",
+      "cana"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "laundrette",
+      "alligators",
+      "laundries",
+      "retteries"
+    ]
+  },
+  "2027-05-05": {
+    "fragments": [
+      "tions",
+      "bu",
+      "nuta",
+      "ha",
+      "ggs",
+      "nts"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "nutations",
+      "haggs",
+      "hants",
+      "bunts"
+    ]
+  },
+  "2027-05-06": {
+    "fragments": [
+      "ters",
+      "ha",
+      "sui",
+      "nts",
+      "ggs",
+      "bu"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "suiters",
+      "haters",
+      "suints",
+      "haggs"
+    ]
+  },
+  "2027-05-07": {
+    "fragments": [
+      "tial",
+      "bu",
+      "nts",
+      "ter",
+      "ters",
+      "sui"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "suiters",
+      "tertial",
+      "suints",
+      "suiter"
+    ]
+  },
+  "2027-05-08": {
+    "fragments": [
+      "tial",
+      "tudes",
+      "ter",
+      "ters",
+      "assue",
+      "sui"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "assuetudes",
+      "suiters",
+      "tertial",
+      "suiter"
+    ]
+  },
+  "2027-05-09": {
+    "fragments": [
+      "end",
+      "bread",
+      "ou",
+      "ens",
+      "short",
+      "ewed"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "shortbread",
+      "shortens",
+      "endewed",
+      "ensewed"
+    ]
+  },
+  "2027-05-10": {
+    "fragments": [
+      "moon",
+      "ou",
+      "short",
+      "ens",
+      "bread",
+      "quake"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "shortbread",
+      "moonquake",
+      "shortens",
+      "ouens"
+    ]
+  },
+  "2027-05-11": {
+    "fragments": [
+      "tule",
+      "noc",
+      "oxi",
+      "dic",
+      "dis",
+      "man"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "noctule",
+      "oxidic",
+      "disman",
+      "mandis"
+    ]
+  },
+  "2027-05-12": {
+    "fragments": [
+      "eate",
+      "dis",
+      "dic",
+      "oxi",
+      "croc",
+      "man"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "croceate",
+      "oxidic",
+      "disman",
+      "mandis"
+    ]
+  },
+  "2027-05-13": {
+    "fragments": [
+      "yoid",
+      "man",
+      "dis",
+      "eate",
+      "omoh",
+      "croc"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "croceate",
+      "omohyoid",
+      "disman",
+      "mandis"
+    ]
+  },
+  "2027-05-14": {
+    "fragments": [
+      "cash",
+      "gren",
+      "aches",
+      "ble",
+      "ca",
+      "point"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "cashpoint",
+      "grenaches",
+      "bleaches",
+      "cable"
+    ]
+  },
+  "2027-05-15": {
+    "fragments": [
+      "aches",
+      "irr",
+      "ca",
+      "ble",
+      "gren",
+      "upt"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "grenaches",
+      "bleaches",
+      "irrupt",
+      "cable"
+    ]
+  },
+  "2027-05-16": {
+    "fragments": [
+      "hurd",
+      "tat",
+      "gynos",
+      "temia",
+      "ties",
+      "lers"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "gynostemia",
+      "hurdlers",
+      "tatties",
+      "tatlers"
+    ]
+  },
+  "2027-05-17": {
+    "fragments": [
+      "tawd",
+      "lers",
+      "ries",
+      "ties",
+      "hurd",
+      "tat"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "hurdlers",
+      "tawdries",
+      "tatties",
+      "tatlers"
+    ]
+  },
+  "2027-05-18": {
+    "fragments": [
+      "log",
+      "coal",
+      "pits",
+      "ier",
+      "foot",
+      "baths"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "footbaths",
+      "coalpits",
+      "coalier",
+      "footier"
+    ]
+  },
+  "2027-05-19": {
+    "fragments": [
+      "foot",
+      "log",
+      "ier",
+      "tr",
+      "ail",
+      "baths"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "footbaths",
+      "footier",
+      "logier",
+      "trier"
+    ]
+  },
+  "2027-05-20": {
+    "fragments": [
+      "defol",
+      "tr",
+      "ier",
+      "ail",
+      "log",
+      "iated"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "defoliated",
+      "logier",
+      "trier",
+      "trail"
+    ]
+  },
+  "2027-05-21": {
+    "fragments": [
+      "ney",
+      "edral",
+      "rep",
+      "bo",
+      "lete",
+      "decah"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "decahedral",
+      "replete",
+      "bolete",
+      "boney"
+    ]
+  },
+  "2027-05-22": {
+    "fragments": [
+      "st",
+      "crum",
+      "give",
+      "out",
+      "horn",
+      "yes"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "crumhorn",
+      "outgive",
+      "stout",
+      "styes"
+    ]
+  },
+  "2027-05-23": {
+    "fragments": [
+      "sapl",
+      "ings",
+      "pens",
+      "tock",
+      "lly",
+      "woo"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "penstock",
+      "saplings",
+      "wooings",
+      "woolly"
+    ]
+  },
+  "2027-05-24": {
+    "fragments": [
+      "woo",
+      "illed",
+      "outw",
+      "sapl",
+      "ings",
+      "lly"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "outwilled",
+      "saplings",
+      "outwings",
+      "wooings"
+    ]
+  },
+  "2027-05-25": {
+    "fragments": [
+      "est",
+      "pal",
+      "ings",
+      "illed",
+      "outw",
+      "sapl"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "outwilled",
+      "saplings",
+      "outwings",
+      "palings"
+    ]
+  },
+  "2027-05-26": {
+    "fragments": [
+      "bru",
+      "woman",
+      "nched",
+      "cins",
+      "gilds",
+      "flau"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "gildswoman",
+      "flaunched",
+      "brunched",
+      "brucins"
+    ]
+  },
+  "2027-05-27": {
+    "fragments": [
+      "bru",
+      "nched",
+      "ging",
+      "cins",
+      "flau",
+      "rou"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "flaunched",
+      "brunched",
+      "brucins",
+      "rouging"
+    ]
+  },
+  "2027-05-28": {
+    "fragments": [
+      "octon",
+      "duk",
+      "arian",
+      "pole",
+      "ing",
+      "star"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "octonarian",
+      "polestar",
+      "staring",
+      "duking"
+    ]
+  },
+  "2027-05-29": {
+    "fragments": [
+      "lac",
+      "comm",
+      "une",
+      "rcaps",
+      "oners",
+      "ethe"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "ethercaps",
+      "commoners",
+      "commune",
+      "lacune"
+    ]
+  },
+  "2027-05-30": {
+    "fragments": [
+      "inity",
+      "embo",
+      "ssing",
+      "ines",
+      "chlor",
+      "jasm"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "chlorinity",
+      "chlorines",
+      "embossing",
+      "jasmines"
+    ]
+  },
+  "2027-05-31": {
+    "fragments": [
+      "leg",
+      "twi",
+      "ist",
+      "lead",
+      "sts",
+      "work"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "leadwork",
+      "legwork",
+      "twists",
+      "legist"
+    ]
+  }
+}

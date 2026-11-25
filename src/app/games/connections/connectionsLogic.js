@@ -1,25 +1,25 @@
 import { CONNECTIONS_PUZZLES_JAN_2026 } from './puzzles/connections-2026-01';
 import { CONNECTIONS_PUZZLES_FEB_2026 } from './puzzles/connections-2026-02';
-import connectionsMonth03 from '@/data/all-data/month-03/connections.json';
-import connectionsMonth04 from '@/data/all-data/month-04/connections.json';
-import connectionsMonth05 from '@/data/all-data/month-05/connections.json';
-import connectionsMonth06 from '@/data/all-data/month-06/connections.json';
+import {
+  DailyPuzzleUnavailableError,
+  getAllGameData,
+  getDailyGameDataWithMeta,
+} from '@/data/all-data';
 import { getUserStorageKey } from '@/utils/storageKeys';
 import { getCairoDateKey } from '@/data/all-data/utils/date';
 
-// Convert date-keyed JSON objects to puzzle arrays
-const jsonToArray = (json) =>
-  Object.entries(json).map(([date, data]) => ({ date, ...data }));
-
-// Merge all puzzles from Jan through June
-const ALL_CONNECTIONS_PUZZLES = [
+const LEGACY_CONNECTIONS_PUZZLES = [
   ...CONNECTIONS_PUZZLES_JAN_2026,
   ...CONNECTIONS_PUZZLES_FEB_2026,
-  ...jsonToArray(connectionsMonth03),
-  ...jsonToArray(connectionsMonth04),
-  ...jsonToArray(connectionsMonth05),
-  ...jsonToArray(connectionsMonth06),
 ];
+
+function getAllConnectionsPuzzles() {
+  const central = Object.entries(getAllGameData('connections')).map(([date, data]) => ({
+    date,
+    ...data,
+  }));
+  return [...LEGACY_CONNECTIONS_PUZZLES, ...central];
+}
 
 export const MAX_MISTAKES = 4;
 export const WORDS_PER_GROUP = 4;
@@ -39,16 +39,17 @@ export const GROUP_COLORS = {
  */
 export const getTodaysPuzzle = () => {
   const dateString = getCairoDateKey();
-  
-  // Find puzzle for today
-  const puzzle = ALL_CONNECTIONS_PUZZLES.find(p => p.date === dateString);
-  
-  if (puzzle) {
-    return puzzle;
+
+  try {
+    const daily = getDailyGameDataWithMeta('connections', dateString);
+    return { date: daily.servedDate, ...daily.data };
+  } catch (err) {
+    if (err instanceof DailyPuzzleUnavailableError) {
+      const legacy = LEGACY_CONNECTIONS_PUZZLES.find((p) => p.date === dateString);
+      if (legacy) return legacy;
+    }
+    throw err;
   }
-  
-  // Fallback to first puzzle if today's not found
-  return CONNECTIONS_PUZZLES_JAN_2026[0];
 };
 
 /**

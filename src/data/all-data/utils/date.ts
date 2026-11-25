@@ -1,6 +1,8 @@
 const CAIRO_TIMEZONE = "Africa/Cairo";
 const DATE_KEY_RE = /^(\d{4})-(\d{2})-(\d{2})$/;
 
+const LEGACY_2026_MONTHS = new Set(["2026-02", "2026-03", "2026-04", "2026-05", "2026-06"]);
+
 function parseDateKey(dateKey: string): RegExpMatchArray {
   const match = dateKey.match(DATE_KEY_RE);
   if (!match || !isDateKey(dateKey)) {
@@ -21,8 +23,12 @@ export function getCairoDateKey(date: Date = new Date()): string {
 }
 
 export function monthKeyFromDate(dateKey: string): string {
-  const [, , month] = parseDateKey(dateKey);
-  return `month-${month}`;
+  const [, year, month] = parseDateKey(dateKey);
+  const ym = `${year}-${month}`;
+  if (LEGACY_2026_MONTHS.has(ym)) {
+    return `month-${month}`;
+  }
+  return ym;
 }
 
 export function getYearMonthPrefix(dateKey: string): string {

@@ -1,0 +1,478 @@
+{
+  "2027-02-01": {
+    "fragments": [
+      "ding",
+      "yee",
+      "gra",
+      "uor",
+      "ted",
+      "cr"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "grading",
+      "tedding",
+      "yeeding",
+      "grated"
+    ]
+  },
+  "2027-02-02": {
+    "fragments": [
+      "joll",
+      "ding",
+      "gra",
+      "ities",
+      "ted",
+      "yee"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "jollities",
+      "grading",
+      "tedding",
+      "yeeding"
+    ]
+  },
+  "2027-02-03": {
+    "fragments": [
+      "xias",
+      "line",
+      "neck",
+      "get",
+      "ale",
+      "ups"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "neckline",
+      "lineups",
+      "alexias",
+      "getups"
+    ]
+  },
+  "2027-02-04": {
+    "fragments": [
+      "fold",
+      "crap",
+      "piest",
+      "ups",
+      "outs",
+      "get"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "crappiest",
+      "foldouts",
+      "foldups",
+      "getups"
+    ]
+  },
+  "2027-02-05": {
+    "fragments": [
+      "commo",
+      "pe",
+      "arab",
+      "ising",
+      "nages",
+      "tar"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "commonages",
+      "arabising",
+      "peising",
+      "petar"
+    ]
+  },
+  "2027-02-06": {
+    "fragments": [
+      "unmo",
+      "arab",
+      "tar",
+      "lding",
+      "pe",
+      "ising"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "arabising",
+      "unmolding",
+      "peising",
+      "petar"
+    ]
+  },
+  "2027-02-07": {
+    "fragments": [
+      "rily",
+      "ting",
+      "ses",
+      "bow",
+      "blur",
+      "indi"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "blurrily",
+      "blurting",
+      "inditing",
+      "bowses"
+    ]
+  },
+  "2027-02-08": {
+    "fragments": [
+      "rily",
+      "blur",
+      "indi",
+      "ting",
+      "enfo",
+      "rmed"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "blurrily",
+      "blurting",
+      "inditing",
+      "enformed"
+    ]
+  },
+  "2027-02-09": {
+    "fragments": [
+      "bat",
+      "rmed",
+      "ting",
+      "indi",
+      "hed",
+      "enfo"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "inditing",
+      "enformed",
+      "batting",
+      "bathed"
+    ]
+  },
+  "2027-02-10": {
+    "fragments": [
+      "rmed",
+      "her",
+      "enfo",
+      "bat",
+      "nes",
+      "hed"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "enformed",
+      "bathed",
+      "bather",
+      "nesher"
+    ]
+  },
+  "2027-02-11": {
+    "fragments": [
+      "ston",
+      "her",
+      "hed",
+      "nes",
+      "kered",
+      "bat"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "stonkered",
+      "stonnes",
+      "bathed",
+      "bather"
+    ]
+  },
+  "2027-02-12": {
+    "fragments": [
+      "nes",
+      "ston",
+      "kered",
+      "her",
+      "iest",
+      "nuts"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "stonkered",
+      "stoniest",
+      "nutsiest",
+      "stonnes"
+    ]
+  },
+  "2027-02-13": {
+    "fragments": [
+      "kered",
+      "fluf",
+      "nuts",
+      "ston",
+      "fers",
+      "iest"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "stonkered",
+      "stoniest",
+      "nutsiest",
+      "fluffers"
+    ]
+  },
+  "2027-02-14": {
+    "fragments": [
+      "vigo",
+      "ncter",
+      "succi",
+      "glin",
+      "ting",
+      "rous"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "succincter",
+      "glinting",
+      "vigorous",
+      "rousting"
+    ]
+  },
+  "2027-02-15": {
+    "fragments": [
+      "rous",
+      "ngas",
+      "vigo",
+      "ting",
+      "glin",
+      "tika"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "glinting",
+      "vigorous",
+      "rousting",
+      "tikangas"
+    ]
+  },
+  "2027-02-16": {
+    "fragments": [
+      "lery",
+      "lings",
+      "diab",
+      "onry",
+      "duke",
+      "her"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "dukelings",
+      "diablery",
+      "herlings",
+      "heronry"
+    ]
+  },
+  "2027-02-17": {
+    "fragments": [
+      "da",
+      "pott",
+      "ters",
+      "eries",
+      "aba",
+      "vit"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "potteries",
+      "abaters",
+      "daters",
+      "davit"
+    ]
+  },
+  "2027-02-18": {
+    "fragments": [
+      "lly",
+      "vit",
+      "kno",
+      "aba",
+      "da",
+      "ters"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "abaters",
+      "daters",
+      "knolly",
+      "davit"
+    ]
+  },
+  "2027-02-19": {
+    "fragments": [
+      "ting",
+      "pit",
+      "din",
+      "ner",
+      "bl",
+      "ack"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "dinting",
+      "pitting",
+      "dinner",
+      "black"
+    ]
+  },
+  "2027-02-20": {
+    "fragments": [
+      "lib",
+      "ken",
+      "sing",
+      "wea",
+      "sand",
+      "ioni"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "ionising",
+      "weasand",
+      "libken",
+      "weaken"
+    ]
+  },
+  "2027-02-21": {
+    "fragments": [
+      "wea",
+      "inte",
+      "rpage",
+      "ken",
+      "sand",
+      "lib"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "interpage",
+      "weasand",
+      "libken",
+      "weaken"
+    ]
+  },
+  "2027-02-22": {
+    "fragments": [
+      "ding",
+      "syn",
+      "shr",
+      "ender",
+      "desc",
+      "off"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "descender",
+      "offender",
+      "synding",
+      "shroff"
+    ]
+  },
+  "2027-02-23": {
+    "fragments": [
+      "ker",
+      "ender",
+      "off",
+      "shr",
+      "ren",
+      "desc"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "descender",
+      "offender",
+      "shroff",
+      "renker"
+    ]
+  },
+  "2027-02-24": {
+    "fragments": [
+      "kway",
+      "par",
+      "off",
+      "shr",
+      "ker",
+      "ren"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "parkway",
+      "shroff",
+      "renker",
+      "parker"
+    ]
+  },
+  "2027-02-25": {
+    "fragments": [
+      "ata",
+      "ren",
+      "kway",
+      "par",
+      "vism",
+      "ker"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "parkway",
+      "atavism",
+      "renker",
+      "parker"
+    ]
+  },
+  "2027-02-26": {
+    "fragments": [
+      "dyv",
+      "ble",
+      "piqua",
+      "ncies",
+      "our",
+      "rum"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "piquancies",
+      "rumble",
+      "rumour",
+      "dyvour"
+    ]
+  },
+  "2027-02-27": {
+    "fragments": [
+      "res",
+      "ging",
+      "yo",
+      "ton",
+      "gin",
+      "een"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "tonging",
+      "reseen",
+      "yogin",
+      "yores"
+    ]
+  },
+  "2027-02-28": {
+    "fragments": [
+      "res",
+      "ton",
+      "een",
+      "cha",
+      "ging",
+      "mor"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "tonging",
+      "reseen",
+      "moreen",
+      "morcha"
+    ]
+  }
+}

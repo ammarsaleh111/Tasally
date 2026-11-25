@@ -1,0 +1,1710 @@
+{
+  "2027-02-01": {
+    "grid": [
+      [
+        "F",
+        "O",
+        "C",
+        "A",
+        "L"
+      ],
+      [
+        "L",
+        "",
+        "H",
+        "",
+        "A"
+      ],
+      [
+        "A",
+        "C",
+        "O",
+        "R",
+        "N"
+      ],
+      [
+        "S",
+        "",
+        "I",
+        "",
+        "C"
+      ],
+      [
+        "H",
+        "O",
+        "R",
+        "D",
+        "E"
+      ]
+    ],
+    "across": {
+      "1": "Central point",
+      "4": "Oak tree seed",
+      "5": "Large crowd"
+    },
+    "down": {
+      "1": "Brief bright light",
+      "2": "Singing group",
+      "3": "Knight's long spear"
+    },
+    "solution": {
+      "across": {
+        "1": "FOCAL",
+        "4": "ACORN",
+        "5": "HORDE"
+      },
+      "down": {
+        "1": "FLASH",
+        "2": "CHOIR",
+        "3": "LANCE"
+      }
+    }
+  },
+  "2027-02-02": {
+    "grid": [
+      [
+        "A",
+        "R",
+        "I",
+        "S",
+        "E"
+      ],
+      [
+        "N",
+        "",
+        "D",
+        "",
+        "L"
+      ],
+      [
+        "G",
+        "R",
+        "I",
+        "N",
+        "D"
+      ],
+      [
+        "E",
+        "",
+        "O",
+        "",
+        "E"
+      ],
+      [
+        "L",
+        "E",
+        "M",
+        "U",
+        "R"
+      ]
+    ],
+    "across": {
+      "1": "Get up",
+      "4": "Crush into powder",
+      "5": "Madagascar primate"
+    },
+    "down": {
+      "1": "Heavenly messenger",
+      "2": "Figurative phrase",
+      "3": "Older community member"
+    },
+    "solution": {
+      "across": {
+        "1": "ARISE",
+        "4": "GRIND",
+        "5": "LEMUR"
+      },
+      "down": {
+        "1": "ANGEL",
+        "2": "IDIOM",
+        "3": "ELDER"
+      }
+    }
+  },
+  "2027-02-03": {
+    "grid": [
+      [
+        "G",
+        "R",
+        "A",
+        "V",
+        "E"
+      ],
+      [
+        "L",
+        "",
+        "D",
+        "",
+        "N"
+      ],
+      [
+        "A",
+        "B",
+        "O",
+        "U",
+        "T"
+      ],
+      [
+        "R",
+        "",
+        "P",
+        "",
+        "E"
+      ],
+      [
+        "E",
+        "A",
+        "T",
+        "E",
+        "R"
+      ]
+    ],
+    "across": {
+      "1": "Serious or solemn",
+      "4": "Approximately",
+      "5": "Diner"
+    },
+    "down": {
+      "1": "Harsh bright light",
+      "2": "Take in as one's own",
+      "3": "Go inside"
+    },
+    "solution": {
+      "across": {
+        "1": "GRAVE",
+        "4": "ABOUT",
+        "5": "EATER"
+      },
+      "down": {
+        "1": "GLARE",
+        "2": "ADOPT",
+        "3": "ENTER"
+      }
+    }
+  },
+  "2027-02-04": {
+    "grid": [
+      [
+        "E",
+        "M",
+        "C",
+        "E",
+        "E"
+      ],
+      [
+        "R",
+        "",
+        "E",
+        "",
+        "A"
+      ],
+      [
+        "A",
+        "U",
+        "D",
+        "I",
+        "T"
+      ],
+      [
+        "S",
+        "",
+        "A",
+        "",
+        "E"
+      ],
+      [
+        "E",
+        "R",
+        "R",
+        "O",
+        "R"
+      ]
+    ],
+    "across": {
+      "1": "Event host",
+      "4": "Financial inspection",
+      "5": "Mistake"
+    },
+    "down": {
+      "1": "Wipe away",
+      "2": "Fragrant evergreen",
+      "3": "Diner"
+    },
+    "solution": {
+      "across": {
+        "1": "EMCEE",
+        "4": "AUDIT",
+        "5": "ERROR"
+      },
+      "down": {
+        "1": "ERASE",
+        "2": "CEDAR",
+        "3": "EATER"
+      }
+    }
+  },
+  "2027-02-05": {
+    "grid": [
+      [
+        "G",
+        "L",
+        "A",
+        "Z",
+        "E"
+      ],
+      [
+        "R",
+        "",
+        "L",
+        "",
+        "L"
+      ],
+      [
+        "E",
+        "L",
+        "O",
+        "P",
+        "E"
+      ],
+      [
+        "E",
+        "",
+        "N",
+        "",
+        "C"
+      ],
+      [
+        "D",
+        "I",
+        "G",
+        "I",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Shiny donut coating",
+      "4": "Run off to marry",
+      "5": "Single numeral"
+    },
+    "down": {
+      "1": "Excessive desire",
+      "2": "Beside the length of",
+      "3": "Choose by vote"
+    },
+    "solution": {
+      "across": {
+        "1": "GLAZE",
+        "4": "ELOPE",
+        "5": "DIGIT"
+      },
+      "down": {
+        "1": "GREED",
+        "2": "ALONG",
+        "3": "ELECT"
+      }
+    }
+  },
+  "2027-02-06": {
+    "grid": [
+      [
+        "L",
+        "A",
+        "B",
+        "E",
+        "L"
+      ],
+      [
+        "E",
+        "",
+        "R",
+        "",
+        "A"
+      ],
+      [
+        "A",
+        "C",
+        "O",
+        "R",
+        "N"
+      ],
+      [
+        "C",
+        "",
+        "I",
+        "",
+        "C"
+      ],
+      [
+        "H",
+        "A",
+        "L",
+        "V",
+        "E"
+      ]
+    ],
+    "across": {
+      "1": "Identifying tag",
+      "4": "Oak tree seed",
+      "5": "Split into two"
+    },
+    "down": {
+      "1": "Filter out slowly",
+      "2": "Cook under high heat",
+      "3": "Knight's long spear"
+    },
+    "solution": {
+      "across": {
+        "1": "LABEL",
+        "4": "ACORN",
+        "5": "HALVE"
+      },
+      "down": {
+        "1": "LEACH",
+        "2": "BROIL",
+        "3": "LANCE"
+      }
+    }
+  },
+  "2027-02-07": {
+    "grid": [
+      [
+        "A",
+        "N",
+        "G",
+        "L",
+        "E"
+      ],
+      [
+        "L",
+        "",
+        "L",
+        "",
+        "V"
+      ],
+      [
+        "I",
+        "M",
+        "A",
+        "G",
+        "E"
+      ],
+      [
+        "K",
+        "",
+        "D",
+        "",
+        "N"
+      ],
+      [
+        "E",
+        "X",
+        "E",
+        "R",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Corner measurement",
+      "4": "Picture",
+      "5": "Apply effort"
+    },
+    "down": {
+      "1": "Similar",
+      "2": "Forest clearing",
+      "3": "Scheduled happening"
+    },
+    "solution": {
+      "across": {
+        "1": "ANGLE",
+        "4": "IMAGE",
+        "5": "EXERT"
+      },
+      "down": {
+        "1": "ALIKE",
+        "2": "GLADE",
+        "3": "EVENT"
+      }
+    }
+  },
+  "2027-02-08": {
+    "grid": [
+      [
+        "F",
+        "R",
+        "I",
+        "E",
+        "D"
+      ],
+      [
+        "R",
+        "",
+        "N",
+        "",
+        "W"
+      ],
+      [
+        "E",
+        "A",
+        "G",
+        "L",
+        "E"
+      ],
+      [
+        "S",
+        "",
+        "O",
+        "",
+        "L"
+      ],
+      [
+        "H",
+        "O",
+        "T",
+        "E",
+        "L"
+      ]
+    ],
+    "across": {
+      "1": "Cooked in oil",
+      "4": "Soaring bird of prey",
+      "5": "Traveler's lodging"
+    },
+    "down": {
+      "1": "Newly picked",
+      "2": "Bar of pure gold",
+      "3": "Live in a place"
+    },
+    "solution": {
+      "across": {
+        "1": "FRIED",
+        "4": "EAGLE",
+        "5": "HOTEL"
+      },
+      "down": {
+        "1": "FRESH",
+        "2": "INGOT",
+        "3": "DWELL"
+      }
+    }
+  },
+  "2027-02-09": {
+    "grid": [
+      [
+        "B",
+        "L",
+        "I",
+        "N",
+        "K"
+      ],
+      [
+        "R",
+        "",
+        "N",
+        "",
+        "N"
+      ],
+      [
+        "A",
+        "W",
+        "A",
+        "R",
+        "E"
+      ],
+      [
+        "K",
+        "",
+        "N",
+        "",
+        "L"
+      ],
+      [
+        "E",
+        "V",
+        "E",
+        "N",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Wink both eyes",
+      "4": "Conscious of",
+      "5": "Scheduled happening"
+    },
+    "down": {
+      "1": "Stopping pedal",
+      "2": "Silly and pointless",
+      "3": "Dropped to the knees"
+    },
+    "solution": {
+      "across": {
+        "1": "BLINK",
+        "4": "AWARE",
+        "5": "EVENT"
+      },
+      "down": {
+        "1": "BRAKE",
+        "2": "INANE",
+        "3": "KNELT"
+      }
+    }
+  },
+  "2027-02-10": {
+    "grid": [
+      [
+        "D",
+        "E",
+        "A",
+        "T",
+        "H"
+      ],
+      [
+        "W",
+        "",
+        "B",
+        "",
+        "E"
+      ],
+      [
+        "E",
+        "L",
+        "O",
+        "P",
+        "E"
+      ],
+      [
+        "L",
+        "",
+        "U",
+        "",
+        "L"
+      ],
+      [
+        "L",
+        "O",
+        "T",
+        "U",
+        "S"
+      ]
+    ],
+    "across": {
+      "1": "End of life",
+      "4": "Run off to marry",
+      "5": "Sacred pond flower"
+    },
+    "down": {
+      "1": "Live in a place",
+      "2": "Approximately",
+      "3": "Back parts of shoes"
+    },
+    "solution": {
+      "across": {
+        "1": "DEATH",
+        "4": "ELOPE",
+        "5": "LOTUS"
+      },
+      "down": {
+        "1": "DWELL",
+        "2": "ABOUT",
+        "3": "HEELS"
+      }
+    }
+  },
+  "2027-02-11": {
+    "grid": [
+      [
+        "K",
+        "E",
+        "B",
+        "A",
+        "B"
+      ],
+      [
+        "H",
+        "",
+        "L",
+        "",
+        "R"
+      ],
+      [
+        "A",
+        "R",
+        "E",
+        "N",
+        "A"
+      ],
+      [
+        "K",
+        "",
+        "S",
+        "",
+        "K"
+      ],
+      [
+        "I",
+        "S",
+        "S",
+        "U",
+        "E"
+      ]
+    ],
+    "across": {
+      "1": "Skewered grilled meat",
+      "4": "Sports stadium",
+      "5": "Topic or edition"
+    },
+    "down": {
+      "1": "Tan fabric color",
+      "2": "Bestow favor upon",
+      "3": "Stopping pedal"
+    },
+    "solution": {
+      "across": {
+        "1": "KEBAB",
+        "4": "ARENA",
+        "5": "ISSUE"
+      },
+      "down": {
+        "1": "KHAKI",
+        "2": "BLESS",
+        "3": "BRAKE"
+      }
+    }
+  },
+  "2027-02-12": {
+    "grid": [
+      [
+        "C",
+        "R",
+        "A",
+        "Z",
+        "E"
+      ],
+      [
+        "R",
+        "",
+        "R",
+        "",
+        "V"
+      ],
+      [
+        "E",
+        "X",
+        "I",
+        "L",
+        "E"
+      ],
+      [
+        "A",
+        "",
+        "S",
+        "",
+        "N"
+      ],
+      [
+        "K",
+        "N",
+        "E",
+        "L",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Passing fad",
+      "4": "Banish from homeland",
+      "5": "Dropped to the knees"
+    },
+    "down": {
+      "1": "Old floorboard sound",
+      "2": "Get up",
+      "3": "Scheduled happening"
+    },
+    "solution": {
+      "across": {
+        "1": "CRAZE",
+        "4": "EXILE",
+        "5": "KNELT"
+      },
+      "down": {
+        "1": "CREAK",
+        "2": "ARISE",
+        "3": "EVENT"
+      }
+    }
+  },
+  "2027-02-13": {
+    "grid": [
+      [
+        "A",
+        "R",
+        "E",
+        "N",
+        "A"
+      ],
+      [
+        "W",
+        "",
+        "X",
+        "",
+        "R"
+      ],
+      [
+        "A",
+        "L",
+        "A",
+        "R",
+        "M"
+      ],
+      [
+        "R",
+        "",
+        "C",
+        "",
+        "O"
+      ],
+      [
+        "E",
+        "N",
+        "T",
+        "E",
+        "R"
+      ]
+    ],
+    "across": {
+      "1": "Sports stadium",
+      "4": "Morning wake-up sound",
+      "5": "Go inside"
+    },
+    "down": {
+      "1": "Conscious of",
+      "2": "Precisely accurate",
+      "3": "Knight's metal suit"
+    },
+    "solution": {
+      "across": {
+        "1": "ARENA",
+        "4": "ALARM",
+        "5": "ENTER"
+      },
+      "down": {
+        "1": "AWARE",
+        "2": "EXACT",
+        "3": "ARMOR"
+      }
+    }
+  },
+  "2027-02-14": {
+    "grid": [
+      [
+        "F",
+        "I",
+        "F",
+        "T",
+        "H"
+      ],
+      [
+        "U",
+        "",
+        "L",
+        "",
+        "O"
+      ],
+      [
+        "D",
+        "R",
+        "A",
+        "I",
+        "N"
+      ],
+      [
+        "G",
+        "",
+        "K",
+        "",
+        "E"
+      ],
+      [
+        "E",
+        "V",
+        "E",
+        "R",
+        "Y"
+      ]
+    ],
+    "across": {
+      "1": "After fourth",
+      "4": "Sink outlet",
+      "5": "Each and all"
+    },
+    "down": {
+      "1": "Rich chocolate candy",
+      "2": "Tiny snow piece",
+      "3": "Sweet bee product"
+    },
+    "solution": {
+      "across": {
+        "1": "FIFTH",
+        "4": "DRAIN",
+        "5": "EVERY"
+      },
+      "down": {
+        "1": "FUDGE",
+        "2": "FLAKE",
+        "3": "HONEY"
+      }
+    }
+  },
+  "2027-02-15": {
+    "grid": [
+      [
+        "L",
+        "O",
+        "D",
+        "G",
+        "E"
+      ],
+      [
+        "E",
+        "",
+        "R",
+        "",
+        "N"
+      ],
+      [
+        "A",
+        "M",
+        "E",
+        "N",
+        "D"
+      ],
+      [
+        "S",
+        "",
+        "A",
+        "",
+        "E"
+      ],
+      [
+        "H",
+        "U",
+        "M",
+        "I",
+        "D"
+      ]
+    ],
+    "across": {
+      "1": "Mountain cabin",
+      "4": "Improve or revise",
+      "5": "Damp and muggy"
+    },
+    "down": {
+      "1": "Dog-walking strap",
+      "2": "Sleep vision",
+      "3": "Finished"
+    },
+    "solution": {
+      "across": {
+        "1": "LODGE",
+        "4": "AMEND",
+        "5": "HUMID"
+      },
+      "down": {
+        "1": "LEASH",
+        "2": "DREAM",
+        "3": "ENDED"
+      }
+    }
+  },
+  "2027-02-16": {
+    "grid": [
+      [
+        "C",
+        "L",
+        "A",
+        "S",
+        "H"
+      ],
+      [
+        "R",
+        "",
+        "C",
+        "",
+        "A"
+      ],
+      [
+        "E",
+        "A",
+        "T",
+        "E",
+        "R"
+      ],
+      [
+        "E",
+        "",
+        "O",
+        "",
+        "D"
+      ],
+      [
+        "D",
+        "E",
+        "R",
+        "B",
+        "Y"
+      ]
+    ],
+    "across": {
+      "1": "Loud collision",
+      "4": "Diner",
+      "5": "Famous horse race"
+    },
+    "down": {
+      "1": "Statement of belief",
+      "2": "Stage performer",
+      "3": "Tough and resilient"
+    },
+    "solution": {
+      "across": {
+        "1": "CLASH",
+        "4": "EATER",
+        "5": "DERBY"
+      },
+      "down": {
+        "1": "CREED",
+        "2": "ACTOR",
+        "3": "HARDY"
+      }
+    }
+  },
+  "2027-02-17": {
+    "grid": [
+      [
+        "K",
+        "N",
+        "E",
+        "A",
+        "D"
+      ],
+      [
+        "N",
+        "",
+        "N",
+        "",
+        "R"
+      ],
+      [
+        "E",
+        "X",
+        "T",
+        "R",
+        "A"
+      ],
+      [
+        "E",
+        "",
+        "E",
+        "",
+        "P"
+      ],
+      [
+        "L",
+        "A",
+        "R",
+        "G",
+        "E"
+      ]
+    ],
+    "across": {
+      "1": "Work bread dough",
+      "4": "Additional",
+      "5": "Big in size"
+    },
+    "down": {
+      "1": "Drop to one's knees",
+      "2": "Go inside",
+      "3": "Hang loosely"
+    },
+    "solution": {
+      "across": {
+        "1": "KNEAD",
+        "4": "EXTRA",
+        "5": "LARGE"
+      },
+      "down": {
+        "1": "KNEEL",
+        "2": "ENTER",
+        "3": "DRAPE"
+      }
+    }
+  },
+  "2027-02-18": {
+    "grid": [
+      [
+        "K",
+        "N",
+        "A",
+        "C",
+        "K"
+      ],
+      [
+        "H",
+        "",
+        "W",
+        "",
+        "N"
+      ],
+      [
+        "A",
+        "W",
+        "A",
+        "K",
+        "E"
+      ],
+      [
+        "K",
+        "",
+        "R",
+        "",
+        "L"
+      ],
+      [
+        "I",
+        "N",
+        "E",
+        "P",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Natural talent",
+      "4": "Not sleeping",
+      "5": "Clumsy and unskilled"
+    },
+    "down": {
+      "1": "Tan fabric color",
+      "2": "Conscious of",
+      "3": "Dropped to the knees"
+    },
+    "solution": {
+      "across": {
+        "1": "KNACK",
+        "4": "AWAKE",
+        "5": "INEPT"
+      },
+      "down": {
+        "1": "KHAKI",
+        "2": "AWARE",
+        "3": "KNELT"
+      }
+    }
+  },
+  "2027-02-19": {
+    "grid": [
+      [
+        "C",
+        "R",
+        "A",
+        "Z",
+        "E"
+      ],
+      [
+        "H",
+        "",
+        "S",
+        "",
+        "X"
+      ],
+      [
+        "E",
+        "X",
+        "I",
+        "L",
+        "E"
+      ],
+      [
+        "C",
+        "",
+        "D",
+        "",
+        "R"
+      ],
+      [
+        "K",
+        "N",
+        "E",
+        "L",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Passing fad",
+      "4": "Banish from homeland",
+      "5": "Dropped to the knees"
+    },
+    "down": {
+      "1": "Verify or inspect",
+      "2": "To one side",
+      "3": "Apply effort"
+    },
+    "solution": {
+      "across": {
+        "1": "CRAZE",
+        "4": "EXILE",
+        "5": "KNELT"
+      },
+      "down": {
+        "1": "CHECK",
+        "2": "ASIDE",
+        "3": "EXERT"
+      }
+    }
+  },
+  "2027-02-20": {
+    "grid": [
+      [
+        "B",
+        "R",
+        "I",
+        "S",
+        "K"
+      ],
+      [
+        "O",
+        "",
+        "C",
+        "",
+        "N"
+      ],
+      [
+        "A",
+        "L",
+        "I",
+        "V",
+        "E"
+      ],
+      [
+        "R",
+        "",
+        "N",
+        "",
+        "L"
+      ],
+      [
+        "D",
+        "I",
+        "G",
+        "I",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Quick and energetic",
+      "4": "Living and breathing",
+      "5": "Single numeral"
+    },
+    "down": {
+      "1": "Flat piece of wood",
+      "2": "Cake frosting",
+      "3": "Dropped to the knees"
+    },
+    "solution": {
+      "across": {
+        "1": "BRISK",
+        "4": "ALIVE",
+        "5": "DIGIT"
+      },
+      "down": {
+        "1": "BOARD",
+        "2": "ICING",
+        "3": "KNELT"
+      }
+    }
+  },
+  "2027-02-21": {
+    "grid": [
+      [
+        "K",
+        "N",
+        "E",
+        "E",
+        "L"
+      ],
+      [
+        "O",
+        "",
+        "A",
+        "",
+        "A"
+      ],
+      [
+        "A",
+        "R",
+        "S",
+        "O",
+        "N"
+      ],
+      [
+        "L",
+        "",
+        "E",
+        "",
+        "D"
+      ],
+      [
+        "A",
+        "T",
+        "L",
+        "A",
+        "S"
+      ]
+    ],
+    "across": {
+      "1": "Drop to one's knees",
+      "4": "Intentional fire-setting",
+      "5": "Book of maps"
+    },
+    "down": {
+      "1": "Eucalyptus-eating marsupial",
+      "2": "Painter's stand",
+      "3": "Touches down"
+    },
+    "solution": {
+      "across": {
+        "1": "KNEEL",
+        "4": "ARSON",
+        "5": "ATLAS"
+      },
+      "down": {
+        "1": "KOALA",
+        "2": "EASEL",
+        "3": "LANDS"
+      }
+    }
+  },
+  "2027-02-22": {
+    "grid": [
+      [
+        "A",
+        "R",
+        "G",
+        "U",
+        "E"
+      ],
+      [
+        "M",
+        "",
+        "O",
+        "",
+        "L"
+      ],
+      [
+        "E",
+        "L",
+        "I",
+        "T",
+        "E"
+      ],
+      [
+        "N",
+        "",
+        "N",
+        "",
+        "C"
+      ],
+      [
+        "D",
+        "I",
+        "G",
+        "I",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Debateheatedly",
+      "4": "Top-tier group",
+      "5": "Single numeral"
+    },
+    "down": {
+      "1": "Improve or revise",
+      "2": "Departing",
+      "3": "Choose by vote"
+    },
+    "solution": {
+      "across": {
+        "1": "ARGUE",
+        "4": "ELITE",
+        "5": "DIGIT"
+      },
+      "down": {
+        "1": "AMEND",
+        "2": "GOING",
+        "3": "ELECT"
+      }
+    }
+  },
+  "2027-02-23": {
+    "grid": [
+      [
+        "F",
+        "R",
+        "I",
+        "E",
+        "D"
+      ],
+      [
+        "I",
+        "",
+        "N",
+        "",
+        "R"
+      ],
+      [
+        "L",
+        "I",
+        "N",
+        "G",
+        "O"
+      ],
+      [
+        "T",
+        "",
+        "E",
+        "",
+        "N"
+      ],
+      [
+        "H",
+        "O",
+        "R",
+        "S",
+        "E"
+      ]
+    ],
+    "across": {
+      "1": "Cooked in oil",
+      "4": "Specialized slang",
+      "5": "Galloping steed"
+    },
+    "down": {
+      "1": "Heavy dirt",
+      "2": "Located inside",
+      "3": "Unmanned flying craft"
+    },
+    "solution": {
+      "across": {
+        "1": "FRIED",
+        "4": "LINGO",
+        "5": "HORSE"
+      },
+      "down": {
+        "1": "FILTH",
+        "2": "INNER",
+        "3": "DRONE"
+      }
+    }
+  },
+  "2027-02-24": {
+    "grid": [
+      [
+        "C",
+        "O",
+        "B",
+        "R",
+        "A"
+      ],
+      [
+        "R",
+        "",
+        "U",
+        "",
+        "R"
+      ],
+      [
+        "A",
+        "G",
+        "R",
+        "E",
+        "E"
+      ],
+      [
+        "Z",
+        "",
+        "S",
+        "",
+        "N"
+      ],
+      [
+        "E",
+        "X",
+        "T",
+        "R",
+        "A"
+      ]
+    ],
+    "across": {
+      "1": "Hooded snake",
+      "4": "Have the same view",
+      "5": "Additional"
+    },
+    "down": {
+      "1": "Passing fad",
+      "2": "Pop open",
+      "3": "Sports stadium"
+    },
+    "solution": {
+      "across": {
+        "1": "COBRA",
+        "4": "AGREE",
+        "5": "EXTRA"
+      },
+      "down": {
+        "1": "CRAZE",
+        "2": "BURST",
+        "3": "ARENA"
+      }
+    }
+  },
+  "2027-02-25": {
+    "grid": [
+      [
+        "B",
+        "R",
+        "A",
+        "V",
+        "E"
+      ],
+      [
+        "L",
+        "",
+        "L",
+        "",
+        "N"
+      ],
+      [
+        "A",
+        "R",
+        "O",
+        "M",
+        "A"
+      ],
+      [
+        "Z",
+        "",
+        "N",
+        "",
+        "C"
+      ],
+      [
+        "E",
+        "V",
+        "E",
+        "N",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Courageous",
+      "4": "Pleasant smell",
+      "5": "Scheduled happening"
+    },
+    "down": {
+      "1": "Bright fire",
+      "2": "Without company",
+      "3": "Pass into law"
+    },
+    "solution": {
+      "across": {
+        "1": "BRAVE",
+        "4": "AROMA",
+        "5": "EVENT"
+      },
+      "down": {
+        "1": "BLAZE",
+        "2": "ALONE",
+        "3": "ENACT"
+      }
+    }
+  },
+  "2027-02-26": {
+    "grid": [
+      [
+        "B",
+        "E",
+        "A",
+        "C",
+        "H"
+      ],
+      [
+        "L",
+        "",
+        "L",
+        "",
+        "I"
+      ],
+      [
+        "I",
+        "D",
+        "E",
+        "A",
+        "L"
+      ],
+      [
+        "N",
+        "",
+        "R",
+        "",
+        "L"
+      ],
+      [
+        "K",
+        "I",
+        "T",
+        "T",
+        "Y"
+      ]
+    ],
+    "across": {
+      "1": "Sandy shore",
+      "4": "Perfect standard",
+      "5": "Young cat"
+    },
+    "down": {
+      "1": "Wink both eyes",
+      "2": "Watchful and ready",
+      "3": "Has many hills"
+    },
+    "solution": {
+      "across": {
+        "1": "BEACH",
+        "4": "IDEAL",
+        "5": "KITTY"
+      },
+      "down": {
+        "1": "BLINK",
+        "2": "ALERT",
+        "3": "HILLY"
+      }
+    }
+  },
+  "2027-02-27": {
+    "grid": [
+      [
+        "G",
+        "R",
+        "A",
+        "P",
+        "E"
+      ],
+      [
+        "R",
+        "",
+        "R",
+        "",
+        "A"
+      ],
+      [
+        "A",
+        "D",
+        "M",
+        "I",
+        "T"
+      ],
+      [
+        "P",
+        "",
+        "O",
+        "",
+        "E"
+      ],
+      [
+        "H",
+        "E",
+        "R",
+        "O",
+        "N"
+      ]
+    ],
+    "across": {
+      "1": "Vineyard fruit",
+      "4": "Confess",
+      "5": "Long-legged wading bird"
+    },
+    "down": {
+      "1": "Plotted chart",
+      "2": "Knight's metal suit",
+      "3": "Consumed"
+    },
+    "solution": {
+      "across": {
+        "1": "GRAPE",
+        "4": "ADMIT",
+        "5": "HERON"
+      },
+      "down": {
+        "1": "GRAPH",
+        "2": "ARMOR",
+        "3": "EATEN"
+      }
+    }
+  },
+  "2027-02-28": {
+    "grid": [
+      [
+        "D",
+        "E",
+        "B",
+        "U",
+        "G"
+      ],
+      [
+        "R",
+        "",
+        "R",
+        "",
+        "U"
+      ],
+      [
+        "E",
+        "L",
+        "O",
+        "P",
+        "E"
+      ],
+      [
+        "A",
+        "",
+        "I",
+        "",
+        "S"
+      ],
+      [
+        "D",
+        "U",
+        "L",
+        "L",
+        "S"
+      ]
+    ],
+    "across": {
+      "1": "Fix software errors",
+      "4": "Run off to marry",
+      "5": "Makes less sharp"
+    },
+    "down": {
+      "1": "Deep fear",
+      "2": "Cook under high heat",
+      "3": "Estimate without knowing"
+    },
+    "solution": {
+      "across": {
+        "1": "DEBUG",
+        "4": "ELOPE",
+        "5": "DULLS"
+      },
+      "down": {
+        "1": "DREAD",
+        "2": "BROIL",
+        "3": "GUESS"
+      }
+    }
+  }
+}

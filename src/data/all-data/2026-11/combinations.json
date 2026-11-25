@@ -1,0 +1,104 @@
+{
+  "2026-11-25": {
+    "fragments": [
+      "tings",
+      "char",
+      "repu",
+      "broil",
+      "sely",
+      "loo"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "reputings",
+      "charbroil",
+      "lootings",
+      "loosely"
+    ]
+  },
+  "2026-11-26": {
+    "fragments": [
+      "sen",
+      "loo",
+      "char",
+      "try",
+      "sely",
+      "broil"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "charbroil",
+      "loosely",
+      "loosen",
+      "sentry"
+    ]
+  },
+  "2026-11-27": {
+    "fragments": [
+      "ange",
+      "sely",
+      "sen",
+      "try",
+      "loo",
+      "der"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "loosely",
+      "derange",
+      "loosen",
+      "sentry"
+    ]
+  },
+  "2026-11-28": {
+    "fragments": [
+      "sen",
+      "ange",
+      "hest",
+      "try",
+      "plus",
+      "der"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "plushest",
+      "derange",
+      "sentry",
+      "sender"
+    ]
+  },
+  "2026-11-29": {
+    "fragments": [
+      "alter",
+      "tey",
+      "cu",
+      "iques",
+      "domin",
+      "ative"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "dominiques",
+      "dominative",
+      "alterative",
+      "cutey"
+    ]
+  },
+  "2026-11-30": {
+    "fragments": [
+      "fying",
+      "iques",
+      "alter",
+      "vitri",
+      "domin",
+      "ative"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "dominiques",
+      "dominative",
+      "alterative",
+      "vitrifying"
+    ]
+  }
+}

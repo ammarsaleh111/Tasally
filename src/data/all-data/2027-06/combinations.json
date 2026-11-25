@@ -1,0 +1,512 @@
+{
+  "2027-06-01": {
+    "fragments": [
+      "leg",
+      "ist",
+      "lead",
+      "uish",
+      "work",
+      "ang"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "leadwork",
+      "legwork",
+      "anguish",
+      "legist"
+    ]
+  },
+  "2027-06-02": {
+    "fragments": [
+      "work",
+      "ging",
+      "ang",
+      "lead",
+      "ered",
+      "uish"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "leadwork",
+      "gingered",
+      "anguish",
+      "angered"
+    ]
+  },
+  "2027-06-03": {
+    "fragments": [
+      "ging",
+      "ered",
+      "tlock",
+      "uish",
+      "ang",
+      "wris"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "wristlock",
+      "gingered",
+      "anguish",
+      "angered"
+    ]
+  },
+  "2027-06-04": {
+    "fragments": [
+      "alon",
+      "shed",
+      "dings",
+      "sta",
+      "pant",
+      "chys"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "sheddings",
+      "pantalon",
+      "stashed",
+      "stachys"
+    ]
+  },
+  "2027-06-05": {
+    "fragments": [
+      "shed",
+      "chys",
+      "sta",
+      "dings",
+      "lde",
+      "ti"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "sheddings",
+      "stashed",
+      "stachys",
+      "tidings"
+    ]
+  },
+  "2027-06-06": {
+    "fragments": [
+      "lde",
+      "ti",
+      "sta",
+      "ters",
+      "chys",
+      "shys"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "shysters",
+      "stachys",
+      "staters",
+      "titers"
+    ]
+  },
+  "2027-06-07": {
+    "fragments": [
+      "scien",
+      "lde",
+      "shys",
+      "tific",
+      "ti",
+      "ters"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "scientific",
+      "shysters",
+      "titers",
+      "tilde"
+    ]
+  },
+  "2027-06-08": {
+    "fragments": [
+      "ger",
+      "gau",
+      "sings",
+      "onged",
+      "jap",
+      "ped"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "singsonged",
+      "gauger",
+      "gauped",
+      "japped"
+    ]
+  },
+  "2027-06-09": {
+    "fragments": [
+      "bin",
+      "jap",
+      "ger",
+      "nub",
+      "ped",
+      "gau"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "gauger",
+      "gauped",
+      "japped",
+      "nubbin"
+    ]
+  },
+  "2027-06-10": {
+    "fragments": [
+      "wash",
+      "out",
+      "inc",
+      "udal",
+      "for",
+      "bids"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "forbids",
+      "incudal",
+      "outbids",
+      "outwash"
+    ]
+  },
+  "2027-06-11": {
+    "fragments": [
+      "whir",
+      "udal",
+      "out",
+      "lwind",
+      "wash",
+      "inc"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "whirlwind",
+      "incudal",
+      "outwash",
+      "washout"
+    ]
+  },
+  "2027-06-12": {
+    "fragments": [
+      "oxide",
+      "wash",
+      "whir",
+      "lwind",
+      "out",
+      "tetr"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "whirlwind",
+      "tetroxide",
+      "outwash",
+      "washout"
+    ]
+  },
+  "2027-06-13": {
+    "fragments": [
+      "mu",
+      "ca",
+      "rns",
+      "cith",
+      "aras",
+      "red"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "citharas",
+      "mured",
+      "cared",
+      "carns"
+    ]
+  },
+  "2027-06-14": {
+    "fragments": [
+      "leia",
+      "impu",
+      "rest",
+      "irid",
+      "dou",
+      "ocyte"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "iridocyte",
+      "impurest",
+      "dourest",
+      "douleia"
+    ]
+  },
+  "2027-06-15": {
+    "fragments": [
+      "impu",
+      "dou",
+      "rest",
+      "leia",
+      "pler",
+      "sup"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "impurest",
+      "dourest",
+      "douleia",
+      "suppler"
+    ]
+  },
+  "2027-06-16": {
+    "fragments": [
+      "com",
+      "ment",
+      "ques",
+      "rom",
+      "jer",
+      "weld"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "weldment",
+      "comment",
+      "jerques",
+      "romcom"
+    ]
+  },
+  "2027-06-17": {
+    "fragments": [
+      "ses",
+      "semi",
+      "nars",
+      "rebe",
+      "llers",
+      "uru"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "rebellers",
+      "seminars",
+      "semises",
+      "uruses"
+    ]
+  },
+  "2027-06-18": {
+    "fragments": [
+      "semi",
+      "ses",
+      "epit",
+      "uru",
+      "nars",
+      "opes"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "seminars",
+      "epitopes",
+      "semises",
+      "uruses"
+    ]
+  },
+  "2027-06-19": {
+    "fragments": [
+      "uru",
+      "ops",
+      "ses",
+      "epit",
+      "opes",
+      "sc"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "epitopes",
+      "uruses",
+      "scopes",
+      "scops"
+    ]
+  },
+  "2027-06-20": {
+    "fragments": [
+      "rid",
+      "ops",
+      "sc",
+      "epit",
+      "opes",
+      "cap"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "epitopes",
+      "scopes",
+      "caprid",
+      "scops"
+    ]
+  },
+  "2027-06-21": {
+    "fragments": [
+      "mini",
+      "ups",
+      "ojd",
+      "break",
+      "sl",
+      "mix"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "minibreak",
+      "breakups",
+      "mixups",
+      "slojd"
+    ]
+  },
+  "2027-06-22": {
+    "fragments": [
+      "el",
+      "mpie",
+      "chi",
+      "gie",
+      "bou",
+      "plu"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "plumpie",
+      "bougie",
+      "elchi",
+      "chiel"
+    ]
+  },
+  "2027-06-23": {
+    "fragments": [
+      "chi",
+      "ings",
+      "bak",
+      "plu",
+      "el",
+      "mpie"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "plumpie",
+      "bakings",
+      "elchi",
+      "chiel"
+    ]
+  },
+  "2027-06-24": {
+    "fragments": [
+      "ma",
+      "bak",
+      "lwa",
+      "el",
+      "chi",
+      "ings"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "bakings",
+      "elchi",
+      "chiel",
+      "machi"
+    ]
+  },
+  "2027-06-25": {
+    "fragments": [
+      "ill",
+      "towp",
+      "aths",
+      "sw",
+      "pash",
+      "aliks"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "pashaliks",
+      "towpaths",
+      "swaths",
+      "swill"
+    ]
+  },
+  "2027-06-26": {
+    "fragments": [
+      "ntu",
+      "mu",
+      "horn",
+      "lls",
+      "quo",
+      "krum"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "krumhorn",
+      "quolls",
+      "muntu",
+      "mulls"
+    ]
+  },
+  "2027-06-27": {
+    "fragments": [
+      "boats",
+      "mu",
+      "ntu",
+      "quo",
+      "lls",
+      "work"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "workboats",
+      "quolls",
+      "muntu",
+      "mulls"
+    ]
+  },
+  "2027-06-28": {
+    "fragments": [
+      "cata",
+      "ars",
+      "mus",
+      "skat",
+      "bolic",
+      "ings"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "catabolic",
+      "skatings",
+      "musings",
+      "musars"
+    ]
+  },
+  "2027-06-29": {
+    "fragments": [
+      "ars",
+      "skat",
+      "ings",
+      "lying",
+      "mus",
+      "licht"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "lichtlying",
+      "skatings",
+      "musings",
+      "musars"
+    ]
+  },
+  "2027-06-30": {
+    "fragments": [
+      "opto",
+      "pati",
+      "ented",
+      "phone",
+      "the",
+      "tic"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "optophone",
+      "patiented",
+      "phonetic",
+      "thetic"
+    ]
+  }
+}

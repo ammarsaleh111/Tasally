@@ -1,0 +1,1893 @@
+{
+  "2027-01-01": {
+    "grid": [
+      [
+        "G",
+        "R",
+        "A",
+        "V",
+        "E"
+      ],
+      [
+        "R",
+        "",
+        "R",
+        "",
+        "I"
+      ],
+      [
+        "A",
+        "L",
+        "O",
+        "N",
+        "G"
+      ],
+      [
+        "P",
+        "",
+        "M",
+        "",
+        "H"
+      ],
+      [
+        "E",
+        "X",
+        "A",
+        "C",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Serious or solemn",
+      "4": "Beside the length of",
+      "5": "Precisely accurate"
+    },
+    "down": {
+      "1": "Vineyard fruit",
+      "2": "Pleasant smell",
+      "3": "Number after seven"
+    },
+    "solution": {
+      "across": {
+        "1": "GRAVE",
+        "4": "ALONG",
+        "5": "EXACT"
+      },
+      "down": {
+        "1": "GRAPE",
+        "2": "AROMA",
+        "3": "EIGHT"
+      }
+    }
+  },
+  "2027-01-02": {
+    "grid": [
+      [
+        "K",
+        "N",
+        "I",
+        "F",
+        "E"
+      ],
+      [
+        "O",
+        "",
+        "C",
+        "",
+        "V"
+      ],
+      [
+        "A",
+        "R",
+        "I",
+        "S",
+        "E"
+      ],
+      [
+        "L",
+        "",
+        "N",
+        "",
+        "R"
+      ],
+      [
+        "A",
+        "N",
+        "G",
+        "R",
+        "Y"
+      ]
+    ],
+    "across": {
+      "1": "Cutting utensil",
+      "4": "Get up",
+      "5": "Furious"
+    },
+    "down": {
+      "1": "Eucalyptus-eating marsupial",
+      "2": "Cake frosting",
+      "3": "Each and all"
+    },
+    "solution": {
+      "across": {
+        "1": "KNIFE",
+        "4": "ARISE",
+        "5": "ANGRY"
+      },
+      "down": {
+        "1": "KOALA",
+        "2": "ICING",
+        "3": "EVERY"
+      }
+    }
+  },
+  "2027-01-03": {
+    "grid": [
+      [
+        "D",
+        "R",
+        "I",
+        "V",
+        "E"
+      ],
+      [
+        "O",
+        "",
+        "M",
+        "",
+        "R"
+      ],
+      [
+        "D",
+        "R",
+        "A",
+        "P",
+        "E"
+      ],
+      [
+        "G",
+        "",
+        "G",
+        "",
+        "C"
+      ],
+      [
+        "E",
+        "L",
+        "E",
+        "C",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Operate a car",
+      "4": "Hang loosely",
+      "5": "Choose by vote"
+    },
+    "down": {
+      "1": "Duck out of the way",
+      "2": "Picture",
+      "3": "Build upright"
+    },
+    "solution": {
+      "across": {
+        "1": "DRIVE",
+        "4": "DRAPE",
+        "5": "ELECT"
+      },
+      "down": {
+        "1": "DODGE",
+        "2": "IMAGE",
+        "3": "ERECT"
+      }
+    }
+  },
+  "2027-01-04": {
+    "grid": [
+      [
+        "B",
+        "U",
+        "I",
+        "L",
+        "D"
+      ],
+      [
+        "R",
+        "",
+        "N",
+        "",
+        "R"
+      ],
+      [
+        "A",
+        "R",
+        "E",
+        "N",
+        "A"
+      ],
+      [
+        "K",
+        "",
+        "P",
+        "",
+        "M"
+      ],
+      [
+        "E",
+        "X",
+        "T",
+        "R",
+        "A"
+      ]
+    ],
+    "across": {
+      "1": "Construct",
+      "4": "Sports stadium",
+      "5": "Additional"
+    },
+    "down": {
+      "1": "Stopping pedal",
+      "2": "Clumsy and unskilled",
+      "3": "Stage play"
+    },
+    "solution": {
+      "across": {
+        "1": "BUILD",
+        "4": "ARENA",
+        "5": "EXTRA"
+      },
+      "down": {
+        "1": "BRAKE",
+        "2": "INEPT",
+        "3": "DRAMA"
+      }
+    }
+  },
+  "2027-01-05": {
+    "grid": [
+      [
+        "F",
+        "I",
+        "E",
+        "N",
+        "D"
+      ],
+      [
+        "L",
+        "",
+        "A",
+        "",
+        "E"
+      ],
+      [
+        "A",
+        "N",
+        "G",
+        "E",
+        "L"
+      ],
+      [
+        "M",
+        "",
+        "E",
+        "",
+        "V"
+      ],
+      [
+        "E",
+        "E",
+        "R",
+        "I",
+        "E"
+      ]
+    ],
+    "across": {
+      "1": "Wicked person",
+      "4": "Heavenly messenger",
+      "5": "Spooky and strange"
+    },
+    "down": {
+      "1": "Candle fire",
+      "2": "Enthusiastic",
+      "3": "Dig deeply into"
+    },
+    "solution": {
+      "across": {
+        "1": "FIEND",
+        "4": "ANGEL",
+        "5": "EERIE"
+      },
+      "down": {
+        "1": "FLAME",
+        "2": "EAGER",
+        "3": "DELVE"
+      }
+    }
+  },
+  "2027-01-06": {
+    "grid": [
+      [
+        "A",
+        "R",
+        "I",
+        "S",
+        "E"
+      ],
+      [
+        "N",
+        "",
+        "N",
+        "",
+        "X"
+      ],
+      [
+        "K",
+        "O",
+        "A",
+        "L",
+        "A"
+      ],
+      [
+        "L",
+        "",
+        "N",
+        "",
+        "L"
+      ],
+      [
+        "E",
+        "X",
+        "E",
+        "R",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Get up",
+      "4": "Eucalyptus-eating marsupial",
+      "5": "Apply effort"
+    },
+    "down": {
+      "1": "Joint above the foot",
+      "2": "Silly and pointless",
+      "3": "Praise highly"
+    },
+    "solution": {
+      "across": {
+        "1": "ARISE",
+        "4": "KOALA",
+        "5": "EXERT"
+      },
+      "down": {
+        "1": "ANKLE",
+        "2": "INANE",
+        "3": "EXALT"
+      }
+    }
+  },
+  "2027-01-07": {
+    "grid": [
+      [
+        "K",
+        "N",
+        "E",
+        "E",
+        "L"
+      ],
+      [
+        "E",
+        "",
+        "L",
+        "",
+        "O"
+      ],
+      [
+        "B",
+        "L",
+        "U",
+        "N",
+        "T"
+      ],
+      [
+        "A",
+        "",
+        "D",
+        "",
+        "U"
+      ],
+      [
+        "B",
+        "L",
+        "E",
+        "S",
+        "S"
+      ]
+    ],
+    "across": {
+      "1": "Drop to one's knees",
+      "4": "Not sharp",
+      "5": "Bestow favor upon"
+    },
+    "down": {
+      "1": "Skewered grilled meat",
+      "2": "Skillfully escape",
+      "3": "Sacred pond flower"
+    },
+    "solution": {
+      "across": {
+        "1": "KNEEL",
+        "4": "BLUNT",
+        "5": "BLESS"
+      },
+      "down": {
+        "1": "KEBAB",
+        "2": "ELUDE",
+        "3": "LOTUS"
+      }
+    }
+  },
+  "2027-01-08": {
+    "grid": [
+      [
+        "D",
+        "E",
+        "L",
+        "V",
+        "E"
+      ],
+      [
+        "R",
+        "",
+        "L",
+        "",
+        "R"
+      ],
+      [
+        "E",
+        "V",
+        "A",
+        "D",
+        "E"
+      ],
+      [
+        "A",
+        "",
+        "M",
+        "",
+        "C"
+      ],
+      [
+        "D",
+        "R",
+        "A",
+        "F",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Dig deeply into",
+      "4": "Dodge or avoid",
+      "5": "Rough first version"
+    },
+    "down": {
+      "1": "Deep fear",
+      "2": "Andean pack animal",
+      "3": "Build upright"
+    },
+    "solution": {
+      "across": {
+        "1": "DELVE",
+        "4": "EVADE",
+        "5": "DRAFT"
+      },
+      "down": {
+        "1": "DREAD",
+        "2": "LLAMA",
+        "3": "ERECT"
+      }
+    }
+  },
+  "2027-01-09": {
+    "grid": [
+      [
+        "F",
+        "R",
+        "A",
+        "M",
+        "E"
+      ],
+      [
+        "I",
+        "",
+        "N",
+        "",
+        "N"
+      ],
+      [
+        "E",
+        "I",
+        "G",
+        "H",
+        "T"
+      ],
+      [
+        "L",
+        "",
+        "E",
+        "",
+        "R"
+      ],
+      [
+        "D",
+        "I",
+        "R",
+        "T",
+        "Y"
+      ]
+    ],
+    "across": {
+      "1": "Picture border",
+      "4": "Number after seven",
+      "5": "Covered in mud"
+    },
+    "down": {
+      "1": "Open grassy area",
+      "2": "Strong displeasure",
+      "3": "Doorway or record"
+    },
+    "solution": {
+      "across": {
+        "1": "FRAME",
+        "4": "EIGHT",
+        "5": "DIRTY"
+      },
+      "down": {
+        "1": "FIELD",
+        "2": "ANGER",
+        "3": "ENTRY"
+      }
+    }
+  },
+  "2027-01-10": {
+    "grid": [
+      [
+        "L",
+        "O",
+        "D",
+        "G",
+        "E"
+      ],
+      [
+        "O",
+        "",
+        "I",
+        "",
+        "M"
+      ],
+      [
+        "C",
+        "I",
+        "V",
+        "I",
+        "C"
+      ],
+      [
+        "A",
+        "",
+        "E",
+        "",
+        "E"
+      ],
+      [
+        "L",
+        "A",
+        "R",
+        "G",
+        "E"
+      ]
+    ],
+    "across": {
+      "1": "Mountain cabin",
+      "4": "Relating to a city",
+      "5": "Big in size"
+    },
+    "down": {
+      "1": "From nearby",
+      "2": "Underwater swimmer",
+      "3": "Event host"
+    },
+    "solution": {
+      "across": {
+        "1": "LODGE",
+        "4": "CIVIC",
+        "5": "LARGE"
+      },
+      "down": {
+        "1": "LOCAL",
+        "2": "DIVER",
+        "3": "EMCEE"
+      }
+    }
+  },
+  "2027-01-11": {
+    "grid": [
+      [
+        "K",
+        "E",
+        "B",
+        "A",
+        "B"
+      ],
+      [
+        "H",
+        "",
+        "R",
+        "",
+        "R"
+      ],
+      [
+        "A",
+        "R",
+        "E",
+        "N",
+        "A"
+      ],
+      [
+        "K",
+        "",
+        "E",
+        "",
+        "C"
+      ],
+      [
+        "I",
+        "N",
+        "D",
+        "I",
+        "E"
+      ]
+    ],
+    "across": {
+      "1": "Skewered grilled meat",
+      "4": "Sports stadium",
+      "5": "Independent film or band"
+    },
+    "down": {
+      "1": "Tan fabric color",
+      "2": "Type of dog",
+      "3": "Support structure"
+    },
+    "solution": {
+      "across": {
+        "1": "KEBAB",
+        "4": "ARENA",
+        "5": "INDIE"
+      },
+      "down": {
+        "1": "KHAKI",
+        "2": "BREED",
+        "3": "BRACE"
+      }
+    }
+  },
+  "2027-01-12": {
+    "grid": [
+      [
+        "E",
+        "X",
+        "C",
+        "E",
+        "L"
+      ],
+      [
+        "M",
+        "",
+        "L",
+        "",
+        "I"
+      ],
+      [
+        "A",
+        "G",
+        "A",
+        "I",
+        "N"
+      ],
+      [
+        "I",
+        "",
+        "I",
+        "",
+        "E"
+      ],
+      [
+        "L",
+        "E",
+        "M",
+        "O",
+        "N"
+      ]
+    ],
+    "across": {
+      "1": "Outperform others",
+      "4": "One more time",
+      "5": "Sour yellow citrus"
+    },
+    "down": {
+      "1": "Digital message",
+      "2": "Assert as true",
+      "3": "Flax-based fabric"
+    },
+    "solution": {
+      "across": {
+        "1": "EXCEL",
+        "4": "AGAIN",
+        "5": "LEMON"
+      },
+      "down": {
+        "1": "EMAIL",
+        "2": "CLAIM",
+        "3": "LINEN"
+      }
+    }
+  },
+  "2027-01-13": {
+    "grid": [
+      [
+        "A",
+        "N",
+        "G",
+        "E",
+        "L"
+      ],
+      [
+        "W",
+        "",
+        "R",
+        "",
+        "E"
+      ],
+      [
+        "A",
+        "R",
+        "O",
+        "M",
+        "A"
+      ],
+      [
+        "R",
+        "",
+        "V",
+        "",
+        "S"
+      ],
+      [
+        "E",
+        "L",
+        "E",
+        "C",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Heavenly messenger",
+      "4": "Pleasant smell",
+      "5": "Choose by vote"
+    },
+    "down": {
+      "1": "Conscious of",
+      "2": "Small orchard",
+      "3": "Smallest amount"
+    },
+    "solution": {
+      "across": {
+        "1": "ANGEL",
+        "4": "AROMA",
+        "5": "ELECT"
+      },
+      "down": {
+        "1": "AWARE",
+        "2": "GROVE",
+        "3": "LEAST"
+      }
+    }
+  },
+  "2027-01-14": {
+    "grid": [
+      [
+        "G",
+        "R",
+        "I",
+        "N",
+        "D"
+      ],
+      [
+        "L",
+        "",
+        "N",
+        "",
+        "R"
+      ],
+      [
+        "A",
+        "R",
+        "E",
+        "N",
+        "A"
+      ],
+      [
+        "D",
+        "",
+        "P",
+        "",
+        "W"
+      ],
+      [
+        "E",
+        "A",
+        "T",
+        "E",
+        "N"
+      ]
+    ],
+    "across": {
+      "1": "Crush into powder",
+      "4": "Sports stadium",
+      "5": "Consumed"
+    },
+    "down": {
+      "1": "Forest clearing",
+      "2": "Clumsy and unskilled",
+      "3": "Sketched with pencil"
+    },
+    "solution": {
+      "across": {
+        "1": "GRIND",
+        "4": "ARENA",
+        "5": "EATEN"
+      },
+      "down": {
+        "1": "GLADE",
+        "2": "INEPT",
+        "3": "DRAWN"
+      }
+    }
+  },
+  "2027-01-15": {
+    "grid": [
+      [
+        "G",
+        "L",
+        "A",
+        "D",
+        "E"
+      ],
+      [
+        "U",
+        "",
+        "N",
+        "",
+        "N"
+      ],
+      [
+        "I",
+        "N",
+        "G",
+        "O",
+        "T"
+      ],
+      [
+        "S",
+        "",
+        "E",
+        "",
+        "E"
+      ],
+      [
+        "E",
+        "R",
+        "R",
+        "O",
+        "R"
+      ]
+    ],
+    "across": {
+      "1": "Forest clearing",
+      "4": "Bar of pure gold",
+      "5": "Mistake"
+    },
+    "down": {
+      "1": "Outward appearance",
+      "2": "Strong displeasure",
+      "3": "Go inside"
+    },
+    "solution": {
+      "across": {
+        "1": "GLADE",
+        "4": "INGOT",
+        "5": "ERROR"
+      },
+      "down": {
+        "1": "GUISE",
+        "2": "ANGER",
+        "3": "ENTER"
+      }
+    }
+  },
+  "2027-01-16": {
+    "grid": [
+      [
+        "K",
+        "H",
+        "A",
+        "K",
+        "I"
+      ],
+      [
+        "N",
+        "",
+        "W",
+        "",
+        "D"
+      ],
+      [
+        "E",
+        "R",
+        "A",
+        "S",
+        "E"
+      ],
+      [
+        "A",
+        "",
+        "R",
+        "",
+        "A"
+      ],
+      [
+        "D",
+        "W",
+        "E",
+        "L",
+        "L"
+      ]
+    ],
+    "across": {
+      "1": "Tan fabric color",
+      "4": "Wipe away",
+      "5": "Live in a place"
+    },
+    "down": {
+      "1": "Work bread dough",
+      "2": "Conscious of",
+      "3": "Perfect standard"
+    },
+    "solution": {
+      "across": {
+        "1": "KHAKI",
+        "4": "ERASE",
+        "5": "DWELL"
+      },
+      "down": {
+        "1": "KNEAD",
+        "2": "AWARE",
+        "3": "IDEAL"
+      }
+    }
+  },
+  "2027-01-17": {
+    "grid": [
+      [
+        "C",
+        "R",
+        "A",
+        "N",
+        "E"
+      ],
+      [
+        "H",
+        "",
+        "L",
+        "",
+        "X"
+      ],
+      [
+        "I",
+        "M",
+        "B",
+        "U",
+        "E"
+      ],
+      [
+        "L",
+        "",
+        "U",
+        "",
+        "R"
+      ],
+      [
+        "L",
+        "I",
+        "M",
+        "I",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Tall construction lift",
+      "4": "Inspire deeply",
+      "5": "Maximum boundary"
+    },
+    "down": {
+      "1": "Cool down",
+      "2": "Collection of songs",
+      "3": "Apply effort"
+    },
+    "solution": {
+      "across": {
+        "1": "CRANE",
+        "4": "IMBUE",
+        "5": "LIMIT"
+      },
+      "down": {
+        "1": "CHILL",
+        "2": "ALBUM",
+        "3": "EXERT"
+      }
+    }
+  },
+  "2027-01-18": {
+    "grid": [
+      [
+        "F",
+        "L",
+        "I",
+        "C",
+        "K"
+      ],
+      [
+        "L",
+        "",
+        "N",
+        "",
+        "A"
+      ],
+      [
+        "A",
+        "N",
+        "G",
+        "E",
+        "R"
+      ],
+      [
+        "M",
+        "",
+        "O",
+        "",
+        "M"
+      ],
+      [
+        "E",
+        "X",
+        "T",
+        "R",
+        "A"
+      ]
+    ],
+    "across": {
+      "1": "Quick snap",
+      "4": "Strong displeasure",
+      "5": "Additional"
+    },
+    "down": {
+      "1": "Candle fire",
+      "2": "Bar of pure gold",
+      "3": "Destiny from deeds"
+    },
+    "solution": {
+      "across": {
+        "1": "FLICK",
+        "4": "ANGER",
+        "5": "EXTRA"
+      },
+      "down": {
+        "1": "FLAME",
+        "2": "INGOT",
+        "3": "KARMA"
+      }
+    }
+  },
+  "2027-01-19": {
+    "grid": [
+      [
+        "D",
+        "O",
+        "D",
+        "G",
+        "E"
+      ],
+      [
+        "E",
+        "",
+        "R",
+        "",
+        "A"
+      ],
+      [
+        "A",
+        "D",
+        "O",
+        "P",
+        "T"
+      ],
+      [
+        "T",
+        "",
+        "W",
+        "",
+        "E"
+      ],
+      [
+        "H",
+        "O",
+        "N",
+        "O",
+        "R"
+      ]
+    ],
+    "across": {
+      "1": "Duck out of the way",
+      "4": "Take in as one's own",
+      "5": "High respect"
+    },
+    "down": {
+      "1": "End of life",
+      "2": "Submerge completely",
+      "3": "Diner"
+    },
+    "solution": {
+      "across": {
+        "1": "DODGE",
+        "4": "ADOPT",
+        "5": "HONOR"
+      },
+      "down": {
+        "1": "DEATH",
+        "2": "DROWN",
+        "3": "EATER"
+      }
+    }
+  },
+  "2027-01-20": {
+    "grid": [
+      [
+        "C",
+        "H",
+        "I",
+        "C",
+        "K"
+      ],
+      [
+        "Y",
+        "",
+        "N",
+        "",
+        "N"
+      ],
+      [
+        "C",
+        "E",
+        "A",
+        "S",
+        "E"
+      ],
+      [
+        "L",
+        "",
+        "N",
+        "",
+        "L"
+      ],
+      [
+        "E",
+        "R",
+        "E",
+        "C",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Baby bird",
+      "4": "Come to an end",
+      "5": "Build upright"
+    },
+    "down": {
+      "1": "Repeating series",
+      "2": "Silly and pointless",
+      "3": "Dropped to the knees"
+    },
+    "solution": {
+      "across": {
+        "1": "CHICK",
+        "4": "CEASE",
+        "5": "ERECT"
+      },
+      "down": {
+        "1": "CYCLE",
+        "2": "INANE",
+        "3": "KNELT"
+      }
+    }
+  },
+  "2027-01-21": {
+    "grid": [
+      [
+        "G",
+        "R",
+        "I",
+        "P",
+        "E"
+      ],
+      [
+        "L",
+        "",
+        "M",
+        "",
+        "X"
+      ],
+      [
+        "A",
+        "W",
+        "A",
+        "K",
+        "E"
+      ],
+      [
+        "Z",
+        "",
+        "G",
+        "",
+        "R"
+      ],
+      [
+        "E",
+        "V",
+        "E",
+        "N",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Mild complaint",
+      "4": "Not sleeping",
+      "5": "Scheduled happening"
+    },
+    "down": {
+      "1": "Shiny donut coating",
+      "2": "Picture",
+      "3": "Apply effort"
+    },
+    "solution": {
+      "across": {
+        "1": "GRIPE",
+        "4": "AWAKE",
+        "5": "EVENT"
+      },
+      "down": {
+        "1": "GLAZE",
+        "2": "IMAGE",
+        "3": "EXERT"
+      }
+    }
+  },
+  "2027-01-22": {
+    "grid": [
+      [
+        "B",
+        "R",
+        "I",
+        "D",
+        "E"
+      ],
+      [
+        "E",
+        "",
+        "G",
+        "",
+        "A"
+      ],
+      [
+        "I",
+        "D",
+        "L",
+        "E",
+        "R"
+      ],
+      [
+        "N",
+        "",
+        "O",
+        "",
+        "L"
+      ],
+      [
+        "G",
+        "L",
+        "O",
+        "R",
+        "Y"
+      ]
+    ],
+    "across": {
+      "1": "Wedding star",
+      "4": "Lazy person",
+      "5": "Great honor"
+    },
+    "down": {
+      "1": "Existence",
+      "2": "Snow-block shelter",
+      "3": "Ahead of schedule"
+    },
+    "solution": {
+      "across": {
+        "1": "BRIDE",
+        "4": "IDLER",
+        "5": "GLORY"
+      },
+      "down": {
+        "1": "BEING",
+        "2": "IGLOO",
+        "3": "EARLY"
+      }
+    }
+  },
+  "2027-01-23": {
+    "grid": [
+      [
+        "B",
+        "R",
+        "E",
+        "A",
+        "D"
+      ],
+      [
+        "O",
+        "",
+        "S",
+        "",
+        "E"
+      ],
+      [
+        "A",
+        "S",
+        "S",
+        "E",
+        "T"
+      ],
+      [
+        "R",
+        "",
+        "A",
+        "",
+        "E"
+      ],
+      [
+        "D",
+        "R",
+        "Y",
+        "E",
+        "R"
+      ]
+    ],
+    "across": {
+      "1": "Baked loaf",
+      "4": "Valuable possession",
+      "5": "Laundry appliance"
+    },
+    "down": {
+      "1": "Flat piece of wood",
+      "2": "Short written piece",
+      "3": "Discourage from acting"
+    },
+    "solution": {
+      "across": {
+        "1": "BREAD",
+        "4": "ASSET",
+        "5": "DRYER"
+      },
+      "down": {
+        "1": "BOARD",
+        "2": "ESSAY",
+        "3": "DETER"
+      }
+    }
+  },
+  "2027-01-24": {
+    "grid": [
+      [
+        "C",
+        "L",
+        "E",
+        "R",
+        "K"
+      ],
+      [
+        "E",
+        "",
+        "R",
+        "",
+        "I"
+      ],
+      [
+        "A",
+        "L",
+        "E",
+        "R",
+        "T"
+      ],
+      [
+        "S",
+        "",
+        "C",
+        "",
+        "T"
+      ],
+      [
+        "E",
+        "N",
+        "T",
+        "R",
+        "Y"
+      ]
+    ],
+    "across": {
+      "1": "Store cashier",
+      "4": "Watchful and ready",
+      "5": "Doorway or record"
+    },
+    "down": {
+      "1": "Come to an end",
+      "2": "Build upright",
+      "3": "Young cat"
+    },
+    "solution": {
+      "across": {
+        "1": "CLERK",
+        "4": "ALERT",
+        "5": "ENTRY"
+      },
+      "down": {
+        "1": "CEASE",
+        "2": "ERECT",
+        "3": "KITTY"
+      }
+    }
+  },
+  "2027-01-25": {
+    "grid": [
+      [
+        "B",
+        "L",
+        "I",
+        "N",
+        "K"
+      ],
+      [
+        "R",
+        "",
+        "C",
+        "",
+        "N"
+      ],
+      [
+        "A",
+        "L",
+        "I",
+        "K",
+        "E"
+      ],
+      [
+        "N",
+        "",
+        "N",
+        "",
+        "L"
+      ],
+      [
+        "D",
+        "I",
+        "G",
+        "I",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Wink both eyes",
+      "4": "Similar",
+      "5": "Single numeral"
+    },
+    "down": {
+      "1": "Company trademark",
+      "2": "Cake frosting",
+      "3": "Dropped to the knees"
+    },
+    "solution": {
+      "across": {
+        "1": "BLINK",
+        "4": "ALIKE",
+        "5": "DIGIT"
+      },
+      "down": {
+        "1": "BRAND",
+        "2": "ICING",
+        "3": "KNELT"
+      }
+    }
+  },
+  "2027-01-26": {
+    "grid": [
+      [
+        "B",
+        "L",
+        "A",
+        "D",
+        "E"
+      ],
+      [
+        "R",
+        "",
+        "B",
+        "",
+        "X"
+      ],
+      [
+        "E",
+        "L",
+        "O",
+        "P",
+        "E"
+      ],
+      [
+        "A",
+        "",
+        "V",
+        "",
+        "R"
+      ],
+      [
+        "K",
+        "N",
+        "E",
+        "L",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Knife's cutting edge",
+      "4": "Run off to marry",
+      "5": "Dropped to the knees"
+    },
+    "down": {
+      "1": "Shatter or pause",
+      "2": "Higher than",
+      "3": "Apply effort"
+    },
+    "solution": {
+      "across": {
+        "1": "BLADE",
+        "4": "ELOPE",
+        "5": "KNELT"
+      },
+      "down": {
+        "1": "BREAK",
+        "2": "ABOVE",
+        "3": "EXERT"
+      }
+    }
+  },
+  "2027-01-27": {
+    "grid": [
+      [
+        "I",
+        "N",
+        "A",
+        "N",
+        "E"
+      ],
+      [
+        "M",
+        "",
+        "O",
+        "",
+        "V"
+      ],
+      [
+        "A",
+        "G",
+        "R",
+        "E",
+        "E"
+      ],
+      [
+        "G",
+        "",
+        "T",
+        "",
+        "N"
+      ],
+      [
+        "E",
+        "X",
+        "A",
+        "C",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Silly and pointless",
+      "4": "Have the same view",
+      "5": "Precisely accurate"
+    },
+    "down": {
+      "1": "Picture",
+      "2": "Main heart artery",
+      "3": "Scheduled happening"
+    },
+    "solution": {
+      "across": {
+        "1": "INANE",
+        "4": "AGREE",
+        "5": "EXACT"
+      },
+      "down": {
+        "1": "IMAGE",
+        "2": "AORTA",
+        "3": "EVENT"
+      }
+    }
+  },
+  "2027-01-28": {
+    "grid": [
+      [
+        "F",
+        "R",
+        "A",
+        "M",
+        "E"
+      ],
+      [
+        "R",
+        "",
+        "D",
+        "",
+        "A"
+      ],
+      [
+        "A",
+        "R",
+        "M",
+        "O",
+        "R"
+      ],
+      [
+        "U",
+        "",
+        "I",
+        "",
+        "T"
+      ],
+      [
+        "D",
+        "I",
+        "T",
+        "C",
+        "H"
+      ]
+    ],
+    "across": {
+      "1": "Picture border",
+      "4": "Knight's metal suit",
+      "5": "Roadside trench"
+    },
+    "down": {
+      "1": "Deception for gain",
+      "2": "Confess",
+      "3": "Our home planet"
+    },
+    "solution": {
+      "across": {
+        "1": "FRAME",
+        "4": "ARMOR",
+        "5": "DITCH"
+      },
+      "down": {
+        "1": "FRAUD",
+        "2": "ADMIT",
+        "3": "EARTH"
+      }
+    }
+  },
+  "2027-01-29": {
+    "grid": [
+      [
+        "C",
+        "O",
+        "B",
+        "R",
+        "A"
+      ],
+      [
+        "O",
+        "",
+        "I",
+        "",
+        "L"
+      ],
+      [
+        "A",
+        "S",
+        "S",
+        "E",
+        "T"
+      ],
+      [
+        "C",
+        "",
+        "O",
+        "",
+        "E"
+      ],
+      [
+        "H",
+        "O",
+        "N",
+        "O",
+        "R"
+      ]
+    ],
+    "across": {
+      "1": "Hooded snake",
+      "4": "Valuable possession",
+      "5": "High respect"
+    },
+    "down": {
+      "1": "Team trainer",
+      "2": "American buffalo",
+      "3": "Modify slightly"
+    },
+    "solution": {
+      "across": {
+        "1": "COBRA",
+        "4": "ASSET",
+        "5": "HONOR"
+      },
+      "down": {
+        "1": "COACH",
+        "2": "BISON",
+        "3": "ALTER"
+      }
+    }
+  },
+  "2027-01-30": {
+    "grid": [
+      [
+        "B",
+        "R",
+        "I",
+        "C",
+        "K"
+      ],
+      [
+        "E",
+        "",
+        "N",
+        "",
+        "N"
+      ],
+      [
+        "I",
+        "M",
+        "A",
+        "G",
+        "E"
+      ],
+      [
+        "N",
+        "",
+        "N",
+        "",
+        "A"
+      ],
+      [
+        "G",
+        "R",
+        "E",
+        "E",
+        "D"
+      ]
+    ],
+    "across": {
+      "1": "Clay building block",
+      "4": "Picture",
+      "5": "Excessive desire"
+    },
+    "down": {
+      "1": "Existence",
+      "2": "Silly and pointless",
+      "3": "Work bread dough"
+    },
+    "solution": {
+      "across": {
+        "1": "BRICK",
+        "4": "IMAGE",
+        "5": "GREED"
+      },
+      "down": {
+        "1": "BEING",
+        "2": "INANE",
+        "3": "KNEAD"
+      }
+    }
+  },
+  "2027-01-31": {
+    "grid": [
+      [
+        "E",
+        "M",
+        "C",
+        "E",
+        "E"
+      ],
+      [
+        "T",
+        "",
+        "H",
+        "",
+        "A"
+      ],
+      [
+        "H",
+        "O",
+        "I",
+        "S",
+        "T"
+      ],
+      [
+        "I",
+        "",
+        "M",
+        "",
+        "E"
+      ],
+      [
+        "C",
+        "L",
+        "E",
+        "A",
+        "N"
+      ]
+    ],
+    "across": {
+      "1": "Event host",
+      "4": "Lift with a pulley",
+      "5": "Free of dirt"
+    },
+    "down": {
+      "1": "Moral principle",
+      "2": "Bell sound",
+      "3": "Consumed"
+    },
+    "solution": {
+      "across": {
+        "1": "EMCEE",
+        "4": "HOIST",
+        "5": "CLEAN"
+      },
+      "down": {
+        "1": "ETHIC",
+        "2": "CHIME",
+        "3": "EATEN"
+      }
+    }
+  }
+}

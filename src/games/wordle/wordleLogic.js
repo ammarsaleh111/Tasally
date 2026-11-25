@@ -7,6 +7,7 @@ import { getActiveTheme, getGameTheme } from '@/utils/themeEngine';
 import { getUserStorageKey } from '@/utils/storageKeys';
 import { getDailyGameData } from '@/data/all-data';
 import { getCairoDateKey } from '@/data/all-data/utils/date';
+import { isWordInLocalDictionary } from '@/utils/localDictionary';
 
 // Constants
 export const DEFAULT_WORD_LENGTH = 5;
@@ -114,8 +115,8 @@ export const isValidWord = (word) => {
   if (!word || typeof word !== 'string') return false;
   const normalized = word.trim().toUpperCase();
   const pool = WORDS_BY_LENGTH[normalized.length];
-  if (!pool) return false;
-  return pool.includes(normalized);
+  if (pool && pool.includes(normalized)) return true;
+  return isWordInLocalDictionary(normalized);
 };
 
 /**

@@ -1,0 +1,529 @@
+{
+  "2027-01-01": {
+    "fragments": [
+      "sit",
+      "ves",
+      "hie",
+      "land",
+      "sho",
+      "out"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "hieland",
+      "outland",
+      "outsit",
+      "shoves"
+    ]
+  },
+  "2027-01-02": {
+    "fragments": [
+      "geek",
+      "rity",
+      "pola",
+      "ings",
+      "speak",
+      "tick"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "geekspeak",
+      "speakings",
+      "polarity",
+      "tickings"
+    ]
+  },
+  "2027-01-03": {
+    "fragments": [
+      "ded",
+      "tick",
+      "ings",
+      "bir",
+      "speak",
+      "geek"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "geekspeak",
+      "speakings",
+      "tickings",
+      "birded"
+    ]
+  },
+  "2027-01-04": {
+    "fragments": [
+      "town",
+      "cab",
+      "man",
+      "home",
+      "qui",
+      "ets"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "hometown",
+      "townhome",
+      "quiets",
+      "cabman"
+    ]
+  },
+  "2027-01-05": {
+    "fragments": [
+      "tings",
+      "town",
+      "haun",
+      "man",
+      "home",
+      "cab"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "hauntings",
+      "hometown",
+      "townhome",
+      "cabman"
+    ]
+  },
+  "2027-01-06": {
+    "fragments": [
+      "rre",
+      "town",
+      "haun",
+      "wa",
+      "tings",
+      "home"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "hauntings",
+      "hometown",
+      "townhome",
+      "warre"
+    ]
+  },
+  "2027-01-07": {
+    "fragments": [
+      "acic",
+      "ulate",
+      "sutt",
+      "ling",
+      "memoi",
+      "risms"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "memoirisms",
+      "aciculate",
+      "lingulate",
+      "suttling"
+    ]
+  },
+  "2027-01-08": {
+    "fragments": [
+      "ling",
+      "the",
+      "sel",
+      "sutt",
+      "me",
+      "tas"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "tasselling",
+      "suttling",
+      "selling",
+      "thetas"
+    ]
+  },
+  "2027-01-09": {
+    "fragments": [
+      "me",
+      "grim",
+      "sel",
+      "alkin",
+      "the",
+      "tas"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "grimalkin",
+      "thetas",
+      "tassel",
+      "megrim"
+    ]
+  },
+  "2027-01-10": {
+    "fragments": [
+      "takes",
+      "alkin",
+      "grim",
+      "grubs",
+      "me",
+      "sel"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "grubstakes",
+      "grimalkin",
+      "megrim",
+      "mesel"
+    ]
+  },
+  "2027-01-11": {
+    "fragments": [
+      "tia",
+      "imp",
+      "raed",
+      "ating",
+      "pr",
+      "pron"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "pronating",
+      "prating",
+      "tiaraed",
+      "primp"
+    ]
+  },
+  "2027-01-12": {
+    "fragments": [
+      "sting",
+      "aked",
+      "ries",
+      "amb",
+      "exhau",
+      "wre"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "exhausting",
+      "wresting",
+      "ambries",
+      "wreaked"
+    ]
+  },
+  "2027-01-13": {
+    "fragments": [
+      "nte",
+      "se",
+      "amb",
+      "aked",
+      "wre",
+      "ries"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "ambries",
+      "wreaked",
+      "series",
+      "sente"
+    ]
+  },
+  "2027-01-14": {
+    "fragments": [
+      "nes",
+      "pisto",
+      "leros",
+      "ico",
+      "nte",
+      "se"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "pistoleros",
+      "icones",
+      "sente",
+      "senes"
+    ]
+  },
+  "2027-01-15": {
+    "fragments": [
+      "lac",
+      "tam",
+      "non",
+      "kers",
+      "fact",
+      "dac"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "nonfact",
+      "dackers",
+      "lackers",
+      "lactam"
+    ]
+  },
+  "2027-01-16": {
+    "fragments": [
+      "hand",
+      "sets",
+      "tam",
+      "lac",
+      "kers",
+      "dac"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "handsets",
+      "dackers",
+      "lackers",
+      "lactam"
+    ]
+  },
+  "2027-01-17": {
+    "fragments": [
+      "out",
+      "tr",
+      "ike",
+      "able",
+      "wars",
+      "ador"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "adorable",
+      "outwars",
+      "trout",
+      "trike"
+    ]
+  },
+  "2027-01-18": {
+    "fragments": [
+      "wars",
+      "das",
+      "tr",
+      "co",
+      "out",
+      "ike"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "outwars",
+      "trout",
+      "trike",
+      "codas"
+    ]
+  },
+  "2027-01-19": {
+    "fragments": [
+      "co",
+      "per",
+      "lous",
+      "das",
+      "indi",
+      "cant"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "indicant",
+      "perlous",
+      "codas",
+      "coper"
+    ]
+  },
+  "2027-01-20": {
+    "fragments": [
+      "nny",
+      "atom",
+      "hi",
+      "ises",
+      "kis",
+      "ti"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "atomises",
+      "tikis",
+      "tinny",
+      "hinny"
+    ]
+  },
+  "2027-01-21": {
+    "fragments": [
+      "grok",
+      "ruc",
+      "plo",
+      "king",
+      "kman",
+      "nges"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "grokking",
+      "plonges",
+      "rucking",
+      "ruckman"
+    ]
+  },
+  "2027-01-22": {
+    "fragments": [
+      "ruc",
+      "kryo",
+      "king",
+      "grok",
+      "lith",
+      "kman"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "grokking",
+      "kryolith",
+      "rucking",
+      "ruckman"
+    ]
+  },
+  "2027-01-23": {
+    "fragments": [
+      "ott",
+      "ers",
+      "chase",
+      "repur",
+      "oat",
+      "sh"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "repurchase",
+      "otters",
+      "oaters",
+      "shott"
+    ]
+  },
+  "2027-01-24": {
+    "fragments": [
+      "oat",
+      "tol",
+      "ers",
+      "sh",
+      "ott",
+      "uole"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "toluole",
+      "otters",
+      "oaters",
+      "shott"
+    ]
+  },
+  "2027-01-25": {
+    "fragments": [
+      "earth",
+      "under",
+      "mover",
+      "ses",
+      "cover",
+      "car"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "earthmover",
+      "underearth",
+      "undercover",
+      "carses"
+    ]
+  },
+  "2027-01-26": {
+    "fragments": [
+      "cover",
+      "table",
+      "ses",
+      "car",
+      "righ",
+      "under"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "undercover",
+      "rightable",
+      "cartable",
+      "carses"
+    ]
+  },
+  "2027-01-27": {
+    "fragments": [
+      "rbers",
+      "dior",
+      "umin",
+      "ites",
+      "adso",
+      "alb"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "adsorbers",
+      "diorites",
+      "albites",
+      "albumin"
+    ]
+  },
+  "2027-01-28": {
+    "fragments": [
+      "sch",
+      "lubs",
+      "alb",
+      "dior",
+      "umin",
+      "ites"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "diorites",
+      "albites",
+      "albumin",
+      "schlubs"
+    ]
+  },
+  "2027-01-29": {
+    "fragments": [
+      "wars",
+      "ling",
+      "lings",
+      "aemic",
+      "olig",
+      "clerk"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "clerklings",
+      "oligaemic",
+      "clerkling",
+      "warsling"
+    ]
+  },
+  "2027-01-30": {
+    "fragments": [
+      "radi",
+      "wars",
+      "cule",
+      "ling",
+      "clerk",
+      "lings"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "clerklings",
+      "clerkling",
+      "warsling",
+      "radicule"
+    ]
+  },
+  "2027-01-31": {
+    "fragments": [
+      "leys",
+      "trol",
+      "clerk",
+      "radi",
+      "cule",
+      "lings"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "clerklings",
+      "trollings",
+      "radicule",
+      "trolleys"
+    ]
+  }
+}

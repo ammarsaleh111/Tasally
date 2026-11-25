@@ -15,7 +15,10 @@
     "db:generate": "drizzle-kit generate:pg",
     "db:migrate": "drizzle-kit migrate",
     "db:setup": "node scripts/migrate.js",
-    "test:api": "tsx scripts/api-smoke.ts"
+    "test:api": "tsx scripts/api-smoke.ts",
+    "generate:puzzles": "node scripts/generate-puzzles.mjs",
+    "validate:puzzles": "tsx scripts/validate-puzzles.ts",
+    "test:puzzles": "tsx --test tests/daily-data.test.ts"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.1",

@@ -1,0 +1,529 @@
+{
+  "2027-08-01": {
+    "fragments": [
+      "king",
+      "ers",
+      "turf",
+      "smaa",
+      "osi",
+      "like"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "turflike",
+      "smaaking",
+      "kinglike",
+      "osiers"
+    ]
+  },
+  "2027-08-02": {
+    "fragments": [
+      "rings",
+      "outb",
+      "ters",
+      "vapo",
+      "win",
+      "urns"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "vaporings",
+      "ringsters",
+      "outburns",
+      "winters"
+    ]
+  },
+  "2027-08-03": {
+    "fragments": [
+      "nchy",
+      "ca",
+      "rer",
+      "soa",
+      "cru",
+      "rol"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "crunchy",
+      "soarer",
+      "carer",
+      "carol"
+    ]
+  },
+  "2027-08-04": {
+    "fragments": [
+      "tics",
+      "bus",
+      "ok",
+      "ays",
+      "sabba",
+      "tized"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "sabbatized",
+      "sabbatics",
+      "bustics",
+      "okays"
+    ]
+  },
+  "2027-08-05": {
+    "fragments": [
+      "iness",
+      "sign",
+      "dott",
+      "able",
+      "pass",
+      "orial"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "dottiness",
+      "signorial",
+      "passable",
+      "signable"
+    ]
+  },
+  "2027-08-06": {
+    "fragments": [
+      "nly",
+      "tizer",
+      "sani",
+      "upy",
+      "ro",
+      "ma"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "sanitizer",
+      "manly",
+      "roupy",
+      "roma"
+    ]
+  },
+  "2027-08-07": {
+    "fragments": [
+      "owing",
+      "marr",
+      "like",
+      "onia",
+      "bolt",
+      "star"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "marrowing",
+      "boltonia",
+      "boltlike",
+      "starlike"
+    ]
+  },
+  "2027-08-08": {
+    "fragments": [
+      "oned",
+      "star",
+      "bat",
+      "like",
+      "onia",
+      "bolt"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "boltonia",
+      "boltlike",
+      "starlike",
+      "batlike"
+    ]
+  },
+  "2027-08-09": {
+    "fragments": [
+      "bat",
+      "orda",
+      "star",
+      "like",
+      "oned",
+      "liums"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "ordaliums",
+      "starlike",
+      "batlike",
+      "batoned"
+    ]
+  },
+  "2027-08-10": {
+    "fragments": [
+      "bat",
+      "oned",
+      "orda",
+      "ala",
+      "mas",
+      "liums"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "ordaliums",
+      "batoned",
+      "masoned",
+      "masala"
+    ]
+  },
+  "2027-08-11": {
+    "fragments": [
+      "ium",
+      "cer",
+      "piest",
+      "king",
+      "cham",
+      "soa"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "champiest",
+      "soapiest",
+      "soaking",
+      "cerium"
+    ]
+  },
+  "2027-08-12": {
+    "fragments": [
+      "king",
+      "gramm",
+      "cham",
+      "atist",
+      "piest",
+      "soa"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "grammatist",
+      "champiest",
+      "soapiest",
+      "soaking"
+    ]
+  },
+  "2027-08-13": {
+    "fragments": [
+      "aw",
+      "able",
+      "cur",
+      "eto",
+      "rans",
+      "hugg"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "huggable",
+      "curable",
+      "currans",
+      "aweto"
+    ]
+  },
+  "2027-08-14": {
+    "fragments": [
+      "cur",
+      "rans",
+      "iary",
+      "bil",
+      "hugg",
+      "able"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "huggable",
+      "curable",
+      "currans",
+      "biliary"
+    ]
+  },
+  "2027-08-15": {
+    "fragments": [
+      "dros",
+      "nists",
+      "cor",
+      "land",
+      "buri",
+      "nus"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "burinists",
+      "landdros",
+      "cornists",
+      "cornus"
+    ]
+  },
+  "2027-08-16": {
+    "fragments": [
+      "nus",
+      "nists",
+      "cor",
+      "buri",
+      "le",
+      "arn"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "burinists",
+      "cornists",
+      "cornus",
+      "learn"
+    ]
+  },
+  "2027-08-17": {
+    "fragments": [
+      "var",
+      "sigh",
+      "ias",
+      "like",
+      "vaun",
+      "tings"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "sightings",
+      "vauntings",
+      "sighlike",
+      "varias"
+    ]
+  },
+  "2027-08-18": {
+    "fragments": [
+      "singl",
+      "sigh",
+      "tings",
+      "like",
+      "ehood",
+      "vaun"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "singlehood",
+      "sightings",
+      "vauntings",
+      "sighlike"
+    ]
+  },
+  "2027-08-19": {
+    "fragments": [
+      "thinn",
+      "cuma",
+      "eries",
+      "cean",
+      "nabob",
+      "esses"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "naboberies",
+      "nabobesses",
+      "thinnesses",
+      "cumacean"
+    ]
+  },
+  "2027-08-20": {
+    "fragments": [
+      "plun",
+      "thinn",
+      "kers",
+      "nabob",
+      "eries",
+      "esses"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "naboberies",
+      "nabobesses",
+      "thinnesses",
+      "plunkers"
+    ]
+  },
+  "2027-08-21": {
+    "fragments": [
+      "fed",
+      "puf",
+      "ans",
+      "augh",
+      "row",
+      "scr"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "scraugh",
+      "puffed",
+      "scrans",
+      "rowans"
+    ]
+  },
+  "2027-08-22": {
+    "fragments": [
+      "scr",
+      "augh",
+      "ten",
+      "ans",
+      "ants",
+      "row"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "scraugh",
+      "tenants",
+      "scrans",
+      "rowans"
+    ]
+  },
+  "2027-08-23": {
+    "fragments": [
+      "sson",
+      "rant",
+      "ants",
+      "ten",
+      "lat",
+      "cai"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "tenants",
+      "caisson",
+      "latrant",
+      "latten"
+    ]
+  },
+  "2027-08-24": {
+    "fragments": [
+      "ant",
+      "rsa",
+      "ened",
+      "hoid",
+      "do",
+      "enna"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "hoidened",
+      "anthoid",
+      "antenna",
+      "dorsa"
+    ]
+  },
+  "2027-08-25": {
+    "fragments": [
+      "enna",
+      "hoid",
+      "legia",
+      "aqui",
+      "ened",
+      "ant"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "aquilegia",
+      "hoidened",
+      "anthoid",
+      "antenna"
+    ]
+  },
+  "2027-08-26": {
+    "fragments": [
+      "taffs",
+      "overs",
+      "overl",
+      "anded",
+      "asis",
+      "ent"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "overstaffs",
+      "overlanded",
+      "overlent",
+      "entasis"
+    ]
+  },
+  "2027-08-27": {
+    "fragments": [
+      "vacs",
+      "ent",
+      "overl",
+      "asis",
+      "case",
+      "anded"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "overlanded",
+      "overlent",
+      "casevacs",
+      "entasis"
+    ]
+  },
+  "2027-08-28": {
+    "fragments": [
+      "spi",
+      "rted",
+      "spa",
+      "car",
+      "es",
+      "rked"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "spirted",
+      "sparked",
+      "spies",
+      "spaes"
+    ]
+  },
+  "2027-08-29": {
+    "fragments": [
+      "es",
+      "sul",
+      "spa",
+      "fas",
+      "rked",
+      "car"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "sparked",
+      "sulfas",
+      "spaes",
+      "escar"
+    ]
+  },
+  "2027-08-30": {
+    "fragments": [
+      "cok",
+      "sul",
+      "ing",
+      "fas",
+      "car",
+      "es"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "caring",
+      "sulfas",
+      "coking",
+      "escar"
+    ]
+  },
+  "2027-08-31": {
+    "fragments": [
+      "sky",
+      "ing",
+      "fas",
+      "cok",
+      "dive",
+      "sul"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "skydive",
+      "sulfas",
+      "coking",
+      "skying"
+    ]
+  }
+}

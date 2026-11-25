@@ -1,0 +1,512 @@
+{
+  "2027-04-01": {
+    "fragments": [
+      "rat",
+      "ting",
+      "bite",
+      "pee",
+      "bur",
+      "aver"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "averting",
+      "ratting",
+      "ratbite",
+      "burpee"
+    ]
+  },
+  "2027-04-02": {
+    "fragments": [
+      "rat",
+      "bite",
+      "nly",
+      "ting",
+      "ope",
+      "aver"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "averting",
+      "ratting",
+      "ratbite",
+      "openly"
+    ]
+  },
+  "2027-04-03": {
+    "fragments": [
+      "em",
+      "wards",
+      "after",
+      "mys",
+      "ha",
+      "bit"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "afterwards",
+      "emmys",
+      "habit",
+      "haem"
+    ]
+  },
+  "2027-04-04": {
+    "fragments": [
+      "serou",
+      "ha",
+      "em",
+      "bit",
+      "sness",
+      "mys"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "serousness",
+      "emmys",
+      "habit",
+      "haem"
+    ]
+  },
+  "2027-04-05": {
+    "fragments": [
+      "gos",
+      "spire",
+      "let",
+      "lepto",
+      "unpoe",
+      "tical"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "unpoetical",
+      "leptospire",
+      "spirelet",
+      "goslet"
+    ]
+  },
+  "2027-04-06": {
+    "fragments": [
+      "fac",
+      "toid",
+      "let",
+      "gos",
+      "lepto",
+      "spire"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "leptospire",
+      "spirelet",
+      "factoid",
+      "goslet"
+    ]
+  },
+  "2027-04-07": {
+    "fragments": [
+      "biest",
+      "rtree",
+      "peppe",
+      "snob",
+      "fub",
+      "bery"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "peppertree",
+      "snobbiest",
+      "fubbiest",
+      "snobbery"
+    ]
+  },
+  "2027-04-08": {
+    "fragments": [
+      "top",
+      "tip",
+      "bery",
+      "fub",
+      "biest",
+      "snob"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "snobbiest",
+      "fubbiest",
+      "snobbery",
+      "fubbery"
+    ]
+  },
+  "2027-04-09": {
+    "fragments": [
+      "opile",
+      "ling",
+      "therm",
+      "sing",
+      "upri",
+      "hote"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "thermopile",
+      "uprising",
+      "singling",
+      "hoteling"
+    ]
+  },
+  "2027-04-10": {
+    "fragments": [
+      "ling",
+      "catal",
+      "hote",
+      "upri",
+      "ysing",
+      "sing"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "catalysing",
+      "uprising",
+      "singling",
+      "hoteling"
+    ]
+  },
+  "2027-04-11": {
+    "fragments": [
+      "sagg",
+      "kes",
+      "yc",
+      "ered",
+      "ars",
+      "lad"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "saggered",
+      "saggars",
+      "kesars",
+      "yclad"
+    ]
+  },
+  "2027-04-12": {
+    "fragments": [
+      "kes",
+      "ered",
+      "amir",
+      "ates",
+      "ars",
+      "sagg"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "saggered",
+      "amirates",
+      "saggars",
+      "kesars"
+    ]
+  },
+  "2027-04-13": {
+    "fragments": [
+      "ars",
+      "est",
+      "amir",
+      "kes",
+      "rud",
+      "ates"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "amirates",
+      "estates",
+      "kesars",
+      "rudest"
+    ]
+  },
+  "2027-04-14": {
+    "fragments": [
+      "ates",
+      "rud",
+      "dlit",
+      "est",
+      "amir",
+      "floo"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "amirates",
+      "floodlit",
+      "estates",
+      "rudest"
+    ]
+  },
+  "2027-04-15": {
+    "fragments": [
+      "vel",
+      "pun",
+      "ker",
+      "coac",
+      "fa",
+      "hwhip"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "coachwhip",
+      "punker",
+      "faker",
+      "favel"
+    ]
+  },
+  "2027-04-16": {
+    "fragments": [
+      "mere",
+      "pun",
+      "vel",
+      "meta",
+      "fa",
+      "ker"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "metamere",
+      "punker",
+      "faker",
+      "favel"
+    ]
+  },
+  "2027-04-17": {
+    "fragments": [
+      "sta",
+      "ling",
+      "bir",
+      "tue",
+      "heed",
+      "sha"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "shaheed",
+      "shaling",
+      "staling",
+      "birling"
+    ]
+  },
+  "2027-04-18": {
+    "fragments": [
+      "fl",
+      "tue",
+      "aks",
+      "ling",
+      "sta",
+      "bir"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "staling",
+      "birling",
+      "statue",
+      "flaks"
+    ]
+  },
+  "2027-04-19": {
+    "fragments": [
+      "urize",
+      "ries",
+      "ling",
+      "merc",
+      "gur",
+      "podd"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "mercurize",
+      "riesling",
+      "poddling",
+      "gurries"
+    ]
+  },
+  "2027-04-20": {
+    "fragments": [
+      "gur",
+      "podd",
+      "otise",
+      "ling",
+      "ries",
+      "narc"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "narcotise",
+      "riesling",
+      "poddling",
+      "gurries"
+    ]
+  },
+  "2027-04-21": {
+    "fragments": [
+      "fagg",
+      "eries",
+      "celeb",
+      "rants",
+      "ings",
+      "jap"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "celebrants",
+      "faggeries",
+      "faggings",
+      "japeries"
+    ]
+  },
+  "2027-04-22": {
+    "fragments": [
+      "fagg",
+      "ings",
+      "jap",
+      "zel",
+      "eries",
+      "zi"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "faggeries",
+      "faggings",
+      "japeries",
+      "japings"
+    ]
+  },
+  "2027-04-23": {
+    "fragments": [
+      "husha",
+      "free",
+      "bies",
+      "bying",
+      "cas",
+      "tes"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "hushabying",
+      "hushabies",
+      "freebies",
+      "castes"
+    ]
+  },
+  "2027-04-24": {
+    "fragments": [
+      "bies",
+      "pos",
+      "cas",
+      "ty",
+      "free",
+      "tes"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "freebies",
+      "castes",
+      "freety",
+      "testy"
+    ]
+  },
+  "2027-04-25": {
+    "fragments": [
+      "ty",
+      "super",
+      "free",
+      "brats",
+      "bies",
+      "pos"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "superbrats",
+      "freebies",
+      "freety",
+      "typos"
+    ]
+  },
+  "2027-04-26": {
+    "fragments": [
+      "lift",
+      "ured",
+      "vapo",
+      "balls",
+      "backs",
+      "fork"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "liftbacks",
+      "forkballs",
+      "vapoured",
+      "forklift"
+    ]
+  },
+  "2027-04-27": {
+    "fragments": [
+      "ya",
+      "honia",
+      "wns",
+      "dysp",
+      "spu",
+      "nks"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "dysphonia",
+      "spunks",
+      "yawns",
+      "yanks"
+    ]
+  },
+  "2027-04-28": {
+    "fragments": [
+      "lped",
+      "tou",
+      "che",
+      "rie",
+      "onium",
+      "purd"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "purdonium",
+      "chelped",
+      "tourie",
+      "touche"
+    ]
+  },
+  "2027-04-29": {
+    "fragments": [
+      "cking",
+      "musi",
+      "qua",
+      "unsu",
+      "btle",
+      "rter"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "musicking",
+      "unsubtle",
+      "quacking",
+      "quarter"
+    ]
+  },
+  "2027-04-30": {
+    "fragments": [
+      "uebus",
+      "rter",
+      "musi",
+      "qua",
+      "harq",
+      "cking"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "musicking",
+      "harquebus",
+      "quacking",
+      "quarter"
+    ]
+  }
+}

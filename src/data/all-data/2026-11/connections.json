@@ -1,0 +1,266 @@
+{
+  "2026-11-25": {
+    "groups": [
+      {
+        "category": "Shoes",
+        "words": [
+          "SNEAKER",
+          "LOAFER",
+          "SANDAL",
+          "BOOT"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Car Body Styles",
+        "words": [
+          "SEDAN",
+          "COUPE",
+          "HATCHBACK",
+          "SUV"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things in a Wallet",
+        "words": [
+          "CASH",
+          "RECEIPT",
+          "LICENSE",
+          "CARD"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "File Extensions",
+        "words": [
+          "JSON",
+          "HTML",
+          "CSS",
+          "PNG"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2026-11-26": {
+    "groups": [
+      {
+        "category": "Trees",
+        "words": [
+          "OAK",
+          "PINE",
+          "MAPLE",
+          "BIRCH"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Gymnastics Apparatus",
+        "words": [
+          "VAULT",
+          "BEAM",
+          "RINGS",
+          "POMMEL"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Poker Hands",
+        "words": [
+          "FLUSH",
+          "STRAIGHT",
+          "PAIR",
+          "FULL"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Stone",
+        "words": [
+          "MILE",
+          "CORNER",
+          "KEY",
+          "LIME"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2026-11-27": {
+    "groups": [
+      {
+        "category": "Big Cats",
+        "words": [
+          "LION",
+          "TIGER",
+          "LEOPARD",
+          "CHEETAH"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Mountain Ranges",
+        "words": [
+          "ALPS",
+          "ANDES",
+          "ROCKIES",
+          "HIMALAYAS"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Poker Hands",
+        "words": [
+          "FLUSH",
+          "STRAIGHT",
+          "PAIR",
+          "FULL"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "HTTP Methods",
+        "words": [
+          "GET",
+          "POST",
+          "PUT",
+          "DELETE"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2026-11-28": {
+    "groups": [
+      {
+        "category": "Card Suits",
+        "words": [
+          "HEARTS",
+          "DIAMONDS",
+          "CLUBS",
+          "SPADES"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Asian Capitals",
+        "words": [
+          "SEOUL",
+          "BANGKOK",
+          "HANOI",
+          "MANILA"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Synonyms for Bright",
+        "words": [
+          "VIVID",
+          "RADIANT",
+          "LUMINOUS",
+          "GLOWING"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "File Extensions",
+        "words": [
+          "JSON",
+          "HTML",
+          "CSS",
+          "PNG"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2026-11-29": {
+    "groups": [
+      {
+        "category": "Trees",
+        "words": [
+          "OAK",
+          "PINE",
+          "MAPLE",
+          "BIRCH"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Reptiles",
+        "words": [
+          "IGUANA",
+          "GECKO",
+          "COBRA",
+          "TORTOISE"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Literary Devices",
+        "words": [
+          "METAPHOR",
+          "SIMILE",
+          "IRONY",
+          "ALLEGORY"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Ring",
+        "words": [
+          "EAR",
+          "KEY",
+          "WEDDING",
+          "MOOD"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2026-11-30": {
+    "groups": [
+      {
+        "category": "Weather Phenomena",
+        "words": [
+          "RAIN",
+          "SNOW",
+          "HAIL",
+          "SLEET"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Astronomy Terms",
+        "words": [
+          "NEBULA",
+          "QUASAR",
+          "PULSAR",
+          "SUPERNOVA"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Teeth",
+        "words": [
+          "COMB",
+          "SAW",
+          "ZIPPER",
+          "GEAR"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Box",
+        "words": [
+          "MAIL",
+          "SAND",
+          "TOOL",
+          "LUNCH"
+        ],
+        "difficulty": 4
+      }
+    ]
+  }
+}

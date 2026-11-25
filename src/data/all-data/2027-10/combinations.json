@@ -1,0 +1,529 @@
+{
+  "2027-10-01": {
+    "fragments": [
+      "alker",
+      "nked",
+      "day",
+      "racew",
+      "to",
+      "tru"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "racewalker",
+      "trunked",
+      "tonked",
+      "today"
+    ]
+  },
+  "2027-10-02": {
+    "fragments": [
+      "day",
+      "to",
+      "gars",
+      "sag",
+      "nked",
+      "tru"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "trunked",
+      "saggars",
+      "tonked",
+      "today"
+    ]
+  },
+  "2027-10-03": {
+    "fragments": [
+      "tatic",
+      "nons",
+      "reg",
+      "pl",
+      "rew",
+      "ain"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "nonstatic",
+      "regain",
+      "regrew",
+      "plain"
+    ]
+  },
+  "2027-10-04": {
+    "fragments": [
+      "vaun",
+      "tful",
+      "pi",
+      "kers",
+      "bus",
+      "ccy"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "vauntful",
+      "buskers",
+      "pikers",
+      "piccy"
+    ]
+  },
+  "2027-10-05": {
+    "fragments": [
+      "isis",
+      "bus",
+      "encl",
+      "ccy",
+      "kers",
+      "pi"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "enclisis",
+      "buskers",
+      "pikers",
+      "piccy"
+    ]
+  },
+  "2027-10-06": {
+    "fragments": [
+      "isis",
+      "encl",
+      "ccy",
+      "doo",
+      "pi",
+      "ked"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "enclisis",
+      "dooked",
+      "piccy",
+      "piked"
+    ]
+  },
+  "2027-10-07": {
+    "fragments": [
+      "dh",
+      "espe",
+      "ole",
+      "ha",
+      "ols",
+      "cial"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "especial",
+      "haole",
+      "dhole",
+      "dhols"
+    ]
+  },
+  "2027-10-08": {
+    "fragments": [
+      "ha",
+      "dh",
+      "ols",
+      "gue",
+      "can",
+      "ole"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "cangue",
+      "haole",
+      "dhole",
+      "dhols"
+    ]
+  },
+  "2027-10-09": {
+    "fragments": [
+      "unb",
+      "less",
+      "revie",
+      "nail",
+      "wable",
+      "biter"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "reviewable",
+      "nailbiter",
+      "nailless",
+      "unbless"
+    ]
+  },
+  "2027-10-10": {
+    "fragments": [
+      "poet",
+      "ries",
+      "pred",
+      "ship",
+      "kew",
+      "res"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "poetship",
+      "poetries",
+      "predries",
+      "reskew"
+    ]
+  },
+  "2027-10-11": {
+    "fragments": [
+      "nants",
+      "conso",
+      "blin",
+      "dest",
+      "fil",
+      "ler"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "consonants",
+      "blindest",
+      "consoler",
+      "filler"
+    ]
+  },
+  "2027-10-12": {
+    "fragments": [
+      "fil",
+      "nants",
+      "conso",
+      "vag",
+      "ler",
+      "rom"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "consonants",
+      "consoler",
+      "filler",
+      "vagrom"
+    ]
+  },
+  "2027-10-13": {
+    "fragments": [
+      "wal",
+      "me",
+      "rus",
+      "rle",
+      "frea",
+      "kouts"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "freakouts",
+      "walkouts",
+      "walrus",
+      "merle"
+    ]
+  },
+  "2027-10-14": {
+    "fragments": [
+      "poo",
+      "linn",
+      "bir",
+      "shoc",
+      "hets",
+      "ler"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "shochets",
+      "birlinn",
+      "birler",
+      "pooler"
+    ]
+  },
+  "2027-10-15": {
+    "fragments": [
+      "proka",
+      "volt",
+      "nted",
+      "ryons",
+      "age",
+      "aisms"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "prokaryons",
+      "voltaisms",
+      "voltage",
+      "agented"
+    ]
+  },
+  "2027-10-16": {
+    "fragments": [
+      "che",
+      "age",
+      "leted",
+      "cors",
+      "nted",
+      "apo"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "corsleted",
+      "agented",
+      "corsage",
+      "cheapo"
+    ]
+  },
+  "2027-10-17": {
+    "fragments": [
+      "ering",
+      "tued",
+      "spi",
+      "maku",
+      "puck",
+      "nula"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "puckering",
+      "makutued",
+      "spiering",
+      "spinula"
+    ]
+  },
+  "2027-10-18": {
+    "fragments": [
+      "ries",
+      "ering",
+      "spi",
+      "viva",
+      "puck",
+      "nula"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "puckering",
+      "spiering",
+      "vivaries",
+      "spinula"
+    ]
+  },
+  "2027-10-19": {
+    "fragments": [
+      "enols",
+      "panth",
+      "alier",
+      "ation",
+      "anim",
+      "abrog"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "panthenols",
+      "abrogation",
+      "animation",
+      "animalier"
+    ]
+  },
+  "2027-10-20": {
+    "fragments": [
+      "pen",
+      "ation",
+      "abrog",
+      "alier",
+      "anim",
+      "ded"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "abrogation",
+      "animation",
+      "animalier",
+      "pended"
+    ]
+  },
+  "2027-10-21": {
+    "fragments": [
+      "ges",
+      "ded",
+      "pen",
+      "alier",
+      "anim",
+      "ti"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "animalier",
+      "pended",
+      "tided",
+      "tiges"
+    ]
+  },
+  "2027-10-22": {
+    "fragments": [
+      "pen",
+      "ans",
+      "ded",
+      "dam",
+      "ti",
+      "ges"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "pended",
+      "dedans",
+      "dampen",
+      "damans"
+    ]
+  },
+  "2027-10-23": {
+    "fragments": [
+      "ges",
+      "ans",
+      "dam",
+      "rst",
+      "ea",
+      "ti"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "damans",
+      "tiges",
+      "tians",
+      "earst"
+    ]
+  },
+  "2027-10-24": {
+    "fragments": [
+      "mat",
+      "tie",
+      "inter",
+      "opp",
+      "oser",
+      "class"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "interclass",
+      "intermat",
+      "intertie",
+      "opposer"
+    ]
+  },
+  "2027-10-25": {
+    "fragments": [
+      "une",
+      "ile",
+      "yed",
+      "ias",
+      "es",
+      "man"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "uneyed",
+      "manias",
+      "yedes",
+      "manes"
+    ]
+  },
+  "2027-10-26": {
+    "fragments": [
+      "ile",
+      "es",
+      "hee",
+      "man",
+      "let",
+      "ias"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "manias",
+      "lethee",
+      "manes",
+      "esile"
+    ]
+  },
+  "2027-10-27": {
+    "fragments": [
+      "es",
+      "let",
+      "quad",
+      "ile",
+      "hee",
+      "plex"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "quadplexes",
+      "quadplex",
+      "lethee",
+      "plexes"
+    ]
+  },
+  "2027-10-28": {
+    "fragments": [
+      "quad",
+      "hee",
+      "plex",
+      "let",
+      "ting",
+      "wil"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "quadplex",
+      "letting",
+      "wilting",
+      "lethee"
+    ]
+  },
+  "2027-10-29": {
+    "fragments": [
+      "white",
+      "walls",
+      "gra",
+      "hing",
+      "mas",
+      "ters"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "whitewalls",
+      "graters",
+      "masters",
+      "mashing"
+    ]
+  },
+  "2027-10-30": {
+    "fragments": [
+      "mas",
+      "tment",
+      "gra",
+      "raba",
+      "hing",
+      "ters"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "rabatment",
+      "graters",
+      "masters",
+      "mashing"
+    ]
+  },
+  "2027-10-31": {
+    "fragments": [
+      "insi",
+      "cup",
+      "nes",
+      "py",
+      "gnia",
+      "pier"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "insignia",
+      "cuppier",
+      "cuppy",
+      "pynes"
+    ]
+  }
+}

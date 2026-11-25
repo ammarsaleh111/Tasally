@@ -1,0 +1,1366 @@
+{
+  "2027-07-01": {
+    "groups": [
+      {
+        "category": "Dairy Products",
+        "words": [
+          "MILK",
+          "BUTTER",
+          "CHEESE",
+          "YOGURT"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Musical Tempos",
+        "words": [
+          "ADAGIO",
+          "ALLEGRO",
+          "PRESTO",
+          "LARGO"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things that Bounce",
+        "words": [
+          "BALL",
+          "CHECK",
+          "EMAIL",
+          "TRAMPOLINE"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "Words Ending in -OLOGY",
+        "words": [
+          "BIO",
+          "GEO",
+          "ASTRO",
+          "PSYCH"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-02": {
+    "groups": [
+      {
+        "category": "Pasta Shapes",
+        "words": [
+          "PENNE",
+          "FUSILLI",
+          "SPAGHETTI",
+          "RIGATONI"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Reptiles",
+        "words": [
+          "IGUANA",
+          "GECKO",
+          "COBRA",
+          "TORTOISE"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Poker Hands",
+        "words": [
+          "FLUSH",
+          "STRAIGHT",
+          "PAIR",
+          "FULL"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ House",
+        "words": [
+          "GREEN",
+          "LIGHT",
+          "TREE",
+          "POWER"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-03": {
+    "groups": [
+      {
+        "category": "Farm Animals",
+        "words": [
+          "COW",
+          "SHEEP",
+          "GOAT",
+          "HORSE"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Insects",
+        "words": [
+          "ANT",
+          "BEETLE",
+          "CRICKET",
+          "DRAGONFLY"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things that Bounce",
+        "words": [
+          "BALL",
+          "CHECK",
+          "EMAIL",
+          "TRAMPOLINE"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Up",
+        "words": [
+          "WAKE",
+          "START",
+          "MAKE",
+          "WARM"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-04": {
+    "groups": [
+      {
+        "category": "Fabrics",
+        "words": [
+          "COTTON",
+          "SILK",
+          "WOOL",
+          "LINEN"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Human Bones",
+        "words": [
+          "FEMUR",
+          "TIBIA",
+          "RADIUS",
+          "CLAVICLE"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Stripes",
+        "words": [
+          "ZEBRA",
+          "CANDY",
+          "FLAG",
+          "BARCODE"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Glass",
+        "words": [
+          "HOUR",
+          "SPY",
+          "SUN",
+          "STAINED"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-05": {
+    "groups": [
+      {
+        "category": "Primary & Secondary Colors",
+        "words": [
+          "RED",
+          "BLUE",
+          "GREEN",
+          "YELLOW"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Renaissance Artists",
+        "words": [
+          "DAVINCI",
+          "RAPHAEL",
+          "DONATELLO",
+          "MICHELANGELO"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Blades",
+        "words": [
+          "SKATE",
+          "FAN",
+          "GRASS",
+          "RAZOR"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Day",
+        "words": [
+          "BIRTH",
+          "HOLI",
+          "PAY",
+          "WEEK"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-06": {
+    "groups": [
+      {
+        "category": "Tools",
+        "words": [
+          "HAMMER",
+          "WRENCH",
+          "PLIERS",
+          "CHISEL"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Insects",
+        "words": [
+          "ANT",
+          "BEETLE",
+          "CRICKET",
+          "DRAGONFLY"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things You Fold",
+        "words": [
+          "ORIGAMI",
+          "LAUNDRY",
+          "NAPKIN",
+          "UMBRELLA"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "HTTP Methods",
+        "words": [
+          "GET",
+          "POST",
+          "PUT",
+          "DELETE"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-07": {
+    "groups": [
+      {
+        "category": "Big Cats",
+        "words": [
+          "LION",
+          "TIGER",
+          "LEOPARD",
+          "CHEETAH"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Reptiles",
+        "words": [
+          "IGUANA",
+          "GECKO",
+          "COBRA",
+          "TORTOISE"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Parts of a Computer",
+        "words": [
+          "CPU",
+          "RAM",
+          "MOTHERBOARD",
+          "SSD"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Board",
+        "words": [
+          "CHALK",
+          "SURF",
+          "DASH",
+          "BILL"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-08": {
+    "groups": [
+      {
+        "category": "Currencies",
+        "words": [
+          "DOLLAR",
+          "EURO",
+          "YEN",
+          "POUND"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "World Capital Cities",
+        "words": [
+          "CAIRO",
+          "TOKYO",
+          "PARIS",
+          "OTTAWA"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Keys",
+        "words": [
+          "PIANO",
+          "KEYBOARD",
+          "LOCK",
+          "FLORIDA"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "Silent 'K' Words",
+        "words": [
+          "KNIGHT",
+          "KNEE",
+          "KNOB",
+          "KNOT"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-09": {
+    "groups": [
+      {
+        "category": "Days of the Week",
+        "words": [
+          "MONDAY",
+          "TUESDAY",
+          "FRIDAY",
+          "SUNDAY"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Norse Mythology",
+        "words": [
+          "ODIN",
+          "THOR",
+          "LOKI",
+          "FREYA"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Web Browsers",
+        "words": [
+          "CHROME",
+          "SAFARI",
+          "FIREFOX",
+          "EDGE"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Cut",
+        "words": [
+          "SHORT",
+          "PAPER",
+          "HAIR",
+          "UPPER"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-10": {
+    "groups": [
+      {
+        "category": "Olympic Sports",
+        "words": [
+          "SWIMMING",
+          "ARCHERY",
+          "FENCING",
+          "ROWING"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Musical Tempos",
+        "words": [
+          "ADAGIO",
+          "ALLEGRO",
+          "PRESTO",
+          "LARGO"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things You Can Catch",
+        "words": [
+          "COLD",
+          "TRAIN",
+          "GLIMPSE",
+          "BREATH"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Cut",
+        "words": [
+          "SHORT",
+          "PAPER",
+          "HAIR",
+          "UPPER"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-11": {
+    "groups": [
+      {
+        "category": "Dog Breeds",
+        "words": [
+          "BEAGLE",
+          "POODLE",
+          "BULLDOG",
+          "HUSKY"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Photography Terms",
+        "words": [
+          "APERTURE",
+          "SHUTTER",
+          "ISO",
+          "EXPOSURE"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Keys",
+        "words": [
+          "PIANO",
+          "KEYBOARD",
+          "LOCK",
+          "FLORIDA"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Box",
+        "words": [
+          "MAIL",
+          "SAND",
+          "TOOL",
+          "LUNCH"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-12": {
+    "groups": [
+      {
+        "category": "Days of the Week",
+        "words": [
+          "MONDAY",
+          "TUESDAY",
+          "FRIDAY",
+          "SUNDAY"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Mountain Ranges",
+        "words": [
+          "ALPS",
+          "ANDES",
+          "ROCKIES",
+          "HIMALAYAS"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Hands",
+        "words": [
+          "CLOCK",
+          "POKER",
+          "CLOCKWORK",
+          "FARM"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "Keyboard Shortcuts (Ctrl+...)",
+        "words": [
+          "COPY",
+          "PASTE",
+          "UNDO",
+          "SAVE"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-13": {
+    "groups": [
+      {
+        "category": "Precious Gemstones",
+        "words": [
+          "RUBY",
+          "EMERALD",
+          "SAPPHIRE",
+          "DIAMOND"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Types of Cheese",
+        "words": [
+          "CHEDDAR",
+          "BRIE",
+          "GOUDA",
+          "MOZZARELLA"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Hands",
+        "words": [
+          "CLOCK",
+          "POKER",
+          "CLOCKWORK",
+          "FARM"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Ring",
+        "words": [
+          "EAR",
+          "KEY",
+          "WEDDING",
+          "MOOD"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-14": {
+    "groups": [
+      {
+        "category": "Citrus Fruits",
+        "words": [
+          "LEMON",
+          "LIME",
+          "ORANGE",
+          "GRAPEFRUIT"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Parts of a Ship",
+        "words": [
+          "BOW",
+          "STERN",
+          "HULL",
+          "MAST"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Shells",
+        "words": [
+          "TURTLE",
+          "TACOS",
+          "PEANUT",
+          "OYSTER"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Box",
+        "words": [
+          "MAIL",
+          "SAND",
+          "TOOL",
+          "LUNCH"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-15": {
+    "groups": [
+      {
+        "category": "Greek Letters",
+        "words": [
+          "ALPHA",
+          "BETA",
+          "GAMMA",
+          "OMEGA"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Dances",
+        "words": [
+          "TANGO",
+          "SALSA",
+          "WALTZ",
+          "BALLET"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Branches",
+        "words": [
+          "BANK",
+          "TREE",
+          "RIVER",
+          "GOVERNMENT"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Drop",
+        "words": [
+          "RAIN",
+          "BACK",
+          "DEW",
+          "NAME"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-16": {
+    "groups": [
+      {
+        "category": "Weather Phenomena",
+        "words": [
+          "RAIN",
+          "SNOW",
+          "HAIL",
+          "SLEET"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Reptiles",
+        "words": [
+          "IGUANA",
+          "GECKO",
+          "COBRA",
+          "TORTOISE"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Shells",
+        "words": [
+          "TURTLE",
+          "TACOS",
+          "PEANUT",
+          "OYSTER"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "Silent 'K' Words",
+        "words": [
+          "KNIGHT",
+          "KNEE",
+          "KNOB",
+          "KNOT"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-17": {
+    "groups": [
+      {
+        "category": "Dog Breeds",
+        "words": [
+          "BEAGLE",
+          "POODLE",
+          "BULLDOG",
+          "HUSKY"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Asian Capitals",
+        "words": [
+          "SEOUL",
+          "BANGKOK",
+          "HANOI",
+          "MANILA"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Synonyms for Bright",
+        "words": [
+          "VIVID",
+          "RADIANT",
+          "LUMINOUS",
+          "GLOWING"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Line",
+        "words": [
+          "PUNCH",
+          "DEAD",
+          "FINISH",
+          "TIME"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-18": {
+    "groups": [
+      {
+        "category": "Card Suits",
+        "words": [
+          "HEARTS",
+          "DIAMONDS",
+          "CLUBS",
+          "SPADES"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Renaissance Artists",
+        "words": [
+          "DAVINCI",
+          "RAPHAEL",
+          "DONATELLO",
+          "MICHELANGELO"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Hands",
+        "words": [
+          "CLOCK",
+          "POKER",
+          "CLOCKWORK",
+          "FARM"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Fall",
+        "words": [
+          "WATER",
+          "NIGHT",
+          "SNOW",
+          "FREE"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-19": {
+    "groups": [
+      {
+        "category": "Citrus Fruits",
+        "words": [
+          "LEMON",
+          "LIME",
+          "ORANGE",
+          "GRAPEFRUIT"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Metric Prefixes",
+        "words": [
+          "KILO",
+          "MEGA",
+          "GIGA",
+          "TERA"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things on a Desk",
+        "words": [
+          "LAMP",
+          "STAPLER",
+          "NOTEPAD",
+          "CALENDAR"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "Words That Are Also Verbs",
+        "words": [
+          "DUCK",
+          "WATCH",
+          "BARK",
+          "NAIL"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-20": {
+    "groups": [
+      {
+        "category": "Seasons",
+        "words": [
+          "SPRING",
+          "SUMMER",
+          "AUTUMN",
+          "WINTER"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Mountain Ranges",
+        "words": [
+          "ALPS",
+          "ANDES",
+          "ROCKIES",
+          "HIMALAYAS"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things that Bounce",
+        "words": [
+          "BALL",
+          "CHECK",
+          "EMAIL",
+          "TRAMPOLINE"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Drop",
+        "words": [
+          "RAIN",
+          "BACK",
+          "DEW",
+          "NAME"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-21": {
+    "groups": [
+      {
+        "category": "Compass Directions",
+        "words": [
+          "NORTH",
+          "SOUTH",
+          "EAST",
+          "WEST"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Greek Gods",
+        "words": [
+          "ZEUS",
+          "ATHENA",
+          "APOLLO",
+          "POSEIDON"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things with Stripes",
+        "words": [
+          "ZEBRA",
+          "CANDY",
+          "FLAG",
+          "BARCODE"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "Words Ending in -OLOGY",
+        "words": [
+          "BIO",
+          "GEO",
+          "ASTRO",
+          "PSYCH"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-22": {
+    "groups": [
+      {
+        "category": "Compass Directions",
+        "words": [
+          "NORTH",
+          "SOUTH",
+          "EAST",
+          "WEST"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Parts of a Ship",
+        "words": [
+          "BOW",
+          "STERN",
+          "HULL",
+          "MAST"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Ways to Cook Eggs",
+        "words": [
+          "SCRAMBLED",
+          "POACHED",
+          "BOILED",
+          "FRIED"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Ring",
+        "words": [
+          "EAR",
+          "KEY",
+          "WEDDING",
+          "MOOD"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-23": {
+    "groups": [
+      {
+        "category": "Metals",
+        "words": [
+          "IRON",
+          "COPPER",
+          "SILVER",
+          "GOLD"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Mountain Ranges",
+        "words": [
+          "ALPS",
+          "ANDES",
+          "ROCKIES",
+          "HIMALAYAS"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Rocks & Minerals",
+        "words": [
+          "GRANITE",
+          "MARBLE",
+          "QUARTZ",
+          "BASALT"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Ring",
+        "words": [
+          "EAR",
+          "KEY",
+          "WEDDING",
+          "MOOD"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-24": {
+    "groups": [
+      {
+        "category": "Chess Pieces",
+        "words": [
+          "KING",
+          "QUEEN",
+          "ROOK",
+          "BISHOP"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Mountain Ranges",
+        "words": [
+          "ALPS",
+          "ANDES",
+          "ROCKIES",
+          "HIMALAYAS"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things You Can Break",
+        "words": [
+          "RECORD",
+          "SILENCE",
+          "PROMISE",
+          "ICE"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "Words That Are Also Verbs",
+        "words": [
+          "DUCK",
+          "WATCH",
+          "BARK",
+          "NAIL"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-25": {
+    "groups": [
+      {
+        "category": "Dog Breeds",
+        "words": [
+          "BEAGLE",
+          "POODLE",
+          "BULLDOG",
+          "HUSKY"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Shakespeare Plays",
+        "words": [
+          "HAMLET",
+          "MACBETH",
+          "OTHELLO",
+          "TEMPEST"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Baseball Terms",
+        "words": [
+          "BUNT",
+          "INNING",
+          "STRIKE",
+          "HOMER"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "Homophones of Numbers",
+        "words": [
+          "WON",
+          "TOO",
+          "FORE",
+          "ATE"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-26": {
+    "groups": [
+      {
+        "category": "Trees",
+        "words": [
+          "OAK",
+          "PINE",
+          "MAPLE",
+          "BIRCH"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Photography Terms",
+        "words": [
+          "APERTURE",
+          "SHUTTER",
+          "ISO",
+          "EXPOSURE"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things that Melt",
+        "words": [
+          "WAX",
+          "CHOCOLATE",
+          "GLACIER",
+          "SNOWMAN"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "File Extensions",
+        "words": [
+          "JSON",
+          "HTML",
+          "CSS",
+          "PNG"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-27": {
+    "groups": [
+      {
+        "category": "Oceans of the World",
+        "words": [
+          "ATLANTIC",
+          "PACIFIC",
+          "INDIAN",
+          "ARCTIC"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Cloud Types",
+        "words": [
+          "CUMULUS",
+          "STRATUS",
+          "CIRRUS",
+          "NIMBUS"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things on a Desk",
+        "words": [
+          "LAMP",
+          "STAPLER",
+          "NOTEPAD",
+          "CALENDAR"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Paper",
+        "words": [
+          "NEWS",
+          "WALL",
+          "SAND",
+          "WRAPPING"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-28": {
+    "groups": [
+      {
+        "category": "Ocean Creatures",
+        "words": [
+          "WHALE",
+          "DOLPHIN",
+          "OCTOPUS",
+          "SHARK"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Chemical Elements",
+        "words": [
+          "HELIUM",
+          "NEON",
+          "CARBON",
+          "OXYGEN"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things You Fold",
+        "words": [
+          "ORIGAMI",
+          "LAUNDRY",
+          "NAPKIN",
+          "UMBRELLA"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "Words Ending in -OLOGY",
+        "words": [
+          "BIO",
+          "GEO",
+          "ASTRO",
+          "PSYCH"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-29": {
+    "groups": [
+      {
+        "category": "Currencies",
+        "words": [
+          "DOLLAR",
+          "EURO",
+          "YEN",
+          "POUND"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Jazz Musicians",
+        "words": [
+          "MILES",
+          "COLTRANE",
+          "ELLINGTON",
+          "ARMSTRONG"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Things on a Desk",
+        "words": [
+          "LAMP",
+          "STAPLER",
+          "NOTEPAD",
+          "CALENDAR"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ House",
+        "words": [
+          "GREEN",
+          "LIGHT",
+          "TREE",
+          "POWER"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-30": {
+    "groups": [
+      {
+        "category": "Precious Gemstones",
+        "words": [
+          "RUBY",
+          "EMERALD",
+          "SAPPHIRE",
+          "DIAMOND"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Norse Mythology",
+        "words": [
+          "ODIN",
+          "THOR",
+          "LOKI",
+          "FREYA"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Poker Hands",
+        "words": [
+          "FLUSH",
+          "STRAIGHT",
+          "PAIR",
+          "FULL"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Box",
+        "words": [
+          "MAIL",
+          "SAND",
+          "TOOL",
+          "LUNCH"
+        ],
+        "difficulty": 4
+      }
+    ]
+  },
+  "2027-07-31": {
+    "groups": [
+      {
+        "category": "Dairy Products",
+        "words": [
+          "MILK",
+          "BUTTER",
+          "CHEESE",
+          "YOGURT"
+        ],
+        "difficulty": 1
+      },
+      {
+        "category": "Programming Languages",
+        "words": [
+          "PYTHON",
+          "JAVA",
+          "RUST",
+          "SWIFT"
+        ],
+        "difficulty": 2
+      },
+      {
+        "category": "Navigation Instruments",
+        "words": [
+          "COMPASS",
+          "SEXTANT",
+          "RADAR",
+          "SONAR"
+        ],
+        "difficulty": 3
+      },
+      {
+        "category": "___ Line",
+        "words": [
+          "PUNCH",
+          "DEAD",
+          "FINISH",
+          "TIME"
+        ],
+        "difficulty": 4
+      }
+    ]
+  }
+}

@@ -1,0 +1,529 @@
+{
+  "2027-03-01": {
+    "fragments": [
+      "atch",
+      "een",
+      "rep",
+      "mor",
+      "cha",
+      "res"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "repatch",
+      "reseen",
+      "moreen",
+      "morcha"
+    ]
+  },
+  "2027-03-02": {
+    "fragments": [
+      "phero",
+      "rever",
+      "monal",
+      "pres",
+      "lice",
+      "sings"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "reversings",
+      "pheromonal",
+      "pressings",
+      "preslice"
+    ]
+  },
+  "2027-03-03": {
+    "fragments": [
+      "pes",
+      "res",
+      "du",
+      "bab",
+      "uls",
+      "eed"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "babuls",
+      "reseed",
+      "dures",
+      "dupes"
+    ]
+  },
+  "2027-03-04": {
+    "fragments": [
+      "pes",
+      "eed",
+      "ar",
+      "eca",
+      "du",
+      "res"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "reseed",
+      "dures",
+      "dupes",
+      "areca"
+    ]
+  },
+  "2027-03-05": {
+    "fragments": [
+      "petri",
+      "ar",
+      "du",
+      "eca",
+      "pes",
+      "fiers"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "petrifiers",
+      "dupes",
+      "areca",
+      "duar"
+    ]
+  },
+  "2027-03-06": {
+    "fragments": [
+      "epic",
+      "drop",
+      "arps",
+      "slip",
+      "snow",
+      "back"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "epicarps",
+      "backdrop",
+      "snowdrop",
+      "snowslip"
+    ]
+  },
+  "2027-03-07": {
+    "fragments": [
+      "snow",
+      "totes",
+      "drop",
+      "slip",
+      "asymp",
+      "back"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "asymptotes",
+      "backdrop",
+      "snowdrop",
+      "snowslip"
+    ]
+  },
+  "2027-03-08": {
+    "fragments": [
+      "rnish",
+      "rists",
+      "si",
+      "nds",
+      "refu",
+      "humo"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "humorists",
+      "refurnish",
+      "refunds",
+      "sinds"
+    ]
+  },
+  "2027-03-09": {
+    "fragments": [
+      "rnish",
+      "ator",
+      "nds",
+      "test",
+      "si",
+      "refu"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "refurnish",
+      "testator",
+      "refunds",
+      "sinds"
+    ]
+  },
+  "2027-03-10": {
+    "fragments": [
+      "oil",
+      "woma",
+      "tatic",
+      "niser",
+      "ier",
+      "pros"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "womaniser",
+      "prostatic",
+      "prosier",
+      "oilier"
+    ]
+  },
+  "2027-03-11": {
+    "fragments": [
+      "ier",
+      "outc",
+      "rops",
+      "tatic",
+      "oil",
+      "pros"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "prostatic",
+      "outcrops",
+      "prosier",
+      "oilier"
+    ]
+  },
+  "2027-03-12": {
+    "fragments": [
+      "ki",
+      "ron",
+      "pegs",
+      "hat",
+      "del",
+      "ths"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "hatpegs",
+      "rondel",
+      "kiths",
+      "kidel"
+    ]
+  },
+  "2027-03-13": {
+    "fragments": [
+      "ki",
+      "ron",
+      "oxins",
+      "ths",
+      "aflat",
+      "del"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "aflatoxins",
+      "rondel",
+      "kiths",
+      "kidel"
+    ]
+  },
+  "2027-03-14": {
+    "fragments": [
+      "ne",
+      "li",
+      "admon",
+      "ished",
+      "mps",
+      "ars"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "admonished",
+      "limps",
+      "liars",
+      "nears"
+    ]
+  },
+  "2027-03-15": {
+    "fragments": [
+      "slap",
+      "ne",
+      "li",
+      "mps",
+      "ars",
+      "shot"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "slapshot",
+      "limps",
+      "liars",
+      "nears"
+    ]
+  },
+  "2027-03-16": {
+    "fragments": [
+      "plume",
+      "ries",
+      "tars",
+      "fria",
+      "semi",
+      "quin"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "semiplume",
+      "plumeries",
+      "friaries",
+      "quintars"
+    ]
+  },
+  "2027-03-17": {
+    "fragments": [
+      "quin",
+      "tars",
+      "prev",
+      "plume",
+      "semi",
+      "ailed"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "semiplume",
+      "prevailed",
+      "quintars",
+      "semitars"
+    ]
+  },
+  "2027-03-18": {
+    "fragments": [
+      "dra",
+      "gna",
+      "wers",
+      "rings",
+      "tempe",
+      "ftee"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "temperings",
+      "gnawers",
+      "drawers",
+      "draftee"
+    ]
+  },
+  "2027-03-19": {
+    "fragments": [
+      "rage",
+      "dra",
+      "xer",
+      "mi",
+      "ftee",
+      "unde"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "underage",
+      "draftee",
+      "mirage",
+      "mixer"
+    ]
+  },
+  "2027-03-20": {
+    "fragments": [
+      "rage",
+      "unde",
+      "loy",
+      "alty",
+      "mi",
+      "xer"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "underage",
+      "loyalty",
+      "mirage",
+      "mixer"
+    ]
+  },
+  "2027-03-21": {
+    "fragments": [
+      "diplo",
+      "hex",
+      "ball",
+      "ers",
+      "matic",
+      "utes"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "diplomatic",
+      "ballutes",
+      "ballers",
+      "hexers"
+    ]
+  },
+  "2027-03-22": {
+    "fragments": [
+      "un",
+      "ban",
+      "ers",
+      "utes",
+      "hex",
+      "ball"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "ballutes",
+      "ballers",
+      "hexers",
+      "unban"
+    ]
+  },
+  "2027-03-23": {
+    "fragments": [
+      "un",
+      "ons",
+      "utes",
+      "ban",
+      "ball",
+      "car"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "ballutes",
+      "ballons",
+      "carons",
+      "unban"
+    ]
+  },
+  "2027-03-24": {
+    "fragments": [
+      "pup",
+      "ets",
+      "gnas",
+      "hers",
+      "fac",
+      "pet"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "gnashers",
+      "pethers",
+      "facets",
+      "puppet"
+    ]
+  },
+  "2027-03-25": {
+    "fragments": [
+      "pet",
+      "hers",
+      "rries",
+      "pup",
+      "taybe",
+      "gnas"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "tayberries",
+      "gnashers",
+      "pethers",
+      "puppet"
+    ]
+  },
+  "2027-03-26": {
+    "fragments": [
+      "super",
+      "ggs",
+      "mi",
+      "micro",
+      "sch",
+      "emer"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "supermicro",
+      "schemer",
+      "miggs",
+      "misch"
+    ]
+  },
+  "2027-03-27": {
+    "fragments": [
+      "sch",
+      "ggs",
+      "emer",
+      "tens",
+      "mi",
+      "pla"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "schemer",
+      "platens",
+      "miggs",
+      "misch"
+    ]
+  },
+  "2027-03-28": {
+    "fragments": [
+      "red",
+      "typed",
+      "sab",
+      "rule",
+      "over",
+      "helio"
+    ],
+    "targetScore": 120,
+    "bonusWords": [
+      "heliotyped",
+      "overtyped",
+      "overrule",
+      "overred"
+    ]
+  },
+  "2027-03-29": {
+    "fragments": [
+      "ches",
+      "helio",
+      "broa",
+      "typed",
+      "over",
+      "rule"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "heliotyped",
+      "overtyped",
+      "overrule",
+      "broaches"
+    ]
+  },
+  "2027-03-30": {
+    "fragments": [
+      "cre",
+      "foa",
+      "app",
+      "led",
+      "all",
+      "els"
+    ],
+    "targetScore": 110,
+    "bonusWords": [
+      "creels",
+      "foaled",
+      "appels",
+      "appall"
+    ]
+  },
+  "2027-03-31": {
+    "fragments": [
+      "ology",
+      "asies",
+      "docim",
+      "clear",
+      "angel",
+      "story"
+    ],
+    "targetScore": 99,
+    "bonusWords": [
+      "angelology",
+      "clearstory",
+      "docimology",
+      "docimasies"
+    ]
+  }
+}

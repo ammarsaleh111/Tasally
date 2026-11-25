@@ -1,0 +1,368 @@
+{
+  "2026-11-25": {
+    "grid": [
+      [
+        "F",
+        "R",
+        "A",
+        "N",
+        "K"
+      ],
+      [
+        "L",
+        "",
+        "N",
+        "",
+        "I"
+      ],
+      [
+        "E",
+        "I",
+        "G",
+        "H",
+        "T"
+      ],
+      [
+        "S",
+        "",
+        "E",
+        "",
+        "T"
+      ],
+      [
+        "H",
+        "I",
+        "L",
+        "L",
+        "Y"
+      ]
+    ],
+    "across": {
+      "1": "Bluntly honest",
+      "4": "Number after seven",
+      "5": "Has many hills"
+    },
+    "down": {
+      "1": "Soft body tissue",
+      "2": "Heavenly messenger",
+      "3": "Young cat"
+    },
+    "solution": {
+      "across": {
+        "1": "FRANK",
+        "4": "EIGHT",
+        "5": "HILLY"
+      },
+      "down": {
+        "1": "FLESH",
+        "2": "ANGEL",
+        "3": "KITTY"
+      }
+    }
+  },
+  "2026-11-26": {
+    "grid": [
+      [
+        "B",
+        "L",
+        "I",
+        "N",
+        "D"
+      ],
+      [
+        "A",
+        "",
+        "G",
+        "",
+        "R"
+      ],
+      [
+        "D",
+        "E",
+        "L",
+        "T",
+        "A"
+      ],
+      [
+        "G",
+        "",
+        "O",
+        "",
+        "P"
+      ],
+      [
+        "E",
+        "L",
+        "O",
+        "P",
+        "E"
+      ]
+    ],
+    "across": {
+      "1": "Unable to see",
+      "4": "River mouth triangle",
+      "5": "Run off to marry"
+    },
+    "down": {
+      "1": "Emblem of authority",
+      "2": "Snow-block shelter",
+      "3": "Hang loosely"
+    },
+    "solution": {
+      "across": {
+        "1": "BLIND",
+        "4": "DELTA",
+        "5": "ELOPE"
+      },
+      "down": {
+        "1": "BADGE",
+        "2": "IGLOO",
+        "3": "DRAPE"
+      }
+    }
+  },
+  "2026-11-27": {
+    "grid": [
+      [
+        "L",
+        "O",
+        "C",
+        "A",
+        "L"
+      ],
+      [
+        "E",
+        "",
+        "R",
+        "",
+        "L"
+      ],
+      [
+        "A",
+        "R",
+        "E",
+        "N",
+        "A"
+      ],
+      [
+        "V",
+        "",
+        "S",
+        "",
+        "M"
+      ],
+      [
+        "E",
+        "X",
+        "T",
+        "R",
+        "A"
+      ]
+    ],
+    "across": {
+      "1": "From nearby",
+      "4": "Sports stadium",
+      "5": "Additional"
+    },
+    "down": {
+      "1": "Depart",
+      "2": "Wave's top peak",
+      "3": "Andean pack animal"
+    },
+    "solution": {
+      "across": {
+        "1": "LOCAL",
+        "4": "ARENA",
+        "5": "EXTRA"
+      },
+      "down": {
+        "1": "LEAVE",
+        "2": "CREST",
+        "3": "LLAMA"
+      }
+    }
+  },
+  "2026-11-28": {
+    "grid": [
+      [
+        "B",
+        "R",
+        "I",
+        "D",
+        "E"
+      ],
+      [
+        "A",
+        "",
+        "N",
+        "",
+        "R"
+      ],
+      [
+        "D",
+        "O",
+        "D",
+        "G",
+        "E"
+      ],
+      [
+        "G",
+        "",
+        "I",
+        "",
+        "C"
+      ],
+      [
+        "E",
+        "X",
+        "E",
+        "R",
+        "T"
+      ]
+    ],
+    "across": {
+      "1": "Wedding star",
+      "4": "Duck out of the way",
+      "5": "Apply effort"
+    },
+    "down": {
+      "1": "Emblem of authority",
+      "2": "Independent film or band",
+      "3": "Build upright"
+    },
+    "solution": {
+      "across": {
+        "1": "BRIDE",
+        "4": "DODGE",
+        "5": "EXERT"
+      },
+      "down": {
+        "1": "BADGE",
+        "2": "INDIE",
+        "3": "ERECT"
+      }
+    }
+  },
+  "2026-11-29": {
+    "grid": [
+      [
+        "F",
+        "I",
+        "E",
+        "L",
+        "D"
+      ],
+      [
+        "O",
+        "",
+        "R",
+        "",
+        "E"
+      ],
+      [
+        "C",
+        "O",
+        "R",
+        "A",
+        "L"
+      ],
+      [
+        "A",
+        "",
+        "O",
+        "",
+        "T"
+      ],
+      [
+        "L",
+        "A",
+        "R",
+        "V",
+        "A"
+      ]
+    ],
+    "across": {
+      "1": "Open grassy area",
+      "4": "Reef organism",
+      "5": "Insect's early stage"
+    },
+    "down": {
+      "1": "Central point",
+      "2": "Mistake",
+      "3": "River mouth triangle"
+    },
+    "solution": {
+      "across": {
+        "1": "FIELD",
+        "4": "CORAL",
+        "5": "LARVA"
+      },
+      "down": {
+        "1": "FOCAL",
+        "2": "ERROR",
+        "3": "DELTA"
+      }
+    }
+  },
+  "2026-11-30": {
+    "grid": [
+      [
+        "G",
+        "L",
+        "A",
+        "R",
+        "E"
+      ],
+      [
+        "R",
+        "",
+        "D",
+        "",
+        "V"
+      ],
+      [
+        "A",
+        "L",
+        "O",
+        "N",
+        "E"
+      ],
+      [
+        "Z",
+        "",
+        "P",
+        "",
+        "R"
+      ],
+      [
+        "E",
+        "N",
+        "T",
+        "R",
+        "Y"
+      ]
+    ],
+    "across": {
+      "1": "Harsh bright light",
+      "4": "Without company",
+      "5": "Doorway or record"
+    },
+    "down": {
+      "1": "Eat pasture grass",
+      "2": "Take in as one's own",
+      "3": "Each and all"
+    },
+    "solution": {
+      "across": {
+        "1": "GLARE",
+        "4": "ALONE",
+        "5": "ENTRY"
+      },
+      "down": {
+        "1": "GRAZE",
+        "2": "ADOPT",
+        "3": "EVERY"
+      }
+    }
+  }
+}
