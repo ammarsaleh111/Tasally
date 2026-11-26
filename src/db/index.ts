@@ -5,7 +5,7 @@ import * as schema from "./schema";
 /**
  * Database Client Configuration - Scalability Optimized
  *
- * Optimized for serverless (Netlify) with Neon Postgres:
+ * Optimized for serverless (Vercel) with Neon Postgres:
  * - Uses DATABASE_URL_POOLED (Neon pooler endpoint) for all runtime queries
  * - Falls back to DATABASE_POOL_URL or DATABASE_URL
  * - Global singleton prevents connection exhaustion

@@ -16,7 +16,7 @@
 - **Animation:** Framer Motion 12
 - **Language:** TypeScript 5.6 + JavaScript (mixed)
 - **State:** React Hooks + localStorage (versioned keys)
-- **Deployment:** Netlify
+- **Deployment:** Vercel
 
 ## Project Structure
 
@@ -191,7 +191,7 @@ npm run validate-env # Check environment variables
 - `src/themes/registry.ts` — Theme definitions
 - `middleware.ts` — Request middleware
 - `drizzle.config.ts` — Database config
-- `netlify.toml` — Deployment config
+- `next.config.mjs` — Next.js & deployment config
 - `README.md` — Full project documentation
 - `docs/` — 40 detailed documentation files
 

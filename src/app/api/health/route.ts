@@ -8,7 +8,7 @@
  * - Version info
  * 
  * Use this for:
- * - Uptime monitoring (e.g., Netlify, UptimeRobot)
+ * - Uptime monitoring (e.g., Vercel, UptimeRobot)
  * - Load balancer health checks
  * - Debugging connectivity issues
  */

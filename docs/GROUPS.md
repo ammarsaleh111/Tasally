@@ -67,7 +67,7 @@ curl "http://localhost:3000/api/groups/<groupId>/leaderboard-total?limit=10"
 
 1. Ensure `DATABASE_URL_POOLED` is set (Neon pooler endpoint)
 2. Run migration: `npx drizzle-kit push` (uses `DATABASE_URL` direct connection)
-3. Deploy to Netlify as usual — no new env vars needed beyond the DB URLs
+3. Deploy to Vercel as usual — no new env vars needed beyond the DB URLs
 
 ---
 

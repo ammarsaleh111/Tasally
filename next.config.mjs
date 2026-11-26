@@ -28,7 +28,7 @@ const nextConfig = {
   // Security Headers - Comprehensive Protection
   async headers() {
     const isProductionContext =
-      process.env.CONTEXT ? process.env.CONTEXT === 'production' : process.env.NODE_ENV === 'production';
+      process.env.VERCEL_ENV ? process.env.VERCEL_ENV === 'production' : process.env.NODE_ENV === 'production';
 
     const robotsHeader = isProductionContext
       ? { key: 'X-Robots-Tag', value: 'index, follow, max-image-preview:large' }

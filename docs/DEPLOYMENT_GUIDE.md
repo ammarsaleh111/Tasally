@@ -9,7 +9,7 @@ This guide walks you through setting up the backend infrastructure and deploying
 3. [Database Setup (Neon Postgres)](#database-setup-neon-postgres)
 4. [Google OAuth Setup](#google-oauth-setup)
 5. [Running Locally](#running-locally)
-6. [Deploying to Netlify](#deploying-to-netlify)
+6. [Deploying to Vercel](#deploying-to-vercel)
 7. [Post-Deployment Verification](#post-deployment-verification)
 8. [Troubleshooting](#troubleshooting)
 
@@ -21,7 +21,7 @@ This guide walks you through setting up the backend infrastructure and deploying
 - **Git** for version control
 - **Neon account** (free tier available at [neon.tech](https://neon.tech))
 - **Google Cloud account** (for OAuth)
-- **Netlify account** (free tier available)
+- **Vercel account** (free tier available)
 
 ---
 
@@ -107,7 +107,7 @@ You should see output confirming tables were created:
 6. Select **"Web application"**
 7. Add **Authorized redirect URIs**:
    - `http://localhost:3000/api/auth/callback/google` (for local dev)
-   - `https://<your-site>.netlify.app/api/auth/callback/google` (for production)
+   - `https://<your-project>.vercel.app/api/auth/callback/google` (for production)
 8. Click **"Create"**
 9. Copy **Client ID** and **Client Secret**
 
@@ -171,32 +171,32 @@ Visit `http://localhost:3000`
 
 ---
 
-## Deploying to Netlify
+## Deploying to Vercel
 
 ### 1. Push to GitHub
 
 Ensure your code is in a GitHub repository (private or public).
 
-### 2. Connect to Netlify
+### 2. Connect to Vercel
 
-1. Go to [app.netlify.com](https://app.netlify.com)
-2. Click **"Add new site" > "Import an existing project"**
-3. Choose **GitHub** and authorize
-4. Select your repository
-5. Build settings (should auto-detect):
-   - **Build command**: `npm run build`
-   - **Publish directory**: `.next`
-6. Click **"Deploy site"**
+1. Go to [vercel.com/new](https://vercel.com/new)
+2. Import your GitHub repository
+3. Project settings (auto-detected for Next.js):
+   - **Framework Preset**: Next.js
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `.next` (default)
+4. Click **"Deploy"**
 
 ### 3. Add Environment Variables
 
-In Netlify dashboard, go to **Site settings > Environment variables** and add:
+In Vercel dashboard, go to **Settings > Environment Variables** and add:
 
 | Variable                         | Value                                              |
 | -------------------------------- | -------------------------------------------------- |
-| `DATABASE_URL`                   | Your Neon pooled connection string                 |
+| `DATABASE_URL`                   | Your Neon direct connection string                 |
+| `DATABASE_URL_POOLED`            | Your Neon pooled connection string (recommended)   |
 | `NEXTAUTH_SECRET`                | Generate a **NEW** secret for production           |
-| `NEXTAUTH_URL`                   | `https://your-site-name.netlify.app`               |
+| `NEXTAUTH_URL`                   | `https://your-project.vercel.app`                  |
 | `GOOGLE_CLIENT_ID`               | Your Google OAuth client ID                        |
 | `GOOGLE_CLIENT_SECRET`           | Your Google OAuth client secret                    |
 | `NEXT_PUBLIC_SITE_URL`           | Canonical public URL (e.g. `https://tasally.tech`) |
@@ -210,14 +210,14 @@ In Netlify dashboard, go to **Site settings > Environment variables** and add:
 1. Go back to [Google Cloud Console > Credentials](https://console.cloud.google.com/apis/credentials)
 2. Edit your OAuth 2.0 Client ID
 3. Add production redirect URI:
-   - `https://your-site-name.netlify.app/api/auth/callback/google`
+   - `https://your-project.vercel.app/api/auth/callback/google`
 4. Save
 
 ### 5. Redeploy
 
 After adding environment variables, trigger a redeploy:
 
-- **Deploys > Trigger deploy > Deploy site**
+- **Deployments > ... > Redeploy**
 
 ### 6. SEO Verification (Recommended)
 
@@ -235,7 +235,7 @@ Then submit sitemap in Google Search Console.
 
 ### ✅ Checklist
 
-- [ ] Site loads at `https://your-site.netlify.app`
+- [ ] Site loads at `https://your-project.vercel.app`
 - [ ] **Sign in with Google** works end-to-end
 - [ ] **Register with email/password** creates account
 - [ ] **Continue as Guest** works (stores guest ID in localStorage)
@@ -249,32 +249,32 @@ Then submit sitemap in Google Search Console.
 
 | Problem                     | Solution                                                          |
 | --------------------------- | ----------------------------------------------------------------- |
-| "Sign in with Google" fails | Verify redirect URI in Google Console matches Netlify URL exactly |
+| "Sign in with Google" fails | Verify redirect URI in Google Console matches Vercel URL exactly  |
 | "Invalid session" errors    | Regenerate `NEXTAUTH_SECRET` and redeploy                         |
 | Leaderboard empty           | Ensure you're playing in **daily mode** while authenticated       |
-| Results not saving          | Check Netlify function logs for API errors                        |
+| Results not saving          | Check Vercel function logs for API errors                         |
 | Guest link not working      | Check localStorage for `tasally_guest_id` before logging in       |
 
 ---
 
 ## Troubleshooting
 
-### View Netlify Function Logs
+### View Vercel Function Logs
 
-1. Go to **Netlify dashboard > Functions**
-2. Click on a function (e.g., `___netlify-handler`)
+1. Go to **Vercel dashboard > Deployments > [Latest] > Logs**
+2. Filter by function or route
 3. View real-time logs
 
 ### Common Errors
 
 **"DATABASE_URL is not set"**
 
-- Add `DATABASE_URL` to Netlify environment variables
+- Add `DATABASE_URL` (and `DATABASE_URL_POOLED`) to Vercel environment variables
 - Redeploy
 
 **"NEXTAUTH_SECRET is not set"**
 
-- Add `NEXTAUTH_SECRET` to Netlify environment variables
+- Add `NEXTAUTH_SECRET` to Vercel environment variables
 - Redeploy
 
 **"Failed to link guest"**
@@ -284,7 +284,7 @@ Then submit sitemap in Google Search Console.
 
 **Google OAuth redirect mismatch**
 
-- Ensure redirect URI in Google Console exactly matches Netlify URL
+- Ensure redirect URI in Google Console exactly matches Vercel URL
 - Include `/api/auth/callback/google` path
 
 ### Database Issues
@@ -307,7 +307,7 @@ Check Neon dashboard:
 - Use different secrets for dev/staging/production
 - Rotate `NEXTAUTH_SECRET` every 90 days
 - Use environment variables for all secrets
-- Review Netlify access logs regularly
+- Review Vercel access logs regularly
 - Keep dependencies updated
 
 ❌ **DON'T:**
@@ -338,7 +338,7 @@ For issues:
 1. Check [Next.js docs](https://nextjs.org/docs)
 2. Check [NextAuth docs](https://authjs.dev/)
 3. Check [Drizzle ORM docs](https://orm.drizzle.team/)
-4. Check Netlify deployment logs
+4. Check Vercel deployment logs
 
 ---
 

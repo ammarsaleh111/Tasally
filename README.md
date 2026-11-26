@@ -44,7 +44,7 @@ Play now:
 - [Getting Started](#-getting-started)
 - [Environment Variables](#-environment-variables)
 - [Database Setup](#-database-setup)
-- [Deployment (Netlify)](#-deployment-netlify)
+- [Deployment (Vercel)](#-deployment-vercel)
 - [Scripts](#-scripts)
 - [Documentation Index](#-documentation-index)
 - [How to Play](#-how-to-play)
@@ -273,7 +273,7 @@ Features:
 | **Auth**       | NextAuth v5 (Google OAuth + Credentials)     |
 | **Validation** | Zod 3                                        |
 | **Language**   | TypeScript 5.6 + JavaScript (mixed)          |
-| **Deployment** | Netlify (with `netlify.toml`)                |
+| **Deployment** | Vercel (Next.js App Router)                  |
 | **PWA**        | Custom Service Worker + Web App Manifest     |
 
 ---
@@ -363,7 +363,7 @@ tasally/
 ├── package.json
 ├── drizzle.config.ts
 ├── middleware.ts
-├── netlify.toml
+├── next.config.mjs
 ├── tsconfig.json
 └── eslint.config.mjs
 ```
@@ -447,20 +447,20 @@ npm run db:migrate     # Apply pending migrations
 2. APIs & Services → Credentials → Create **OAuth 2.0 Client ID**
 3. Add redirect URIs:
    - Development: `http://localhost:3000/api/auth/callback/google`
-   - Production: `https://your-domain.netlify.app/api/auth/callback/google`
+   - Production: `https://your-domain.vercel.app/api/auth/callback/google`
 
 ---
 
-## 🚀 Deployment (Netlify)
+## 🚀 Deployment (Vercel)
 
-1. Connect GitHub repository to Netlify
-2. Build settings:
-   - **Build command:** `npm run build`
-   - **Publish directory:** `.next`
-3. Add all environment variables in Netlify dashboard
-4. Deploy!
-
-Configuration is in `netlify.toml`.
+1. Connect GitHub repository to Vercel
+2. Build settings (auto-detected for Next.js):
+   - **Framework Preset:** Next.js
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `.next` (default)
+3. Add all environment variables in the Vercel dashboard (Settings → Environment Variables)
+4. Run database migrations against your production/preview Neon database before or after deploying (e.g., `npm run db:migrate` or `npx drizzle-kit push`)
+5. Deploy!
 
 ### Production Checklist
 

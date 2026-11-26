@@ -140,7 +140,7 @@ export function rateLimitResponse(
 }
 
 /**
- * Get client IP from request headers (works with Vercel/Netlify)
+ * Get client IP from request headers (works with Vercel)
  */
 export function getClientIP(request: Request): string {
   const forwarded = request.headers.get("x-forwarded-for");
